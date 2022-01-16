@@ -6,7 +6,9 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "buildcontainer": "gcloud builds submit --tag gcr.io/echomtg-website/website:1.0.0  --project echomtg-website",
+    "deploy" : "gcloud run deploy --image=gcr.io/echomtg-website/website:1.0.0 --platform managed --port 3000 --project echomtg-website"
   },
   "dependencies": {
     "core-js": "^3.19.3",
