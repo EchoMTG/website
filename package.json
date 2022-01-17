@@ -21,7 +21,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "node-sass": "^7.0.1",
+    "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1"
   }
 }

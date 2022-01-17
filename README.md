@@ -88,7 +88,7 @@ More information about the usage of this directory in [the documentation](https:
 
 ### Bulma CSS Framework
 
-(Bulma)[https://bulma.io/] is the CSS framework used on this application, the install of bulma for nuxt is called `buefy` https://www.npmjs.com/package/nuxt-buefy
+(Bulma)[https://bulma.io/] is the CSS framework used on this application, the install of bulma for nuxt is called `buefy` https://www.npmjs.com/package/nuxt-buefy documenation is available here: https://buefy.org/documentation/icon
 
 
 # Deploying to GCP
