@@ -86,6 +86,10 @@ This directory contains your Vuex store files. Creating a file in this directory
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
 
+### Bulma CSS Framework
+
+(Bulma)[https://bulma.io/] is the CSS framework used on this application, the install of bulma for nuxt is called `buefy` https://www.npmjs.com/package/nuxt-buefy
+
 
 # Deploying to GCP
 

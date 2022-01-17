@@ -15,12 +15,16 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '//rawgit.com/andrewgioia/Keyrune/master/css/keyrune.min.css'},
+      { rel: 'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'},
+      { rel: 'stylesheet', type: 'text/css', href:'https://fonts.googleapis.com/css?family=Lato:400,300,700'}
     ]
   },
-
+ 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    //'~assets/stylesheets/main.sass'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -36,6 +40,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['nuxt-buefy', { /* buefy options */ }]
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
