@@ -19,20 +19,33 @@ These command line tools must be installed to run this website on your local mac
 * NPM https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 * VueJS https://vuejs.org/v2/guide/installation.html
 * Nuxt https://nuxtjs.org/
+* Docker https://www.docker.com/
+* WSL ubuntu (windows users) https://docs.microsoft.com/en-us/windows/wsl/install and https://ubuntu.com/tutorials/ubuntu-on-windows#1-overview
+
+### Running Locally
 
 ```bash
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# 2 ways to serve locally
+# Option A: on mac or linux serve with hot reload at localhost:3000
 $ npm run dev
+# Option B: Running docker on WSL (windows)
+$ docker-compose up 
+
+# view output from browser at http://localhost:8080/
+```
+
+### Building for Production
+
+```bash
 
 # build for production and launch server
 $ npm run build
 $ npm run start
 
-# generate static project
-$ npm run generate
+
 ```
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).

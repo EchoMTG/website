@@ -1,6 +1,8 @@
 <template>
+<div>
   <Header/>
-  
+  <UserLogin/>
+  </div>
 </template>
 
 <script>

@@ -12,6 +12,7 @@
     "gcloud-deploy": "gcloud run deploy --image=gcr.io/echomtg-website/website:1.0.0 --platform managed --port 3000 --project echomtg-website"
   },
   "dependencies": {
+    "cookie": "^0.4.1",
     "core-js": "^3.19.3",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.14",

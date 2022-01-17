@@ -1,0 +1,1873 @@
+
+html, body{
+	height: 100%;
+}
+*{
+	font-family: Roboto, Arial, sans-serif;
+}
+
+.push-margin-for-nav {
+	margin-top: $header-size !important;
+}
+#content {
+	background: black;
+	padding-bottom: 30px;
+}
+
+#bulk-action-box{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 380px;
+	height: 200px;
+	background: fade($mage-grey,90%);
+	border: 1px $mage-grey solid;
+	padding: 20px;
+	margin-left: -200px;
+	margin-top: -50px;
+	display:none;
+	overflow: hidden;
+	border-radius: 4px;
+	
+	a.bulk-action{
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		background: $mage-dark;
+		color: white;
+		text-decoration: none;
+		border: 1px $mage-grey solid;
+		border-top: none;
+		border-right: none;
+		padding: 3px 5px;
+		border-radius: 0px 0px 0px 4px;
+		
+	}
+	
+}
+.is-mobile{
+	@media all and (min-width: $break-width){
+		display: none;
+	}
+}
+
+#growl-box{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 25%;
+	z-index: 10000000;
+
+	
+	.growl{
+		background: fade($mage-grey,80%);
+		border: 1px $mage-dark solid;
+		color: white;
+		padding: 12px;
+		border-radius: 4px;
+		transition:all 500ms ease;
+		margin-bottom: 10px;
+		
+		i {
+			color: fade(white,50%);
+			font-size: 18px;
+			margin-right: 10px;
+		}
+
+	}
+	
+	@media all and (max-width: $break-width){
+		bottom: 0px;
+		right: 0px;
+		width: 100%;
+	}
+}
+
+.pay-yearly{
+	display: block;
+	margin-top: 4px;
+	font-size: 12px;
+	
+}
+#payment-box{
+	background: $mage-dark;
+	position: fixed; 
+	top: 0px; 
+	left: 0px; 
+	right: 0px;
+	bottom: 0px;
+	z-index: 2000000000000; 
+	display: none;
+	@media all and (max-width: $break-width){
+		left: 0px;
+		PADDING: 15px;
+		fieldset{
+			margin: 6px;
+		}
+	}
+	em.fa{
+		color: $mage-grey;
+	}
+	h2{
+		font-size: 22px;
+		text-transform: capitalize;
+		margin-bottom: 10px;
+		img{
+			height: 22px;
+			width: 22px;
+		}
+	}
+	h3{
+		font-size: 20px;
+	}
+	
+}
+.credit-card-box{
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px dotted #333;
+	background: black;
+	label span{
+		display: block;
+		margin-bottom: 4px;
+	}
+}
+
+.largeText{
+	font-size: 24px;
+	
+}
+
+
+.hide{
+	display:none;
+}
+
+
+#loading-cover{
+	position: fixed;
+	z-index:200;
+	top: 0px;
+	left:0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: fade($mage-dark,80%);
+	background-image: url('https://assets.echomtg.com/interface/em-loading-text.png');
+	background-repeat: no-repeat;
+	background-position:  55% center;
+	@media all and (max-width: $break-width){
+		background-position:  center center;
+	}	
+	background-size: 10%;
+	display: none;
+	opacity: 1;
+	transition:opacity 200ms ease;
+	span{
+		display: block;
+		transition:all 4000ms ease;
+		background-image: url('https://assets.echomtg.com/interface/echo-mage-logo-icon.png');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		width: 15px;
+		height: 15px;
+		position: absolute;
+		left: 210px;
+		&.adjust-huening{
+			
+			@include rotate(600deg);
+			height: 25px;
+			width: 25px;	
+			//opacity: 0;
+		}			
+	
+	}
+			
+}
+
+
+
+/** body **/
+.floatfix{ clear: both}
+
+.filter-inventory{
+	color: white;
+	&:hover{
+		color: grey;
+		cursor: pointer;
+	}
+}
+
+.pagination{
+	background: fade(white,10%);
+	color: grey;
+	border-radius: 3px;
+	margin: 0px 3px;
+	border: 1px #3b3b3b solid;
+	display: inline-block;
+	padding: 3px 7px;
+	&:hover{
+		background-color: black;
+		cursor: pointer;
+	}
+	&.active{
+		background: grey;
+		color: black;
+	}
+	
+}
+
+#registerTab{
+	background: $button-blue;	
+	color: white;
+	text-shadow: 0px 0px 3px darken($button-blue, 15%);
+	border-color: $button-blue;
+	box-shadow: inset 0px 0px 5px lighten($button-blue,25%);
+	span{
+		color: lighten($button-blue, 10%);
+		color: lighten($button-blue, 10%);
+	}
+	&:hover{
+		background-color: lighten($button-blue,10%);
+	}
+}
+
+a{
+	color: lighten($button-blue,18%);
+	text-decoration: none;
+	
+	&:hover{
+		color: white;
+		
+	}
+}
+.has-background-dark::placeholder{
+	color: $mage-grey;
+}
+
+		
+$height-variance: 10px;
+// search box
+$search-input-size: $header-size - $height-variance - 1px;
+		
+
+div.header{ 
+	background-color: #fff; //lighten($mage-dark,60%); 
+	height: $header-size;
+	-webkit-overflow-scrolling:touch;
+	position: fixed;
+	width:100%;
+	top: 0px;
+	left:0px;
+	z-index:1001;
+	display: flex;
+	transition:all 200ms ease;
+	#mainSearchApp{
+		flex:4;
+		flex-grow: 1;
+		padding-top: 4px;
+		padding-left: 5px;
+		@media all and (max-width: $break-width){
+			margin-right: 31px;
+			padding-left: 0px;
+			padding-top: 0px;
+			.card {
+				border-radius: 0px;
+			}
+		}
+		.global-search{
+			@media all and (max-width: $break-width){
+				border-radius: 0px;
+			}
+		}
+		.card-header {
+			@media all and (max-width: $break-width) {
+				.control.has-icons-left .icon {
+					margin-top: 6px;
+				}
+				.searchColumn {
+					padding-right: 10px;
+				}
+				border-radius: 0px;
+			}
+			input, button, .button {
+				border: 1px #dbdada solid;
+				@media all and (max-width: $break-width) {
+					border: none;
+					padding-top: 20px;
+					padding-bottom: 20px;
+				}
+
+				&.clear-button {
+					border-right: none;
+					border-left: none;
+					background: #f7f7f7;
+				}
+
+				&.item-search-input {
+					border-right: none;
+					background: #f7f7f7;
+					@media all and (max-width: $break-width) {
+						border-radius: 0px;
+					}
+				}
+
+				&.expansion-search-input {
+					border-left: none;
+					border-right: none;
+					background: #f7f7f7;
+
+				}
+
+				&.advanced-options-button {
+					@media all and (max-width: $break-width) {
+						border-radius: 0px;
+						padding-left: 7px;
+					}
+
+				}
+			}
+		}
+		.card-footer p {
+			font-size: 11px;
+		}
+		@media all and (max-width: $break-width){
+			.card-content{
+				margin: 0px;
+			}
+		}
+	}
+	.jump-links{
+		flex: 1;
+		max-width: 128px;
+	    height: $header-size;
+	    line-height: ($header-size - 4px);
+	    color: #ccc;
+
+		@media all and (max-width: 1200px){
+			display: none;
+		}
+	    a{
+		    font-size: 12px;
+		    color: $mage-dark;
+		    &:hover{
+			    color: $button-blue;
+		    }
+	    }
+		
+	}
+
+	.user-links{
+		flex: 1;
+		max-width: 390px;
+		text-align: right;
+		height: $header-size;
+		@media all and (max-width: $break-width){
+			display:none;
+		}
+		a {
+			display: inline-block;
+			height: $header-size;
+			line-height: $header-size;
+			font-size: 12px;
+			vertical-align: middle;
+			
+			color: $mage-dark;
+			.avatar{
+				height: $header-size;
+				width: $header-size;
+				background-image: url('https://assets.echomtg.com/interface/echomtg-mage-avatar.png');
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center center;
+				display: block;
+				float:right;
+				margin-left: $height-variance;
+			}
+			&#user-dropdown{
+				padding-left: $height-variance;
+				&:hover,&:active,&.active{
+					background: #f7f7f7;
+					color: black;
+				}
+			}
+			
+			&:hover{
+				color: $mage-grey;
+			}
+			&.inventory-button{
+				background: #ccc;
+				border-width: 1px;
+				border-radius: 30px 0px 0px 30px;
+				margin: 10px 0px 10px 10px;
+				height: $header-size - 20px;
+				line-height: $header-size - 20px;				
+				min-width: 90px;
+				text-align: center;		
+				font-size: 10px;
+				color: #333;
+				 white-space: nowrap;
+				 overflow: hidden;
+				 text-indent: 8px;
+				  text-overflow: ellipsis;
+				&:hover{
+					background: #eee;
+				}	
+			}
+			
+			&.plan-button{
+				display: inline-block;
+				border-width: 1px;
+				border-radius: 0px 30px 30px 0px;
+				margin: 10px 10px 10px 0px;
+				color: white;
+				height: $header-size - 20px;
+				line-height: $header-size - 20px;
+				
+				padding: 0px 15px;
+				font-size: 10px;
+				
+				background: black;
+				
+			
+				&.storel0, &.storelv0{
+					background: black;
+					&:before{
+						content: 'Store Basic'
+					}					
+				}
+				
+				&.storelv2{
+					background: $storelv2-color;
+					&:before{
+						content: 'Store L2'
+					}					
+				}
+				&.storelv1{
+					background: $storelv1-color;
+					&:before{
+						content: 'Store L1'
+					}					
+				}
+				&.mythic{
+					background: $mythic-color;
+					&:before{
+						content: 'mythic'
+					}
+				}
+				&.rare{
+					background: darken($rare-color,28%);
+					&:before{
+						content: 'rare'
+					}
+					&:hover{
+						background-color: black;
+						&:before{
+							content: 'upgrade to mythic'
+						}
+					}	
+				}
+				&.uncommon{
+					background: $uncommon-color;
+					&:before{
+						content: 'uncommon'
+					}										
+					&:hover{
+						background-color: black;
+						&:before{
+							content: 'upgrade here'
+						}
+					}	
+				}
+				&.common{
+					background: red;
+					&:before{
+						content: 'unlock features'
+					}												
+					&:hover{
+						background-color: black;
+						&:before{
+							content: 'upgrade now'
+						}
+					}	
+				}
+							
+								
+			}
+			
+			&.round-button{
+				border: 1px #ccc solid;
+				border-radius: 5px;
+				padding: 0px 16px;
+				background-color: #f7f7f7;	
+				
+				height: auto;
+				line-height: auto;
+				height: $header-size - $height-variance;
+				line-height: $header-size - $height-variance;
+				margin: (($height-variance / 2) - 1) 0px;
+				margin-right: $height-variance;
+				&.plan-button{
+					border-radius: 15px;
+				}
+				
+				&:hover{
+					color: $mage-grey;
+					background-color: #ccc;
+				}	
+			}
+			
+		}
+		ul.drop-links{
+			position: absolute;
+			top: -600px;
+			right: 0px;
+			width:  $nav-aside-width;
+			background-color: #f7f7f7;
+			text-align: left;
+			&.opened{
+				top: $header-size;
+			}
+			hr{
+				border-color: #ccc;
+			}
+			li{
+				display: block;
+				a{
+					display: block;
+					padding-left: 15px;
+					span{
+						display: inline-block;
+						width: 24px;
+						text-align: center;
+					}
+				}
+				
+			}
+			
+		}
+		
+		
+	}
+	
+	 a.logo{ 
+		max-width: $nav-aside-width;
+		height: $header-size;
+		background-color: $mage-dark;
+		 background: linear-gradient(180deg, darken($mage-dark,5%) 0%, rgba(32,35,40,1) 100%);
+		flex: 1;
+		text-decoration: none;
+		z-index: 3;
+		@media all and (max-width: $break-width){
+			max-width: $header-size;
+		}
+		img{
+			width: 130px;
+			height: ($header-size - 4px) ;
+			margin: 4px 0px 0px 10px;
+			&.mobile {
+				display: none;
+				width: ($header-size - 2px);
+				height: ($header-size - 2px);
+				margin: 0px 0px 0px 1px;
+			}
+			@media all and (max-width: $break-width){
+				display: none;
+				&.mobile {
+					display: inline;
+				}
+			}
+		
+		}
+
+		
+	}
+		
+	input.cardsearch{ 
+		outline: none; 
+		width: 100%; 
+		text-indent: 30px;
+		
+		position: absolute; 
+		top:5px; 
+		left:$nav-aside-width + $height-variance;
+		width: $nav-aside-width * 1.5;
+		border: 1px #ccc solid;
+		border-radius: 15px;
+		height: $search-input-size;
+		background: #f7f7f7;
+		z-index: 1;
+		
+		line-height: $search-input-size;
+		font: 13px/27px Arial,sans-serif;
+		
+		
+		background-image: url('https://assets.echomtg.com/interface/search-icon-gray.svg');
+		background-position: 10px 50%;
+		background-repeat: no-repeat;
+		background-size: auto 50%;
+		transition:all 200ms ease;
+		
+		
+		&:focus{
+			text-indent: 10px;
+			background: #eee;
+			background-position: -40px 50%;
+			border-radius: 15px 15px 0px 0px;
+			
+		}
+	
+		@media all and (max-width: $break-width){
+			left: 0px;
+			top: 0px;
+			right: 0px;
+			width: 100%;
+			height:  $header-size;
+			bordeR:none;
+			padding: 0px;
+			border-radius: 0px;
+
+			margin: 0px;
+			background-color: white;
+			background-position: $header-size + 6px;
+			text-indent: $header-size + 30px;
+			&:focus{
+				text-indent: $header-size + 5px;
+				background: #eee;
+				background-position: -40px 50%;
+				border-radius: 15px 15px 0px 0px;
+				
+			}
+		}			
+		
+	}
+	
+	.clearSearch{
+		background: #ccc;
+		color: #fff;
+		display: none;
+		border:none;
+		width: $header-size;
+		height: $header-size;
+		font-size: 14px;
+		position: absolute;
+		z-index: 1000000;
+		right:0px;
+		top: 0px;
+		&:hover{
+			background: #c00;
+			cursor: pointer;
+		}
+		
+	}
+
+		
+		
+		
+	form.filters{
+		position: absolute;
+		//display: none;
+		right: 122px;
+		top: 0px;
+		width: 510px;
+		z-index: 10;
+		text-align: right;
+		@media all and (max-width: 1000px){
+			display: none;
+			
+		}
+		
+	}
+}
+.emcard:hover{
+	background: #fff;
+	cursor: pointer;
+}
+
+
+
+// main
+
+.main {  
+	//background: #fff; 
+	padding-top:0px;
+	
+	.top{ 
+		border-bottom: 1px #ccc solid;
+		width: auto;
+		background-color: #EAEDF2;
+		overflow: hidden;	
+		z-index: 1000;
+		padding: 4px 0px 6px 10px;
+		
+		strong{
+			font-size: 12px; 
+			font-weight: normal;
+			color: #777;
+		}
+	}	
+	
+	.top strong span{
+		padding: 0px 15px;
+		color: #ccc;
+	}
+		
+	.verticalad{ clear: both}
+	
+	
+	
+	#searchResults{  
+		overflow-y: scroll;
+		background: #f2f2f2;
+		width: 100%;
+	}
+
+	.content{
+		position: relative;
+	}
+
+	#utilities{
+		
+		background: #DCE3EF;
+		border-left: 1px solid #ccc;
+		strong{
+			padding: 5px;
+			background: #C3CBD8;
+			font-family: Georgia;
+			display: block;
+			text-transform: lowercase;
+			letter-spacing: 1px;
+			font-weight: normal;
+			margin-bottom: 5px;
+			border-bottom: 1px #ccc solid;
+			line-height: 12px;
+			color: #2E3035;
+			span{
+				font-size: 8px;
+				font-family: Arial;
+				text-transform: lowercase;
+				line-height: 6px;
+				opacity: .7;
+			}		
+			
+		}
+
+		#wishlist {
+			font-size: 10px;
+			li { 
+				list-style: disc;
+				margin-left: 15px;
+				&:hover{ 
+					opacity: .7;
+					cursor: pointer;
+					}	
+			}
+		}
+			
+	}
+}
+
+$olheight: 24px;
+.marketAnalysis{ 
+	h4{
+		color:#fff;
+		background: lighten($black,20%);
+		font-size: 14px;
+		height: $olheight * 1.6;
+		line-height: $olheight * 1.6;		
+		padding: 0px 0px 0px 10px;
+		border-right: 1px lighten($grey,15%) solid;
+		font-weight: normal;
+		position: relative;
+		span{
+			position: absolute;
+			top: 4px;
+			right: 10px;
+			text-align: right;
+			font-size: 70%;
+			color: $mage-grey;
+			
+			
+		}
+		.ss{
+			margin-right: 5px;
+			color: $mage-grey;
+		}
+		a{
+			color: white;
+			text-decoration: none;
+			&:hover{
+				color: $button-blue;	
+			}
+		}
+		&:hover{
+			//cursor: pointer;
+			//#gradient > @include vertical(lighten($mage-dark,15%),lighten($mage-dark,10%));
+		}
+		img{
+			max-height: 50%;
+			margin-bottom: -4px;
+			margin-right: 5px;			
+			
+		}
+	}
+	
+	.set-year-heading{
+		padding: 20px 10px;
+		font-size: 16px;
+		font-weight: 400;
+		//#gradient > @include vertical($mage-dark,#000);
+		font-weight: bold;
+		font-size: 20px;
+	}
+}
+
+
+.marketAnalysis.sets{ 
+	h4{
+		display: block;
+		border-radius: 5px;
+		margin: 5px;
+		border-right: none;
+		
+		}
+}	
+
+
+
+#dashboard{
+	ul li a{
+
+		color:#fff;
+		display: block;
+		text-decoration: none;
+		text-align: center;
+		background: lighten($black,20%);
+		font-size: 18px;
+		height: $olheight * 2.6;
+		line-height: $olheight * 2.6;		
+		padding: 0px 40px 0px 40px;
+		@include border-radius(5px);
+		border-right: 1px lighten($grey,15%) solid;
+		font-weight: normal;
+		box-shadow: 0px 0px 3px rgba(0,0,0,0.2), inset 0px 0px 3px rgba(0,0,0,0);
+				margin: 5px 30px;
+		&:hover{
+			
+			//#gradient > @include vertical(lighten($black,15%),lighten($black,5%));	
+			background: $black
+		}
+	}
+	
+}
+
+.numbered{
+	li{
+		list-style: decimal;
+		padding: 5px;
+		margin-left: 35px;
+		color: $mage-grey;
+		
+	}
+	
+}
+.status {
+	position: fixed;
+	display: none;
+	z-index: 1000;
+	bottom: 10px;
+	right: 10px;
+	color: red;
+	background: yellow;
+	padding: 10px;
+	
+}
+.set, .inventory{	
+	
+
+	.graph{
+		border:none;
+		width: 100%;
+		height: 170px;
+	}
+	
+	.seticon{
+		height: 34px;
+		margin-right: 5px;
+		float:left;
+		margin-left: 10px;
+	}
+	h4 {
+		margin-top: 15px;
+		color: #999;
+		font-weight: 400;
+		text-align: center;
+	}
+	
+	
+	.set-numbers {
+		width: 100%;
+		border: 0px;
+		th{
+			padding-top: 10px;
+			font-size: 14px;
+			text-align: center;
+			border-left: 1px $oval-background solid;	
+			font-weight: normal;
+			&:first-child{
+				
+				border: none;
+			}	
+			@media all and (max-width: $break-width){
+				font-size: 12px;
+				
+			}	
+		}
+		td{
+			padding-bottom: 10px;
+			color: #999;
+			font-size: 10px;
+			text-align: center;
+			border-left: 1px $oval-background solid;
+			line-height: 15px;
+			span{
+				display: block;
+				&.average_value{
+					color: #ccc;
+					font-weight: bold;
+				}
+				&.average_foil{
+					color: $foil-price;
+				}
+			}
+			&:first-child{
+				border: none;
+			}		
+			&:nth(even){
+				background: black;
+			}
+		}
+		
+	}
+
+	
+	ol{
+		
+		
+		li{
+	
+			border-bottom: 1px solid #555;
+			border-right: 1px solid #555;
+			font-size: 11px;
+			height: $olheight;
+			line-height: $olheight;
+			list-style: none;
+			clear:both;
+			position: relative;
+			background-color: #222;
+			transition: background-color 250ms;
+			color: #ccc;
+			text-align: right;
+			
+			&:nth-child(even){ 
+				background-color: $oval-background;
+			
+			}
+			span,a{
+				font-size: 11px;
+				height: $olheight;
+				line-height: $olheight;
+				
+			}
+			.symbol {
+				height: 14px !important;
+				line-height: 14px !important;
+				box-shadow: none;				
+			}
+			
+			a{
+				text-decoration: none;
+
+				float: left;
+				padding-left: 10px;
+				font-weight: bold;
+				color: white;		
+				&:hover{
+					color: #ccc;
+				}
+			}
+			
+			&.list-heading{
+				background: transparent;
+				h5{
+					float: left;
+					font-size: 16px;
+					padding-left: 10px;
+
+				}
+				
+			}
+			
+			span.emcard:hover{
+			cursor: pointer;
+			opacity: .9;
+			
+			}
+			
+			span.price{
+				width: 45px;
+				
+				text-align: center;
+				padding-right: 4px;
+				display: inline-block;
+				color: #999;
+				&.price_low{
+					color: #fff;
+					font-weight: bold;
+				}
+			}
+			
+			span.foil{
+				width: 45px;
+				display: inline-block;
+				text-align: center;
+				font-weight: bold;
+				color:$foil-price;
+			}
+
+			span.percentage{
+
+				text-align: center;
+				width: 30px;
+				display: inline-block;
+				padding-left: 10px;
+				
+				
+			}
+			&:hover{
+			background-color: #000 !important;
+			cursor: pointer;
+			}
+		}
+
+	}
+}
+
+
+
+sup{
+	vertical-align: super;
+	font-size: 0.5em;
+	line-height: 100%;
+}
+
+.plan-tower{
+	margin: 10px;
+	background: #232323;
+	overflow: hidden;
+	border-radius: 5px;
+	border-top: 10px #ccc solid;
+	&.common{
+		border-color: silver;	
+	}
+	&.uncommon{
+		border-color: green;	
+	}
+	&.rare{
+		border-color: gold;	
+	}
+	&.mythic{
+		border-color: maroon;	
+	}						
+	
+	.top-tab{
+		background-color: #121212;
+		height: 196px;
+		text-align: center;
+		padding: 20px;
+		color: white;
+		
+		
+		.price{
+			font-size: 40px;
+			margin: 20px 0px;
+			font-size: 60px;
+			span{
+				font-size: 16px;
+				color: #ccc;
+			}
+		}
+	
+	}
+	
+	.bottom-tab{
+		text-align: center;
+		p{
+			padding: 10px 10px 5px 10px;
+		}
+	}
+	
+	
+	
+}
+
+hr {
+		border:none;
+		border-bottom: 1px $oval-background solid;
+		margin: 5px 0px;
+		
+	}
+// Comments!!
+ol.slats,ul.slats{
+	li {
+		margin: 0 0 10px 0;
+		padding: 0 0 10px 0;
+		border-bottom: 1px solid #222;
+	
+		&:last-child {
+			margin: 0;
+			padding: 0;
+			border-bottom: none;
+		}
+		
+		
+		h3 {
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 1.1;
+			a {
+				color: white;
+				text-decoration: none;
+			}
+		}
+		
+		a img {
+			float: left;
+			margin: 0 10px 0 0;
+			
+		}
+		
+		em{
+			color: #999;
+		}
+			
+		
+	}	
+}  
+
+p {
+	font-size: 14px;
+	line-height: 1.4;
+	color: #ccc;
+	margin-bottom: 10px;
+	span.meta {
+		display: block;
+		font-size: 12px;
+		color: #666;
+		text-align: right;
+			
+	}			
+}
+
+.homepage-hero{
+	background-size: cover; 
+	height: 80vh; 
+	background-image: url('https://assets.echomtg.com/images/echomtg-product-shot.jpg');
+	&.pricing-tool{
+		background-image: url('https://assets.echomtg.com/images/echomtg-tcgplayer-pricing-tool.jpg');
+		
+	}
+	@media all and (max-width: 640px){
+			
+		height: auto;
+		
+	}
+
+	.opening-line{
+		padding: 20px;
+		h2{
+			margin-top: 10px;
+		}
+		h4{
+			font-size: 42px;
+			line-height: 50px;
+			
+			color: #fff;
+			text-shadow: 0px 0px 25px #000,0px -1px 1px #000,1px 0px 1px #000;
+			
+			@media all and (max-width: 480px){
+				font-size: 20px;
+				line-height: 24px;
+				
+			}
+		}
+		@media all and (max-width: 480px){
+			
+			padding: 10px;
+		}	
+			
+	}
+	
+	.sign-up{
+		background: fade($grey,90%);
+			border-radius: 10px;
+			padding: 20px;
+			
+			border: 1px #444 solid;
+			
+			margin:20px;
+			box-shadow: inset 0px 0px 25px fade(black,50%);
+			
+		
+	}
+	.opening-list{
+		margin: 0px 20px;
+		font-size: 20px;
+		padding-bottom: 20px;
+		padding-top: 110px;
+		@media all and (max-width: 1000px){
+				
+			padding-top: 20px;
+			
+		}
+			
+		 li{
+			display: block;
+			width: 19%;
+			float: left;
+			text-shadow: 0px 0px 15px fade(black,90%);
+			background: fade($grey,90%);
+			border-radius: 10px;
+			padding: 20px 2%;
+			margin-right: 1%;
+			border: 1px #444 solid;
+			min-height: 30px;
+			text-align: center;
+			box-shadow: inset 0px 0px 25px fade(black,50%);
+			@media all and (max-width: 480px){
+				
+				width: 90%;
+				margin-bottom: 8px;
+			}	
+					
+			span {
+				color: green;
+				display: block;
+				width: 100%;
+				text-align: center;
+				margin-right: 8px;
+				font-size: 34px;
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	
+}
+
+.proud-banner{
+	font-weight: 400; 
+	background: #111;  
+	text-align: center; 
+	clear: both; 
+	padding: 20px 0px; 
+	font-size: 24px; 
+	text-shadow: 0px 0px 10px fade(#900,50%);
+	box-shadow: 0px -3px 5px fade(black,50%);
+	&.red{
+		background: red;
+		color: white;
+	}
+	
+	@media all and (max-width: 640px){
+		padding: 10px 0px;
+		font-size: 14px;
+	}
+}
+
+.code{
+	font-family: 'Lucida Console', 'Monaco', monospace;
+	font-size: 12px;
+	
+}
+
+
+// footer
+
+.wizards{ position: fixed; bottom: 0px; left: 0px; z-index: 2; width: 100%; height: 22px; padding-top: 3px; background: #4B4E54; color: #ccc; text-align: center; font-size: 10px; border-top: 1px #666 solid;
+	@media all and (max-width: 640px){
+		position: relative;
+		bottom: auto; 
+		left: auto;
+		height: auto;
+		padding: 10px 0px;
+	}
+	a{ text-decoration: none; color: #999}
+}
+
+.foil {
+	color: $foil-price;
+	font-weight: bold;
+	
+}
+
+
+
+
+// buttons
+#inventory-list {
+	.button{
+
+		@include vertical(lighten($mage-grey,50%), lighten($mage-grey,40%) );
+		color: darken($mage-grey,10%);
+		border: 1px lighten($mage-grey,10%) solid;
+		display: inline-block;
+
+		font-size: 14px;
+		text-decoration: none;
+		@include border-radius(3px);
+
+		@media all and(max-width: 480px){
+			padding: 4px 8px;
+			font-size: 11px;
+		}
+
+
+		&.foil {
+			@include vertical(lighten($foil-price,5%), lighten($foil-price,10%) );
+
+		}
+
+		&.margin-right{
+			margin-right: 5px;
+		}
+
+		&.small{
+			padding: 4px 8px;
+			font-size: 11px;
+		}
+
+		&.x-small{
+			padding: 0px 4px;
+			font-size: 9px;
+			height: 17px;
+			line-height: 15px;
+
+		}
+
+		&.watchlist-remove,&.watchlist-add{
+			color: #333;
+			&:hover{
+				color: #000;
+			}
+		}
+
+		&:hover{
+			@include vertical(lighten($mage-grey,60%), lighten($mage-grey,50%) );
+			cursor:pointer !important;
+			color: #000;
+		}
+
+		&.black{
+			background: black;
+			color: $mage-grey;
+			border: 1px $mage-dark solid;
+		}
+
+
+	}
+}
+
+// jquery UI classes
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-tooltip {
+	padding: 8px;
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	background: $mage-dark;
+}
+
+.ui-widget {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 1em;
+}
+.ui-widget .ui-widget {
+	font-size: 1em;
+}
+.ui-widget-content {
+	border: none;
+	background: black;
+	color: $mage-grey;
+	border-radius: 5px;
+}
+.ui-widget-content a {
+	color: $echo-blue;
+}
+
+
+// end of jquery classses for tooltip
+
+.pull-right{
+	float: right !important;
+	
+}
+.pull-left{
+	float:left;
+}
+/* global */
+			
+.up:before,.down:before,.na:before{
+font-size: 8px;
+
+line-height: 14px;
+padding-right: 4px;
+padding-left: 2px;
+text-decoration: none;
+}
+
+.up:before{
+content: '▲';
+text-decoration: none;
+color: $up-green;
+font-size: 120%;
+}
+
+.na:before{
+content: '●';
+color: #A8B7D1;
+font-size: 120%;
+
+}
+
+
+.down:before{
+content: '▼';
+color: red;
+font-size: 120%;
+}
+
+.naColor{
+background: #eee;
+color: #ccc;
+}
+
+.upColor{
+background: #CDD9C1;
+
+}
+
+
+.downColor{
+background: #E0B7B7;
+}
+
+#echo-hello{
+	background-size: cover;
+	height:414px;
+	background-image: url('https://assets.echomtg.com/interface/apple-touch-startup-image-640x920.png');
+	@media all and (max-width: 600px){
+		height: 290px;
+		
+	}
+}
+
+
+.divider{ background: #B8C1CF; width: 1px; height: 26px; margin: 5px 10px 5px 2px; float: left; opacity:.3; }
+
+ .spellType fieldset { /* background: #fff; border-radius: 8px; padding: 0px 8px; border: 1px #ccc solid;  */margin-right: 6px; opacity: .5} 
+.spellType fieldset:hover,.spellType fieldset label:hover{  cursor: pointer}
+.spellType fieldset label{/*  float: left; color: $oval-background;  */width: 33px; height: 33px; background: #fff }
+.spellType fieldset input{ display: none; /* float: right; margin-left: 6px; margin-top: 8px; */}
+
+.manasearch fieldset{ margin-right: 6px; opacity: .4;}
+.manasearch fieldset:hover, .manasearch fieldset label:hover{ cursor: pointer;}
+.manasearch fieldset label{  width: 33px; height: 33px; }
+
+
+.manasearch fieldset input{ display: none}
+
+fieldset.submit{ clear: both; width: 515px; margin-top: 15px;}
+fieldset.submit input[type=submit] { float: right; padding: 6px 25px; border: 1px solid #999; background: #ddd right center no-repeat; border-radius: 5px;}
+
+
+
+
+form fieldset {
+	margin: 0 0 20px 0;
+	font-size: 14px;
+	}
+form fieldset.form-actions {
+	margin: 0;
+	}
+form fieldset label {
+	display: block;
+	margin: 0 0 5px 0;
+	font-weight: bold;
+	}
+form fieldset.check label {
+	display: inline;
+	font-weight: normal;
+	}
+form fieldset.radio ul li label {
+	display: inline;
+	font-weight: normal;
+	}
+form fieldset input.form-text,
+form fieldset textarea {
+	display: block;
+	width: 75%;
+	padding: 5px;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	background: #f5f5f5;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	}
+form fieldset input.form-text:focus {
+	border: 1px solid #ccc;
+	background: #fff;
+	}
+form fieldset textarea {
+	height: 150px;
+	}
+form fieldset select {
+	min-width: 25%;
+	margin: 0;
+	}
+form fieldset.radio ul {
+	margin-top: 5px;
+	}
+form fieldset.radio ul li {
+	margin: 0 0 5px 0;
+	}
+form fieldset.radio ul li:last-child {
+	margin: 0;
+	}
+form fieldset p.form-help {
+	margin: 5px 0 0 0;
+	font-size: 12px;
+	color: #999;
+	}
+form input[type="submit"] {
+	margin: 0;
+	padding: 5px 10px;
+	font-size: 12px;	
+	font-weight: bold;
+	border-radius:5px;
+	background-color:#0366DD; 
+	border:1px solid #353535; 
+	text-align:center; 
+	display: inline-block; 
+	text-decoration: none; 
+	color:#FFFFFF; 
+	font-size:16px; 
+	letter-spacing: 5px; 
+	line-height:150%; 
+	padding-top:9px; 
+	padding-right:30px; 
+	padding-bottom:9px; 
+	padding-left:30px;
+	
+	
+	}
+form input[type="submit"]:hover,
+form input[type="submit"]:focus {
+	cursor: pointer;
+	background: lighten(#0366DD,5%);
+	}
+form input[type="submit"]:active {
+	background: lighten(#0366DD,8%);
+	}							
+			
+
+.ui-menu-item{
+	border-bottom: 1px $oval-background solid;
+	padding: 5px 5px;
+	
+}
+.price-updates{
+	padding: 20px; 
+ 
+	text-align: center;
+	p{
+		color: #666;
+	}
+}
+
+.footer-container{
+	background: $border-color;
+	padding-bottom: 60px;
+	.footer{
+		margin: 0px auto;
+		max-width: 1100px;
+		
+		ul li {
+			margin-bottom: 10px;
+			a{
+				color: #999;
+				font-size: 12px;
+				&:hover{
+					color: white;
+				}
+				span{
+					width: 20px;
+					display: inline-block;
+					
+					opacity: .5;
+					color: white;
+	
+				}
+			}
+		}
+		
+		.copyright{
+			margin-top: 20px;
+			font-size: 11px;
+			text-align: center;
+			color: #777;
+			a{
+				color: #999;
+			}
+		}
+	}
+	
+}
+.users-tables{
+	h1{
+		font-size: 22px;
+		color: white;
+	}
+	span.fa {
+		color: grey;
+	}
+	span.fa-usd{
+		color: white;
+		background: green;
+		border-radius: 100px;
+		display: inline-block;
+		padding: 6px 10px;
+	}
+	.paying-row{
+		//background:#1e331f !important;
+		
+	}
+}
+
+
+
+.search {
+	min-height: 800px;
+
+	.search-box{
+		border-radius: 4px;
+		padding: 4px 3px;
+		border: 1px $mage-grey solid;
+	}
+
+	.mana_cost .symbol{
+		font-size: 18px;
+		width: 20px;
+		border-radius: 15px;
+	}
+
+	.divider{
+		background: #B8C1CF;
+		width: 1px;
+		height: 26px;
+		margin: 5px 10px 5px 2px;
+		opacity:.3;
+		display: inline-block;
+	}
+	.options fieldset{
+			margin: 0px;
+			margin-right: 6px;
+			display: inline-block;
+	}
+
+	form fieldset label{
+		margin-top: 5px;
+	}
+
+	.manasearch, .spellType  {
+		display: inline-block;
+
+		fieldset{
+			margin: 0px;
+			margin-right: 6px;
+			opacity: .7;
+			display: inline-block;
+
+			.symbol{
+				background-color: $mage-grey;
+				transition: all .2s ease;
+				width: 29px;
+				height: 29px;
+				margin: 2px;
+			}
+			&:hover{
+				cursor: pointer;
+				opacity: .85;
+
+			}
+			&.on{
+				opacity: 1;
+
+
+				.symbol{
+					background-color: white;
+					width: 33px;
+					height: 33px;
+					margin: 0px;
+					&.r{
+						background-color: red;
+					}
+					&.g{
+						background-color: green;
+					}
+					&.b{
+						background-color: #333;
+					}
+					&.w{
+						background-color: yellow;
+					}
+					&.u{
+						background-color: blue;
+					}
+				}
+			}
+			label{ padding-top: 4px;  width: 33px; height: 33px; transition: all .1s ease-in; box-shadow: 0px 0px 0px black; }
+			input{ display: none}
+		}
+	}
+	fieldset.submit{ clear: both; width: 515px; margin-top: 15px;}
+	fieldset.submit input[type=submit] { float: right; padding: 6px 25px; border: 1px solid #999; background: #ddd right center no-repeat; border-radius: 5px;}
+	input[type=submit]:hover{ background: #ccc ; border-color: #888; cursor: pointer}
+
+
+
+
+}
+.results-info{
+	padding: 10px 0px;
+}
+#search-results {
+	div.mini-card{
+		display: block;
+		width: 280px;
+		height: 200px;
+		float: left;
+		margin-right: 5px;
+		margin-bottom: 5px;		
+		border-radius: 5px;
+		position: relative;
+		overflow: hidden;
+		background-position: center center;
+		background-size: cover;
+		border: 1px $mage-dark solid;
+		.wrap{
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;												
+			background: fade(black,75%);
+			padding: 10px;
+			p {
+				font-size: 12px;
+			}
+
+			span.set_symbol{
+				position: absolute;
+				top:0px;
+				right: 0px;
+				width: 40px;
+				height: 40px;
+				line-height: 36px;
+				text-align: center;
+				//background: black;
+				border-radius: 0px 0px 0px 5px;
+				span{
+					font-size: 32px !important;
+				}
+				
+			}
+			
+			.white{
+				color: white;
+			}
+			.desc{
+				height: 100px;
+				overflow: hidden;
+				margin: 8px 0px;
+				div.inside{
+					height: 100px;
+					width: 100%;
+					padding-right: 20px;
+					overflow-y: scroll;	
+				}
+				.symbol{
+					font-size: 9px;
+					width: 13px;
+				}
+				
+			}
+			
+			.mana_cost{
+				width: 240px;
+				display: block;
+				overflow: hidden;
+				height: 21px;
+				padding-left: 2px;
+				
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				margin-bottom: 6px;
+				a{
+					color: white;
+					font-size: 16px;
+					font-weight: bold;
+					margin-left: 3px;
+					&:hover{
+						color: $button-blue;
+					}
+				}
+			}
+			
+			.list-item{    
+				position: static;
+				
+				height: auto;
+				overflow: inherit;
+			}
+			
+			.types{
+				span{
+					border: 1px $mage-grey solid;
+					background: $mage-dark;
+					float: left;
+					padding: 2px 3px;
+					font-weight: 600;
+					border-radius: 3px;
+					font-size: 10px;
+					margin-right: 4px;
+					
+				}
+				
+			}
+		}
+	}
+	
+}
