@@ -91,7 +91,7 @@ More information about the usage of this directory in [the documentation](https:
 (Bulma)[https://bulma.io/] is the CSS framework used on this application, the install of bulma for nuxt is called `buefy` https://www.npmjs.com/package/nuxt-buefy documenation is available here: https://buefy.org/documentation/icon
 
 
-# Deploying to GCP
+# Deploying to GCP (for admins only)
 
 You need permission to Echo's Google Cloud Console to execute command 3 and 4.
 
