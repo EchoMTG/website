@@ -1,0 +1,69 @@
+
+.relativeContainer{
+    position: relative;
+    width: 100%;
+    min-height: 35px;
+  
+  }
+  
+  .is-clickable{
+    cursor: pointer !important;
+  }
+  
+  p.help {
+    color: $mage-grey;
+    margin-bottom: 4px;
+  }
+  
+  .setDropDownContainer{
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    min-height: 35px;
+  
+  
+    .dropSearch{
+      position: relative;
+      top: 0px;
+      height: 36px;
+      background: black;
+      .panel-top {
+        position: sticky;
+        top: 0px;
+  
+        background: $mage-dark;
+        z-index: 5;
+      }
+      .panel-block {
+        border-color: $mage-dark !important;
+      }
+    }
+  
+  
+    &.open{
+      z-index: 3;
+      overflow: auto;
+      &::before{
+        position: fixed;
+        top: -10000px;
+        left: -400px;
+        width: 1000000px;
+        height: 100000px;
+        background: rgba(0,0,0,.65);
+        z-index: 0;
+        content: "*";
+      }
+      .dropSearch{
+        height: 300px;
+        width: 100%;
+        overflow-y: scroll;
+  
+  
+      }
+    }
+  
+  
+  
+  }

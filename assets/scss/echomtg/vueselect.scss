@@ -1,0 +1,22 @@
+.typeahead-bulma-dropdown{
+    position: relative;
+    .panel-scroll {
+      max-height: 200px;
+      overflow-y: scroll;
+      max-width: 300px;
+      background-color: white;
+      z-index: 100000;
+      position: absolute;
+      top: 40px;
+      left: 0px;
+      &.is-small{
+        top: 34px;
+      }
+    }
+    .active-dropdown{
+      border-bottom-left-radius: 0px;
+    }
+    .panel-block:hover{
+      background-color: #efefef !important;
+    }
+  }

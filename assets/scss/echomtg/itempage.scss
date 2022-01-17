@@ -1,0 +1,688 @@
+#card {
+	input.add-series {
+		padding: 0px 5px;
+		font-size: 12px;
+		margin-top: 3px;
+		height: 25px;
+	}
+
+	nav.breadcrumb {
+		margin-bottom: 0px !important;
+		box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.44);
+		z-index: 5;
+		position: relative;
+	}
+}
+.card-image-container{
+	padding: 10px;
+	.cardImage {
+		border-radius: 14px;
+		overflow: hidden;
+		position: relative;
+	}
+}
+
+.ad-box{
+	text-align: center;
+	padding-top: 20px;
+	width: 728px;
+	margin: 0px auto;
+	@media all and (max-width: $break-width){
+		display: none;
+	}
+	p {
+		margin-bottom: 0px;
+		font-size: 12px;
+		padding-top: 5px;
+	}
+}
+
+th.header{
+	position: relative;
+	&:after{
+		content: '\f0dc';
+		position: absolute;
+		right: 8px;
+		top: 8px;
+		font-family: 'FontAwesome';
+		color: lighten($mage-dark,10%);
+	}
+	&:hover{
+		cursor: pointer;
+		background: $mage-dark;
+		&:after{
+			color: $mage-grey;
+		}
+	}
+	&.headerSortDown{
+		&:after{
+			color: white;
+			content: '\f0dd';
+
+		}
+
+	}
+	&.headerSortUp{
+		&:after{
+			color: white;
+			content: '\f0de';
+
+		}
+	}
+
+}
+
+.showmobileonly{
+	display: none;
+	@media all and (max-width: $break-width){
+		display: block;
+	}
+}
+.showdesktoponly{
+	display: block;
+	@media all and (max-width: $break-width){
+		display: none;
+	}
+
+}
+
+.power-toughness{
+	background: $mage-dark;
+	border: 2px $mage-grey solid;
+	border-radius: 4px;
+	padding: 5px;
+	font-size: 20px;
+	z-index: 2;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	font-weight: bold;
+
+
+}
+
+#card-graph{
+	height: 419px;
+	width: 100%;
+	@media all and (max-width: $break-width){
+		height: 300px
+	}
+
+}
+
+
+.vote-box{
+	display: inline-block;
+	padding: 1px 4px 2px 4px;
+	border-radius: 4px;
+	background: #222;
+	border: 1px #333 solid;
+	margin-right: 5px;
+	float:right;
+	margin: 0px 0px 10px 10px;
+	text-align: center;
+	strong{
+		font-size: 10px;
+		color: #999;
+	}
+
+	.vote-down{
+		text-decoration: none;
+		font-size: 14px;
+		color: #ccc;
+		&:hover{
+			color: red;
+			cursor: pointer;
+		}
+	}
+
+	.vote-up{
+		font-size: 14px;
+		color: #ccc;
+		text-decoration: none;
+		&:hover{
+			color: green;
+			cursor: pointer;
+		}
+
+	}
+}
+
+.card-comments{
+	textarea{
+		height: 50px;
+		width: 100%;
+	}
+
+}
+
+
+//// CARD!!
+
+$price-height: 60px;
+.todaysprices{
+	background: lighten($mage-grey,42%);
+	border-bottom: 1px $mage-grey solid;
+	height: $price-height + 1;
+	font-size: 24px;
+	display: flex;
+
+	@media all and (max-width: $break-width){
+		font-size: 14px;
+		height: $price-height - 10;
+	}
+
+	div{
+		text-align: center;
+		flex: 1;
+		@media all and (max-width: $break-width){
+
+		}
+
+		&.foil{
+			font-weight: normal;
+			@include vertical(#fff,lighten($foil-price,15%));
+
+
+		}
+	}
+	span.numbers{
+		display: block;
+		color: $mage-dark;
+
+		padding: ($price-height * .16) 0px;
+		border-right:  1px lighten($mage-grey,32%) solid;
+		font-weight: bold;
+		height: ($price-height * .66);
+		@media all and (max-width: $break-width){
+			height: ($price-height * .50);
+		}
+		&.foil_price{
+			color: darken($foil-price,20%);
+			font-weight: bold;
+		}
+
+		&.price_low{
+			color: lighten($mage-grey,10%);
+			font-weight: normal;
+		}
+		a{
+			color: $mage-grey;
+			&:hover{
+				color: $mage-dark;
+			}
+		}
+	}
+	span.label{
+		display: block;
+		background: lighten($mage-grey,35%);
+		border-bottom: 1px lighten($mage-grey,30%) solid;
+		border-right:  1px lighten($mage-grey,30%) solid;
+		font-size: 10px;
+		color: $mage-grey;
+		text-align: center;
+		line-height: ($price-height * .33);
+		height: ($price-height * .30);
+	}
+
+
+
+	.foil_price{
+		color:$foil-price;
+
+	}
+
+	&.change{
+		&.up{
+			color: green;
+			&:before{
+				font-size: 50%;
+				line-height: 20px;
+			}
+		}
+		&.down{
+			color: red;
+			&:before{
+				font-size: 50%;
+			}
+		}
+
+	}
+
+
+}
+$card-name-height: $price-height - 20;
+
+.card-name,.set-name{
+	border-bottom: 1px $mage-dark solid;
+	height: $card-name-height;
+	background: $mage-dark;
+	overflow: hidden;
+	position: relative;
+	@media all and (max-width: $break-width){
+		font-size: 14px;
+	}
+
+	.wiki-edit{
+		position: absolute;
+		line-height: 16px;
+		font-size: 16px;
+		top: 6px;
+		right: 6px;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		text-decoration: none;
+		&:hover{
+			color: white;
+		}
+	}
+
+	div{
+		text-align: left;
+		height: $card-name-height;
+		line-height: $card-name-height;
+		float: left;
+		padding: 0px 10px;
+		border-right: 1px $mage-dark solid;
+		font-size: 12px;
+
+		@media all and (max-width: $break-width){
+
+		}
+
+		&.set-symbol{
+			background: lighten($mage-dark,10%);
+
+			&:hover{
+				background: lighten($mage-dark,5%);
+				cursor: pointer;
+			}
+			a{
+				padding-top: 5px;
+				color: white;
+				i {
+					font-size: 32px;
+				}
+			}
+
+		}
+
+		&.full-name{
+			h1 {
+				font-size: 24px;
+			    height: 40px;
+				line-height: 40px;
+				@media all and (max-width: $break-width){
+					font-size: 16px;
+				}
+
+				small{
+					color: $mage-grey;
+					font-size: 16px;
+					font-style: italic;
+					font-weight: normal;
+					display: inline-block !important;
+					@media all and(max-width: $break-width){
+						display: none !important;
+
+					}
+				}
+
+			}
+
+		}
+		&.rarity{
+			font-weight: normal;
+			color: $mage-grey;
+			h2{
+			    height: 40px;
+				line-height: 40px;
+			}
+		}
+
+		.casting-cost{
+			position: absolute;
+			line-height: 18px;
+			font-size: 18px;
+			top: 9px;
+			right: 5px;
+			.symbol{
+				width: 20px;
+				font-size: 20px;
+				height: 20px;
+				border-radius: 20px;
+			}
+		}
+	}
+}
+
+$set-name-height: 50px;
+
+.set-name{
+	height: $set-name-height;
+
+	@media all and (max-width: $break-width){
+		font-size: 18px;
+	}
+
+	div{
+		text-align: left;
+		height: $set-name-height;
+		line-height: $set-name-height;
+		font-size: 16px;
+		font-weight: normal;
+
+		img{
+			padding: 10px 0px;
+
+		}
+
+		&.full-name{
+			h1 {
+				font-size: 32px;
+				line-height: $set-name-height;
+				margin-top:0px;
+				font-weight: bold;
+				@media all and(max-width: $break-width){
+					font-size: 20px;
+
+				}
+
+			}
+
+			@media all and(max-width: $break-width){
+				max-width: 250px;
+
+			}
+		}
+	}
+}
+
+
+.card-page {
+
+	position: relative;
+
+	border-radius: 0px;
+
+	display: block;
+
+
+
+	img.cardImage {
+		width: 100%;
+		@media all and (max-width: $break-width){
+			width: 100%;
+		}
+	}
+
+	color: #fff;
+	//background: #fff;
+
+	.fa{
+		opacity: .4 ;
+
+	}
+
+
+
+
+
+	iframe.graph{
+		width: 98%;
+		border:none;
+		margin: 0px 1%;
+
+	}
+	h4{
+		margin-bottom: 8px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		color: #ccc;
+		font-size: 14px;
+		margin-top: 15px;
+		margin-left: 15px;
+
+	}
+
+
+	.heading{
+		color:#fff;
+		background: lighten($black,10%);
+		@include vertical(lighten($grey,12%),lighten($grey,2%));
+		font-size: 14px;
+		padding: 10px 0px 10px 10px;
+		h1{
+			font-size: 16px;
+			font-weight: normal;
+			@include randy-shadow(lighten($grey,35%));
+			.symbol{
+				font-size: 14px;
+				width:18px;
+				border-radius: 30px;
+				text-shadow: none;
+				-moz-box-shadow:    -1px 1px 1px 1px #000;
+				-webkit-box-shadow: -1px 1px 1px 1px #000;
+			  	box-shadow:         -1px 1px 1px 1px #000;
+			}
+		}
+	}
+
+	.info{
+
+		font-size: 100%;
+		padding: 0px 15px;
+
+		h1{
+			font-size: 100%;
+			z-index: 20;
+			position: relative;
+			.symbol{
+				font-size: 100%;
+				width: 20px;
+				border-radius: 15px !important;
+			}
+		}
+
+
+
+		h3{
+			font-size: 70%;
+			margin-top: 2px;
+			opacity: 1;
+			font-weight: bold;
+			margin-bottom: 16px;
+
+			em.cardcost{
+				float: right;
+				text-align: right;
+
+			}
+
+		}
+		h3{
+			font-size: 65%;
+			margin-top: 2px;
+			margin-bottom: 10px;
+		}
+	}
+	.rating{
+		background-repeat: no-repeat;
+		position: absolute;
+		top:-7px;
+		right:0px;
+		opacity:.6;
+		z-index: 0;
+		@media all and (max-width: 640px){
+			display: none;
+		}
+
+	}
+
+	#cardPrices{
+		width: inherit;
+		height: 23px;
+		margin-bottom: 2px;
+		margin-right: 15px;
+		position: relative;
+		bottom: none;
+		left:none;
+		width: 100%;
+		height: 23px;
+		margin-left: 0px;
+		margin-top: 7px;
+		margin-bottom: 2px;
+		margin-right: 15px;
+		div div{
+			display: inline-block;
+			.section{
+				text-align: center;
+				padding: 0px 10px;
+				font-size: 10px;
+				.condition{
+					opacity: .7;
+					display: block;
+				}
+			}
+			 span.label{
+			 	display: none;
+				-webkit-transform: rotate(-90deg);
+				-moz-transform: rotate(-90deg);
+				float: left;
+				width: 25px;
+				text-align: center;
+				font-size: 10px;
+				color: #69c;
+				font-weight: bold;
+				margin-top: 5px;
+				text-transform: uppercase;
+				background: #333;
+			}
+		}
+	}
+
+	.market-data{
+		background-color: #000; //lighten($mage-grey, 75%);
+		h5{
+			padding: 20px 0px 10px 10px;
+			color: lighten($mage-grey, 45%);
+
+			@media all and (max-width: 640px){
+				padding-left: 20px;
+
+			}
+
+			span{
+				@include opacity(80);
+			}
+		}
+
+		.graph{
+			width: 100%;
+			height: 230px;
+			overflow:hidden;
+			border:none;
+			overflow-y: hidden;
+
+		}
+
+
+
+		table{
+			width: 100%;
+			tr{
+				background: #000;
+				&:nth-child(even){
+					background-color: #111;
+				}
+				td{
+					color: #fff;
+					&.cardName{
+						display: none;
+					}
+					&.set_code{
+						display: none;
+					}
+				}
+			}
+
+		}
+
+
+	}
+
+}
+
+
+
+.weeklyfinancials{
+	padding: 10px 15px;
+	table {
+		float: left;
+		margin-right: 4%;
+		width: 48%;
+
+		tr{
+			font-size: 12px;
+			margin-top: 4px;
+			border-top: 1px #444 solid;
+			&:first-child{
+				border:none;
+			}
+			td{
+				text-align: right;
+
+				padding: 5px 0px 4px 0px;
+
+				&.title{
+					text-align: left;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+	&:hover .flipper, &.hover .flipper {
+		transform: rotateY(180deg);
+	}
+	.front, .back {
+	width: 100%;
+	height: 325px;
+	}
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	max-width: 254px;
+	text-align: center;
+	margin: 0px auto;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}

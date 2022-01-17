@@ -1,0 +1,28 @@
+
+.top-banner{
+	
+	h1{
+		font-weight: 300;
+		font-size: 24px;
+		padding-bottom: 10px;
+		
+	}
+	h4{
+		font-size: 18px;
+		em {
+			font-size: 14px;
+			font-weight: 300;
+			color: #666;
+		}
+	}
+	.bar{
+		margin-top: 10px;
+		display: block;
+	}
+
+	&.light-grey{
+		background: darken($mage-dark,5%);	
+		
+	}	
+	
+} 
