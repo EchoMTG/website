@@ -1,5 +1,19 @@
 <template>
-  <div>
+  <span>
+     
+              
+            <b-navbar-item tag="div">
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light">
+                        Log in
+                    </a>
+                </div>
+            </b-navbar-item>
+       
+
       User Header
     <p v-if="$fetchState.pending">Loading....</p>
     <p v-else-if="$fetchState.error">Error while fetching mountains</p>
@@ -8,10 +22,10 @@
         {{ mountain.title }}
       </li>
     </ul>
-  </div>
+  </span>
 </template>
 <script>
-  
+
 
   export default {
     data() {
