@@ -6,8 +6,8 @@ export default {
   head: {
     title: 'website',
     htmlAttrs: {
-      lang: 'en', 
-      class: ['has-aside-left', 'has-aside-mobile-transition', 'has-navbar-fixed-top'] 
+      lang: 'en',
+      class: ['has-aside-left', 'has-aside-mobile-transition', 'has-navbar-fixed-top']
     },
     meta: [
       { charset: 'utf-8' },
@@ -19,6 +19,13 @@ export default {
         name: 'description',
         content: process.env.npm_package_description || ''
       }
+    ],
+    script: [
+        {
+            type: 'text/javascript',
+            src: '/js/echomtg.js',
+            body: true
+        },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -38,7 +45,7 @@ export default {
       }
     ]
   },
- 
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
   //   '@/assets/scss/main.scss'

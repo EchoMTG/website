@@ -11,11 +11,11 @@
 
     <form method="POST" @submit.prevent="submit">
       <b-field label="E-mail Address">
-        <b-input name="email" type="email" required autofocus />
+        <b-input name="email" type="email" v-model="email" required autofocus />
       </b-field>
 
       <b-field label="Password">
-        <b-input type="password" name="password" required />
+        <b-input type="password" name="password" v-model="password" required />
       </b-field>
 
       <b-field>
@@ -58,11 +58,9 @@ export default {
   data () {
     return {
       isLoading: false,
-      form: {
-        email: null,
-        password: null,
-        remember: false
-      }
+      email: null,
+      password: null,
+      remember: false
     }
   },
   head () {
@@ -71,12 +69,28 @@ export default {
     }
   },
   methods: {
-    submit () {
+    async submit () {
       this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
+      let formData = new FormData();
+      formData.append('email', this.email);
+      formData.append('password', this.password);
+
+      const rawResponse = await fetch('https://www.echomtg.com/api/user/auth/', {
+        method: 'POST',
+        body: formData
+      });
+      const content = await rawResponse.json();
+
+      this.isLoading = false
+      // user logged in successfully
+      if(content.status == 'success'){
+        setCookie('token', content.token)
+        // set vookie to domain....
         this.$router.push('/')
-      }, 750)
+      } else {
+        alert('login failed')
+      }
+
     }
   }
 }
