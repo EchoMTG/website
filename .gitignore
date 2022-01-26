@@ -193,3 +193,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+#nuxt buld
+.nuxt
