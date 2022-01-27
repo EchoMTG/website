@@ -23,7 +23,7 @@ export default {
     script: [
         {
             type: 'text/javascript',
-            src: '/js/echomtg.js',
+            src: '/cookiesClient.js',
             body: true
         },
     ],
@@ -54,7 +54,10 @@ export default {
    css: ['~/assets/scss/style-default.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/after-each.js', mode: 'client' }],
+  plugins: [
+    { src: '~/plugins/after-each.js', mode: 'client' },
+    //{ src: '~/plugins/cookiesServer.js', mode: 'server' }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
@@ -69,7 +72,9 @@ export default {
     'nuxt-buefy',
      // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/gtm'
+    '@nuxtjs/gtm',
+    // https://www.npmjs.com/package/cookie-universal-nuxt
+    'cookie-universal-nuxt',
   ],
   axios: {},
   gtm: {

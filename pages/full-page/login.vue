@@ -86,9 +86,19 @@ export default {
       if(content.status == 'success'){
         setCookie('token', content.token)
         // set vookie to domain....
-        this.$router.push('/')
+        this.$buefy.snackbar.open({
+          message: 'Login Successful.',
+          queue: false
+        })
+        // reload to the homepage, which is the users dashboard
+        
+        window.location = '/'
+        
       } else {
-        alert('login failed')
+        this.$buefy.snackbar.open({
+          message: 'Login Failed, please try again.',
+          queue: false
+        })
       }
 
     }

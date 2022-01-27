@@ -24,7 +24,7 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
-        <nav-bar-menu class="has-divider has-user-avatar">
+        <nav-bar-menu v-if="isUserLoggedIn" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
             <span>{{ userName }}</span>
@@ -37,24 +37,24 @@
               exact-active-class="is-active"
             >
               <b-icon icon="account" custom-size="default" />
-              <span>My Profile</span>
+              <span>Edit Profile</span>
             </nuxt-link>
             <a class="navbar-item">
               <b-icon icon="settings" custom-size="default" />
-              <span>Settings</span>
+              <span>Edit Settings</span>
             </a>
             <a class="navbar-item">
-              <b-icon icon="email" custom-size="default" />
-              <span>Messages</span>
+              <b-icon icon="lock" @click="password" custom-size="default" />
+              <span>Change Password</span>
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" @click="logout">
               <b-icon icon="logout" custom-size="default" />
               <span>Log Out</span>
             </a>
           </div>
         </nav-bar-menu>
-        <nav-bar-menu class="has-divider">
+        <!-- <nav-bar-menu class="has-divider">
           <b-icon icon="menu" custom-size="default" />
           <span>Sample Menu</span>
           <div slot="dropdown" class="navbar-dropdown">
@@ -75,20 +75,42 @@
               <span>Messages</span>
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" @click="logout">
               <b-icon icon="logout" custom-size="default" />
               <span>Log Out</span>
             </a>
           </div>
-        </nav-bar-menu>
-        <a
+        </nav-bar-menu> -->
+        <div class="navbar-item" v-if="!isUserLoggedIn">
+           <div class="field is-grouped">
+          <p class="control">
+          <router-link to="/full-page/login"
+            class=" button is-secondary"
+            title="Login"
+          >
+            <b-icon icon="login" custom-size="default" />
+            <span>Login</span>
+          </router-link>
+          </p>
+          <p class="control">
+          <router-link to="/full-page/create"
+            class=" button is-primary"
+            title="Create Account"
+          >
+            <b-icon icon="account" custom-size="default" />
+            <span>Make Account</span>
+          </router-link>
+          </p>
+          </div>
+        </div>
+        <!-- <a
           href="https://justboil.me/bulma-admin-template/one"
           class="navbar-item has-divider is-desktop-icon-only"
           title="About"
         >
           <b-icon icon="help-circle-outline" custom-size="default" />
           <span>About</span>
-        </a>
+        </a> -->
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           :class="{ 'is-active': isAsideRightActive }"
@@ -132,6 +154,11 @@ export default {
     }
   },
   computed: {
+    isUserLoggedIn () {
+      console.log('user',this.userName)
+      
+      return this.userName !== null
+    },
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
     },
@@ -198,9 +225,21 @@ export default {
     },
     logout () {
       this.$buefy.snackbar.open({
-        message: 'Log out clicked',
+        message: 'Logging out',
         queue: false
       })
+      // destroy the cookie
+      eraseCookie('token')
+      // empty the store
+      this.$store.replaceState({});
+      window.location = '/'
+    },
+    password () {
+      this.$buefy.snackbar.open({
+        message: 'edit password',
+        queue: false
+      })
+      // route to password editing
     }
   }
 }
