@@ -14,7 +14,7 @@
         <div class="level-item">
           <div class="buttons is-right">
             <a
-              href="https://justboil.me/bulma-admin-template/one"
+              to="/plans"
               target="_blank"
               class="button is-primary"
             >

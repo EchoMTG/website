@@ -4,10 +4,8 @@
     <user-dashboard v-if="this.userName" />
 
     <!-- default homepage -->
-    <div v-if="!this.userName">
+    <default-homepage v-if="!this.userName" />
 
-      Welcome to EchoMTG
-    </div>
   </div>
 </template>
 
@@ -15,10 +13,12 @@
 // @ is an alias to /src
 import { mapState } from 'vuex'
 import UserDashboard from '@/components/UserDashboard'
+import DefaultHomepage from '@/components/DefaultHomepage'
 export default {
   name: 'Home',
   components: {
-    UserDashboard
+    UserDashboard,
+    DefaultHomepage
   },
   data () {
     return {
