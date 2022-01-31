@@ -1,7 +1,7 @@
 <template>
   <span>
-     
-              
+
+
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <a class="button is-primary">
@@ -12,7 +12,7 @@
                     </a>
                 </div>
             </b-navbar-item>
-       
+
 
       User Header
     <p v-if="$fetchState.pending">Loading....</p>
