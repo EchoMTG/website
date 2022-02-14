@@ -19,9 +19,8 @@
         <UserSignUpForm  class="mt-6" />
       </div>
     </div>
-    <tiles class="mr-5">
-
-      <div class="card has-background-blac ml-5 k">
+    <tiles>
+      <div class="card has-background-black">
           <div class="cardContent has-text-centered m-3">
             <b-icon icon="currency-usd" custom-class="" type="is-success" size="is-large" />
 
@@ -47,7 +46,7 @@
               7-day Gain/Loss Calculations
             </h2>
           </div>
-      </div>mdi-email-fast-outline
+      </div>
       <div class="card has-background-black">
           <div class="cardContent has-text-centered m-3">
             <b-icon icon="chart-areaspline" custom-class="" type="is-success" size="is-large" />
