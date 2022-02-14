@@ -20,33 +20,40 @@
       </div>
     </div>
     <tiles>
-      <div class="card">
-          <div class="cardContent m-3">
-            <h2 class="title">
-            Collection tracking focused on financials!
+
+      <div class="card has-background-black">
+          <div class="cardContent has-text-centered m-3">
+            <b-icon icon="currency-usd" custom-class="" type="is-success" size="is-large" />
+
+            <h2 class="title mt-3 is-4 has-text-white">
+              Collection tracking focused on financials
             </h2>
           </div>
       </div>
-      <div class="card">
-          <div class="cardContent m-3">
+      <div class="card has-background-black">
+          <div class="cardContent has-text-centered m-3">
+            <b-icon icon="tools" custom-class="" type="is-success" size="is-large" />
 
-              <h2 class="title">
-
-              </h2>
-
+            <h2 class="title mt-3 is-4 has-text-white">
+              List, Decks, Watchlists and many more tools.
+            </h2>
           </div>
       </div>
-      <div class="card">
-          <div class="cardContent m-3">
-            <h2 class="title">
+      <div class="card has-background-black">
+          <div class="cardContent has-text-centered m-3">
+            <b-icon icon="chart-areaspline" custom-class="" type="is-success" size="is-large" />
+
+            <h2 class="title mt-3 is-4 has-text-white">
               7-day Gain/Loss Calculations
             </h2>
           </div>
-      </div>
-      <div class="card">
-          <div class="cardContent m-3">
-            <h2 class="title">
-            Weekly Automated Assessment Emails
+      </div>mdi-email-fast-outline
+      <div class="card has-background-black">
+          <div class="cardContent has-text-centered m-3">
+            <b-icon icon="chart-areaspline" custom-class="" type="is-success" size="is-large" />
+
+            <h2 class="title mt-3 is-4 has-text-white">
+             Weekly Automated Assessment Emails
             </h2>
           </div>
       </div>
