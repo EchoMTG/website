@@ -8,7 +8,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "docker-build": "docker build .",
-    "gcloud-build": "gcloud builds submit --tag gcr.io/echomtg-website/website:1.0.0  --project echomtg-website",
+    "gcloud-build": "gcloud builds submit DockerfileProd --tag gcr.io/echomtg-website/website:1.0.0  --project echomtg-website",
     "gcloud-deploy": "gcloud run deploy --image=gcr.io/echomtg-website/website:1.0.0 --platform managed --port 3000 --project echomtg-website"
   },
   "dependencies": {
