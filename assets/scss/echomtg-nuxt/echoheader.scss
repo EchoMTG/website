@@ -1,0 +1,21 @@
+.expanded-logo {
+    display: none;
+    width: 73%;
+    margin-top: 4px;
+
+
+}
+.closed-logo{
+    display: block;
+    width: 70%;
+    margin-left: 14%;
+}
+
+.aside.is-expanded {
+    .expanded-logo {
+        display: block;
+    }
+    .closed-logo{
+        display: none;
+    }
+}

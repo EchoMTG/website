@@ -550,38 +550,7 @@ div.header{
 		
 	}
 	
-	 a.logo{ 
-		max-width: $nav-aside-width;
-		height: $header-size;
-		background-color: $mage-dark;
-		 background: linear-gradient(180deg, darken($mage-dark,5%) 0%, rgba(32,35,40,1) 100%);
-		flex: 1;
-		text-decoration: none;
-		z-index: 3;
-		@media all and (max-width: $break-width){
-			max-width: $header-size;
-		}
-		img{
-			width: 130px;
-			height: ($header-size - 4px) ;
-			margin: 4px 0px 0px 10px;
-			&.mobile {
-				display: none;
-				width: ($header-size - 2px);
-				height: ($header-size - 2px);
-				margin: 0px 0px 0px 1px;
-			}
-			@media all and (max-width: $break-width){
-				display: none;
-				&.mobile {
-					display: inline;
-				}
-			}
-		
-		}
-
-		
-	}
+	
 		
 	input.cardsearch{ 
 		outline: none; 

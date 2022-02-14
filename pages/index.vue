@@ -1,12 +1,34 @@
 <template>
-<div>
-  <Header/>
-  <UserLogin/>
+  <div>
+    <!-- user dashboard -->
+    <user-dashboard v-if="this.userName" />
+
+    <!-- default homepage -->
+    <default-homepage v-if="!this.userName" />
+
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
+import { mapState } from 'vuex'
+import UserDashboard from '@/components/UserDashboard'
+import DefaultHomepage from '@/components/DefaultHomepage'
 export default {
-  name: 'IndexPage'
+  name: 'Home',
+  components: {
+    UserDashboard,
+    DefaultHomepage
+  },
+  data () {
+    return {
+      test: null
+    }
+  },
+  computed: {
+    ...mapState([
+      'userName'
+    ])
+  },
 }
 </script>

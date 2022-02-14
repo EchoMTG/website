@@ -8,21 +8,42 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "docker-build": "docker build .",
-    "gcloud-build": "gcloud builds submit --tag gcr.io/echomtg-website/website:1.0.0  --project echomtg-website",
+    "gcloud-build": "gcloud builds submit DockerfileProd --tag gcr.io/echomtg-website/website:1.0.0  --project echomtg-website",
     "gcloud-deploy": "gcloud run deploy --image=gcr.io/echomtg-website/website:1.0.0 --platform managed --port 3000 --project echomtg-website"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/gtm": "^2.4.0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "chart.js": "^2.9.3",
+    "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.3",
+    "dayjs": "^1.10.4",
+    "lodash": "^4.17.21",
+    "numeral": "^2.0.6",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.14",
+    "perfect-scrollbar": "^1.5.0",
+    "spinkit": "^1.2.5",
     "vue": "^2.6.14",
+    "vue-chartjs": "^3.5.1",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.15.4",
+    "@nuxtjs/eslint-config": "^6.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^8.3.0",
+    "gh-pages": "^3.1.0",
     "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1"
+    "prettier": "^2.2.1",
+    "sass-loader": "^10.2.1"
   }
 }
