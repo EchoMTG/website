@@ -25,7 +25,7 @@
             <b-icon icon="currency-usd" custom-class="" type="is-success" size="is-large" />
 
             <h2 class="title mt-3 is-4 has-text-white">
-              Collection tracking focused on financials
+              Collection tracking focused on financials Hello TEEG!
             </h2>
           </div>
       </div>
