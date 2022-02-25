@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     menu () {
-      
+
       if (this.amILoggedIn() && this.amIAuthed()){
         return [
           'General',
@@ -141,7 +141,7 @@ export default {
           'Other',
           [
             {
-              to: '/full-page/login',
+              to: '/login',
               label: 'Login',
               icon: 'lock'
             },
@@ -183,7 +183,7 @@ export default {
           'Login',
           [
             {
-              to: '/full-page/login',
+              to: '/login',
               icon: 'lock',
               label: 'Login'
             }
@@ -216,10 +216,10 @@ export default {
     }
   },
   created () {
-   
+
   },
   async fetch() {
-    
+
   },
   mounted () {
     /* Dark mode by default. Works only with '~/assets/scss/style-light-dark.scss' */
@@ -250,12 +250,12 @@ export default {
       let data = await response.json()
       console.log(data)
       if(data.status == 'success'){
-        data.user.name = data.user.first_name + ' ' + data.user.last_name 
+        data.user.name = data.user.first_name + ' ' + data.user.last_name
         this.$store.commit('user', data.user)
         return data.user
       } else {
         return null
-      }  
+      }
     },
     menuClick (item) {
       if (item.menuSecondary) {

@@ -19,7 +19,7 @@
         <UserSignUpForm  class="mt-6" />
       </div>
     </div>
-    <tiles>
+    <tiles class="ml-3 mr-3">
       <div class="card has-background-black">
           <div class="cardContent has-text-centered m-3">
             <b-icon icon="currency-usd" custom-class="" type="is-success" size="is-large" />

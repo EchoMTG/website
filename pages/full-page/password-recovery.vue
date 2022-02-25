@@ -34,7 +34,7 @@
         </div>
         <div class="control">
           <router-link
-            to="/full-page/login"
+            to="/login"
             class="button is-black is-outlined"
           >
             Back
