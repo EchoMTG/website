@@ -130,7 +130,7 @@ export default {
   },
   head () {
     return {
-      title: 'Login — Admin One Nuxt.js Premium'
+      title: 'Login — EchoMTG'
     }
   },
   methods: {

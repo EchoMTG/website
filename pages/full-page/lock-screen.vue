@@ -47,7 +47,7 @@ export default {
   },
   head () {
     return {
-      title: 'Lock Screen — Admin One Nuxt.js Premium'
+      title: 'Lock Screen — EchoMTG'
     }
   },
   computed: {

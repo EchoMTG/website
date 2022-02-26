@@ -167,7 +167,7 @@ import RefreshButton from '@/components/RefreshButton'
     },
     head () {
       return {
-        title: 'Dashboard — Admin One Nuxt.js Premium'
+        title: 'Dashboard — EchoMTG'
       }
     },
     computed: {

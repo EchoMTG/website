@@ -149,7 +149,7 @@ export default {
   },
   head () {
     return {
-      title: 'Client — Admin One Nuxt.js Premium'
+      title: 'Client — EchoMTG'
     }
   },
   computed: {

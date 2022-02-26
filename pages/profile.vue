@@ -49,7 +49,7 @@ export default {
   },
   head () {
     return {
-      title: 'Profile — Admin One Nuxt.js Premium'
+      title: 'Profile — EchoMTG'
     }
   },
   computed: {
