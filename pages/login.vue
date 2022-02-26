@@ -1,10 +1,11 @@
 <template>
   <div class="login-wrapper">
 
-    <div class="columns">
+    <div class="columns login-overlay">
       <div class="column is-two-fifths">
 
         <card-component
+        class="loginScreenComponent"
       title="Login"
       icon="lock"
       :has-card-header-background="true"
@@ -54,7 +55,7 @@
         </card-component>
       </div>
     </div>
-    <div class="bg-image"></div>
+    <img class="bg-image" src="https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg"/>
   </div>
 </template>
 <style scoped>
@@ -62,30 +63,53 @@
   position:relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+.login-overlay{
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+}
+.loginScreenComponent{
+  height: 100%;
+  background: #e2e2e2;
 }
 .bg-image {
   position: absolute;
-  left: 0;
-  right: 0;
+  width: 160%;
   top: 0;
-  bottom: 0;
+  left: 0;
   z-index: -1;
-  background-image: url(https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg);
   animation-name: MOVE-BG;
-  background-size: 140%;
-  animation-duration: 10s;
+  animation-duration: 1650s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
 
 @keyframes MOVE-BG {
-   from {
-     transform: scale(1.25)  translateX(0) translateY(0);
+   0% {
+     transform: scale(1)  translateX(0) translateY(0) rotate(0deg);
 
    }
-   to {
-     transform: scale(1.20)   translateX(-20%) translateY(20%);
+   25% {
+     transform: scale(1.4)   translateX(-5%) translateY(5%) rotate(10deg);
+
+   }
+   25% {
+     transform: scale(1.20)   translateX(10%) translateY(-5%) rotate(20deg);
+
+   }
+   50% {
+     transform: scale(1.40)   translateX(35%) translateY(-20%) rotate(20deg);
+
+   }
+   75% {
+     transform: scale(1.20)   translateX(15%) translateY(-5%) rotate(10deg);
+
+   }
+   100% {
+     transform: scale(1)   translateX(0) translateY(0) rotate(0deg);
 
    }
 }
