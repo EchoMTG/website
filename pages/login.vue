@@ -2,20 +2,22 @@
   <div class="login-wrapper">
 
     <div class="columns login-overlay">
-      <div class="column is-two-fifths">
+      <div class="column is-two-fifths has-background-black">
+        <img class="ml-6 mr-6 mt-6 p-4" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" />
 
         <card-component
-        class="loginScreenComponent"
+        class="loginScreenComponent m-6"
       title="Login"
       icon="lock"
       :has-card-header-background="true"
       :has-button-slot="true"
     >
       <router-link slot="button" to="/" class="button is-small">
-        Dashboard
+        Home
       </router-link>
 
       <form method="POST" @submit.prevent="submit">
+
         <b-field label="E-mail Address">
           <b-input name="email" type="email" v-model="email" required autofocus />
         </b-field>
@@ -62,26 +64,24 @@
 .login-wrapper{
   position:relative;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 100px);
   overflow: hidden;
 }
 .login-overlay{
   position: relative;
   z-index: 1;
-  height: 100vh;
+  height: 120%;
 }
-.loginScreenComponent{
-  height: 100%;
-  background: #e2e2e2;
-}
+
 .bg-image {
   position: absolute;
-  width: 160%;
+  height: 130%;
+  width: auto;
   top: 0;
   left: 0;
   z-index: -1;
   animation-name: MOVE-BG;
-  animation-duration: 1650s;
+  animation-duration: 150s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
@@ -93,19 +93,19 @@
 
    }
    25% {
-     transform: scale(1.4)   translateX(-5%) translateY(5%) rotate(10deg);
+     transform: scale(1.2)   translateX(5%) translateY(5%) rotate(10deg);
 
    }
    25% {
-     transform: scale(1.20)   translateX(10%) translateY(-5%) rotate(20deg);
+     transform: scale(1.5)   translateX(15%) translateY(-5%) rotate(20deg);
 
    }
    50% {
-     transform: scale(1.40)   translateX(35%) translateY(-20%) rotate(20deg);
+     transform: scale(1.40)   translateX(35%) translateY(10%) rotate(30deg);
 
    }
    75% {
-     transform: scale(1.20)   translateX(15%) translateY(-5%) rotate(10deg);
+     transform: scale(1.20)   translateX(15%) translateY(-5%) rotate(-15deg);
 
    }
    100% {
