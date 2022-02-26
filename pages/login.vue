@@ -81,7 +81,7 @@
   left: 0;
   z-index: -1;
   animation-name: MOVE-BG;
-  animation-duration: 150s;
+  animation-duration: 20s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
@@ -101,11 +101,11 @@
 
    }
    50% {
-     transform: scale(1.40)   translateX(35%) translateY(10%) rotate(30deg);
+     transform: scale(1.40)   translateX(40%) translateY(0) rotate(0deg);
 
    }
    75% {
-     transform: scale(1.20)   translateX(15%) translateY(-5%) rotate(-15deg);
+     transform: scale(1.20)   translateX(15%) translateY(-15%) rotate(-15deg);
 
    }
    100% {
