@@ -1,5 +1,28 @@
 <template>
   <span>
+      <!--
+        acquired_value: 25133.21
+change_value: 57.85
+currency_symbol: "$"
+current_high_value_value: 35802.74
+current_value: 39673.05
+current_value_low: 35741.03
+current_value_market: "32418.84"
+packs_value: "0.00"
+percentage_html: "<div class=\"percentage green up\">57.85%</div>"
+sealed_value: "4772.69"
+total_cards: "1660"
+total_common: "732"
+total_foils: "206"
+total_items: "1667"
+total_mythic: "116"
+total_nonfoils: "1461"
+total_packs: "0"
+total_profit: 14539.84
+total_rare: "490"
+total_sealed: "7"
+total_uncommon: "263"
+        -->
       <title-bar :title-stack="titleStack" />
       <hero-bar-main />
       <section class="section is-main-section">
@@ -8,18 +31,18 @@
             class="tile is-child"
             type="is-primary"
             icon="account-multiple"
-            :number="512"
+            :number="stats.total_items"
             :previous-number="384"
             previous-period="July, 2019"
-            label="Clients"
+            label="Items Tracked"
           />
           <card-widget
             class="tile is-child"
             type="is-info"
-            icon="cart-outline"
-            :number="7770"
-            :previous-number="7000"
-            previous-period="July, 2019"
+            icon="usd"
+            :number="stats.current_value"
+            :previous-number="stats.change_value"
+            previous-period="last 7 days"
             prefix="$"
             label="Sales"
           />
@@ -150,16 +173,19 @@ import RefreshButton from '@/components/RefreshButton'
     },
     data() {
       return {
-        mountains: [],
+        stats: {},
         defaultChart: {
           chartData: null,
           extraOptions: chartConfig.chartOptionsMain
         }
       }
     },
+    beforeMount () {
+      //window.alert('hello');
+    },
     mounted () {
       this.fillChartData()
-
+      console.log(this.stats)
       this.$buefy.snackbar.open({
         message: 'Welcome back',
         queue: false
@@ -176,9 +202,13 @@ import RefreshButton from '@/components/RefreshButton'
       },
     },
     async fetch() {
-      this.mountains = await fetch(
-        'https://api.nuxtjs.dev/mountains'
+      let token = getCookie('token')
+      let url = process.env.API_DOMAIN + 'inventory/quickstats/'
+      url += `?auth=${token}`
+      this.stats = await fetch(
+        url
       ).then(res => res.json())
+      this.stats = this.stats.stats
 
     },
     methods: {

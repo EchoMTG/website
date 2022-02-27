@@ -81,7 +81,7 @@
   left: 0;
   z-index: -1;
   animation-name: MOVE-BG;
-  animation-duration: 20s;
+  animation-duration: 60s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
@@ -139,8 +139,8 @@ export default {
       let formData = new FormData();
       formData.append('email', this.email);
       formData.append('password', this.password);
-
-      const rawResponse = await fetch('https://www.echomtg.com/api/user/auth/', {
+      let url = process.env.API_DOMAIN + 'user/auth/'
+      const rawResponse = await fetch(url, {
         method: 'POST',
         body: formData
       });
@@ -149,7 +149,8 @@ export default {
       this.isLoading = false
       // user logged in successfully
       if(content.status == 'success'){
-        setCookie('token', content.token)
+        let days = this.remember == true ? 700 : 1;
+        setCookie('token', content.token,days)
         // set vookie to domain....
         this.$buefy.snackbar.open({
           message: 'Login Successful.',

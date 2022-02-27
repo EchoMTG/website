@@ -66,6 +66,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
+    '@nuxtjs/dotenv'
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
