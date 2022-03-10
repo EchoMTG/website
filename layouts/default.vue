@@ -66,12 +66,12 @@ export default {
               label: 'Dashboard'
             }
           ],
-          'Examples',
+          'Magic: the Gathering',
           [
             {
-              to: '/tables',
-              label: 'Tables',
-              icon: 'table',
+              to: '/sets',
+              label: 'Expansions',
+              icon: 'box',
               updateMark: true
             },
             {
@@ -188,6 +188,15 @@ export default {
               label: 'Login'
             }
           ],
+          'Magic: the Gathering',
+          [
+            {
+              to: '/sets',
+              label: 'Expansions',
+              icon: 'box',
+              updateMark: true
+            },
+          ]
         ]
       }
     },
