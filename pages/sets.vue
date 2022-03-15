@@ -7,7 +7,7 @@
         Expansions
       </router-link>
     </hero-bar>
-    <expansions data-url="https://dev.echomtg.com/api/data/sets/" />
+    <expansions data-url="data/sets/" />
     </div>
 </template>
 
@@ -29,13 +29,13 @@ export default {
       title: 'Expansions'
     }
   },
+  asyncData (req) {
+    console.log('server',req)
+  },
   computed: {
     titleStack () {
       return ['MTG', 'Expansions']
-    },
-    ...mapState([
-      'userName'
-    ])
+    }
   },
 }
 </script>

@@ -83,7 +83,7 @@ import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
 
 export default {
-  name: 'Expansions',
+  name: 'Expansion',
   components: { ModalBox },
   props: {
     dataUrl: {
@@ -140,6 +140,32 @@ export default {
             type: 'is-danger'
           })
         })
+    }
+  },
+  async asyncData({ params, redirect }) {
+
+  let headers = new Headers();
+
+  //headers.append('Content-Type', 'text/json');
+  headers.append('Authorization:', 'Bearer ' + process.env.S2S_KEY);
+
+
+    const mountains = await fetch(
+      'https://api.nuxtjs.dev/mountains'
+    ).then((res) => res.json())
+
+    const filteredMountain = mountains.find(
+      (el) =>
+        el.continent.toLowerCase() === params.continent &&
+        el.slug === params.mountain
+    )
+    if (filteredMountain) {
+      return {
+        continent: filteredMountain.continent,
+        mountain: filteredMountain.title
+      }
+    } else {
+      redirect('/')
     }
   },
   methods: {

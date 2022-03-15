@@ -135,6 +135,7 @@ export default {
   },
   methods: {
     async submit () {
+
       this.isLoading = true
       let formData = new FormData();
       formData.append('email', this.email);
@@ -144,13 +145,16 @@ export default {
         method: 'POST',
         body: formData
       });
-      const content = await rawResponse.json();
 
+      const content = await rawResponse.json();
+      alert(content)
+      console.log('loggingin',content)
+      alert(content.username)
       this.isLoading = false
       // user logged in successfully
       if(content.status == 'success'){
         let days = this.remember == true ? 700 : 1;
-        setCookie('token', content.token,days)
+        this.$cookies.set('token', content.token,days)
         // set vookie to domain....
         this.$buefy.snackbar.open({
           message: 'Login Successful.',

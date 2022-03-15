@@ -25,6 +25,9 @@ export default {
       test: null
     }
   },
+  asyncData({req}) {
+    console.log('async from index',req)
+  },
   computed: {
     ...mapState([
       'userName'

@@ -4,7 +4,10 @@
       <title-bar :title-stack="titleStack" />
       <hero-bar-main />
 
-      <section class="section is-main-section">
+      <section v-if="$fetchState.pending">
+        Loading Dashboard
+      </section>
+      <section v-else class="section is-main-section">
 
         <tiles>
           <card-widget
@@ -21,7 +24,7 @@
             class="tile is-child"
             type="is-primary"
             icon="USD"
-            :number="this.totalCardsValue"
+            :number="totalCardsValue"
             prefix="$"
             :previous-number="parseInt(totalCards)"
             previous-period="Individual Cards"
@@ -42,7 +45,7 @@
             type="is-info"
             icon="usd"
             :number="stats.change_value"
-            previous-number=""
+
             previous-period="Last 7 days"
             suffix="%"
             label="Performance"
@@ -119,19 +122,20 @@ import RefreshButton from '@/components/RefreshButton'
     },
     data() {
       return {
-        stats: {},
+        stats: {
+
+        },
+        history: {
+          data: []
+        },
         defaultChart: {
           chartData: null,
           extraOptions: chartConfig.chartOptionsMain
         }
       }
     },
-    beforeMount () {
-      //window.alert('hello');
-    },
     mounted () {
       this.fillChartData()
-      console.log(this.stats)
       this.$buefy.snackbar.open({
         message: 'Welcome back',
         queue: false
@@ -140,11 +144,6 @@ import RefreshButton from '@/components/RefreshButton'
     head () {
       return {
         title: 'Dashboard — EchoMTG'
-      }
-    },
-    watch: {
-      'stats.total_cards'(newValue) {
-         console.log(newValue)
       }
     },
     computed: {
@@ -157,34 +156,61 @@ import RefreshButton from '@/components/RefreshButton'
       },
       totalCardsValue(){
         let val = parseInt(this.stats.current_value_market) - parseInt(this.stats.sealed_value)
-        console.log(val)
         return val
-      }
+      },
+
+    },
+    watch: {
+    '$route.query': '$fetch'
     },
     async fetch() {
-      let token = getCookie('token')
-      let url = process.env.API_DOMAIN + 'inventory/quickstats/'
-      url += `?auth=${token}`
-      this.stats = await fetch(
-        url
-      ).then(res => res.json())
+
+      let token = this.$cookies.get('token');
+      let url = process.env.API_DOMAIN + 'inventory/quickstats/';
+      url += `?auth=${token}`;
+      this.stats = await fetch(url).then(res => res.json())
       this.stats = this.stats.stats
-      console.log('stats',this.stats)
+      let historyURL = process.env.API_DOMAIN + `inventory/history/?auth=${token}`;
 
+      this.history = await fetch(historyURL).then(res => res.json())
+      console.log(this.history)
+      this.fillChartData();
     },
-    fetchOnServer: true,
+    fetchKey: 'dashboard',
+    fetchOnServer: false,
     methods: {
-      randomChartData (n) {
-        const data = []
-
-        for (let i = 0; i < n; i++) {
-          data.push(Math.round(Math.random() * 200))
+      historyChartLabels () {
+        let labels = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            labels.push(this.history.data[i].ts)
+          }
         }
-
-        return data
+        return labels;
+      },
+      historyValue () {
+        let values = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            values.push(this.history.data[i].recorded_value)
+          }
+        }
+        return values;
+      },
+      historyBoughtValue () {
+        let values = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            values.push(this.history.data[i].invested_value)
+          }
+        }
+        console.log(values)
+        return values;
       },
       fillChartData () {
+
         this.defaultChart.chartData = {
+          labels: this.historyChartLabels(),
           datasets: [
             {
               fill: false,
@@ -199,7 +225,7 @@ import RefreshButton from '@/components/RefreshButton'
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: this.randomChartData(9)
+              data: this.historyValue()
             },
             {
               fill: false,
@@ -214,25 +240,10 @@ import RefreshButton from '@/components/RefreshButton'
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: this.randomChartData(9)
-            },
-            {
-              fill: false,
-              borderColor: chartConfig.chartColors.default.danger,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: chartConfig.chartColors.default.danger,
-              pointBorderColor: 'rgba(255,255,255,0)',
-              pointHoverBackgroundColor: chartConfig.chartColors.default.danger,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: this.randomChartData(9)
+              data: this.historyBoughtValue()
             }
           ],
-          labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
+
         }
       },
       actionSample () {

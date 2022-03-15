@@ -247,9 +247,7 @@ export default {
     // logged in state is checked by the cookie
     // the cookie needs to be verified via a request, if the cookie is expired it should be deleted
     amILoggedIn() {
-      console.log('###! here !###')
       // uses this cookie package for SSR https://www.npmjs.com/package/cookie-universal-nuxt
-      console.log(this.$cookies.get('token'))
       return undefined !== this.$cookies.get('token')
 
     },
@@ -257,7 +255,7 @@ export default {
       this.token = this.$cookies.get('token')
       let response = await fetch('https://www.echomtg.com/api/user/meta/?auth='+this.token)
       let data = await response.json()
-      console.log(data)
+
       if(data.status == 'success'){
         data.user.name = data.user.first_name + ' ' + data.user.last_name
         this.$store.commit('user', data.user)

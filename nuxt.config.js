@@ -27,6 +27,7 @@ export default {
             body: true
         },
     ],
+    serverMiddleware: ['~/server-middleware/logger'],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png' },
       { rel: 'stylesheet', href: '//rawgit.com/andrewgioia/Keyrune/master/css/keyrune.min.css'},
