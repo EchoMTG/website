@@ -1,0 +1,37 @@
+//colors
+// colors
+
+$mage-dark: #202328;
+$mage-grey: #7f8694;
+$foil-price: rgb(235, 222, 186);
+$foil-color: $foil-price;
+$header-height: 40;
+$header-size: 40px;
+$black: #010b0f;
+$border-color: #3a3f44;
+$grey: #1f1f20;
+$oval-background: #262626;
+$cdnsymbolpath: 'https://assets.echomtg.com/symbols/mtg/';
+$break-width: 900px;
+$tablet-width:1040px;
+$navigation: #4b4b4b; //
+$up-green: #108921;
+$button-blue: #0366DD;
+$echo-blue: $button-blue;
+
+$storelv2-color:purple;
+$storelv1-color:blue;
+$mythic-color:maroon;
+$rare-color:gold;
+$uncommon-color:silver;
+$common-color:grey;
+
+
+$nav-aside-width: 200px;
+$nav-background: $mage-dark;
+
+
+
+.mage-grey {
+	color: $mage-grey;
+}
