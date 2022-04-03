@@ -8,10 +8,11 @@
       >
         <b-icon :icon="menuToggleIcon" />
       </a>
-      <div class="navbar-item has-control no-left-space">
-        <div class="control">
-          <input class="input" placeholder="Search everywhere...">
-        </div>
+      <GlobalSearch/>
+      <div class="navbar-item no-left-space">
+
+
+
       </div>
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
@@ -141,12 +142,14 @@
 import { mapState } from 'vuex'
 import NavBarMenu from '@/components/NavBarMenu'
 import UserAvatar from '@/components/UserAvatar'
+import GlobalSearch from '@/components/GlobalSearch'
 
 export default {
   name: 'NavBar',
   components: {
     UserAvatar,
-    NavBarMenu
+    NavBarMenu,
+    GlobalSearch
   },
   data () {
     return {

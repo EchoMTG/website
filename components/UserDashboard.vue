@@ -69,27 +69,6 @@
             />
           </div>
         </card-component>
-
-        <div class="columns is-desktop">
-          <div class="column">
-            <card-scrollable
-              data-url="/data-sources/comments.json"
-              title="Recent Comments"
-              icon="comment-multiple-outline"
-              :has-share-buttons="true"
-            />
-          </div>
-          <div class="column">
-            <card-scrollable
-              data-url="/data-sources/stuff-updates.json"
-              title="Updates"
-              icon="animation-outline"
-              :has-dismiss="true"
-            />
-          </div>
-        </div>
-
-
       </section>
   </span>
 </template>
