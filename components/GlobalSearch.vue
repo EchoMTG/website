@@ -137,7 +137,9 @@
 
                     <div v-if="results.length > 0" ref="cardContent" class="searchResults">
                         <GlobalSearchRow
+
                             v-for="(result, index) in results"
+                            :key="result.emid"
                             v-bind:name="result.name"
                             v-bind:setCode="result.setcode"
                             v-bind:setName="result.set"

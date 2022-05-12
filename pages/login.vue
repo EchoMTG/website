@@ -147,9 +147,7 @@ export default {
       });
 
       const content = await rawResponse.json();
-      alert(content)
-      console.log('loggingin',content)
-      alert(content.username)
+
       this.isLoading = false
       // user logged in successfully
       if(content.status == 'success'){

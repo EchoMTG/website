@@ -119,7 +119,7 @@ export default {
   mounted () {
     if (this.dataUrl) {
       let api_url = process.env.API_DOMAIN + this.dataUrl
-      console.log(api_url)
+
       this.isLoading = true
       axios
         .get(api_url)
