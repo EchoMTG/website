@@ -30,7 +30,7 @@ export default {
     }
   },
   asyncData (req) {
-    console.log('server',req)
+    //console.log('server',req)
   },
   computed: {
     titleStack () {

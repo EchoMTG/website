@@ -152,7 +152,6 @@ import RefreshButton from '@/components/RefreshButton'
       let historyURL = process.env.API_DOMAIN + `inventory/history/?auth=${token}`;
 
       this.history = await fetch(historyURL).then(res => res.json())
-      console.log(this.history)
       this.fillChartData();
     },
     fetchKey: 'dashboard',
@@ -183,7 +182,6 @@ import RefreshButton from '@/components/RefreshButton'
             values.push(this.history.data[i].invested_value)
           }
         }
-        console.log(values)
         return values;
       },
       fillChartData () {

@@ -26,7 +26,7 @@ export default {
     }
   },
   asyncData({req}) {
-    console.log('async from index',req)
+    //console.log('async from index',req)
   },
   computed: {
     ...mapState([
