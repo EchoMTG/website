@@ -1,47 +1,56 @@
 <template>
   <span>
+
       <title-bar :title-stack="titleStack" />
       <hero-bar-main />
-      <section class="section is-main-section">
+
+      <section v-if="$fetchState.pending">
+        Loading Dashboard
+      </section>
+      <section v-else class="section is-main-section">
+
         <tiles>
           <card-widget
             class="tile is-child"
             type="is-primary"
-            icon="account-multiple"
-            :number="512"
-            :previous-number="384"
-            previous-period="July, 2019"
-            label="Clients"
+            icon="currency"
+            prefix="$"
+            :number="parseFloat(stats.current_value_market)"
+            :previous-number="parseInt(stats.total_items)"
+            previous-period=" Tracked Items"
+            label="Collection Value"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            icon="USD"
+            :number="totalCardsValue"
+            prefix="$"
+            :previous-number="parseInt(totalCards)"
+            previous-period="Individual Cards"
+            label="Individual Card Value"
+          />
+          <card-widget
+            class="tile is-child"
+            type="is-primary"
+            icon="usd"
+            :number="parseFloat(stats.sealed_value)"
+            prefix="$"
+            previous-period="Sealed Items"
+            :previous-number="parseInt(stats.total_sealed)"
+            label="Sealed Value"
           />
           <card-widget
             class="tile is-child"
             type="is-info"
-            icon="cart-outline"
-            :number="7770"
-            :previous-number="7000"
-            previous-period="July, 2019"
-            prefix="$"
-            label="Sales"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-success"
-            icon="chart-timeline-variant"
-            :number="256"
-            :previous-number="384"
-            previous-period="July, 2019"
+            icon="usd"
+            :number="stats.change_value"
+
+            previous-period="Last 7 days"
             suffix="%"
             label="Performance"
           />
-          <card-widget
-            class="tile is-child"
-            type="is-danger"
-            icon="bell"
-            :number="32"
-            :previous-number="64"
-            label="Alerts"
-            previous-period="July, 2019"
-          />
+
         </tiles>
 
         <card-component
@@ -59,64 +68,6 @@
               :extra-options="defaultChart.extraOptions"
             />
           </div>
-        </card-component>
-
-        <div class="columns is-desktop">
-          <div class="column">
-            <card-scrollable
-              data-url="/data-sources/comments.json"
-              title="Recent Comments"
-              icon="comment-multiple-outline"
-              :has-share-buttons="true"
-            />
-          </div>
-          <div class="column">
-            <card-scrollable
-              data-url="/data-sources/stuff-updates.json"
-              title="Updates"
-              icon="animation-outline"
-              :has-dismiss="true"
-            />
-          </div>
-        </div>
-
-        <card-component
-          title="Clients"
-          icon="account-multiple"
-          class="has-table has-mobile-sort-spaced"
-          :has-button-slot="true"
-        >
-          <refresh-button slot="button" />
-          <card-toolbar slot="toolbar">
-            <div slot="left" class="buttons has-addons">
-              <button class="button is-active" @click="actionSample">
-                Active
-              </button>
-              <button class="button" disabled>
-                Recent
-              </button>
-              <button class="button" disabled>
-                Archived
-              </button>
-            </div>
-            <form slot="right" @submit.prevent="actionSample">
-              <div class="field has-addons">
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    placeholder="Sample field..."
-                  >
-                </div>
-                <div class="control">
-                  <button type="submit" class="button is-primary">
-                    <b-icon icon="dots-horizontal" custom-size="default" />
-                  </button>
-                </div>
-              </div>
-            </form>
-          </card-toolbar>
-          <clients-table-sample data-url="/data-sources/clients.json" />
         </card-component>
       </section>
   </span>
@@ -150,7 +101,12 @@ import RefreshButton from '@/components/RefreshButton'
     },
     data() {
       return {
-        mountains: [],
+        stats: {
+
+        },
+        history: {
+          data: []
+        },
         defaultChart: {
           chartData: null,
           extraOptions: chartConfig.chartOptionsMain
@@ -159,7 +115,6 @@ import RefreshButton from '@/components/RefreshButton'
     },
     mounted () {
       this.fillChartData()
-
       this.$buefy.snackbar.open({
         message: 'Welcome back',
         queue: false
@@ -167,32 +122,74 @@ import RefreshButton from '@/components/RefreshButton'
     },
     head () {
       return {
-        title: 'Dashboard — Admin One Nuxt.js Premium'
+        title: 'Dashboard — EchoMTG'
       }
     },
     computed: {
       titleStack () {
         return ['Admin', 'Dashboard']
       },
+      totalCards () {
+
+        return parseInt(this.stats.total_cards)
+      },
+      totalCardsValue(){
+        let val = parseInt(this.stats.current_value_market) - parseInt(this.stats.sealed_value)
+        return val
+      },
+
+    },
+    watch: {
+    '$route.query': '$fetch'
     },
     async fetch() {
-      this.mountains = await fetch(
-        'https://api.nuxtjs.dev/mountains'
-      ).then(res => res.json())
 
+      let token = this.$cookies.get('token');
+      let url = process.env.API_DOMAIN + 'inventory/quickstats/';
+      url += `?auth=${token}`;
+      this.stats = await fetch(url).then(res => res.json())
+      this.stats = this.stats.stats
+      let historyURL = process.env.API_DOMAIN + `inventory/history/?auth=${token}`;
+
+      this.history = await fetch(historyURL).then(res => res.json())
+      console.log(this.history)
+      this.fillChartData();
     },
+    fetchKey: 'dashboard',
+    fetchOnServer: false,
     methods: {
-      randomChartData (n) {
-        const data = []
-
-        for (let i = 0; i < n; i++) {
-          data.push(Math.round(Math.random() * 200))
+      historyChartLabels () {
+        let labels = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            labels.push(this.history.data[i].ts)
+          }
         }
-
-        return data
+        return labels;
+      },
+      historyValue () {
+        let values = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            values.push(this.history.data[i].recorded_value)
+          }
+        }
+        return values;
+      },
+      historyBoughtValue () {
+        let values = []
+        if(this.history.data.length > 0){
+          for(var i=0; i < this.history.data.length; i++){
+            values.push(this.history.data[i].invested_value)
+          }
+        }
+        console.log(values)
+        return values;
       },
       fillChartData () {
+
         this.defaultChart.chartData = {
+          labels: this.historyChartLabels(),
           datasets: [
             {
               fill: false,
@@ -207,7 +204,7 @@ import RefreshButton from '@/components/RefreshButton'
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: this.randomChartData(9)
+              data: this.historyValue()
             },
             {
               fill: false,
@@ -222,25 +219,10 @@ import RefreshButton from '@/components/RefreshButton'
               pointHoverRadius: 4,
               pointHoverBorderWidth: 15,
               pointRadius: 4,
-              data: this.randomChartData(9)
-            },
-            {
-              fill: false,
-              borderColor: chartConfig.chartColors.default.danger,
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: chartConfig.chartColors.default.danger,
-              pointBorderColor: 'rgba(255,255,255,0)',
-              pointHoverBackgroundColor: chartConfig.chartColors.default.danger,
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: this.randomChartData(9)
+              data: this.historyBoughtValue()
             }
           ],
-          labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09']
+
         }
       },
       actionSample () {

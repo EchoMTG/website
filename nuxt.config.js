@@ -27,8 +27,9 @@ export default {
             body: true
         },
     ],
+    serverMiddleware: ['~/server-middleware/logger'],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png' },
       { rel: 'stylesheet', href: '//rawgit.com/andrewgioia/Keyrune/master/css/keyrune.min.css'},
       { rel: 'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'},
       { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
@@ -66,6 +67,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
+    '@nuxtjs/dotenv'
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

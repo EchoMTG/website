@@ -34,7 +34,7 @@
         </div>
         <div class="control">
           <router-link
-            to="/full-page/login"
+            to="/login"
             class="button is-black is-outlined"
           >
             Back
@@ -62,7 +62,7 @@ export default {
   },
   head () {
     return {
-      title: 'Password Recovery — Admin One Nuxt.js Premium'
+      title: 'Password Recovery — EchoMTG'
     }
   },
   methods: {

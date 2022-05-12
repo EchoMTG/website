@@ -10,7 +10,7 @@
           </ul>
         </div>
       </div>
-      <div class="level-right">
+      <div class="level-right" v-if="hasButton">
         <div class="level-item">
           <div class="buttons is-right">
             <a
@@ -35,6 +35,10 @@ export default {
     titleStack: {
       type: Array,
       default: () => []
+    },
+    hasButton: {
+      type: Boolean,
+      default: false
     }
   }
 }

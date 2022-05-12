@@ -173,7 +173,7 @@ export default {
   },
   head () {
     return {
-      title: 'Forms — Admin One Nuxt.js Premium'
+      title: 'Forms — EchoMTG'
     }
   },
   computed: {

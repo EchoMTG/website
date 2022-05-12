@@ -8,10 +8,11 @@
       >
         <b-icon :icon="menuToggleIcon" />
       </a>
-      <div class="navbar-item has-control no-left-space">
-        <div class="control">
-          <input class="input" placeholder="Search everywhere...">
-        </div>
+      <GlobalSearch/>
+      <div class="navbar-item no-left-space">
+
+
+
       </div>
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
@@ -84,7 +85,7 @@
         <div class="navbar-item" v-if="!isUserLoggedIn">
            <div class="field is-grouped">
           <p class="control">
-          <router-link to="/full-page/login"
+          <router-link to="/login"
             class=" button is-secondary"
             title="Login"
           >
@@ -141,12 +142,14 @@
 import { mapState } from 'vuex'
 import NavBarMenu from '@/components/NavBarMenu'
 import UserAvatar from '@/components/UserAvatar'
+import GlobalSearch from '@/components/GlobalSearch'
 
 export default {
   name: 'NavBar',
   components: {
     UserAvatar,
-    NavBarMenu
+    NavBarMenu,
+    GlobalSearch
   },
   data () {
     return {
@@ -156,7 +159,7 @@ export default {
   computed: {
     isUserLoggedIn () {
       console.log('user',this.userName)
-      
+
       return this.userName !== null
     },
     menuNavBarToggleIcon () {

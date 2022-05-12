@@ -33,7 +33,7 @@ export default {
   },
   head () {
     return {
-      title: 'Error #2 — Admin One Nuxt.js Premium'
+      title: 'Error #2 — EchoMTG'
     }
   },
   methods: {
