@@ -129,7 +129,7 @@ export default {
     },
     deleteItem(id) {
       let token = this.$cookies.get('token');
-      fetch(`${process.env.API_DOMAIN}/inventory/remove/inventory_id=${id}?auth=${token}`).then(
+      fetch(`${process.env.API_DOMAIN}/inventory/remove/?inventory_id=${id}&auth=${token}`).then(
         (response) => {
           this.updateStatus()
         }
