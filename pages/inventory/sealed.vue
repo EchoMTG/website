@@ -29,7 +29,7 @@
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">Gain/Loss</p>
-                    <span class="title percentage red down" v-if="difference < 0">{{gainloss}}%</span>
+                    <span class="title percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
                     <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>  
                 </div>
             </div>
@@ -160,7 +160,7 @@ export default {
       let id = item.inventory_id;
       let value = input.target.value;
 
-      let url = `${process.env.API_DOMAIN}/inventory/adjust/id=${id}&adjusted_price=${value}&auth=${token}`;
+      let url = `${process.env.API_DOMAIN}/inventory/adjust/id=${id}&value=${value}&auth=${token}`;
       fetch(url).then(response => response.json())
         .then(data=> {
           console.log(data);
@@ -179,23 +179,23 @@ export default {
     }
   },
   computed: {
-    sealedItems: function () {
+    sealedItems() {
       if (this.search == '') return this.sealed
 
       return this.sealed.filter((item) => {
         return item.name.toLowerCase().includes(this.search.toLowerCase())
       })
     },
-    totalValue: function () {
-      return this.sealed.reduce((total, r) => total + parseFloat(r.tcg_mid), 0);
+    totalValue() {
+      return this.sealed.reduce((total, r) => total + parseFloat(r.tcg_mid), 0).toFixed(2);
     },
-    acquiredForValue: function () {
-        return this.sealed.reduce((total, r) => total + parseFloat(r.price_acquired), 0);
+    acquiredForValue() {
+        return this.sealed.reduce((total, r) => total + parseFloat(r.price_acquired), 0).toFixed(2);
     },
-    difference: function () {
+    difference() {
       return (this.totalValue - this.acquiredForValue).toFixed(2)
     },
-    gainloss: function () {
+    gainloss() {
       return ((this.difference / this.totalValue) * 100).toFixed(2)
     },
   },
