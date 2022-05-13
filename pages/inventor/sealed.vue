@@ -37,7 +37,7 @@
         <div class="container padded">
             <div class="columns">    
                 <div class="column is-two-thirds"  style="min-height: 40px">
-                    <!-- <global-search  firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" /> -->
+                    <global-search  firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
                 </div>
                 <div class="column">
                     <div class="control has-icons-left has-icons-right">
@@ -72,12 +72,12 @@
                             <span class="percentage red down" v-if="item.gain < 0">{{item.gain}}%</span>
                             <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>     
                         </td>
-                        <td>{{symbol}} <input class="adjust-box" data-call="inventory/adjust/" v-bind:value="item.price_acquired"/></td>
+                        <td>{{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, item)" :value="item.price_acquired"/></td>
                         <td>
-                            <input class="adjust-box input is-small acquired-date-input" type="date"  data-call="inventory/adjust_date/" v-bind:value="item.date_acquired_html"/>
+                            <input class="adjust-box input is-small acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, item)" :value="item.date_acquired_html"/>
                         </td>
                         <td>
-                            <button class="ignore  button small black has-background-black has-text-white pull-right" v-bind:data-id="item.id" @click="deleteItem(item.inventory_id)" href="javascript:void(0);">
+                            <button class="ignore  button small black has-background-black has-text-white pull-right" :data-id="item.id" @click="deleteItem(item.inventory_id)" href="javascript:void(0);">
                             <span class="fa fa-trash"></span> </button>
                         </td>
                     </tr>
@@ -88,7 +88,9 @@
 </template>
 
 <script>
+import GlobalSearch from '@/components/GlobalSearch'
 export default {
+  components: { GlobalSearch },
   props: ['symbol'],
   data() {
     return {
@@ -100,7 +102,7 @@ export default {
     }
   },
   methods: {
-    getItems: function () {
+    fetchSealedData(){
       let token = this.$cookies.get('token');
       let url = `${process.env.API_DOMAIN}/inventory/view/?start=${this.start}&limit=${this.limit}&auth=${token}&set_code=`
       // get only inventory with PACK and SEAL as the sets
@@ -112,7 +114,6 @@ export default {
           fetch(url + 'SEAL')
             .then((response) => response.json())
             .then((data) => {
-            console.log(data);
               this.sealed = [...this.sealed, ...data.items]
             })
             .catch(function (error) {
@@ -123,11 +124,11 @@ export default {
           console.log(error)
         })
     },
-    searchFilter: function (q) {
+    searchFilter(q) {
       this.search = q
     },
-    deleteItem: function (iid) {
-      fetch(`${api_url}inventory/remove/inventory_id=${iid}`).then(
+    deleteItem(id) {
+      fetch(`${api_url}inventory/remove/inventory_id=${id}`).then(
         (response) => {
           this.updateStatus()
         }
@@ -154,6 +155,28 @@ export default {
     updateStatus: function updateStatus() {
       this.status++
     },
+    updatePrice(input, item) {
+      let token = this.$cookies.get('token');
+      let id = item.inventory_id;
+      let value = input.target.value;
+
+      let url = `${process.env.API_DOMAIN}/inventory/adjust/id=${id}&adjusted_price=${value}&auth=${token}`;
+      fetch(url).then(response => response.json())
+        .then(data=> {
+          console.log(data);
+        })
+    },
+    updateDate(input, item) {
+      let token = this.$cookies.get('token');
+      let id = item.inventory_id;
+      let value = input.target.value;
+
+      let url = `${process.env.API_DOMAIN}/inventory/adjust_date/id=${id}&value=${value}&auth=${token}`;
+      fetch(url).then(response => response.json())
+        .then(data=> {
+          console.log(data);
+        })
+    }
   },
   computed: {
     sealedItems: function () {
@@ -182,7 +205,7 @@ export default {
     },
   },
   created() {
-    this.getItems()
+    this.fetchSealedData()
   },
 }
 </script>
