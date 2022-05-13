@@ -3,11 +3,11 @@
         <div class="global-search closed" ref="globalSearchBox">
             <div class="search-box card">
                 <header class="card-header">
-                    <div class="field search-input">
+                    <div class="field search-input m-0">
                        <div class="columns">
                           <div class="column searchColumn">
                             <div class="field has-addons">
-                                <p class="control grow has-icons-left">
+                                <p class="control grow has-icons-left m-0">
                                     <input
                                         class="input is-small is-rounded item-search-input"
                                         v-model="search"
@@ -19,7 +19,7 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </p>
-                                <p class="control">
+                                <p class="control m-0">
                                      <button tabindex="-1" class="button is-small is-outlined clear-button" @click="clearSearch()">
                                           <span class="icon">
                                              <i class="fa fa-times-circle-o"></i>
