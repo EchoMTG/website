@@ -12,7 +12,6 @@
       <div class="navbar-item no-left-space">
 
 
-
       </div>
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
