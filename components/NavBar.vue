@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="is-flex is-align-items-center" style="width: 100%;">
-      <global-search />
+      <global-search showimage />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="updatesToggle">
