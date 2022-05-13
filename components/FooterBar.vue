@@ -4,7 +4,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            &copy; {{ year }}, JustBoil.me
+            &copy; {{ year }}, ThoughBomb Studios, LLC
           </div>
         </div>
         <div class="level-right">
