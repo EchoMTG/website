@@ -128,20 +128,21 @@ export default {
       this.search = q
     },
     deleteItem(id) {
-      fetch(`${process.env.API_DOMAIN}/inventory/remove/inventory_id=${id}`).then(
+      let token = this.$cookies.get('token');
+      fetch(`${process.env.API_DOMAIN}/inventory/remove/inventory_id=${id}?auth=${token}`).then(
         (response) => {
           this.updateStatus()
         }
       )
     },
     addSealed(itemid) {
-      var $this = this
+      let token = this.$cookies.get('token');
       var postBody = {
         emid: itemid,
         quantity: 1,
         language: 'EN',
       }
-      var apiURL = `${process.env.API_DOMAIN}/inventory/add/`
+      var apiURL = `${process.env.API_DOMAIN}/inventory/add/?auth=${token}`
       fetch(apiURL, {
         method: 'POST',
         body: JSON.stringify(postBody),
@@ -149,7 +150,7 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           createGrowl(res.message)
-          $this.updateStatus()
+          this.updateStatus()
         })
     },
     updateStatus: function updateStatus() {
