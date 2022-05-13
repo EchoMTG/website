@@ -128,7 +128,7 @@ export default {
       this.search = q
     },
     deleteItem(id) {
-      fetch(`${api_url}inventory/remove/inventory_id=${id}`).then(
+      fetch(`${process.env.API_DOMAIN}/inventory/remove/inventory_id=${id}`).then(
         (response) => {
           this.updateStatus()
         }
@@ -141,7 +141,7 @@ export default {
         quantity: 1,
         language: 'EN',
       }
-      var apiURL = api_url + 'inventory/add/'
+      var apiURL = `${process.env.API_DOMAIN}/inventory/add/`
       fetch(apiURL, {
         method: 'POST',
         body: JSON.stringify(postBody),
@@ -201,7 +201,7 @@ export default {
   },
   watch: {
     status: function () {
-      this.getItems()
+      this.fetchSealedData()
     },
   },
   created() {
