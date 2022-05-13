@@ -48,9 +48,18 @@ $ npm run start
 
 ```
 
+## Working with the Design System
+
+We use Bulma for the design system https://bulma.io, bulma has a component library `nuxt-buefy` which is documented here https://buefy.org/
+
+Docs on using buefy are here https://buefy.org/documentation
+
+
+# Working with NUXT (a VueJS page and routing framework)
+
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
-## Special Directories
+## Special Directories in NUXT
 
 You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
 
