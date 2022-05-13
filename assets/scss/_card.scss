@@ -16,7 +16,7 @@
   &.is-card-widget, &.has-card-header-background {
     .card-header {
       background-color: $card-header-background-color;
-      border-bottom: $card-widget-header-border;
+      // border-bottom: $card-widget-header-border;
 
       p {
         font-weight: normal;
@@ -59,7 +59,7 @@
   }
 
   .card-header {
-    border-bottom: $card-header-border;
+    // border-bottom: $card-header-border;
 
     .button {
       display: inline-flex;

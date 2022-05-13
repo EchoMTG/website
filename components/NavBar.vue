@@ -1,18 +1,12 @@
 <template>
   <nav v-show="isNavBarVisible" id="navbar-main" class="navbar" :class="navBarClass">
     <div class="navbar-brand no-negative-margin-left">
-      <a
-        :title="toggleTooltip"
-        class="navbar-item is-desktop-icon-only"
-        @click.prevent="menuToggle"
-      >
+      <a :title="toggleTooltip" class="navbar-item is-desktop-icon-only" @click.prevent="menuToggle">
         <b-icon :icon="menuToggleIcon" />
       </a>
-      <GlobalSearch/>
-      <div class="navbar-item no-left-space">
-
-
-      </div>
+    </div>
+    <div class="is-flex is-align-items-center" style="width: 100%;">
+      <global-search />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="updatesToggle">
