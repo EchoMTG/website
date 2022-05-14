@@ -1,5 +1,5 @@
 <template>
-    <div class="inventory inventory-advanced"> 
+    <div class="inventory inventory-advanced">
         <br>
         <nav class="earnings-tabs level" id="finances">
             <div class="level-item has-text-centered">
@@ -30,12 +30,12 @@
                 <div>
                     <p class="heading">Gain/Loss</p>
                     <span class="title percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
-                    <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>  
+                    <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>
                 </div>
             </div>
-        </nav> 
+        </nav>
         <div class="container padded">
-            <div class="columns">    
+            <div class="columns">
                 <div class="column is-two-thirds"  style="min-height: 40px">
                     <global-search  firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
                 </div>
@@ -45,7 +45,7 @@
                         <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
         <div class="container">
             <table class="table is-narrow is-bordered is-striped w-100 my-3">
@@ -64,13 +64,13 @@
                     <tr v-for="(item, index) in sealedItems" :data-id="item.inventory_id" :key="`sealed-item-${index}`">
                         <td><a v-bind:href="item.echo_set_url"><img v-bind:src="item.set_image" style="max-height:18px; max-width:14px" /></a></td>
                         <td>
-                            <span v-if="item.foil == 1" class="foil foiled" style="border:1px grey solid; border-radius:3px; padding: 0px 3px;">F</span>	
+                            <span v-if="item.foil == 1" class="foil foiled" style="border:1px grey solid; border-radius:3px; padding: 0px 3px;">F</span>
                             <a v-bind:href="item.echo_url">{{item.name}}</a>
                         </td>
                         <td>{{symbol}} {{item.tcg_mid}}</td>
                         <td>
                             <span class="percentage red down" v-if="item.gain < 0">{{item.gain}}%</span>
-                            <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>     
+                            <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>
                         </td>
                         <td>{{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, item)" :value="item.price_acquired"/></td>
                         <td>
@@ -128,20 +128,21 @@ export default {
       this.search = q
     },
     deleteItem(id) {
-      fetch(`${api_url}inventory/remove/inventory_id=${id}`).then(
+      let token = this.$cookies.get('token');
+      fetch(`${process.env.API_DOMAIN}/inventory/remove/?inventory_id=${id}&auth=${token}`).then(
         (response) => {
           this.updateStatus()
         }
       )
     },
     addSealed(itemid) {
-      var $this = this
+      let token = this.$cookies.get('token');
       var postBody = {
         emid: itemid,
         quantity: 1,
         language: 'EN',
       }
-      var apiURL = api_url + 'inventory/add/'
+      var apiURL = `${process.env.API_DOMAIN}/inventory/add/?auth=${token}`
       fetch(apiURL, {
         method: 'POST',
         body: JSON.stringify(postBody),
@@ -149,7 +150,7 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           createGrowl(res.message)
-          $this.updateStatus()
+          this.updateStatus()
         })
     },
     updateStatus: function updateStatus() {
@@ -201,7 +202,7 @@ export default {
   },
   watch: {
     status: function () {
-      this.getItems()
+      this.fetchSealedData()
     },
   },
   created() {
