@@ -58,32 +58,44 @@ export default {
 
       if (this.amILoggedIn() && this.amIAuthed()){
         return [
-          'General',
+          'Tools',
           [
             {
               to: '/',
-              icon: 'desktop-mac',
+              icon: 'chart-timeline-variant-shimmer',
               label: 'Dashboard'
+            },
+            {
+              to: '/tools/inventory/',
+              icon: 'ballot',
+              label: 'Inventory'
+            },
+            {
+              to: '/tools/inventory/sealed/',
+              icon: 'wallet-giftcard',
+              label: 'Sealed'
+            },
+            {
+              to: '/tools/watch-list/',
+              icon: 'eye',
+              label: 'Watch List'
             }
+
           ],
           'Magic: the Gathering',
           [
             {
               to: '/sets',
               label: 'Expansions',
-              icon: 'box',
+              icon: 'view-list-outline',
               updateMark: true
             },
             {
-              to: '/forms',
-              label: 'Forms',
-              icon: 'square-edit-outline'
+              to: '/magic/reserve-list/',
+              label: 'Reserve List',
+              icon: 'chess-king'
             },
-            {
-              to: '/profile',
-              label: 'Profile',
-              icon: 'account-circle'
-            },
+
             {
               label: 'Dropdown',
               icon: 'arrow-down-bold-circle',
@@ -138,28 +150,18 @@ export default {
               ]
             }
           ],
-          'Other',
+          'My Account',
           [
-            {
-              to: '/login',
-              label: 'Login',
-              icon: 'lock'
+           {
+              to: '/profile',
+              label: 'Profile',
+              icon: 'account-circle'
             },
             {
               to: '/full-page/error',
               label: 'Error v.1',
               icon: 'power-plug'
             },
-            {
-              to: '/full-page/error-copy',
-              label: 'Error v.2',
-              icon: 'alert-decagram'
-            },
-            {
-              to: '/full-page/lock-screen',
-              label: 'Lock Screen',
-              icon: 'lock-reset'
-            }
           ],
           'About',
           [
