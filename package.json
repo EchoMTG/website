@@ -16,6 +16,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/pwa": "^3.3.5",
+    "axios": "^0.27.2",
     "chart.js": "^2.9.3",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.3",
