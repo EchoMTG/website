@@ -54,6 +54,10 @@ We use Bulma for the design system https://bulma.io, bulma has a component libra
 
 Docs on using buefy are here https://buefy.org/documentation
 
+### Icons
+
+Search for icons here: https://materialdesignicons.com/ icons listed from "Google" are available. 
+
 
 # Working with NUXT (a VueJS page and routing framework)
 
