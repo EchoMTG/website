@@ -76,6 +76,11 @@ export default {
               label: 'Sealed'
             },
             {
+              to: '/tools/lists/',
+              icon: 'format-list-checkbox',
+              label: 'Lists'
+            },
+            {
               to: '/tools/watch-list/',
               icon: 'eye',
               label: 'Watch List'
