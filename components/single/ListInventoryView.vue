@@ -53,6 +53,7 @@
 </template>
 
 <script>
+const api_url = process.env.API_DOMAIN;
 export default {
   props: ['list'],
   data: function () {
@@ -63,7 +64,8 @@ export default {
   methods: {
     addToInventory: function (mid, foil = 0) {
       let $this = this
-      let endpoint = api_url + 'inventory/add/'
+      let token = this.$cookies.get('token');
+      let endpoint = `${api_url}inventory/add/?auth=${token}`
       let bodyFormData = new FormData()
       bodyFormData.set('mid', mid)
       if (foil != 0) {

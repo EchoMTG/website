@@ -32,7 +32,7 @@
       <div class="columns is-multiline" v-if="orderBy == 'type'">
         <template v-for="(sort, index) in typeArray">
           <div class="column is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd" v-if="list[sort].total_main > 0" :key="`type-list-item-${index}`">
-              <deck-list-type-title :title="list[sort].scalar" :count="list[sort].total_main"></deck-list-type-title>
+              <h2 class="title is-6">{{list[sort].scalar}} <span class="has-text-grey">({{list[sort].total_main}})</span> </h2>
               <ul>
                   <li 
                       is="deck-list-item" 
@@ -102,8 +102,11 @@
 </template>
 
 <script>
+import DeckListItem from './DeckListItem.vue';
+import DeckListTypeTitle from './DeckListTypeTitle.vue';
 export default {
   name: 'deck-view',
+  components: { DeckListItem, DeckListTypeTitle },
   props: ['list'],
   data: function data() {
     return {

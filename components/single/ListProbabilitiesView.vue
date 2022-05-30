@@ -23,7 +23,14 @@
     <div class="box">
         <div class="columns">
             <div class="column" v-for="(card, index) in drawList" :key="`card-item-index-${index}`">
-                <probability-card v-bind:probCard="card"></probability-card>
+                <div class="is-centered">
+                    <img :src="card.image">
+                    <div class="columns is-size-7">
+                        <div class="column">{{card.probability}}</div>
+                        <div class="column">{{card.emid}}</div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
