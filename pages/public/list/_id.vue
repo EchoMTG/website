@@ -1,23 +1,24 @@
 <template>
   <div>
-    <!-- <deck-view  :list="list"/> -->
-    ddd
+    <deck-view  :list="list"/>
   </div>
 </template>
 
 <script>
 // import axios from 'axios'
-// import DeckView from '../../../components/single/DeckView.vue'
+import DeckView from '../../../components/single/DeckView.vue'
+const api_url = process.env.API_DOMAIN;
 export default {
-    // async asyncData({ params, $http }) {
-    //   const id = params.id
-    //   // let token = this.$cookies.get('token');
+    async asyncData({ params, $http }) {
+      const id = params.id
+      // let token = this.$cookies.get('token');
+      const url = `${api_url}lists/get/?list=${id}`;
 
-    //   // const list = await $http.get(`${api_url}lists/get/?list=${id}&auth=${token}`)
-    //   return { id }
-    // },
+      const { list } = await fetch(url).then(res => res.json());
+      return { id, list }
+    },
     
-    // components: { DeckView },
+    components: { DeckView },
 
     // created(){
     //   console.log('response');

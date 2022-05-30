@@ -32,7 +32,7 @@ export default {
 
         },
         openPublicLink: function (event) {
-            window.location.href = '/decks/list/'+this.item.hash+'/';
+            window.location.href = '/public/list/'+this.item.hash+'/';
 
         },
         openDeleteModal: function(key){
