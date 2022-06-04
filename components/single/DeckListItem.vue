@@ -42,12 +42,13 @@ export default {
 
         },
         addCard: function (cardMid, sideboard){
+            console.log(cardMid, sideboard);
             //this.$emit('addCard',cardMid);
-            this.$parent.$parent.addCard(cardMid,sideboard);
+            this.$parent.addCard(cardMid,sideboard);
         },
         moveToSideboard: function (cardMid,sb){
             sb = (sb == 1) ? 0 : 1;
-            this.$parent.$parent.moveToSideboard(cardMid,sb);
+            this.$parent.moveToSideboard(cardMid,sb);
         },
         openMissingInventory: function(){
             this.$parent.$parent.setCurrentTab('list-inventory-view');

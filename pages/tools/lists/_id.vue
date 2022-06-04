@@ -393,7 +393,7 @@
                 }
             }
         },
-        openExport: function openExport(e){
+        openExport(e){
             if(e.target.options.selectedIndex > -1) {
                 let selected = e.target.options[e.target.options.selectedIndex];
                 let url = selected.value + this.list.id;
