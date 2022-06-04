@@ -16,12 +16,12 @@
                     <span>Spell Type</span>
                   </a>
                 </li>
-                <li class="sort-type">
+                <!-- <li class="sort-type">
                   <a @click="changeOrder($event, 'cost')">
                     <span class="icon is-small"><i class="fa fa-usd"></i></span>
                     <span>Mana Cost</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
         </div>

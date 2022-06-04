@@ -12,15 +12,17 @@
             </tr>
         </thead>
         <tbody>
-            <deck-table-item v-on:toggleFoil="toggleFoil" v-on:addCard="addCard" v-on:removeCard="removeCard"  v-for="item in cardArray" :key="item.id" v-bind:card="item"></deck-table-item>
+            <deck-table-item v-on:toggleFoil="toggleFoil" v-on:addCard="addCard" v-on:removeCard="removeCard"  v-for="item in cardArray" :key="`deck-table-item-${item.id}`" :card="item"></deck-table-item>
         </tbody>
     </table>
   </div>
 </template>
 
 <script>
+import DeckTableItem from './DeckTableItem.vue'
 export default {
   props: ['list', 'cardArray'],
+  components: {DeckTableItem},
   data: function data() {
     return {
       tableHeaders: ['Set', 'Name', 'Type', 'Price TCG Mid/Low', 'Foil'],
