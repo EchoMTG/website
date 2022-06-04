@@ -27,8 +27,9 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
     env:
-      - 'API_DOMAIN=https://www.echomtg.com/api/'
-      - 'S2S_KEY=OMMITED'
+      - API_DOMAIN=https://www.echomtg.com/api/
+      - VUE_APP_API_DOMAIN=https://www.echomtg.com/api/
+      - S2S_KEY=OMMITED
     id: Deploy
     entrypoint: gcloud
 images:
