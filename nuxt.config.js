@@ -94,5 +94,11 @@ export default {
       // https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc
       config.externals.moment = 'moment'
     }
+  },
+  publicRuntimeConfig: {
+    API_DOMAIN: process.env.API_DOMAIN
+  },
+  privateRuntimeConfig: {
+    S2S_KEY: process.env.S2S_KEY
   }
 }
