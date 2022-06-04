@@ -7,7 +7,7 @@
 
 <script>
 // import axios from 'axios'
-import DeckView from '../../../components/single/DeckView.vue'
+import DeckView from '@/components/single/DeckView.vue'
 import ListSummary from '@/components/single/ListSummary.vue'
 const api_url = process.env.API_DOMAIN;
 export default {
