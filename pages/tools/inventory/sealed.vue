@@ -104,7 +104,7 @@ export default {
   methods: {
     fetchSealedData(){
       let token = this.$cookies.get('token');
-      let url = `${process.env.API_DOMAIN}/inventory/view/?start=${this.start}&limit=${this.limit}&auth=${token}&set_code=`
+      let url = `${process.env.VUE_APP_API_DOMAIN}/inventory/view/?start=${this.start}&limit=${this.limit}&auth=${token}&set_code=`
       // get only inventory with PACK and SEAL as the sets
       // get it all here, not pagination
       fetch(url + 'PACK')
@@ -129,7 +129,7 @@ export default {
     },
     deleteItem(id) {
       let token = this.$cookies.get('token');
-      fetch(`${process.env.API_DOMAIN}/inventory/remove/?inventory_id=${id}&auth=${token}`).then(
+      fetch(`${process.env.VUE_APP_API_DOMAIN}/inventory/remove/?inventory_id=${id}&auth=${token}`).then(
         (response) => {
           this.updateStatus()
         }
@@ -142,7 +142,7 @@ export default {
         quantity: 1,
         language: 'EN',
       }
-      var apiURL = `${process.env.API_DOMAIN}/inventory/add/?auth=${token}`
+      var apiURL = `${process.env.VUE_APP_API_DOMAIN}/inventory/add/?auth=${token}`
       fetch(apiURL, {
         method: 'POST',
         body: JSON.stringify(postBody),
@@ -161,7 +161,7 @@ export default {
       let id = item.inventory_id;
       let value = input.target.value;
 
-      let url = `${process.env.API_DOMAIN}/inventory/adjust/id=${id}&value=${value}&auth=${token}`;
+      let url = `${process.env.VUE_APP_API_DOMAIN}/inventory/adjust/id=${id}&value=${value}&auth=${token}`;
       fetch(url).then(response => response.json())
         .then(data=> {
           console.log(data);
@@ -172,7 +172,7 @@ export default {
       let id = item.inventory_id;
       let value = input.target.value;
 
-      let url = `${process.env.API_DOMAIN}/inventory/adjust_date/id=${id}&value=${value}&auth=${token}`;
+      let url = `${process.env.VUE_APP_API_DOMAIN}/inventory/adjust_date/id=${id}&value=${value}&auth=${token}`;
       fetch(url).then(response => response.json())
         .then(data=> {
           console.log(data);

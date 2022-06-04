@@ -220,6 +220,8 @@ export default {
     ...mapState([
       'isOverlayVisible',
       'isLayoutBoxed',
+      'isAsideVisible',
+      'isNavBarVisible',
       'isLayoutAsideHidden',
       'isLayoutMobile'
     ])
@@ -272,6 +274,7 @@ export default {
       }
     },
     menuClick (item) {
+
       if (item.menuSecondary) {
         this.menuSecondary = item.menuSecondary
         this.menuSecondaryLabel = item.menuSecondaryLabel

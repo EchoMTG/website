@@ -46,7 +46,7 @@ export default {
             let token = this.$cookies.get('token');
             let listID = id;
             let $this = this;
-            let endpoint = `${process.env.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
+            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/toggle_public/?&auth=${token}`;
             let bodyFormData = new FormData();
             bodyFormData.set('list', listID);
             bodyFormData.set('public', 1);

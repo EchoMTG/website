@@ -19,9 +19,7 @@ export default {
       const { list } = await fetch(url).then(res => res.json());
       return { id, list }
     },
-    
     components: { DeckView, ListSummary },
-
     // created(){
     //   console.log('response');
     //   const id = params.id;
@@ -47,7 +45,7 @@ export default {
 
     //   return { list }
     // }
-    
+
 
 }
 </script>

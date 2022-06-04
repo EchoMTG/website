@@ -58,6 +58,12 @@ Docs on using buefy are here https://buefy.org/documentation
 
 Search for icons here: https://materialdesignicons.com/ icons listed from "Google" are available. 
 
+# ENV Cloud Variables 
+
+ENV values must be mapped in nuxt.config.js
+
+https://nuxtjs.org/tutorials/moving-from-nuxtjs-dotenv-to-runtime-config/
+
 
 # Working with NUXT (a VueJS page and routing framework)
 

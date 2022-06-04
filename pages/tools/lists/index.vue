@@ -6,11 +6,11 @@
         </ul>
     </nav>
 
-    <div class="lists2">   
+    <div class="lists2">
         <div class="columns">
             <div class="column">
                 <h2 class="title is-size-5">
-                    Your Lists 
+                    Your Lists
                     <span class="has-text-grey">
                         (<span v-html="lists.length"></span> of <span v-html="user.planObject.list_cap"></span>)
                     </span>
@@ -20,7 +20,7 @@
                         </span>
                         <span>Get More Lists, Upgrade Plan</span>
                     </a>
-                </h2> 
+                </h2>
                 <table v-if="lists.length > 0" class="table is-hoverable is-bordered is-fullwidth">
                     <tbody>
                         <tr is="list-item" v-for="(list, index) in lists" :item="list" :index="index" :key="index" />
@@ -70,7 +70,7 @@ import ListItem from "@/components/list/ListItem.vue";
             let bodyFormData = new FormData();
             bodyFormData.set('list', this.lists[listKey].id);
             bodyFormData.set('status', 0);
-            let endpoint = `${process.env.API_DOMAIN}lists/toggle_status/?&auth=${token}`;
+            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/toggle_status/?&auth=${token}`;
             let $this = this
             axios({
                 method: 'post',
@@ -89,7 +89,7 @@ import ListItem from "@/components/list/ListItem.vue";
     created(){
         let $this = this
         let token = this.$cookies.get('token');
-        let url = `${process.env.API_DOMAIN}lists/all/?&auth=${token}`
+        let url = `${process.env.VUE_APP_API_DOMAIN}lists/all/?&auth=${token}`
         axios.get(url)
             .then(function(response){
                 const mapped = Object.entries(response.data.lists).map(([k,v]) => v);
@@ -99,7 +99,7 @@ import ListItem from "@/components/list/ListItem.vue";
                     // $this.targetDeck = item;
                     // $this.targetDeckKey = index;
                 })
-                
+
                 // for(index in mapped){
                 //     $this.lists.push(response.data.lists[index])
                 //     $this.targetDeck = response.data.lists[index];
@@ -108,7 +108,7 @@ import ListItem from "@/components/list/ListItem.vue";
                 $this.sortList();
             });
 
-        axios.get(`${process.env.API_DOMAIN}user/meta/?&auth=${token}`)
+        axios.get(`${process.env.VUE_APP_API_DOMAIN}user/meta/?&auth=${token}`)
             .then(function(response){
                 $this.user = response.data.user;
             });

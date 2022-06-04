@@ -17,9 +17,9 @@
                             </select>
                           </div>
                           <span class="icon is-left" style="margin-left: -1px; margin-top: -2px;">
-                           
+
                               <i class="fa fa-download"></i>
-                           
+
                           </span>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
             <li>&nbsp; &nbsp; <span>{{list.name}}</span></li>
           </ul>
         </nav>
-        
+
         <div class="lists2">
             <div class="columns">
                 <div class="column is-one-half">
@@ -39,15 +39,15 @@
             </div>
             <div class="container" style="min-height: 80px">
                 <p>Search to add cards to your list:</p>
-              <global-search  
+              <global-search
                         :callback="addCardByEMID"
                         callbackname="Add to List"
-                        :showimage="true"></global-search>  
+                        :showimage="true"></global-search>
                 </div>
            <div class="columns ">
-                
+
                 <div class="column">
-                    
+
                     <div class="tabs">
                       <ul>
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-view'}" v-on:click.stop="setCurrentTab('deck-view')">
@@ -74,12 +74,12 @@
                             <span>Probabilities</span>
                           </a>
                         </li>
-                        
+
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-inventory-view'}" v-on:click.stop="setCurrentTab('list-inventory-view')"  >
                           <a >
                             <span class="icon is-small"><i class="fa fa-book" aria-hidden="true"></i></span>
                             <span>My Inventory</span>
-                            
+
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'meta-view'}" v-on:click.stop="setCurrentTab('meta-view')"  >
@@ -96,24 +96,24 @@
                           </a>
                         </li>
                         </span>
-                        
-                        
+
+
                       </ul>
                     </div>
-                    
-                    <component 
-                        v-bind:list="list"  
-                        v-bind:cardArray="cardArray" 
-                        v-on:toggleFoil="toggleFoil" 
-                        v-on:updateStatus="updateStatus" 
-                        v-on:addCard="addCard" 
-                        v-on:moveToSideboard="moveToSideboard" 
-                        v-on:removeCard="removeCard" 
-                        v-bind:is="currentTabComponent">    
+
+                    <component
+                        v-bind:list="list"
+                        v-bind:cardArray="cardArray"
+                        v-on:toggleFoil="toggleFoil"
+                        v-on:updateStatus="updateStatus"
+                        v-on:addCard="addCard"
+                        v-on:moveToSideboard="moveToSideboard"
+                        v-on:removeCard="removeCard"
+                        v-bind:is="currentTabComponent">
                     </component>
-                    
-                </div> 
-            </div>  
+
+                </div>
+            </div>
         </div>
 </div>
   </div>
@@ -451,7 +451,7 @@
             let token = this.$cookies.get('token');
             let $this = this;
 
-            let endpoint = `${process.env.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
+            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/toggle_public/?&auth=${token}`;
             let bodyFormData = new FormData();
             bodyFormData.set('list', this.list.id);
             bodyFormData.set('public', 1);
