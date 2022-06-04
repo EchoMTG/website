@@ -1,6 +1,6 @@
 
 .hide-mobile{
-	@media all and (max-width: division($break-width / 2)){
+	@media all and (max-width: calc($break-width / 2)){
 		display:none !important;
 	}
 }
@@ -13,7 +13,7 @@
 
 .show-mobile-only{
 	display: none !important;
-	@media all and (max-width: division($break-width / 2)){
+	@media all and (max-width: calc($break-width / 2)){
 		display: block !important;
 	}
 }
@@ -21,12 +21,12 @@
 	display: block;
 	@media all and (max-width: $break-width){
 		display: none;
-	}	
-	
+	}
+
 }
 
 .layoutDesktop{
-	
+
 	margin: 10px;
 	@media all and (max-width: $break-width){
 		margin: 0px;
@@ -34,7 +34,7 @@
 }
 
 .layoutMobile{
-	
+
 	@media all and (max-width: $break-width){
 		padding: 10px !important;
 	}
@@ -53,7 +53,7 @@
 		font-size: 12px;
 		padding: 4px 2px;
 		background: $black;
-		
+
 		span{
 			display: inline-block;
 			border-right: 1px $mage-grey solid;
@@ -64,9 +64,9 @@
 		&:hover{
 			background: $mage-grey;
 			color: black;
-			
+
 		}
-		
+
 	}
 
 .pos-rlt{position: relative;}
@@ -142,7 +142,7 @@
 }
 .padded, .padding{
 	padding: 20px !important;
-	
+
 }
 small{
 	font-size: 60%;
@@ -150,12 +150,12 @@ small{
 .error{
 	color: red;
 	padding: 10px;
-	border: 1px pink solid; 
+	border: 1px pink solid;
 	background: black;
 	margin: 10px 0px;
 	border-radius: 5px;
 }
-	
+
 .layout{
 	padding: 20px;
 }
@@ -163,8 +163,8 @@ small{
 	padding: 10px;
 }
 .padded{
-	padding: 20px;			
-			
+	padding: 20px;
+
 }
 .oval{
 	background:$oval-background;
@@ -178,10 +178,10 @@ small{
 	}
 	&.blue2{
 		background-color: #0892D0;
-	}	
+	}
 	&.green{
 		background-color: #03C03C;
-	}		
+	}
 	&.grey{
 		background-color: darken($mage-grey,15%);
 	}
@@ -196,7 +196,7 @@ small{
 			font-size: 80%;
 		}
 	}
-	
+
 }
 
 
@@ -219,11 +219,11 @@ small{
 	font-size: 18px;
 	}
 /* expeditions overwrite */
-	
+
 .ss-bfzx:before {
   content: "\e69a";
  }
- 
+
 .ss.foiled {
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #E254DD), color-stop(100%, #30FFFF));
        background: -webkit-linear-gradient(left,#E254DD 0%,#30FFFF 100%);
@@ -231,7 +231,7 @@ small{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
 $fa-cc-amex: #007bc1;
 $fa-cc-diners-club: #004A97;
 $fa-cc-discover: #f68121;
@@ -264,12 +264,12 @@ $fa-cc-visa: #0157a2;
   }
 .fa-cc-visa {
     color: $fa-cc-visa;
-  }  
-  
+  }
+
   .fa-cc-american:before{content:"\f1f3";color: $fa-cc-amex;}
-  
-  
-  
+
+
+
 
 $util-border-color: #616161;
 .utility-box{
@@ -281,7 +281,7 @@ $util-border-color: #616161;
 	}
 	&.no-left-border,.no-left-border{
 		border-left: none;
-	}	
+	}
 	&.no-top-border-desktop,.no-top-border-desktop{
 		border-top: none;
 		@media all and (max-width: $break-width){
@@ -290,21 +290,21 @@ $util-border-color: #616161;
 	}
 	&.no-top-border,.no-top-border{
 		border-top: none;
-	}		
+	}
 	&.no-bottom-border,.no-bottom-border{
 		border-bottom: none;
-	}	
-	
+	}
+
 	.border-bottom{
 		border-bottom: 1px $util-border-color solid;
-		
+
 	}
 	// preference on list of alternate versions
 	.set ol li, .inventory ol li, .set ol li:nth-child(even){ background: transparent; }
-	
+
 	$h2-h: 30px;
 	$row-h: 20px;
-	
+
 	h3{
 		background-color: $black;
 		font-size: 16px;
@@ -325,7 +325,7 @@ $util-border-color: #616161;
 			line-height:$h2-h;
 			margin: 0px;
 			margin-right: 5px;
-			
+
 			padding: 0px 10px;
 			color: lighten($mage-grey,15%);
 			background-color: lighten($mage-dark,5%);
@@ -338,7 +338,7 @@ $util-border-color: #616161;
 			margin-top: 6px;
 			border:1px $mage-grey solid;
 			//background: $mage-grey;
-			
+
 		}
 
 		.wiki-edit{
@@ -355,7 +355,7 @@ $util-border-color: #616161;
 			}
 		}
 	}
-	
+
 	h6{
 		font-size: 14px;
 		font-weight: bold;
@@ -365,15 +365,15 @@ $util-border-color: #616161;
 		text-align: center;
 		margin: 0px;
 		text-indent: 0px;
-		
+
 		&.total{
 			color: $mage-grey;
 			font-weight: normal;
 		}
 	}
-	
-	
-	
+
+
+
 	.button.util{
 		background: transparent;
 		color: $mage-grey;
@@ -384,16 +384,16 @@ $util-border-color: #616161;
 			background: white;
 			color: $mage-dark;
 		}
-		
+
 	}
-	
+
 	.on-hand-row{
 		padding: 5px 0px;
 		text-align: center;
 		span{
 			display: inline-block;
 			height: $row-h;
-			line-height: $row-h;			
+			line-height: $row-h;
 			font-size: 14px;
 			border-right: 1px $util-border-color solid;
 			&:last-child{
@@ -404,7 +404,7 @@ $util-border-color: #616161;
 				margin: 0px;
 				text-align: center;
 				font-size: 16px;
-				
+
 				border: 1px $util-border-color solid;
 				border-left: none;
 				border-radius: 0px 3px 3px 0px;
@@ -412,11 +412,11 @@ $util-border-color: #616161;
 				color: lighten($mage-grey,30%);
 				font-weight: bold;
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	ul {
 		clear:both;
 		li{
@@ -427,13 +427,13 @@ $util-border-color: #616161;
 			text-indent: 5px;
 			a {
 				color: white;
-				
+
 			}
 			small{
 				margin-right: 10px;
 			}
 		}
-		
+
 	}
-	
+
 }

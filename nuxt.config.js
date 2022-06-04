@@ -57,6 +57,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/after-each.js', mode: 'client' },
+    // { src: '~/plugins/global-components.js', mode: 'client' },
     //{ src: '~/plugins/cookiesServer.js', mode: 'server' }
   ],
 
@@ -93,5 +94,11 @@ export default {
       // https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc
       config.externals.moment = 'moment'
     }
+  },
+  publicRuntimeConfig: {
+    API_DOMAIN: process.env.API_DOMAIN
+  },
+  privateRuntimeConfig: {
+    S2S_KEY: process.env.S2S_KEY
   }
 }

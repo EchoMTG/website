@@ -9,10 +9,10 @@
   >
     <aside-tools :has-close="isSecondary" :icon="icon" @close="close">
       <span v-if="!isSecondary">
-        
+
             <img class="expanded-logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG Logo">
             <img class="closed-logo" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo">
-     
+
       </span>
       <span v-else-if="label">{{ label }}</span>
     </aside-tools>
@@ -32,6 +32,7 @@
             :is-secondary="isSecondary"
             :menu="menuGroup"
             @menu-click="menuClick"
+
           />
         </template>
       </div>
