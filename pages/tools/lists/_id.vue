@@ -27,6 +27,7 @@
             </div>
           <ul>
             <li><nuxt-link to="/tools/lists/"><span class="fa fa-archive has-text-grey-light"></span>&nbsp; <span>Lists</span></nuxt-link></li>
+            <li>&nbsp; &nbsp; <span>{{list.name}}</span></li>
           </ul>
         </nav>
         
@@ -147,7 +148,7 @@
       const id = params.id // When calling /abc the slug will be "abc"
       return { id }
     },
-    data: function data() {
+    data() {
         return {
             list: {},
             cardArray: [],
@@ -481,10 +482,7 @@
                 .then(function (response) {
                     $this.list = response.data.list;
                     $this.calculateGraphData();
-                    $this.cardArray = [];
-                    for(index in $this.list.card_list){
-                        $this.cardArray.push($this.list.card_list[index]);
-                    }
+                    $this.cardArray = $this.list.card_list;
                     if($this.sortOrder == 'ASC'){
                         $this.sortListASC();
                     } else {

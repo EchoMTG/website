@@ -31,19 +31,19 @@
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Color Distribution</p>
-          <Pie :beginatzero="false" :labels="this.$parent.colorLabels" :datasets="this.$parent.colorDataset" :bind="true"></Pie>
+          <pie-chart :chart-data="colorData" :extra-options="$parent.chartOptions" />
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Spell/Creature/Land</p>
-          <Pie :beginatzero="false"  :labels="this.$parent.sclLabels" :datasets="this.$parent.sclDataset" :bind="true"></Pie>
+          <pie-chart :chart-data="sclData" :extra-options="$parent.chartOptions" />
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Mana Curve</p>
-          <Bar :labels="this.$parent.curveLabels" :datasets="this.$parent.curveDataset" :bind="true"></Bar>
+          <bar-chart :chart-data="chartData" :extra-options="$parent.chartOptions" />
         </div>
       </div>
       
@@ -69,9 +69,10 @@
 </template>
 
 <script>
-import { Bar, Pie } from 'vue-chartjs'
+import BarChart from '@/components/Charts/BarChart'
+import PieChart from '@/components/Charts/PieChart'
 export default {
-  components: { Bar, Pie },
+  components: { BarChart, PieChart },
   props: ['list'],
   data: function data() {
     return {
@@ -175,6 +176,15 @@ export default {
         },
         manaSymbols: function() {
             return this.$parent.colorLabels
+        },
+        chartData(){
+          return { datasets: this.$parent.curveDataset, labels:this.$parent.curveLabels }
+        },
+        colorData(){
+          return { datasets: this.$parent.colorDataset, labels:this.$parent.colorLabels }
+        },
+        sclData(){
+          return { datasets: this.$parent.sclDataset, labels:this.$parent.sclLabels }
         }
     }
 }
