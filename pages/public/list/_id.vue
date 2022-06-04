@@ -7,7 +7,7 @@
 <script>
 // import axios from 'axios'
 import DeckView from '../../../components/single/DeckView.vue'
-const api_url = process.env.API_DOMAIN;
+const api_url = process.env.VUE_APP_API_DOMAIN;
 export default {
     async asyncData({ params, $http }) {
       const id = params.id
@@ -17,7 +17,7 @@ export default {
       const { list } = await fetch(url).then(res => res.json());
       return { id, list }
     },
-    
+
     components: { DeckView },
 
     // created(){
@@ -45,7 +45,7 @@ export default {
 
     //   return { list }
     // }
-    
+
 
 }
 </script>

@@ -4,14 +4,14 @@
         <div class="column is-half content">
           <h2 class="title">Completion Info</h2>
           <p><strong class="tag">{{percentageComplete}}% complete</strong> compared to your inventory which shows you have <strong>{{list.total_cards_on_hand}}</strong> of <strong>{{list.total_cards}}</strong> in you inventory.</p>
-          <p><strong class="tag">{{cardsToComplete}}</strong> cards need to be collected to complete this list.</p> 
+          <p><strong class="tag">{{cardsToComplete}}</strong> cards need to be collected to complete this list.</p>
         </div>
         <div class="column is-half content">
             <h2>Cost to Complete</h2>
             <p><strong class="tag">{{list.currency_symbol}}{{list.cost_to_finish_low}}-{{list.currency_symbol}}{{list.cost_to_finish}}</strong> is the estimated cost to complete this list.</p>
             <a :href="buyAllFromTCGplayer" target="_blank" class="button is-success">Buy Missing From TCGPlayer</a>
             <a :href="buyAllFromCardKingdom" target="_blank" class="button is-info">Buy Missing From CardKingdom</a>
-            
+
         </div>
     </div>
     <div class="card" style="margin-top: 20px;">
@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <td v-for="(title, index) in tableHeaders" :key="`title-item-index-${index}`"><span>{{title}}</span></td>
-                    </tr>                        
+                    </tr>
                 </thead>
                 <tbody>
                   <template v-for="(card, index) in list.card_list">
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-const api_url = process.env.API_DOMAIN;
+const api_url = process.env.VUE_APP_API_DOMAIN;
 export default {
   props: ['list'],
   data: function () {
