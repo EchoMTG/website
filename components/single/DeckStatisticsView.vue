@@ -168,7 +168,6 @@ export default {
             return lands
         },
         landPercentage: function () {
-
             return Number.parseFloat( (this.totalLands / this.totalCards) * 100).toFixed(0);
         },
         landToSpellRatio: function(){
