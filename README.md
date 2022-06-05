@@ -64,6 +64,18 @@ ENV values must be mapped in nuxt.config.js
 
 https://nuxtjs.org/tutorials/moving-from-nuxtjs-dotenv-to-runtime-config/
 
+### Client site use
+
+```
+this.$config.ENV_VALUE
+```
+
+### SSR
+
+```
+process.env.ENV_VALUE
+```
+
 
 # Working with NUXT (a VueJS page and routing framework)
 
