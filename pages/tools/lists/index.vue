@@ -70,7 +70,7 @@ import ListItem from "@/components/list/ListItem.vue";
             let bodyFormData = new FormData();
             bodyFormData.set('list', this.lists[listKey].id);
             bodyFormData.set('status', 0);
-            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/toggle_status/?&auth=${token}`;
+            let endpoint = `${this.$config.API_DOMAIN}lists/toggle_status/?&auth=${token}`;
             let $this = this
             axios({
                 method: 'post',
@@ -89,7 +89,7 @@ import ListItem from "@/components/list/ListItem.vue";
     created(){
         let $this = this
         let token = this.$cookies.get('token');
-        let url = `${process.env.VUE_APP_API_DOMAIN}lists/all/?&auth=${token}`
+        let url = `${this.$config.API_DOMAIN}lists/all/?&auth=${token}`
         axios.get(url)
             .then(function(response){
                 const mapped = Object.entries(response.data.lists).map(([k,v]) => v);
@@ -108,7 +108,7 @@ import ListItem from "@/components/list/ListItem.vue";
                 $this.sortList();
             });
 
-        axios.get(`${process.env.VUE_APP_API_DOMAIN}user/meta/?&auth=${token}`)
+        axios.get(`${this.$config.API_DOMAIN}user/meta/?&auth=${token}`)
             .then(function(response){
                 $this.user = response.data.user;
             });

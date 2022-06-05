@@ -95,10 +95,16 @@ export default {
       config.externals.moment = 'moment'
     }
   },
+  env: {
+    API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/'
+  },
   publicRuntimeConfig: {
-    API_DOMAIN: process.env.API_DOMAIN
+    API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/',
+    VUE_APP_API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/'
   },
   privateRuntimeConfig: {
     S2S_KEY: process.env.S2S_KEY
   }
+
+
 }

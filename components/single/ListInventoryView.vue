@@ -53,7 +53,7 @@
 </template>
 
 <script>
-const api_url = process.env.VUE_APP_API_DOMAIN;
+
 export default {
   props: ['list'],
   data: function () {
@@ -65,7 +65,7 @@ export default {
     addToInventory: function (mid, foil = 0) {
       let $this = this
       let token = this.$cookies.get('token');
-      let endpoint = `${api_url}inventory/add/?auth=${token}`
+      let endpoint = `${this.$config.API_DOMAIN}inventory/add/?auth=${token}`
       let bodyFormData = new FormData()
       bodyFormData.set('mid', mid)
       if (foil != 0) {

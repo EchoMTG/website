@@ -451,7 +451,7 @@
             let token = this.$cookies.get('token');
             let $this = this;
 
-            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/toggle_public/?&auth=${token}`;
+            let endpoint = `${this.$config.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
             let bodyFormData = new FormData();
             bodyFormData.set('list', this.list.id);
             bodyFormData.set('public', 1);

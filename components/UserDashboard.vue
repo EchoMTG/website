@@ -145,11 +145,11 @@ import RefreshButton from '@/components/RefreshButton'
     async fetch() {
 
       let token = this.$cookies.get('token');
-      let url = process.env.VUE_APP_API_DOMAIN + 'inventory/quickstats/';
+      let url = this.$config.API_DOMAIN + 'inventory/quickstats/';
       url += `?auth=${token}`;
       this.stats = await fetch(url).then(res => res.json())
       this.stats = this.stats.stats
-      let historyURL = process.env.VUE_APP_API_DOMAIN + `inventory/history/?auth=${token}`;
+      let historyURL = this.$config.API_DOMAIN + `inventory/history/?auth=${token}`;
 
       this.history = await fetch(historyURL).then(res => res.json())
       this.fillChartData();
