@@ -140,7 +140,7 @@ export default {
       let formData = new FormData();
       formData.append('email', this.email);
       formData.append('password', this.password);
-      let url = process.env.VUE_APP_API_DOMAIN + 'user/auth/'
+      let url = this.$config.VUE_APP_API_DOMAIN + 'user/auth/'
       const rawResponse = await fetch(url, {
         method: 'POST',
         body: formData
