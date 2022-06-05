@@ -42,7 +42,6 @@ export default {
 
         },
         addCard: function (cardMid, sideboard){
-            console.log(cardMid, sideboard);
             //this.$emit('addCard',cardMid);
             this.$parent.addCard(cardMid,sideboard);
         },
