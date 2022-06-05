@@ -80,7 +80,7 @@ export default {
             let bodyFormData = new FormData();
             bodyFormData.set('name', this.newDeck.name);
             bodyFormData.set('description', this.newDeck.description);
-            let endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/create/?&auth=${token}`;
+            let endpoint = `${this.$config.API_DOMAIN}lists/create/?&auth=${token}`;
             let $this = this;
             axios({
                 method: 'post',
@@ -101,7 +101,7 @@ export default {
         },
         addImportedCards(listID){
             let token = this.$cookies.get('token');
-            var add_endpoint = `${process.env.VUE_APP_API_DOMAIN}lists/add/?&auth=${token}`;
+            var add_endpoint = `${this.$config.API_DOMAIN}lists/add/?&auth=${token}`;
             let $this = this;
 
             for (let index in this.newDeck.cards.main) {

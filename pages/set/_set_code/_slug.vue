@@ -118,7 +118,7 @@ export default {
   },
   mounted () {
     if (this.dataUrl) {
-      let api_url = process.env.VUE_APP_API_DOMAIN + this.dataUrl
+      let api_url = this.$config.API_DOMAIN + this.dataUrl
       console.log(api_url)
       this.isLoading = true
       axios

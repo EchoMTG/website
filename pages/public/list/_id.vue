@@ -7,7 +7,7 @@
 <script>
 // import axios from 'axios'
 import DeckView from '../../../components/single/DeckView.vue'
-const api_url = process.env.VUE_APP_API_DOMAIN;
+const api_url = this.$config.API_DOMAIN;
 export default {
     async asyncData({ params, $http }) {
       const id = params.id
