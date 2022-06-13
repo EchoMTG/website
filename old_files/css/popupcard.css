@@ -1,0 +1,300 @@
+/**** CARD POPUP *****/
+
+.card{ 
+	width: 500px; 
+	height: 310px; 
+	background: #18191C;
+	
+	position: absolute;
+
+	
+	z-index: 100000;
+	
+	border-radius: 8px 8px 8px 8px;
+	
+	box-shadow: 5px 5px 8px rgba(0,0,0,0.4);
+	display: none;
+	overflow: hidden;
+	position: fixed;
+	top:20%;
+	left: 20%;
+	color: #fff;
+	}
+
+.card:hover{
+	cursor: move;
+	}	
+	.card .heading{
+		color:#fff;
+		background-color: #2E3035;
+		font-size: 14px;
+		padding: 10px 0px 10px 10px;
+	}
+			.card .heading h1{
+				font-size: 18px;
+				font-weight: normal;
+				
+			}	
+			.card .heading h1 .symbol{
+				font-size: 18px;
+				width:22px;
+				border-radius: 30px;
+				-moz-box-shadow:    -1px 1px 1px 1px #000;
+				-webkit-box-shadow: -1px 1px 1px 1px #000;
+			  	box-shadow:         -1px 1px 1px 1px #000;
+			}
+			
+	.card .info{
+		width: 260px;
+		margin-left: 230px;
+		margin-top: 24px;
+		font-size: 100%;
+		
+		}
+		
+		.card .info h1{
+			font-size: 100%;
+			z-index: 20;
+			position: relative;
+			}
+			
+		.card .info h1 .symbol{
+			font-size: 100%;
+			width: 20px;
+			border-radius: 15px !important;
+		}	
+		
+		.card .info h2{
+			font-size: 50%;
+			margin-top: 2px;
+			opacity: .8;
+			font-weight: normal
+			}
+			.card .info h2 span{
+				float: right;
+				opacity: .8
+				}
+		.card .info h3{
+			font-size: 65%;
+			margin-top: 2px;
+			margin-bottom: 10px;
+
+		}
+		.card .info blockquote{
+			font-size: 60%;
+			margin: 8px 0px;
+			font-weight: normal;
+			
+				line-height: 124%;
+			
+			}	
+		.card .info blockquote.flavor{
+			opacity: .7;
+			font-style: italic;
+			font-family: Georgia;
+			line-height: 110%;
+			font-size: 70%;
+			letter-spacing: 1px;
+			}
+			.card .info blockquote p{
+				margin-bottom: 8px;
+			}
+		
+	.card .cardImage{
+		margin: 0px;
+		padding: 0px;
+		position: absolute;
+		top:30px;
+		left:0px;
+		width:223px;
+		height: 310px;
+		border-radius: 10px;
+		background-repeat: no-repeat;
+		background-position: top left;
+	}
+	
+	.card .rating{
+		background-repeat: no-repeat;
+		position: absolute;
+		top:-7px;
+		right:0px;
+		opacity: .25;
+	
+	}
+	
+	.card .closeButton{
+		background: #888;
+		padding: 2px 5px;
+		color: #ddd;
+		border-radius: 0px 0px 8px 0px;
+		/* border:3px #444 solid; */
+		font-size: 9px;
+		z-index: 100000000;
+		position: absolute;
+		top:-1px; 
+		left:-1px;
+		opacity: .65;
+		font-weight: bold;
+		
+	}
+	.card .closeButton:hover{
+		cursor: pointer;
+		opacity: 1;
+	}
+	
+	.card #cardPrices{
+		position: absolute;
+		bottom:0px;
+		right:0px;
+		width: inherit;
+		height: 23px;
+		margin-bottom: 2px; margin-right: 15px;
+		
+		
+		
+	}
+		.card #cardPrices div div{
+			 background: #222
+		}
+		
+		.card #cardPrices div div span.label{ 
+			-webkit-transform: rotate(-90deg); 
+			-moz-transform: rotate(-90deg);	
+			float: left;
+			width: 25px;
+			text-align: center;
+			font-size: 10px;
+			color: #69c;
+			font-weight: bold;
+			margin-top: 5px;
+			text-transform: uppercase;
+			background: #333;
+			}
+		.card #cardPrices div.section{ float: left; width: 40px; margin-right: 2px;}
+		
+		.card #cardPrices div span.condition{ font-size: 9px; font-family: arial, sans-serif; display: block; opacity: .6 }	
+		.card #cardPrices div span.price{ font-size: 10px; display: block }	
+		
+		
+/** main page use overrides */
+#card.card{
+	width: auto;
+	height: auto;
+	background: none;
+	position: inherit;
+	z-index: 1;
+	border-radius: 0px;
+	box-shadow: none;
+	display: block;
+	position: relative;
+	top:auto;
+	left:auto;
+	min-height: 450px;
+	color: #000;
+	background: #fff;
+}	
+#card.card .info{
+margin-left: 10px;
+width: 290px;
+margin-top: 8px;
+
+}
+#card.card .info blockquote{
+	
+font-size: 16px;
+}
+	#card.card .info blockquote .symbol{
+		width: 20px;
+		border-radius: 15px;
+		font-size: 16px;
+		}
+
+#card.card:hover{ cursor:default}
+#card.card .closeButton{ display: none}
+
+#card.card .rating{ opacity: .6; z-index: 0}
+
+#card.card #cardPrices div div { padding: 0px 3px; background-color: transparent}
+
+#card.card .cardImage{
+		margin: 0px;
+		padding: 0px;
+		position: absolute;
+		top:82px;
+		left: auto;
+		right:10px;
+		width:223px;
+		height: 310px;
+		border-radius: 10px;
+		background-repeat: no-repeat;
+		background-position: top left;
+	}
+#card.card #cardPrices{
+		position: relative;
+		bottom: none;
+		left:none;
+		width: 100%;
+		height: 23px;
+		margin-left: 0px;
+		margin-top: 7px;
+		margin-bottom: 2px; 
+		margin-right: 15px;
+		
+		
+		
+	}
+	#card.card #cardPrices div div span.label{
+		display: none
+		
+	}
+	
+	#card.card #cardPrice div div{
+		background: transparent
+		
+	}		
+
+	#card.card #cardPrice div div div.section{
+		background: transparent;
+		
+	}	
+	
+	
+	
+	
+	.purchaseLink{
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		color: #ffffff;
+		padding: 10px 20px;
+		background: -moz-linear-gradient(
+			top,
+			#78b03d 0%,
+			#6da241);
+		background: -webkit-gradient(
+			linear, left top, left bottom, 
+			from(#78b03d),
+			to(#6da241));
+		border-radius: 6px;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border: 1px solid #004d12;
+		-moz-box-shadow:
+			0px 0px 1px rgba(000,000,000,0.5),
+			inset 0px 1px 1px rgba(255,255,255,0.7);
+		-webkit-box-shadow:
+			0px 0px 1px rgba(000,000,000,0.5),
+			inset 0px 1px 1px rgba(255,255,255,0.7);
+		text-shadow:
+			0px -1px 0px rgba(000,000,000,0.4),
+			0px 1px 0px rgba(255,255,255,0.3);
+		text-decoration: none;
+		position: relative;
+		top: -10px;
+		left:250px;
+	
+	}
+	
+	.purchaseLink:hover{
+		background: #78b03d;
+		
+	}

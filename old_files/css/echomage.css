@@ -1,0 +1,180 @@
+
+
+/* SEARCH */	
+
+
+
+
+ul[role=nav]{
+	position: absolute;
+	top:0px;
+	left:531px;
+	z-index:100;
+			margin: none;
+}
+
+	ul[role=nav] li{
+		display: inline;
+		margin: none;
+		list-style: none;
+	}
+	
+	ul[role=nav] li a{
+		background: rgb(117,114,100);
+		margin: 0;
+		padding: 0px 15px;
+		color: #ADABA4;
+		font-size: 12px;
+		text-decoration: none;
+		display: block;
+		float:left;
+		height: 40px;
+		line-height: 40px;
+
+	
+	}
+	
+	ul[role=nav] li a:hover{
+		background: rgb(122,121,110);
+		color: #C9C7C3;
+	}
+
+
+	ul[role=nav] li.on a{
+		
+		text-decoration: none;
+	
+	}
+	ul[role=nav] li a.on,ul[role=nav] li a.on:hover{
+		background: rgb(87,84,75);
+	
+		border-left:1px rgb(87,84,75) solid;
+		color: #fff;
+		text-shadow: 2px 2px 4px #363229;
+		border-bottom: none;
+		
+	
+	}
+	
+
+	
+	
+/** body **/
+.floatfix{ clear: both}
+
+
+#market,
+#main,
+#trade,
+#organizer,
+#mtg{
+	display: none;
+	position: relative;
+	z-index: 0;
+	
+}	
+
+#market{ display: block}
+	
+
+
+
+/** trades form styling **/
+
+fieldset{ border: none; float: left; margin-right: 15px;}
+fieldset:hover{ opacity: .8 !important}
+fieldset.on{ 
+	opacity: 1 !important;
+}
+
+
+fieldset.on label{  	
+	-moz-box-shadow:    -1px 1px 1px 1px #656565 !important;
+	-webkit-box-shadow: -1px 1px 1px 1px #656565 !important;
+	box-shadow:         -1px 1px 1px 1px #656565 !important;
+}
+
+fieldset label{ 
+	display: block; 
+	color: #666C7C; 
+	font-family: Arial; 
+	font-size: 12px; 
+	margin-bottom: 2px;
+	-moz-box-shadow:    none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow:         none !important;
+	
+	
+	}
+fieldset textarea{ width: 250px; height: 120px; padding: 5px; font-size: 13px; line-height: 18px; border-radius: 5px; border:1px #ccc solid; background: #f2f2f2}
+fieldset textarea:focus{ outline: none; border-color: #999}
+
+
+.divider{ background: #B8C1CF; width: 1px; height: 26px; margin: 5px 10px 5px 2px; float: left; opacity: .3; }
+
+ .spellType fieldset { /* background: #fff; border-radius: 8px; padding: 0px 8px; border: 1px #ccc solid;  */margin-right: 6px; opacity: .5} 
+.spellType fieldset:hover,.spellType fieldset label:hover{  cursor: pointer}
+.spellType fieldset label{/*  float: left; color: #333;  */width: 33px; height: 33px; background: #fff }
+.spellType fieldset input{ display: none; /* float: right; margin-left: 6px; margin-top: 8px; */}
+
+.manasearch fieldset{ margin-right: 6px; opacity: .4;}
+.manasearch fieldset:hover, .manasearch fieldset label:hover{ cursor: pointer;}
+.manasearch fieldset label{  width: 33px; height: 33px; }
+
+
+.manasearch fieldset input{ display: none}
+
+fieldset.submit{ clear: both; width: 515px; margin-top: 15px;}
+fieldset.submit input[type=submit] { float: right; padding: 6px 25px; border: 1px solid #999; background: #ddd url(../images/echo.png) right center no-repeat; border-radius: 5px;}
+input[type=submit]:hover{ background: #ccc ; border-color: #888; cursor: pointer}
+
+
+
+
+.gathererLink{
+	margin-right: 5px;
+}
+
+
+/* filter feedback */
+
+
+
+.badResults{
+	font-size: 20px;
+	color: #333;
+	font-weight: normal;
+	
+}
+
+.filterFault{
+	color: #555;
+	font-size: 14px;
+	margin-top: 30px;
+	margin-bottom: 15px;
+	
+}
+
+
+ul.filterList li strong{ 
+	text-transform: capitalize
+	
+}
+
+
+
+
+
+
+.mainMover{
+	
+	background: #fff;
+	border-bottom: 1px solid #ccc;
+	font-size:11px;
+	position: relative;
+}
+
+.mainMover strong{ font-size: 16px; padding: 5px; }
+.mainMover img{ width: 140px; display: block; margin: 0px auto; padding-top: 10px;}
+
+
