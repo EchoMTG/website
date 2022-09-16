@@ -272,6 +272,10 @@ export default {
         };
 
     },
+     mounted () {
+      console.log('setitemlist',this.items)
+
+  },
 }
 </script>
 

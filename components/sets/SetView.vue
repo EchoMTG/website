@@ -1303,7 +1303,7 @@
 </template>
 
 <script>
-    import SetItemList from '@/components/sets/SetView';
+    import SetItemList from '@/components/sets/SetItemList';
 
 export default {
 
@@ -1366,7 +1366,7 @@ export default {
 
     },
     created () {
-      console.log("set view",this.items)
+      console.log("set view created",this.items)
         this.setCode = this.$parent.setCode
         this.userLevel = this.$parent.userLevel
 
