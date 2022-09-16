@@ -1,29 +1,24 @@
 <template>
   <div>
     Hello world
+      <SetView :items="set.items" />
    </div>
+
 </template>
 
 <script>
-import axios from 'axios'
-import ModalBox from '@/components/ModalBox'
+import SetView from '@/components/sets/SetView'
+
 
 export default {
   name: 'Expansion',
-  components: { ModalBox },
+  components: { SetView },
   props: {
-    dataUrl: {
-      type: String,
-      default: null
-    },
-    checkable: {
-      type: Boolean,
-      default: false
-    }
+
   },
   data () {
     return {
-      setItems: {},
+      set: {},
       checkedRows: []
     }
   },
@@ -32,54 +27,34 @@ export default {
 
   },
   mounted () {
-    console.log(this.$route.params)
-    if (this.dataUrl) {
-      let api_url = this.$config.API_DOMAIN + this.dataUrl
-      console.log(api_url)
 
-      this.isLoading = true
-      axios
-        .get(api_url)
-        .then((r) => {
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.expansions = r.data.data
-          }
-        })
-        .catch((e) => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
-    }
+
   },
-  async asyncData({ params, redirect, env }) {
-    console.log('async',params, env.S2S_KEY)
+  async asyncData({ params, redirect, env, $config }) {
+
     let set_code = params.set_code;
-    let setItems;
+    let set;
+
+    // fetch the set
     const res = await fetch(
-      `https://www.echomtg.com/api/data/set/?set_code=${set_code}`, {
+      `${$config.API_DOMAIN}data/set/?set_code=${set_code}`, {
         headers: {
           'Authorization' : 'Bearer ' + process.env.S2S_KEY
         }
       }
     );
+
+    // try to get the json
     try {
-      setItems = await res.json();
-      console.log(setItems);
+      set = await res.json();
     } catch(err){
       console.log(err, res)
     }
 
-
-    if (setItems) {
+    // return it
+    if (set) {
       return {
-        setItems: setItems
+        set: set
       }
     } else {
       redirect('/sets/')
