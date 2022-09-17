@@ -104,7 +104,11 @@
       </a>
     </div>
 
-    <SetItemList :items="this.set.items" v-if="this.tab == 'list'" />
+    <SetItemList
+      v-if="this.tab == 'list'"
+      :items="this.set.items"
+      :cardsOwners="this.set.owned"
+      />
 
     <sealed-product v-if="this.tab == 'sealed'" inline-template>
       <div class="container padded">
@@ -1344,13 +1348,10 @@ export default {
 
     },
     created () {
-      console.log("set view created",this.items)
         this.setCode = this.$parent.setCode
         this.userLevel = this.$parent.userLevel
-
     },
     mounted() {
-       console.log("set view mounted",this.items)
         window.addEventListener("scroll", this.lazyLoad);
         window.scrollTo(0, 0);
         setTimeout(this.lazyLoad, 500)

@@ -43,14 +43,15 @@
 
           <div
             class="select is-small is-rounded has-text-grey"
-            v-if="variants.length > 0"
+            v-if="this.variants.length > 0"
           >
             <select v-model="variant" class="has-text-grey">
               <option value="" selected>Any Variant</option>
               <option disabled>---</option>
               <option value="none">No Variants</option>
-              <option v-for="v in variants" :value="v">
-                {{ v.replace(') (', ' ') }}
+              <option v-for="v in this.variants" :value="v">
+                <!-- {{ v.replace(') (', ' ') }} -->
+                {{v.emid}}
               </option>
             </select>
           </div>
@@ -128,7 +129,7 @@
           </div>
         </div>
         <div
-          v-if="items.length > 0 && this.filteredItems.length == 0"
+          v-if="items.length > 0 && filteredItems.length == 0"
           class="box has-text-centered"
         >
           <h4 class="title">No Results Found</h4>
@@ -234,16 +235,15 @@
           </thead>
 
           <tbody v-if="items.length > 0">
-            <tr
+            <SetItemRow
               v-for="item in filteredItems"
               :key="item.emid"
               :owned="isCardOwned(item.emid, 'regular')"
               :ownedfoil="isCardOwned(item.emid, 'foiled')"
               :fullview="fullView"
               @emit-wiki="openWiki(item)"
-              is="set-tr"
               :item="item"
-            ></tr>
+            />
           </tbody>
 
           <!-- shown if note logged in -->
@@ -257,25 +257,278 @@
 </template>
 
 <script>
+
+import SetItemRow from '@/components/sets/SetItemRow';
+
 export default {
   name: 'SetItemList',
-
-    data: function data() {
-
-        return {
-            title: 'Set Name',
-            items: [],
-            tab: 'list',
-            cardsowned: {},
-            setData: {},
-            cardsOwned: {},
-        };
-
+  components: { SetItemRow },
+  props: {
+    items: {
+      type: Array,
+      default: () => []
     },
-     mounted () {
-      console.log('setitemlist',this.items)
+    cardsowned: {
+      type: Object,
+      default: () => {}
+    },
+    userlevel: {
+      type: String,
+      default: '1'
+    },
 
   },
+  data: function data() {
+    return {
+      title: 'Set Items List',
+      setCode: '',
+      sortMetric: 'tcg_mid',
+      sortDirection: 'DESC',
+      search: '',
+      rarity: '',
+      showOwned: '',
+      valueAbove: 0,
+      valueBelow: 0,
+      textSearch: '',
+      wikiItem: {},
+      wikiOpen: false,
+      variant: '',
+      variants: [],
+      fullView: false
+    };
+
+  },
+  mounted () {
+    console.log('setitemlist',this.items)
+    console.log('cards owned', this.cardsowned)
+    this.findVariants()
+  },
+  methods: {
+    findVariants(){
+        this.items.forEach(item => {
+            if(/\(/.test(item.name) ){
+                let m = item.name.match(/\((.*)\)/m);
+                if (m) {
+                    this.addVariant(m[1]);
+                }
+            }
+        })
+    },
+    addVariant(name) {
+        if(name.length < 5) return
+
+        let exists = false
+        this.variants.forEach(variant => {
+            if(name == variant) exists = true
+        })
+
+        if(!exists){
+            this.variants.push(name)
+        }
+
+    },
+    toggleFullView: function(){
+        this.fullView = this.fullView == false ? true : false;
+    },
+    openWiki: function(item){
+        this.wikiItem = item
+        this.wikiOpen = true
+    },
+    closeWiki() {
+        this.wikiOpen = false
+    },
+    isCardOwned: function(emid, type='regular') {
+        return this.cardsowned[type]?.[emid] ? this.cardsowned[type][emid] : 0
+    },
+    clearFilters: function() {
+        this.search='';
+        this.rarity='';
+        this.textSearch='';
+        this.valueAbove=0;
+        this.valueBelow=0;
+    },
+    changeSortMetric: function(value){
+        if(value == this.sortMetric) this.swapDirection();
+        this.sortMetric = value
+    },
+    swapDirection: function(){
+        this.sortDirection = (this.sortDirection == 'ASC') ? 'DESC' : 'ASC';
+    },
+    defaultSortBy: function(a,b){
+        const aVal = a[this.sortMetric]
+        const bVal = b[this.sortMetric]
+
+        let comparison = 0;
+
+        if(this.sortDirection == 'ASC') {
+            if (aVal > bVal) {
+                comparison = 1;
+            } else if (aVal < bVal) {
+                comparison = -1;
+            }
+        } else {
+            if (aVal < bVal) {
+                comparison = 1;
+            } else if (aVal > bVal) {
+                comparison = -1;
+            }
+        }
+        return comparison;
+    },
+    sortByPrice: function(a,b){
+        // T added for tokens
+        let valA = a[this.sortMetric] != '' ? a[this.sortMetric]+"" : "0"
+        let valB = b[this.sortMetric] != '' ? b[this.sortMetric]+"" : "0"
+
+        const priceA = parseFloat(valA.replace('T','1000'))
+        const priceB = parseFloat(valB.replace('T','1000'))
+
+        if(this.sortDirection == 'ASC') {
+            return priceA - priceB
+        } else {
+          return priceB - priceA
+        }
+    }
+
+  },
+  watch: {
+    sortMetric: () => {},
+    search: () => {},
+    textSearch: () => {},
+    rarity: () => {},
+    valueAbove: () => {},
+    valueBelow: () => {},
+    showOwned: () => {},
+    items: function() {
+        this.findVariants()
+        window.scroll({
+            top: 1,
+            left: 0,
+            behavior: 'smooth'
+          }); // account for lazy load
+    }
+  },
+  computed: {
+       filteredItems: function(){
+
+            if(this.items.length == 0) return
+            let scrollPos = window.scrollY == 0 ? 1 : 0
+            window.scroll({
+                top: scrollPos,
+                left: 0,
+                behavior: 'smooth'
+              }); // account for lazy load
+
+            let returnItems = [...this.items]
+
+            // show owned
+            if(this.showOwned != '') {
+                if(this.showOwned == "true reg"){
+                    returnItems = returnItems.filter(item => {
+                        return this.cardsowned.regular.hasOwnProperty(item.emid)
+                    });
+                }
+
+                if(this.showOwned == "true foil"){
+                    returnItems = returnItems.filter(item => {
+                        return this.cardsowned.foiled.hasOwnProperty(item.emid)
+                    });
+                }
+
+                if(this.showOwned == "false reg"){
+                    returnItems = returnItems.filter(item => {
+                        return !this.cardsowned.regular.hasOwnProperty(item.emid)
+                    });
+                }
+
+                if(this.showOwned == "false foil"){
+                    returnItems = returnItems.filter(item => {
+                        return !this.cardsowned.foiled.hasOwnProperty(item.emid)
+                    });
+                }
+
+            }
+
+            // card name and types
+            if(this.search != '') {
+                returnItems = returnItems.filter(item => {
+                    if(item.name.toLowerCase().includes(this.search.toLowerCase())){
+                        return true
+                    }
+
+                    if(item.t != null && item.t.toLowerCase().includes(this.search.toLowerCase())) {
+                        return true
+                    }
+                    if(item.collectors_number != null && item.collectors_number.toLowerCase().includes(this.search.toLowerCase())) {
+                        return true
+                    }
+                    return false
+                });
+            }
+
+            // card oracle  search
+            if(this.textSearch != '') {
+                returnItems = returnItems.filter(item => {
+                    if(item.card_text != null && item.card_text.toLowerCase().includes(this.textSearch.toLowerCase())) {
+                        return true
+                    }
+                    return false
+                });
+            }
+
+            // variants
+            if(this.variant != '') {
+                if(this.variant == 'none'){
+                    returnItems = returnItems.filter(item => {
+                        return (item.name != null && !item.name.toLowerCase().includes('('))
+                    });
+                } else {
+                    returnItems = returnItems.filter(item => {
+                        return (item.name != null && item.name.toLowerCase().includes(this.variant.toLowerCase()))
+                    });
+                }
+            }
+
+            // rarity filter
+            if(this.rarity != ''){
+                returnItems = returnItems.filter(item => {
+                    return item.rarity.toLowerCase().startsWith(this.rarity.toLowerCase())
+
+                });
+            }
+
+            if(typeof parseFloat(this.valueAbove) === 'number' && parseFloat(this.valueAbove) > 0){
+                returnItems = returnItems.filter(item => {
+                    return parseFloat(item.tcg_mid) >= parseFloat(this.valueAbove)
+                });
+            }
+
+            if(typeof parseFloat(this.valueBelow) === 'number' && parseFloat(this.valueBelow) > 0){
+                returnItems = returnItems.filter(item => {
+                    return parseFloat(item.tcg_mid) <= parseFloat(this.valueBelow)
+                });
+            }
+
+
+            // sort it
+            switch(this.sortMetric.toLowerCase()){
+                case 'price':
+                case 'tcg_mid':
+                case 'tcg_market':
+                case 'price_change':
+                case 'tcg_low':
+                case 'foil_price':
+                case 'collectors_number':
+                    return [...returnItems.sort(this.sortByPrice)]
+
+                default:
+                    return [...returnItems.sort(this.defaultSortBy)]
+            }
+
+
+        },
+
+  }
 }
 </script>
 
