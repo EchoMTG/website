@@ -1,7 +1,7 @@
 <template>
   <div>
-    Hello world
-      <SetView :items="set.items" />
+
+      <SetView :set="set" />
    </div>
 
 </template>
@@ -25,21 +25,24 @@ export default {
   computed: {
 
 
+
   },
   mounted () {
 
-
+    console.log("mounted items", this.set.items)
   },
-  async asyncData({ params, redirect, env, $config }) {
+  async asyncData({ params, redirect, $config, env }) {
 
     let set_code = params.set_code;
     let set;
 
     // fetch the set
+    let endpoint = `${$config.API_DOMAIN}data/set/?set_code=${set_code}`;
+    console.log(endpoint,env.S2S_KEY)
     const res = await fetch(
-      `${$config.API_DOMAIN}data/set/?set_code=${set_code}`, {
+      endpoint, {
         headers: {
-          'Authorization' : 'Bearer ' + process.env.S2S_KEY
+          'Authorization' : 'Bearer ' + env.S2S_KEY
         }
       }
     );
@@ -47,6 +50,7 @@ export default {
     // try to get the json
     try {
       set = await res.json();
+      console.log('fetching set from _set_name', set)
     } catch(err){
       console.log(err, res)
     }
@@ -54,7 +58,7 @@ export default {
     // return it
     if (set) {
       return {
-        set: set
+        set: set.set
       }
     } else {
       redirect('/sets/')

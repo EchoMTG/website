@@ -7,7 +7,7 @@
         Expansions
       </router-link>
     </hero-bar>
-    <expansions data-url="data/sets/" />
+    <Expansions :expansions="expansions" />
     </div>
 </template>
 
@@ -26,11 +26,41 @@ export default {
   },
   data () {
     return {
-      title: 'Expansions'
+      title: 'Expansions',
+      expansions: []
     }
   },
-  asyncData (req) {
-    //console.log('server',req)
+  async asyncData({ redirect, $config, env }) {
+     let expansions;
+    let endpoint = `${$config.API_DOMAIN}data/sets/`;
+    console.log(endpoint,env.S2S_KEY)
+
+    // fetch the set
+    const res = await fetch(
+      endpoint, {
+        headers: {
+          'Authorization' : 'Bearer ' + env.S2S_KEY
+        }
+      }
+    );
+
+    // try to get the json
+    try {
+      expansions = await res.json();
+      console.log('expansions from sets',expansions)
+    } catch(err){
+      console.log(err, res)
+    }
+
+    // return it
+    if (expansions) {
+
+      return {
+        expansions: expansions.data
+      }
+    } else {
+      redirect('/sets/')
+    }
   },
   computed: {
     titleStack () {

@@ -24,41 +24,13 @@
       </ul>
     </nav>
 
-    <set-summary v-bind="setData" inline-template>
-      <div class="setSummary">
-        <div class="imageBox">
-          <img
-            :src="topcardImage"
-            class="setTopImage"
-            alt="Streets of New Capenna top card image"
-          />
-        </div>
-        <div class="columns">
-          <div class="column is-three-fifths">
-            <i
-              class="largeSetIcon ss ss-snc ss-echo is-size-3 has-text-black"
-            ></i>
-            <h1>
-              <em
-                class="has-text-white has-shadow has-text-weight-light is-size-6"
-                >Magic the Gathering MTG</em
-              >
-              <br />
-              <a class="is-size-3" href="/set/SNC/streets-of-new-capenna/"
-                >Streets of New Capenna - SNC</a
-              >
-            </h1>
-            <h2 class="has-text-weight-normal has-text-light-grey is-size-7">
-              MTG Streets of New Capenna was released on 2022-04-29 with 527
-              unique cards.
-            </h2>
-          </div>
-          <div class="column">
-            <!-- CTA -->
-          </div>
-        </div>
-      </div>
-    </set-summary>
+    <SetSummary
+      :setName="set.name"
+      :setCode="set.set_code"
+      :topcardImage="set.items[0].image_cropped"
+      :setReleaseDate="set.release_date"
+      :setTotalItems="set.items.length"
+    />
 
     <div class="setTabs tabs is-boxed is-flex">
       <ul>
@@ -132,7 +104,7 @@
       </a>
     </div>
 
-    <SetItemList :items="this.items" v-if="this.tab == 'list'" />
+    <SetItemList :items="this.set.items" v-if="this.tab == 'list'" />
 
     <sealed-product v-if="this.tab == 'sealed'" inline-template>
       <div class="container padded">
@@ -1304,16 +1276,22 @@
 
 <script>
     import SetItemList from '@/components/sets/SetItemList';
+    import SetSummary from '@/components/sets/SetSummary';
 
 export default {
 
     name: 'SetView',
-    components: { SetItemList },
+    components: { SetItemList, SetSummary },
+    props: {
+      set: {
+        type: Object,
+        default: () => {}
+      }
+    },
     data: function data() {
 
         return {
             title: 'Set Name',
-            items: [],
             tab: 'list',
             setCode: '',
             setData: {},

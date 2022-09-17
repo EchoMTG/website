@@ -1,11 +1,6 @@
 <template>
   <div>
-    <modal-box
-      :is-active="isModalActive"
-      :trash-object-name="trashObjectName"
-      @confirm="trashConfirm"
-      @cancel="trashCancel"
-    />
+
     <b-table
       :checked-rows.sync="checkedRows"
       :checkable="checkable"
@@ -79,84 +74,44 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
 
 export default {
   name: 'Expansions',
   components: { ModalBox },
   props: {
-    dataUrl: {
-      type: String,
-      default: null
-    },
+
     checkable: {
       type: Boolean,
       default: false
+    },
+    expansions: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
       isModalActive: false,
-      trashObject: null,
-      expansions: [],
       isLoading: false,
       paginated: false,
-      perPage: 10,
+      perPage: 20,
       checkedRows: []
     }
   },
   computed: {
-    trashObjectName () {
-      if (this.trashObject) {
-        return this.trashObject.name
-      }
 
-      return null
-    }
 
   },
-  mounted () {
-    if (this.dataUrl) {
-      let api_url = this.$config.API_DOMAIN + this.dataUrl
+  created () {
+    console.log("expansions componenet", this.expansions)
+    if (this.expansions) {
 
-      this.isLoading = true
-      axios
-        .get(api_url)
-        .then((r) => {
-          console.log(r.data)
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.expansions = r.data.data
-          }
-        })
-        .catch((e) => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
+
     }
   },
   methods: {
-    trashModal (trashObject) {
-      this.trashObject = trashObject
-      this.isModalActive = true
-    },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-    },
-    trashCancel () {
-      this.isModalActive = false
-    },
+
     makeSetPath(code, path_part){
       return `/set/${code}/${path_part}/`
     }
