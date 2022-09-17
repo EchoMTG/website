@@ -50,13 +50,13 @@
               <option disabled>---</option>
               <option value="none">No Variants</option>
               <option v-for="v in this.variants" :value="v">
-                <!-- {{ v.replace(') (', ' ') }} -->
-                {{v.emid}}
+                 {{ v.replace(') (', ' ') }}
+
               </option>
             </select>
           </div>
 
-          <div
+          <!-- <div
             class="select is-small is-rounded has-text-grey is-hidden-mobile"
             v-if="Object.keys(cardsowned).length > 0"
           >
@@ -68,7 +68,7 @@
               <option value="false reg">Not Owned Regular</option>
               <option value="false foil">Not Owned Foil</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
@@ -338,7 +338,7 @@ export default {
         this.wikiOpen = false
     },
     isCardOwned: function(emid, type='regular') {
-        return this.cardsowned[type]?.[emid] ? this.cardsowned[type][emid] : 0
+        return this.cardsowned?.[type] ? this.cardsowned[type]?.[emid] : 0
     },
     clearFilters: function() {
         this.search='';
@@ -401,23 +401,13 @@ export default {
     showOwned: () => {},
     items: function() {
         this.findVariants()
-        window.scroll({
-            top: 1,
-            left: 0,
-            behavior: 'smooth'
-          }); // account for lazy load
+
     }
   },
   computed: {
        filteredItems: function(){
 
             if(this.items.length == 0) return
-            let scrollPos = window.scrollY == 0 ? 1 : 0
-            window.scroll({
-                top: scrollPos,
-                left: 0,
-                behavior: 'smooth'
-              }); // account for lazy load
 
             let returnItems = [...this.items]
 
@@ -425,25 +415,25 @@ export default {
             if(this.showOwned != '') {
                 if(this.showOwned == "true reg"){
                     returnItems = returnItems.filter(item => {
-                        return this.cardsowned.regular.hasOwnProperty(item.emid)
+                        return this.cardsowned?.regular ? this.cardsowned.regular.hasOwnProperty(item.emid) : false;
                     });
                 }
 
                 if(this.showOwned == "true foil"){
                     returnItems = returnItems.filter(item => {
-                        return this.cardsowned.foiled.hasOwnProperty(item.emid)
+                        return this.cardsowned?.foiled ? this.cardsowned.foiled.hasOwnProperty(item.emid) : false;
                     });
                 }
 
                 if(this.showOwned == "false reg"){
                     returnItems = returnItems.filter(item => {
-                        return !this.cardsowned.regular.hasOwnProperty(item.emid)
+                        return !this.cardsowned?.regular ? !this.cardsowned?.regular.hasOwnProperty(item.emid) : false;
                     });
                 }
 
                 if(this.showOwned == "false foil"){
                     returnItems = returnItems.filter(item => {
-                        return !this.cardsowned.foiled.hasOwnProperty(item.emid)
+                        return !this.cardsowned?.foiled ? !this.cardsowned?.foiled.hasOwnProperty(item.emid) : false;
                     });
                 }
 

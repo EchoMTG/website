@@ -29,7 +29,7 @@ export default {
   },
   mounted () {
 
-    console.log("mounted items", this.set.items)
+    console.log("mounted set object", this.set)
   },
   async asyncData({ params, redirect, $config, env }) {
 

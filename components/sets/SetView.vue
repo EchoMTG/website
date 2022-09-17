@@ -107,7 +107,7 @@
     <SetItemList
       v-if="this.tab == 'list'"
       :items="this.set.items"
-      :cardsOwners="this.set.owned"
+      :cardsOwned="this.owned"
       />
 
     <sealed-product v-if="this.tab == 'sealed'" inline-template>
@@ -1356,6 +1356,9 @@ export default {
         window.scrollTo(0, 0);
         setTimeout(this.lazyLoad, 500)
       },
+    computed: {
+      owned() { return this.set?.owned ? this.set.owned : {} }
+    }
 }
 </script>
 
