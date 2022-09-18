@@ -32,23 +32,12 @@ export default {
   },
   async asyncData({ redirect, $config, env, $echomtg }) {
      let expansions;
-    let endpoint = `${$config.API_DOMAIN}data/sets/`;
-    $echomtg.log(endpoint+env.S2S_KEY)
 
-
-    // fetch the set
-    const res = await fetch(
-      endpoint, {
-        headers: {
-          'Authorization' : 'Bearer ' + env.S2S_KEY
-        }
-      }
-    );
 
     // try to get the json
     try {
-      expansions = await res.json();
-      //console.log('expansions from sets',expansions)
+      expansions = await $echomtg.getSets()
+
     } catch(err){
       console.log(err, res)
     }
@@ -57,7 +46,7 @@ export default {
     if (expansions) {
 
       return {
-        expansions: expansions.data
+        expansions: expansions
       }
     } else {
       redirect('/sets/')

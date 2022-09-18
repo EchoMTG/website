@@ -248,21 +248,22 @@
 
           <!-- shown if note logged in -->
         </table>
-        <item-wiki-edit
-          v-bind:item="wikiItem"
+        <ItemWikiEdit
+          :item="wikiItem"
           @emit-wiki-close="closeWiki()"
-          v-bind:open="wikiOpen"
-        ></item-wiki-edit>
+          :open="wikiOpen"
+        />
       </div>
 </template>
 
 <script>
 
 import SetItemRow from '@/components/sets/SetItemRow';
+import ItemWikiEdit from '@/components/wiki/ItemWikiEdit';
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow },
+  components: { SetItemRow, ItemWikiEdit },
   props: {
     items: {
       type: Array,
@@ -299,8 +300,8 @@ export default {
 
   },
   mounted () {
-    console.log('setitemlist',this.items)
-    console.log('cards owned', this.cardsowned)
+
+    this.$echomtg.log('cards owned', this.cardsowned)
     this.findVariants()
   },
   methods: {

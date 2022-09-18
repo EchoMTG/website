@@ -2,17 +2,28 @@ export default (context, inject) => {
   const echomtg = {}
 
   echomtg.log = (...params) => {
-    console.log(params);
+    console.log(...params);
   }
 
   echomtg.createGrowl = (message,icon,color="grey") => {
     alert(message + icon + color)
   }
 
+  echomtg.getSets = async () => {
+    let res = await fetch(`${context.env.API_DOMAIN}data/sets/`, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.env.S2S_KEY
+      }
+    })
+    let data = await res.json();
+    echomtg.log('getting sets from echo api', data.data)
+    return data.data;
+  }
+
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
     let url = `${context.env.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
-    console.log(url, 'adding inventory', context.app.$cookies.get('token'));
+    echomtg.log(url, 'adding inventory', context.app.$cookies.get('token'));
     const res = await fetch(url, {
       headers: {
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
