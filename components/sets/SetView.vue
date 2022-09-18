@@ -1352,6 +1352,7 @@ export default {
         this.userLevel = this.$parent.userLevel
     },
     mounted() {
+
         window.addEventListener("scroll", this.lazyLoad);
         window.scrollTo(0, 0);
         setTimeout(this.lazyLoad, 500)

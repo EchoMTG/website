@@ -32,7 +32,7 @@
             <a :href="item.echo_url" class="card-reveal" :data-foil-price="this.item.foil_price" :data-tcg-mid="this.item.tcg_mid" :data-image="image">{{item.name}}</a></strong>
             {{item.types}}
             <span v-if="item.reserve_list == 1">Reserved List</span><br>
-        <em v-html="manaSymbols(item.mc)"></em>
+        <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
 
 
         <div class="content padded" v-if="fullview">
@@ -119,15 +119,8 @@ export default {
   },
 
   methods: {
-      manaSymbols: function(mc){
-
-          return mc //convertSymbols(mc);
-      },
       inventoryQuickAdd: function(emid,foil=0) {
-          let url = `/api/inventory/add/emid=${emid}&foil=${foil}`;
-          fetch(url).then(res => res.json()).then(response => {
-              alert(response.message); //createGrowl(response.message);
-          })
+          this.$echomtg.inventoryQuickAdd(emid, foil)
       },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);

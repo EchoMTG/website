@@ -104,6 +104,7 @@ export default {
 
   },
   created () {
+
     //console.log("expansions componenet", this.expansions)
     if (this.expansions) {
 

@@ -30,10 +30,11 @@ export default {
       expansions: []
     }
   },
-  async asyncData({ redirect, $config, env }) {
+  async asyncData({ redirect, $config, env, $echomtg }) {
      let expansions;
     let endpoint = `${$config.API_DOMAIN}data/sets/`;
-    console.log(endpoint,env.S2S_KEY)
+    $echomtg.log(endpoint+env.S2S_KEY)
+
 
     // fetch the set
     const res = await fetch(
@@ -47,7 +48,7 @@ export default {
     // try to get the json
     try {
       expansions = await res.json();
-      console.log('expansions from sets',expansions)
+      //console.log('expansions from sets',expansions)
     } catch(err){
       console.log(err, res)
     }
