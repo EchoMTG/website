@@ -2,7 +2,9 @@ export default (context, inject) => {
   const echomtg = {}
 
   echomtg.log = (...params) => {
-    console.log(...params);
+    if(/dev/i.test(context.env.API_DOMAIN)){
+      console.log(...params);
+    }
   }
 
   echomtg.createGrowl = (message,icon,color="grey") => {
