@@ -18,7 +18,7 @@
     />
     <nuxt />
     <aside-right />
-    <config-box />
+    <!-- <config-box /> -->
     <footer-bar />
     <overlay @overlay-click="overlayClick" />
   </div>
