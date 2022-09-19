@@ -48,10 +48,10 @@
                                     <div class="field"  style="flex: 100; flex-grow: 100;">
                                         <label class="label">Expansion</label>
                                         <input type="hidden" name="set_code" :value="currentSetCode">
-                                        <set-selector
+                                        <SetSelector
                                             v-bind:default-selection="currentSet"
                                             @changeSet="changeSet"
-                                            ></set-selector>
+                                            />
 
                                            <p class="help">{{currentSet}} [{{currentSetCode}}]</p>
                                     </div>
@@ -148,10 +148,11 @@
     </div>
 </template>
 <script>
-
+import SetSelector from '@/components/wiki/SetSelector'
 
 export default {
   name: 'ItemWikiEdit',
+  components: { SetSelector },
   props: {
       item: {
           type: Object,
@@ -232,10 +233,10 @@ export default {
           return (this.newSetCode != '') ? this.newSetCode : this.item.set_code
       },
       fullImage: function(){
-          return this.item.image + '?' + Date.now()
+          return this.item?.image ? this.item.image + '?' + Date.now() : ''
       },
       croppedImage: function(){
-          return this.item.image_cropped + '?' + Date.now()
+          return this.item?.image_cropped ? this.item.image_cropped + '?' + Date.now() : ''
       }
 
   },

@@ -34,7 +34,7 @@ export const state = () => ({
   isDarkModeActive: false,
 
   /* ConfigBox */
-  isConfigBoxVisible: true
+  isConfigBoxVisible: false
 })
 
 export const mutations = {

@@ -1,14 +1,52 @@
-/*
+<template>
+  <div class="relativeContainer">
+      <div :class="mainClass" ref="dropSearchContainer">
+          <nav class="panel is-link dropSearch">
+        <div class="panel-top" >
+            <div class="panel-block" style="padding: 0">
+              <p class="control has-icons-left">
+                <input
+                      :placeholder="this.defaultSelection"
+                      ref="dropSearchInput"
+                      type="text"
+                      class="input has-text-grey"
+                      v-model="search"
+                      @click="setOpen(true)"
+                >
+                <span class="icon is-left">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+              </p>
+            </div>
+            <p class="panel-tabs">
+              <a @click="setBlockType('')" :class="blockTypeTabClass('')">All</a>
+              <a @click="setBlockType('core')" :class="blockTypeTabClass('core')">Core</a>
+              <a @click="setBlockType('block')" :class="blockTypeTabClass('block')">Block</a>
+              <a @click="setBlockType('other')" :class="blockTypeTabClass('other')">Other</a>
+            </p>
+        </div>
+        <a
+          v-for="(set,index) in filteredSets"
+          :class="getClassName(index)"
+          :data-set-code="set.set_code"
+          :data-set-name="set.name"
+          @click="changeSet(set.name, set.set_code)"
+          >
+          <span class="panel-icon">
+            <i :class="getIconName(set.set_code)" aria-hidden="true"></i>
+          </span>
+          {{set.name}}
+        </a>
 
-Usage
-<set-selector v-bind:default-selection="currentSet" @changeSet="callback"></set-selector>
-
-Emits "changeSet" which sends "set_name","set_code" as function params
-
-Your call back would look like callback(set_name, set_code){ ....
-
-
- */
+        <div class="panel-block">
+          <button class="button is-link is-outlined is-fullwidth" @click="clearSearch()">
+            Clear Search
+          </button>
+        </div>
+      </nav>
+      </div>
+  </div>
+</template>
 <script>
   export default {
 
@@ -183,52 +221,3 @@ Your call back would look like callback(set_name, set_code){ ....
     }
   }
 </script>
-<template>
-  <div class="relativeContainer">
-      <div :class="mainClass" ref="dropSearchContainer">
-          <nav class="panel is-link dropSearch">
-        <div class="panel-top" >
-            <div class="panel-block" style="padding: 0">
-              <p class="control has-icons-left">
-                <input
-                      :placeholder="this.defaultSelection"
-                      ref="dropSearchInput"
-                      type="text"
-                      class="input has-text-grey"
-                      v-model="search"
-                      @click="setOpen(true)"
-                >
-                <span class="icon is-left">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </span>
-              </p>
-            </div>
-            <p class="panel-tabs">
-              <a @click="setBlockType('')" :class="blockTypeTabClass('')">All</a>
-              <a @click="setBlockType('core')" :class="blockTypeTabClass('core')">Core</a>
-              <a @click="setBlockType('block')" :class="blockTypeTabClass('block')">Block</a>
-              <a @click="setBlockType('other')" :class="blockTypeTabClass('other')">Other</a>
-            </p>
-        </div>
-        <a
-          v-for="(set,index) in filteredSets"
-          :class="getClassName(index)"
-          :data-set-code="set.set_code"
-          :data-set-name="set.name"
-          @click="changeSet(set.name, set.set_code)"
-          >
-          <span class="panel-icon">
-            <i :class="getIconName(set.set_code)" aria-hidden="true"></i>
-          </span>
-          {{set.name}}
-        </a>
-
-        <div class="panel-block">
-          <button class="button is-link is-outlined is-fullwidth" @click="clearSearch()">
-            Clear Search
-          </button>
-        </div>
-      </nav>
-      </div>
-  </div>
-</template>
