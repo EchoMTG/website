@@ -32,12 +32,12 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
-import ConfigBox from '@/components/ConfigBox'
+// import ConfigBox from '@/components/ConfigBox'
 
 export default {
   name: 'App',
   components: {
-    ConfigBox,
+    // ConfigBox,
     AsideRight,
     Overlay,
     FooterBar,
