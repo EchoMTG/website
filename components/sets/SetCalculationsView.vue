@@ -12,7 +12,7 @@
               <p class="heading is-size-7-mobile">
                 Reg. Set <span class="hide-mobile">Value</span>
               </p>
-              <p class="title is-size-4-mobile">$671.83</p>
+              <p class="title is-size-4-mobile">${{set.total_value}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -21,7 +21,7 @@
                 Foil Set <span class="hide-mobile">Value</span>
               </p>
               <p class="title is-size-4-mobile">
-                <span class="average_foil">$1718.67</span>
+                <span class="average_foil">${{set.foil_value}}</span>
               </p>
             </div>
           </div>
@@ -31,7 +31,7 @@
                 Box <span class="hide-mobile">Expected Value</span>
               </p>
               <p class="title is-size-4-mobile">
-                <span class="average_value">$2390.5</span>
+                <span class="average_value">${{set.box_value}}</span>
               </p>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <p class="heading is-size-7-mobile">
                 Pack <span class="hide-mobile">Expected Value</span>
               </p>
-              <p class="title is-size-4-mobile">&mdash;</p>
+              <p class="title is-size-4-mobile">${{set.pack_value}}</p>
             </div>
           </div>
         </nav>
@@ -53,7 +53,7 @@
                   <span class="icon has-text-grey">
                     <i class="fa fa-calculator"></i>
                   </span>
-                  <span>Streets of New Capenna Averages and Pull Odds</span>
+                  <span>{{set.name}} and Pull Odds</span>
                 </h3>
               </div>
 
@@ -69,26 +69,26 @@
                     </tr>
                     <tr>
                       <td>
-                        <span class="average_value">527 Unique Cards</span>
+                        <span class="average_value">{{set.total_cards}} Unique Cards</span>
                       </td>
-                      <td><span class="average_value">54</span></td>
-                      <td><span class="average_value">149</span></td>
-                      <td><span class="average_value">110</span></td>
-                      <td><span class="average_value">116</span></td>
+                      <td><span class="average_value">{{set.mythic_total}}</span></td>
+                      <td><span class="average_value">{{set.rare_total}}</span></td>
+                      <td><span class="average_value">{{set.uncommon_total}}</span></td>
+                      <td><span class="average_value">{{set.common_total}}</span></td>
                     </tr>
                     <tr>
                       <td>Average Value</td>
-                      <td><span class="average_value">$1.91</span></td>
-                      <td><span class="average_value">$0.69</span></td>
-                      <td><span class="average_value">$0.16</span></td>
-                      <td><span class="average_value">$0.13</span></td>
+                      <td><span class="average_value">${{set.mythic_value_average}}</span></td>
+                      <td><span class="average_value">${{set.rare_value_average}}</span></td>
+                      <td><span class="average_value">${{set.uncommon_value_average}}</span></td>
+                      <td><span class="average_value">${{set.common_value_average}}</span></td>
                     </tr>
                     <tr>
                       <td>Average Foil Value</td>
-                      <td><span class="average_foil">$2.00</span></td>
-                      <td><span class="average_foil">$0.66</span></td>
-                      <td><span class="average_foil">$0.14</span></td>
-                      <td><span class="average_foil">$0.11</span></td>
+                      <td><span class="average_foil">${{set.mythic_foil_value_average}}</span></td>
+                      <td><span class="average_foil">${{set.rare_foil_value_average}}</span></td>
+                      <td><span class="average_foil">${{set.uncommon_foil_value_average}}</span></td>
+                      <td><span class="average_foil">${{set.common_foil_value_average}}</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -102,7 +102,7 @@
                   <span class="icon has-text-grey">
                     <i class="fa fa-database"></i>
                   </span>
-                  <span>My Streets of New Capenna Collection Tally</span>
+                  <span>{{set.name}} Collection Tally</span>
                 </h3>
               </div>
 
@@ -115,7 +115,7 @@
                   <span>Add Full Set</span>
                 </a>
                 <h5 class="title is-size-6">
-                  You own 0 (0%) of 415 Regular Cards*
+                  You own 0 (0%) of {{set.items.length}} Regular Cards*
                 </h5>
                 <progress
                   class="progress is-medium is-info"
@@ -126,7 +126,7 @@
                 </progress>
 
                 <h5 class="title is-size-6">
-                  You own 0 (0%) of 508 Foiled Cards*
+                  You own 0 (0%) of {{set.total_foil_cards}} Foiled Cards*
                 </h5>
                 <progress
                   class="progress is-medium is-warning"
@@ -157,6 +157,9 @@ export default {
         type: Object,
         default: () => {}
       }
+  },
+  created() {
+    this.$echomtg.log(this.set)
   }
 
 }
