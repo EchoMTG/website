@@ -39,31 +39,46 @@ export default (context, inject) => {
   echomtg.replaceSymbols = (str) => {
 
     if(str == null) return ''
-		let pattern =  /\{\{(.*?)\}\}/gi;
+    str = str.toLowerCase();
+		let pattern =  /\{\{?(.*?)\}?\}/gi;
 		let matches = str.match(pattern);
-
+    if( matches == null ) return str;
 		// symbols
 		if(matches.length > 0){
 			matches.forEach(match => {
-				let splitLetters = match.toLowerCase().replace(/(\{\{)|(\}\})/g,'');
+				let splitLetters = match.toLowerCase().replace(/(\{\{?)|(\}?\})/g,'');
 
 				switch(match.toLowerCase()){
 					case '{{g}}':
 					case '{{G}}':
+          case '{G}':
+          case '{g}':
 					case '{{u}}':
 					case '{{U}}':
+          case '{u}':
+					case '{U}':
 					case '{{w}}':
 					case '{{W}}':
+          case '{w}':
+					case '{W}':
 					case '{{b}}':
 					case '{{B}}':
+          case '{b}':
+					case '{B}':
 					case '{{r}}':
 					case '{{R}}':
+          case '{r}':
+					case '{R}':
 					case '{{X}}':
 					case '{{x}}':
 					case '{{t}}':
 					case '{{T}}':
+          case '{T}':
+          case '{t}':
 					case '{{n}}':
 					case '{{N}}':
+          case '{n}':
+          case '{N}':
 						str = str.replace(match,`<span class="symbol ${splitLetters}">${splitLetters}</span>`);
 						break;
 					case '{{rg}}':

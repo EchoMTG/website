@@ -57,7 +57,7 @@ export default {
     }
   },
   computed: {
-    iconString(){return `largeSetIcon ss ss-${this.setCode.toLowerCase()} ss-echo is-size-3 has-text-black`},
+    iconString(){return `largeSetIcon ss ss-${this.setCode.toLowerCase()} ss-echo is-size-3`},
   }
 }
 </script>

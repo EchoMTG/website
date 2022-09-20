@@ -35,14 +35,14 @@
         <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
 
 
-        <div class="content padded" v-if="fullview">
-            {{item.card_text}}
+        <div class="content padded" v-if="fullview" v-html="this.$echomtg.replaceSymbols(item.card_text)">
+
         </div>
 
     </td>
     <td >
         <span class="is-mobile">[{{item.collectors_number}}]</span>
-        <span class="has-text-white">{{item.rarity}}</span>
+        <span class="">{{item.rarity}}</span>
     </td>
     <td class="is-hidden-mobile">
         <span>{{item.collectors_number}}</span>
@@ -57,7 +57,7 @@
         <span v-if="item.price_change != 0" class="has-text-weight-bold">{{item.price_change}}%</span>
     </td>
     <td class="is-flex-direction-column">
-        <span class="has-text-weight-bold has-text-white">{{item.tcg_mid}}</span>
+        <span class="has-text-weight-bold">${{item.tcg_mid}}</span>
         <button v-if="item.tcg_mid > 0" class="button is-info is-small is-outlined " @click="inventoryQuickAdd(item.emid,0)">
             <span class="icon">
                 <i class="fa fa-plus"></i>
@@ -65,7 +65,7 @@
         </button>
     </td>
     <td class="is-flex-direction-column">
-        <span  class="has-text-weight-bold has-text-warning">{{item.foil_price}}</span>
+        <span  class="has-text-weight-bold has-text-warning">${{item.foil_price}}</span>
         <button v-if="item.foil_price > 0" class="button is-warning is-small is-outlined " @click="inventoryQuickAdd(item.emid,1)">
             <span class="icon">
                 <i class="fa fa-plus"></i>

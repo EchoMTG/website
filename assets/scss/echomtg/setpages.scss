@@ -2,7 +2,7 @@
 .setTabs{
 	position: relative;
 	z-index: 2;
-	margin-bottom: 0px !important; 
+	margin-bottom: 0px !important;
 }
 
 #wikiUpdateForm {
@@ -34,13 +34,10 @@
 
 .set-item-list-container {
 	.filterBar{
-		position: sticky; 
-		top: 40px; 
-		background: black; 
+		position: sticky;
+		top: 50px;
+		background: white;
 		z-index: 10;
-	}
-	.padded {
-		padding: 10px !important;
 	}
 	@media all and (max-width: $break-width){
 		$smallOverride: .69rem;
@@ -48,7 +45,7 @@
 			.is-small {
 				font-size: $smallOverride;
 			}
-		}	
+		}
 		.select.is-small, .button.is-small  {
 			font-size: $smallOverride;
 		}
@@ -75,19 +72,17 @@
 	.field {
 		margin-bottom: 0;
 	}
-	th {
-		background: black;
-		cursor: pointer;
-		&:hover{
-			color: white;
-		}
-	}
+}
+
+.setViews {
+  position: relative;
+  z-index: 1;
 }
 
 .setSummary, .cardSummary {
 	position: relative;
 	padding: 20px;
-	height: 140px;
+	height: auto;
 	@media all and (max-width: $break-width){
 		height: auto;
 	}
@@ -100,33 +95,41 @@
 	h1 {
 		font-size:  24px;
 		text-shadow: 0px 0px 3px #000,0px 0px 5px #000,0px 0px 4px #000;
-		margin-bottom: 5px;
+		margin-bottom: 0px;
+    a {
+      color: white;
+    }
 	}
 	h2 {
 		text-shadow: 0px 0px 3px #000,0px 0px 4px #000,0px 0px 5px #000;
+    color: white;
 	}
 	.largeSetIcon{
-		font-size: 80px !important;
+		font-size: 100px !important;
 		display: inline-block;
 		float: left;
+    color: white;
 		margin-right: 15px;
-		-webkit-text-stroke-width: 1px;
-		-webkit-text-stroke-color: white;
-		opacity: .7;
+		-webkit-text-stroke-width: 4px;
+		-webkit-text-stroke-color: black;
+		opacity: .8;
 	}
 
-	$imageHeight: 220px;
+	$imageHeight: 300px;
 	div.imageBox {
-		width: 300px;
+		width: 400px;
 		height: $imageHeight;
 		position: absolute;
+    overflow: hidden;
 		top: 0px;
 		left: 0px;
+    z-index: 0;
 		@media all and (max-width: $break-width){
 			width: 400px;
 			height: 320px;
 		}
-		&:after {
+
+    &::before {
 			content: ""; // ::before and ::after both require content
 			position: absolute;
 			top: 0;
@@ -137,23 +140,23 @@
 			mix-blend-mode: color;
 			mix-blend-mode: hue;
 			mix-blend-mode: hard-light;
-			background-image: 
-					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1));
+			background-image:
+					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0), rgba(0, 0, 0, .5), rgba(0, 0, 0, 1));
 			@media all and (max-width: $break-width){
-				background-image: 
-					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1)), 
-					linear-gradient(180deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .8), rgba(0, 0, 0, 1));
+				background-image:
+					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1)),
+					linear-gradient(180deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .8), rgba(0, 0, 0, 1));
 			}
 		}
 
 		.setTopImage {
 			z-index: 0;
 			position: absolute;
-			top: 0px;
+			top: -20%;
 			left: 0px;
 			bottom: 0px;
 			right: 0px;
-			width: 100%;
+			width: 150%;
 		}
 	}
 
@@ -166,13 +169,6 @@
 
 // bulma overrides
 
-.tabs.is-boxed li.is-active a{
-	background: black !important;
-}
-
-#set-table tr th{
-	border-color: black;
-}
 
 .image-thumbnail{
 	float: left;
@@ -202,16 +198,11 @@
 		text-shadow: 0px 0px 1px #009900;
 		font-weight: bold;
 	}
-	
+
 }
 
 .todaysprices {
 	.label:not(:last-child){
 		margin-bottom: 0px;
-	}
-}
-.set,.sets {
-	.breadcrumb{
-		margin-bottom: 0px !important;
 	}
 }

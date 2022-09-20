@@ -1,5 +1,5 @@
 <template>
-      <div class="container padded">
+      <div class=" padded has-background-white">
         <nav class="level is-mobile">
           <div class="level-item has-text-centered">
             <div>
@@ -58,8 +58,9 @@
               </div>
 
               <div class="card-content" style="padding: 0">
-                <table class="set-numbers">
-                  <tbody>
+                <table class="table is-striped is-fullwidth">
+
+                  <thead>
                     <tr>
                       <th></th>
                       <th>Mythic</th>
@@ -67,6 +68,8 @@
                       <th>Uncommon</th>
                       <th>Common</th>
                     </tr>
+                  </thead>
+                  <tbody>
                     <tr>
                       <td>
                         <span class="average_value">{{set.total_cards}} Unique Cards</span>

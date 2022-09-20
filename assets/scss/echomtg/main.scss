@@ -9,10 +9,6 @@ html, body{
 .push-margin-for-nav {
 	margin-top: $header-size !important;
 }
-#content {
-	background: black;
-	padding-bottom: 30px;
-}
 
 #bulk-action-box{
 	position: fixed;
@@ -232,15 +228,6 @@ html, body{
 	}
 }
 
-a{
-	color: lighten($button-blue,18%);
-	text-decoration: none;
-
-	&:hover{
-		color: white;
-
-	}
-}
 .has-background-dark::placeholder{
 	color: $mage-grey;
 }

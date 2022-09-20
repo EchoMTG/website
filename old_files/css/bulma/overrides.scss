@@ -18,6 +18,12 @@
   filter: none;
 }
 
+.breadcrumb {
+  z-index: 1;
+  position: relative;
+}
+
+
 .section {
   background-color: $body-background-color;
 }

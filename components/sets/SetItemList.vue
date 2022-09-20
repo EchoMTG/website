@@ -1,5 +1,5 @@
  <template>
-      <div class="container set-item-list-container">
+      <div class="has-background-white set-item-list-container">
         <div v-if="items.length > 0" class="is-flex padded filterBar">
           <div class="control has-icons-left">
             <input
@@ -137,8 +137,8 @@
             Clear Search and Filters
           </button>
         </div>
-        <table id="set-table" class="table is-striped is-bordered">
-          <thead class="has-background-black">
+        <table id="set-table" class="table is-striped is-fullwidth">
+          <thead>
             <tr>
               <th class="owned">
                 <span class="green fa fa-check-circle"></span>
