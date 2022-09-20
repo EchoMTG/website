@@ -929,7 +929,7 @@
       </div>
     </sealed-product>
 
-    <SetTrendingView v-if="this.tab == 'trending'" :items="this.set.items" />
+    <SetTrendingView v-if="this.tab == 'trending'" :setName="this.set.name" :items="this.set.items" />
     <pull-odds
       v-if="this.tab == 'pull'"
       @add-full-set="addFullSet()"
