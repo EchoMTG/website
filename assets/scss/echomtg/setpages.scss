@@ -36,7 +36,6 @@
 	.filterBar{
 		position: sticky;
 		top: 50px;
-		background: white;
 		z-index: 10;
 	}
 	@media all and (max-width: $break-width){
@@ -78,7 +77,9 @@
   position: relative;
   z-index: 1;
 }
-
+.is-dark-mode-active .setViews{
+  background: black;
+}
 .setSummary, .cardSummary {
 	position: relative;
 	padding: 20px;
@@ -115,7 +116,7 @@
 		opacity: .8;
 	}
 
-	$imageHeight: 300px;
+	$imageHeight: 180px;
 	div.imageBox {
 		width: 400px;
 		height: $imageHeight;

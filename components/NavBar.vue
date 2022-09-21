@@ -95,6 +95,7 @@
             <span>Make Account</span>
           </router-link>
           </p>
+
           </div>
         </div>
         <!-- <a
@@ -105,6 +106,15 @@
           <b-icon icon="help-circle-outline" custom-size="default" />
           <span>About</span>
         </a> -->
+
+        <b-button size="is-small" @click="toggleDark">
+          <b-icon icon="sun" custom-size="default" />
+          <span>Toggle Dark</span>
+        </b-button>
+
+
+
+      </b-field>
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           :class="{ 'is-active': isAsideRightActive }"
@@ -218,6 +228,9 @@ export default {
     },
     updatesToggle () {
       this.$store.dispatch('asideRightToggle')
+    },
+    toggleDark () {
+      this.$store.commit('darkModeToggle')
     },
     logout () {
       this.$buefy.snackbar.open({

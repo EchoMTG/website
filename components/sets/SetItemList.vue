@@ -1,5 +1,5 @@
  <template>
-      <div class="has-background-white set-item-list-container">
+      <div class="set-item-list-container">
         <div v-if="items.length > 0" class="is-flex padded filterBar">
           <div class="control has-icons-left">
             <input

@@ -1,5 +1,5 @@
 <template>
-   <div class="has-background-white padded">
+   <div class="padded">
         <div class="columns">
           <div class="column">
             <div class="card">

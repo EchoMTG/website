@@ -31,8 +31,9 @@
 /* custom echomtg */
 @import "echomtg-nuxt/echoheader";
 
-/* For better theme preview. Remove on live projects */
-@import "iframe-preview";
 
 /* Config box */
 @import "config-box";
+
+@import "echomtg/custom";
+@import "echomtg-nuxt/echo-addons";
