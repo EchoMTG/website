@@ -1,5 +1,5 @@
 <template>
-      <div class=" padded has-background-white">
+      <div class="padded">
         <nav class="level is-mobile">
           <div class="level-item has-text-centered">
             <div>
@@ -162,7 +162,7 @@ export default {
       }
   },
   created() {
-    this.$echomtg.log(this.set)
+    // this.$echomtg.log(this.set)
   }
 
 }

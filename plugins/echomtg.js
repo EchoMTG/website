@@ -22,6 +22,19 @@ export default (context, inject) => {
     return data.data;
   }
 
+  echomtg.getSealed = async (set_code) => {
+	let url = `${context.env.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
+	console.log(`fetchgin ${url}`)
+    let res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.env.S2S_KEY
+      }
+    })
+    let data = await res.json();
+    echomtg.log('getting sealed from echo api', data.data)
+    return data.data;
+  }
+
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
     let url = `${context.env.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;

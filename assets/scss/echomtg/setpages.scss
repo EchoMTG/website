@@ -3,6 +3,56 @@
 	position: relative;
 	z-index: 2;
 	margin-bottom: 0px !important;
+	margin-top: -40px;
+	@media all and (max-width: $break-width){
+		margin-top: 0px;
+	}
+	&.tabs{
+		li{
+			a {
+				color: white;
+				text-shadow: 0px 0px 5px black;
+			}
+			a:hover {
+				background-color: rgba(255,255,255,.5);
+				color: black;
+				text-shadow: 0px 0px 5px white;
+			}
+			&.is-active {
+				a {
+					color: black;
+					text-shadow: none;
+					&:hover{
+						text-shadow: none;
+						background-color: white;
+					}
+				}
+
+			}
+			
+		}
+	}
+}
+
+.is-dark-mode-active {
+	.setTabs.tabs{
+
+		li{
+			
+
+			&.is-active{
+				a {
+					background: black;
+					color: white;
+					&:hover {
+						background-color: black;
+						color: white;
+						text-shadow: none;
+					}
+				}
+			}
+		}
+	}
 }
 
 #wikiUpdateForm {
@@ -80,10 +130,12 @@
 .is-dark-mode-active .setViews{
   background: black;
 }
+$imageHeight: 180px;
 .setSummary, .cardSummary {
 	position: relative;
 	padding: 20px;
-	height: auto;
+	height: $imageHeight;
+	background: black;
 	@media all and (max-width: $break-width){
 		height: auto;
 	}
@@ -116,12 +168,12 @@
 		opacity: .8;
 	}
 
-	$imageHeight: 180px;
+	
 	div.imageBox {
 		width: 400px;
-		height: $imageHeight;
+		height: 100%;
 		position: absolute;
-    overflow: hidden;
+    	overflow: hidden;
 		top: 0px;
 		left: 0px;
     z-index: 0;
