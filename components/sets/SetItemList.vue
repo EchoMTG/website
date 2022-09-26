@@ -4,7 +4,7 @@
           <div class="control has-icons-left">
             <input
               v-model="search"
-              class="input is-small is-rounded has-background-dark has-text-grey"
+              class="input is-small is-rounded"
               type="text"
               @input="$event.target.composing = false"
               placeholder="Name or Type.."
@@ -17,7 +17,7 @@
           <div class="control has-icons-left is-hidden-mobile">
             <input
               v-model="textSearch"
-              class="input is-small is-rounded has-background-dark has-text-grey"
+              class="input is-small is-rounded"
               type="text"
               @input="$event.target.composing = false"
               placeholder="Card/Oracle Text.."
@@ -73,7 +73,7 @@
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static has-background-dark has-text-grey"
+                class="button is-small is-rounded is-static"
               >
                 $ >
               </a>
@@ -91,7 +91,7 @@
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static has-background-dark has-text-grey"
+                class="button is-small is-rounded is-static"
               >
                 $ <
               </a>

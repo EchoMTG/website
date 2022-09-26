@@ -4,14 +4,14 @@
         <div class="columns is-multiline">
         
               
-            <div v-for="sealed in sealedItems"  :key="sealed.emid" class="column is-one-quarter-desktop is-one-thirds-tablet is-two-quarters-mobile">
+            <div v-for="sealed in sealedItems"  :key="sealed.emid" class="column is-one-thirds-desktop is-one-thirds-tablet is-two-quarters-mobile">
               <div class="card">
-                <div class="card-header has-background-black">
+                <div class="card-header">
                   <p class="card-header-title title is-size-5 has-text-centered">
                     {{sealed.name}}
                   </p>
                 </div>
-                <footer class="card-footer has-background-black">
+                <footer class="card-footer">
                   <a
                     rel="nofollow"
                     :href="sealed.purchase_link"
@@ -52,7 +52,7 @@
                   >
                 </footer>
                 <div class="card-image">
-                  <figure class="image is-4by3">
+                  <figure class="image ">
                     <img
                       :src="sealed.image"
                       :alt="set.name"
@@ -71,13 +71,13 @@
                     </div>
                     <div class="media-content">
                       <h2 class="title is-4">
-                        {{set.name}} - {{sealed.name}}
+                        {{sealed.name}}
                       </h2>
                       <p class="subtitle is-6">${{sealed.tcg_market}}</p>
                     </div>
                   </div>
-                  <div class="content">
-                    {{sealed.description}}
+                  <div class="content" v-html="sealed.description">
+                    
                   </div>
                 </div>
               </div>
