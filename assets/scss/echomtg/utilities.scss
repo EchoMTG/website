@@ -269,6 +269,13 @@ $fa-cc-visa: #0157a2;
   .fa-cc-american:before{content:"\f1f3";color: $fa-cc-amex;}
 
 
+  .itemInspectorCard {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	z-index: 5;
+  }
+
 
 
 $util-border-color: #616161;

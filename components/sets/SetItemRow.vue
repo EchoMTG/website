@@ -9,7 +9,7 @@
         </span>
 
     </td>
-    <td class="itemTDView content">
+    <td class="itemTDView " @mouseenter="() => setShowItem(true)" @mouseleave="setShowItem(false)">
 
 
         <a v-if="this.$parent.userlevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
@@ -29,12 +29,15 @@
             height="120px"  style="width: 120px; float: left; margin-right: 4px;">
 
         <strong>
-            <a :href="item.echo_url" class="card-reveal" :data-foil-price="this.item.foil_price" :data-tcg-mid="this.item.tcg_mid" :data-image="image">{{item.name}}</a></strong>
-            {{item.types}}
-            <span v-if="item.reserve_list == 1">Reserved List</span><br>
+            <a :href="item.echo_url"  >
+            {{item.name}}
+            </a>
+        </strong>
+        <ItemInspector :item="item" v-if="showItem == true" />
+        {{item.types}}
+        <span v-if="item.reserve_list == 1">Reserved List</span>
+        <br>
         <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
-
-
         <div class="content padded" v-if="fullview" v-html="this.$echomtg.replaceSymbols(item.card_text)">
 
         </div>
@@ -75,8 +78,11 @@
   </tr>
 </template>
 <script>
+import ItemInspector from '@/components/items/ItemInspector';
+
 export default {
   name: 'SetItemRow',
+  components: {ItemInspector},
   props: {
       item: {
           type: Object,
@@ -98,6 +104,7 @@ export default {
           default: false
       }
   },
+  
   computed: {
       image: function() {
           return `https://assets.echomtg.com/magic/cards/original/${this.item.emid}.jpg`
@@ -112,6 +119,7 @@ export default {
   data: function data() {
       return {
           title: 'Item',
+          showItem: false,
       };
   },
   created () {
@@ -121,6 +129,10 @@ export default {
   methods: {
       inventoryQuickAdd: function(emid,foil=0) {
           this.$echomtg.inventoryQuickAdd(emid, foil)
+      },
+      setShowItem: function(bool){
+        console.log(bool)
+        this.showItem = bool
       },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);
