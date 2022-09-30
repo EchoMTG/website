@@ -30,7 +30,7 @@
         </a>
 
         <strong @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
-            <a :href="itemUrl" @click="() => setShowItem(true, true)">
+            <a  class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
             {{item.name}}
             </a>
             <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
@@ -62,20 +62,24 @@
         <span v-if="item.price_change != 0" class="has-text-weight-bold">{{item.price_change}}%</span>
     </td>
     <td class="is-flex-direction-column">
-        <span class="has-text-weight-bold">${{item.tcg_mid}}</span>
-        <button v-if="item.tcg_mid > 0" class="button is-info is-small is-outlined " @click="inventoryQuickAdd(item.emid,0)">
-            <span class="icon">
-                <i class="fa fa-plus"></i>
-            </span>
-        </button>
+        <div v-if="hasRegular">
+            <span class="has-text-weight-bold">${{item.tcg_mid}}</span>
+            <button class="button is-info is-small is-outlined " @click="inventoryQuickAdd(item.emid,0)">
+                <span class="icon">
+                    <i class="fa fa-plus"></i>
+                </span>
+            </button>
+        </div>
     </td>
     <td class="is-flex-direction-column">
-        <span  class="has-text-weight-bold has-text-warning">${{item.foil_price}}</span>
-        <button v-if="item.foil_price > 0" class="button is-warning is-small is-outlined " @click="inventoryQuickAdd(item.emid,1)">
-            <span class="icon">
-                <i class="fa fa-plus"></i>
-            </span>
-        </button>
+        <div v-if="hasFoil">
+            <span  class="has-text-weight-bold has-text-warning">${{item.foil_price}}</span>
+            <button class="button is-warning is-small is-outlined " @click="inventoryQuickAdd(item.emid,1)">
+                <span class="icon">
+                    <i class="fa fa-plus"></i>
+                </span>
+            </button>
+        </div>
     </td>
   </tr>
 </template>
@@ -108,18 +112,21 @@ export default {
   },
   
   computed: {
-      image() {
-          return `https://assets.echomtg.com/magic/cards/original/${this.item.emid}.jpg`
-      },
-      imageSrcSet() {
-          return `${this.item.image_cropped} 1x`
-      },
-      imageSrcSetBig() {
-          return `${this.image} 1x`
-      },
-      itemURL() {
-        return this.showItem ? this.item.echo_url : "javascript:void(0)";
-      }
+    image() {
+        return `https://assets.echomtg.com/magic/cards/original/${this.item.emid}.jpg`
+    },
+    imageSrcSet() {
+        return `${this.item.image_cropped} 1x`
+    },
+    imageSrcSetBig() {
+        return `${this.image} 1x`
+    },
+    hasFoil() {
+        return this.item.foil_price == null ? false : true;
+    },
+    hasRegular() {
+        return this.item.tcg_mid == null ? false : true;
+    },
   },
   data: function data() {
       return {
@@ -143,6 +150,10 @@ export default {
       },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);
+      },
+      getItemURL: function () {
+        //console.log('itemURL',this.item.echo_url)
+        return this.showItem ? "javascript:void(0)" : this.item.echo_url;
       }
   }
 }

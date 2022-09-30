@@ -1,23 +1,20 @@
 <template>
     <div :class="cardClass">
-        <header class="card-header" v-if="showFull">
-            <p class="card-header-title">
-            {{item.name}}
-            </p>
-        </header>
-        <img v-if="!showFull" :src="item.image" alt="Placeholder image">
-        <div class="ml-2 mr-2" v-if="showFull">
+        <img v-if="!showFull" class="popoverImage" :src="item.image" alt="Placeholder image" />
+        <div v-if="showFull">
             <div class="columns">
                 <div class="column is-one-third">
-                    <img :src="item.image" alt="Placeholder image">
+                    <img class="popoverImage" :src="item.image" alt="Placeholder image" />
                 </div>
-                <div class="column is-two-thirds">
-                
+                <div class="column is-two-thirds ">
+                    <div class="mr-3 ml-2">
+                        <p class="subtitle is-size-5 mt-3 mb-0">
+                            {{item.name}}
+                        </p>
+                        <p class="is-size-6">{{item.types}}</p>
 
-                    <p class="title is-5">{{item.types}}</p>
-                    <p class="subtitle is-6">{{item.tcg_mid}}</p>
-
-                    <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)" />
+                        <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)" />
+                    </div>
                 </div>
             </div>
         </div>
