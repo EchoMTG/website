@@ -11,7 +11,7 @@
                         <p class="subtitle is-size-5 mt-3 mb-0">
                             {{item.name}}
                         </p>
-                        <p class="is-size-6">{{item.types}}</p>
+                        <p class="subtitle is-size-6 mb-1">{{item.types}}</p>
 
                         <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)" />
                     </div>

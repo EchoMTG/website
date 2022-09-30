@@ -29,12 +29,12 @@
                 height="120px"  style="width: 120px; float: left; margin-right: 4px;">
         </a>
 
-        <strong @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
+        <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
             <a  class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
             {{item.name}}
             </a>
             <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
-        </strong>
+        </div>
         
         {{item.types}}
         <span v-if="item.reserve_list == 1">Reserved List</span>

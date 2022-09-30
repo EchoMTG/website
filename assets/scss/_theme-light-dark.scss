@@ -13,6 +13,9 @@ $base-color: #2e323a;
 //$base-color-light: rgba(24,28,33,0.06);
 $base-color-light: #f1f2f2;
 
+$text: $grey-darker;
+$body-color: $text;
+
 /* General overrides */
 $primary: $cyan;
 $body-background-color: $white;
