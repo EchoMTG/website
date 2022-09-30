@@ -97,7 +97,9 @@ export default {
     }
   },
   env: {
-    API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/'
+    API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/',
+    S2S_KEY: process.env.S2S_KEY || ''
+
   },
   publicRuntimeConfig: {
     API_DOMAIN: process.env.API_DOMAIN || 'https://www.echomtg.com/api/',

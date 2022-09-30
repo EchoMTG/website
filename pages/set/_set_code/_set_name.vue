@@ -38,7 +38,7 @@ export default {
     const res = await fetch(
       endpoint, {
         headers: {
-          'Authorization' : 'Bearer ' + env.S2S_KEY
+          'Authorization' : 'Bearer ' + $config.S2S_KEY
         }
       }
     );

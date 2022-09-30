@@ -8,7 +8,7 @@
       />
     </div>
     <div class="columns">
-      <div class="column is-three-fifths">
+      <div class="column is-three-quarters">
         <i :class="iconString"></i>
         <h1>
           <em class="has-text-white has-shadow has-text-weight-light is-size-6">Magic the Gathering MTG</em>
