@@ -9,31 +9,33 @@
         </span>
 
     </td>
-    <td class="itemTDView " @mouseenter="() => setShowItem(true)" @mouseleave="setShowItem(false)">
+    <td class="itemTDView">
 
 
         <a v-if="this.$parent.userlevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
+        <a :href="item.echo_url" :title="`Open ${item.name} Page`">
+            <img
+                v-if="fullview == false"
+                :data-src="item.image_cropped"
+                src="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                :data-srcset="imageSrcSetBig"
+                height="40px" class="lazy" style="height: 40px; float: left; margin-right: 4px;">
 
-        <img
-            v-if="fullview == false"
-            :data-src="item.image_cropped"
-            src="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-            :data-srcset="imageSrcSetBig"
-            height="40px" class="lazy" style="height: 40px; float: left; margin-right: 4px;">
+            <img
+                v-if="fullview == true"
+                :src="image"
+                :data-src="item.image"
+                :data-srcset="imageSrcSet"
+                height="120px"  style="width: 120px; float: left; margin-right: 4px;">
+        </a>
 
-        <img
-            v-if="fullview == true"
-            :src="image"
-            :data-src="item.image"
-            :data-srcset="imageSrcSet"
-            height="120px"  style="width: 120px; float: left; margin-right: 4px;">
-
-        <strong>
-            <a :href="item.echo_url"  >
+        <strong @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
+            <a :href="itemUrl" @click="() => setShowItem(true, true)">
             {{item.name}}
             </a>
+            <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
         </strong>
-        <ItemInspector :item="item" v-if="showItem == true" />
+        
         {{item.types}}
         <span v-if="item.reserve_list == 1">Reserved List</span>
         <br>
@@ -106,20 +108,24 @@ export default {
   },
   
   computed: {
-      image: function() {
+      image() {
           return `https://assets.echomtg.com/magic/cards/original/${this.item.emid}.jpg`
       },
-      imageSrcSet: function() {
+      imageSrcSet() {
           return `${this.item.image_cropped} 1x`
       },
-      imageSrcSetBig: function() {
+      imageSrcSetBig() {
           return `${this.image} 1x`
       },
+      itemURL() {
+        return this.showItem ? this.item.echo_url : "javascript:void(0)";
+      }
   },
   data: function data() {
       return {
           title: 'Item',
           showItem: false,
+          showFullItem: false,
       };
   },
   created () {
@@ -130,9 +136,10 @@ export default {
       inventoryQuickAdd: function(emid,foil=0) {
           this.$echomtg.inventoryQuickAdd(emid, foil)
       },
-      setShowItem: function(bool){
-        console.log(bool)
-        this.showItem = bool
+      setShowItem: function(showItem, showFullItem=false){
+        this.showItem = showItem;
+        this.showFullItem = showFullItem;
+        
       },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);
