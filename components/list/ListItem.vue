@@ -42,7 +42,6 @@ export default {
             //document.querySelector('#delete-list-button').setAttribute("data-list-key",key);
         },
         makePublic: function(id, index){
-            console.log(id);
             let token = this.$cookies.get('token');
             let listID = id;
             let $this = this;

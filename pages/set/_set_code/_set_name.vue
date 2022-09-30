@@ -27,10 +27,6 @@ export default {
 
 
   },
-  mounted () {
-
-    console.log("mounted set object", this.set)
-  },
   async asyncData({ params, redirect, $config, env }) {
 
     let set_code = params.set_code;
@@ -38,7 +34,7 @@ export default {
 
     // fetch the set
     let endpoint = `${$config.API_DOMAIN}data/set/?set_code=${set_code}`;
-    console.log(endpoint,env.S2S_KEY)
+
     const res = await fetch(
       endpoint, {
         headers: {
@@ -50,7 +46,7 @@ export default {
     // try to get the json
     try {
       set = await res.json();
-      // console.log('fetching set from _set_name', set)
+      console.log('fetching set from _set_name', set)
     } catch(err){
       console.log(err, res)
     }

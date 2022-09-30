@@ -66,7 +66,7 @@ import ListItem from "@/components/list/ListItem.vue";
             let token = this.$cookies.get('token');
             let listKey = event.target.getAttribute('data-list-key');
 
-            console.log(this.lists[listKey].id);
+
             let bodyFormData = new FormData();
             bodyFormData.set('list', this.lists[listKey].id);
             bodyFormData.set('status', 0);

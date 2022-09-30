@@ -188,9 +188,7 @@ export default {
       },
       updateWikiItem: function(){
           var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
-          console.log(this.$refs.wikiUpdateForm)
           let url = `/api/wiki/update_name/`
-          console.log(formData)
           fetch(url, {
               method: 'POST',
               body: formData

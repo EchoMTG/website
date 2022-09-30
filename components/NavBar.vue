@@ -161,8 +161,6 @@ export default {
   },
   computed: {
     isUserLoggedIn () {
-      console.log('user',this.userName)
-
       return this.userName !== null
     },
     menuNavBarToggleIcon () {

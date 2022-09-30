@@ -24,7 +24,7 @@ export default (context, inject) => {
 
   echomtg.getSealed = async (set_code) => {
 	let url = `${context.env.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
-	console.log(`fetchgin ${url}`)
+	console.log(`fetching ${url}`)
     let res = await fetch(url, {
       headers: {
         'Authorization' : 'Bearer ' + context.env.S2S_KEY

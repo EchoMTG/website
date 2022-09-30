@@ -133,8 +133,11 @@ export default {
     props: {
       set: {
         type: Object,
-        default: () => {
-          items: []
+        default: function(){
+          return {
+            'items': [],
+            'owned': []
+          }
         }
       }
     },
@@ -162,8 +165,6 @@ export default {
                     //setTimeout(addToInventoryByEchoID(item.emid),500);
                     return item
                 });
-                // createGrowl('Set Added');
-                // reloadInventoryStats();
             }
         },
 

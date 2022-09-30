@@ -43,9 +43,6 @@ export default {
         default: false
       }
     },
-    mounted() {
-        console.log('popup',this.item)
-    },
     computed: {
         hasFoil() {
             return this.item.foil_price == null ? false : true;

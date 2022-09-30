@@ -35,7 +35,7 @@
             </a>
             <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
         </div>
-        
+
         {{item.types}}
         <span v-if="item.reserve_list == 1">Reserved List</span>
         <br>
@@ -110,7 +110,7 @@ export default {
           default: false
       }
   },
-  
+
   computed: {
     image() {
         return `https://assets.echomtg.com/magic/cards/original/${this.item.emid}.jpg`
@@ -146,13 +146,12 @@ export default {
       setShowItem: function(showItem, showFullItem=false){
         this.showItem = showItem;
         this.showFullItem = showFullItem;
-        
+
       },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);
       },
-      getItemURL: function () {
-        //console.log('itemURL',this.item.echo_url)
+    getItemURL: function () {
         return this.showItem ? "javascript:void(0)" : this.item.echo_url;
       }
   }
