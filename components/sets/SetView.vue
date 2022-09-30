@@ -107,7 +107,7 @@
       <SetItemList
         v-if="this.tab == 'list'"
         :items="this.set.items"
-        :cardsOwned="this.owned"
+        :cardsOwned="this.set.owned"
         />
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />
