@@ -7,6 +7,11 @@ export default (context, inject) => {
     }
   }
 
+  echomtg.isLoggedIn = () => {
+    return undefined !== context.app.$cookies.get('token');
+  }
+
+
   echomtg.createGrowl = (message,icon,color="grey") => {
     alert(message + icon + color)
   }

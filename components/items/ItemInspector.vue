@@ -14,6 +14,20 @@
                         <p class="subtitle is-size-6 mb-1">{{item.types}}</p>
 
                         <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)" />
+
+                        <div class="columns" v-if="this.$echomtg.isLoggedIn()">
+                          <div class="column">
+                            <h2 class="subtitle is-size-5">Inventory</h2>
+                             <b-button type="is-dark is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid)">
+                              Add Regular
+                            </b-button>
+                           <b-button type="is-warning is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid,1)">
+                              Add Foil
+                            </b-button>
+                          </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -22,7 +36,7 @@
         <footer class="card-footer" v-if="showFull">
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular ${{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
-            
+
             <a :href="item.echo_url" class="card-footer-item">Open Card Page</a>
         </footer>
     </div>
@@ -54,7 +68,12 @@ export default {
             let full = this.showFull ? 'full' : '';
             return `card itemInspectorCard ${full}`;
         }
+    },
+    methods: {
+      inventoryQuickAdd: function(emid,foil=0) {
+          this.$echomtg.inventoryQuickAdd(emid, foil)
+      },
     }
-    
+
 }
 </script>
