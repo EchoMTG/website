@@ -18,6 +18,20 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
+        <a
+          class="navbar-item has-divider is-desktop-icon-only"
+          :class="{ 'is-active': isAsideRightActive }"
+          title="Updates"
+          @click.prevent="updatesToggle"
+        >
+          <b-icon
+            icon="bell"
+            custom-size="default"
+            :class="{ 'has-update-mark': hasUpdates }"
+          />
+          <span>Updates</span>
+        </a>
+
         <nav-bar-menu v-if="isUserLoggedIn" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
@@ -41,40 +55,22 @@
               <b-icon icon="lock" @click="password" custom-size="default" />
               <span>Change Password</span>
             </a>
+
             <hr class="navbar-divider">
+            <a class="navbar-item" @click="toggleDark">
+              <b-icon icon="brightness-4"  custom-size="default" />
+              <span>Toggle Darkmode</span>
+            </a>
+            <hr class="navbar-divider">
+
             <a class="navbar-item" @click="logout">
               <b-icon icon="logout" custom-size="default" />
               <span>Log Out</span>
             </a>
           </div>
         </nav-bar-menu>
-        <!-- <nav-bar-menu class="has-divider">
-          <b-icon icon="menu" custom-size="default" />
-          <span>Sample Menu</span>
-          <div slot="dropdown" class="navbar-dropdown">
-            <nuxt-link
-              to="/profile"
-              class="navbar-item"
-              exact-active-class="is-active"
-            >
-              <b-icon icon="account" custom-size="default" />
-              <span>My Profile</span>
-            </nuxt-link>
-            <a class="navbar-item">
-              <b-icon icon="settings" custom-size="default" />
-              <span>Settings</span>
-            </a>
-            <a class="navbar-item">
-              <b-icon icon="email" custom-size="default" />
-              <span>Messages</span>
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item" @click="logout">
-              <b-icon icon="logout" custom-size="default" />
-              <span>Log Out</span>
-            </a>
-          </div>
-        </nav-bar-menu> -->
+
+
         <div class="navbar-item" v-if="!isUserLoggedIn">
            <div class="field is-grouped">
           <p class="control">
@@ -107,35 +103,10 @@
           <span>About</span>
         </a> -->
 
-        <b-button size="is-small" @click="toggleDark">
-          <b-icon icon="sun" custom-size="default" />
-          <span>Toggle Dark</span>
-        </b-button>
 
 
 
-      </b-field>
-        <a
-          class="navbar-item has-divider is-desktop-icon-only"
-          :class="{ 'is-active': isAsideRightActive }"
-          title="Updates"
-          @click.prevent="updatesToggle"
-        >
-          <b-icon
-            icon="bell"
-            custom-size="default"
-            :class="{ 'has-update-mark': hasUpdates }"
-          />
-          <span>Updates</span>
-        </a>
-        <a
-          class="navbar-item is-desktop-icon-only"
-          title="Log out"
-          @click="logout"
-        >
-          <b-icon icon="logout" custom-size="default" />
-          <span>Log out</span>
-        </a>
+
       </div>
     </div>
   </nav>

@@ -60,26 +60,26 @@ $aside-mobile-width: $size-base * 15;
 $aside-right-width: $size-base * 15;
 $aside-icon-width: $size-base * 3;
 $aside-submenu-font-size: $size-base * .95;
-$aside-box-shadow: 1px 0 $base-color-light;
-$aside-background-color: $white;
+$aside-box-shadow: 1px 0 $black-ter;
+$aside-background-color: $black;
 $aside-tools-background-color: transparent;
-$aside-tools-color: $black-ter;
-$aside-tools-box-shadow: 0 1px $base-color-light;
+$aside-tools-color: $white;
+$aside-tools-box-shadow: 0 1px $black-ter;
 $aside-dropdown-background-color: transparent;
-$aside-right-box-shadow: -1px 0 $base-color-light;
-$aside-menu-list-active-box-shadow: 0 1px $base-color-light;
+$aside-right-box-shadow: -1px 0 $black-ter;
+$aside-menu-list-active-box-shadow: 0 1px $black-ter;
 $aside-has-secondary-box-shadow: $aside-box-shadow;
 $aside-boxed-has-secondary-box-shadow: $aside-box-shadow;
 
 /* Aside Secondary Submenu: specifics */
-$aside-secondary-background-color: $white;
+$aside-secondary-background-color: $black;
 $aside-secondary-item-active-background-color: transparent;
 $aside-secondary-item-hover-background-color: transparent;
 $aside-secondary-tools-background-color: transparent;
 $aside-secondary-box-shadow-mobile: none;
 $aside-secondary-dropdown-background-color: transparent;
 $aside-secondary-box-shadow: none;
-$aside-secondary-border-left-right: $light-border;
+$aside-secondary-border-left-right: $black-ter;
 
 /* Title Bar: specifics */
 $title-bar-color: $grey;
