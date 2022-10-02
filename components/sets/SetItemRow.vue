@@ -61,7 +61,7 @@
         </span>
         <span v-if="item.price_change != 0" class="has-text-weight-bold">{{item.price_change}}%</span>
     </td>
-    <td class="is-flex-direction-column">
+    <td class="is-flex-direction-column" v-if="hasRegularInSet">
         <div v-if="hasRegular">
             <span class="has-text-weight-bold">${{item.tcg_mid}}</span>
             <button class="button is-info is-small is-outlined " @click="inventoryQuickAdd(item.emid,0)">
@@ -71,7 +71,7 @@
             </button>
         </div>
     </td>
-    <td class="is-flex-direction-column">
+    <td class="is-flex-direction-column" v-if="hasFoilsInSet">
         <div v-if="hasFoil">
             <span  class="has-text-weight-bold has-text-warning">${{item.foil_price}}</span>
             <button class="button is-warning is-small is-outlined " @click="inventoryQuickAdd(item.emid,1)">
@@ -108,6 +108,14 @@ export default {
       fullview: {
           type: Boolean,
           default: false
+      },
+      hasFoilsInSet: {
+        type: Boolean,
+        default: true,
+      },
+      hasRegularInSet: {
+        type: Boolean,
+        default: true,
       }
   },
 

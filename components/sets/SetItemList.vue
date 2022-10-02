@@ -205,7 +205,7 @@
                   ></i>
                 </span>
               </th>
-              <th class="is-clickable" @click="changeSortMetric('tcg_mid')">
+              <th  v-if="totalRegular > 0" class="is-clickable" @click="changeSortMetric('tcg_mid')">
                 <span>Reg. Price</span>
                 <span v-if="this.sortMetric == 'tcg_mid'" class="icon">
                   <i
@@ -218,7 +218,7 @@
                   ></i>
                 </span>
               </th>
-              <th class="is-clickable" @click="changeSortMetric('foil_price')">
+              <th v-if="totalFoiled > 0" class="is-clickable" @click="changeSortMetric('foil_price')">
                 <span>Foil Price</span>
                 <span v-if="this.sortMetric == 'foil_price'" class="icon">
                   <i
@@ -241,6 +241,8 @@
               :owned="isCardOwned(item.emid, 'regular')"
               :ownedfoil="isCardOwned(item.emid, 'foiled')"
               :fullview="fullView"
+              :hasFoilsInSet="totalFoiled > 0"
+              :hasRegularInSet="totalRegular > 0"
               @emit-wiki="openWiki(item)"
               :item="item"
             />
@@ -277,6 +279,16 @@ export default {
       type: String,
       default: '1'
     },
+     totalFoiled: {
+      type: Number,
+      default: 0
+    },
+    totalRegular: {
+      type: Number,
+      default: 0
+    },
+
+
 
   },
   data: function data() {

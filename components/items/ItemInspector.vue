@@ -18,10 +18,10 @@
                         <div class="columns" v-if="this.$echomtg.isLoggedIn()">
                           <div class="column">
                             <h2 class="subtitle is-size-5">Inventory</h2>
-                             <b-button type="is-dark is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid)">
+                             <b-button v-if="hasRegular"  type="is-dark is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid)">
                               Add Regular
                             </b-button>
-                           <b-button type="is-warning is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid,1)">
+                           <b-button v-if="hasFoil" type="is-warning is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid,1)">
                               Add Foil
                             </b-button>
                           </div>

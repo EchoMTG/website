@@ -108,6 +108,8 @@
         v-if="this.tab == 'list'"
         :items="this.set.items"
         :cardsOwned="this.set.owned"
+        :totalFoiled="this.set.total_foil_cards"
+        :totalRegular="this.set.total_regular_cards"
         />
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />
