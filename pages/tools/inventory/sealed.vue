@@ -48,55 +48,52 @@
             </div>
         </div>
         <div class="container">
-            <table class="table is-narrow is-bordered is-striped w-100 my-3">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Market Value</th>
-                        <th>Gain/Loss</th>
-                        <th>Acquired Price</th>
-                        <th>Acquired Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in sealedItems" :data-id="item.inventory_id" :key="`sealed-item-${index}`">
-                        <td><a v-bind:href="item.echo_set_url"><img v-bind:src="item.set_image" style="max-height:18px; max-width:14px" /></a></td>
-                        <td>
-                            <span v-if="item.foil == 1" class="foil foiled" style="border:1px grey solid; border-radius:3px; padding: 0px 3px;">F</span>
-                            <a v-bind:href="item.echo_url">{{item.name}}</a>
-                        </td>
-                        <td>{{symbol}} {{item.tcg_mid}}</td>
-                        <td>
-                            <span class="percentage red down" v-if="item.gain < 0">{{item.gain}}%</span>
-                            <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>
-                        </td>
-                        <td>{{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, item)" :value="item.price_acquired"/></td>
-                        <td>
-                            <input class="adjust-box input is-small acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, item)" :value="item.date_acquired_html"/>
-                        </td>
-                        <td>
-                            <button class="ignore  button small black has-background-black has-text-white pull-right" :data-id="item.id" @click="deleteItem(item.inventory_id)" href="javascript:void(0);">
-                            <span class="fa fa-trash"></span> </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <b-table class="my-3"
+              :data="sealedItems"
+              :striped="true"
+              :narrowed="true"
+              :focusable="true"
+              default-sort="name"
+              default-sort-direction="asc"
+              >
+
+                <b-table-column field="name" label="Item Name" v-slot="props" sortable>
+                    <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
+                    <a v-bind:href="props.row.echo_set_url">{{props.row.name}}</a>
+                </b-table-column>
+                <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
+                  {{symbol}} {{props.row.tcg_mid}}
+                </b-table-column>
+                <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable>
+                  {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
+                </b-table-column>
+                <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable>
+                  <input class="adjust-box input is-small acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
+                </b-table-column>
+                <b-table-column field="gain" label="7 Day Change" v-slot="props" sortable>
+                  <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
+                  <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
+                </b-table-column>
+                <b-table-column v-slot="props">
+                  <button class="ignore  button small black has-background-black has-text-white pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" href="javascript:void(0);">
+                  <span class="fa fa-trash"></span> </button>
+                </b-table-column>
+            </b-table>
         </div>
     </div>
 </template>
-
 <script>
+
 import GlobalSearch from '@/components/GlobalSearch'
 export default {
   components: { GlobalSearch },
-  props: ['symbol'],
+  //props: ['symbol'],
   data() {
     return {
       limit: 1000,
       start: 0,
       status: 0,
+      symbol: '$',
       sealed: [],
       search: '',
     }
@@ -115,6 +112,8 @@ export default {
             .then((response) => response.json())
             .then((data) => {
               this.sealed = [...this.sealed, ...data.items]
+              console.log('sealed',this.sealed);
+
             })
             .catch(function (error) {
               console.log(error)
@@ -208,12 +207,8 @@ export default {
   created() {
     this.fetchSealedData()
   },
+  mounted() {
+  }
 }
 </script>
 
-<style>
-.w-100 {
-    width: 100%;
-}
-
-</style>
