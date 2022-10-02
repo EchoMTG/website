@@ -39,7 +39,7 @@
         {{item.types}}
 
         <br>
-        <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
+
         <div class="content padded" v-if="fullview" v-html="this.$echomtg.replaceSymbols(item.card_text)">
 
         </div>
@@ -47,6 +47,7 @@
     </td>
     <td >
         <span class="is-mobile">[{{item.collectors_number}}]</span>
+        <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
         <span class="">{{item.rarity}}</span>
     </td>
     <td class="is-hidden-mobile">
@@ -143,9 +144,7 @@ export default {
           showFullItem: false,
       };
   },
-  created () {
-      //window.scrollTo(0, 1); // account for lazy load
-  },
+
 
   methods: {
       inventoryQuickAdd: function(emid,foil=0) {

@@ -315,6 +315,10 @@ export default {
 
     this.$echomtg.log('cards owned', this.cardsowned)
     this.findVariants()
+    window.scrollTo(0, 1); // account for lazy load
+    console.log(this.items)
+
+
   },
   methods: {
     findVariants(){
