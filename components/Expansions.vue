@@ -1,57 +1,61 @@
 <template>
   <div>
+     <div class="columns m-2" ref="searchBox">
+
+      <div class="column">
+         <div slot="right" class="control has-icons-left">
+            <input
+              v-model="search"
+              class="input is-small is-rounded"
+              type="text"
+              @input="$event.target.composing = false"
+              placeholder="Search by Name..."
+            />
+            <span class="icon is-small is-left">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+      </div>
+      <div class="column">
+        <div class="content">
+        <p>Search a list of all Magic: the Gathering Expansions and Sets.</p>
+        </div>
+      </div>
+    </div>
+
+
 
     <b-table
       :checked-rows.sync="checkedRows"
-      :checkable="checkable"
+      :checkable="false"
+      :sticky-header="true"
       :loading="isLoading"
       :paginated="paginated"
       :per-page="perPage"
       :striped="true"
       :hoverable="true"
-      default-sort="name"
-      :data="expansions"
+      default-sort-direction="DESC"
+      default-sort="release_date"
+      :data="filteredExpansionsList"
+      :height="tableHeight"
     >
-      <b-table-column
-        v-slot="props"
-        cell-class="has-no-head-mobile is-image-cell"
-      >
-        <div class="image">
-          <img :src="props.row.avatar" class="is-rounded">
-        </div>
-      </b-table-column>
+
       <b-table-column v-slot="props" label="Name" field="name" sortable>
+        <i :class="getSetIconClass(props.row.set_code)"></i>
         <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
       </b-table-column>
       <b-table-column v-slot="props" label="Set Code" field="set_code" sortable>
         {{ props.row.set_code }}
       </b-table-column>
-      <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>
-        {{ props.row.release_date }}
-      </b-table-column>
+
 
       <b-table-column v-slot="props" label="Type" field="type" sortable>
         {{ props.row.type }}
       </b-table-column>
-      <b-table-column v-slot="props" label="Total Cards" field="total_cards" sortable>
-        {{ props.row.total_cards }}
+      <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>
+        {{ props.row.release_date }}
       </b-table-column>
 
-      <b-table-column
-        v-slot="props"
-        custom-key="actions"
-        cell-class="is-actions-cell"
-      >
-        <div class="buttons is-right">
-          <nuxt-link
-            :to="makeSetPath(props.row.set_code,props.row.set_code_path_part)"
-            class="button is-small is-primary"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </nuxt-link>
-
-        </div>
-      </b-table-column>
 
       <section slot="empty" class="section">
         <div class="content has-text-grey has-text-centered">
@@ -96,7 +100,9 @@ export default {
       isLoading: false,
       paginated: false,
       perPage: 20,
-      checkedRows: []
+      checkedRows: [],
+      search: '',
+      tableHeight: '700px'
     }
   },
   computed: {
@@ -111,10 +117,32 @@ export default {
 
     }
   },
+  mounted() {
+    console.log('screen height',screen);
+    console.log('inner height', window.innerHeight)
+    this.updateTableHeight()
+  },
   methods: {
 
     makeSetPath(code, path_part){
       return `/set/${code}/${path_part}/`
+    },
+    getSetIconClass(set_code){
+      return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-1'
+    },
+    updateTableHeight() {
+      let searchBoxRects = this.$refs.searchBox.getBoundingClientRect();
+      console.log(searchBoxRects)
+      let height = window.innerHeight - searchBoxRects.bottom - 50
+      this.tableHeight = height + 'px'
+    }
+
+  },
+  computed: {
+    filteredExpansionsList() {
+      console.log(this.expansions)
+      if(this.search == '') return this.expansions;
+      return this.expansions.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
     }
 
   }

@@ -31,13 +31,13 @@
 
         <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
             <a  class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
-            {{item.name}}
+            {{item.name}} <span v-if="item.reserve_list == 1">[Reserved]</span>
             </a>
             <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
         </div>
 
         {{item.types}}
-        <span v-if="item.reserve_list == 1">Reserved List</span>
+
         <br>
         <em v-html="this.$echomtg.replaceSymbols(item.mc)"></em>
         <div class="content padded" v-if="fullview" v-html="this.$echomtg.replaceSymbols(item.card_text)">

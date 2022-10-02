@@ -1,12 +1,7 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-    <hero-bar>
-      MTG
-      <router-link slot="right" to="/sets" class="button">
-        Expansions
-      </router-link>
-    </hero-bar>
+
     <Expansions :expansions="expansions" />
     </div>
 </template>

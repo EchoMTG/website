@@ -11,6 +11,10 @@ export default (context, inject) => {
     return undefined !== context.app.$cookies.get('token');
   }
 
+  echomtg.setIconClass = (set_code) => {
+    let sc = set_code.toLowerCase();
+    return `ss ss-${sc} ss-echo`
+  }
 
   echomtg.createGrowl = (message,icon,color="grey") => {
     alert(message + icon + color)
