@@ -14,16 +14,24 @@
               <div class="card-content">
                 <ul class="numbered" v-if="this.items.length > 0">
                   <li v-for="item in topTrending()" :key="item.emid">
-                    {{item.name}}
-                    <span class="is-pulled-right">
-                      <strong>$ {{item.tcg_mid}}</strong>
+                    <nav class="level">
+                      <div class="level-left">
+                        <span class="level-item">
+                          <item-inspector-wrapper :item="item"/>
+                        </span>
+                      </div>
+                      <div class="level-right">
+                        <span class="level-item">
+                          <strong>$ {{item.tcg_mid}}</strong>
 
 
-                      <span class="percentage green up">{{item.price_change}}%</span>
-                      +
-                      <em>{{getDifference(item.tcg_mid,item.price_change)}}</em>
+                          <span class="percentage green up">{{item.price_change}}%</span>
+                          +
+                          <em>{{getDifference(item.tcg_mid,item.price_change)}}</em>
 
-                    </span>
+                        </span>
+                      </div>
+                    </nav>
                   </li>
 
                 </ul>
@@ -44,14 +52,25 @@
               <div class="card-content">
                <ul class="numbered" v-if="this.items.length > 0">
                   <li v-for="item in bottomTrending()" :key="item.emid">
-                    {{item.name}}
-                    <span class="is-pulled-right">
-                      <strong>$ {{item.tcg_mid}}</strong>
-                      <span class="percentage red down">{{item.price_change}}%</span>
-                      +
-                      <em>{{getDifference(item.tcg_mid,item.price_change)}}</em>
+                    <nav class="level">
+                      <div class="level-left">
+                        <span class="level-item">
+                          <item-inspector-wrapper :item="item"/>
+                        </span>
+                      </div>
+                      <div class="level-right">
+                        <span class="level-item">
+                          <strong>$ {{item.tcg_mid}}</strong>
 
-                    </span>
+
+                          <span class="percentage red down">{{item.price_change}}%</span>
+
+                          <em>{{getDifference(item.tcg_mid,item.price_change)}}</em>
+
+                        </span>
+                      </div>
+                    </nav>
+
                   </li>
 
                 </ul>
@@ -64,8 +83,10 @@
 
 </template>
 <script>
+import ItemInspectorWrapper from '../items/ItemInspectorWrapper.vue';
 
 export default {
+  components: { ItemInspectorWrapper },
   name: 'SetTrendingView',
   props: {
     items: {

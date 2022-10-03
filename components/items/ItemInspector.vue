@@ -1,10 +1,10 @@
 <template>
     <div :class="cardClass">
-        <img v-if="!showFull" class="popoverImage" :src="item.image" alt="Placeholder image" />
+        <img v-if="!showFull" class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px" />
         <div v-if="showFull">
             <div class="columns">
                 <div class="column is-one-third">
-                    <img class="popoverImage" :src="item.image" alt="Placeholder image" />
+                    <img class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px"  />
                 </div>
                 <div class="column is-two-thirds ">
                     <div class="mr-3 ml-2">

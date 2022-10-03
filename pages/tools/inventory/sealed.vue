@@ -59,15 +59,16 @@
               default-sort-direction="desc"
               >
                 <b-table-column field="name" label="Item Name" v-slot="props" sortable>
-                  <div class="columns">
-                    <div class="column">
-                      <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
-                    </div>
-                    <div class="column is-11">
-                      <item-inspector-wrapper :item="props.row" />
-                    </div>
-                  </div>
-
+                   <nav class="level  pb-0">
+                      <div class="level-left">
+                        <span class="level-item">
+                          <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
+                        </span>
+                        <span class="level-item">
+                          <item-inspector-wrapper :item="props.row" />
+                        </span>
+                      </div>
+                    </nav>
                 </b-table-column>
                 <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
                   {{symbol}} {{props.row.tcg_mid}}

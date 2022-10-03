@@ -29,12 +29,7 @@
                 height="120px"  style="width: 120px; float: left; margin-right: 4px;">
         </a>
 
-        <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)">
-            <a  class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
-            {{item.name}} <span v-if="item.reserve_list == 1">[Reserved]</span>
-            </a>
-            <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
-        </div>
+        <item-inspector-wrapper :item="item" />
 
         {{item.types}}
 
@@ -85,11 +80,12 @@
   </tr>
 </template>
 <script>
-import ItemInspector from '@/components/items/ItemInspector';
+
+import ItemInspectorWrapper from '@/components/items/ItemInspectorWrapper.vue';
 
 export default {
   name: 'SetItemRow',
-  components: {ItemInspector},
+  components: {ItemInspectorWrapper},
   props: {
       item: {
           type: Object,
@@ -150,17 +146,9 @@ export default {
       inventoryQuickAdd: function(emid,foil=0) {
           this.$echomtg.inventoryQuickAdd(emid, foil)
       },
-      setShowItem: function(showItem, showFullItem=false){
-        this.showItem = showItem;
-        this.showFullItem = showFullItem;
-
-      },
       emitWiki: function (){
           this.$emit('emit-wiki',this.item);
       },
-    getItemURL: function () {
-        return this.showItem ? "javascript:void(0)" : this.item.echo_url;
-      }
   }
 }
 </script>
