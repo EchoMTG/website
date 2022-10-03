@@ -1,28 +1,5 @@
 <template>
   <div>
-    <nav class="breadcrumb mb-0" aria-label="breadcrumbs">
-      <ul>
-        <li>
-          <a href="/sets/" title="magic the gathering sets and expansions">
-            <span class="fa fa-tasks has-text-grey-light"></span>&nbsp;
-            <span>Sets</span>
-          </a>
-        </li>
-
-        <li class="is-active">
-          <a href="/set/SNC/streets-of-new-capenna/" aria-current="page">
-            <h1>
-              <i class="ss ss-snc ss-echo has-text-grey"></i>&nbsp;
-              <span itemprop="name">Streets of New Capenna</span>
-
-              <span class="is-hidden-touch has-text-light-grey"
-                >(SNC released on <span itemprop="date">2022-04-29)</span></span
-              >
-            </h1>
-          </a>
-        </li>
-      </ul>
-    </nav>
 
     <SetSummary
       :setName="set.name"

@@ -1,9 +1,10 @@
 <template>
   <div>
+    <echo-bread-crumbs :data="crumbs" />
     <title-bar :title-stack="titleStack" />
 
     <Expansions :expansions="expansions" />
-    </div>
+  </div>
 </template>
 
 <script>
@@ -12,12 +13,14 @@ import { mapState } from 'vuex'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Expansions from '@/components/Expansions.vue'
+import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 export default {
   name: 'Sets',
   components: {
     TitleBar,
     HeroBar,
-    Expansions
+    Expansions,
+    EchoBreadCrumbs
   },
   data () {
     return {
@@ -49,7 +52,17 @@ export default {
   },
   computed: {
     titleStack () {
-      return ['MTG', 'Expansions']
+      return ['Magic the Gathering', 'Expansions']
+    },
+    crumbs () {
+      return [
+        {
+          label: 'Expansions',
+          url: '/sets/',
+          icon: ''
+        },
+
+      ]
     }
   },
 }
