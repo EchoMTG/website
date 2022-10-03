@@ -23,6 +23,7 @@
         <!-- CTA -->
       </div>
     </div>
+    <i :class="`${iconString} largeBackgroundIcon`"></i>
   </div>
 </template>
 
