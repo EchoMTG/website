@@ -1,5 +1,6 @@
 <template>
-    <div class="inventory inventory-advanced">
+    <div>
+        <echo-bread-crumbs :data="crumbs" />
         <br>
         <nav class="earnings-tabs level" id="finances">
             <div class="level-item has-text-centered">
@@ -34,29 +35,29 @@
                 </div>
             </div>
         </nav>
-        <div class="container padded">
+        <div class="container mb-5 ml-4 mr-4">
             <div class="columns">
-                <div class="column is-two-thirds"  style="min-height: 40px">
-                    <global-search  firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
+              <div class="column">
+                <div class="control has-icons-left has-icons-right">
+                    <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
+                    <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
                 </div>
-                <div class="column">
-                    <div class="control has-icons-left has-icons-right">
-                        <input v-model="search" class="input is-small is-rounded has-background-dark has-text-grey-light" placeholder="Search Your Sealed Inventory...">
-                        <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
-                    </div>
-                </div>
+              </div>
+              <div class="column is-two-thirds"  style="min-height: 40px">
+                  <global-search firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
+              </div>
             </div>
         </div>
         <div class="container">
-            <b-table class="my-3"
+            <b-table
+              class="my-3"
               :data="sealedItems"
               :striped="true"
               :narrowed="true"
               :focusable="true"
-              default-sort="name"
-              default-sort-direction="asc"
+              default-sort="tcg_mid"
+              default-sort-direction="desc"
               >
-
                 <b-table-column field="name" label="Item Name" v-slot="props" sortable>
                     <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
                     <a v-bind:href="props.row.echo_set_url">{{props.row.name}}</a>
@@ -68,14 +69,14 @@
                   {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
                 </b-table-column>
                 <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable>
-                  <input class="adjust-box input is-small acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
+                  <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
                 </b-table-column>
                 <b-table-column field="gain" label="7 Day Change" v-slot="props" sortable>
                   <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
                   <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
                 </b-table-column>
                 <b-table-column v-slot="props">
-                  <button class="ignore  button small black has-background-black has-text-white pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" href="javascript:void(0);">
+                  <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
                   <span class="fa fa-trash"></span> </button>
                 </b-table-column>
             </b-table>
@@ -85,8 +86,10 @@
 <script>
 
 import GlobalSearch from '@/components/GlobalSearch'
+import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs'
+
 export default {
-  components: { GlobalSearch },
+  components: { GlobalSearch, EchoBreadCrumbs },
   //props: ['symbol'],
   data() {
     return {
@@ -179,6 +182,25 @@ export default {
     }
   },
   computed: {
+    crumbs() {
+      return [
+        {
+          label: 'Tools',
+          icon: 'tools',
+          url: '/tools/'
+        },
+        {
+          icon: 'dashboard',
+          label :'Inventory',
+          url:  '/tools/inventory/'
+        },
+        {
+          icon: 'seal',
+          label: 'Sealed',
+          url:  '/tools/inventory/sealed/'
+        }
+      ]
+    },
     sealedItems() {
       if (this.search == '') return this.sealed
 

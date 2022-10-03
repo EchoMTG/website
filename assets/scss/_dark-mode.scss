@@ -241,9 +241,10 @@ html {
       border-color: $dark-mode-light-border-color;
     }
 
+
+
     nav.navbar {
-      background-color: $dark-mode-background-color;
-      box-shadow: 0 1px $dark-mode-light-border-color;
+      background-color: $white;
 
       .navbar-item {
         color: $dark-mode-link-color;
@@ -279,7 +280,7 @@ html {
     }
 
     aside.aside {
-      background-color: $dark-mode-background-color;
+      background-color: $black;
       box-shadow: 1px 0 $dark-mode-light-border-color!important;
 
       .aside-tools {

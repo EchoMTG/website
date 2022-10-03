@@ -9,7 +9,7 @@
                             <div class="field has-addons">
                                 <p class="control grow has-icons-left m-0">
                                     <input
-                                        class="input is-small is-rounded item-search-input"
+                                        class="input is-small is-rounded has-background-white has-text-black item-search-input"
                                         v-model="search"
                                         @input="$event.target.composing = false"
                                         ref="searchInput"
@@ -29,13 +29,13 @@
                             </div>
                           </div>
                           <div class="column is-one-third expansionColumn">
-                              <input class="input is-small expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
+                              <input class="input is-small  has-background-white has-text-black  expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
                           </div>
                        </div>
 
                     </div>
                     <div class="control inside-button">
-                        <button class="button is-small is-outlined is-rounded advanced-options-button" @click="openAdvancedOptions()">
+                        <button class="button is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
                             <span class="icon">
@@ -160,12 +160,12 @@
                     </div>
                     <!-- how to search message, shows when search is empty -->
                     <div v-if="results.length == 0 && search == ''">
-                        <div class="container padded">
-                            <h5 class="title is-size-4">Short Cuts</h5>
-                            <p><strong>Shift + Delete:</strong> Clear Item Search</p>
-                            <p><strong>Shift + Backspace:</strong> Clear Item Search</p>
-                            <p><strong>ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
-                            <p><strong>Enter</strong>: Shortcut to <span v-html="callbackname"></span></p>
+                        <div class="container padded ">
+                            <h5 class="title is-size-4 has-text-white">Short Cuts</h5>
+                            <p class="has-text-white"><strong class="has-text-white">Shift + Delete:</strong> Clear Item Search</p>
+                            <p class="has-text-white"><strong class="has-text-white">Shift + Backspace:</strong> Clear Item Search</p>
+                            <p class="has-text-white"><strong class="has-text-white">ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
+                            <p class="has-text-white"><strong class="has-text-white">Enter</strong>: Shortcut to <span v-html="callbackname"></span></p>
 
                         </div>
                     </div>
@@ -179,7 +179,7 @@
 
                 </div>
                <footer class="card-footer">
-                    <p class="card-footer-item">
+                    <p class="card-footer-item has-text-white">
 
                         <a @click="this.movePositionUp()" class="button is-small ">
                             <span class="fa fa-caret-down"></span>
