@@ -5,7 +5,7 @@
         <nav class="earnings-tabs level" id="finances">
             <div class="level-item has-text-centered">
                 <div>
-                    <p class="heading">Sealed Items</p>
+                    <p class="heading">Sealed Tracking</p>
                     <p class="title">{{ this.sealed.length }}</p>
                 </div>
             </div>
@@ -59,8 +59,15 @@
               default-sort-direction="desc"
               >
                 <b-table-column field="name" label="Item Name" v-slot="props" sortable>
-                    <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
-                    <a v-bind:href="props.row.echo_set_url">{{props.row.name}}</a>
+                  <div class="columns">
+                    <div class="column">
+                      <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
+                    </div>
+                    <div class="column is-11">
+                      <item-inspector-wrapper :item="props.row" />
+                    </div>
+                  </div>
+
                 </b-table-column>
                 <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
                   {{symbol}} {{props.row.tcg_mid}}
@@ -71,7 +78,7 @@
                 <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable>
                   <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
                 </b-table-column>
-                <b-table-column field="gain" label="7 Day Change" v-slot="props" sortable>
+                <b-table-column field="gain" label="Profit" v-slot="props" sortable>
                   <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
                   <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
                 </b-table-column>
@@ -87,10 +94,10 @@
 
 import GlobalSearch from '@/components/GlobalSearch'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs'
+import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper'
 
 export default {
-  components: { GlobalSearch, EchoBreadCrumbs },
-  //props: ['symbol'],
+  components: { GlobalSearch, EchoBreadCrumbs, ItemInspectorWrapper },
   data() {
     return {
       limit: 1000,
