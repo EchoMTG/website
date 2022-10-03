@@ -1,7 +1,7 @@
 <template>
   <span>
 
-      <title-bar :title-stack="titleStack" />
+      <echo-bread-crumbs :data="crumbs" />
       <hero-bar-main />
 
       <section v-if="$fetchState.pending">
@@ -85,6 +85,7 @@ import HeroBarMain from '@/components/HeroBarMain'
 import CardToolbar from '@/components/CardToolbar'
 import CardScrollable from '@/components/CardScrollable'
 import RefreshButton from '@/components/RefreshButton'
+import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
   export default {
     name: 'UserDashboard',
     components: {
@@ -97,7 +98,8 @@ import RefreshButton from '@/components/RefreshButton'
       CardComponent,
       CardWidget,
       Tiles,
-      TitleBar
+      TitleBar,
+        EchoBreadCrumbs
     },
     data() {
       return {
@@ -137,6 +139,13 @@ import RefreshButton from '@/components/RefreshButton'
         let val = parseInt(this.stats.current_value_market) - parseInt(this.stats.sealed_value)
         return val
       },
+      crumbs: () => [
+        {
+          url: '/',
+          label: 'Dashboard',
+          icon: ''
+        }
+      ]
 
     },
     watch: {

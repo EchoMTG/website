@@ -1,40 +1,36 @@
 <template>
   <div>
     <div>
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-            <div class="is-pulled-right">
-                <div class="columns">
-                    <div class="column">
-                        <button v-if="list.public == 0" class="button is-primary is-small"  @click="makePublic($vnode.key)">Make Sharable</button>
-                        <button v-if="list.public == 1" class="button is-info is-small"  @click="openPublicLink">Open Public View</button>
-                    </div>
-                    <div class="column">
-                        <div class="control has-icons-left">
-                          <div class="select is-small">
-                            <select @change="openExport">
-                              <option selected>Export Options</option>
-                              <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
-                            </select>
-                          </div>
-                          <span class="icon is-left" style="margin-left: -1px; margin-top: -2px;">
-
-                              <i class="fa fa-download"></i>
-
-                          </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          <ul>
-            <li><nuxt-link to="/tools/lists/"><span class="fa fa-archive has-text-grey-light"></span>&nbsp; <span>Lists</span></nuxt-link></li>
-            <li>&nbsp; &nbsp; <span>{{list.name}}</span></li>
-          </ul>
-        </nav>
+        <echo-bread-crumbs :data="crumbs" />
 
         <div class="lists2">
             <div class="columns">
                 <div class="column is-one-half">
-                   <list-summary :list="list" />
+                   <list-summary :list="list">
+                     <div class="is-pulled-right">
+                        <div class="columns">
+                            <div class="column">
+                                <button v-if="list.public == 0" class="button is-primary is-small"  @click="makePublic($vnode.key)">Make Sharable</button>
+                                <button v-if="list.public == 1" class="button is-info is-small"  @click="openPublicLink">Open Public View</button>
+                            </div>
+                            <div class="column">
+                                <div class="control has-icons-left">
+                                  <div class="select is-small">
+                                    <select @change="openExport">
+                                      <option selected>Export Options</option>
+                                      <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
+                                    </select>
+                                  </div>
+                                  <span class="icon is-left" style="margin-left: -1px; margin-top: -2px;">
+
+                                      <i class="fa fa-download"></i>
+
+                                  </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </list-summary>
                 </div>
             </div>
             <div class="container" style="min-height: 80px">
@@ -129,6 +125,8 @@
   import ListTableView from '@/components/single/ListTableView.vue'
   import MetaView from '@/components/single/MetaView.vue'
   import ListSummary from '@/components/single/ListSummary.vue'
+  import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
+
 
   import axios from 'axios'
   const api_url = process.env.API_DOMAIN;
@@ -142,11 +140,23 @@
       ListSellView,
       ListTableView,
       MetaView,
-      ListSummary
+      ListSummary,
+      EchoBreadCrumbs
     },
-    async asyncData({ params }) {
+    async asyncData({ params, $cookies }) {
+      let token = $cookies.get('token');
       const id = params.id // When calling /abc the slug will be "abc"
-      return { id }
+      try {
+        const res = await fetch(`${api_url}lists/get/?list=${id}&auth=${token}`);
+        const json = await res.json();
+        const list = json.list
+        const cardArray = json.list.card_list
+        return { id, list , cardArray}
+      } catch (error) {
+        console.log('error fetching list SSR', error)
+        return  {}
+      }
+
     },
     data() {
         return {
@@ -204,6 +214,28 @@
     },
 
     methods: {
+      async getList(){
+
+        let token = this.$cookies.get('token');
+        try {
+          const res = await fetch(`${api_url}lists/get/?list=${this.id}&auth=${token}`);
+          const json = res.json();
+
+          this.list = json.data.list;
+          this.calculateGraphData();
+          this.cardArray = this.list.card_list;
+          if(this.sortOrder == 'ASC'){
+              this.sortListASC();
+          } else {
+              this.sortListDESC();
+          }
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
+      },
         calculateGraphData: function calculateGraphData(){
             // read the cmcs for curve
 
@@ -474,25 +506,8 @@
         }
     },
     watch: {
-        status:function(){
-            let $this = this;
-            let token = this.$cookies.get('token');
-            axios
-                .get(`${api_url}lists/get/?list=${$this.id}&auth=${token}`)
-                .then(function (response) {
-                    $this.list = response.data.list;
-                    $this.calculateGraphData();
-                    $this.cardArray = $this.list.card_list;
-                    if($this.sortOrder == 'ASC'){
-                        $this.sortListASC();
-                    } else {
-                        $this.sortListDESC();
-                    }
-
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        status: async function(){
+            await this.getList()
 
         },
         sortOrder: function(){
@@ -521,6 +536,27 @@
       this.updateStatus()
 
     },
+    computed: {
+      crumbs() {
+        return [
+          {
+            label: 'Tools',
+            url: '/tools/',
+            icon: ''
+          },
+          {
+            label: 'Lists and Decks',
+            url: '/tools/lists/',
+            icon: ''
+          },
+          {
+            label: this.list.name,
+            url: this.$nuxt.$route.path,
+            icon: ''
+          }
+        ]
+      }
+    }
   }
 </script>
 

@@ -11,7 +11,7 @@
             </div>
             <div class="level-item has-text-centered">
                 <div>
-                    <p class="heading">Current Value</p>
+                    <p class="heading">Sealed Value</p>
                     <p class="title">{{symbol}}{{totalValue}}</p>
                 </div>
             </div>

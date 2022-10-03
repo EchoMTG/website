@@ -1,10 +1,6 @@
 <template>
 <div>
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li class="is-active"><a href="/lists/"><span class="fa fa-archive has-text-grey-light"></span>&nbsp; Lists</a></li>
-        </ul>
-    </nav>
+   <echo-bread-crumbs :data="crumbs"/>
 
     <div class="lists2">
         <div class="columns">
@@ -51,15 +47,37 @@
 import axios from 'axios'
 import CreateList from "@/components/list/CreateList.vue";
 import ListItem from "@/components/list/ListItem.vue";
+import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
+
   export default {
-      components: { CreateList, ListItem },
-      data () {
-        return {
-            lists: [],
-            targetDeck: {'name':'deck'},
-            targetDeckKey: 0,
-            user: { planObject: {'list_cap':5}}
-        }
+    components: {
+      CreateList,
+      ListItem,
+      EchoBreadCrumbs
+    },
+    data () {
+      return {
+          lists: [],
+          targetDeck: {'name':'deck'},
+          targetDeckKey: 0,
+          user: { planObject: {'list_cap':5}}
+      }
+    },
+    computed: {
+      crumbs() {
+        return [
+          {
+            label: 'Tools',
+            url: '/tools/',
+            icon: ''
+          },
+          {
+            label: 'Lists and Decks',
+            url: '/tools/lists/',
+            icon: ''
+          }
+        ]
+      }
     },
     methods: {
         deleteList(event) {

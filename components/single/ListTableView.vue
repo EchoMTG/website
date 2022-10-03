@@ -21,8 +21,13 @@
 <script>
 import DeckTableItem from './DeckTableItem.vue'
 export default {
-  props: ['list', 'cardArray'],
-  components: {DeckTableItem},
+  props: [
+    'list',
+    'cardArray'
+  ],
+  components: {
+    DeckTableItem
+  },
   data: function data() {
     return {
       tableHeaders: ['Set', 'Name', 'Type', 'Price TCG Mid/Low', 'Foil'],
@@ -70,6 +75,10 @@ export default {
       this.$parent.sortOrder = 'DESC'
     },
   },
+  mounted() {
+    console.log('list mode', this.list)
+    console.log('list mode card array', this.cardArray)
+  }
 }
 </script>
 
