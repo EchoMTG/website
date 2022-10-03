@@ -63,7 +63,14 @@ export default {
         },
 
       ]
-    }
+    },
+
   },
+  head () {
+      return {
+          title: `Magic: the Gathering Sets and Expansions`,
+          description: `Explore every MTG set since alpha edition, organized by date with search function.`
+      }
+    }
 }
 </script>
