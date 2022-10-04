@@ -52,7 +52,6 @@ export default {
     // try to get the json
     try {
       set = await res.json();
-      console.log('fetching set from _set_name', set)
     } catch(err){
       console.log(err, res)
     }

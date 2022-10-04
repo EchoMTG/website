@@ -118,8 +118,6 @@ export default {
     }
   },
   mounted() {
-    console.log('screen height',screen);
-    console.log('inner height', window.innerHeight)
     this.updateTableHeight()
   },
   methods: {
@@ -132,7 +130,7 @@ export default {
     },
     updateTableHeight() {
       let searchBoxRects = this.$refs.searchBox.getBoundingClientRect();
-      console.log(searchBoxRects)
+
       let height = window.innerHeight - searchBoxRects.bottom - 50
       this.tableHeight = height + 'px'
     }
@@ -140,7 +138,7 @@ export default {
   },
   computed: {
     filteredExpansionsList() {
-      console.log(this.expansions)
+
       if(this.search == '') return this.expansions;
       return this.expansions.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
     }

@@ -400,23 +400,15 @@ $set-name-height: 50px;
 }
 
 
+.cardImageContainer{
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .card-page {
-
 	position: relative;
-
 	border-radius: 0px;
-
 	display: block;
-
-
-
-	img.cardImage {
-		width: 100%;
-		@media all and (max-width: $break-width){
-			width: 100%;
-		}
-	}
-
 	color: #fff;
 	//background: #fff;
 

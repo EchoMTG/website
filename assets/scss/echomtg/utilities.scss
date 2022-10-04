@@ -185,17 +185,6 @@ small{
 	&.grey{
 		background-color: darken($mage-grey,15%);
 	}
-	&.centered-block{
-		text-align: center;
-		font-size: 12px;
-		h1{
-			font-size: 30px;
-			padding-top: 10px;
-		}
-		small{
-			font-size: 80%;
-		}
-	}
 
 }
 

@@ -37,7 +37,7 @@
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular ${{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
 
-            <a :href="item.echo_url" class="card-footer-item">Open Card Page</a>
+            <a :href="item.echo_url.replace('https://www.echomtg.com','')" class="card-footer-item">Open Card Page</a>
         </footer>
     </div>
 </template>
