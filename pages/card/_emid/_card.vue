@@ -13,35 +13,31 @@
       </div>
       <div class="column">
 
+        <line-chart
+          :chart-data="chartData"
+          :chart-options="extraOptions"
+          chart-id="cardLineChart"
+        />
+
+      </div>
+      <div class="column is-one-quarter">
+
+
+
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="message m-4 p-4">
+
         <h1 class="title is-size-5 mt-3">{{item.card_name}}</h1>
         <h2 class="subtitle is-size-6 mb-0">{{item.expansion}}</h2>
         <div class="content">
           <p>{{item.card_text}}</p>
         </div>
-
-      </div>
-      <div class="column is-one-quarter">
-         <card-component
-          title="Lifetime Price History"
-          icon="finance"
-          header-icon="reload"
-          @header-icon-click="true"
-        >
-          <!-- <div v-if="defaultChart.chartData" class="chart-area">
-            <line-chart
-              ref="bigChart"
-              style="height: 100%"
-              chart-id="big-line-chart"
-              :chart-data="defaultChart.chartData"
-              :extra-options="defaultChart.extraOptions"
-            />
-          </div> -->
-        </card-component>
-
-      </div>
     </div>
-      {{item.card_name}}
-   </div>
+  </div>
 
 </template>
 
@@ -49,6 +45,7 @@
 import SetView from '@/components/sets/SetView'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import LineChart from '@/components/Charts/LineChart'
+import * as chartConfig from '@/components/Charts/chart.config'
 
 
 export default {
@@ -58,36 +55,55 @@ export default {
     EchoBreadCrumbs,
     LineChart
   },
-  props: {
-
-  },
   data () {
     return {
       item: {
         name: '',
       },
+      prices: {
+        foil: [],
+        regular: [],
+        date: []
+      },
+      extraOptions: chartConfig.chartOptionsMain
     }
   },
-  async asyncData({ params, redirect, $config, env }) {
+  async asyncData({ params, redirect, $config }) {
 
     let emid = params.emid;
-    let item;
+    let item, res, dataRes;
+    let prices = {
+      'date' : [],
+      'regular': [],
+      'foil' : []
+    }
 
     // fetch the set
     let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
-
-    const res = await fetch(
-      endpoint, {
-        headers: {
-          'Authorization' : 'Bearer ' + $config.S2S_KEY
-        }
-      }
-    );
-
+    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}`;
     // try to get the json
     try {
+      res = await fetch(
+        endpoint, {
+          headers: {
+            'Authorization' : 'Bearer ' + $config.S2S_KEY
+          }
+        }
+      );
       item = await res.json();
-      console.log('fetching item from', item)
+
+      dataRes = await fetch(
+        dataEndpoint, {
+          headers: {
+            'Authorization' : 'Bearer ' + $config.S2S_KEY
+          }
+        }
+      );
+      let priceData = await dataRes.json();
+
+      prices = priceData.data;
+
+
     } catch(err){
       console.log(err, res)
     }
@@ -95,17 +111,18 @@ export default {
     // return it
     if (item) {
       return {
-        item
+        item, prices
       }
     } else {
-      redirect('/sets/')
+      //redirect('/sets/')
     }
   },
   methods: {
 
     makeSetPath(code, path_part){
       return `/set/${code}/${path_part}/`
-    }
+    },
+
 
   },
   computed: {
@@ -122,6 +139,25 @@ export default {
           icon: ''
         }
       ]
+    },
+    chartData() {
+      return {
+        labels: this.prices.date,
+        datasets: [
+          {
+            label: 'Regular',
+            backgroundColor: '#666666',
+            fill: false,
+            data: this.prices.regular
+          },
+           {
+            label: 'Foil',
+            backgroundColor: '#b08716',
+            fill: false,
+            data: this.prices.foil
+          }
+        ]
+      }
     }
   },
   head () {
