@@ -15,7 +15,7 @@
 
         <line-chart
           :chart-data="chartData"
-          :chart-options="extraOptions"
+          :extra-options="extraOptions"
           chart-id="cardLineChart"
         />
 
