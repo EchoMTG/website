@@ -49,11 +49,17 @@ export default {
   },
   data () {
     return {
-      test: null
+      test: null,
+      userhash: ''
     }
   },
-  asyncData({req}) {
+  asyncData({req, $echomtg}) {
     //console.log('async from index',req)
+    let userid = 1
+    let userhash = $echomtg.md5( userid + 'em123')
+    return {
+      userhash
+    }
   },
   computed: {
     ...mapState([
@@ -69,7 +75,7 @@ export default {
         }
       ]
     },
-    tools: () => [
+    tools() { return [
 
       {
         name: `Inventory`,
@@ -99,10 +105,10 @@ export default {
         name: `Tradelist`,
         description: `Mark inventory items for trade to access a publically available tradelist.`,
         icon:  `handshake`,
-        url: `/tools/tradelist/`
+        url: `/tools/tradelist/${this.userhash}`
       },
     ]
-
+    }
 
   },
   head () {
