@@ -61,6 +61,11 @@ export default {
           'Tools',
           [
             {
+              to: '/tools/',
+              icon: 'tools',
+              label: 'Tools'
+            },
+            {
               to: '/',
               icon: 'chart-timeline-variant-shimmer',
               label: 'Dashboard'
