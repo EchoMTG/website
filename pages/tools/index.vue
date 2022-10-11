@@ -76,38 +76,37 @@ export default {
       ]
     },
     tools() { return [
-
-      {
-        name: `Inventory`,
-        description: `Track your collection, single cards and sealed items, by acquired price and date.`,
-        icon: `animation`,
-        url: `/tools/inventory/`
-      },
-      {
-        name: `Decks and Lists`,
-        description: `Create lists and decks of cards, it will automatically match cards you own to your lists. Lists can be shared.`,
-        icon:  `clipboard-list`,
-        url: `/tools/lists/`
-      },
-      {
-        name: `Sealed`,
-        description: `Gain insight to the unopened product in your collection with the sealed tool.`,
-        icon: `wallet-giftcard`,
-        url: `/tools/inventory/sealed/`
-      },
-       {
-        name: `Watchlist`,
-        description: `Track the price movement of specific magic items.`,
-        icon:  `eye`,
-        url: `/tools/watchlist/`
-      },
-       {
-        name: `Tradelist`,
-        description: `Mark inventory items for trade to access a publically available tradelist.`,
-        icon:  `handshake`,
-        url: `/tools/tradelist/${this.userhash}`
-      },
-    ]
+        {
+          name: `Inventory`,
+          description: `Track your collection, single cards and sealed items, by acquired price and date.`,
+          icon: `animation`,
+          url: `/tools/inventory/`
+        },
+        {
+          name: `Decks and Lists`,
+          description: `Create lists and decks of cards, it will automatically match cards you own to your lists. Lists can be shared.`,
+          icon:  `clipboard-list`,
+          url: `/tools/lists/`
+        },
+        {
+          name: `Sealed`,
+          description: `Gain insight to the unopened product in your collection with the sealed tool.`,
+          icon: `wallet-giftcard`,
+          url: `/tools/inventory/sealed/`
+        },
+        {
+          name: `Watchlist`,
+          description: `Track the price movement of specific magic items.`,
+          icon:  `eye`,
+          url: `/tools/watchlist/`
+        },
+        {
+          name: `Tradelist`,
+          description: `Mark inventory items for trade to access a publically available tradelist.`,
+          icon:  `handshake`,
+          url: `/tools/tradelist/${this.userhash}`
+        },
+      ]
     }
 
   },

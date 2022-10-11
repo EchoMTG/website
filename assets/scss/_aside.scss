@@ -95,6 +95,7 @@ aside.aside {
   .menu-list {
     li {
       &.is-active {
+
         box-shadow: 0 1px $base-color-light;
         >a {
           box-shadow: 0 1px $base-color-light;
