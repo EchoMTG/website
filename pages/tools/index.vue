@@ -95,6 +95,12 @@ export default {
         icon:  `eye`,
         url: `/tools/watchlist/`
       },
+       {
+        name: `Tradelist`,
+        description: `Mark inventory items for trade to access a publically available tradelist.`,
+        icon:  `handshake`,
+        url: `/tools/tradelist/`
+      },
     ]
 
 
