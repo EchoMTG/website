@@ -1,6 +1,34 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
+
+    <nav class="level is-mobile">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">TCG Low</p>
+          <p class="title">{{regularLowPrice}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">TCG Mid</p>
+          <p class="title">{{regularLowPrice}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Foil Price</p>
+          <p class="title">{{foilPrice}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Last Price Update</p>
+          <p class="title">{{this.prices.date[0]}}</p>
+        </div>
+      </div>
+    </nav>
+
     <div class="columns">
       <div class="column is-one-quarter">
         <div class="cardImageContainer m-3">
@@ -158,6 +186,15 @@ export default {
           }
         ]
       }
+    },
+    regularLowPrice(){
+      return this.item.tcg_low > 0 ? this.item.tcg_low : 'N/A'
+    },
+    regularMidPrice(){
+      return this.item.tcg_mid > 0 ? this.item.tcg_mid : 'N/A'
+    },
+    foilPrice(){
+      return this.item.foil_price > 0 ? this.item.foil_price : 'N/A'
     }
   },
   head () {
