@@ -55,7 +55,28 @@ export default (context, inject) => {
     });
     let data = await res.json();
 
-    alert(data.message); //createGrowl(response.message);
+    this.createGrowl(data.message);
+  }
+
+  echomtg.editListMeta = async (list_id, name, description) => {
+
+    let n = encodeURIComponent(name)
+    let d = encodeURIComponent(description)
+
+    let url = `${context.env.API_DOMAIN}lists/edit/list=${list_id}&name=${n}&description=${d}`;
+    echomtg.log(url, 'editing list name and description', context.app.$cookies.get('token'));
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+        }
+      });
+      let data = await res.json();
+      this.createGrowl(data.message);
+    } catch (error){
+      console.log(error);
+    }
   }
 
   echomtg.replaceSymbols = (str) => {
