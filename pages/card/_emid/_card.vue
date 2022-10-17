@@ -2,29 +2,41 @@
   <div>
     <echo-bread-crumbs :data="crumbs" />
 
-    <nav class="level is-mobile">
+    <nav class="level is-mobile pt-2 pb-2 todaysprices">
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">TCG Low</p>
-          <p class="title">{{regularLowPrice}}</p>
+          <p class="heading is-size-8">TCG Low</p>
+          <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">TCG Mid</p>
-          <p class="title">{{regularLowPrice}}</p>
+          <p class="heading is-size-8">TCG Mid</p>
+          <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Foil Price</p>
-          <p class="title">{{foilPrice}}</p>
+          <p class="heading is-size-8">Change</p>
+          <p class="title is-4">{{priceChange}}%</p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Last Price Update</p>
-          <p class="title">{{this.prices.date[0]}}</p>
+          <p class="heading is-size-8">Foil Price</p>
+          <p class="title is-4">{{cs}}{{foilPrice}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading is-size-8">Foil Multiplier</p>
+          <p class="title is-4">{{foilMultipler}}X</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading is-size-8">Last Price Update</p>
+          <p class="title is-4">{{this.prices.date[0]}}</p>
         </div>
       </div>
     </nav>
@@ -85,6 +97,7 @@ export default {
   },
   data () {
     return {
+      cs: '$',
       item: {
         name: '',
       },
@@ -195,6 +208,12 @@ export default {
     },
     foilPrice(){
       return this.item.foil_price > 0 ? this.item.foil_price : 'N/A'
+    },
+    foilMultipler() {
+      return (this.item.foil_price / this.item.tcg_mid).toFixed(2)
+    },
+    priceChange() {
+      return this.item.change
     }
   },
   head () {
