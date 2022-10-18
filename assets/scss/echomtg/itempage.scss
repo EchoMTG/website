@@ -170,12 +170,6 @@ $price-height: 60px;
 	font-size: 24px;
 	display: flex;
 
-	@media all and (max-width: $break-width){
-		font-size: 14px;
-		height: $price-height - 10;
-	}
-
-
 	.foil_price{
 		color:$foil-price;
 

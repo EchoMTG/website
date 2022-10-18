@@ -6,43 +6,43 @@
       <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
         <div>
           <p class="heading is-size-8">Market</p>
-          <p class="title is-4">{{cs}}{{regularMarketPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularMarketPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.tcg_low > 0">
         <div>
           <p class="heading is-size-8">TCG Low</p>
-          <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularLowPrice}}</p>
         </div>
       </div>
-      <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
+      <div class="level-item has-text-centered is-hidden-mobile" v-if="this.item.tcg_mid > 0">
         <div>
           <p class="heading is-size-8">TCG Mid</p>
-          <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularMidPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
         <div>
           <p class="heading is-size-8">7-Day Change</p>
-          <p class="title is-4">{{priceChange}}%</p>
+          <p class="title is-size-4 is-size-5-mobile">{{priceChange}}%</p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Price</p>
-          <p class="title is-4">{{cs}}{{foilPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{foilPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Multiplier</p>
-          <p class="title is-4">{{foilMultipler}}X</p>
+          <p class="title is-size-4 is-size-5-mobile">{{foilMultipler}}X</p>
         </div>
       </div>
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered is-hidden-mobile">
         <div>
           <p class="heading is-size-8">Last Price Update</p>
-          <p class="title is-4">{{this.prices.date[0]}}</p>
+          <p class="title is-4 is-5-mobile">{{this.prices.date[0]}}</p>
         </div>
       </div>
     </nav>
@@ -56,10 +56,35 @@
 
           ></b-image>
         </div>
+        <div class="message m-3 p-4">
+          <nav class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <h2 class="title is-size-5">{{item.card_name}}</h2>
+                  <h3 class=" is-size-6 is-italic">{{item.types}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <div>
+                  <div class="is-size-3" v-html="this.$echomtg.replaceSymbols(item.mana_cost)"></div>
+                  <div v-if="item.main_colors" class=" is-size-6 is-italic">{{item.main_colors}}</div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          
+          <div class="content">
+            <div class="mb-3" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
+            <p class="is-italic">{{item.flavor_text}}</p>
+          </div>
+        </div>
       </div>
       <div class="column">
-        <h1 class="title mb-3">{{this.item.name}}</h1>
-         <b-field grouped group-multiline>
+        <h1 class="title mb-3">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">from</span> {{this.item.expansion}}</h1>
+         <b-field class="pb-3" grouped group-multiline>
             <div class="control" v-if="this.item.reserve_list == 1">
               <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
             </div>
@@ -96,22 +121,14 @@
 
       </div>
       <div class="column is-one-quarter">
-          Inventory Component or Signup CTA
+          <item-tool-box :item="this.item"></item-tool-box>
 
 
       </div>
     </div>
 
-    <hr />
 
-    <div class="message m-4 p-4">
-
-        <h1 class="title is-size-5 mt-3">{{item.card_name}}</h1>
-        <h2 class="subtitle is-size-6 mb-0">{{item.expansion}}</h2>
-        <div class="content">
-          <p>{{item.card_text}}</p>
-        </div>
-    </div>
+    
   </div>
 
 </template>
@@ -121,14 +138,15 @@ import SetView from '@/components/sets/SetView'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import LineChart from '@/components/Charts/LineChart'
 import * as chartConfig from '@/components/Charts/chart.config'
-
+import ItemToolBox from '@/components/items/ItemToolBox.vue'
 
 export default {
   name: 'Expansion',
   components: {
     SetView,
     EchoBreadCrumbs,
-    LineChart
+    LineChart,
+    ItemToolBox
   },
   data () {
     return {
@@ -216,7 +234,7 @@ export default {
           break;
         case 'mythic rare':
         case 'mythic':
-          color='is-error';
+          color='is-danger';
         break;
       }
       return color;
@@ -275,7 +293,7 @@ export default {
   },
   head () {
     return {
-        title: `${this.item.card_name} Price ${this.item.expansion} MTG `,
+        title: `${this.item.card_name} Price ${this.item.expansion} MTG`,
         description: `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`
     }
   }
