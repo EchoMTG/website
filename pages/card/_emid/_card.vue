@@ -3,31 +3,37 @@
     <echo-bread-crumbs :data="crumbs" />
 
     <nav class="level is-mobile pt-2 pb-2 todaysprices">
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
+        <div>
+          <p class="heading is-size-8">Market</p>
+          <p class="title is-4">{{cs}}{{regularMarketPrice}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered" v-if="this.item.tcg_low > 0">
         <div>
           <p class="heading is-size-8">TCG Low</p>
           <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
         </div>
       </div>
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
         <div>
           <p class="heading is-size-8">TCG Mid</p>
           <p class="title is-4">{{cs}}{{regularLowPrice}}</p>
         </div>
       </div>
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
         <div>
-          <p class="heading is-size-8">Change</p>
+          <p class="heading is-size-8">7-Day Change</p>
           <p class="title is-4">{{priceChange}}%</p>
         </div>
       </div>
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Price</p>
           <p class="title is-4">{{cs}}{{foilPrice}}</p>
         </div>
       </div>
-      <div class="level-item has-text-centered">
+      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Multiplier</p>
           <p class="title is-4">{{foilMultipler}}X</p>
@@ -55,13 +61,13 @@
         <h1 class="title mb-3">{{this.item.name}}</h1>
          <b-field grouped group-multiline>
             <div class="control" v-if="this.item.reserve_list == 1">
-              <b-tag icon="scale-balance" type="is-dark">Reserved List</b-tag>
+              <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
             </div>
             <div class="control">
-              <b-tag >{{this.item.expansion}}</b-tag>
+              <b-tag type="is-dark">{{this.item.expansion}}</b-tag>
             </div>
             <div class="control">
-              <b-tag>{{this.item.rarity}}</b-tag>
+              <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
             </div>
 
 
@@ -90,7 +96,7 @@
 
       </div>
       <div class="column is-one-quarter">
-
+          Inventory Component or Signup CTA
 
 
       </div>
@@ -196,6 +202,25 @@ export default {
 
   },
   computed: {
+    typeColor() {
+      let color = 'is-warning'
+      switch (this.item.rarity.toLowerCase()){
+        case 'uncommon':
+          color='is-grey';
+          break;
+        case 'common':
+          color='is-white';
+          break;
+        case 'rare':
+          color='is-warning';
+          break;
+        case 'mythic rare':
+        case 'mythic':
+          color='is-error';
+        break;
+      }
+      return color;
+    },
     crumbs () {
       return [
         {
@@ -230,13 +255,16 @@ export default {
       }
     },
     regularLowPrice(){
-      return this.item.tcg_low > 0 ? this.item.tcg_low : 'N/A'
+      return this.item.tcg_low > 0 ? this.item.tcg_low.toLocaleString("en-US") : 'N/A'
     },
     regularMidPrice(){
-      return this.item.tcg_mid > 0 ? this.item.tcg_mid : 'N/A'
+      return this.item.tcg_mid > 0 ? this.item.tcg_mid.toLocaleString("en-US") : 'N/A'
+    },
+    regularMarketPrice(){
+      return this.item.tcg_market > 0 ? this.item.tcg_market.toLocaleString("en-US") : 'N/A'
     },
     foilPrice(){
-      return this.item.foil_price > 0 ? this.item.foil_price : 'N/A'
+      return this.item.foil_price > 0 ? this.item.foil_price.toLocaleString("en-US") : 'N/A'
     },
     foilMultipler() {
       return (this.item.foil_price / this.item.tcg_mid).toFixed(2)

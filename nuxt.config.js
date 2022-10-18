@@ -36,7 +36,7 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'https://fonts.googleapis.com/css?family=Nunito'
+        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed'
       },
       {
         rel: 'stylesheet',
