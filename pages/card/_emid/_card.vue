@@ -54,12 +54,16 @@
       <div class="column">
         <h1 class="title mb-3">{{this.item.name}}</h1>
          <b-field grouped group-multiline>
-            <div class="control">
-              <b-tag>{{this.item.rarity}}</b-tag>
+            <div class="control" v-if="this.item.reserve_list == 1">
+              <b-tag icon="scale-balance" type="is-dark">Reserved List</b-tag>
             </div>
             <div class="control">
               <b-tag >{{this.item.expansion}}</b-tag>
             </div>
+            <div class="control">
+              <b-tag>{{this.item.rarity}}</b-tag>
+            </div>
+
 
             <div class="control">
               <b-tag>{{this.item.main_type}}</b-tag>

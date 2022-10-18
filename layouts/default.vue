@@ -97,7 +97,7 @@ export default {
             {
               to: '/sets',
               label: 'Expansions',
-              icon: 'view-list-outline',
+              icon: 'cards',
               updateMark: true
             },
             {
@@ -184,31 +184,32 @@ export default {
         ]
       } else {
          return [
-          'Create Account',
-          [
-            {
-              to: '/',
-              icon: 'desktop-mac',
-              label: 'Dashboard'
-            }
-          ],
-          'Login',
-          [
-            {
-              to: '/login',
-              icon: 'lock',
-              label: 'Login'
-            }
-          ],
+
+
           'Magic: the Gathering',
           [
             {
               to: '/sets',
               label: 'Expansions',
-              icon: 'box',
+              icon: 'cards',
               updateMark: true
             },
-          ]
+          ],
+           'EchoMTG',
+          [
+            {
+              to: '/login',
+              icon: 'lock',
+              label: 'Login'
+            },
+             [
+            {
+              to: '/',
+              icon: 'plus',
+              label: 'Create Account'
+            }
+          ],
+          ],
         ]
       }
     },
