@@ -73,10 +73,10 @@
                 <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
                   {{symbol}} {{props.row.tcg_mid}}
                 </b-table-column>
-                <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable>
+                <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
                   {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
                 </b-table-column>
-                <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable>
+                <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
                   <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
                 </b-table-column>
                 <b-table-column field="gain" label="Profit" v-slot="props" sortable>

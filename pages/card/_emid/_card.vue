@@ -30,13 +30,13 @@
       <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Price</p>
-          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{foilPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile  has-text-warning-dark">{{cs}}{{foilPrice}}</p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
         <div>
           <p class="heading is-size-8">Foil Multiplier</p>
-          <p class="title is-size-4 is-size-5-mobile">{{foilMultipler}}X</p>
+          <p class="title is-size-4 is-size-5-mobile has-text-warning-dark">{{foilMultipler}}X</p>
         </div>
       </div>
       <div class="level-item has-text-centered is-hidden-mobile">
@@ -47,7 +47,7 @@
       </div>
     </nav>
 
-    <div class="columns">
+    <div class="columns mr-2">
       <div class="column is-one-quarter">
         <div class="cardImageContainer m-3">
           <b-image
@@ -120,7 +120,7 @@
         />
 
       </div>
-      <div class="column is-one-quarter">
+      <div class="column is-one-quarter ">
           <item-tool-box :item="this.item"></item-tool-box>
 
 
