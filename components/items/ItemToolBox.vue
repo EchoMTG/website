@@ -12,8 +12,10 @@
         </header>
         <div class="card-content p-0">
 
+            <p class="p-5  has-text-grey-light has-text-centered is-size-6" v-if="this.items.length == 0">You don't have any {{this.item.name}} from {{this.item.expansion}} in your inventory.</p>
             
             <b-table
+                v-if="this.items.length > 0"
                 :data="this.items"
                 striped
                 default-sort="acquiredOn"
