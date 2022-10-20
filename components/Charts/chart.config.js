@@ -1,3 +1,12 @@
+const footer = (tooltipItems) => {
+  let sum = 0;
+  console.log('tooltip',tooltipItems)
+  tooltipItems.forEach(function(tooltipItem) {
+    sum += tooltipItem.yLabel;
+  });
+  return 'Price: $' + sum;
+};
+
 export const chartColors = {
   default: {
     primary: '#00D1B2',
@@ -25,15 +34,23 @@ export const chartOptionsMain = {
       loop: true
     }
   },
+  interaction: {
+    intersect: false,
+    mode: 'index',
+  },
   tooltips: {
     backgroundColor: '#f5f5f5',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,
     xPadding: 12,
+    yPadding: 8,
     mode: 'nearest',
     intersect: 0,
-    position: 'nearest'
+    position: 'nearest',
+    callbacks: {
+      footer: footer,
+    }
   },
   scales: {
     yAxes: [
@@ -41,7 +58,7 @@ export const chartOptionsMain = {
         barPercentage: 1.6,
         gridLines: {
           drawBorder: false,
-          color: 'rgba(29,140,248,0.0)',
+          color: 'rgba(0,0,0,0.05)',
           zeroLineColor: 'transparent'
         },
         ticks: {
@@ -56,7 +73,7 @@ export const chartOptionsMain = {
         barPercentage: 1.6,
         gridLines: {
           drawBorder: false,
-          color: 'rgba(225,78,202,0.1)',
+          color: 'rgba(0,0,0,0.025)',
           zeroLineColor: 'transparent'
         },
         ticks: {

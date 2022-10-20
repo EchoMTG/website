@@ -75,7 +75,7 @@
               </div>
             </div>
           </nav>
-          
+
           <div class="content">
             <div class="mb-3" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
             <p class="is-italic">{{item.flavor_text}}</p>
@@ -128,7 +128,7 @@
     </div>
 
 
-    
+
   </div>
 
 </template>

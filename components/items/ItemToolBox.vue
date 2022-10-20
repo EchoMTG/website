@@ -13,7 +13,7 @@
         <div class="card-content p-0">
 
             <p class="p-5  has-text-grey-light has-text-centered is-size-6" v-if="this.items.length == 0">You don't have any {{this.item.name}} from {{this.item.expansion}} in your inventory.</p>
-            
+
             <b-table
                 v-if="this.items.length > 0"
                 :data="this.items"
@@ -24,35 +24,35 @@
                     {{ props.row.acquiredOn }}
                 </b-table-column>
                 <b-table-column field="acquiredPrice" label="Acq. Price" sortable numeric v-slot="props">
-                    
+
                     <b-tag v-if="props.row.foil == 1" class="has-background-warning-dark has-text-white" rounded>foil</b-tag>
                     {{cs}}{{ props.row.acquiredPrice.toLocaleString("en-US") }}
                 </b-table-column>
-                
+
                 <b-table-column v-slot="props">
                     <a class="button is-small"  @click="soldItem(props.row.acquiredPrice,props.row.inventoryID,props.row.foil)"><i class="fa fa-usd"></i></a>
                     <a class="button is-small" @click="deleteItem(props.row.inventoryID)"><i class="fa fa-trash"></i></a>
                 </b-table-column>
             </b-table>
         </div>
-        <footer class="card-footer">
-         
+        <footer class="card-footer has-background-light">
+
             <a style="border-right: none;" v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)" class="card-footer-item has-text-black" @click="addItem(0)">
-                <b-icon icon="plus"></b-icon> Regular</a>
-                <input 
-                v-if="priceMid > 0 || priceFoil > 0" 
+                <b-icon class="mr-2" icon="plus-box-outline"></b-icon> Regular</a>
+                <input
+                v-if="priceMid > 0"
                 class="input card-footer-item is-shadowless m-0"
-                style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto" 
-                v-model="acquiredAddPrice" 
+                style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto"
+                v-model="acquiredAddPrice"
             />
             <a style="border-right: none;" v-if="priceFoil > 0" class="card-footer-item has-text-warning-dark" @click="addItem(1)">
-                <b-icon icon="plus"></b-icon>  Foil
+                <b-icon  class="mr-2" icon="plus-box-outline"></b-icon>  Foil
             </a>
-            <input 
-                v-if="priceMid > 0 || priceFoil > 0" 
+            <input
+                v-if="priceFoil > 0"
                 class="input card-footer-item is-shadowless m-0"
-                style="border: none; border-radius: 0; height: auto" 
-                v-model="acquiredAddFoilPrice" 
+                style="border: none; border-radius: 0; height: auto"
+                v-model="acquiredAddFoilPrice"
             />
 
         </footer>
@@ -83,7 +83,7 @@ export default {
     methods: {
 
         soldItem: function (acquiredPrice,inventoryID,foil=0){
-            
+
             fetch(this.addEarningsURL(acquiredPrice,inventoryID),{
                 headers: {
                     'Authorization' : 'Bearer ' + this.$cookies.get('token')
