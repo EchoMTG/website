@@ -22,9 +22,9 @@
                 default-sort-direction="ASC">
                 <b-table-column field="acquiredOn" label="Acq. Date" sortable date v-slot="props">
                     {{ props.row.acquiredOn }}
+                    <img style="height:40px" :alt="item.name" v-if="props.row.user_image" :src="props.row.user_image" />
                 </b-table-column>
                 <b-table-column field="acquiredPrice" label="Acq. Price" sortable numeric v-slot="props">
-                    
                     <b-tag v-if="props.row.foil == 1" class="has-background-warning-dark has-text-white" rounded>foil</b-tag>
                     {{cs}}{{ props.row.acquiredPrice.toLocaleString("en-US") }}
                 </b-table-column>
@@ -64,7 +64,9 @@ export default {
     props: {
         item: {
             type: Object,
-            default: () => {},
+            default: () => {
+                name: ''
+            },
         },
     },
     data: function data() {

@@ -73,7 +73,7 @@ export default {
   name: 'DefaultHomepage',
   data () {
     return {
-      millions: 200
+      millions: 318
     }
   },
   components: {
