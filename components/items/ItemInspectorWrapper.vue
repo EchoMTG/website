@@ -1,8 +1,9 @@
 <template>
    <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)" style="position: relative">
       <a class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
-      {{item.name}} <span v-if="item.reserve_list == 1">[Reserved]</span>
+      {{item.name}}
       </a>
+      <b-tag type="is-info" v-if="item.reserve_list == 1">Reserved</b-tag>
       <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
   </div>
 </template>

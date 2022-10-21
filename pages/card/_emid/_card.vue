@@ -42,7 +42,7 @@
       <div class="level-item has-text-centered is-hidden-mobile">
         <div>
           <p class="heading is-size-8">Last Price Update</p>
-          <p class="title is-4 is-5-mobile">{{this.prices.date[0]}}</p>
+          <p class="title is-4 is-5-mobile">{{this.prices.date[this.prices.date.length - 1]}}</p>
         </div>
       </div>
     </nav>
