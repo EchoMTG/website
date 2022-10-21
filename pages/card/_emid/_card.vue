@@ -42,7 +42,7 @@
       <div class="level-item has-text-centered is-hidden-mobile">
         <div>
           <p class="heading is-size-8">Last Price Update</p>
-          <p class="title is-4 is-5-mobile">{{this.prices.date[0]}}</p>
+          <p class="title is-4 is-5-mobile">{{this.prices.date[this.prices.date.length - 1]}}</p>
         </div>
       </div>
     </nav>
@@ -75,7 +75,7 @@
               </div>
             </div>
           </nav>
-          
+
           <div class="content">
             <div class="mb-3" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
             <p class="is-italic">{{item.flavor_text}}</p>
@@ -128,7 +128,7 @@
     </div>
 
 
-    
+
   </div>
 
 </template>

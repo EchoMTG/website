@@ -1,3 +1,12 @@
+const footer = (tooltipItems) => {
+  let sum = 0;
+  console.log('tooltip',tooltipItems)
+  tooltipItems.forEach(function(tooltipItem) {
+    sum += tooltipItem.yLabel;
+  });
+  return 'Price: $' + sum;
+};
+
 export const chartColors = {
   default: {
     primary: '#00D1B2',
@@ -9,7 +18,8 @@ export const chartColors = {
 export const baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
-    display: false
+    display: true,
+    position: 'bottom'
   },
   responsive: true
 }
@@ -26,44 +36,58 @@ export const chartOptionsMain = {
     }
   },
   tooltips: {
-    backgroundColor: '#f5f5f5',
-    titleFontColor: '#333',
-    bodyFontColor: '#666',
+    backgroundColor: '#333',
+    titleFontColor: '#FFF',
+    bodyFontColor: '#CCC',
     bodySpacing: 4,
     xPadding: 12,
-    mode: 'nearest',
-    intersect: 0,
-    position: 'nearest'
+    yPadding: 8,
+    mode: 'index',
+    intersect: false,
+    position: 'nearest',
+    callbacks: {
+      footer: footer,
+    }
   },
   scales: {
+    xAxes: [{
+      time: {
+        displayFormats: {
+            quarter: 'MMM YYYY'
+        }
+      },
+      gridLines: {
+        drawBorder: false,
+        color: 'rgba(0,0,0,0.025)',
+        zeroLineColor: 'transparent',
+        offsetGridLines: true,
+        offset: true
+      },
+      ticks: {
+
+        fontColor: '#ccc',
+        beginAtZero: false,
+        autoSkip: true,
+        autoSkipPadding: 20,
+        maxTicksLimit: 16
+
+      }
+    }],
     yAxes: [
       {
-        barPercentage: 1.6,
+
         gridLines: {
           drawBorder: false,
-          color: 'rgba(29,140,248,0.0)',
+          color: 'rgba(0,0,0,0.05)',
           zeroLineColor: 'transparent'
         },
+
         ticks: {
           padding: 20,
-          fontColor: '#9a9a9a'
+          fontColor: '#9a9a9a',
+          beginAtZero: false
         }
       }
     ],
-
-    xAxes: [
-      {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: 'rgba(225,78,202,0.1)',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          padding: 20,
-          fontColor: '#9a9a9a'
-        }
-      }
-    ]
   }
 }
