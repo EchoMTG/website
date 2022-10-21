@@ -163,8 +163,26 @@ html {
           color: $state-color;
         }
       }
+      &.is-dark {
+        background-color: $white;
+        border: none;
+        color: $black;
+      }
     }
 
+    .is-dark {
+      background-color: $white;
+      border: none;
+      color: $black;
+    }
+    .is-light {
+      background-color: rgba($black, 0.25);
+      border: none;
+      color: $white;
+    }
+    .has-background-light,  .message{
+      background-color: rgba($black, 0.25) !important;
+    }
     .table {
       background-color: transparent;
       color: $dark-mode-color;
