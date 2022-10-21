@@ -175,6 +175,10 @@ html {
       border: none;
       color: $black;
     }
+    .has-text-black{
+      color: white !important;
+    }
+
     .is-light {
       background-color: rgba($black, 0.25);
       border: none;
