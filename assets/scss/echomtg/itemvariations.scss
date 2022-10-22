@@ -1,0 +1,48 @@
+@import "~bulma/sass/utilities/initial-variables";
+
+.item-variations {
+  overflow: hidden;
+  position: relative;
+  .cover-image {
+    width: 100%;
+    z-index: 0;
+    filter: blur(10px);
+    position: absolute;
+    top: 0;
+    left: 0px;
+
+  }
+
+  .topBlend{
+    display: block;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0px;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0)  100%);
+    z-index: 1;
+  }
+  .bottomBlend {
+    display: block;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0px;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1.0)  100%);
+    z-index: 1;
+  }
+  h1 {
+    .symbol {
+      font-size: 50px;
+      width: 50px;
+      border-radius: 50px;
+      margin-right: 5px;
+    }
+  }
+
+  > div {
+    z-index: 2;
+    position: relative;
+  }
+
+}

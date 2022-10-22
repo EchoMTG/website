@@ -246,6 +246,16 @@ export default {
           url: '/sets/',
           icon: ''
         },
+         {
+          label: this.item.name,
+          url: this.item.card_url,
+          icon: ''
+        },
+        {
+          label: this.item.expansion,
+          url: this.item.set_url,
+          icon: ''
+        },
         {
           label: this.item.name,
           url: this.$nuxt.$route.path,
