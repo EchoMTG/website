@@ -36,7 +36,15 @@ export default {
   head () {
       return {
           title: `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
-          description: `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+          meta: [
+            { hid: 'og:image', property: 'og:image', content: this.original.image_cropped },
+            {
+              hid: 'description',
+              name: 'description',
+              content:  `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+            }
+          ]
+
       }
     }
 }

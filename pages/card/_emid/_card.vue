@@ -304,9 +304,13 @@ export default {
   head () {
     return {
         title: `${this.item.card_name} Price ${this.item.expansion} MTG`,
-        description: `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`,
         meta: [
-          { hid: 'og:image', property: 'og:image', content: this.item.image_cropped }
+          { hid: 'og:image', property: 'og:image', content: this.item.image_cropped },
+          {
+            hid: 'description',
+            name: 'description',
+            content:  `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`
+          }
         ]
     }
   }
