@@ -1,5 +1,11 @@
 @import "~bulma/sass/utilities/initial-variables";
 
+.ellipsis{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .item-variations {
   overflow: hidden;
   position: relative;

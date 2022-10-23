@@ -84,8 +84,7 @@
           <div class="column is-one-quarter" v-for="variation in variationsSorted" :v-key="`vari-${variation.emid}`">
             <div class="card has-background-light">
               <header class="card-header">
-                  <p class="card-header-title pb-1" style="text-overflow: ellipsis;overflow: hidden;
-white-space: nowrap;">
+                  <p class="card-header-title pb-1 ellipsis">
                     <span :class="getSetIconClass(variation.set_code)"></span>
                     {{variation.set}}
                   </p>
