@@ -91,7 +91,10 @@ export default {
   head () {
     return {
         title: `${this.set.name} Price List and Card Data`,
-        description: `Card Images and Prices for the Magic the Gathering set ${this.set.name}, ${this.set.set_code}`
+        description: `Card Images and Prices for the Magic the Gathering set ${this.set.name}, ${this.set.set_code}`,
+        meta: [
+          { hid: 'og:image', property: 'og:image', content: this.set.set_symbol }
+        ]
     }
   }
 

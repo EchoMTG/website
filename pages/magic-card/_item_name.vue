@@ -257,8 +257,12 @@ export default {
   },
   head () {
     return {
-        title: `${this.original.name} Prices and Variations`,
-        description: `Card Images and Prices for the Magic the Gathering card ${this.original.name}`
+        title: `${this.original.name} Printings, Prices, and Variations`,
+        description: `Card Images and Prices for the Magic the Gathering card ${this.original.name}`,
+        meta: [
+          { hid: 'og:image', property: 'og:image', content: this.original.image_cropped }
+        ]
+
     }
   }
 
