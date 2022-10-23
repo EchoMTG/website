@@ -118,38 +118,58 @@
           :extra-options="extraOptions"
           chart-id="cardLineChart"
         />
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title pb-0">
+              {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
+            </p>
+            <button class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <b-icon icon="menu-down"></b-icon>
+              </span>
+            </button>
+          </header>
+          <item-price-analysis v-if="this.item.tcg_mid" :prices="this.prices" foil="false" />
+          <h3 v-if="this.item.foil_price" class="title is-size-6 has-text-warning-dark ml-3 mb-0 mt-3">{{this.item.name}} from {{this.item.expansion}}'s Foil Price Analysis </h3>
+          <item-price-analysis v-if="this.item.foil_price" :prices="this.prices" type="foil" />
+
+        </div>
+
         <hr />
         <!-- variations and history -->
         <div v-if="variations.length > 1">
-          <nav class="level">
-            <div class="left-level">
-              <h3 class="title is-size-5 mb-0">Other Variations of {{this.item.name}}</h3>
-            </div>
-            <div class="right-level">
-              <a :href="this.item.card_url">See All Variations</a>
-              </div>
-          </nav>
-          <b-table
-            :data="variations"
-            default-sort="tcg_mid"
-            default-sort-direction="DESC"
-            bordered="true"
-            striped="true"
-          >
-              <b-table-column v-slot="props">
-                <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
-              </b-table-column>
-              <b-table-column field="set" label="Expansion" sortable v-slot="props">
-                <item-inspector-wrapper :name="variationName(props.row.set, props.row.name)" :item="props.row" />
-              </b-table-column>
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                Other Variations of {{this.item.name}}
+              </p>
+              <a :href="this.item.card_url" class="button card-header-icon" aria-label="more options">
 
-              <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
-                  <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
-              </b-table-column>
-              <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
-                  <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
-              </b-table-column>
-          </b-table>
+                See All Variations
+              </a>
+            </header>
+            <b-table
+              :data="variations"
+              default-sort="tcg_mid"
+              default-sort-direction="DESC"
+              bordered="true"
+              striped="true"
+            >
+                <b-table-column v-slot="props">
+                  <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
+                </b-table-column>
+                <b-table-column field="set" label="Expansion" sortable v-slot="props">
+                  <item-inspector-wrapper :name="variationName(props.row.set, props.row.name)" :item="props.row" />
+                </b-table-column>
+
+                <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
+                    <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
+                </b-table-column>
+                <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
+                    <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
+                </b-table-column>
+            </b-table>
+          </div>
         </div>
 
       </div>
@@ -173,6 +193,7 @@ import LineChart from '@/components/Charts/LineChart'
 import * as chartConfig from '@/components/Charts/chart.config'
 import ItemToolBox from '@/components/items/ItemToolBox.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
+import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
 
 export default {
   name: 'Expansion',
@@ -181,7 +202,8 @@ export default {
     EchoBreadCrumbs,
     LineChart,
     ItemToolBox,
-    ItemInspectorWrapper
+    ItemInspectorWrapper,
+    ItemPriceAnalysis
   },
   data () {
     return {
