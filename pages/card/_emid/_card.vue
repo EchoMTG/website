@@ -33,7 +33,7 @@
           <p class="title is-size-4 is-size-5-mobile  has-text-warning-dark">{{cs}}{{foilPrice}}</p>
         </div>
       </div>
-      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
+      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0 && this.item.tcg_mid > 0">
         <div>
           <p class="heading is-size-8">Foil Multiplier</p>
           <p class="title is-size-4 is-size-5-mobile has-text-warning-dark">{{foilMultipler}}X</p>
