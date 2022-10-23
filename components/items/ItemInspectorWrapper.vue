@@ -1,7 +1,7 @@
 <template>
    <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)" style="position: relative">
       <a class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
-      {{item.name}}
+      {{displayName}}
       </a>
       <b-tag type="is-info" v-if="item.reserve_list == 1">Reserved</b-tag>
       <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
@@ -27,6 +27,17 @@ export default {
         },
         required: true
     },
+    name: {
+      type: String,
+      default: false,
+      required: false
+    }
+  },
+  computed: {
+    displayName () {
+      if(this.name) return this.name;
+      return this.item.name
+    }
   },
   methods: {
     setShowItem: function(showItem, showFullItem=false){

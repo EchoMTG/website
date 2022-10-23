@@ -1,11 +1,5 @@
 @import "~bulma/sass/utilities/initial-variables";
 
-.ellipsis{
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .item-variations {
   overflow: hidden;
   position: relative;
@@ -30,9 +24,9 @@
   }
   h1 {
     .symbol {
-      font-size: 50px;
-      width: 50px;
-      border-radius: 50px;
+      font-size: 42px;
+      width: 42px;
+      border-radius: 42px;
       margin-right: 5px;
     }
   }

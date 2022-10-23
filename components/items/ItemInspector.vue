@@ -37,7 +37,8 @@
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular ${{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
 
-            <a :href="item.echo_url.replace('https://www.echomtg.com','')" class="card-footer-item">Open Card Page</a>
+            <a v-if="item.card_url" :href="item.variation_url" class="card-footer-item">All Variations</a>
+            <a :href="itemURL" class="card-footer-item">Card Page</a>
         </footer>
     </div>
 </template>
@@ -67,6 +68,10 @@ export default {
         cardClass() {
             let full = this.showFull ? 'full' : '';
             return `card itemInspectorCard ${full}`;
+        },
+        itemURL() {
+          if(this.item.echo_url) return this.item.echo_url.replace('https://www.echomtg.com','')
+          return this.item.card_url;
         }
     },
     methods: {

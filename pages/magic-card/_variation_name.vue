@@ -8,7 +8,7 @@
       <div class="container">
         <h1 class="title has-text-white is-size-1 has-text-shadow pt-4 has-text-weight-bold">
           <span v-html="this.$echomtg.replaceSymbols(this.original.mana_cost)"></span>
-          {{this.original.name}} <span class="has-text-grey-lighter has-text-weight-light">all Printings and Prices</span>
+          {{this.original.name}} <span class="has-text-grey-lighter has-text-weight-light is-hidden-mobile">all Printings and Prices</span>
 
         </h1>
 
@@ -115,11 +115,6 @@
 
         </div>
 
-        <!-- <b-image
-                :src="this.original.image"
-                placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
-
-            ></b-image> -->
       </div>
     </div>
 
@@ -150,7 +145,7 @@ export default {
   async asyncData({ params, redirect, $config }) {
 
     // fetch the set
-    let endpoint = `${$config.API_DOMAIN}data/item_variations/?name=${params.item_name}`;
+    let endpoint = `${$config.API_DOMAIN}data/item_variations/?name=${params.variation_name}`;
     let variations, original, res, data = []
     // try to get the json
     try {

@@ -40,34 +40,7 @@
 	}
 }
 
-.pad-left-33{
-	padding-left: 33px;
-}
 
-.link-out{
-		border: 1px $mage-grey solid;
-		margin: 10px;
-		border-radius: 5px;
-		color: $mage-grey;
-		display: block;
-		font-size: 12px;
-		padding: 4px 2px;
-		background: $black;
-
-		span{
-			display: inline-block;
-			border-right: 1px $mage-grey solid;
-			padding: 0px 5px;
-			margin-right: 5px;
-			padding-right: 5px;
-		}
-		&:hover{
-			background: $mage-grey;
-			color: black;
-
-		}
-
-	}
 
 .pos-rlt{position: relative;}
 .pos-stc{position: static !important;}
@@ -186,6 +159,15 @@ small{
 		background-color: darken($mage-grey,15%);
 	}
 
+}
+
+.ellipsis{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.is-overflowhidden{
+  overflow: hidden;
 }
 
 

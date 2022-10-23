@@ -56,12 +56,12 @@
 
           ></b-image>
         </div>
-        <div class="message m-3 p-4">
-          <nav class="level">
+        <div class="message m-3 p-4 is-overflowhidden">
+          <nav class="level is-mobile">
             <div class="level-left">
               <div class="level-item">
                 <div>
-                  <h2 class="title is-size-5">{{item.card_name}}</h2>
+                  <h2 class="title is-size-5 ellispis">{{item.card_name}}</h2>
                   <h3 class=" is-size-6 is-italic">{{item.types}}</h3>
                 </div>
               </div>
@@ -118,6 +118,39 @@
           :extra-options="extraOptions"
           chart-id="cardLineChart"
         />
+        <hr />
+        <!-- variations and history -->
+        <div v-if="variations.length > 1">
+          <nav class="level">
+            <div class="left-level">
+              <h3 class="title is-size-5 mb-0">Other Variations of {{this.item.name}}</h3>
+            </div>
+            <div class="right-level">
+              <a :href="this.item.card_url">See All Variations</a>
+              </div>
+          </nav>
+          <b-table
+            :data="variations"
+            default-sort="tcg_mid"
+            default-sort-direction="DESC"
+            bordered="true"
+            striped="true"
+          >
+              <b-table-column v-slot="props">
+                <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
+              </b-table-column>
+              <b-table-column field="set" label="Expansion" sortable v-slot="props">
+                <item-inspector-wrapper :name="variationName(props.row.set, props.row.name)" :item="props.row" />
+              </b-table-column>
+
+              <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
+                  <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
+              </b-table-column>
+              <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
+                  <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
+              </b-table-column>
+          </b-table>
+        </div>
 
       </div>
       <div class="column is-one-quarter ">
@@ -139,6 +172,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import LineChart from '@/components/Charts/LineChart'
 import * as chartConfig from '@/components/Charts/chart.config'
 import ItemToolBox from '@/components/items/ItemToolBox.vue'
+import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 
 export default {
   name: 'Expansion',
@@ -146,7 +180,8 @@ export default {
     SetView,
     EchoBreadCrumbs,
     LineChart,
-    ItemToolBox
+    ItemToolBox,
+    ItemInspectorWrapper
   },
   data () {
     return {
@@ -154,27 +189,31 @@ export default {
       item: {
         name: '',
       },
+      variations: [],
       prices: {
         foil: [],
         regular: [],
         date: []
       },
       extraOptions: chartConfig.chartOptionsMain
+
     }
   },
   async asyncData({ params, redirect, $config }) {
 
     let emid = params.emid;
-    let item, res, dataRes;
+    let item, res, dataRes, variations;
     let prices = {
       'date' : [],
       'regular': [],
       'foil' : []
     }
 
-    // fetch the set
+    // fetch the item
     let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
+    // pricing
     let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}`;
+
     // try to get the json
     try {
       res = await fetch(
@@ -197,15 +236,34 @@ export default {
 
       prices = priceData.data;
 
+      // fetching other editions
+      let variationname = item.card_url.split('/')[2];
+      let variationsEndpoint = `${$config.API_DOMAIN}data/item_variations/?name=${variationname}`;
+
+
+      const vRes = await fetch(
+        variationsEndpoint, {
+          headers: {
+            'Authorization' : 'Bearer ' + $config.S2S_KEY
+          }
+        }
+      );
+      let vData = await vRes.json();
+
+      variations = vData.data.variations;
+
 
     } catch(err){
       console.log(err, res)
     }
 
+
+
+
     // return it
     if (item) {
       return {
-        item, prices
+        item, prices, variations
       }
     } else {
       //redirect('/sets/')
@@ -216,7 +274,16 @@ export default {
     makeSetPath(code, path_part){
       return `/set/${code}/${path_part}/`
     },
-
+    getSetIconClass(set_code){
+      return this.$echomtg.setIconClass(set_code)
+    },
+    variationName(setname,itemname) {
+      let name = setname;
+      if(itemname.split('(')[1]){
+        name += ' (' + itemname.split('(')[1].replace(')','')+')'
+      }
+      return name;
+    }
 
   },
   computed: {
