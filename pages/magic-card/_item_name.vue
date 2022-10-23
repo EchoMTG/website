@@ -4,7 +4,6 @@
 
     <div class="item-variations">
       <span class="topBlend"></span>
-      <span class="bottomBlend"></span>
       <img class="cover-image" :src="this.original.image_cropped" :alt="this.original.name" />
       <div class="container">
         <h1 class="title has-text-white is-size-1 has-text-shadow pt-4 has-text-weight-bold">
@@ -19,30 +18,57 @@
             </div>
             <div class="control">
               <b-taglist attached>
-                  <b-tag>Total Variations</b-tag>
+                  <b-tag>Total Printings</b-tag>
                   <b-tag type="is-dark">{{this.variations.length}}</b-tag>
               </b-taglist>
             </div>
             <div class="control">
-              <b-tag :type="typeColor">{{this.original.rarity}}</b-tag>
+              <b-taglist attached>
+                  <b-tag>Rarity</b-tag>
+                  <b-tag :type="getRarityColor(this.original.rarity)">{{this.original.rarity}}</b-tag>
+              </b-taglist>
+            </div>
+             <div class="control">
+              <b-taglist attached>
+                  <b-tag>Type</b-tag>
+                   <b-tag type="is-dark">{{this.original.main_type}}</b-tag>
+              </b-taglist>
             </div>
 
-
-            <div class="control">
-              <b-tag>{{this.original.main_type}}</b-tag>
-            </div>
             <div class="control">
               <b-taglist attached>
-                  <b-tag>Echo ID</b-tag>
-                  <b-tag type="is-dark">{{this.original.emid}}</b-tag>
+                  <b-tag>Price Range</b-tag>
+                  <b-tag type="is-dark">{{cs}}{{lowestPrice}} - {{cs}}{{highestPrice}}</b-tag>
+              </b-taglist>
+            </div>
+             <div class="control">
+              <b-taglist attached>
+                  <b-tag>Lowest Price</b-tag>
+                  <b-tag type="is-dark">{{cs}}{{lowestPrice}}</b-tag>
               </b-taglist>
             </div>
             <div class="control">
               <b-taglist attached>
-                  <b-tag>TCG ID</b-tag>
-                  <b-tag type="is-dark">{{this.original.tcgplayer_id}}</b-tag>
+                  <b-tag>Lowest Foil</b-tag>
+                  <b-tag class="has-text-white has-background-warning-dark">{{cs}}{{lowestFoilPrice}}</b-tag>
               </b-taglist>
             </div>
+            <div class="control">
+              <b-taglist attached>
+                  <b-tag>Highest Price</b-tag>
+                  <b-tag type="is-dark">{{cs}}{{highestPrice}}</b-tag>
+              </b-taglist>
+            </div>
+
+            <div class="control">
+              <b-taglist attached>
+                  <b-tag>Highest Foil</b-tag>
+                  <b-tag class="has-text-white has-background-warning-dark">{{cs}}{{highestFoilPrice}}</b-tag>
+              </b-taglist>
+            </div>
+
+
+
 
         </b-field>
 
@@ -55,25 +81,35 @@
 
         <div class="columns is-multiline">
 
-          <div class="column is-one-quarter" v-for="variation in variations" :v-key="`vari-${variation.emid}`">
+          <div class="column is-one-quarter" v-for="variation in variationsSorted" :v-key="`vari-${variation.emid}`">
             <div class="card has-background-light">
               <header class="card-header">
-                  <p class="card-header-title">
+                  <p class="card-header-title pb-1" style="text-overflow: ellipsis;overflow: hidden;
+white-space: nowrap;">
+                    <span :class="getSetIconClass(variation.set_code)"></span>
                     {{variation.set}}
                   </p>
                   <a :href="variation.card_url" class="button card-header-icon" aria-label="open card page">
                       <b-icon icon="share" aria-hidden="true"></b-icon>
                   </a>
                 </header>
+
+                <nav class="level m-0 p-0">
+                  <div v-if="variation.tcg_mid > 0" class="level-item">{{cs}}{{variation.tcg_mid.toLocaleString("en-US")}}</div>
+                  <div v-if="variation.foil_price > 0" class="level-item has-text-warning-dark">{{cs}}{{variation.foil_price.toLocaleString("en-US")}}</div>
+                </nav>
+
               <div class="card-image">
                 <figure class="image">
-                  <img :src="variation.image" :alt="`${variation.name} from ${variation.expansion}`">
+                  <a :href="variation.card_url">
+                    <img :src="variation.image" :alt="`${variation.name} from ${variation.expansion}`">
+                  </a>
                 </figure>
               </div>
               <footer class="card-footer">
-                <a v-if="variation.tcg_mid > 0" :href="variation.purchase_link" class="card-footer-item">Buy {{cs}}{{variation.tcg_mid}}</a>
-                <a v-if="variation.price_foil > 0" :href="variation.purchase_link" class="card-footer-item">Buy Foil {{cs}}{{variation.price_foil}}</a>
-                <a :href="variation.card_url" class="card-footer-item">Open</a>
+                <a v-if="variation.tcg_mid > 0" :href="variation.purchase_link" class="card-footer-item">Buy {{cs}}{{variation.tcg_mid.toLocaleString("en-US")}}</a>
+                <!-- <a v-if="variation.foil_price > 0" :href="variation.purchase_link" class="card-footer-item has-text-warning">Buy Foil {{cs}}{{variation.foil_price.toLocaleString("en-US")}}</a> -->
+                <a :href="variation.card_url" class="card-footer-item">More Details</a>
               </footer>
             </div>
           </div>
@@ -107,7 +143,9 @@ export default {
     return {
       cs: '$',
       variations: {},
-      original: {}
+      original: {},
+      sortField: 'price',
+      sortDirection: 'DESC'
     }
   },
   async asyncData({ params, redirect, $config }) {
@@ -144,6 +182,9 @@ export default {
     }
   },
   methods: {
+    getSetIconClass(set_code){
+      return this.$echomtg.setIconClass(set_code) + ' mr-1'
+    },
     getRarityColor(rarity) {
       let color = 'is-warning'
       switch (rarity.toLowerCase()){
@@ -166,7 +207,34 @@ export default {
 
   },
   computed: {
+    variationsSorted(){
+      return this.variations
+    },
+    lowestPrice(){
+      let obj = this.variations.filter(v => v.tcg_mid > 0).reduce(function(prev, curr) {
+        return prev.tcg_mid < curr.tcg_mid ? prev : curr;
+      });
+      return obj.tcg_mid;
 
+    },
+    highestPrice(){
+     let obj = this.variations.filter(v => v.tcg_mid > 0).reduce(function(prev, curr) {
+        return prev.tcg_mid > curr.tcg_mid ? prev : curr;
+      });
+      return obj.tcg_mid;
+    },
+    lowestFoilPrice(){
+      let obj = this.variations.filter(v => v.foil_price > 0).reduce(function(prev, curr) {
+        return prev.foil_price < curr.foil_price ? prev : curr;
+      });
+      return obj.foil_price;
+    },
+    highestFoilPrice(){
+      let obj = this.variations.filter(v => v.foil_price > 0).reduce(function(prev, curr) {
+        return prev.foil_price > curr.foil_price ? prev : curr;
+      });
+      return obj.foil_price;
+    },
     crumbs () {
       return [
         {
