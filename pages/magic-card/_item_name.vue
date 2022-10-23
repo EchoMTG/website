@@ -41,26 +41,26 @@
                   <b-tag type="is-dark">{{cs}}{{lowestPrice}} - {{cs}}{{highestPrice}}</b-tag>
               </b-taglist>
             </div>
-             <div class="control">
+             <div class="control" v-if="lowestPrice != 'N/A'">
               <b-taglist attached>
                   <b-tag>Lowest Price</b-tag>
                   <b-tag type="is-dark">{{cs}}{{lowestPrice}}</b-tag>
               </b-taglist>
             </div>
-            <div class="control">
+            <div class="control" v-if="lowestFoilPrice != 'N/A'">
               <b-taglist attached>
                   <b-tag>Lowest Foil</b-tag>
                   <b-tag class="has-text-white has-background-warning-dark">{{cs}}{{lowestFoilPrice}}</b-tag>
               </b-taglist>
             </div>
-            <div class="control">
+            <div class="control" v-if="highestPrice != 'N/A'">
               <b-taglist attached>
                   <b-tag>Highest Price</b-tag>
                   <b-tag type="is-dark">{{cs}}{{highestPrice}}</b-tag>
               </b-taglist>
             </div>
 
-            <div class="control">
+            <div class="control" v-if="highestFoilPrice != 'N/A'">
               <b-taglist attached>
                   <b-tag>Highest Foil</b-tag>
                   <b-tag class="has-text-white has-background-warning-dark">{{cs}}{{highestFoilPrice}}</b-tag>
@@ -211,6 +211,7 @@ export default {
       return this.variations
     },
     lowestPrice(){
+      if(this.variations.filter(v => v.tcg_mid > 0).length == 0) return 'N/A';
       let obj = this.variations.filter(v => v.tcg_mid > 0).reduce(function(prev, curr) {
         return prev.tcg_mid < curr.tcg_mid ? prev : curr;
       });
@@ -218,18 +219,21 @@ export default {
 
     },
     highestPrice(){
+      if(this.variations.filter(v => v.tcg_mid > 0).length == 0) return 'N/A';
      let obj = this.variations.filter(v => v.tcg_mid > 0).reduce(function(prev, curr) {
         return prev.tcg_mid > curr.tcg_mid ? prev : curr;
       });
       return obj.tcg_mid;
     },
     lowestFoilPrice(){
-      let obj = this.variations.filter(v => v.foil_price > 0).reduce(function(prev, curr) {
+      if(this.variations.filter(v => v.foil_price > 0).length == 0) return 'N/A';
+      let obj = this.variations?.filter(v => v.foil_price > 0).reduce(function(prev, curr) {
         return prev.foil_price < curr.foil_price ? prev : curr;
       });
       return obj.foil_price;
     },
     highestFoilPrice(){
+      if(this.variations.filter(v => v.foil_price > 0).length == 0) return 'N/A';
       let obj = this.variations.filter(v => v.foil_price > 0).reduce(function(prev, curr) {
         return prev.foil_price > curr.foil_price ? prev : curr;
       });
