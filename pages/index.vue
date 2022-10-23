@@ -37,7 +37,7 @@ export default {
       return {
           title: `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
           meta: [
-            { hid: 'og:image', property: 'og:image', content: this.original.image_cropped },
+            { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
