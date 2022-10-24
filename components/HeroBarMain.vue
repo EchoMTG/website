@@ -17,7 +17,7 @@
                 Last login <b>{{ lastLoginTimeString }}</b> from
                 <b>{{ lastLoginIpString }}</b>
               </h3>
-              <p>You have <b>6 tasks</b> due today and <b>84 inquiries</b></p>
+              <!-- <p>You have <b>6 tasks</b> due today and <b>84 inquiries</b></p> -->
             </div>
           </div>
         </div>

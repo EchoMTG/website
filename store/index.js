@@ -2,7 +2,7 @@ export const state = () => ({
   /* User */
   userName: null,
   userEmail: null,
-  userAvatar: null,
+  userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
 
   /* NavBar */
   isNavBarVisible: true,

@@ -117,7 +117,7 @@
           :extra-options="extraOptions"
           chart-id="cardLineChart"
         />
-        <div class="card">
+        <div class="card mt-3">
           <header class="card-header">
             <p class="card-header-title pb-0">
               {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
@@ -134,7 +134,6 @@
 
         </div>
 
-        <hr />
         <!-- variations and history -->
         <div v-if="variations.length > 1">
           <div class="card">

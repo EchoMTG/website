@@ -30,7 +30,7 @@ export default {
         name = this.userName.replace(/[^a-z0-9]+/i, '')
       }
 
-      return `https://avatars.dicebear.com/v2/human/${name}.svg?options[mood][]=happy`
+      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
     },
     ...mapState(['userAvatar', 'userName'])
   }

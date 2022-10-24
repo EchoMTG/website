@@ -4,7 +4,7 @@ const footer = (tooltipItems) => {
   tooltipItems.forEach(function(tooltipItem) {
     sum += tooltipItem.yLabel;
   });
-  return 'Price: $' + sum;
+  return 'Price: $' + sum.toLocaleString("en-US");
 };
 
 export const chartColors = {
