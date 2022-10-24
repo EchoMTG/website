@@ -41,8 +41,14 @@ export default {
   },
   methods: {
     setShowItem: function(showItem, showFullItem=false){
-      this.showItem = showItem;
-      this.showFullItem = showFullItem;
+      let mobileWidthMax = 920;
+      let browserWidth = window.innerWidth
+      if(showItem && showFullItem && browserWidth < mobileWidthMax) {
+         this.$router.push(this.item.card_url)
+      } else {
+        this.showItem = showItem;
+        this.showFullItem = showFullItem;
+      }
     },
     getItemURL: function () {
       return this.showItem ? "javascript:void(0)" : this.item.echo_url;
