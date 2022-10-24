@@ -150,7 +150,7 @@
               :data="variations"
               default-sort="tcg_mid"
               default-sort-direction="DESC"
-              bordered="true"
+              :bordered="true"
               :striped="true"
               :mobile-cards="false"
 
