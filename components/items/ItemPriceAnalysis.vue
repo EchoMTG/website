@@ -104,7 +104,10 @@ export default {
       return this.type == 'regular' ? '' : 'has-text-warning-dark';
     },
     debutPrice() {
-      return this.prices[this.type][0] != null ? this.prices[this.type][0] : this.prices[this.type][1] 
+      for(let i=0; i < this.prices[this.type].length; i++){
+        if(this.prices[this.type][i] > 0) return this.prices[this.type][i].toLocaleString("en-US");
+      }
+      return 'N/A'
     },
     highestPrice(){
       return this.prices[this.type].filter(p => p > 0).reduce((prev,curr)=> { return Math.max(prev,curr) }).toLocaleString("en-US")

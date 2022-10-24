@@ -151,7 +151,7 @@
               default-sort="tcg_mid"
               default-sort-direction="DESC"
               bordered="true"
-              striped="true"
+              :striped="true"
               :mobile-cards="false"
 
             >
