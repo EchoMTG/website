@@ -1,10 +1,12 @@
 <template>
     <div :class="cardClass">
-        <img v-if="!showFull" class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px" />
-        <div v-if="showFull">
+        <img v-if="!toggleShowFull" class="popoverImage" @click="imageTrigger()" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px" />
+        <div v-if="toggleShowFull">
             <div class="columns">
                 <div class="column is-one-third">
-                    <img class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px"  />
+                    <a :href="itemURL">
+                        <img class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px"  />
+                    </a>
                 </div>
                 <div class="column is-two-thirds ">
                     <div class="mr-3 ml-2">
@@ -33,7 +35,7 @@
             </div>
         </div>
 
-        <footer class="card-footer" v-if="showFull">
+        <footer class="card-footer" v-if="toggleShowFull">
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular ${{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
 
@@ -45,6 +47,11 @@
 <script>
 export default {
     name: 'ItemInspector',
+    data: function data() {
+        return {
+            toggleShowFull: false
+        }
+    },
     props: {
       item: {
           type: Object,
@@ -56,7 +63,19 @@ export default {
       showFull: {
         type: Boolean,
         default: false
+      },
+      closeToBottom: {
+        type: Boolean,
+        default: false
       }
+    },
+    mounted() {
+        this.toggleShowFull = this.showFull
+    },
+    watch: {
+        showFull() {
+            this.toggleShowFull = this.showFull
+        }
     },
     computed: {
         hasFoil() {
@@ -66,8 +85,9 @@ export default {
             return this.item.tcg_mid == null ? false : true;
         },
         cardClass() {
-            let full = this.showFull ? 'full' : '';
-            return `card itemInspectorCard ${full}`;
+            let full = this.toggleShowFull ? 'full' : '';
+            let ctb = this.closeToBottom ? 'closeToBottom' : '';
+            return `card itemInspectorCard ${ctb} ${full}`;
         },
         itemURL() {
           if(this.item.echo_url) return this.item.echo_url.replace('https://www.echomtg.com','')
@@ -75,9 +95,16 @@ export default {
         }
     },
     methods: {
-      inventoryQuickAdd: function(emid,foil=0) {
-          this.$echomtg.inventoryQuickAdd(emid, foil)
-      },
+        imageTrigger(){
+            if(this.toggleShowFull == true){
+                this.$router.push(this.itemURL)
+            } else {
+                this.toggleShowFull = true
+            }
+        },
+        inventoryQuickAdd: function(emid,foil=0) {
+            this.$echomtg.inventoryQuickAdd(emid, foil)
+        },
     }
 
 }

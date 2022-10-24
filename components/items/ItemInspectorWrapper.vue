@@ -1,10 +1,10 @@
 <template>
-   <div @mouseenter="() => setShowItem(true, false)" @mouseleave="setShowItem(false, false)" style="position: relative">
-      <a class="itemLinkWithInspector" @click="() => setShowItem(true, true)" :href="getItemURL()">
+   <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" style="position: relative">
+      <a class="itemLinkWithInspector" @click="() => setShowItem(true, true)"  :href="getItemURL()">
       {{displayName}}
       </a>
       <b-tag type="is-info" v-if="item.reserve_list == 1">Reserved</b-tag>
-      <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem"  />
+      <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem" :closeToBottom="closeToBottom" />
   </div>
 </template>
 <script>
@@ -17,6 +17,7 @@ export default {
     return {
         showItem: false,
         showFullItem: false,
+        closeToBottom: false
     }
   },
   props: {
@@ -29,25 +30,36 @@ export default {
     },
     name: {
       type: String,
-      default: false,
+      default: '',
       required: false
     }
   },
   computed: {
     displayName () {
-      if(this.name) return this.name;
+      if(this.name != '') return this.name;
       return this.item.name
-    }
+    },
+    
+  },
+  mounted () {
+    this.isCloseToBottom()
   },
   methods: {
+    isCloseToBottom () {
+      if(this.$refs.container != null){
+        let bound = this.$refs.container.getBoundingClientRect();
+        this.closeToBottom = (window.innerHeight - bound.y) < 300 ? true : false; 
+      } else {
+        this.closeToBottom = false
+      }
+    },
     setShowItem: function(showItem, showFullItem=false){
+      this.isCloseToBottom()
       // double click open
-      console.log('click',this.showItem ,this.showFullItem , showItem , showFullItem);
       if(this.showItem && this.showFullItem && showItem && showFullItem){
         this.$router.push(this.item.card_url);
         return
       }
-
 
       // normal behavior
       let mobileWidthMax = 920;
