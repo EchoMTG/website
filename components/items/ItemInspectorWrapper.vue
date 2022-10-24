@@ -48,7 +48,7 @@ export default {
     isCloseToBottom () {
       if(this.$refs.container != null){
         let bound = this.$refs.container.getBoundingClientRect();
-        this.closeToBottom = (window.innerHeight - bound.y) < 300 ? true : false; 
+        this.closeToBottom = (window.innerHeight - bound.y) < 350 ? true : false; 
       } else {
         this.closeToBottom = false
       }
