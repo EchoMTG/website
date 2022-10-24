@@ -152,6 +152,8 @@
               default-sort-direction="DESC"
               bordered="true"
               striped="true"
+              :mobile-cards="false"
+
             >
                 <b-table-column v-slot="props">
                   <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
