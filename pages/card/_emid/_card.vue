@@ -355,12 +355,14 @@ export default {
           {
             label: 'Regular',
             backgroundColor: '#666666',
+            borderColor: '#666666',
             fill: false,
             data: this.prices.regular
           },
            {
             label: 'Foil',
             backgroundColor: '#b08716',
+            borderColor: '#b08716',
             fill: false,
             data: this.prices.foil
           }
