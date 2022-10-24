@@ -48,7 +48,7 @@
     </nav>
 
     <div class="columns mr-2">
-      <div class="column is-one-quarter">
+      <div class="column is-one-quarter ">
         <div class="cardImageContainer m-3">
           <b-image
               :src="item.image"
@@ -82,37 +82,36 @@
           </div>
         </div>
       </div>
-      <div class="column">
+      <div class="column is-half">
         <h1 class="title mb-3">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">from</span> {{this.item.expansion}}</h1>
-         <b-field class="pb-3" grouped group-multiline>
-            <div class="control" v-if="this.item.reserve_list == 1">
-              <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
-            </div>
-            <div class="control">
-              <b-tag type="is-dark">{{this.item.expansion}}</b-tag>
-            </div>
-            <div class="control">
-              <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
-            </div>
+        <b-field class="pb-3" grouped group-multiline>
+          <div class="control" v-if="this.item.reserve_list == 1">
+            <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
+          </div>
+          <div class="control">
+            <b-tag type="is-dark">{{this.item.expansion}}</b-tag>
+          </div>
+          <div class="control">
+            <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
+          </div>
 
 
-            <div class="control">
-              <b-tag>{{this.item.main_type}}</b-tag>
-            </div>
-            <div class="control">
-              <b-taglist attached>
-                  <b-tag>Echo ID</b-tag>
-                  <b-tag type="is-dark">{{this.item.emid}}</b-tag>
-              </b-taglist>
-            </div>
-            <div class="control">
-              <b-taglist attached>
-                  <b-tag>TCG ID</b-tag>
-                  <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
-              </b-taglist>
-            </div>
-
-        </b-field>
+          <div class="control">
+            <b-tag>{{this.item.main_type}}</b-tag>
+          </div>
+          <div class="control">
+            <b-taglist attached>
+                <b-tag>Echo ID</b-tag>
+                <b-tag type="is-dark">{{this.item.emid}}</b-tag>
+            </b-taglist>
+          </div>
+          <div class="control">
+            <b-taglist attached>
+                <b-tag>TCG ID</b-tag>
+                <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+            </b-taglist>
+          </div>
+      </b-field>
         <line-chart
           :chart-data="chartData"
           :extra-options="extraOptions"
@@ -141,7 +140,7 @@
           <div class="card">
             <header class="card-header">
               <p class="card-header-title">
-                Other Variations of {{this.item.name}}
+                {{variations.length}} Total Variations/Printings of {{this.item.name}}
               </p>
               <a :href="this.item.card_url" class="button card-header-icon" aria-label="more options">
 
@@ -174,9 +173,7 @@
 
       </div>
       <div class="column is-one-quarter ">
-          <item-tool-box :item="this.item"></item-tool-box>
-
-
+        <item-tool-box :item="this.item"></item-tool-box>
       </div>
     </div>
 

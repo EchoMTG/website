@@ -19,7 +19,7 @@ export const baseChartOptions = {
   maintainAspectRatio: false,
   legend: {
     display: true,
-    position: 'bottom'
+    position: 'chartArea'
   },
   responsive: true
 }
