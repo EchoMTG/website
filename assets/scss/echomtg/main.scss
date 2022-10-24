@@ -212,8 +212,13 @@
 $height-variance: 10px;
 // search box
 $search-input-size: calc($header-size - $height-variance - 1px);
-
-
+.global-search {
+  input {
+    &.has-text-black{
+      color: black !important;
+    }
+  }
+}
 div.header{
 	background-color: #fff; //lighten($mage-dark,60%);
 	height: $header-size;
@@ -267,13 +272,7 @@ div.header{
 					background: #f7f7f7;
 				}
 
-				&.item-search-input {
-					border-right: none;
-					background: #f7f7f7;
-					@media all and (max-width: $break-width) {
-						border-radius: 0px;
-					}
-				}
+
 
 				&.expansion-search-input {
 					border-left: none;
