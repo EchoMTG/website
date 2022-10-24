@@ -52,7 +52,7 @@
                                 <div class="column">
                                     <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <a class="button is-static is-small has-text-black">
                                                 <span class="icon">
                                                     <i class="fa fa-text-height"></i>
                                                 </span>
@@ -61,7 +61,7 @@
                                         </p>
                                         <p class="control">
                                             <input
-                                                class="input is-small"
+                                                class="input is-small has-text-black"
                                                 v-model="textsearch"
                                                 placeholder="Scry, Deathtouch, Counter..."
                                                 @input="$event.target.composing = false"
@@ -75,7 +75,7 @@
                                 <div class="column">
                                       <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <a class="button is-static is-small has-text-black">
                                                 <span class="icon">
                                                     <i class="fa fa-male"></i>
                                                 </span>
@@ -84,7 +84,7 @@
                                         </p>
                                         <p class="control">
                                            <input
-                                            class="input is-small"
+                                            class="input is-small  has-text-black"
                                             v-model="types"
                                             placeholder="Land, Creature, Goblin, Wizard..."
                                             @input="$event.target.composing = false"
