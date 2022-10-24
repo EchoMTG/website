@@ -4,7 +4,7 @@
       <div class="column is-half pt-0 pl-0 pb-0">
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Today
+            <span :class="priceColor">Today</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{todayPrice}}</span>
@@ -12,7 +12,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Debut
+            <span :class="priceColor">Debut</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{debutPrice}}</span>
@@ -20,7 +20,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Lowest
+            <span :class="priceColor">Lowest</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{lowestPrice}}</span>
@@ -28,7 +28,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Highest
+            <span :class="priceColor">Highest</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{highestPrice}}</span>
@@ -38,7 +38,7 @@
       <div class="column is-half pt-0 pl-0 pb-0">
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            7-Day Range
+            <span :class="priceColor">7-Day Range</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{get7DayLow}} - {{cs}}{{get7DayHigh}}</span>
@@ -46,7 +46,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            52-Week Range
+            <span :class="priceColor">52-Week Range</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{get52WeekLow}} - {{cs}}{{get52WeekHigh}}</span>
@@ -54,7 +54,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Median
+            <span :class="priceColor">Median</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{getMedianValue}}</span>
@@ -62,7 +62,7 @@
         </nav>
         <nav class="level is-mobile mb-0">
           <div class="left-level">
-            Average
+            <span :class="priceColor">Average</span>
           </div>
           <div class="right-level">
             <span :class="priceColor">{{cs}}{{getAverageValue}}</span>
@@ -104,13 +104,13 @@ export default {
       return this.type == 'regular' ? '' : 'has-text-warning-dark';
     },
     debutPrice() {
-      return this.prices[this.type][0].toLocaleString("en-US")
+      return this.prices[this.type][0] != null ? this.prices[this.type][0] : this.prices[this.type][1] 
     },
     highestPrice(){
-      return this.prices[this.type].reduce((prev,curr)=> { return Math.max(prev,curr) }).toLocaleString("en-US")
+      return this.prices[this.type].filter(p => p > 0).reduce((prev,curr)=> { return Math.max(prev,curr) }).toLocaleString("en-US")
     },
     lowestPrice(){
-      return this.prices[this.type].reduce((prev,curr)=> { return Math.min(prev,curr) }).toLocaleString("en-US")
+      return this.prices[this.type].filter(p => p > 0).reduce((prev,curr)=> { return Math.min(prev,curr) }).toLocaleString("en-US")
     },
     get7DayHigh(){
 

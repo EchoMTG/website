@@ -128,9 +128,9 @@
               </span>
             </button>
           </header>
-          <item-price-analysis v-if="this.prices.regular[0] != null" :prices="this.prices"  />
-          <h3 v-if="this.prices.foil[0] != null" class="title is-size-6 has-text-warning-dark ml-3 mb-0 mt-3">Foil Price Analysis </h3>
-          <item-price-analysis v-if="this.prices.foil[0] != null" :prices="this.prices" type="foil" />
+          <item-price-analysis v-if="this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null" :prices="this.prices"  />
+          <h3 v-if="this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null" class="title is-size-6 has-text-warning-dark ml-3 mb-0 mt-3">Foil Price Analysis </h3>
+          <item-price-analysis v-if="this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null" :prices="this.prices" type="foil" />
 
         </div>
 
