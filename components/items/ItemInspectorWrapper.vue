@@ -41,14 +41,26 @@ export default {
   },
   methods: {
     setShowItem: function(showItem, showFullItem=false){
+      // double click open
+      console.log('click',this.showItem ,this.showFullItem , showItem , showFullItem);
+      if(this.showItem && this.showFullItem && showItem && showFullItem){
+        this.$router.push(this.item.card_url);
+        return
+      }
+
+
+      // normal behavior
       let mobileWidthMax = 920;
       let browserWidth = window.innerWidth
       if(showItem && showFullItem && browserWidth < mobileWidthMax) {
          this.$router.push(this.item.card_url)
-      } else {
-        this.showItem = showItem;
-        this.showFullItem = showFullItem;
+         return
       }
+      this.showItem = showItem;
+      this.showFullItem = showFullItem;
+
+
+
     },
     getItemURL: function () {
       return this.showItem ? "javascript:void(0)" : this.item.echo_url;
