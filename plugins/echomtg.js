@@ -58,7 +58,7 @@ export default (context, inject) => {
   }
 
   echomtg.addToList = async (emid,list_id) => {
-    let url = `${context.env.API_DOMAIN}lists/add/`;
+    let url = `${context.app.$config.API_DOMAIN}lists/add/`;
     let body = {
       emid: emid,
       list: list_id,
