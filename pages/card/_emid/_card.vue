@@ -175,6 +175,7 @@
       </div>
       <div class="column is-one-quarter ">
         <item-tool-box :item="this.item"></item-tool-box>
+        <item-list-box :item="this.item"></item-list-box>
       </div>
     </div>
 
@@ -190,6 +191,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import LineChart from '@/components/Charts/LineChart'
 import * as chartConfig from '@/components/Charts/chart.config'
 import ItemToolBox from '@/components/items/ItemToolBox.vue'
+import ItemListBox from '@/components/items/ItemListBox.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
 
@@ -201,7 +203,8 @@ export default {
     LineChart,
     ItemToolBox,
     ItemInspectorWrapper,
-    ItemPriceAnalysis
+    ItemPriceAnalysis,
+    ItemListBox
   },
   data () {
     return {

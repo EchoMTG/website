@@ -1,6 +1,11 @@
 <template>
     <div class="card">
-        ITEMS
+        <b-table :data="lists" :striped="true">
+          <b-table-column field="name" :label="`Your Lists w/ ${this.item.name}`" sortable v-slot="props">
+            <a :href="`/tools/lists/${props.row.id}`">{{ props.row.name}}</a>
+            <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded has-background-warning-dark has-text-white">Foil</b-tag>
+          </b-table-column>
+        </b-table>
     </div>
 </template>
 <script>
@@ -17,11 +22,8 @@ export default {
     data: function data() {
 
         return {
-            items: [],
-            actions: 0,
+            lists: [],
             cs: '$',
-            acquiredAddPrice: 0.01,
-            acquiredAddFoilPrice: 0.01
 
         };
 
@@ -29,7 +31,9 @@ export default {
 
     methods: {
       async getInList() {
-        // /api/lists/find_in_list/?emid=104517
+        const data = await this.$echomtg.findInList(this.item.emid);
+        this.lists = data.lists;
+
       }
 
 

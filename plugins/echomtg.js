@@ -44,6 +44,19 @@ export default (context, inject) => {
     return data.data;
   }
 
+  echomtg.findInList = async (emid) => {
+    let url = `${context.env.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
+
+    const res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    let data = await res.json();
+
+    return data;
+  }
+
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
     let url = `${context.env.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
