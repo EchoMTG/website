@@ -43,7 +43,12 @@
       </div>
       <hr class="mt-3 mb-0" />
 
-        <b-table v-if="lists.length > 0" :data="lists" :striped="true">
+        <b-table
+          :paginated="paginated"
+          :per-page="6"
+          v-if="lists.length > 0" 
+          :data="lists" 
+          :striped="true">
           <b-table-column field="name" :label="`Lists with ${this.item.name}`" sortable v-slot="props">
             <a :href="`/tools/lists/${props.row.id}`" class="ellipsis">{{ props.row.name}}</a>
             <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded has-background-warning-dark has-text-white">Foil</b-tag>
@@ -110,6 +115,9 @@ export default {
 
     },
     computed: {
+      paginated() {
+            return this.lists.length > 6 ? true : false;
+        },
         getAPIURL: function(){
             return `${this.$config.API_DOMAIN}inventory/search/?emid=${this.item.emid}`;
         },
