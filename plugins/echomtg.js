@@ -1,10 +1,8 @@
-import { id } from "@nuxtjs/gtm/lib/defaults";
-
 export default (context, inject) => {
   const echomtg = {}
 
   echomtg.log = (...params) => {
-    if(/dev/i.test(context.env.API_DOMAIN)){
+    if(/dev/i.test(context.app.$config.API_DOMAIN)){
       console.log(...params);
     }
   }
@@ -23,7 +21,7 @@ export default (context, inject) => {
   }
 
   echomtg.getSets = async () => {
-    let res = await fetch(`${context.env.API_DOMAIN}data/sets/`, {
+    let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/`, {
       headers: {
         'Authorization' : 'Bearer ' + context.env.S2S_KEY
       }
@@ -34,7 +32,7 @@ export default (context, inject) => {
   }
 
   echomtg.getSealed = async (set_code) => {
-    let url = `${context.env.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
+    let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
     
     let res = await fetch(url, {
       headers: {
@@ -47,7 +45,7 @@ export default (context, inject) => {
   }
 
   echomtg.findInList = async (emid) => {
-    let url = `${context.env.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
+    let url = `${context.app.$config.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
 
     const res = await fetch(url, {
       headers: {
@@ -80,7 +78,7 @@ export default (context, inject) => {
   }
 
   echomtg.removeFromList = async (list_item_id,list_id) => {
-    let url = `${context.env.API_DOMAIN}lists/remove/`;
+    let url = `${context.app.$config.API_DOMAIN}lists/remove/`;
     let body = {
       id: list_item_id,
       list: list_id
@@ -98,7 +96,7 @@ export default (context, inject) => {
   }
 
   echomtg.getAllLists = async () => {
-    let url = `${context.env.API_DOMAIN}lists/all/`;
+    let url = `${context.app.$config.API_DOMAIN}lists/all/`;
 
     const res = await fetch(url, {
       headers: {
@@ -122,7 +120,7 @@ export default (context, inject) => {
 
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
-    let url = `${context.env.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
+    let url = `${context.app.$config.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
     echomtg.log(url, 'adding inventory', context.app.$cookies.get('token'));
     const res = await fetch(url, {
       headers: {
@@ -139,7 +137,7 @@ export default (context, inject) => {
     let n = encodeURIComponent(name)
     let d = encodeURIComponent(description)
 
-    let url = `${context.env.API_DOMAIN}lists/edit/list=${list_id}&name=${n}&description=${d}`;
+    let url = `${context.app.$config.API_DOMAIN}lists/edit/list=${list_id}&name=${n}&description=${d}`;
     echomtg.log(url, 'editing list name and description', context.app.$cookies.get('token'));
     try {
       const res = await fetch(url, {

@@ -17,7 +17,9 @@
             <b-table
                 v-if="this.items.length > 0"
                 :data="this.items"
-                striped
+                :striped="true"
+                :paginated="paginated"
+                :per-page="6"
                 default-sort="acquiredOn"
                 default-sort-direction="ASC">
                 <b-table-column field="acquiredOn" label="Acq. Date" sortable date v-slot="props">
@@ -152,6 +154,9 @@ export default {
 
     },
     computed: {
+        paginated() {
+            return this.items.length > 6 ? true : false;
+        },
         getAPIURL: function(){
             return `${this.$config.API_DOMAIN}inventory/search/?emid=${this.item.emid}`;
         },
