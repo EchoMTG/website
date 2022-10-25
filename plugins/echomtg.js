@@ -57,6 +57,62 @@ export default (context, inject) => {
     return data;
   }
 
+  echomtg.addToList = async (emid,list_id) => {
+    let url = `${context.env.API_DOMAIN}lists/add/`;
+    let body = {
+      emid: emid,
+      list: list_id,
+      quantity: 1,
+      sb: 0
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    let data = await res.json();
+    return data;
+  }
+
+  echomtg.removeFromList = async (list_item_id,list_id) => {
+    let url = `${context.env.API_DOMAIN}lists/remove/`;
+    let body = {
+      id: list_item_id,
+      list: list_id
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    let data = await res.json();
+    return data;
+  }
+
+  echomtg.getAllLists = async () => {
+    let url = `${context.env.API_DOMAIN}lists/all/`;
+
+    const res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    let data = await res.json();
+    let lists = [];
+    let listkeys = Object.keys(data.lists);
+    for(let i = 0; i < listkeys.length; i++){
+      lists.push(data.lists[listkeys[i]])
+    }
+    data.lists = lists;
+    return data;
+  }
+
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
     let url = `${context.env.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
