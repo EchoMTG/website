@@ -27,13 +27,34 @@ export default (context, inject) => {
       }
     })
     let data = await res.json();
-    echomtg.log('getting sets from echo api', data.data)
+    //echomtg.log('getting sets from echo api', data.data)
     return data.data;
+  }
+
+  echomtg.getSet = async (set_code) => {
+    // fetch the set
+    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}`;
+    let token = context.app.$cookies.get('token') ? context.app.$cookies.get('token').trim() : context.env.S2S_KEY;
+    echomtg.log('token on set send',token)
+    // try to get the json
+     try {
+      const res = await fetch(
+        endpoint, {
+          headers: {
+            'Authorization' : 'Bearer ' + token
+          }
+        }
+      );
+      return await res.json();
+
+    } catch(err){
+      echomtg.log(err, res)
+    }
   }
 
   echomtg.getSealed = async (set_code) => {
     let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
-    
+
     let res = await fetch(url, {
       headers: {
         'Authorization' : 'Bearer ' + context.env.S2S_KEY
@@ -110,7 +131,7 @@ export default (context, inject) => {
 
     let lists = [];
     let listkeys = Object.keys(data.lists);
-    
+
     for(let i = 0; i < listkeys.length; i++){
       lists.push(data.lists[listkeys[i]])
     }

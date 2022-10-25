@@ -287,9 +287,6 @@ export default {
       type: Number,
       default: 0
     },
-
-
-
   },
   data: function data() {
     return {
@@ -313,10 +310,10 @@ export default {
   },
   mounted () {
 
-    this.$echomtg.log('cards owned', this.cardsowned)
+
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
-    console.log(this.items)
+
 
 
   },
@@ -355,7 +352,10 @@ export default {
         this.wikiOpen = false
     },
     isCardOwned: function(emid, type='regular') {
-        return this.cardsowned?.[type] ? this.cardsowned[type]?.[emid] : 0
+      console.log(this.cardsowned[type])
+      let res = this.cardsowned?.[type] ? this.cardsowned[type]?.[emid] : 0
+      console.log(emid, type, res)
+        return res;
     },
     clearFilters: function() {
         this.search='';
