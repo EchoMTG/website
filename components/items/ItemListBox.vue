@@ -1,11 +1,12 @@
 <template>
     <div class="card">
-        <b-table :data="lists" :striped="true">
+        <b-table v-if="lists.length > 0" :data="lists" :striped="true">
           <b-table-column field="name" :label="`Your Lists w/ ${this.item.name}`" sortable v-slot="props">
             <a :href="`/tools/lists/${props.row.id}`">{{ props.row.name}}</a>
             <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded has-background-warning-dark has-text-white">Foil</b-tag>
           </b-table-column>
         </b-table>
+        <p v-if="lists.length == 0" class="has-text-centered py-4">There are no {{ this.item.name}}s in any of your lists</p>
     </div>
 </template>
 <script>
