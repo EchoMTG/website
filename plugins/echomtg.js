@@ -1,3 +1,5 @@
+import { id } from "@nuxtjs/gtm/lib/defaults";
+
 export default (context, inject) => {
   const echomtg = {}
 
@@ -32,8 +34,8 @@ export default (context, inject) => {
   }
 
   echomtg.getSealed = async (set_code) => {
-	let url = `${context.env.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
-	console.log(`fetching ${url}`)
+    let url = `${context.env.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
+    
     let res = await fetch(url, {
       headers: {
         'Authorization' : 'Bearer ' + context.env.S2S_KEY
@@ -104,8 +106,13 @@ export default (context, inject) => {
       }
     });
     let data = await res.json();
+    console.log(data)
+    if(data.status == 'error') return data;
+    //if(Object.keys(data.lists).length == 0) return data;
+
     let lists = [];
     let listkeys = Object.keys(data.lists);
+    
     for(let i = 0; i < listkeys.length; i++){
       lists.push(data.lists[listkeys[i]])
     }

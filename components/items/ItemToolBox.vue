@@ -112,7 +112,7 @@ export default {
                 this.$echomtg.createGrowl(json.message);
                 this.actions++;
             }).catch(function (error) {
-                this.$echomtg.createGrowl(error);
+                this.$echomtg.log(error);
             });
         },
         addAPIURL: function(foil=0){
@@ -133,21 +133,21 @@ export default {
                 this.$echomtg.createGrowl(json.message);
                 this.actions++;
             }).catch(function (error) {
-                this.$echomtg.createGrowl(error);
+                this.$echomtg.log(error);
             });
         },
-        getItems: function(){
-            fetch(this.getAPIURL,{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then((response) => {
-                return response.json();
-            }).then((json) => {
-                 this.items = json.results;
-            }).catch(function (error) {
-                this.$echomtg.createGrowl(error);
-            });
+        getItems: async function(){
+            try {
+                const res = await fetch(this.getAPIURL,{
+                    headers: {
+                        'Authorization' : 'Bearer ' + this.$cookies.get('token')
+                    }
+                })
+                const data = await res.json();
+                this.items = data.results;
+            } catch (err){
+                this.$echomtg.log(err);  
+            }
         }
 
     },

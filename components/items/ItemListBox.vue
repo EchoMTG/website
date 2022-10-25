@@ -85,13 +85,17 @@ export default {
     methods: {
       async getInList() {
         const data = await this.$echomtg.findInList(this.item.emid);
-        this.lists = data.lists;
+        if(data.status == 'success'){
+          this.lists = data.lists;
+        }
 
       },
       async getLists() {
         const lists = await this.$echomtg.getAllLists()
-        this.availablelists = lists.lists;
-        this.currentList = this.availablelists[0];
+        if(lists.status == 'success'){
+          this.availablelists = lists.lists;
+        }
+        this.currentList = this.availablelists.length > 0 ? this.availablelists[0] : {'name' : 'No Lists'};
       },
       async addToList(){
         const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id);
