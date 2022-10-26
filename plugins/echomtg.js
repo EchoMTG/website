@@ -57,12 +57,13 @@ export default (context, inject) => {
     return data;
   }
 
-  echomtg.addToList = async (emid,list_id) => {
+  echomtg.addToList = async (emid,list_id,foil=0) => {
     let url = `${context.app.$config.API_DOMAIN}lists/add/`;
     let body = {
       emid: emid,
       list: list_id,
       quantity: 1,
+      foil: foil,
       sb: 0
     }
     const res = await fetch(url, {

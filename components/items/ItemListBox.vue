@@ -35,10 +35,12 @@
                   <h3>{{menu.name}}</h3>
               </b-dropdown-item>
           </b-dropdown>
-          <b-button
-              icon-left="plus" @click="addToList()">
-              Add
+          <b-button icon-left="plus" @click="addToList()">
+            Add
           </b-button>
+          <b-switch class="pt-2 pl-1" :value="false" type="is-warning" @click="toggleFoil()">
+            Foil
+          </b-switch>
         </div>
       </div>
       <hr class="mt-3 mb-0" />
@@ -81,6 +83,7 @@ export default {
             lists: [],
             availablelists: [],
             currentList: {},
+            foil: 0,
             cs: '$',
 
         };
@@ -88,6 +91,9 @@ export default {
     },
 
     methods: {
+      toggleFoil() {
+        this.foil = this.foil == 1 ? 0 : 1
+      },
       async getInList() {
         const data = await this.$echomtg.findInList(this.item.emid);
         if(data.status == 'success'){
@@ -103,7 +109,7 @@ export default {
         this.currentList = this.availablelists.length > 0 ? this.availablelists[0] : {'name' : 'No Lists'};
       },
       async addToList(){
-        const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id);
+        const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id, this.foil);
         this.$echomtg.createGrowl(data.message);
         this.getInList();
       },
