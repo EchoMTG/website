@@ -23,7 +23,7 @@ export default (context, inject) => {
   echomtg.getSets = async () => {
     let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/`, {
       headers: {
-        'Authorization' : 'Bearer ' + context.env.S2S_KEY
+        'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
       }
     })
     let data = await res.json();
@@ -34,7 +34,7 @@ export default (context, inject) => {
   echomtg.getSet = async (set_code) => {
     // fetch the set
     let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}`;
-    let token = context.app.$cookies.get('token') ? context.app.$cookies.get('token').trim() : context.env.S2S_KEY;
+    let token = context.app.$cookies.get('token') ? context.app.$cookies.get('token').trim() : context.app.$config.S2S_KEY;
 
     // try to get the json
      try {
@@ -57,7 +57,7 @@ export default (context, inject) => {
 
     let res = await fetch(url, {
       headers: {
-        'Authorization' : 'Bearer ' + context.env.S2S_KEY
+        'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
       }
     })
     let data = await res.json();
