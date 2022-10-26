@@ -31,7 +31,7 @@
           />
           <span>Updates</span>
         </a>
-        <nav-bar-menu v-if="isUserLoggedIn" class="has-divider">
+        <nav-bar-menu class="has-divider">
 
           <div class="is-user-name">
             <span>Collector Tools</span>
