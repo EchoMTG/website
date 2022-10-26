@@ -38,7 +38,7 @@
           <b-button icon-left="plus" @click="addToList()">
             Add
           </b-button>
-          <b-switch class="pt-2 pl-1" :value="false" type="is-warning" @click="toggleFoil()">
+          <b-switch class="pt-2 pl-1"  v-model="foil" type="is-warning" >
             Foil
           </b-switch>
         </div>
@@ -83,7 +83,7 @@ export default {
             lists: [],
             availablelists: [],
             currentList: {},
-            foil: 0,
+            foil: false,
             cs: '$',
 
         };
@@ -109,7 +109,8 @@ export default {
         this.currentList = this.availablelists.length > 0 ? this.availablelists[0] : {'name' : 'No Lists'};
       },
       async addToList(){
-        const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id, this.foil);
+        let foil = this.foil ? 1 : 0;
+        const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id, foil);
         this.$echomtg.createGrowl(data.message);
         this.getInList();
       },
