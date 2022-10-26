@@ -115,7 +115,10 @@ export default {
         default: function(){
           return {
             'items': [],
-            'owned': {}
+            'owned': {
+              regular: [],
+              foiled: []
+            }
           }
         }
       }

@@ -352,10 +352,8 @@ export default {
         this.wikiOpen = false
     },
     isCardOwned: function(emid, type='regular') {
-      console.log(this.cardsowned[type])
-      let res = this.cardsowned?.[type] ? this.cardsowned[type]?.[emid] : 0
-      console.log(emid, type, res)
-        return res;
+      if(undefined == this.cardsowned) return 0;
+      return this.cardsowned[type][emid] ? this.cardsowned[type][emid] : 0
     },
     clearFilters: function() {
         this.search='';
