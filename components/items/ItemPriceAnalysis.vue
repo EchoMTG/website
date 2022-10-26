@@ -1,5 +1,5 @@
 <template>
- <div class="card-content">
+ <div class="card-content pt-3">
     <div class="columns">
       <div class="column is-half pt-0 pl-0 pb-0">
         <nav class="level is-mobile mb-0">

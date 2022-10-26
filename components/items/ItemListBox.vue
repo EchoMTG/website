@@ -4,12 +4,23 @@
           <p class="card-header-title">
               Your Lists
           </p>
-          <button class="card-header-icon" aria-label="more options">
+          <button 
+            class="card-header-icon" 
+            aria-label="collapse item list tools"
+            @click="isOpen = !isOpen"
+            :aria-expanded="isOpen"
+            aria-controls="listToolBox"
+            >
             <span class="icon">
-                <b-icon icon="menu-down" aria-hidden="true"></b-icon>
+                <b-icon v-if="isOpen" icon="menu-down" aria-hidden="true"></b-icon>
+                <b-icon v-if="!isOpen" icon="menu-left" aria-hidden="true"></b-icon>
             </span>
           </button>
       </header>
+      <b-collapse
+            aria-id="listToolBox"
+            animation="slide"
+            v-model="isOpen">
       <div class="card-content py-0 px-3">
         <div v-if="this.availablelists.length > 0">
           <b-dropdown
@@ -62,7 +73,7 @@
 
         </b-table>
         <p v-if="lists.length == 0" class="p-5  has-text-grey-light has-text-centered is-size-6">You don't have any {{this.item.name}} from {{this.item.expansion}} in your lists.</p>
-
+      </b-collapse>
 
     </div>
 </template>
@@ -81,6 +92,7 @@ export default {
 
         return {
             lists: [],
+            isOpen: true,
             availablelists: [],
             currentList: {},
             foil: false,
