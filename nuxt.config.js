@@ -79,8 +79,12 @@ export default {
     '@nuxtjs/gtm',
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
+    '@nuxtjs/markdownit'
   ],
   axios: {},
+  markdownit: {
+    runtime: true
+  },
   gtm: {
     id: 'GTM-5S54B96'
   },

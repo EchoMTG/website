@@ -15,12 +15,10 @@
     <div class="container content">
         <div class="columns">
           <div class="column is-two-thirds">
-
-
           <p>This API is open to the app developers to access a centralized inventory system. The API gives any personal collector the ability to create custom apps, spreadsheets, or sales integrations. The api system is based around EchoMTG id (emid), which is a unique numeric ID given to every item in the EchoMTG database. It does not use Multiverse IDs since Judge Foils and other promo cards do not have multiverseids, their multiverseid's start at 100000000. If you have any suggestions here, please join the discord channel and look for Teeg.</p>
 
           </div>
-          <div class="column is-two-thirds">
+          <div class="column is-one-third">
           <p><strong>PHP Wrapper</strong> by Andrew Gioia: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">https://github.com/andrewgioia/EchoPHP</a></p>
           <p><strong>JAVA Wrapper for Android</strong> <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">https://github.com/ardeay/EchoMTG-Java-API-Wrapper/</a></p>
 
@@ -33,10 +31,19 @@
     </div>
   <hr />
     <div class="container">
-      <div v-for="(doc,index) in apidocs.item" v-bind:key="`doc${index}`">
-        <h1>{{doc.name}}</h1>
-        <div v-for="(subdoc,index) in doc.item" v-bind:key="`docsub${index}`">
-          <h3>{{subdoc.name}} <b-tag v-if="subdoc.request">{{subdoc.request.method}}</b-tag></h3>
+      <div v-for="(doc,index) in filteredAPIDocs" v-bind:key="`doc${index}`">
+        <h1 class="title is-size-3" >{{doc.name}}</h1>
+        <hr/>
+        <div v-for="(subdoc,index) in doc.item" v-bind:key="`docsub${index}`" :id="getSubDocID(subdoc.name)">
+          <h3 class="title is-size-4 mt-5">
+            <b-tag v-if="subdoc.request">{{subdoc.request.method}}</b-tag> 
+            {{subdoc.name}}  
+            <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
+          </h3>
+          <div class="content">
+            
+            <div v-if="subdoc.request.description" v-html="$md.render(subdoc.request.description)"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +70,15 @@ export default {
   computed: {
     ...mapState([
       'userName'
-    ])
+    ]),
+    filteredAPIDocs() {
+      return this.apidocs.item
+    }
+  },
+  methods: {
+    getSubDocID(name) {
+      return name.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'')
+    }
   },
   head () {
       return {

@@ -12,9 +12,11 @@
     "gcloud-deploy": "gcloud run deploy --image=gcr.io/echomtg-website/website:1.0.0 --platform managed --port 3000 --project echomtg-website"
   },
   "dependencies": {
+    "@nuxt/content": "^1.15.1",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/gtm": "^2.4.0",
+    "@nuxtjs/markdownit": "^2.0.0",
     "@nuxtjs/pwa": "^3.3.5",
     "axios": "^0.27.2",
     "chart.js": "^2.9.3",
