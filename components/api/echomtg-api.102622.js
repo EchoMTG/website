@@ -747,45 +747,6 @@ export default {
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "csv read echomtg",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "csvFile",
-							"contentType": "multipart/form-data",
-							"type": "file",
-							"src": "/Users/kilroy/Downloads/EchoMTG-Upload-Template (1).csv"
-						}
-					]
-				},
-				"url": {
-					"raw": "https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload",
-					"protocol": "https",
-					"host": [
-						"us-central1-echo-csv",
-						"cloudfunctions",
-						"net"
-					],
-					"path": [
-						"echo-csv",
-						"upload"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }

@@ -31,6 +31,8 @@
         </div>
     </div>
   <hr />
+    <b-input size="is-medium" v-model="search" aria-placeholder="search API endpoint" placeholder="Search API Endpoint" />
+  <hr />
 
       <div v-for="(doc,index) in filteredAPIDocs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
         <div class="container mb-4">
@@ -99,6 +101,11 @@ export default {
       search: ''
     }
   },
+  watch: {
+    search() {
+      console.log(this.search)
+    }
+  },
   asyncData({req}) {
     //console.log('async from index',req)
   },
@@ -107,7 +114,16 @@ export default {
       'userName'
     ]),
     filteredAPIDocs() {
-      return this.apidocs.item
+      let docs = [...this.apidocs.item]
+      let s = this.search
+      console.log('filtering',docs)
+      docs.forEach((doc,index) => {
+        console.log('search',s, doc)
+        docs[index].item = doc.item.filter(it => it.name.includes(s))
+
+      })
+
+      return [...docs]
     }
   },
   methods: {
