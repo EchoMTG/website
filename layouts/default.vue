@@ -202,13 +202,12 @@ export default {
               icon: 'lock',
               label: 'Login'
             },
-             [
             {
               to: '/',
               icon: 'plus',
               label: 'Create Account'
             }
-          ],
+
           ],
         ]
       }
