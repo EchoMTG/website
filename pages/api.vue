@@ -15,37 +15,69 @@
     <div class="container content">
         <div class="columns">
           <div class="column is-two-thirds">
-          <p>This API is open to the app developers to access a centralized inventory system. The API gives any personal collector the ability to create custom apps, spreadsheets, or sales integrations. The api system is based around EchoMTG id (emid), which is a unique numeric ID given to every item in the EchoMTG database. It does not use Multiverse IDs since Judge Foils and other promo cards do not have multiverseids, their multiverseid's start at 100000000. If you have any suggestions here, please join the discord channel and look for Teeg.</p>
+            <h4>About the API</h4>
+            <p>This API is open to any EchoMTG user interested in writing custom scripts, apps, or integrations. The api system is based around EchoMTG id (emid), which is a unique numeric ID given to every item in the EchoMTG database. It does not use Multiverse IDs since Judge Foils and other promo cards do not have multiverseids, their multiverseid's start at 100000000. If you have any suggestions here, please join the discord channel and look for Teeg.</p>
+            <h4>Prerequisites</h4>
+            <p><strong>1.</strong> <a href="/register/">Register</a> a user with EchoMTG so that it can submit API requests.</p>
+            <p><strong>2.</strong> Familiarize yourself with the core concepts of the JSON (JavaScript Object Notation) data format. For more information, see <a href="https://json.org">json.org</a>.</p>
 
           </div>
           <div class="column is-one-third">
-          <p><strong>PHP Wrapper</strong> by Andrew Gioia: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">https://github.com/andrewgioia/EchoPHP</a></p>
-          <p><strong>JAVA Wrapper for Android</strong> <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">https://github.com/ardeay/EchoMTG-Java-API-Wrapper/</a></p>
+              <h4>Community API Wrappers</h4>
+              <p><strong>PHP Wrapper</strong> by Andrew Gioia: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">https://github.com/andrewgioia/EchoPHP</a></p>
+              <p><strong>JAVA Wrapper for Android</strong> <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">https://github.com/ardeay/EchoMTG-Java-API-Wrapper/</a></p>
 
-          <h2>Prerequisites</h2>
-          <hr/>
-            <p><strong>1.</strong> <a href="/register/">Register</a> a user with EchoMTG so that it can submit API requests.</p>
-            <p><strong>2.</strong> Familiarize yourself with the core concepts of the JSON (JavaScript Object Notation) data format. For more information, see <a href="https://json.org">json.org</a>.</p>
-          </div>
+             </div>
         </div>
     </div>
   <hr />
-    <div class="container">
-      <div v-for="(doc,index) in filteredAPIDocs" v-bind:key="`doc${index}`">
-        <h1 class="title is-size-3" >{{doc.name}}</h1>
-        <hr/>
-        <div v-for="(subdoc,index) in doc.item" v-bind:key="`docsub${index}`" :id="getSubDocID(subdoc.name)">
-          <h3 class="title is-size-4 mt-5">
-            <b-tag v-if="subdoc.request">{{subdoc.request.method}}</b-tag> 
-            {{subdoc.name}}  
-            <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
-          </h3>
-          <div class="content">
-            
-            <div v-if="subdoc.request.description" v-html="$md.render(subdoc.request.description)"></div>
+
+      <div v-for="(doc,index) in filteredAPIDocs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
+        <div class="container mb-4">
+          <h1 class="title is-size-3" >{{doc.name}}</h1>
+          <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
+        </div>
+
+
+        <div
+          v-for="(subdoc,index) in doc.item"
+          v-bind:key="`docsub${index}`"
+          :id="getSubDocID(subdoc.name)"
+          :class="getEndpointClass(index)"
+          >
+          <div class="container">
+            <h3 class="title is-size-4 mt-5">
+              <b-tag v-if="subdoc.request" type="is-dark">{{subdoc.request.method}}</b-tag>
+              {{subdoc.name}}
+              <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
+            </h3>
+            <div class="columns">
+
+              <div class="column is-half">
+                <api-description-tabs :description="subdoc.request.description" :response="subdoc.response" />
+
+              </div>
+              <div class="column is-half">
+                <b-field class="mt-2" :label="`URL ${subdoc.request.method} Endpoint`">
+                  <b-input @mousedown="this.highlight(event)" :value="subdoc.request.url.raw" />
+                </b-field>
+                <div v-if="subdoc.request.body && subdoc.request.body.raw !== undefined">
+                  <b-field  v-if="subdoc.request.body.raw" :label="`Example ${subdoc.request.method} Body`">
+                    <b-input
+                      type="textarea"
+                      rows="8"
+                      placeholder="Maxlength automatically counts characters"
+                      :value="subdoc.request.body.raw"
+                      />
+                  </b-field>
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -54,14 +86,17 @@
 // @ is an alias to /src
 import { mapState } from 'vuex'
 import APIDocs from '@/components/api/echomtg-api.102622'
+import ApiDescriptionTabs from '@/components/api/ApiDescriptionTabs.vue'
 
 export default {
   name: 'API',
   components: {
+    ApiDescriptionTabs
   },
   data () {
     return {
-      apidocs: APIDocs
+      apidocs: APIDocs,
+      search: ''
     }
   },
   asyncData({req}) {
@@ -78,6 +113,16 @@ export default {
   methods: {
     getSubDocID(name) {
       return name.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'')
+    },
+    highlight(event){
+      alert('asd')
+      console.log(event)
+      // this.value.select()
+
+    },
+    getEndpointClass(i){
+      let bg = (i % 2 == 0) ? 'has-background-light' : '';
+      return `pb-6 pt-4 ${bg}`;
     }
   },
   head () {

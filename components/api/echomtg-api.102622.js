@@ -673,10 +673,27 @@ export default {
 			"name": "Lists",
 			"item": [
 				{
-					"name": "https://www.echomtg.com/api/lists/all/",
+					"name": "Get All Lists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "https://www.echomtg.com/api/lists/all/",
 							"protocol": "https",
@@ -691,7 +708,41 @@ export default {
 								"all",
 								""
 							]
-						}
+						},
+						"description": "Get all the user lists"
+					},
+					"response": []
+				},
+				{
+					"name": "Lists: Add Item to List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    emid: 1234,\n    list: 1,\n    quantity: 1,\n    foil: 0,\n    sb: 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/lists/add/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"lists",
+								"add",
+								""
+							]
+						},
+						"description": "Add an item to a list.\n\n| **Param** | **Description** |\n| --- | --- |\n| emid | **(int) EchoID of card to add** |\n| **list** | (int) list id, see lists/all/ |\n| foil | (int) 0=false, 1=true |\n| sb | (int) sideboard 0=false, 1=true |"
 					},
 					"response": []
 				}
