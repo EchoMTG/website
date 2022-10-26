@@ -31,6 +31,24 @@
           />
           <span>Updates</span>
         </a>
+        <nav-bar-menu v-if="isUserLoggedIn" class="has-divider">
+
+          <div class="is-user-name">
+            <span>Collector Tools</span>
+          </div>
+
+          <div slot="dropdown" class="navbar-dropdown">
+            <nuxt-link
+              v-for="tool in toolsMenu"
+              v-bind:key="tool.icon"
+              :to="tool.to"
+              class="navbar-item"
+            >
+              <b-icon :icon="tool.icon" custom-size="default" />
+              <span>{{tool.label}}</span>
+            </nuxt-link>
+          </div>
+        </nav-bar-menu>
 
         <nav-bar-menu v-if="isUserLoggedIn" class="has-divider has-user-avatar">
           <user-avatar />
@@ -117,6 +135,7 @@ import { mapState } from 'vuex'
 import NavBarMenu from '@/components/NavBarMenu'
 import UserAvatar from '@/components/UserAvatar'
 import GlobalSearch from '@/components/GlobalSearch'
+import ToolsArray from '@/components/navigation/tools'
 
 export default {
   name: 'NavBar',
@@ -127,7 +146,8 @@ export default {
   },
   data () {
     return {
-      isMenuNavBarActive: false
+      isMenuNavBarActive: false,
+      toolsMenu: ToolsArray
     }
   },
   computed: {

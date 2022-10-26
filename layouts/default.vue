@@ -32,6 +32,7 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
+import ToolsArray from '@/components/navigation/tools'
 // import ConfigBox from '@/components/ConfigBox'
 
 export default {
@@ -59,39 +60,7 @@ export default {
       if (this.amILoggedIn() && this.amIAuthed()){
         return [
           'Tools',
-          [
-            {
-              to: '/tools/',
-              icon: 'tools',
-              label: 'Tools'
-            },
-            {
-              to: '/',
-              icon: 'chart-timeline-variant-shimmer',
-              label: 'Dashboard'
-            },
-            {
-              to: '/tools/inventory/',
-              icon: 'ballot',
-              label: 'Inventory'
-            },
-            {
-              to: '/tools/inventory/sealed/',
-              icon: 'wallet-giftcard',
-              label: 'Sealed'
-            },
-            {
-              to: '/tools/lists/',
-              icon: 'format-list-checkbox',
-              label: 'Lists'
-            },
-            {
-              to: '/tools/watch-list/',
-              icon: 'eye',
-              label: 'Watch List'
-            }
-
-          ],
+          ToolsArray,
           'Magic: the Gathering',
           [
             {
