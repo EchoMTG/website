@@ -84,7 +84,7 @@
       <SetItemList
         v-if="this.tab == 'list'"
         :items="this.set.items"
-        :cardsOwned="this.set.owned"
+        :cardsowned="this.set.owned"
         :totalFoiled="this.set.total_foil_cards"
         :totalRegular="this.set.total_regular_cards"
         />
@@ -115,7 +115,10 @@ export default {
         default: function(){
           return {
             'items': [],
-            'owned': []
+            'owned': {
+              regular: [],
+              foiled: []
+            }
           }
         }
       }
@@ -126,8 +129,6 @@ export default {
             title: 'Set Name',
             tab: 'list',
             setCode: '',
-            setData: {},
-            cardsOwned: {},
         };
 
     },

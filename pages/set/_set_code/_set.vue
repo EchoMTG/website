@@ -33,33 +33,14 @@ export default {
 
 
   },
-  async asyncData({ params, redirect, $config, env }) {
+  async asyncData({ params, redirect, $echomtg }) {
 
-    let set_code = params.set_code;
-    let set;
-
-    // fetch the set
-    let endpoint = `${$config.API_DOMAIN}data/set/?set_code=${set_code}`;
-
-    const res = await fetch(
-      endpoint, {
-        headers: {
-          'Authorization' : 'Bearer ' + $config.S2S_KEY
-        }
-      }
-    );
-
-    // try to get the json
-    try {
-      set = await res.json();
-    } catch(err){
-      console.log(err, res)
-    }
+    let data = await $echomtg.getSet(params.set_code);
 
     // return it
-    if (set) {
+    if (data) {
       return {
-        set: set.set
+        set: data.set
       }
     } else {
       redirect('/sets/')
@@ -87,6 +68,9 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    console.log("SET",this.set)
   },
   head () {
     return {

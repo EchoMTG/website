@@ -49,7 +49,7 @@
               <option value="" selected>Any Variant</option>
               <option disabled>---</option>
               <option value="none">No Variants</option>
-              <option v-for="v in this.variants" :value="v">
+              <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
                  {{ v.replace(') (', ' ') }}
 
               </option>
@@ -75,7 +75,7 @@
               <a
                 class="button is-small is-rounded is-static"
               >
-                $ >
+                $ &gt;
               </a>
             </p>
             <p class="control">
@@ -93,7 +93,7 @@
               <a
                 class="button is-small is-rounded is-static"
               >
-                $ <
+                $ &lt;
               </a>
             </p>
             <p class="control">
@@ -140,8 +140,8 @@
         <table id="set-table" class="table is-striped is-fullwidth">
           <thead>
             <tr>
-              <th class="owned">
-                <span class="green fa fa-check-circle"></span>
+              <th class="owned" v-if="this.cardsowned.foiled.length > 0 || this.cardsowned.regular.length > 0">
+                <span class="fa fa-check-circle has-text-success"></span>
               </th>
 
               <th class="is-clickable" @click="changeSortMetric('name')">
@@ -273,7 +273,12 @@ export default {
     },
     cardsowned: {
       type: Object,
-      default: () => {}
+      default:function() {
+        return {
+          regular: [],
+          foiled:[]
+        }
+      }
     },
     userlevel: {
       type: String,
@@ -287,9 +292,6 @@ export default {
       type: Number,
       default: 0
     },
-
-
-
   },
   data: function data() {
     return {
@@ -313,17 +315,20 @@ export default {
   },
   mounted () {
 
-    this.$echomtg.log('cards owned', this.cardsowned)
+
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
-    console.log(this.items)
+
 
 
   },
   methods: {
     findVariants(){
+
         this.items.forEach(item => {
+          console.log(item.name)
             if(/\(/.test(item.name) ){
+
                 let m = item.name.match(/\((.*)\)/m);
                 if (m) {
                     this.addVariant(m[1]);
@@ -355,7 +360,8 @@ export default {
         this.wikiOpen = false
     },
     isCardOwned: function(emid, type='regular') {
-        return this.cardsowned?.[type] ? this.cardsowned[type]?.[emid] : 0
+      if(undefined == this.cardsowned) return 0;
+      return this.cardsowned[type][emid] ? this.cardsowned[type][emid] : 0
     },
     clearFilters: function() {
         this.search='';

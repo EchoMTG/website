@@ -1,6 +1,6 @@
 <template>
   <tr class="setItemRow">
-    <td>
+    <td v-if="owned > 0 || ownedfoil > 0">
         <span v-if="owned > 0" title="You own this card" style="color: white; -webkit-text-stroke: 1px #ccc;" class="fa fa-check-circle">
         {{owned}}
         </span>

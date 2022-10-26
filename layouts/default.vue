@@ -32,6 +32,7 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
+import ToolsArray from '@/components/navigation/tools'
 // import ConfigBox from '@/components/ConfigBox'
 
 export default {
@@ -59,46 +60,13 @@ export default {
       if (this.amILoggedIn() && this.amIAuthed()){
         return [
           'Tools',
-          [
-            {
-              to: '/tools/',
-              icon: 'tools',
-              label: 'Tools'
-            },
-            {
-              to: '/',
-              icon: 'chart-timeline-variant-shimmer',
-              label: 'Dashboard'
-            },
-            {
-              to: '/tools/inventory/',
-              icon: 'ballot',
-              label: 'Inventory'
-            },
-            {
-              to: '/tools/inventory/sealed/',
-              icon: 'wallet-giftcard',
-              label: 'Sealed'
-            },
-            {
-              to: '/tools/lists/',
-              icon: 'format-list-checkbox',
-              label: 'Lists'
-            },
-            {
-              to: '/tools/watch-list/',
-              icon: 'eye',
-              label: 'Watch List'
-            }
-
-          ],
+          ToolsArray,
           'Magic: the Gathering',
           [
             {
               to: '/sets',
               label: 'Expansions',
-              icon: 'cards',
-              updateMark: true
+              icon: 'cards'
             },
             {
               to: '/magic/reserve-list/',
@@ -106,57 +74,57 @@ export default {
               icon: 'chess-king'
             },
 
+            // {
+            //   label: 'Dropdown',
+            //   icon: 'arrow-down-bold-circle',
+            //   menu: [
+            //     {
+            //       href: '#void',
+            //       label: 'Sub-item One'
+            //     },
+            //     {
+            //       href: '#void',
+            //       label: 'Sub-item Two'
+            //     }
+            //   ]
+            // },
             {
-              label: 'Dropdown',
-              icon: 'arrow-down-bold-circle',
-              menu: [
-                {
-                  href: '#void',
-                  label: 'Sub-item One'
-                },
-                {
-                  href: '#void',
-                  label: 'Sub-item Two'
-                }
-              ]
-            },
-            {
-              label: 'Submenus',
+              label: 'Groups',
               icon: 'view-list',
               menuSecondaryKey: 'submenu-1',
               menuSecondaryIcon: 'view-list',
-              menuSecondaryLabel: 'Example',
+              menuSecondaryLabel: 'Groups',
               menuSecondary: [
                 'Something',
                 [
                   {
                     icon: 'view-list',
                     href: '#void',
-                    label: 'Sub-item One'
+                    label: 'Commanders'
                   },
                   {
                     icon: 'view-list',
                     href: '#void',
-                    label: 'Sub-item Two'
+                    label: 'Reserve List'
                   }
                 ],
-                'Dropdown',
-                [
-                  {
-                    label: 'Submenus',
-                    icon: 'view-list',
-                    menu: [
-                      {
-                        href: '#void',
-                        label: 'Sub-item One'
-                      },
-                      {
-                        href: '#void',
-                        label: 'Sub-item Two'
-                      }
-                    ]
-                  }
-                ]
+                // 'Dropdown',
+                // [
+                //   {
+                //     label: 'Submenus',
+                //     icon: 'view-list',
+                //     menu: [
+                //       {
+                //         href: '#void',
+                //         label: 'Sub-item One'
+                //       },
+                //       {
+                //         href: '#void',
+                //         label: 'Sub-item Two'
+                //       }
+                //     ]
+                //   }
+                // ]
               ]
             }
           ],
@@ -166,17 +134,17 @@ export default {
               to: '/profile',
               label: 'Profile',
               icon: 'account-circle'
-            },
-            {
-              to: '/full-page/error',
-              label: 'Error v.1',
-              icon: 'power-plug'
-            },
+            }
           ],
-          'About',
+          'EchoMTG',
           [
             {
-              href: 'https://justboil.me/bulma-admin-template/one',
+              href: '/api',
+              label: 'API Docs',
+              icon: 'code-json'
+            },
+            {
+              href: '/about',
               label: 'About',
               icon: 'help-circle'
             }
@@ -191,8 +159,7 @@ export default {
             {
               to: '/sets',
               label: 'Expansions',
-              icon: 'cards',
-              updateMark: true
+              icon: 'cards'
             },
           ],
            'EchoMTG',
@@ -202,14 +169,22 @@ export default {
               icon: 'lock',
               label: 'Login'
             },
-             [
             {
               to: '/',
               icon: 'plus',
               label: 'Create Account'
+            },
+            {
+              to: '/api',
+              label: 'API Docs',
+              icon: 'code-json'
+            },
+            {
+              to: '/about',
+              label: 'About',
+              icon: 'help-circle'
             }
-          ],
-          ],
+          ]
         ]
       }
     },
