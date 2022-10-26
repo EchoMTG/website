@@ -35,7 +35,7 @@ export default (context, inject) => {
     // fetch the set
     let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}`;
     let token = context.app.$cookies.get('token') ? context.app.$cookies.get('token').trim() : context.env.S2S_KEY;
-    echomtg.log('token on set send',token)
+
     // try to get the json
      try {
       const res = await fetch(
