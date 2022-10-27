@@ -42,7 +42,7 @@
       <div class="level-item has-text-centered is-hidden-mobile">
         <div>
           <p class="heading is-size-8">Last Price Update</p>
-          <p class="title is-4 is-5-mobile">{{this.prices.date[this.prices.date.length - 1]}}</p>
+          <p class="title is-4 is-5-mobile">{{lastUpdateDate}}</p>
         </div>
       </div>
     </nav>
@@ -139,9 +139,13 @@
             aria-id="priceAnalysis"
             animation="slide"
             v-model="isPriceAnalysisOpen">
-            <item-price-analysis v-if="this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null" :prices="this.prices"  />
-            <h3 v-if="this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null" class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
-            <item-price-analysis v-if="this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null" :prices="this.prices" type="foil" />
+            <div v-if="this.prices.regular !== undefined && this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null">
+              <item-price-analysis  :prices="this.prices"  />
+            </div>
+            <div v-if="this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null">
+              <h3 class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
+              <item-price-analysis :prices="this.prices" type="foil" />
+            </div>
           </b-collapse>
         </div>
 
@@ -268,14 +272,16 @@ export default {
         }
       );
       let priceData = await dataRes.json();
-
-      prices = priceData.data;
-
+      
+      if(priceData.status == "success"){
+        prices = priceData.data;
+      }
+      
       // fetching other editions
       let variationname = item.card_url.split('/')[2];
       let variationsEndpoint = `${$config.API_DOMAIN}data/item_variations/?name=${variationname}`;
 
-
+      
       const vRes = await fetch(
         variationsEndpoint, {
           headers: {
@@ -346,10 +352,10 @@ export default {
         {
           label: 'Expansions',
           url: '/sets/',
-          icon: ''
+          icon: '' 
         },
          {
-          label: this.item.name,
+          label: this.item.name.split('(')[0],
           url: this.item.card_url,
           icon: ''
         },
@@ -403,6 +409,10 @@ export default {
     },
     priceChange() {
       return this.item.change
+    },
+    lastUpdateDate() {
+      if(undefined == this.prices.date) return 'N/A';
+      return this.prices.date[this.prices.date.length - 1];
     }
   },
   head () {
