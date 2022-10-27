@@ -31,7 +31,9 @@
         </div>
     </div>
   <hr />
-    <b-input size="is-medium" v-model="search" aria-placeholder="search API endpoint" placeholder="Search API Endpoint" />
+  <div class="container">
+    <b-input size="is-medium" v-model="search" aria-placeholder="search API endpoint" placeholder="Search API Endpoints" />
+  </div>
   <hr />
 
       <div v-for="(doc,index) in filteredAPIDocs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
@@ -110,20 +112,17 @@ export default {
     //console.log('async from index',req)
   },
   computed: {
-    ...mapState([
-      'userName'
-    ]),
     filteredAPIDocs() {
-      let docs = [...this.apidocs.item]
-      let s = this.search
-      console.log('filtering',docs)
-      docs.forEach((doc,index) => {
-        console.log('search',s, doc)
-        docs[index].item = doc.item.filter(it => it.name.includes(s))
+      var docs = [...this.apidocs.item]
+      var s = this.search.toLowerCase();
+      console.log('filtering',docs,this.apidocs.item)
+      this.apidocs.item.map((doc,index) => {
+        console.log('search',s,index, doc)
+        docs[index].item = [...doc.item].filter(it => it.name.includes(s))
 
       })
 
-      return [...docs]
+      return docs
     }
   },
   methods: {
@@ -131,7 +130,6 @@ export default {
       return name.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'')
     },
     highlight(event){
-      alert('asd')
       console.log(event)
       // this.value.select()
 

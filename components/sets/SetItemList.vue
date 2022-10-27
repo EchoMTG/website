@@ -140,7 +140,7 @@
         <table id="set-table" class="table is-striped is-fullwidth">
           <thead>
             <tr>
-              <th class="owned" v-if="this.cardsowned.foiled.length > 0 || this.cardsowned.regular.length > 0">
+              <th class="owned" v-if="Object.keys(cardsowned.regular).length > 0 || Object.keys(cardsowned.foiled).length > 0">
                 <span class="fa fa-check-circle has-text-success"></span>
               </th>
 
@@ -238,6 +238,7 @@
             <SetItemRow
               v-for="item in filteredItems"
               :key="item.emid"
+              :ownsAny="Object.keys(cardsowned.regular).length > 0 || Object.keys(cardsowned.foiled).length > 0"
               :owned="isCardOwned(item.emid, 'regular')"
               :ownedfoil="isCardOwned(item.emid, 'foiled')"
               :fullview="fullView"
