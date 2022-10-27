@@ -24,8 +24,8 @@
           </div>
           <div class="column is-one-third is-hidden-mobile">
               <h4>API Token</h4>
-              <p>Attain a token by <a href="/register/">Registering an Echo user</a>. When logged in your API token appear in these docs. API Tokens have a limited life; <a href="#auth-retrieving-a-user-token">authenticate</a> with new session.
-              If you are building an application integration for Echo users and need permanent tokens join <a href="/about/discord">discord </a> and ask for Teeg. </p>
+              <p>Attain a token by <a href="/register/">Registering an Echo user</a>. When logged in your API token appear in these docs. API Tokens expire after 24 hours. New tokens are attained by <a href="#auth-retrieving-a-user-token">Authenticating</a>.
+              If your application integration for Echo users needs permanent tokens, join <a href="/about/discord">discord </a> and ask for Teeg. </p>
 
              </div>
         </div>
