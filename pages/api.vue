@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <section class="hero is-primary mb-4">
+  <div class="is-relative">
+    <section class="hero is-primary">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
@@ -12,10 +12,39 @@
           </div>
       </div>
     </section>
-    <div class="container content">
+
+    <div class="has-background-light is-sticky">
+      <div class="container ">
+        <div class="columns">
+              <div class="column is-two-thirds">
+                <b-field
+                  label="API Search">
+                  <b-input
+                        size="is-medium"
+                        v-model="search"
+                        icon-right="close-circle"
+                        icon-right-clickable
+                        @icon-right-click="clearSearch"
+                        icon="magnify"
+                        aria-placeholder="Search name, description, or url of EchoMTG's API"
+                        placeholder="Search name, description, or url of EchoMTG's API" />
+
+                </b-field>
+              </div>
+              <div class="column is-one-thirds">
+                <b-field
+                    label="Your API Token"
+                    >
+                  <b-input size="is-medium" v-model="api_token" />
+                  </b-field>
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="container content mt-5" v-if="search == ''">
         <div class="columns">
           <div class="column is-two-thirds">
-            <h4>About the API</h4>
+            <h4>About the EchoMTG API</h4>
             <p>This API returns <a target="_blank" href="https://json.org">JSON</a> and is open to any EchoMTG user interested in writing custom scripts, apps, or integrations.
               The api system is uses EchoMTG identifiers (emid), a unique numeric ID given to every item in the EchoMTG database. Multiverse IDs were not used because Judge Foils and other promo cards do not have multiverseids.
               Two community API wrappers are available: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">PHP Wrapper</a> by Andrew Gioia and <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">JAVA Wrapper for Android</a>.
@@ -23,43 +52,19 @@
 
           </div>
           <div class="column is-one-third is-hidden-mobile">
-              <h4>API Token</h4>
+              <h4>API Tokens</h4>
               <p>Attain a token by <a href="/register/">Registering an Echo user</a>. When logged in your API token appear in these docs. API Tokens expire after 24 hours. New tokens are attained by <a href="#auth-retrieving-a-user-token">Authenticating</a>.
               If your application integration for Echo users needs permanent tokens, join <a href="/about/discord">discord </a> and ask for Teeg. </p>
 
              </div>
         </div>
-        <div class="columns">
-          <div class="column is-two-thirds">
-            <b-field
-              label="API Search">
-               <b-input
-                    size="is-medium"
-                    v-model="search"
-                    icon-right="close-circle"
-                    icon-right-clickable
-                    @icon-right-click="clearSearch"
-                    icon="magnify"
-                    aria-placeholder="Search name, description, or url of EchoMTG's API"
-                    placeholder="Search name, description, or url of EchoMTG's API" />
 
-            </b-field>
-          </div>
-          <div class="column is-one-thirds">
-             <b-field
-                label="Your API Token"
-                >
-              <b-input size="is-medium" v-model="api_token" />
-              </b-field>
-          </div>
-        </div>
 
     </div>
 
-  <hr />
 
       <div v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
-        <div class="container mb-4" v-if="filterAPIDocs(doc.item).length > 0">
+        <div class="container mb-4" v-if="filterAPIDocs(doc.item).length > 0 && search == ''" >
           <h2 class="title is-size-3 mb-2" >{{doc.name}}</h2>
           <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
         </div>
