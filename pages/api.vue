@@ -17,15 +17,15 @@
           <div class="column is-two-thirds">
             <h4>About the API</h4>
             <p>This API returns <a target="_blank" href="https://json.org">JSON</a> and is open to any EchoMTG user interested in writing custom scripts, apps, or integrations.
-              The api system is based around EchoMTG id (emid), which is a unique numeric ID given to every item in the EchoMTG database. Multiverse IDs were not used because Judge Foils and other promo cards do not have multiverseids.
-              If you have any suggestions here, please join the <a href="/about/discord">discord channel</a> and look for Teeg. To get started <a href="/register/">Register</a> and login, your auth token will pre-populate in this Javascript request examples.</p>
+              The api system is uses EchoMTG identifiers (emid), a unique numeric ID given to every item in the EchoMTG database. Multiverse IDs were not used because Judge Foils and other promo cards do not have multiverseids.
+              Two community API wrappers are available: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">PHP Wrapper</a> by Andrew Gioia and <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">JAVA Wrapper for Android</a>.
+              If you have any suggestions or questions please join the <a href="/about/discord">discord channel</a> and look for Teeg. </p>
 
           </div>
           <div class="column is-one-third is-hidden-mobile">
-              <h4>Community API Wrappers</h4>
-              <p><strong>PHP Wrapper</strong> by Andrew Gioia: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">https://github.com/andrewgioia/EchoPHP</a></p>
-              <p><strong>JAVA Wrapper for Android</strong> <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">https://github.com/ardeay/EchoMTG-Java-API-Wrapper/</a></p>
-
+              <h4>API Token</h4>
+              <p>Attain a token by <a href="/register/">Registering an Echo user</a>. When logged in your API token appear in these docs. API Tokens have a limited life; <a href="#auth-retrieving-a-user-token">authenticate</a> with new session.
+              If you are building an application integration for Echo users and need permanent tokens join <a href="/about/discord">discord </a> and ask for Teeg. </p>
 
              </div>
         </div>
