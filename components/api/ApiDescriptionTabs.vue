@@ -60,9 +60,11 @@
         },
         buildRequest() {
           if(this.request.method.toLowerCase() == 'post'){
+            let body = this.request.body ? 'const body = ' + this.request.body.raw : ''
             return `
 const request = async () => {
   const endpoint = '${this.request.url.raw}';
+  ${body}
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {

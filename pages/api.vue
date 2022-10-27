@@ -60,7 +60,7 @@
 
       <div v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
         <div class="container mb-4" v-if="filterAPIDocs(doc.item).length > 0">
-          <h1 class="title is-size-3" >{{doc.name}}</h1>
+          <h2 class="title is-size-3 mb-2" >{{doc.name}}</h2>
           <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
         </div>
 
@@ -72,8 +72,8 @@
             :class="getEndpointClass(index)"
             >
             <div class="container">
-              <h3 class="title is-size-4 mt-5">
-                <b-tag v-if="subdoc.request" type="is-dark">{{subdoc.request.method}}</b-tag>
+              <h3 class="title is-size-4 mt-5 mb-3">
+                <b-tag class="mr-3" v-if="subdoc.request" size="is-medium" type="is-dark">{{subdoc.request.method}}</b-tag>
                 {{subdoc.name}}
                 <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
               </h3>
@@ -90,6 +90,9 @@
                 <div class="column is-half">
                   <b-field class="mt-2" :label="`URL ${subdoc.request.method} Endpoint`">
                     <b-input @mousedown="this.highlight(event)" :value="subdoc.request.url.raw" />
+                  </b-field>
+                  <b-field class="mt-2" :label="`Authentication Header`">
+                    <b-input @mousedown="this.highlight(event)" :value="`Bearer ${api_token}`" />
                   </b-field>
                   <div v-if="subdoc.request.body && subdoc.request.body.raw !== undefined">
                     <b-field  v-if="subdoc.request.body.raw" :label="`Example ${subdoc.request.method} Body`">
