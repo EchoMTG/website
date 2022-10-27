@@ -147,6 +147,11 @@ export default {
               href: '/about',
               label: 'About',
               icon: 'help-circle'
+            },
+            {
+              to: '/about/discord',
+              label: 'Discord',
+              icon: 'forum'
             }
           ]
         ]
@@ -183,6 +188,11 @@ export default {
               to: '/about',
               label: 'About',
               icon: 'help-circle'
+            },
+            {
+              to: '/about/discord',
+              label: 'Discord',
+              icon: 'forum'
             }
           ]
         ]
