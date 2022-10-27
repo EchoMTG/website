@@ -1,0 +1,195 @@
+<template>
+  <div>
+    <section class="hero is-primary mb-4">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                  API Documentation for EchoMTG
+              </h1>
+              <h3 class="subtitle">
+                  Magic: the Gathering API for EchoMTG Collection Tools
+              </h3>
+          </div>
+      </div>
+    </section>
+    <div class="container content">
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <h4>About the API</h4>
+            <p>This API returns <a target="_blank" href="https://json.org">JSON</a> and is open to any EchoMTG user interested in writing custom scripts, apps, or integrations.
+              The api system is based around EchoMTG id (emid), which is a unique numeric ID given to every item in the EchoMTG database. Multiverse IDs were not used because Judge Foils and other promo cards do not have multiverseids.
+              If you have any suggestions here, please join the <a href="/about/discord">discord channel</a> and look for Teeg. To get started <a href="/register/">Register</a> and login, your auth token will pre-populate in this Javascript request examples.</p>
+
+          </div>
+          <div class="column is-one-third is-hidden-mobile">
+              <h4>Community API Wrappers</h4>
+              <p><strong>PHP Wrapper</strong> by Andrew Gioia: <a href="https://github.com/andrewgioia/EchoPHP" target="_blank">https://github.com/andrewgioia/EchoPHP</a></p>
+              <p><strong>JAVA Wrapper for Android</strong> <a href="https://github.com/ardeay/EchoMTG-Java-API-Wrapper/" target="_blank">https://github.com/ardeay/EchoMTG-Java-API-Wrapper/</a></p>
+
+
+             </div>
+        </div>
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <b-field
+              label="API Search">
+               <b-input
+                    size="is-medium"
+                    v-model="search"
+                    icon-right="close-circle"
+                    icon-right-clickable
+                    @icon-right-click="clearSearch"
+                    icon="magnify"
+                    aria-placeholder="Search name, description, or url of EchoMTG's API"
+                    placeholder="Search name, description, or url of EchoMTG's API" />
+
+            </b-field>
+          </div>
+          <div class="column is-one-thirds">
+             <b-field
+                label="Your API Token"
+                >
+              <b-input size="is-medium" v-model="api_token" />
+              </b-field>
+          </div>
+        </div>
+
+    </div>
+
+  <hr />
+
+      <div v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
+        <div class="container mb-4" v-if="filterAPIDocs(doc.item).length > 0">
+          <h1 class="title is-size-3" >{{doc.name}}</h1>
+          <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
+        </div>
+
+        <div v-if="doc.item.length > 0">
+          <div
+            v-for="(subdoc,index) in filterAPIDocs(doc.item)"
+            v-bind:key="`docsub${index}`"
+            :id="getSubDocID(subdoc.name)"
+            :class="getEndpointClass(index)"
+            >
+            <div class="container">
+              <h3 class="title is-size-4 mt-5">
+                <b-tag v-if="subdoc.request" type="is-dark">{{subdoc.request.method}}</b-tag>
+                {{subdoc.name}}
+                <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
+              </h3>
+              <div class="columns">
+
+                <div class="column is-half">
+                  <api-description-tabs
+                    :description="subdoc.request.description"
+                    :response="subdoc.response"
+                    :request="subdoc.request"
+                    :token="api_token"
+                    />
+                </div>
+                <div class="column is-half">
+                  <b-field class="mt-2" :label="`URL ${subdoc.request.method} Endpoint`">
+                    <b-input @mousedown="this.highlight(event)" :value="subdoc.request.url.raw" />
+                  </b-field>
+                  <div v-if="subdoc.request.body && subdoc.request.body.raw !== undefined">
+                    <b-field  v-if="subdoc.request.body.raw" :label="`Example ${subdoc.request.method} Body`">
+                      <b-input
+                        type="textarea"
+                        rows="8"
+                        placeholder="Maxlength automatically counts characters"
+                        :value="subdoc.request.body.raw"
+                        />
+                    </b-field>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import { mapState } from 'vuex'
+import APIDocs from '@/components/api/echomtg-api.102622'
+import ApiDescriptionTabs from '@/components/api/ApiDescriptionTabs.vue'
+
+export default {
+  name: 'API',
+  components: {
+    ApiDescriptionTabs
+  },
+  data () {
+    return {
+      search: '',
+      docs: [],
+      api_token: ''
+    }
+  },
+  props: {
+    apidocs: {
+      type: Array,
+      default: function() {
+        return APIDocs.item
+      }
+    }
+  },
+  mounted() {
+    this.docs = [...this.apidocs]
+    this.api_token = this.$cookies.get('token') ? this.$cookies.get('token'): '[LOGIN FOR API KEY]';
+  },
+  watch: {
+    search() {
+      //this.filterAPIDocs()
+    }
+  },
+  asyncData({req}) {
+    //console.log('async from index',req)
+  },
+  methods: {
+    filterAPIDocs(items) {
+      if(this.search == '') return items;
+      return items.filter(it => {
+        console.log(it)
+        if(it.name.toLowerCase().includes(this.search.toLowerCase())) return true;
+        if(it.request.description && it.request.description.toLowerCase().includes(this.search.toLowerCase())) return true;
+        if(it.request.url.raw.includes(this.search.toLowerCase())) return true;
+        return false;
+      });
+    },
+    clearSearch() {
+      this.search = ''
+    },
+    getSubDocID(name) {
+      return name.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'')
+    },
+    highlight(event){
+      console.log(event)
+      // this.value.select()
+
+    },
+    getEndpointClass(i){
+      let bg = (i % 2 == 0) ? 'has-background-light' : '';
+      return `pb-6 pt-4 ${bg}`;
+    }
+  },
+  head () {
+      return {
+          title: `Magic:the Gathering API for Collectors`,
+          meta: [
+            { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png?1` },
+            {
+              hid: 'description',
+              name: 'description',
+              content:  `An API to power a suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+            }
+          ]
+
+      }
+    }
+}
+</script>
