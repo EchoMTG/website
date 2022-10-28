@@ -536,7 +536,7 @@ export default {
 			"name": "Inventory",
 			"item": [
 				{
-					"name": "Inventory: Adding Cards",
+					"name": "Inventory: Adding Items",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -577,7 +577,7 @@ export default {
 								""
 							]
 						},
-						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n| **Language Options** | **Condition Options** |\n| --- | --- |\n| EN = english  <br>DE = german  <br>FR = french  <br>RU = russian  <br>IT = italian  <br>ES = spanish  <br>PT = portuguese  <br>CT = chinese traditional  <br>CS = chinese simplified  <br>JP = japanese  <br>KR = korean | NM = Near Mint  <br>LP = Lightly Played  <br>MP = Moderately Played  <br>HP = Heavily Played  <br>D = Damaged  <br>ALT = Altered  <br>ART = Artist Proof  <br>PRE = Pre-release  <br>TS = Timestamped  <br>SGN = Signed  <br>BGS = BGS  <br>B10 = BGS 10  <br>B95 = BGS 9.5  <br>B9 = BGS 9.0  <br>B85 = BGS 8.5  <br>B8 = BGS 8.0  <br>B75 = BGS 7.5  <br>B7 = BGS 7.0  <br>PSA = PSA  <br>P10 = PSA 10  <br>P95 = PSA 9.5  <br>P9 = PSA 9.0  <br>P85 = PSA 8.5  <br>P8 = PSA 8.0  <br>P75 = PSA 7.5  <br>P7 = PSA 7.0 |"
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
 					},
 					"response": [
 						{
@@ -676,7 +676,7 @@ export default {
 					]
 				},
 				{
-					"name": "Inventory: Upload Inventory Image",
+					"name": "Inventory: Upload Item Image",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -720,7 +720,8 @@ export default {
 									"value": "45959523"
 								}
 							]
-						}
+						},
+						"description": "Add a custom image to an inventory item. This feature is only available to paid tiers."
 					},
 					"response": [
 						{
@@ -823,7 +824,7 @@ export default {
 					]
 				},
 				{
-					"name": "Inventory: Removing Cards",
+					"name": "Inventory: Removing Items",
 					"request": {
 						"auth": {
 							"type": "bearer",
