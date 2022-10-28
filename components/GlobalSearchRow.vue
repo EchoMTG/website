@@ -137,12 +137,22 @@ export default {
             })
                 .then(res => res.json())
                 .then(data => {
-                    createGrowl(data.message)
+                    this.$buefy.snackbar.open({
+                        message: data.message,
+                        type: 'is-success',
+                        queue: true,
+                        position: 'is-top',
+                    })
                     reloadInventory();
                     reloadInventoryStats();
                 })
                 .catch(err => {
-                    createGrowl(err.error)
+                    this.$buefy.snackbar.open({
+                        message: err.message,
+                        type: 'is-error',
+                        queue: true,
+                        position: 'is-top',
+                    })
                 })
 
 

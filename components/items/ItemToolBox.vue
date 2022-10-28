@@ -2,7 +2,7 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
-                Your Inventory
+                <a href="/tools/inventory/">Your Inventory</a>
             </p>
             <button 
                 class="card-header-icon" 
@@ -109,11 +109,22 @@ export default {
             }).then( (response) => {
                 return response.json();
             }).then((json) => {
-                this.$echomtg.createGrowl(json.message);
+               
+                this.$buefy.snackbar.open({
+                    message: json.message,
+                    type: 'is-success',
+                    queue: true,
+                    position: 'is-top',
+                })
                 this.actions++;
                 this.deleteItem(inventoryID);
             }).catch(function (error) {
-                this.$echomtg.createGrowl(error);
+                this.$buefy.snackbar.open({
+                    message: error,
+                    type: 'is-error',
+                    position: 'is-top',
+                })
+               
             });
         },
         deleteItem: function (inventoryID){
@@ -124,7 +135,12 @@ export default {
             }).then((response) => {
                 return response.json();
             }).then((json) => {
-                this.$echomtg.createGrowl(json.message);
+                this.$buefy.snackbar.open({
+                    message: json.message,
+                    type: 'is-warning',
+                    queue: true,
+                    position: 'is-top',
+                })
                 this.actions++;
             }).catch(function (error) {
                 this.$echomtg.log(error);
@@ -145,10 +161,19 @@ export default {
             }).then((response) => {
                 return response.json();
             }).then((json) => {
-                this.$echomtg.createGrowl(json.message);
+                this.$buefy.snackbar.open({
+                    message: json.message,
+                    type: 'is-success',
+                    queue: true,
+                    position: 'is-top',
+                })
                 this.actions++;
             }).catch(function (error) {
-                this.$echomtg.log(error);
+                this.$buefy.snackbar.open({
+                    message: error,
+                    type: 'is-error',
+                    position: 'is-top',
+                })
             });
         },
         getItems: async function(){

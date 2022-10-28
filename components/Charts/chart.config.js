@@ -1,6 +1,6 @@
 const footer = (tooltipItems) => {
   let sum = 0;
-  console.log('tooltip',tooltipItems)
+  //console.log('tooltip',tooltipItems)
   tooltipItems.forEach(function(tooltipItem) {
     sum += tooltipItem.yLabel;
   });

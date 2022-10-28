@@ -17,7 +17,13 @@ export default (context, inject) => {
   }
 
   echomtg.createGrowl = (message,icon,color="grey") => {
-    alert(message + icon + color)
+    //alert(message + icon + color)
+    if(context.app.$buefy){
+      context.app.$buefy.snackbar.open({
+        message: message,
+        queue: false
+      })
+    }
   }
 
   echomtg.getSets = async () => {

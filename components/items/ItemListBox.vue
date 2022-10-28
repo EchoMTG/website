@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              Your Lists
+              <a href="/tools/lists/">Your Lists</a>
           </p>
           <button 
             class="card-header-icon" 
@@ -123,12 +123,23 @@ export default {
       async addToList(){
         let foil = this.foil ? 1 : 0;
         const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id, foil);
-        this.$echomtg.createGrowl(data.message);
+        
+        this.$buefy.snackbar.open({
+            message: data.message,
+            type: 'is-success',
+            queue: true,
+            position: 'is-top',
+        })
         this.getInList();
       },
       async removeFromList(list_item_id, list_id){
         const data = await this.$echomtg.removeFromList(list_item_id, list_id);
-        this.$echomtg.createGrowl(data.message);
+        this.$buefy.snackbar.open({
+            message: data.message,
+            type: 'is-warning',
+            queue: true,
+            position: 'is-top',
+        })
         this.getInList();
       }
 
