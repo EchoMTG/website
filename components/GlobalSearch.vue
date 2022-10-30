@@ -137,22 +137,21 @@
 
                     <div v-if="results.length > 0" ref="cardContent" class="searchResults">
                         <GlobalSearchRow
-
                             v-for="(result, index) in results"
-                            :key="result.emid"
-                            v-bind:name="result.name"
-                            v-bind:setCode="result.setcode"
-                            v-bind:setName="result.set"
-                            v-bind:emid="result.emid"
-                            v-bind:url="result.url"
-                            v-bind:item="result"
-                            v-bind:showinventorybuttons="showinventorybuttons"
-                            v-bind:currencysymbol="currencysymbol"
+                            v-bind:key="`${result.mid}-${index}`"
+                            :name="result.name"
+                            :setCode="result.setcode"
+                            :setName="result.set"
+                            :emid="result.emid"
+                            :url="result.url"
+                            :item="result"
+                            :showinventorybuttons="showinventorybuttons"
+                            :currencysymbol="currencysymbol"
                             :ref="'pos'+index"
-                            v-bind:selected="index == position"
-                            v-bind:acquiredprice = "staticAcquiredPrice"
-                            v-bind:previewopen="index == position && previewopen"
-                            v-bind:manacost="result.mana_cost"
+                            :selected="index == position"
+                            :acquiredprice = "staticAcquiredPrice"
+                            :previewopen="index == position && previewopen"
+                            :manacost="result.mana_cost"
                             :showimage="showimage"
                             :callbackname="callbackname"
                             @primaryCallback="callback(result.emid)"
@@ -164,7 +163,7 @@
                             <h5 class="title is-size-4 has-text-white">Short Cuts</h5>
                             <p class="has-text-white"><strong class="has-text-white">Shift + Delete:</strong> Clear Item Search</p>
                             <p class="has-text-white"><strong class="has-text-white">Shift + Backspace:</strong> Clear Item Search</p>
-                            <p class="has-text-white"><strong class="has-text-white">ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
+                             <p class="has-text-white"><strong class="has-text-white">ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
                             <p class="has-text-white"><strong class="has-text-white">Enter</strong>: Shortcut to <span v-html="callbackname"></span></p>
 
                         </div>

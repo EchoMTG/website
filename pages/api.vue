@@ -63,7 +63,8 @@
     </div>
 
 
-      <div v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" :id="getSubDocID(doc.name)">
+      <div class="is-relative" v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" >
+        <div :id="getSubDocID(doc.name)" style="width: 1px; height: 1px; top: -100px; left: 0px;"></div>
         <div class="container mb-4" v-if="filterAPIDocs(doc.item) && filterAPIDocs(doc.item).length > 0 && search == ''" >
           <h2 class="title is-size-3 mb-2" >{{doc.name}}</h2>
           <div v-if="doc.description" v-html="$md.render(doc.description)"></div>

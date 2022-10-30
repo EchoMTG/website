@@ -394,6 +394,150 @@ export default {
 					]
 				},
 				{
+					"name": "User: Update Meta Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/user/update/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"update",
+								""
+							]
+						},
+						"description": "**Update user profile information and settings.**\n\n**Default Sort Options**\n\n```\nDate Entered = i.id \nCard Name = c.card_name \nPrice = p.tcg_mid \nPersonal Gain = personal_gain \n7-Day Movement = p.change \nExpansion = c.expansion\n\n```"
+					},
+					"response": [
+						{
+							"name": "User: Update Meta Data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/update/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"update",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 29 Oct 2022 20:19:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "platform=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "device_type=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "has_logged_in=true; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "username=teeg; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "email=Teeg%40echomtg.com; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=99"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Update user meta data.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
 					"name": "User: Upload Avatar",
 					"request": {
 						"auth": {
@@ -1443,6 +1587,394 @@ export default {
 				}
 			],
 			"description": "Old endpoints are documented for informational purposes, if you are using old endpoint, please migrated to new endpoint documented above."
+		},
+		{
+			"name": "Watchlist",
+			"item": [
+				{
+					"name": "Watchlist: Add Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emid\": \"104517\",\n    \"foil\": \"1\",\n    \"threshold\": \"10\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/watchlist/add/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"watchlist",
+								"add",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Watchlist Add",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"emid\": \"104517\",\n    \"foil\": \"1\",\n    \"threshold\": \"10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/watchlist/add/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"watchlist",
+										"add",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 30 Oct 2022 11:06:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1249"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"watchlist_id\": 108075,\n    \"message\": \"Gaddock Teeg from Judge Promos add to teeg's watchlist.\",\n    \"card\": {\n        \"id\": \"104517\",\n        \"tcgplayer_id\": \"136601\",\n        \"multiverseid\": \"100053967\",\n        \"set_number\": \"3\",\n        \"card_name\": \"Gaddock Teeg\",\n        \"expansion\": \"Judge Promos\",\n        \"set_code\": \"pJGP\",\n        \"rarity\": \"Special\",\n        \"mana_cost\": \"{{g}}{{w}}\",\n        \"cmc\": \"2\",\n        \"p_t\": \"2/2\",\n        \"types\": \"Legendary Creature — Kithkin Advisor\",\n        \"main_type\": \"Legendary Creature \",\n        \"sub_type\": \" Kithkin Advisor\",\n        \"rating\": null,\n        \"votes\": null,\n        \"card_text\": \"<p>Noncreature spells with converted mana cost 4 or greater can't be played. </p>\\r\\n<p>Noncreature spells with X in their mana costs can't be played.</p>\",\n        \"attributes\": null,\n        \"flavor_text\": \"So great is his wisdom and spirit that many who have met him say that they stood before a giant of a man and talked to the wisest of the four winds.\",\n        \"power\": \"2\",\n        \"toughness\": \"2\",\n        \"artist\": \"Matt Stewart\",\n        \"all_sets\": null,\n        \"community_rating\": null,\n        \"type\": \"Legendary\",\n        \"main_colors\": \"White\",\n        \"abilities_colors\": null,\n        \"crawlurl\": null,\n        \"hand_life\": null,\n        \"watermark\": null,\n        \"loyalty\": null,\n        \"color_indicator\": null,\n        \"other_sets\": null,\n        \"card_number\": null,\n        \"created_at\": null,\n        \"deleted_at\": null,\n        \"updated_at\": \"2021-07-02 05:27:21\",\n        \"has_image\": \"1\",\n        \"flip\": \"0\",\n        \"reserve_list\": \"0\",\n        \"sealed\": \"0\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Watchlist: Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"108075\",\n    \"threshold\": \"12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/watchlist/update/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"watchlist",
+								"update",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Watchlist: Update",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"108075\",\n    \"threshold\": \"12\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/watchlist/update/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"watchlist",
+										"update",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 30 Oct 2022 11:27:45 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card threshold updated to 12%\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Watchlist: Get View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dev.echomtg.com/api/watchlist/view/",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"watchlist",
+								"view",
+								""
+							]
+						},
+						"description": "Get watchlist items.\n\n| **Param** | **default** | **Description** |\n| --- | --- | --- |\n| start | 0 | Item to start from, used for pagination |\n| limit | 100 | total items to return, used for pagination |"
+					},
+					"response": [
+						{
+							"name": "Watchlist: Get View",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/watchlist/view/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"watchlist",
+										"view",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 30 Oct 2022 11:25:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Watchlist captured!.\",\n    \"items\": [\n        {\n            \"tcg_low\": null,\n            \"tcg_mid\": null,\n            \"price\": null,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Gaddock+Teeg&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"25.88\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{g}}{{w}}\",\n            \"main_type\": \"Legendary Creature \",\n            \"colors\": \"White\",\n            \"name\": \"Gaddock Teeg\",\n            \"mid\": \"100053967\",\n            \"t\": \"Legendary\",\n            \"set\": \"Judge Promos\",\n            \"rarity\": \"Special\",\n            \"types\": \"Legendary Creature — Kithkin Advisor\",\n            \"set_code\": \"pJGP\",\n            \"expansion\": \"Judge Promos\",\n            \"emid\": \"104517\",\n            \"watchlist_id\": \"108075\",\n            \"foil\": \"1\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/pjgp.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/104517.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/104517.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/pJGP/gaddock-teeg/\",\n            \"echo_url\": \"https://www.echomtg.com/card/104517/gaddock-teeg/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"10.89\",\n            \"tcg_mid\": \"14\",\n            \"price\": \"14.00\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Crawlspace&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"71.06\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{3}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Crawlspace\",\n            \"mid\": \"12505\",\n            \"t\": \"Artifact\",\n            \"set\": \"Urza's Legacy\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"set_code\": \"ULG\",\n            \"expansion\": \"Urza's Legacy\",\n            \"emid\": \"4984\",\n            \"watchlist_id\": \"106879\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ulg.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/4984.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/4984.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ULG/crawlspace/\",\n            \"echo_url\": \"https://www.echomtg.com/card/4984/crawlspace/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"3.99\",\n            \"tcg_mid\": \"6.7\",\n            \"price\": \"6.70\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spoils+of+Evil&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{b}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"Black\",\n            \"name\": \"Spoils of Evil\",\n            \"mid\": \"2487\",\n            \"t\": \"Instant\",\n            \"set\": \"Ice Age\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Instant\",\n            \"set_code\": \"ICE\",\n            \"expansion\": \"Ice Age\",\n            \"emid\": \"2485\",\n            \"watchlist_id\": \"89705\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ice.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/2485.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/2485.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ICE/spoils-of-evil/\",\n            \"echo_url\": \"https://www.echomtg.com/card/2485/spoils-of-evil/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.49\",\n            \"tcg_mid\": \"1\",\n            \"price\": \"1.00\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Misthollow+Griffin&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"14.39\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{u}}{{u}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"Blue\",\n            \"name\": \"Misthollow Griffin\",\n            \"mid\": \"276504\",\n            \"t\": \"Creature\",\n            \"set\": \"Avacyn Restored\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Creature - Griffin\",\n            \"set_code\": \"AVR\",\n            \"expansion\": \"Avacyn Restored\",\n            \"emid\": \"88237\",\n            \"watchlist_id\": \"87323\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/avr.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/88237.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/88237.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/AVR/misthollow-griffin/\",\n            \"echo_url\": \"https://www.echomtg.com/card/88237/misthollow-griffin/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.27\",\n            \"tcg_mid\": \"0.75\",\n            \"price\": \"0.75\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Torrent+Elemental&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1.36\",\n            \"price_change\": \"-3\",\n            \"mc\": \"{{4}}{{U}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"Blue\",\n            \"name\": \"Torrent Elemental\",\n            \"mid\": \"391945\",\n            \"t\": \"Creature\",\n            \"set\": \"Fate Reforged\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Creature- Elemental\",\n            \"set_code\": \"FRF\",\n            \"expansion\": \"Fate Reforged\",\n            \"emid\": \"95873\",\n            \"watchlist_id\": \"87322\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/frf.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/95873.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/95873.jpg\",\n            \"gain\": \"-3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/FRF/torrent-elemental/\",\n            \"echo_url\": \"https://www.echomtg.com/card/95873/torrent-elemental/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.2\",\n            \"tcg_mid\": \"0.79\",\n            \"price\": \"0.79\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Beast+Token+%284%2F4%29&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"-33\",\n            \"mc\": null,\n            \"main_type\": \"Creature\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Beast Token (4/4)\",\n            \"mid\": \"201844\",\n            \"t\": \"Creature\",\n            \"set\": \"Duel Decks: Garruk vs. Liliana\",\n            \"rarity\": \"Token\",\n            \"types\": \"Creature- Beast\",\n            \"set_code\": \"DDD\",\n            \"expansion\": \"Duel Decks: Garruk vs. Liliana\",\n            \"emid\": \"66820\",\n            \"watchlist_id\": \"84700\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ddd.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/66820.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/66820.jpg\",\n            \"gain\": \"-33\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/DDD/beast-token-4-4/\",\n            \"echo_url\": \"https://www.echomtg.com/card/66820/beast-token-4-4/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-33%</span>\"\n        },\n        {\n            \"tcg_low\": \"31.4\",\n            \"tcg_mid\": \"38.7\",\n            \"price\": \"38.70\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spellseeker&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"67.21\",\n            \"price_change\": \"-5\",\n            \"mc\": \"{{2}}{{u}}\",\n            \"main_type\": \"Creature - Human Wizard\",\n            \"colors\": \"Blue\",\n            \"name\": \"Spellseeker\",\n            \"mid\": \"446009\",\n            \"t\": \"Creature\",\n            \"set\": \"Battlebond\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Human Wizard\",\n            \"set_code\": \"BBD\",\n            \"expansion\": \"Battlebond\",\n            \"emid\": \"106957\",\n            \"watchlist_id\": \"40667\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/bbd.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/106957.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/106957.jpg\",\n            \"gain\": \"-5\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/BBD/spellseeker/\",\n            \"echo_url\": \"https://www.echomtg.com/card/106957/spellseeker/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-5%</span>\"\n        },\n        {\n            \"tcg_low\": \"5.9\",\n            \"tcg_mid\": \"8.93\",\n            \"price\": \"8.93\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Idyllic+Tutor&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"51.65\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"White\",\n            \"name\": \"Idyllic Tutor\",\n            \"mid\": \"152938\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Morningtide\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"MOR\",\n            \"expansion\": \"Morningtide\",\n            \"emid\": \"37638\",\n            \"watchlist_id\": \"21600\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/mor.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/37638.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/37638.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/MOR/idyllic-tutor/\",\n            \"echo_url\": \"https://www.echomtg.com/card/37638/idyllic-tutor/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.2\",\n            \"tcg_mid\": \"1.57\",\n            \"price\": \"1.57\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Nissa%2C+Steward+of+Elements&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"3.51\",\n            \"price_change\": \"-4\",\n            \"mc\": \"{{x}}{{g}}{{u}}\",\n            \"main_type\": \"planeswalker\",\n            \"colors\": \"Blue\",\n            \"name\": \"Nissa, Steward of Elements\",\n            \"mid\": \"426906\",\n            \"t\": \"Planeswalker\",\n            \"set\": \"Amonkhet\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Planeswalker - Nissa\",\n            \"set_code\": \"AKH\",\n            \"expansion\": \"Amonkhet\",\n            \"emid\": \"102724\",\n            \"watchlist_id\": \"17659\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/akh.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/102724.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/102724.jpg\",\n            \"gain\": \"-4\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/AKH/nissa-steward-of-elements/\",\n            \"echo_url\": \"https://www.echomtg.com/card/102724/nissa-steward-of-elements/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-4%</span>\"\n        },\n        {\n            \"tcg_low\": \"17.55\",\n            \"tcg_mid\": \"28.4\",\n            \"price\": \"28.40\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Berserk&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"59.08\",\n            \"price_change\": \"-3\",\n            \"mc\": \"{{g}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"Green\",\n            \"name\": \"Berserk\",\n            \"mid\": \"416932\",\n            \"t\": \"Instant\",\n            \"set\": \"Conspiracy: Take the Crown\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Instant\",\n            \"set_code\": \"CN2\",\n            \"expansion\": \"Conspiracy: Take the Crown\",\n            \"emid\": \"99301\",\n            \"watchlist_id\": \"15630\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/cn2.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/99301.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/99301.jpg\",\n            \"gain\": \"-3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/CN2/berserk/\",\n            \"echo_url\": \"https://www.echomtg.com/card/99301/berserk/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.4\",\n            \"tcg_mid\": \"1.35\",\n            \"price\": \"1.35\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Splendid+Reclamation&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1.52\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{3}}{{g}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Green\",\n            \"name\": \"Splendid Reclamation\",\n            \"mid\": \"414474\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Eldritch Moon\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"EMN\",\n            \"expansion\": \"Eldritch Moon\",\n            \"emid\": \"99171\",\n            \"watchlist_id\": \"15614\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/emn.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/99171.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/99171.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/EMN/splendid-reclamation/\",\n            \"echo_url\": \"https://www.echomtg.com/card/99171/splendid-reclamation/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"3.49\",\n            \"tcg_mid\": \"8.38\",\n            \"price\": \"8.38\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Rainbow+Vale&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"-1\",\n            \"mc\": null,\n            \"main_type\": \"Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Rainbow Vale\",\n            \"mid\": \"2010\",\n            \"t\": \"Land\",\n            \"set\": \"Fallen Empires\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"FEM\",\n            \"expansion\": \"Fallen Empires\",\n            \"emid\": \"2008\",\n            \"watchlist_id\": \"14083\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/fem.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/2008.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/2008.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/FEM/rainbow-vale/\",\n            \"echo_url\": \"https://www.echomtg.com/card/2008/rainbow-vale/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"2.2\",\n            \"tcg_mid\": \"3.99\",\n            \"price\": \"3.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Disallow&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"6.28\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{1}}{{u}}{{u}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"Blue\",\n            \"name\": \"Disallow\",\n            \"mid\": \"423698\",\n            \"t\": \"Instant\",\n            \"set\": \"Aether Revolt\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Instant\",\n            \"set_code\": \"AER\",\n            \"expansion\": \"Aether Revolt\",\n            \"emid\": \"101598\",\n            \"watchlist_id\": \"13461\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/aer.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/101598.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/101598.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/AER/disallow/\",\n            \"echo_url\": \"https://www.echomtg.com/card/101598/disallow/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"7.99\",\n            \"tcg_mid\": \"12.12\",\n            \"price\": \"12.12\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Ruination&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{3}}{{r}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Red\",\n            \"name\": \"Ruination\",\n            \"mid\": \"5213\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Stronghold\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"STH\",\n            \"expansion\": \"Stronghold\",\n            \"emid\": \"3861\",\n            \"watchlist_id\": \"13438\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/sth.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/3861.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/3861.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/STH/ruination/\",\n            \"echo_url\": \"https://www.echomtg.com/card/3861/ruination/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"2\",\n            \"tcg_mid\": \"3.24\",\n            \"price\": \"3.24\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Eater+of+Days&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"27.01\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{4}}\",\n            \"main_type\": \"Artifact Creature\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Eater of Days\",\n            \"mid\": \"46165\",\n            \"t\": \"Artifact\",\n            \"set\": \"Darksteel\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact Creature - Leviathan\",\n            \"set_code\": \"DST\",\n            \"expansion\": \"Darksteel\",\n            \"emid\": \"9173\",\n            \"watchlist_id\": \"9843\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/dst.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/9173.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/9173.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/DST/eater-of-days/\",\n            \"echo_url\": \"https://www.echomtg.com/card/9173/eater-of-days/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"47.14\",\n            \"tcg_mid\": \"72.55\",\n            \"price\": \"72.55\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Aluren&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{g}}{{g}}\",\n            \"main_type\": \"Enchantment\",\n            \"colors\": \"Green\",\n            \"name\": \"Aluren\",\n            \"mid\": \"4747\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Tempest\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Enchantment\",\n            \"set_code\": \"TMP\",\n            \"expansion\": \"Tempest\",\n            \"emid\": \"3564\",\n            \"watchlist_id\": \"9837\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/tmp.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/3564.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/3564.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/TMP/aluren/\",\n            \"echo_url\": \"https://www.echomtg.com/card/3564/aluren/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"3\",\n            \"tcg_mid\": \"4.23\",\n            \"price\": \"4.23\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Chain+Lightning&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"3.99\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{r}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Red\",\n            \"name\": \"Chain Lightning\",\n            \"mid\": \"413665\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Eternal Masters\",\n            \"rarity\": \"Uncommon\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"EMA\",\n            \"expansion\": \"Eternal Masters\",\n            \"emid\": \"98772\",\n            \"watchlist_id\": \"7374\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ema.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/98772.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/98772.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/EMA/chain-lightning/\",\n            \"echo_url\": \"https://www.echomtg.com/card/98772/chain-lightning/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.25\",\n            \"tcg_mid\": \"1.08\",\n            \"price\": \"1.08\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Shardless+Agent&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"2.32\",\n            \"price_change\": \"2\",\n            \"mc\": \"{{1}}{{g}}{{u}}\",\n            \"main_type\": \"Artifact Creature - Human Rogue\",\n            \"colors\": \"Green, Blue\",\n            \"name\": \"Shardless Agent\",\n            \"mid\": \"413748\",\n            \"t\": \"Artifact\",\n            \"set\": \"Eternal Masters\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact Creature  - Human Rogue\",\n            \"set_code\": \"EMA\",\n            \"expansion\": \"Eternal Masters\",\n            \"emid\": \"98918\",\n            \"watchlist_id\": \"7172\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ema.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/98918.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/98918.jpg\",\n            \"gain\": \"2\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/EMA/shardless-agent/\",\n            \"echo_url\": \"https://www.echomtg.com/card/98918/shardless-agent/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">2%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.33\",\n            \"tcg_mid\": \"0.57\",\n            \"price\": \"0.57\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Penance&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"-2\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Enchantment\",\n            \"colors\": \"White\",\n            \"name\": \"Penance\",\n            \"mid\": \"6047\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Exodus\",\n            \"rarity\": \"Uncommon\",\n            \"types\": \"Enchantment\",\n            \"set_code\": \"EXO\",\n            \"expansion\": \"Exodus\",\n            \"emid\": \"4067\",\n            \"watchlist_id\": \"6469\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/exo.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/4067.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/4067.jpg\",\n            \"gain\": \"-2\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/EXO/penance/\",\n            \"echo_url\": \"https://www.echomtg.com/card/4067/penance/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-2%</span>\"\n        },\n        {\n            \"tcg_low\": \"20975\",\n            \"tcg_mid\": \"20975\",\n            \"price\": \"20975.00\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Mox+Ruby&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"-100\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Mox Ruby\",\n            \"mid\": \"35\",\n            \"t\": \"Artifact\",\n            \"set\": \"Limited Edition Alpha\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"set_code\": \"LEA\",\n            \"expansion\": \"Limited Edition Alpha\",\n            \"emid\": \"76\",\n            \"watchlist_id\": \"6208\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/lea.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/76.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/76.jpg\",\n            \"gain\": \"-100\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/LEA/mox-ruby/\",\n            \"echo_url\": \"https://www.echomtg.com/card/76/mox-ruby/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-100%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.3\",\n            \"tcg_mid\": \"0.99\",\n            \"price\": \"0.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Eldrazi+Mimic&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"2.39\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Colorless\",\n            \"name\": \"Eldrazi Mimic\",\n            \"mid\": \"407512\",\n            \"t\": \"Creature\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Eldrazi\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97600\",\n            \"watchlist_id\": \"6169\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97600.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97600.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/eldrazi-mimic/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97600/eldrazi-mimic/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"7.05\",\n            \"tcg_mid\": \"10.43\",\n            \"price\": \"10.43\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Koskun+Falls&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{b}}{{b}}\",\n            \"main_type\": \"Enchantment\",\n            \"colors\": \"Black\",\n            \"name\": \"Koskun Falls\",\n            \"mid\": \"2927\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Homelands\",\n            \"rarity\": \"Rare\",\n            \"types\": \"World Enchantment\",\n            \"set_code\": \"HML\",\n            \"expansion\": \"Homelands\",\n            \"emid\": \"92561\",\n            \"watchlist_id\": \"6168\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/hml.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/92561.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/92561.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/HML/koskun-falls/\",\n            \"echo_url\": \"https://www.echomtg.com/card/92561/koskun-falls/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"4.8\",\n            \"tcg_mid\": \"6.5\",\n            \"price\": \"6.50\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Mana+Tithe&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{W}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"White\",\n            \"name\": \"Mana Tithe\",\n            \"mid\": \"100000703\",\n            \"t\": \"Instant\",\n            \"set\": \"Magic Player Rewards\",\n            \"rarity\": \"Special\",\n            \"types\": \"Instant\",\n            \"set_code\": \"pMPR\",\n            \"expansion\": \"Magic Player Rewards\",\n            \"emid\": \"95673\",\n            \"watchlist_id\": \"6131\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/pmpr.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/95673.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/95673.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/pMPR/mana-tithe/\",\n            \"echo_url\": \"https://www.echomtg.com/card/95673/mana-tithe/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"18\",\n            \"tcg_mid\": \"23.89\",\n            \"price\": \"23.89\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Dark+Depths&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"200.65\",\n            \"price_change\": \"0\",\n            \"mc\": null,\n            \"main_type\": \"Legendary Snow Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Dark Depths\",\n            \"mid\": \"121155\",\n            \"t\": \"Land\",\n            \"set\": \"Coldsnap\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Legendary Snow Land\",\n            \"set_code\": \"CSP\",\n            \"expansion\": \"Coldsnap\",\n            \"emid\": \"23978\",\n            \"watchlist_id\": \"6130\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/csp.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/23978.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/23978.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/CSP/dark-depths/\",\n            \"echo_url\": \"https://www.echomtg.com/card/23978/dark-depths/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.61\",\n            \"tcg_mid\": \"1.24\",\n            \"price\": \"1.24\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Eidolon+of+Rhetoric&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"10.84\",\n            \"price_change\": \"20\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Enchantment Creature - Spirit\",\n            \"colors\": \"White\",\n            \"name\": \"Eidolon of Rhetoric\",\n            \"mid\": \"380409\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Journey into Nyx\",\n            \"rarity\": \"Uncommon\",\n            \"types\": \"Enchantment Creature - Spirit\",\n            \"set_code\": \"JOU\",\n            \"expansion\": \"Journey into Nyx\",\n            \"emid\": \"93509\",\n            \"watchlist_id\": \"6128\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/jou.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/93509.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/93509.jpg\",\n            \"gain\": \"20\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/JOU/eidolon-of-rhetoric/\",\n            \"echo_url\": \"https://www.echomtg.com/card/93509/eidolon-of-rhetoric/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">20%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.3\",\n            \"tcg_mid\": \"0.62\",\n            \"price\": \"0.62\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Lapse+of+Certainty&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"2.4\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"White\",\n            \"name\": \"Lapse of Certainty\",\n            \"mid\": \"175026\",\n            \"t\": \"Instant\",\n            \"set\": \"Conflux\",\n            \"rarity\": \"Common\",\n            \"types\": \"Instant\",\n            \"set_code\": \"CON\",\n            \"expansion\": \"Conflux\",\n            \"emid\": \"52404\",\n            \"watchlist_id\": \"6127\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/con.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/52404.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/52404.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/CON/lapse-of-certainty/\",\n            \"echo_url\": \"https://www.echomtg.com/card/52404/lapse-of-certainty/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": null,\n            \"tcg_mid\": null,\n            \"price\": null,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Flooded+Strand&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"273.63\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{}}\",\n            \"main_type\": \"Land\",\n            \"colors\": null,\n            \"name\": \"Flooded Strand\",\n            \"mid\": \"100000936\",\n            \"t\": \"Land\",\n            \"set\": \"Zendikar Expeditions\",\n            \"rarity\": \"Special\",\n            \"types\": \"Land\",\n            \"set_code\": \"BFZx\",\n            \"expansion\": \"Zendikar Expeditions\",\n            \"emid\": \"97127\",\n            \"watchlist_id\": \"6126\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/bfzx.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97127.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97127.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/BFZx/flooded-strand/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97127/flooded-strand/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.1\",\n            \"tcg_mid\": \"0.48\",\n            \"price\": \"0.48\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Timely+Reinforcements&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"10.34\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"White\",\n            \"name\": \"Timely Reinforcements\",\n            \"mid\": \"220074\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Magic 2012\",\n            \"rarity\": \"Uncommon\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"M12\",\n            \"expansion\": \"Magic 2012\",\n            \"emid\": \"73712\",\n            \"watchlist_id\": \"6125\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/m12.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/73712.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/73712.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/M12/timely-reinforcements/\",\n            \"echo_url\": \"https://www.echomtg.com/card/73712/timely-reinforcements/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"1.99\",\n            \"tcg_mid\": \"3.97\",\n            \"price\": \"3.97\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=True-Name+Nemesis&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{u}}{{u}}\",\n            \"main_type\": \"Creature - Merfolk Rogue\",\n            \"colors\": \"Blue\",\n            \"name\": \"True-Name Nemesis\",\n            \"mid\": \"376562\",\n            \"t\": \"Creature\",\n            \"set\": \"Commander 2013 Edition\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Merfolk Rogue\",\n            \"set_code\": \"C13\",\n            \"expansion\": \"Commander 2013 Edition\",\n            \"emid\": \"93192\",\n            \"watchlist_id\": \"6123\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/c13.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/93192.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/93192.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/C13/true-name-nemesis/\",\n            \"echo_url\": \"https://www.echomtg.com/card/93192/true-name-nemesis/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"7.52\",\n            \"tcg_mid\": \"10.68\",\n            \"price\": \"10.68\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Thing+in+the+Ice&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"25.63\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{1}}{{u}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Blue\",\n            \"name\": \"Thing in the Ice\",\n            \"mid\": \"409836\",\n            \"t\": \"Creature\",\n            \"set\": \"Shadows over Innistrad\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Horror\",\n            \"set_code\": \"SOI\",\n            \"expansion\": \"Shadows over Innistrad\",\n            \"emid\": \"98154\",\n            \"watchlist_id\": \"6115\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/soi.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/98154.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/98154.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/SOI/thing-in-the-ice/\",\n            \"echo_url\": \"https://www.echomtg.com/card/98154/thing-in-the-ice/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"7.95\",\n            \"tcg_mid\": \"10.86\",\n            \"price\": \"10.86\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Green+Sun%27s+Zenith&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"84.86\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{x}}{{g}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Green\",\n            \"name\": \"Green Sun's Zenith\",\n            \"mid\": \"221559\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Mirrodin Besieged\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"MBS\",\n            \"expansion\": \"Mirrodin Besieged\",\n            \"emid\": \"74054\",\n            \"watchlist_id\": \"6113\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/mbs.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/74054.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/74054.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/MBS/green-sun-s-zenith/\",\n            \"echo_url\": \"https://www.echomtg.com/card/74054/green-sun-s-zenith/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"1.9\",\n            \"tcg_mid\": \"3.62\",\n            \"price\": \"3.62\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Thought-Knot+Seer&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"11.2\",\n            \"price_change\": \"-9\",\n            \"mc\": \"{{3}}{{^}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Colorless\",\n            \"name\": \"Thought-Knot Seer\",\n            \"mid\": \"407519\",\n            \"t\": \"Creature\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Eldrazi\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97736\",\n            \"watchlist_id\": \"6099\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97736.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97736.jpg\",\n            \"gain\": \"-9\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/thought-knot-seer/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97736/thought-knot-seer/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-9%</span>\"\n        },\n        {\n            \"tcg_low\": null,\n            \"tcg_mid\": null,\n            \"price\": null,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Snapcaster+Mage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"139.94\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{u}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Blue\",\n            \"name\": \"Snapcaster Mage\",\n            \"mid\": \"100001315\",\n            \"t\": \"Creature\",\n            \"set\": \"Pro Tour Promos\",\n            \"rarity\": \"Special\",\n            \"types\": \"Creature - Human Wizard\",\n            \"set_code\": \"pPRO\",\n            \"expansion\": \"Pro Tour Promos\",\n            \"emid\": \"98156\",\n            \"watchlist_id\": \"6098\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ppro.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/98156.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/98156.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/pPRO/snapcaster-mage/\",\n            \"echo_url\": \"https://www.echomtg.com/card/98156/snapcaster-mage/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.85\",\n            \"tcg_mid\": \"2.11\",\n            \"price\": \"2.11\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Kozilek%27s+Return&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"10.45\",\n            \"price_change\": \"4\",\n            \"mc\": \"{{2}}{{r}}\",\n            \"main_type\": \"Instant\",\n            \"colors\": \"Red\",\n            \"name\": \"Kozilek's Return\",\n            \"mid\": \"407608\",\n            \"t\": \"Instant\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Instant\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97875\",\n            \"watchlist_id\": \"6084\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97875.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97875.jpg\",\n            \"gain\": \"4\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/kozilek-s-return/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97875/kozilek-s-return/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">4%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.08\",\n            \"tcg_mid\": \"0.45\",\n            \"price\": \"0.45\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Sylvan+Advocate&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"0.81\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{g}}\",\n            \"main_type\": \"Creature - Elf Druid Ally\",\n            \"colors\": \"Green\",\n            \"name\": \"Sylvan Advocate\",\n            \"mid\": \"407654\",\n            \"t\": \"Creature\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Elf Druid Ally\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97926\",\n            \"watchlist_id\": \"6083\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97926.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97926.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/sylvan-advocate/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97926/sylvan-advocate/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"8.2\",\n            \"tcg_mid\": \"11.16\",\n            \"price\": \"11.16\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Cryptolith+Rite&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"20.94\",\n            \"price_change\": \"1\",\n            \"mc\": \"{{1}}{{g}}\",\n            \"main_type\": \"Enchantment\",\n            \"colors\": \"Green\",\n            \"name\": \"Cryptolith Rite\",\n            \"mid\": \"409958\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Shadows over Innistrad\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Enchantment\",\n            \"set_code\": \"SOI\",\n            \"expansion\": \"Shadows over Innistrad\",\n            \"emid\": \"98337\",\n            \"watchlist_id\": \"5786\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/soi.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/98337.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/98337.jpg\",\n            \"gain\": \"1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/SOI/cryptolith-rite/\",\n            \"echo_url\": \"https://www.echomtg.com/card/98337/cryptolith-rite/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">1%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.04\",\n            \"tcg_mid\": \"0.42\",\n            \"price\": \"0.42\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Obzedat%27s+Aid&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"0.7\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{3}}{{w}}{{b}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"White, Black\",\n            \"name\": \"Obzedat's Aid\",\n            \"mid\": \"369002\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Dragon's Maze\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"DGM\",\n            \"expansion\": \"Dragon's Maze\",\n            \"emid\": \"91115\",\n            \"watchlist_id\": \"5193\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/dgm.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/91115.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/91115.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/DGM/obzedat-s-aid/\",\n            \"echo_url\": \"https://www.echomtg.com/card/91115/obzedat-s-aid/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.08\",\n            \"tcg_mid\": \"0.44\",\n            \"price\": \"0.44\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Blood+Scrivener&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"0.7\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{b}}\",\n            \"main_type\": \"Creature - Zombie Wizard\",\n            \"colors\": \"Black\",\n            \"name\": \"Blood Scrivener\",\n            \"mid\": \"369030\",\n            \"t\": \"Creature\",\n            \"set\": \"Dragon's Maze\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Zombie Wizard\",\n            \"set_code\": \"DGM\",\n            \"expansion\": \"Dragon's Maze\",\n            \"emid\": \"91050\",\n            \"watchlist_id\": \"4977\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/dgm.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/91050.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/91050.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/DGM/blood-scrivener/\",\n            \"echo_url\": \"https://www.echomtg.com/card/91050/blood-scrivener/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.57\",\n            \"tcg_mid\": \"1.01\",\n            \"price\": \"1.01\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Sunscour&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"4.53\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{5}}{{w}}{{w}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"White\",\n            \"name\": \"Sunscour\",\n            \"mid\": \"121251\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Coldsnap\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"CSP\",\n            \"expansion\": \"Coldsnap\",\n            \"emid\": \"24052\",\n            \"watchlist_id\": \"4182\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/csp.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/24052.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/24052.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/CSP/sunscour/\",\n            \"echo_url\": \"https://www.echomtg.com/card/24052/sunscour/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.08\",\n            \"tcg_mid\": \"0.92\",\n            \"price\": \"0.92\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Porphyry+Nodes&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"5.5\",\n            \"price_change\": \"4\",\n            \"mc\": \"{{w}}\",\n            \"main_type\": \"Enchantment\",\n            \"colors\": \"White\",\n            \"name\": \"Porphyry Nodes\",\n            \"mid\": \"124470\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Planar Chaos\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Enchantment\",\n            \"set_code\": \"PLC\",\n            \"expansion\": \"Planar Chaos\",\n            \"emid\": \"24742\",\n            \"watchlist_id\": \"4181\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/plc.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/24742.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/24742.jpg\",\n            \"gain\": \"4\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/PLC/porphyry-nodes/\",\n            \"echo_url\": \"https://www.echomtg.com/card/24742/porphyry-nodes/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">4%</span>\"\n        },\n        {\n            \"tcg_low\": \"5.9\",\n            \"tcg_mid\": \"11.88\",\n            \"price\": \"11.88\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Void+Winnower&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"25.83\",\n            \"price_change\": \"-12\",\n            \"mc\": \"{{9}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Colorless\",\n            \"name\": \"Void Winnower\",\n            \"mid\": \"402093\",\n            \"t\": \"Creature\",\n            \"set\": \"Battle for Zendikar\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Creature - Eldrazi\",\n            \"set_code\": \"BFZ\",\n            \"expansion\": \"Battle for Zendikar\",\n            \"emid\": \"96901\",\n            \"watchlist_id\": \"3934\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/bfz.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/96901.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/96901.jpg\",\n            \"gain\": \"-12\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/BFZ/void-winnower/\",\n            \"echo_url\": \"https://www.echomtg.com/card/96901/void-winnower/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-12%</span>\"\n        },\n        {\n            \"tcg_low\": \"5.37\",\n            \"tcg_mid\": \"9.44\",\n            \"price\": \"9.44\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Monastery+Mentor&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"31.99\",\n            \"price_change\": \"-3\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"White\",\n            \"name\": \"Monastery Mentor\",\n            \"mid\": \"391883\",\n            \"t\": \"Creature\",\n            \"set\": \"Fate Reforged\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Creature- Human Monk\",\n            \"set_code\": \"FRF\",\n            \"expansion\": \"Fate Reforged\",\n            \"emid\": \"95815\",\n            \"watchlist_id\": \"3933\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/frf.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/95815.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/95815.jpg\",\n            \"gain\": \"-3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/FRF/monastery-mentor/\",\n            \"echo_url\": \"https://www.echomtg.com/card/95815/monastery-mentor/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n        },\n        {\n            \"tcg_low\": \"1.25\",\n            \"tcg_mid\": \"2.32\",\n            \"price\": \"2.32\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spirit+of+the+Labyrinth&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"17.21\",\n            \"price_change\": \"-3\",\n            \"mc\": \"{{1}}{{w}}\",\n            \"main_type\": \"Enchantment Creature - Spirit\",\n            \"colors\": \"White\",\n            \"name\": \"Spirit of the Labyrinth\",\n            \"mid\": \"378399\",\n            \"t\": \"Enchantment\",\n            \"set\": \"Born of the Gods\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Enchantment Creature - Spirit\",\n            \"set_code\": \"BNG\",\n            \"expansion\": \"Born of the Gods\",\n            \"emid\": \"93365\",\n            \"watchlist_id\": \"3932\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/bng.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/93365.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/93365.jpg\",\n            \"gain\": \"-3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/BNG/spirit-of-the-labyrinth/\",\n            \"echo_url\": \"https://www.echomtg.com/card/93365/spirit-of-the-labyrinth/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n        },\n        {\n            \"tcg_low\": \"4.77\",\n            \"tcg_mid\": \"8.99\",\n            \"price\": \"8.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Kataki%2C+War%27s+Wage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"198\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{1}}{{w}}\",\n            \"main_type\": \"Legendary Creature\",\n            \"colors\": \"White\",\n            \"name\": \"Kataki, War's Wage\",\n            \"mid\": \"74190\",\n            \"t\": \"Legendary\",\n            \"set\": \"Saviors of Kamigawa\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Legendary Creature - Spirit\",\n            \"set_code\": \"SOK\",\n            \"expansion\": \"Saviors of Kamigawa\",\n            \"emid\": \"10496\",\n            \"watchlist_id\": \"3931\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/sok.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/10496.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/10496.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/SOK/kataki-war-s-wage/\",\n            \"echo_url\": \"https://www.echomtg.com/card/10496/kataki-war-s-wage/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.14\",\n            \"tcg_mid\": \"0.45\",\n            \"price\": \"0.45\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Vryn+Wingmare&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1.52\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{2}}{{w}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"White\",\n            \"name\": \"Vryn Wingmare\",\n            \"mid\": \"398567\",\n            \"t\": \"Creature\",\n            \"set\": \"Magic Origins\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Pegasus\",\n            \"set_code\": \"ORI\",\n            \"expansion\": \"Magic Origins\",\n            \"emid\": \"96609\",\n            \"watchlist_id\": \"3930\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ori.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/96609.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/96609.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ORI/vryn-wingmare/\",\n            \"echo_url\": \"https://www.echomtg.com/card/96609/vryn-wingmare/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.16\",\n            \"tcg_mid\": \"0.8\",\n            \"price\": \"0.80\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Wandering+Fumarole&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1.29\",\n            \"price_change\": \"-9\",\n            \"mc\": \"{{}}\",\n            \"main_type\": \"Land\",\n            \"colors\": null,\n            \"name\": \"Wandering Fumarole\",\n            \"mid\": \"407692\",\n            \"t\": \"Land\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97603\",\n            \"watchlist_id\": \"3788\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97603.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97603.jpg\",\n            \"gain\": \"-9\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/wandering-fumarole/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97603/wandering-fumarole/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-9%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.43\",\n            \"tcg_mid\": \"1.13\",\n            \"price\": \"1.13\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Restoration+Angel&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"9.22\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{3}}{{w}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"White\",\n            \"name\": \"Restoration Angel\",\n            \"mid\": \"240096\",\n            \"t\": \"Creature\",\n            \"set\": \"Avacyn Restored\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Angel\",\n            \"set_code\": \"AVR\",\n            \"expansion\": \"Avacyn Restored\",\n            \"emid\": \"79814\",\n            \"watchlist_id\": \"3638\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/avr.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/79814.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/79814.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/AVR/restoration-angel/\",\n            \"echo_url\": \"https://www.echomtg.com/card/79814/restoration-angel/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.2\",\n            \"tcg_mid\": \"0.74\",\n            \"price\": \"0.74\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Preordain&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"30.75\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{u}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Blue\",\n            \"name\": \"Preordain\",\n            \"mid\": \"205019\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Magic 2011\",\n            \"rarity\": \"Common\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"M11\",\n            \"expansion\": \"Magic 2011\",\n            \"emid\": \"69069\",\n            \"watchlist_id\": \"3593\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/m11.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/69069.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/69069.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/M11/preordain/\",\n            \"echo_url\": \"https://www.echomtg.com/card/69069/preordain/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"1.57\",\n            \"tcg_mid\": \"3.27\",\n            \"price\": \"3.27\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Fulminator+Mage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"33.48\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{br}}{{br}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"Black,Red\",\n            \"name\": \"Fulminator Mage\",\n            \"mid\": \"142009\",\n            \"t\": \"Creature\",\n            \"set\": \"Shadowmoor\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Elemental Shaman\",\n            \"set_code\": \"SHM\",\n            \"expansion\": \"Shadowmoor\",\n            \"emid\": \"32376\",\n            \"watchlist_id\": \"3592\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/shm.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/32376.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/32376.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/SHM/fulminator-mage/\",\n            \"echo_url\": \"https://www.echomtg.com/card/32376/fulminator-mage/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.19\",\n            \"tcg_mid\": \"0.75\",\n            \"price\": \"0.75\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Prairie+Stream&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"3.75\",\n            \"price_change\": \"-4\",\n            \"mc\": \"\",\n            \"main_type\": \"Land \",\n            \"colors\": null,\n            \"name\": \"Prairie Stream\",\n            \"mid\": \"401998\",\n            \"t\": \"Land\",\n            \"set\": \"Battle for Zendikar\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land - Plains Island\",\n            \"set_code\": \"BFZ\",\n            \"expansion\": \"Battle for Zendikar\",\n            \"emid\": \"96882\",\n            \"watchlist_id\": \"3589\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/bfz.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/96882.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/96882.jpg\",\n            \"gain\": \"-4\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/BFZ/prairie-stream/\",\n            \"echo_url\": \"https://www.echomtg.com/card/96882/prairie-stream/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-4%</span>\"\n        },\n        {\n            \"tcg_low\": \"33.99\",\n            \"tcg_mid\": \"38.87\",\n            \"price\": \"38.87\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Flooded+Strand&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"56.19\",\n            \"price_change\": \"3\",\n            \"mc\": null,\n            \"main_type\": \"Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Flooded Strand\",\n            \"mid\": \"386537\",\n            \"t\": \"Land\",\n            \"set\": \"Khans of Tarkir\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"KTK\",\n            \"expansion\": \"Khans of Tarkir\",\n            \"emid\": \"94243\",\n            \"watchlist_id\": \"3586\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ktk.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/94243.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/94243.jpg\",\n            \"gain\": \"3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/KTK/flooded-strand/\",\n            \"echo_url\": \"https://www.echomtg.com/card/94243/flooded-strand/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">3%</span>\"\n        },\n        {\n            \"tcg_low\": \"62.07\",\n            \"tcg_mid\": \"74.47\",\n            \"price\": \"74.47\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Bloodstained+Mire&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1049.99\",\n            \"price_change\": \"0\",\n            \"mc\": null,\n            \"main_type\": \"Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Bloodstained Mire\",\n            \"mid\": \"39505\",\n            \"t\": \"Land\",\n            \"set\": \"Onslaught\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"ONS\",\n            \"expansion\": \"Onslaught\",\n            \"emid\": \"8187\",\n            \"watchlist_id\": \"3585\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ons.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/8187.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/8187.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ONS/bloodstained-mire/\",\n            \"echo_url\": \"https://www.echomtg.com/card/8187/bloodstained-mire/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"71.72\",\n            \"tcg_mid\": \"89.57\",\n            \"price\": \"89.57\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Flooded+Strand&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"975.25\",\n            \"price_change\": \"0\",\n            \"mc\": null,\n            \"main_type\": \"Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Flooded Strand\",\n            \"mid\": \"39503\",\n            \"t\": \"Land\",\n            \"set\": \"Onslaught\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"ONS\",\n            \"expansion\": \"Onslaught\",\n            \"emid\": \"8185\",\n            \"watchlist_id\": \"3584\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ons.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/8185.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/8185.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ONS/flooded-strand/\",\n            \"echo_url\": \"https://www.echomtg.com/card/8185/flooded-strand/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"76\",\n            \"tcg_mid\": \"91.76\",\n            \"price\": \"91.76\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Polluted+Delta&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"1800\",\n            \"price_change\": \"-1\",\n            \"mc\": null,\n            \"main_type\": \"Land\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Polluted Delta\",\n            \"mid\": \"39504\",\n            \"t\": \"Land\",\n            \"set\": \"Onslaught\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Land\",\n            \"set_code\": \"ONS\",\n            \"expansion\": \"Onslaught\",\n            \"emid\": \"8186\",\n            \"watchlist_id\": \"3583\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ons.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/8186.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/8186.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ONS/polluted-delta/\",\n            \"echo_url\": \"https://www.echomtg.com/card/8186/polluted-delta/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        },\n        {\n            \"tcg_low\": \"7.8\",\n            \"tcg_mid\": \"11.89\",\n            \"price\": \"11.89\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Talisman+of+Progress&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"44.93\",\n            \"price_change\": \"-3\",\n            \"mc\": \"{{2}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Talisman of Progress\",\n            \"mid\": \"39597\",\n            \"t\": \"Artifact\",\n            \"set\": \"Mirrodin\",\n            \"rarity\": \"Uncommon\",\n            \"types\": \"Artifact\",\n            \"set_code\": \"MRD\",\n            \"expansion\": \"Mirrodin\",\n            \"emid\": \"8223\",\n            \"watchlist_id\": \"3559\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/mrd.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/8223.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/8223.jpg\",\n            \"gain\": \"-3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/MRD/talisman-of-progress/\",\n            \"echo_url\": \"https://www.echomtg.com/card/8223/talisman-of-progress/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.05\",\n            \"tcg_mid\": \"0.39\",\n            \"price\": \"0.39\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Dimensional+Infiltrator&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"0.42\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{u}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Blue\",\n            \"name\": \"Dimensional Infiltrator\",\n            \"mid\": \"407554\",\n            \"t\": \"Creature\",\n            \"set\": \"Oath of the Gatewatch\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Eldrazi\",\n            \"set_code\": \"OGW\",\n            \"expansion\": \"Oath of the Gatewatch\",\n            \"emid\": \"97739\",\n            \"watchlist_id\": \"3410\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ogw.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/97739.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/97739.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/OGW/dimensional-infiltrator/\",\n            \"echo_url\": \"https://www.echomtg.com/card/97739/dimensional-infiltrator/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"0.2\",\n            \"tcg_mid\": \"0.59\",\n            \"price\": \"0.59\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Abbot+of+Keral+Keep&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"2\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{r}}\",\n            \"main_type\": \"Creature \",\n            \"colors\": \"Red\",\n            \"name\": \"Abbot of Keral Keep\",\n            \"mid\": \"398411\",\n            \"t\": \"Creature\",\n            \"set\": \"Magic Origins\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Human Monk\",\n            \"set_code\": \"ORI\",\n            \"expansion\": \"Magic Origins\",\n            \"emid\": \"96623\",\n            \"watchlist_id\": \"2071\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ori.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/96623.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/96623.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ORI/abbot-of-keral-keep/\",\n            \"echo_url\": \"https://www.echomtg.com/card/96623/abbot-of-keral-keep/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"1.49\",\n            \"tcg_mid\": \"3.7\",\n            \"price\": \"3.70\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Soulfire+Grand+Master&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"10.19\",\n            \"price_change\": \"-2\",\n            \"mc\": \"{{1}}{{W}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"White\",\n            \"name\": \"Soulfire Grand Master\",\n            \"mid\": \"391927\",\n            \"t\": \"Creature\",\n            \"set\": \"Fate Reforged\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Creature- Human Monk\",\n            \"set_code\": \"FRF\",\n            \"expansion\": \"Fate Reforged\",\n            \"emid\": \"95853\",\n            \"watchlist_id\": \"1900\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/frf.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/95853.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/95853.jpg\",\n            \"gain\": \"-2\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/FRF/soulfire-grand-master/\",\n            \"echo_url\": \"https://www.echomtg.com/card/95853/soulfire-grand-master/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-2%</span>\"\n        },\n        {\n            \"tcg_low\": \"0.44\",\n            \"tcg_mid\": \"1.13\",\n            \"price\": \"1.13\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Serum+Visions&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"7.73\",\n            \"price_change\": \"3\",\n            \"mc\": \"{{u}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Blue\",\n            \"name\": \"Serum Visions\",\n            \"mid\": \"50145\",\n            \"t\": \"Sorcery\",\n            \"set\": \"Fifth Dawn\",\n            \"rarity\": \"Common\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"5DN\",\n            \"expansion\": \"Fifth Dawn\",\n            \"emid\": \"9523\",\n            \"watchlist_id\": \"973\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/5dn.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/9523.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/9523.jpg\",\n            \"gain\": \"3\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/5DN/serum-visions/\",\n            \"echo_url\": \"https://www.echomtg.com/card/9523/serum-visions/\",\n            \"percentage_html\": \"<span class=\\\"percentage green up\\\">3%</span>\"\n        },\n        {\n            \"tcg_low\": \"3.49\",\n            \"tcg_mid\": \"4.99\",\n            \"price\": \"4.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Ashiok%2C+Nightmare+Weaver&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"19.89\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{1}}{{u}}{{b}}\",\n            \"main_type\": \"Planeswalker - Ashiok\",\n            \"colors\": \"Blue, Black\",\n            \"name\": \"Ashiok, Nightmare Weaver\",\n            \"mid\": \"373500\",\n            \"t\": \"Planeswalker\",\n            \"set\": \"Theros\",\n            \"rarity\": \"Mythic Rare\",\n            \"types\": \"Planeswalker - Ashiok\",\n            \"set_code\": \"THS\",\n            \"expansion\": \"Theros\",\n            \"emid\": \"92665\",\n            \"watchlist_id\": \"763\",\n            \"foil\": \"1\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ths.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/92665.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/92665.jpg\",\n            \"gain\": \"0\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/THS/ashiok-nightmare-weaver/\",\n            \"echo_url\": \"https://www.echomtg.com/card/92665/ashiok-nightmare-weaver/\",\n            \"percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n        },\n        {\n            \"tcg_low\": \"2.99\",\n            \"tcg_mid\": \"5\",\n            \"price\": \"5.00\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Goblin+Guide&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": \"15.37\",\n            \"price_change\": \"-1\",\n            \"mc\": \"{{r}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"Red\",\n            \"name\": \"Goblin Guide\",\n            \"mid\": \"170987\",\n            \"t\": \"Creature\",\n            \"set\": \"Zendikar\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Goblin Scout\",\n            \"set_code\": \"ZEN\",\n            \"expansion\": \"Zendikar\",\n            \"emid\": \"49491\",\n            \"watchlist_id\": \"7\",\n            \"foil\": \"0\",\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/zen.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/49491.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/49491.jpg\",\n            \"gain\": \"-1\",\n            \"echo_set_url\": \"https://www.echomtg.com/set/ZEN/goblin-guide/\",\n            \"echo_url\": \"https://www.echomtg.com/card/49491/goblin-guide/\",\n            \"percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Track item price movement in a watchlist."
 		}
 	]
 }
