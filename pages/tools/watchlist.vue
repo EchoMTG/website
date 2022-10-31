@@ -59,9 +59,10 @@
         </span>
       </b-table-column>
 
-      <b-table-column  v-slot="props" field="threshold" label="Threshold" :numeric="true" sortable>
-
-        <threshold-input :threshold="props.row.threshold" :callback="updateItem" :watchlist_id="props.row.watchlist_id" />
+      <b-table-column  v-slot="props"  field="threshold" label="Threshold" :numeric="true" sortable>
+        <span v-if="undefined !== props.row.threshold">
+          <threshold-input :threshold="props.row.threshold" :callback="updateItem" :watchlist_id="props.row.watchlist_id" />
+        </span>
 
       </b-table-column>
       <b-table-column v-slot="props">
@@ -144,15 +145,9 @@ export default {
     updateTableHeight() {
       let height = 400;
       if(this.$refs.table){
-        console.log(window.innerHeight)
         let rects = this.$refs.table.$el.getBoundingClientRect();
-        console.log(this.$refs.table.$el)
-        height = this.windowHeight - rects.top - 98
-
+        height = this.windowHeight - rects.top - 98 // 98 is the table header and table search bar
       }
-
-
-
       this.tableHeight = height
     },
     onResize() {
