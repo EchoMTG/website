@@ -1,7 +1,7 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <section class="hero is-dark">
+    <section class="hero is-dark is-hidden-mobile">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
@@ -19,7 +19,11 @@
       default-sort="price_change"
       default-sort-direction="DESC"
       :data="watchlist"
-      :debounce-search="20"
+      ref="table"
+      :height="tableHeight"
+      :debounce-search="0"
+      :sticky-header="true"
+      :sticky="true"
       :row-class="(row, index) => row.id >= 0 && 'is-relative'"
        >
       <b-table-column
@@ -55,8 +59,10 @@
         </span>
       </b-table-column>
 
-      <b-table-column v-slot="props" field="threshold" label="Threshold" :numeric="true" sortable>
-        {{props.row.threshold}}
+      <b-table-column  v-slot="props" field="threshold" label="Threshold" :numeric="true" sortable>
+
+        <threshold-input :threshold="props.row.threshold" :callback="updateItem" :watchlist_id="props.row.watchlist_id" />
+
       </b-table-column>
       <b-table-column v-slot="props">
         <b-button class="is-small" @click="deleteItem(props.row.watchlist_id)" icon-left="delete">
@@ -72,18 +78,22 @@
 import { mapState } from 'vuex'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+import ThresholdInput from '~/components/watchlist/ThresholdInput.vue'
 export default {
   name: 'Watchlist',
   components: {
     EchoBreadCrumbs,
-    ItemInspectorWrapper
+    ItemInspectorWrapper,
+    ThresholdInput
   },
   data () {
     return {
       watchlist: [{
         name: 'loading'
       }],
-      cs: '$'
+      cs: '$',
+      tableHeight: 400,
+      windowHeight: 1000
     }
   },
   asyncData({req}) {
@@ -92,6 +102,10 @@ export default {
   },
   mounted() {
     this.getWatchlist()
+    this.updateTableHeight()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
   methods: {
     async getWatchlist() {
@@ -99,6 +113,7 @@ export default {
       this.watchlist = data.items;
     },
     async deleteItem(watchlist_id) {
+
       const data = await this.$echomtg.deleteFromWatchlist(watchlist_id)
        this.$buefy.snackbar.open({
             message: data.message,
@@ -109,12 +124,52 @@ export default {
 
       this.getWatchlist()
 
+    },
+
+    async updateItem(watchlist_id,threshold) {
+      if(threshold < 99 && threshold > -99){
+        const data = await this.$echomtg.updateWatchlist(watchlist_id,threshold)
+        this.$buefy.snackbar.open({
+              message: data.message,
+              type: 'is-success',
+              queue: true,
+              position: 'is-top',
+          })
+
+        this.getWatchlist()
+      }
+
+    },
+
+    updateTableHeight() {
+      let height = 400;
+      if(this.$refs.table){
+        console.log(window.innerHeight)
+        let rects = this.$refs.table.$el.getBoundingClientRect();
+        console.log(this.$refs.table.$el)
+        height = this.windowHeight - rects.top - 98
+
+      }
+
+
+
+      this.tableHeight = height
+    },
+    onResize() {
+      this.windowHeight = window.innerHeight
+      this.updateTableHeight()
     }
   },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+
   computed: {
     ...mapState([
       'userName'
     ]),
+
     crumbs() {
       return [
         {

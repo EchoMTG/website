@@ -97,6 +97,22 @@ export default (context, inject) => {
     });
     return await res.json();
   }
+  echomtg.updateWatchlist = async (watchlist_id, threshold) => {
+    let url = `${context.app.$config.API_DOMAIN}watchlist/update/`;
+    let body = {
+      id: watchlist_id,
+      threshold: threshold
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
 
   echomtg.findInList = async (emid) => {
     let url = `${context.app.$config.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
