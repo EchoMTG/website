@@ -71,6 +71,33 @@ export default (context, inject) => {
     return data.data;
   }
 
+  echomtg.getWatchlist = async (start=0,limit=1000) => {
+    let url = `${context.app.$config.API_DOMAIN}watchlist/view/?start=${start}&limit=${limit}`;
+
+    let res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    })
+    return await res.json();
+  }
+
+  echomtg.deleteFromWatchlist = async (watchlist_id) => {
+    let url = `${context.app.$config.API_DOMAIN}watchlist/remove/`;
+    let body = {
+      id: watchlist_id,
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
   echomtg.findInList = async (emid) => {
     let url = `${context.app.$config.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
 

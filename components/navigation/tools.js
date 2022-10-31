@@ -19,7 +19,7 @@ export default [{
   label: 'Lists'
 },
 {
-  to: '/tools/watch-list/',
+  to: '/tools/watchlist/',
   icon: 'eye',
   label: 'Watch List'
 }
