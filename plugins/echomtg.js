@@ -219,13 +219,14 @@ export default (context, inject) => {
     return await res.json();
   }
 
-  echomtg.inventoryView = async (start=0,limit=200,direction='DESC',sort='date_acquired') => {
+  echomtg.inventoryView = async (start=0,limit=200,direction='DESC',sort='date_acquired',search='') => {
 
     const params = [
       `start=${start}`,
       `limit=${limit}`,
       `direction=${direction}`,
-      `sort=${sort}`
+      `sort=${sort}`,
+      `search=${search}`
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;

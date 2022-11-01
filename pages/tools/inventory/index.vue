@@ -1,7 +1,7 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <section class="hero is-small is-dark is-hidden-mobile">
+    <section class="hero is-small has-background-black has-text-white is-hidden-mobile">
       <div class="hero-body">
 
         <div class="columns">
@@ -20,9 +20,18 @@
         </div>
 
       </div>
-    </section>
-    <section>
-      Search
+      <nav class="level p-2">
+       <b-input placeholder="Search..."
+                type="search"
+                v-model="search"
+                icon="magnify"
+                class="level-item"
+                icon-clickable
+                size="is-small"
+                @icon-click="searchIconClick">
+            </b-input>
+      </nav>
+
     </section>
 
     <b-table
@@ -119,15 +128,27 @@ export default {
           data: [],
           total: 0,
           loading: false,
+          search: '',
           sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
-          perPage: 200,
+          perPage: 100,
            cs: '$',
           tableHeight: 400,
-          windowHeight: 1000
+          windowHeight: 1000,
+          debounce: null
       }
+  },
+  watch: {
+    search() {
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        this.loadAsyncData();
+      }, 600)
+
+
+    }
   },
   methods: {
     getSetIcon(set_code){
@@ -145,7 +166,8 @@ export default {
             start,
             this.perPage,
             this.sortOrder,
-            this.sortField
+            this.sortField,
+            this.search
 
             )
 
