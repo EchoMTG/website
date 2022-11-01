@@ -175,7 +175,7 @@ export default (context, inject) => {
       }
     });
     let data = await res.json();
-    console.log(data)
+
     if(data.status == 'error') return data;
     //if(Object.keys(data.lists).length == 0) return data;
 
@@ -198,9 +198,26 @@ export default (context, inject) => {
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
     });
-    let data = await res.json();
+    return await res.json();
 
-    this.createGrowl(data.message);
+
+  }
+
+  echomtg.inventoryView = async (start=0,limit=200) => {
+    const params = [
+      `start=${start}`,
+      `limit=${limit}`,
+    ].join('&')
+
+    let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;
+
+    const res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+
+    return await res.json();
   }
 
   echomtg.editListMeta = async (list_id, name, description) => {
