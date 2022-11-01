@@ -29,6 +29,7 @@
             :debounce-search="0"
             :sticky-header="true"
             paginated
+            ref="table"
             backend-pagination
             :total="total"
             :per-page="perPage"
@@ -44,22 +45,49 @@
             @sort="onSort">
 
             <b-table-column field="name" label="Name" sortable v-slot="props">
-                {{ props.row.name }}
+                <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
+                <item-inspector-wrapper :item="props.row" />
+            </b-table-column>
+            <b-table-column field="set" label="Expansion" sortable v-slot="props">
+               <b-taglist attached>
+                  <b-tag type="is-dark">
+                    <a class="has-text-white" :href="props.row.echo_set_url.replace('https://www.echomtg.com','')">
+                      <i style="margin-top:-11px; margin-right: 2px" :class="getSetIcon(props.row.set_code)"></i>
+                      <span class="ellipsis mt-1" style="max-width: 120px; display: inline-block">{{ props.row.set }}</span>
+                    </a>
+                  </b-tag>
+                  <b-tag><i style="margin-top:-3px" :class="getSetIcon('mtg')"></i></b-tag>
+              </b-taglist>
+
             </b-table-column>
 
-            <b-table-column field="tcg_market" label="Market" numeric sortable v-slot="props">
-                <span class="tag" :class="type(props.row.tcg_market)">
-                    {{ props.row.tcg_market }}
+            <b-table-column field="tcg_market" label="Price" numeric sortable v-slot="props">
+
+                <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
+                {{cs}}{{props.row.foil_price}}
+                </span>
+                <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
+                {{cs}}{{props.row.tcg_market}}
+                </span>
+
+            </b-table-column>
+             <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
+                <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
+                    {{ props.row.price_change }} %
+                </span>
+            </b-table-column>
+            <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
+                {{ props.row.date_acquired ? new Date(props.row.date_acquired).toLocaleDateString() : 'N/A' }}
+            </b-table-column>
+            <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
+                 {{cs}}{{ props.row.price_acquired}}
+            </b-table-column>
+            <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
+                 <span class="tag" :class="type(props.row.personal_gain)">
+                    {{ props.row.personal_gain }} %
                 </span>
             </b-table-column>
 
-            <!-- <b-table-column field="release_date" label="Release Date" sortable centered v-slot="props">
-                {{ props.row.release_date ? new Date(props.row.release_date).toLocaleDateString() : 'unknown' }}
-            </b-table-column>
-
-            <b-table-column label="Overview" width="500" v-slot="props">
-                {{ props.row.overview | truncate(80) }}
-            </b-table-column> -->
 
         </b-table>
 
@@ -69,12 +97,14 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 export default {
   name: 'Inventory',
 
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    ItemInspectorWrapper
   },
   data() {
       return {
@@ -92,6 +122,9 @@ export default {
       }
   },
   methods: {
+    getSetIcon(set_code){
+      return this.$echomtg.setIconClass(set_code)
+    },
     /*
     * Load async data
     */
@@ -141,14 +174,17 @@ export default {
     /*
     * Type style in relation to the value
     */
-    type(value) {
-        const number = parseFloat(value)
-        if (number < 6) {
-            return 'is-danger'
-        } else if (number >= 6 && number < 8) {
-            return 'is-warning'
-        } else if (number >= 8) {
-            return 'is-success'
+    type(number) {
+      if (number < -5) {
+            return 'tag has-text-white has-background-danger'
+        } else if (number > 5) {
+            return 'tag  has-text-white has-background-success'
+        } else if (number < 0) {
+            return 'tag has-background-danger-light'
+        } else if (number > 0) {
+            return 'tag has-background-success-light'
+        } else {
+          return 'tag'
         }
     },
 
@@ -156,7 +192,7 @@ export default {
       let height = 400;
       if(this.$refs.table){
         let rects = this.$refs.table.$el.getBoundingClientRect();
-        height = this.windowHeight - rects.top - 98 // 98 is the table header and table search bar
+        height = this.windowHeight - rects.top - 160 // 120 is the table header and pagination bar
       }
       this.tableHeight = height
     },
@@ -207,13 +243,13 @@ export default {
   },
   head () {
       return {
-          title: `Inventory: Collection tools`,
+          title: `Inventory: Trading Card Collection tools`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Hand select specific item in the magic the gathering to track their pricing movement`
+              content:  `Manage your Trading card collection with the best organization tools on the internet.`
             }
           ]
       }

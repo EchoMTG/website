@@ -203,10 +203,11 @@ export default (context, inject) => {
 
   }
 
-  echomtg.inventoryView = async (start=0,limit=200) => {
+  echomtg.inventoryView = async ({start=0,limit=200,direction='DESC'}) => {
     const params = [
       `start=${start}`,
       `limit=${limit}`,
+      `direction=${direction}`
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;

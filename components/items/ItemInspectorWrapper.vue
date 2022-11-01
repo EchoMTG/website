@@ -1,6 +1,6 @@
 <template>
-   <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" style="position: relative">
-      <a class="itemLinkWithInspector" @click="() => setShowItem(true, true)"  :href="getItemURL()">
+   <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" class="is-relative">
+      <a class="itemLinkWithInspector ellipsis" @click="() => setShowItem(true, true)"  :href="getItemURL()">
       {{displayName}}
       </a>
       <b-tag type="is-info" v-if="item.reserve_list == 1">Reserved</b-tag>
@@ -39,7 +39,7 @@ export default {
       if(this.name != '') return this.name;
       return this.item.name
     },
-    
+
   },
   mounted () {
     this.isCloseToBottom()
@@ -48,7 +48,7 @@ export default {
     isCloseToBottom () {
       if(this.$refs.container != null){
         let bound = this.$refs.container.getBoundingClientRect();
-        this.closeToBottom = (window.innerHeight - bound.y) < 350 ? true : false; 
+        this.closeToBottom = (window.innerHeight - bound.y) < 350 ? true : false;
       } else {
         this.closeToBottom = false
       }

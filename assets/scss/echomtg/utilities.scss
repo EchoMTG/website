@@ -241,6 +241,8 @@ $fa-cc-visa: #0157a2;
 
 .itemLinkWithInspector {
 	cursor: zoom-in;
+  display: inline-block;
+  max-width: 250px;
 }
 
 .itemInspectorCard {
