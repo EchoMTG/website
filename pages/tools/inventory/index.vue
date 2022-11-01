@@ -3,23 +3,26 @@
     <echo-bread-crumbs :data="crumbs" />
     <section class="hero is-small is-dark is-hidden-mobile">
       <div class="hero-body">
-          <div class="container">
-              <div class="columns">
-                <div class="column  is-two-thirds">
-                  <h1 class="title">
-                      Inventory
-                  </h1>
-                  <h3 class="subtitle">
-                      Manage your collection
-                  </h3>
-                </div>
-                <div class="column is-one-third">
-                  Export Options
 
-                </div>
-              </div>
+        <div class="columns">
+          <div class="column  is-two-thirds">
+            <h1 class="title">
+                Inventory
+            </h1>
+            <h3 class="subtitle">
+                Manage your collection
+            </h3>
           </div>
+          <div class="column is-one-third">
+            Export Options
+
+          </div>
+        </div>
+
       </div>
+    </section>
+    <section>
+      Search
     </section>
 
     <b-table
@@ -38,7 +41,7 @@
             aria-previous-label="Previous page"
             aria-page-label="Page"
             aria-current-label="Current page"
-
+            :page-input="true"
             backend-sorting
             :default-sort-direction="defaultSortOrder"
             :default-sort="[sortField, sortOrder]"
@@ -116,7 +119,7 @@ export default {
           data: [],
           total: 0,
           loading: false,
-          sortField: 'tcg_mid',
+          sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
@@ -138,23 +141,28 @@ export default {
         this.loading = true
         try {
           let start = (this.page - 1) * this.perPage;
-          console.log('page',this.page,'start',start)
-          const data = await this.$echomtg.inventoryView(start,this.perPage)
+          const data = await this.$echomtg.inventoryView(
+            start,
+            this.perPage,
+            this.sortOrder,
+            this.sortField
+
+            )
 
           this.data = []
           let currentTotal = data.meta.total_pages * data.meta.items_per_page
 
           this.total = currentTotal
-          console.log(this.total)
+
           data.items.forEach((item) => {
               //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
               this.data.push(item)
           })
-          console.log(this.data)
+
           this.loading = false
 
         } catch (error){
-          console.log(error)
+
             this.data = []
             this.total = 0
             this.loading = false
