@@ -87,6 +87,9 @@
                     {{ props.row.personal_gain }} %
                 </span>
             </b-table-column>
+            <b-table-column v-slot="props">
+                 <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
+            </b-table-column>
 
 
         </b-table>
@@ -97,6 +100,7 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import DeleteInventoryButton from '~/components/inventory/DeleteInventoryButton.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 export default {
@@ -104,7 +108,8 @@ export default {
 
   components: {
     EchoBreadCrumbs,
-    ItemInspectorWrapper
+    ItemInspectorWrapper,
+    DeleteInventoryButton
   },
   data() {
       return {
@@ -130,11 +135,10 @@ export default {
     */
     async loadAsyncData() {
 
-
-//https://dev.echomtg.com/api/inventory/view/?start=0&limit=200
         this.loading = true
         try {
           let start = (this.page - 1) * this.perPage;
+          console.log('page',this.page,'start',start)
           const data = await this.$echomtg.inventoryView(start,this.perPage)
 
           this.data = []

@@ -162,8 +162,8 @@ export default (context, inject) => {
       },
       body: JSON.stringify(body)
     });
-    let data = await res.json();
-    return data;
+    return await res.json();
+
   }
 
   echomtg.getAllLists = async () => {
@@ -202,8 +202,24 @@ export default (context, inject) => {
 
 
   }
+  echomtg.inventoryDeleteItem = async (inventory_id) => {
 
-  echomtg.inventoryView = async ({start=0,limit=200,direction='DESC'}) => {
+    let url = `${context.app.$config.API_DOMAIN}inventory/remove/`;
+    let body = {
+      id: inventory_id
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.inventoryView = async (start=0,limit=200,direction='DESC') => {
     const params = [
       `start=${start}`,
       `limit=${limit}`,
