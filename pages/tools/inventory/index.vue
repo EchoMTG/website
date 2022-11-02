@@ -61,7 +61,6 @@
       :debounce-search="0"
       :sticky-header="true"
       paginated
-      ref="table"
       backend-pagination
       :total="total"
       :per-page="perPage"
@@ -74,7 +73,16 @@
       backend-sorting
       :default-sort-direction="defaultSortOrder"
       :default-sort="[sortField, sortOrder]"
-      @sort="onSort">
+      @sort="onSort"
+      striped
+      hoverable
+      detailed
+      custom-detail-row
+      @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
+      :show-detail-icon="true"
+      ref="table"
+      detail-key="inventory_id"
+      >
 
         <b-table-column field="name" label="Name" sortable v-slot="props">
             <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
@@ -121,6 +129,27 @@
           <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
         </b-table-column>
 
+        <template slot="detail" slot-scope="props">
+          <tr>
+            <td colspan="9" style="max-height: 300px">
+              <section >
+                <div class="columns">
+                  <div class="column is-one-fifth">
+                    <b-image
+                      :alt="props.row.name"
+                      :src="props.row.image"
+
+                      placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
+                      ></b-image>
+                  </div>
+                  <div class="column is-two-fifths">
+                    <quick-graph :emid="props.row.emid" :acquired_price="props.row.price_acquired" :acquired_date="props.row.date_acquired" />
+                  </div>
+                </div>
+              </section>
+            </td>
+          </tr>
+        </template>
 
       </b-table>
 
@@ -135,6 +164,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
+import QuickGraph from '~/components/inventory/QuickGraph.vue'
 export default {
   name: 'Inventory',
 
@@ -143,7 +173,8 @@ export default {
     ItemInspectorWrapper,
     DeleteInventoryButton,
     SetSelector,
-    ToggleTradableButton
+    ToggleTradableButton,
+    QuickGraph
   },
   data() {
       return {

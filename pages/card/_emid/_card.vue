@@ -51,7 +51,9 @@
       <div class="column is-one-quarter ">
         <div class="cardImageContainer m-3">
           <b-image
+              lazy
               :src="item.image"
+              :alt="`${item.name} magic card front`"
               placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
 
           ></b-image>
@@ -114,7 +116,7 @@
       </b-field>
         <line-chart
           :chart-data="chartData"
-          :extra-options="extraOptions"
+          :chart-options="extraOptions"
           chart-id="cardLineChart"
         />
         <div class="card mt-3">
@@ -122,8 +124,8 @@
             <p class="card-header-title ">
               {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
             </p>
-            <button 
-                class="card-header-icon" 
+            <button
+                class="card-header-icon"
                 aria-label="collapse price analysis"
                 @click="isPriceAnalysisOpen = !isPriceAnalysisOpen"
                 :aria-expanded="isPriceAnalysisOpen"
@@ -203,7 +205,7 @@
 <script>
 import SetView from '@/components/sets/SetView'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
-import LineChart from '@/components/Charts/LineChart'
+
 import * as chartConfig from '@/components/Charts/chart.config'
 import ItemToolBox from '@/components/items/ItemToolBox.vue'
 import ItemListBox from '@/components/items/ItemListBox.vue'
@@ -215,7 +217,7 @@ export default {
   components: {
     SetView,
     EchoBreadCrumbs,
-    LineChart,
+
     ItemToolBox,
     ItemInspectorWrapper,
     ItemPriceAnalysis,
@@ -272,16 +274,16 @@ export default {
         }
       );
       let priceData = await dataRes.json();
-      
+
       if(priceData.status == "success"){
         prices = priceData.data;
       }
-      
+
       // fetching other editions
       let variationname = item.card_url.split('/')[2];
       let variationsEndpoint = `${$config.API_DOMAIN}data/item_variations/?name=${variationname}`;
 
-      
+
       const vRes = await fetch(
         variationsEndpoint, {
           headers: {
@@ -297,9 +299,6 @@ export default {
     } catch(err){
       console.log(err, res)
     }
-
-
-
 
     // return it
     if (item) {
@@ -352,7 +351,7 @@ export default {
         {
           label: 'Expansions',
           url: '/sets/',
-          icon: '' 
+          icon: ''
         },
          {
           label: this.item.name.split('(')[0],

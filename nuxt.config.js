@@ -58,10 +58,11 @@ export default {
   plugins: [
     { src: '~/plugins/after-each.js', mode: 'client' },
     { src: '~/plugins/echomtg.js' },
+    {src: '~/plugins/chart/chart.js', mode: 'client'}
+
     // { src: '~/plugins/global-components.js', mode: 'client' },
     //{ src: '~/plugins/cookiesServer.js', mode: 'server' }
   ],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
 
@@ -69,7 +70,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/moment',
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -77,6 +79,7 @@ export default {
      // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/gtm',
+
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
     '@nuxtjs/markdownit'
@@ -88,6 +91,7 @@ export default {
   gtm: {
     id: 'GTM-5S54B96'
   },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend (config, ctx) {
@@ -97,7 +101,7 @@ export default {
 
       // Remove moment.js from chart.js
       // https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc
-      config.externals.moment = 'moment'
+
     }
   },
   env: {

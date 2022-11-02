@@ -27,13 +27,13 @@ export const baseChartOptions = {
 export const chartOptionsMain = {
   ...baseChartOptions,
   animations: {
-    tension: {
-      duration: 1000,
-      easing: 'linear',
-      from: 1,
-      to: 0,
-      loop: true
-    }
+    // tension: {
+    //   duration: 1000,
+    //   easing: 'linear',
+    //   from: 1,
+    //   to: 0,
+    //   loop: true
+    // }
   },
   tooltips: {
     backgroundColor: '#333',
