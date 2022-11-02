@@ -31,28 +31,28 @@
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Color Distribution</p>
-          <pie-chart :chart-data="colorData" :extra-options="$parent.chartOptions" />
+          <pie-chart :chart-data="colorData" :chart-options="$parent.chartOptions" />
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Spell/Creature/Land</p>
-          <pie-chart :chart-data="sclData" :extra-options="$parent.chartOptions" />
+          <pie-chart :chart-data="sclData" :chart-options="$parent.chartOptions" />
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Mana Curve</p>
-          <bar-chart :chart-data="chartData" :extra-options="$parent.chartOptions" />
+          <bar-chart :chart-data="chartData" :chart-options="$parent.chartOptions" />
         </div>
       </div>
-      
+
     </nav>
-    
+
     <table class="table">
         <thead>
             <tr>
-                <th>Mana Type</th><th>Cards with Symbol</th><th>Average CMC</th>    
+                <th>Mana Type</th><th>Cards with Symbol</th><th>Average CMC</th>
             </tr>
         </thead>
         <tbody>
@@ -69,10 +69,8 @@
 </template>
 
 <script>
-import BarChart from '@/components/Charts/BarChart'
-import PieChart from '@/components/Charts/PieChart'
+
 export default {
-  components: { BarChart, PieChart },
   props: ['list'],
   data: function data() {
     return {

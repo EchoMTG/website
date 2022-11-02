@@ -219,9 +219,10 @@
         let token = this.$cookies.get('token');
         try {
           const res = await fetch(`${api_url}lists/get/?list=${this.id}&auth=${token}`);
-          const json = res.json();
+          const json = await res.json();
+          console.log('list json',json)
 
-          this.list = json.data.list;
+          this.list = json.list;
           this.calculateGraphData();
           this.cardArray = this.list.card_list;
           if(this.sortOrder == 'ASC'){
