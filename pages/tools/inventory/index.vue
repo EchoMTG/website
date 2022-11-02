@@ -30,82 +30,99 @@
             size="is-small"
             >
         </b-input>
-        <set-selector class="level-item" :callback="setExpansion" />
+        <set-selector class="level-item"  :callback="setExpansion" />
+        <b-select class="level-item" rounded placeholder="Show Tradable" size="is-small" v-model="tradable">
+            <option selected disabled value="">Trades</option>
+            <option disabled>---</option>
+            <option value="false">Show All</option>
+            <option value="true">Only Tradable</option>
+        </b-select>
+        <b-select class="level-item" rounded placeholder="Rarity" size="is-small" v-model="rarity">
+            <option selected="selected" value="" disabled="disabled">By Rarity</option>
+            <option value="false">All</option>
+            <option value="sealed">Sealed</option>
+            <option disabled="disabled">----</option>
+            <option value="Mythic Rare">Mythic</option>
+            <option value="Rare">Rare</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Common">Common</option>
+            <option value="Basic Land">Basic Land</option>
+            <option value="Special">Special</option>
+            <option value="Token">Token</option>
+        </b-select>
       </nav>
 
     </section>
 
     <b-table
-            :data="data"
-            :loading="loading"
-            :height="tableHeight"
-            :debounce-search="0"
-            :sticky-header="true"
-            paginated
-            ref="table"
-            backend-pagination
-            :total="total"
-            :per-page="perPage"
-            @page-change="onPageChange"
-            aria-next-label="Next page"
-            aria-previous-label="Previous page"
-            aria-page-label="Page"
-            aria-current-label="Current page"
-            :page-input="true"
-            backend-sorting
-            :default-sort-direction="defaultSortOrder"
-            :default-sort="[sortField, sortOrder]"
-            @sort="onSort">
+      :data="data"
+      :loading="loading"
+      :height="tableHeight"
+      :debounce-search="0"
+      :sticky-header="true"
+      paginated
+      ref="table"
+      backend-pagination
+      :total="total"
+      :per-page="perPage"
+      @page-change="onPageChange"
+      aria-next-label="Next page"
+      aria-previous-label="Previous page"
+      aria-page-label="Page"
+      aria-current-label="Current page"
+      :page-input="true"
+      backend-sorting
+      :default-sort-direction="defaultSortOrder"
+      :default-sort="[sortField, sortOrder]"
+      @sort="onSort">
 
-            <b-table-column field="name" label="Name" sortable v-slot="props">
-                <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
-                <item-inspector-wrapper :item="props.row" />
-            </b-table-column>
-            <b-table-column field="set" label="Expansion" sortable v-slot="props">
-               <b-taglist attached>
-                  <b-tag type="is-dark">
-                    <a class="has-text-white" :href="props.row.echo_set_url.replace('https://www.echomtg.com','')">
-                      <i style="margin-top:-11px; margin-right: 2px" :class="getSetIcon(props.row.set_code)"></i>
-                      <span class="ellipsis mt-1" style="max-width: 120px; display: inline-block">{{ props.row.set }}</span>
-                    </a>
-                  </b-tag>
-                  <b-tag><i style="margin-top:-3px" :class="getSetIcon('mtg')"></i></b-tag>
-              </b-taglist>
+        <b-table-column field="name" label="Name" sortable v-slot="props">
+            <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
+            <item-inspector-wrapper :item="props.row" />
+        </b-table-column>
+        <b-table-column field="set" label="Expansion" sortable v-slot="props">
+            <b-taglist attached>
+              <b-tag type="is-dark">
+                <a class="has-text-white" :href="props.row.echo_set_url.replace('https://www.echomtg.com','')">
+                  <i style="margin-top:-11px; margin-right: 2px" :class="getSetIcon(props.row.set_code)"></i>
+                  <span class="ellipsis mt-1" style="max-width: 120px; display: inline-block">{{ props.row.set }}</span>
+                </a>
+              </b-tag>
+              <b-tag><i style="margin-top:-3px" :class="getSetIcon('mtg')"></i></b-tag>
+          </b-taglist>
+        </b-table-column>
 
-            </b-table-column>
-
-            <b-table-column field="tcg_market" label="Price" numeric sortable v-slot="props">
-
-                <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-                {{cs}}{{props.row.foil_price}}
-                </span>
-                <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-                {{cs}}{{props.row.tcg_market}}
-                </span>
-
-            </b-table-column>
-             <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
-                <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
-                    {{ props.row.price_change }} %
-                </span>
-            </b-table-column>
-            <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
-                {{ props.row.date_acquired ? new Date(props.row.date_acquired).toLocaleDateString() : 'N/A' }}
-            </b-table-column>
-            <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
-                 {{cs}}{{ props.row.price_acquired}}
-            </b-table-column>
-            <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
-                 <span class="tag" :class="type(props.row.personal_gain)">
-                    {{ props.row.personal_gain }} %
-                </span>
-            </b-table-column>
-            <b-table-column v-slot="props">
-                 <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
-            </b-table-column>
+        <b-table-column field="tcg_market" label="Price" numeric sortable v-slot="props">
+          <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
+          {{cs}}{{props.row.foil_price}}
+          </span>
+          <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
+          {{cs}}{{props.row.tcg_market}}
+          </span>
+        </b-table-column>
+        <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
+          <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
+            {{ props.row.price_change }} %
+          </span>
+        </b-table-column>
+        <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
+            {{ props.row.date_acquired ? new Date(props.row.date_acquired).toLocaleDateString() : 'N/A' }}
+        </b-table-column>
+        <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
+            {{cs}}{{ props.row.price_acquired}}
+        </b-table-column>
+        <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
+          <span class="tag" :class="type(props.row.personal_gain)">
+            {{ props.row.personal_gain }}%
+          </span>
+        </b-table-column>
+        <b-table-column v-slot="props">
+          <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" />
+          <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
+        </b-table-column>
 
 
-        </b-table>
+      </b-table>
 
   </div>
 </template>
@@ -117,6 +134,7 @@ import DeleteInventoryButton from '~/components/inventory/DeleteInventoryButton.
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
+import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
 export default {
   name: 'Inventory',
 
@@ -124,7 +142,8 @@ export default {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
     DeleteInventoryButton,
-    SetSelector
+    SetSelector,
+    ToggleTradableButton
   },
   data() {
       return {
@@ -132,6 +151,9 @@ export default {
           total: 0,
           loading: false,
           search: '',
+          rarity: '',
+          tradable: '',
+          color: '',
           sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
@@ -152,6 +174,12 @@ export default {
       }, 600)
     },
     set_code(){
+      this.loadAsyncData();
+    },
+    tradable() {
+      this.loadAsyncData();
+    },
+    rarity() {
       this.loadAsyncData();
     }
   },
@@ -181,8 +209,10 @@ export default {
             this.sortOrder,
             this.sortField,
             this.search,
-            this.set_code
-
+            this.set_code,
+            this.color,
+            this.rarity,
+            this.tradable
             )
 
           this.data = []

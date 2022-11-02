@@ -219,7 +219,35 @@ export default (context, inject) => {
     return await res.json();
   }
 
-  echomtg.inventoryView = async (start=0,limit=200,direction='DESC',sort='date_acquired',search='',set_code='') => {
+  echomtg.inventoryToggleTradable = async (inventory_id, tradable) => {
+
+    let url = `${context.app.$config.API_DOMAIN}inventory/toggle_tradable/`;
+    let body = {
+      id: inventory_id,
+      tradable: tradable ? 1 : 0
+    }
+    console.log(body)
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.inventoryView = async (
+    start=0,
+    limit=200,
+    direction='DESC',
+    sort='date_acquired',
+    search='',
+    set_code='',
+    color='',
+    rarity='',
+    tradable='') => {
 
     const params = [
       `start=${start}`,
@@ -227,7 +255,10 @@ export default (context, inject) => {
       `direction=${direction}`,
       `sort=${sort}`,
       `search=${search}`,
-      `set_code=${set_code}`
+      `set_code=${set_code}`,
+      `color=${color}`,
+      `rarity=${rarity}`,
+      `tradable=${tradable}`,
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;
