@@ -35,6 +35,11 @@ export default {
     required: false,
     default: 0,
   },
+  foil: {
+    type: Number,
+    required: false,
+    default: null
+  },
   acquired_date: {
     required: false
   },
@@ -59,34 +64,44 @@ export default {
         backgroundColor: '#FF0000',
         borderColor: '#FF0000',
         fill: false,
+        pointRadius: 10,
+        pointHoverRadius: 15,
         data: this.pointdata,
         parsing: {
           yAxisKey: 'user'
         }
       })
     }
-
-    cd.datasets.push({
-      label: 'Regular',
-      backgroundColor: '#666666',
-      borderColor: '#666666',
-      fill: false,
-      data: this.pointdata,
-      parsing: {
-          yAxisKey: 'reg'
-      }
-    });
-
-    cd.datasets.push({
-        label: 'Foil',
-        backgroundColor: '#b08716',
-        borderColor: '#b08716',
+    if(this.foil == 0 || this.foil == null){
+      cd.datasets.push({
+        label: 'Regular',
+        backgroundColor: '#666666',
+        borderColor: '#666666',
+        pointRadius: 0.5,
+        spanGaps: true,
+        pointHoverRadius: 1,
         fill: false,
         data: this.pointdata,
         parsing: {
-            yAxisKey: 'foil'
+            yAxisKey: 'reg'
         }
-    })
+      });
+    }
+    if(this.foil == 1 || this.foil == null){
+      cd.datasets.push({
+          label: 'Foil',
+          backgroundColor: '#b08716',
+          borderColor: '#b08716',
+          spanGaps: true,
+          fill: false,
+          pointRadius: 0.5,
+          pointHoverRadius: 1,
+          data: this.pointdata,
+          parsing: {
+              yAxisKey: 'foil'
+          }
+      })
+    }
 
 
 

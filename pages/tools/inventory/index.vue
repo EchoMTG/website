@@ -143,7 +143,12 @@
                       ></b-image>
                   </div>
                   <div class="column is-two-fifths">
-                    <quick-graph :emid="props.row.emid" :acquired_price="props.row.price_acquired" :acquired_date="props.row.date_acquired" />
+                    <quick-graph
+                      :emid="props.row.emid"
+                      :acquired_price="props.row.price_acquired"
+                      :acquired_date="props.row.date_acquired"
+                      :foil="props.row.foil"
+                      />
                   </div>
                 </div>
               </section>
