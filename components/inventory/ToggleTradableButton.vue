@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="handshake" :class="classType(tradeStatus)" size="is-small" @click="toggleTradeable()" />
+  <b-button icon-left="handshake" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
 </template>
 <script>
 
@@ -18,21 +18,14 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      tradeStatus: 0
-    }
-  },
-  created() {
-    this.tradeStatus = this.tradable
-  },
+
   methods: {
     classType(tradable) {
       return tradable == 1 ? 'is-info' : ''
     },
-    toggleTradeable() {
-      this.tradeStatus = this.tradeStatus ? 0 : 1;
-      this.$echomtg.inventoryToggleTradable(this.inventory_id, this.tradeStatus)
+    async toggleTradeable() {
+
+      await this.$echomtg.inventoryToggleTradable(this.inventory_id, this.tradable ? 0 : 1)
       if(this.callback){
         this.callback()
       }

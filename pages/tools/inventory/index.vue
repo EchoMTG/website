@@ -117,7 +117,7 @@
           </span>
         </b-table-column>
         <b-table-column v-slot="props">
-          <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" />
+          <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
           <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
         </b-table-column>
 
