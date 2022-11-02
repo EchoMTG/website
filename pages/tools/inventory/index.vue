@@ -21,15 +21,16 @@
 
       </div>
       <nav class="level p-2">
-       <b-input placeholder="Search..."
-                type="search"
-                v-model="search"
-                icon="magnify"
-                class="level-item"
-                icon-clickable
-                size="is-small"
-                @icon-click="searchIconClick">
-            </b-input>
+       <b-input placeholder="Search by Card or Item Name..."
+            type="search"
+            v-model="search"
+            icon="magnify"
+            class="level-item"
+            rounded
+            size="is-small"
+            >
+        </b-input>
+        <set-selector class="level-item" :callback="setExpansion" />
       </nav>
 
     </section>
@@ -115,13 +116,15 @@ import { mapState } from 'vuex'
 import DeleteInventoryButton from '~/components/inventory/DeleteInventoryButton.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+import SetSelector from '~/components/magic/SetSelector.vue'
 export default {
   name: 'Inventory',
 
   components: {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
-    DeleteInventoryButton
+    DeleteInventoryButton,
+    SetSelector
   },
   data() {
       return {
@@ -137,7 +140,8 @@ export default {
            cs: '$',
           tableHeight: 400,
           windowHeight: 1000,
-          debounce: null
+          debounce: null,
+          set_code: ''
       }
   },
   watch: {
@@ -146,11 +150,20 @@ export default {
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
       }, 600)
-
-
+    },
+    set_code(){
+      this.loadAsyncData();
     }
   },
   methods: {
+    setExpansion(set){
+
+      if(set?.set_code){
+        this.set_code = set.set_code
+      } else {
+        this.set_code = ''
+      }
+    },
     getSetIcon(set_code){
       return this.$echomtg.setIconClass(set_code)
     },
@@ -167,7 +180,8 @@ export default {
             this.perPage,
             this.sortOrder,
             this.sortField,
-            this.search
+            this.search,
+            this.set_code
 
             )
 

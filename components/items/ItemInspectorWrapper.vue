@@ -3,7 +3,7 @@
       <a class="itemLinkWithInspector ellipsis" @click="() => setShowItem(true, true)"  :href="getItemURL()">
       {{displayName}}
       </a>
-      <b-tag type="is-info" v-if="item.reserve_list == 1">Reserved</b-tag>
+      <b-tag v-if="item.reserve_list == 1">Reserved</b-tag>
       <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem" :closeToBottom="closeToBottom" />
   </div>
 </template>
