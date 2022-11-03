@@ -451,7 +451,7 @@ export default {
                     if(item.t != null && item.t.toLowerCase().includes(this.search.toLowerCase())) {
                         return true
                     }
-                    if(item.collectors_number != null && item.collectors_number.toLowerCase().includes(this.search.toLowerCase())) {
+                    if(item.collectors_number != null && item.collectors_number.toString().toLowerCase().includes(this.search.toLowerCase())) {
                         return true
                     }
                     return false

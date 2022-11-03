@@ -104,11 +104,6 @@ export default {
           }
       })
     }
-
-
-
-
-    console.log(cd)
     return cd
   },
   chartOptions() {
@@ -160,9 +155,7 @@ methods: {
         }
 
       priceData.point_data = priceData.point_data.sort((a,b) => this.$moment(a.x,['YYYY-MM-DD','YYYY-DD-MM']).format('X') - this.$moment(b.x,['YYYY-MM-DD','YYYY-DD-MM']).format('X'));
-      console.log('sorting ' +  this.emid);
-      console.log( priceData.point_data[0].x)
-      console.log( this.$moment(priceData.point_data[0].x,['YYYY-MM-DD']).format('X'))
+
       this.prices = priceData.prices;
       this.pointdata = priceData.point_data;
     } else {
