@@ -845,10 +845,10 @@ export default {
 							]
 						},
 						"url": {
-							"raw": "https://dev.echomtg.com/api/inventory/upload_image/?id=45959523",
+							"raw": "https://www.echomtg.com/api/inventory/upload_image/?id=45959523",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"www",
 								"echomtg",
 								"com"
 							],
@@ -1132,8 +1132,43 @@ export default {
 				{
 					"name": "Inventory: View",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/inventory/view/?start=0&limit=200",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"view",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "200"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -1460,141 +1495,6 @@ export default {
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Importing",
-			"item": [
-				{
-					"name": "CSV Reader",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "csvFile",
-									"contentType": "multipart/form-data",
-									"type": "file",
-									"src": "/Users/kilroy/Downloads/EchoMTG-Upload-Template (1).csv"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload",
-							"protocol": "https",
-							"host": [
-								"us-central1-echo-csv",
-								"cloudfunctions",
-								"net"
-							],
-							"path": [
-								"echo-csv",
-								"upload"
-							]
-						},
-						"description": "Upload a CSV of card and get back a mapping to EchoMTG ID's"
-					},
-					"response": []
-				}
-			],
-			"description": "Endpoints to import or read card data."
-		},
-		{
-			"name": "Deprecated",
-			"item": [
-				{
-					"name": "Inventory: Adding Cards (DEPRECATED)",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{user_token}}",
-								"description": "User token gathered from /user/auth/"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "https://www.echomtg.com/api/inventory/add/",
-							"protocol": "https",
-							"host": [
-								"www",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"inventory",
-								"add",
-								""
-							]
-						},
-						"description": "The user must be Auth'd to make this call. The call will add a card to the user inventory. It is called simple by sending the Multiverse ID (mid) of the card you want to add and the user Token (auth)."
-					},
-					"response": []
-				},
-				{
-					"name": "Inventory: Adjusting Card Condition (deprecated)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "id",
-									"value": "2",
-									"description": "id of the inventory item",
-									"type": "text"
-								},
-								{
-									"key": "auth",
-									"value": "{{user_token}}",
-									"type": "text"
-								},
-								{
-									"key": "value",
-									"value": "LP",
-									"description": "card condition",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://www.echomtg.com/api/inventory/change_condition/",
-							"protocol": "https",
-							"host": [
-								"www",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"inventory",
-								"change_condition",
-								""
-							]
-						},
-						"description": "The user must be Auth'd to make this call. The call will adjust the price a single card from a user's inventory. It is called by sending the Inventory ID (id) of the card you want to update, the Card Condition (value), and the user Token (auth).\n\n**Card Conditions**\n* NM  = Near Mint\n* LP  = Lightly Played\n* MP  = Moderately Played\n* HP  = Heavily Played\n* D   = Damaged\n* ALT = Altered\n* ART = Artist Proof\n* PRE = Pre-release\n* TS = Timestamped\n* SGN = Signed\n* B10 = BGS 10\n* B95 = BGS 9.5\n* B9  = BGS 9.0\n* B85 = BGS 8.5\n* B8  = BGS 8.0\n* B75 = BGS 7.5\n* B7  = BGS 7.0\n* P10 = PSA 10\n* P95 = PSA 9.5\n* P9  = PSA 9.0\n* P85 = PSA 8.5\n* P8  = PSA 8.0\n* P75 = PSA 7.5\n* P7  = PSA 7.0"
-					},
-					"response": []
-				}
-			],
-			"description": "Old endpoints are documented for informational purposes, if you are using old endpoint, please migrated to new endpoint documented above."
 		},
 		{
 			"name": "Watchlist",
@@ -1983,6 +1883,141 @@ export default {
 				}
 			],
 			"description": "Track item price movement in a watchlist."
+		},
+		{
+			"name": "Importing",
+			"item": [
+				{
+					"name": "CSV Reader",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "csvFile",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "/Users/kilroy/Downloads/EchoMTG-Upload-Template (1).csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload",
+							"protocol": "https",
+							"host": [
+								"us-central1-echo-csv",
+								"cloudfunctions",
+								"net"
+							],
+							"path": [
+								"echo-csv",
+								"upload"
+							]
+						},
+						"description": "Upload a CSV of card and get back a mapping to EchoMTG ID's"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints to import or read card data."
+		},
+		{
+			"name": "Deprecated",
+			"item": [
+				{
+					"name": "Inventory: Adding Cards (DEPRECATED)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"description": "User token gathered from /user/auth/"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/inventory/add/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"add",
+								""
+							]
+						},
+						"description": "The user must be Auth'd to make this call. The call will add a card to the user inventory. It is called simple by sending the Multiverse ID (mid) of the card you want to add and the user Token (auth)."
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory: Adjusting Card Condition (deprecated)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "id of the inventory item",
+									"type": "text"
+								},
+								{
+									"key": "auth",
+									"value": "{{user_token}}",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "LP",
+									"description": "card condition",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/inventory/change_condition/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"change_condition",
+								""
+							]
+						},
+						"description": "The user must be Auth'd to make this call. The call will adjust the price a single card from a user's inventory. It is called by sending the Inventory ID (id) of the card you want to update, the Card Condition (value), and the user Token (auth).\n\n**Card Conditions**\n* NM  = Near Mint\n* LP  = Lightly Played\n* MP  = Moderately Played\n* HP  = Heavily Played\n* D   = Damaged\n* ALT = Altered\n* ART = Artist Proof\n* PRE = Pre-release\n* TS = Timestamped\n* SGN = Signed\n* B10 = BGS 10\n* B95 = BGS 9.5\n* B9  = BGS 9.0\n* B85 = BGS 8.5\n* B8  = BGS 8.0\n* B75 = BGS 7.5\n* B7  = BGS 7.0\n* P10 = PSA 10\n* P95 = PSA 9.5\n* P9  = PSA 9.0\n* P85 = PSA 8.5\n* P8  = PSA 8.0\n* P75 = PSA 7.5\n* P7  = PSA 7.0"
+					},
+					"response": []
+				}
+			],
+			"description": "Old endpoints are documented for informational purposes, if you are using old endpoint, please migrated to new endpoint documented above."
 		}
 	]
 }
