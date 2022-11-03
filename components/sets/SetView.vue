@@ -104,6 +104,7 @@ import SetSummary from '@/components/sets/SetSummary';
 import SetSealed from '@/components/sets/SetSealed';
 import SetTrendingView from '@/components/sets/SetTrendingView';
 import SetCalculationsView from '@/components/sets/SetCalculationsView';
+import { mapState } from 'vuex'
 
 export default {
 
@@ -175,8 +176,8 @@ export default {
 
     },
     created () {
-        this.setCode = this.$parent.setCode
-        this.userLevel = this.$parent.userLevel
+        //this.setCode = this.$parent.setCode
+
     },
     mounted() {
 
@@ -185,7 +186,9 @@ export default {
         setTimeout(this.lazyLoad, 500)
       },
     computed: {
-      owned() { return this.set?.owned ? this.set.owned : {} }
+      owned() { return this.set?.owned ? this.set.owned : {} },
+      ...mapState(['userLevel'])
+
     }
 }
 </script>

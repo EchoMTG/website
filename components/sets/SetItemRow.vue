@@ -14,19 +14,19 @@
 
         <a v-if="this.$parent.userlevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
         <a :href="item.echo_url" :title="`Open ${item.name} Page`">
-            <img
+            <b-image
+                lazy
                 v-if="fullview == false"
-                :data-src="item.image_cropped"
-                src="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                :data-srcset="imageSrcSetBig"
-                height="40px" class="lazy" style="height: 40px; float: left; margin-right: 4px;">
+                :src="item.image_cropped"
+                placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                style="height: 50px; width:70px; float: left; margin-right: 4px;" />
 
             <img
                 v-if="fullview == true"
                 :src="image"
                 :data-src="item.image"
                 :data-srcset="imageSrcSet"
-                height="120px"  style="width: 120px; float: left; margin-right: 4px;">
+                height="120px"  style="width: 120px; float: left; margin-right: 4px;" />
         </a>
 
         <item-inspector-wrapper :item="item" />

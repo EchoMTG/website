@@ -2,6 +2,7 @@ export const state = () => ({
   /* User */
   userName: null,
   userEmail: null,
+  userLevel: null,
   userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
 
   /* NavBar */
@@ -53,6 +54,9 @@ export const mutations = {
     }
     if (payload.avatar) {
       state.userAvatar = payload.avatar
+    }
+    if (payload.user_level) {
+      state.user_level = payload.user_level
     }
   },
 

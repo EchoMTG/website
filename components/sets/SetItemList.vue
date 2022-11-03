@@ -59,7 +59,7 @@
           <!-- <div
             class="select is-small is-rounded has-text-grey is-hidden-mobile"
             v-if="Object.keys(cardsowned).length > 0"
-          >
+          >isCardOwned(item.emid, 'regular')
             <select v-model="showOwned" class="has-text-grey">
               <option value="" selected>All</option>
               <option disabled>---</option>
@@ -137,104 +137,64 @@
             Clear Search and Filters
           </button>
         </div>
-        <table id="set-table" class="table is-striped is-fullwidth">
-          <thead>
-            <tr>
-              <th class="owned" v-if="Object.keys(cardsowned.regular).length > 0 || Object.keys(cardsowned.foiled).length > 0">
-                <span class="fa fa-check-circle has-text-success"></span>
-              </th>
 
-              <th class="is-clickable" @click="changeSortMetric('name')">
-                <span>Name</span>
-                <span v-if="this.sortMetric == 'name'" class="icon">
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-              <th class="is-clickable" @click="changeSortMetric('rarity')">
-                <span>Rarity</span>
-                <span v-if="this.sortMetric == 'rarity'" class="icon">
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-              <th
-                class="is-clickable is-hidden-mobile"
-                @click="changeSortMetric('collectors_number')"
-              >
-                <span>C#</span>
-                <span
-                  v-if="this.sortMetric == 'collectors_number'"
-                  class="icon"
-                >
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-              <th
-                class="is-clickable"
-                @click="changeSortMetric('price_change')"
-              >
-                <span>Change</span>
-                <span v-if="this.sortMetric == 'price_change'" class="icon">
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-              <th  v-if="totalRegular > 0" class="is-clickable" @click="changeSortMetric('tcg_mid')">
-                <span>Reg. Price</span>
-                <span v-if="this.sortMetric == 'tcg_mid'" class="icon">
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-              <th v-if="totalFoiled > 0" class="is-clickable" @click="changeSortMetric('foil_price')">
-                <span>Foil Price</span>
-                <span v-if="this.sortMetric == 'foil_price'" class="icon">
-                  <i
-                    v-if="this.sortDirection == 'DESC'"
-                    class="fa fa-caret-down"
-                  ></i>
-                  <i
-                    v-if="this.sortDirection == 'ASC'"
-                    class="fa fa-caret-up"
-                  ></i>
-                </span>
-              </th>
-            </tr>
-          </thead>
+        <b-table striped :data="filteredItems" :debounce-search="0">
+          <b-table-column v-slot="props" width="30">
 
-          <tbody v-if="items.length > 0">
+            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark">{{isCardOwned(props.row.emid, 'regular')}}</b-tag>
+            <br>
+            <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="has-background-warning-dark has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</b-tag>
+          </b-table-column>
+          <b-table-column field="name" label="Name" sortable v-slot="props">
+            <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
+                <b-image
+                    lazy
+                    v-if="fullView == false"
+                    :src="props.row.image_cropped"
+                    custom-class="mr-3"
+                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                    style="height: 50px; width:70px; float: left; margin-right: 4px;" />
+
+                <b-image
+                    lazy
+                    v-if="fullView == true"
+                    :src="props.row.image"
+                    custom-class="mr-2"
+                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                    style="width: 120px; height:200px; float: left; margin-right: 4px;" />
+            </a>
+
+            <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
+            <item-inspector-wrapper :item="props.row" />
+            {{props.row.types}}
+            <a v-if="userLevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
+
+
+          </b-table-column>
+          <b-table-column field="rarity" label="Rarity" sortable v-slot="props">
+            <span class="is-mobile">[{{props.row.collectors_number}}]</span>
+            <em v-html="replaceSymbols(props.row.mc)"></em>
+            <span class="">{{props.row.rarity}}</span>
+          </b-table-column>
+          <b-table-column field="collectors_number" label="#" numeric sortable v-slot="props">
+            {{props.row.collectors_number}}
+          </b-table-column>
+          <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
+            <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
+              {{ props.row.price_change }} %
+            </span>
+          </b-table-column>
+          <b-table-column field="tcg_mid" label="Regular" numeric sortable v-slot="props">
+              <span v-if="props.row.tcg_mid > 0">{{cs}}{{ props.row.tcg_mid }}</span>
+          </b-table-column>
+          <b-table-column field="foil_price" label="Foil" numeric sortable v-slot="props">
+              <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
+          </b-table-column>
+
+
+        </b-table>
+
+          <!-- <tbody v-if="items.length > 0">
             <SetItemRow
               v-for="item in filteredItems"
               :key="item.emid"
@@ -247,10 +207,9 @@
               @emit-wiki="openWiki(item)"
               :item="item"
             />
-          </tbody>
+          </tbody> -->
 
-          <!-- shown if note logged in -->
-        </table>
+
         <ItemWikiEdit
           :item="wikiItem"
           @emit-wiki-close="closeWiki()"
@@ -262,11 +221,14 @@
 <script>
 
 import SetItemRow from '@/components/sets/SetItemRow';
+import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import ItemWikiEdit from '@/components/wiki/ItemWikiEdit';
+import { mapState } from 'vuex'
+
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow, ItemWikiEdit },
+  components: { SetItemRow, ItemWikiEdit, ItemInspectorWrapper },
   props: {
     items: {
       type: Array,
@@ -297,9 +259,8 @@ export default {
   data: function data() {
     return {
       title: 'Set Items List',
+      cs: '$',
       setCode: '',
-      sortMetric: 'tcg_mid',
-      sortDirection: 'DESC',
       search: '',
       rarity: '',
       showOwned: '',
@@ -319,11 +280,27 @@ export default {
 
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
-
+    console.log(this.items)
 
 
   },
   methods: {
+    changeTag(number) {
+      if (number < -5) {
+            return 'tag has-text-white has-background-danger'
+        } else if (number > 5) {
+            return 'tag  has-text-white has-background-success'
+        } else if (number < 0) {
+            return 'tag has-background-danger-light'
+        } else if (number > 0) {
+            return 'tag has-background-success-light'
+        } else {
+          return 'tag'
+        }
+    },
+    replaceSymbols(str){
+      return this.$echomtg.replaceSymbols(str)
+    },
     findVariants(){
 
         this.items.forEach(item => {
@@ -371,52 +348,11 @@ export default {
         this.valueAbove=0;
         this.valueBelow=0;
     },
-    changeSortMetric: function(value){
-        if(value == this.sortMetric) this.swapDirection();
-        this.sortMetric = value
-    },
-    swapDirection: function(){
-        this.sortDirection = (this.sortDirection == 'ASC') ? 'DESC' : 'ASC';
-    },
-    defaultSortBy: function(a,b){
-        const aVal = a[this.sortMetric]
-        const bVal = b[this.sortMetric]
 
-        let comparison = 0;
-
-        if(this.sortDirection == 'ASC') {
-            if (aVal > bVal) {
-                comparison = 1;
-            } else if (aVal < bVal) {
-                comparison = -1;
-            }
-        } else {
-            if (aVal < bVal) {
-                comparison = 1;
-            } else if (aVal > bVal) {
-                comparison = -1;
-            }
-        }
-        return comparison;
-    },
-    sortByPrice: function(a,b){
-        // T added for tokens
-        let valA = a[this.sortMetric] != '' ? a[this.sortMetric]+"" : "0"
-        let valB = b[this.sortMetric] != '' ? b[this.sortMetric]+"" : "0"
-
-        const priceA = parseFloat(valA.replace('T','1000'))
-        const priceB = parseFloat(valB.replace('T','1000'))
-
-        if(this.sortDirection == 'ASC') {
-            return priceA - priceB
-        } else {
-          return priceB - priceA
-        }
-    }
 
   },
   watch: {
-    sortMetric: () => {},
+
     search: () => {},
     textSearch: () => {},
     rarity: () => {},
@@ -429,7 +365,8 @@ export default {
     }
   },
   computed: {
-       filteredItems: function(){
+    ...mapState(['userLevel']),
+      filteredItems: function(){
 
             if(this.items.length == 0) return
 
@@ -523,21 +460,7 @@ export default {
                 });
             }
 
-
-            // sort it
-            switch(this.sortMetric.toLowerCase()){
-                case 'price':
-                case 'tcg_mid':
-                case 'tcg_market':
-                case 'price_change':
-                case 'tcg_low':
-                case 'foil_price':
-                case 'collectors_number':
-                    return [...returnItems.sort(this.sortByPrice)]
-
-                default:
-                    return [...returnItems.sort(this.defaultSortBy)]
-            }
+            return [...returnItems];
 
 
         },
