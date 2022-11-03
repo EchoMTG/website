@@ -138,7 +138,18 @@
           </button>
         </div>
 
-        <b-table striped :data="filteredItems" :debounce-search="0">
+        <b-table
+          striped
+          :data="filteredItems"
+          :debounce-search="0"
+          hoverable
+          detailed
+          custom-detail-row
+          @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
+          :show-detail-icon="true"
+          ref="table"
+          detail-key="emid"
+          >
           <b-table-column v-slot="props" width="30">
 
             <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark">{{isCardOwned(props.row.emid, 'regular')}}</b-tag>
@@ -191,6 +202,33 @@
               <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
           </b-table-column>
 
+          <template slot="detail" slot-scope="props">
+            <tr>
+              <td colspan="9" style="max-height: 300px">
+                <section >
+                  <div class="columns">
+                    <div class="column is-2">
+                      <b-image
+                        :alt="props.row.name"
+                        :src="props.row.image"
+
+                        placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
+                        ></b-image>
+                    </div>
+                    <div class="column is-4">
+                      <quick-graph :emid="props.row.emid" />
+                    </div>
+                    <div class="column is-3">
+                      <item-list-box :item="props.row" />
+                    </div>
+                    <div class="column is-3">
+                      <item-tool-box :item="props.row" />
+                    </div>
+                  </div>
+                </section>
+              </td>
+            </tr>
+          </template>
 
         </b-table>
 
@@ -224,11 +262,13 @@ import SetItemRow from '@/components/sets/SetItemRow';
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import ItemWikiEdit from '@/components/wiki/ItemWikiEdit';
 import { mapState } from 'vuex'
-
+import QuickGraph from '@/components/inventory/QuickGraph.vue'
+import ItemListBox from '@/components/items/ItemListBox.vue'
+import ItemToolBox from '@/components/items/ItemToolBox.vue';
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow, ItemWikiEdit, ItemInspectorWrapper },
+  components: { SetItemRow, ItemWikiEdit, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
   props: {
     items: {
       type: Array,
