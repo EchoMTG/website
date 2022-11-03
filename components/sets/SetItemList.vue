@@ -207,6 +207,9 @@
               <td colspan="9" style="max-height: 300px">
                 <section >
                   <div class="columns">
+                     <div class="column is-3">
+                      <item-tool-box :item="props.row" />
+                    </div>
                     <div class="column is-2">
                       <b-image
                         :alt="props.row.name"
@@ -221,9 +224,7 @@
                     <div class="column is-3">
                       <item-list-box :item="props.row" />
                     </div>
-                    <div class="column is-3">
-                      <item-tool-box :item="props.row" />
-                    </div>
+
                   </div>
                 </section>
               </td>

@@ -59,11 +59,12 @@ import { component as VueCodeHighlight } from 'vue-code-highlight';
           return ''
         },
         buildRequest() {
+          let endpoint = this.request?.url?.raw ? this.request.url.raw : '';
           if(this.request.method.toLowerCase() == 'post' && this.getResponse().includes('Login')){
             let body = this.request.body ? 'const body = ' + this.request.body.raw : ''
             return `
 const request = async () => {
-  const endpoint = '${this.request.url.raw}';
+  const endpoint = '${endpoint}';
   ${body}
   const res = await fetch(endpoint, {
     method: 'POST',
@@ -81,7 +82,7 @@ const request = async () => {
 
             return `
 const request = async () => {
-  const endpoint = '${this.request.url.raw}';
+  const endpoint = '${endpoint}';
   var formdata = new FormData();
   formdata.append("file", fileInput.files[0], "gaddock-teeg.jpg");
   const res = await fetch(endpoint, {
@@ -99,7 +100,7 @@ const request = async () => {
             let body = this.request.body ? 'const body = ' + this.request.body.raw : ''
             return `
 const request = async () => {
-  const endpoint = '${this.request.url.raw}';
+  const endpoint = '${endpoint}';
   ${body}
   const res = await fetch(endpoint, {
     method: 'POST',
@@ -116,7 +117,7 @@ const request = async () => {
            if(this.request.method.toLowerCase() == 'get'){
             return `
 const request = async () => {
-  const endpoint = '${this.request.url.raw}';
+  const endpoint = '${endpoint}';
   const res = await fetch(endpoint, {
     headers: {
       'Content-Type': 'application/json',
