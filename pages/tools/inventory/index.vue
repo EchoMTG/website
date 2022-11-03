@@ -150,6 +150,9 @@
                       :foil="props.row.foil"
                       />
                   </div>
+                  <div class="column is-two-fifths">
+                    <item-list-box :item="props.row" />
+                  </div>
                 </div>
               </section>
             </td>
@@ -170,6 +173,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
+import ItemListBox from '~/components/items/ItemListBox.vue'
 export default {
   name: 'Inventory',
 
@@ -179,7 +183,8 @@ export default {
     DeleteInventoryButton,
     SetSelector,
     ToggleTradableButton,
-    QuickGraph
+    QuickGraph,
+    ItemListBox
   },
   data() {
       return {

@@ -77,9 +77,9 @@ export default {
         label: 'Regular',
         backgroundColor: '#666666',
         borderColor: '#666666',
-        pointRadius: 0.5,
+        pointRadius: 5,
         spanGaps: true,
-        pointHoverRadius: 1,
+        pointHoverRadius: 8,
         fill: false,
         data: this.pointdata,
         parsing: {
@@ -94,8 +94,8 @@ export default {
           borderColor: '#b08716',
           spanGaps: true,
           fill: false,
-          pointRadius: 0.5,
-          pointHoverRadius: 1,
+          pointRadius: 5,
+          pointHoverRadius: 8,
           data: this.pointdata,
           parsing: {
               yAxisKey: 'foil'
@@ -117,9 +117,19 @@ export default {
           type: 'time'
         }]
       },
+      tooltip: {
+        intersect: false,
+    position: 'nearest',
+      },
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: 'true'
+      },
       plugins: {
         legend: {
-          display: false
+          display: false,
+
         }
       }
 
