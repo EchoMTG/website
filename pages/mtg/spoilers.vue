@@ -7,10 +7,10 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <h1 class="title has-text-white">
-                Magic: the Gathering Spoilers for SET, SET, and SET
+                Magic: the Gathering Spoilers for {{upcomingSetsWords}}
             </h1>
             <h3 class="subtitle has-text-white">
-                View spoilers from upcoming magic: the gathering releases
+                View spoilers from upcoming magic: the gathering releases {{upcomingSetsWords}}
             </h3>
           </div>
           <div class="column is-one-third">
@@ -22,7 +22,22 @@
 
       </div>
     </section>
-    <div v-for="set in recentSets" >{{set.name}}</div>
+    <div v-if="upcomingSetsTotal == 0">
+      No Spoilers Yet! Come back soon!
+    </div>
+    <section v-for="set in this.recentSets" v-bind:key="set.id" >
+      <div class="container">
+        <h2 class="title is-size-2 has-text-weight-light mt-5">{{set.name}} Spoiled Cards</h2>
+        <hr />
+        <div class="columns is-multiline">
+          <div class="column is-one-fifth" v-for="item in setData[set.set_code].set.items" v-bind:key="item.emid">
+            <item-card :item="item" />
+          </div>
+        </div>
+
+
+      </div>
+    </section>
 
     <section>
 
@@ -36,16 +51,18 @@
 // @ is an alias to /src
 import { mapState } from 'vuex'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+import ItemCard from '~/components/items/ItemCard.vue';
 
 export default {
   name: 'spoilers',
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    ItemCard
   },
   data () {
     return {
       recentSets: [],
-      setData: []
+      setData: {}
     }
   },
   async asyncData({req, $echomtg, $moment}) {
@@ -53,12 +70,11 @@ export default {
     const sets = await $echomtg.getSets();
     const recentSets = sets.filter(set => $moment(set.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('x') > Date.now())
     // get cards from each set
-    let setData = []
+    let setData = {}
     for(let i = 0; i < recentSets.length; i++){
-      setData.push(await $echomtg.getSet(recentSets[i].set_code))
+      setData[recentSets[i].set_code] = await $echomtg.getSet(recentSets[i].set_code)
     }
 
-    console.log(setData)
     return {
       recentSets: recentSets,
       setData: setData
@@ -69,17 +85,38 @@ export default {
       window.location.replace('/')
     }
   },
+  mounted() {
+
+  },
   computed: {
     ...mapState([
       'userName'
     ]),
+    upcomingSetsTotal() {
+      return this.recentSets.length
+    },
+    upcomingSetsWords() {
+      if(this.recentSets.length == 1) return this.recentSets[0].name
+      if(this.recentSets.length == 2) return `${this.recentSets[0].name} and ${this.recentSets[1].name}`
+      let listedname = ''
+      for(let i = 0; i <  this.recentSets.length; i++){
+        if(this.recentSets.length - 1 == i) {
+          listedname += `and ${this.recentSets[i].name}`
+        } else {
+          listedname += `${this.recentSets[i].name}, `
+        }
+      }
+
+      return listedname;
+
+    },
     crumbs () {
       return [
       {
           label: 'Magic: the Gathering',
           url: '/mtg/',
           icon: ''
-        },  
+        },
       {
           label: 'Spoilers',
           url: '/mtg/spoilers/',
@@ -91,13 +128,13 @@ export default {
   },
   head () {
       return {
-          title: `Magic:the Gathering Spoilers for SET LIST`,
+          title: `Magic Spoilers for ${this.upcomingSetsWords}`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `View the latest spoilers from upcoming magic the gathering releases SET LIST`
+              content:  `View the latest spoilers from upcoming magic the gathering releases ${this.upcomingSetsWords}`
             }
           ]
 

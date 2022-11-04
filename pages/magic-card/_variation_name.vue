@@ -81,35 +81,8 @@
 
         <div class="columns is-multiline">
 
-          <div class="column is-one-quarter" v-for="variation in variationsSorted" :v-key="`vari-${variation.emid}`">
-            <div class="card has-background-light">
-              <header class="card-header">
-                <p class="card-header-title pb-1 ellipsis">
-                  <span :class="getSetIconClass(variation.set_code)"></span>
-                  {{variation.set}}
-                </p>
-                <a :href="variation.card_url" class="button card-header-icon" aria-label="open card page">
-                    <b-icon icon="share" aria-hidden="true"></b-icon>
-                </a>
-              </header>
-
-              <div class="card-image p-2">
-                <figure class="image">
-                  <a :href="variation.card_url">
-                    <img :src="variation.image" :alt="`${variation.name} from ${variation.expansion}`">
-                  </a>
-                </figure>
-              </div>
-              <nav class="level m-0 p-0">
-                  <div v-if="variation.tcg_mid > 0" class="level-item">{{cs}}{{variation.tcg_mid.toLocaleString("en-US")}}</div>
-                  <div v-if="variation.foil_price > 0" class="level-item has-text-warning-dark">{{cs}}{{variation.foil_price.toLocaleString("en-US")}}</div>
-              </nav>
-              <footer class="card-footer">
-                <a v-if="variation.tcg_mid > 0" :href="variation.purchase_link" class="card-footer-item">Buy {{cs}}{{variation.tcg_mid.toLocaleString("en-US")}}</a>
-                <!-- <a v-if="variation.foil_price > 0" :href="variation.purchase_link" class="card-footer-item has-text-warning">Buy Foil {{cs}}{{variation.foil_price.toLocaleString("en-US")}}</a> -->
-                <a :href="variation.card_url" class="card-footer-item">More Details</a>
-              </footer>
-            </div>
+          <div class="column is-one-fifth" v-for="variation in variationsSorted" v-bind:key="`vari-${variation.emid}`">
+            <item-card :item="variation" />
           </div>
 
         </div>
@@ -125,12 +98,14 @@
 </template>
 
 <script>
+import ItemCard from '~/components/items/ItemCard.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 
 export default {
   name: 'ItemVariations',
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    ItemCard
   },
   data () {
     return {
