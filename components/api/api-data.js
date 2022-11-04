@@ -1464,11 +1464,21 @@ export default {
 				{
 					"name": "Lists: Add Item to List",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    emid: 1234,\n    list: 1,\n    quantity: 1,\n    foil: 0,\n    sb: 0\n}",
+							"raw": "{\n    emid: 104517,\n    list: 145,\n    quantity: 1,\n    foil: 1,\n    sb: 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1476,10 +1486,10 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://www.echomtg.com/api/lists/add/",
+							"raw": "https://dev.echomtg.com/api/lists/add/",
 							"protocol": "https",
 							"host": [
-								"www",
+								"dev",
 								"echomtg",
 								"com"
 							],
@@ -1490,9 +1500,234 @@ export default {
 								""
 							]
 						},
-						"description": "Add an item to a list.\n\n| **Param** | **Description** |\n| --- | --- |\n| emid | **(int) EchoID of card to add** |\n| **list** | (int) list id, see lists/all/ |\n| foil | (int) 0=false, 1=true |\n| sb | (int) sideboard 0=false, 1=true |"
+						"description": "Add an item to a list. If a non-foil is added as foil, it will default to non-foil vice versa.\n\n| **Param** | **Description** |\n| --- | --- |\n| emid | **(int) EchoID of card to add** |\n| **list** | (int) list id, see lists/all/ |\n| foil | (int) 0=false, 1=true |\n| sb | (int) sideboard 0=false, 1=true |"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Lists: Add Item to List",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"emid\": \"104517\",\n    \"list\": \"145\",\n    \"quantity\": \"1\",\n    \"foil\": \"1\",\n    \"sb\": \"0\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/lists/add/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"lists",
+										"add",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 04 Nov 2022 19:32:17 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "282"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Foiled  Gaddock Teeg added to Proclomation of Sands.\",\n    \"list\": {\n        \"id\": \"145\",\n        \"user_id\": \"1\",\n        \"name\": \"Proclomation of Sands\",\n        \"description\": \"\",\n        \"status\": \"1\",\n        \"date_created\": \"2015-06-08 05:21:08\",\n        \"last_updated\": \"2015-06-08 05:21:08\",\n        \"public\": \"1\",\n        \"hash\": \"aJvay\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Lists: Remove Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"2523525\",\n    \"list\" : \"145\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/lists/remove/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"lists",
+								"remove",
+								""
+							]
+						},
+						"description": "Add an item to a list. If a non-foil is added as foil, it will default to non-foil vice versa.\n\n| **Param** | **Description** |\n| --- | --- |\n| emid | **(int) EchoID of card to add** |\n| **list** | (int) list id, see lists/all/ |\n| foil | (int) 0=false, 1=true |\n| sb | (int) sideboard 0=false, 1=true |"
+					},
+					"response": [
+						{
+							"name": "Lists: Remove Item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"2523525\",\n    \"list\" : \"145\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/lists/remove/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"lists",
+										"remove",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 04 Nov 2022 19:34:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=99"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card removed from list Proclomation of Sands.\",\n    \"status\": \"success\"\n}"
+						}
+					]
 				}
 			]
 		},

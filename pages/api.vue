@@ -124,7 +124,7 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
-import APIDocs from '@/components/api/echomtg-api.102622'
+import APIDocs from '~/components/api/api-data'
 import ApiDescriptionTabs from '@/components/api/ApiDescriptionTabs.vue'
 
 export default {
