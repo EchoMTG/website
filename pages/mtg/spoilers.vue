@@ -10,7 +10,7 @@
                 Magic: the Gathering Spoilers for {{upcomingSetsWords}}
             </h1>
             <h3 class="subtitle has-text-white">
-                View spoilers from upcoming magic: the gathering releases {{upcomingSetsWords}}
+                View spoilers from upcoming magic: the gathering releases <span v-html="upcomingSetsWordsLinked"></span>
             </h3>
           </div>
           <div class="column is-one-third">
@@ -27,7 +27,7 @@
     </div>
     <section v-for="set in this.recentSets" v-bind:key="set.id" >
       <div class="container">
-        <h2 class="title is-size-2 has-text-weight-light mt-5">{{set.name}} Spoiled Cards</h2>
+        <h2 class="title is-size-2 has-text-weight-light mt-5" :id="set.set_code">{{set.name}} Spoiled Cards</h2>
         <hr />
         <div class="columns is-multiline">
           <div class="column is-one-fifth" v-for="item in setData[set.set_code].set.items" v-bind:key="item.emid">
@@ -104,6 +104,21 @@ export default {
           listedname += `and ${this.recentSets[i].name}`
         } else {
           listedname += `${this.recentSets[i].name}, `
+        }
+      }
+
+      return listedname;
+
+    },
+    upcomingSetsWordsLinked() {
+      if(this.recentSets.length == 1) return `<a href="#${this.recentSets[0].set_code}">${this.recentSets[0].name}</a>`
+      if(this.recentSets.length == 2) return `<a href="#${this.recentSets[0].set_code}">${this.recentSets[0].name}</a> and <a href="#${this.recentSets[1].set_code}">${this.recentSets[1].name}</a>`
+      let listedname = ''
+      for(let i = 0; i <  this.recentSets.length; i++){
+        if(this.recentSets.length - 1 == i) {
+          listedname += `and <a href="#${this.recentSets[i].set_code}">${this.recentSets[i].name}</a>`
+        } else {
+          listedname += `<a href="#${this.recentSets[i].set_code}">${this.recentSets[i].name}</a>, `
         }
       }
 
