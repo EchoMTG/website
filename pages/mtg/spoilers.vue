@@ -10,7 +10,7 @@
                MTG Spoilers for {{upcomingSetsWords}}
             </h1>
             <h3 class="subtitle has-text-white">
-                View spoilers from upcoming Magic:the Gathering releases <span v-html="upcomingSetsWordsLinked"></span>
+                View spoilers from upcoming Magic:the Gathering releases <span v-html="upcomingSetsWordsLinked"></span>. This page automatically updates spoilers on a daily basis.
             </h3>
           </div>
           <div class="column is-one-third">
