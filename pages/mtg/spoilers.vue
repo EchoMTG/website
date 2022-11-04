@@ -22,7 +22,7 @@
 
       </div>
     </section>
-
+    <div v-for="set in recentSets" >{{set.name}}</div>
 
     <section>
 
@@ -35,18 +35,34 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+
 export default {
   name: 'spoilers',
-
+  components: {
+    EchoBreadCrumbs
+  },
   data () {
     return {
       recentSets: [],
-      cards: []
+      setData: []
     }
   },
-  asyncData({req}) {
+  async asyncData({req, $echomtg, $moment}) {
     // get sets, filter by release date > current date
+    const sets = await $echomtg.getSets();
+    const recentSets = sets.filter(set => $moment(set.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('x') > Date.now())
     // get cards from each set
+    let setData = []
+    for(let i = 0; i < recentSets.length; i++){
+      setData.push(await $echomtg.getSet(recentSets[i].set_code))
+    }
+
+    console.log(setData)
+    return {
+      recentSets: recentSets,
+      setData: setData
+    }
   },
   methods: {
     signuplink() {
@@ -56,7 +72,22 @@ export default {
   computed: {
     ...mapState([
       'userName'
-    ])
+    ]),
+    crumbs () {
+      return [
+      {
+          label: 'Magic: the Gathering',
+          url: '/mtg/',
+          icon: ''
+        },  
+      {
+          label: 'Spoilers',
+          url: '/mtg/spoilers/',
+          icon: ''
+        },
+
+      ]
+    },
   },
   head () {
       return {
