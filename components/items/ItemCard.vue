@@ -37,6 +37,11 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      cs: '$',
+    }
+  },
   methods: {
     getSetIconClass(set_code){
       return this.$echomtg.setIconClass(set_code) + ' mr-1'

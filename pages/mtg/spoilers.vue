@@ -7,10 +7,10 @@
         <div class="columns">
           <div class="column is-two-thirds">
             <h1 class="title has-text-white">
-                Magic: the Gathering Spoilers for {{upcomingSetsWords}}
+               MTG Spoilers for {{upcomingSetsWords}}
             </h1>
             <h3 class="subtitle has-text-white">
-                View spoilers from upcoming magic: the gathering releases <span v-html="upcomingSetsWordsLinked"></span>
+                View spoilers from upcoming Magic:the Gathering releases <span v-html="upcomingSetsWordsLinked"></span>
             </h3>
           </div>
           <div class="column is-one-third">
@@ -27,7 +27,7 @@
     </div>
     <section v-for="set in this.recentSets" v-bind:key="set.id" >
       <div class="container">
-        <h2 class="title is-size-2 has-text-weight-light mt-5" :id="set.set_code">{{set.name}} Spoiled Cards</h2>
+        <h2 class="title is-size-2 has-text-weight-light mt-5" :id="set.set_code">{{set.name}} Spoiled Cards set to release on {{$moment(set.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('LL')}}</h2>
         <hr />
         <div class="columns is-multiline">
           <div class="column is-one-fifth" v-for="item in setData[set.set_code].set.items" v-bind:key="item.emid">
@@ -76,7 +76,7 @@ export default {
     }
 
     return {
-      recentSets: recentSets,
+      recentSets: recentSets.sort((a,b) => $moment(a.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('x') - $moment(b.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('x') ),
       setData: setData
     }
   },
