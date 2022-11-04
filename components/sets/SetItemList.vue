@@ -190,15 +190,15 @@
           <b-table-column field="collectors_number" label="#" numeric sortable v-slot="props">
             {{props.row.collectors_number}}
           </b-table-column>
-          <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
+          <b-table-column field="price_change" v-if="totalRegular > 0" label="7-Day" numeric sortable v-slot="props">
             <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
               {{ props.row.price_change }} %
             </span>
           </b-table-column>
-          <b-table-column field="tcg_mid" label="Regular" numeric sortable v-slot="props">
+          <b-table-column field="tcg_mid" v-if="totalRegular > 0" label="Regular" numeric sortable v-slot="props">
               <span v-if="props.row.tcg_mid > 0">{{cs}}{{ props.row.tcg_mid }}</span>
           </b-table-column>
-          <b-table-column field="foil_price" label="Foil" numeric sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0" label="Foil" numeric sortable v-slot="props">
               <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
           </b-table-column>
 
@@ -317,13 +317,8 @@ export default {
 
   },
   mounted () {
-
-
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
-    console.log(this.items)
-
-
   },
   methods: {
     changeTag(number) {
