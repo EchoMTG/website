@@ -69,6 +69,11 @@ export default {
               icon: 'cards'
             },
             {
+              to: '/mtg/spoilers',
+              label: 'Spoilers',
+              icon: 'cake'
+            },
+            {
               to: '/magic/reserve-list/',
               label: 'Reserve List',
               icon: 'chess-king'
@@ -165,6 +170,11 @@ export default {
               to: '/sets',
               label: 'Expansions',
               icon: 'cards'
+            },
+            {
+              to: '/mtg/spoilers',
+              label: 'Spoilers',
+              icon: 'cake'
             },
           ],
            'EchoMTG',

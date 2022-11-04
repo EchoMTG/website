@@ -311,7 +311,7 @@ export default {
       let height = 400;
       if(this.$refs.table){
         let rects = this.$refs.table.$el.getBoundingClientRect();
-        height = this.windowHeight - rects.top - 160 // 120 is the table header and pagination bar
+        height = (this.windowHeight - rects.top) - 80 // 120 is the table header and pagination bar
       }
       this.tableHeight = height
     },
@@ -319,6 +319,9 @@ export default {
       this.windowHeight = window.innerHeight
       this.updateTableHeight()
     }
+  },
+  mounted() {
+    this.onResize();
   },
   filters: {
     /**

@@ -129,7 +129,7 @@ export default {
       return [
       {
           label: 'Magic: the Gathering',
-          url: '/mtg/',
+          url: '/sets/',
           icon: ''
         },
       {
