@@ -15,7 +15,7 @@
             type="is-primary"
             icon="currency"
             prefix="$"
-            :number="parseFloat(stats.current_value_market)"
+            :number="parseFloat(stats.current_value)"
             :previous-number="parseInt(stats.total_items)"
             previous-period=" Tracked Items"
             label="Collection Value"
@@ -134,7 +134,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
         return parseInt(this.stats.total_cards)
       },
       totalCardsValue(){
-        let val = parseInt(this.stats.current_value_market) - parseInt(this.stats.sealed_value)
+        let val = parseInt(this.stats.current_value) - parseInt(this.stats.sealed_value)
         return val
       },
       crumbs: () => [
