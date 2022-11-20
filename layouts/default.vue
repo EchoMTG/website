@@ -262,9 +262,8 @@ export default {
 
     },
     async amIAuthed() {
-      this.token = this.$cookies.get('token')
-      let response = await fetch('https://www.echomtg.com/api/user/meta/?auth='+this.token)
-      let data = await response.json()
+
+      let data = await this.$echomtg.getUserMeta();
 
       if(data.status == 'success'){
         data.user.name = data.user.first_name + ' ' + data.user.last_name

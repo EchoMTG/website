@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- user dashboard -->
-    <user-dashboard v-if="this.userName" />
+    <user-dashboard v-if="this.loggedIn" />
 
     <!-- default homepage -->
-    <default-homepage v-if="!this.userName" />
+    <default-homepage v-if="!this.loggedIn" />
 
   </div>
 </template>
@@ -22,11 +22,17 @@ export default {
   },
   data () {
     return {
-      test: null
+      loggedIn: false
     }
   },
-  asyncData({req}) {
+  asyncData({req, $cookies}) {
     //console.log('async from index',req)
+    let loggedIn = false
+    if($cookies.get('token')){
+      loggedIn = true
+    }
+
+    return { loggedIn}
   },
   computed: {
     ...mapState([

@@ -202,6 +202,20 @@ export default (context, inject) => {
 
 
   }
+  echomtg.getUserMeta = async () => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/meta/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
   echomtg.inventoryDeleteItem = async (inventory_id) => {
 
     let url = `${context.app.$config.API_DOMAIN}inventory/remove/`;

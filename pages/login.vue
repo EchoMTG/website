@@ -27,7 +27,7 @@
         </b-field>
 
         <b-field>
-          <b-checkbox type="is-black" class="is-thin">
+          <b-checkbox type="is-black" class="is-thin" v-model="remember">
             Remember me
           </b-checkbox>
         </b-field>
@@ -125,7 +125,7 @@ export default {
       isLoading: false,
       email: null,
       password: null,
-      remember: false
+      remember: true
     }
   },
   head () {
@@ -140,6 +140,7 @@ export default {
       let formData = new FormData();
       formData.append('email', this.email);
       formData.append('password', this.password);
+      formData.append('remeber', this.remeber);
       let url = this.$config.API_DOMAIN + 'user/auth/'
       const rawResponse = await fetch(url, {
         method: 'POST',
@@ -148,19 +149,38 @@ export default {
 
       const content = await rawResponse.json();
 
-      this.isLoading = false
+
       // user logged in successfully
       if(content.status == 'success'){
-        let days = this.remember == true ? 700 : 1;
-        this.$cookies.set('token', content.token,days)
+        // remeber for a year or 1 day
+        let days = this.remember == true ? 365 : 1;
+        // set cookie on client
+        this.$cookies.set('token', content.token,{
+          path: '/',
+          maxAge: 1000 * 60 * 60 * 24 * days,
+          domain: '.echomtg.com'
+        })
+
         // set vookie to domain....
         this.$buefy.snackbar.open({
           message: 'Login Successful.',
           queue: false
         })
-        // reload to the homepage, which is the users dashboard
 
-        window.location = '/'
+        // fetch the meta
+        const userdata = await this.$echomtg.getUserMeta();
+
+        // store the user data
+        if(userdata.status == 'success'){
+          userdata.user.name = userdata.user.first_name + ' ' + userdata.user.last_name
+          this.$store.commit('user', userdata.user)
+        }
+
+        // reload to the homepage, which is the users dashboard
+        this.isLoading = false
+        // redirect to homepage
+        this.$router.push({path: '/'});
+
 
       } else {
         this.$buefy.snackbar.open({

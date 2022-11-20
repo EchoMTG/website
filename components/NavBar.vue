@@ -226,11 +226,15 @@ export default {
         message: 'Logging out',
         queue: false
       })
+
       // destroy the cookie
-      eraseCookie('token')
+      this.$cookies.remove('token', {
+        path: '/',
+        domain: '.echomtg.com'
+      })
       // empty the store
       this.$store.replaceState({});
-      window.location = '/'
+      window.location = '/';
     },
     password () {
       this.$buefy.snackbar.open({
