@@ -62,9 +62,6 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'userName'
-    ]),
     crumbs() {
       return [
         {

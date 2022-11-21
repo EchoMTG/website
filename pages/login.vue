@@ -172,8 +172,9 @@ export default {
 
         // store the user data
         if(userdata.status == 'success'){
-          userdata.user.name = userdata.user.first_name + ' ' + userdata.user.last_name
-          this.$store.commit('user', userdata.user)
+
+          this.$store.commit('user', userdata.user);
+          this.$store.commit('authenticated',true);
         }
 
         // reload to the homepage, which is the users dashboard

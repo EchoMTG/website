@@ -90,9 +90,7 @@ export default {
     //console.log('async from index',req)
   },
   computed: {
-    ...mapState([
-      'userName'
-    ])
+
   },
   head () {
       return {

@@ -198,6 +198,7 @@ export default {
       'isAsideRightVisible',
       'isAsideRightActive',
       'userName',
+      'user',
       'hasUpdates'
     ])
   },

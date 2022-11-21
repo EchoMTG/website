@@ -34,11 +34,6 @@ export default {
 
     return { loggedIn}
   },
-  computed: {
-    ...mapState([
-      'userName'
-    ])
-  },
   head () {
       return {
           title: `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,

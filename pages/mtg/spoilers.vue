@@ -89,9 +89,6 @@ export default {
 
   },
   computed: {
-    ...mapState([
-      'userName'
-    ]),
     upcomingSetsTotal() {
       return this.recentSets.length
     },

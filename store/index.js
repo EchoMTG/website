@@ -4,6 +4,15 @@ export const state = () => ({
   userEmail: null,
   userLevel: null,
   userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
+  user: {
+    first_name: '',
+    last_name: '',
+    avatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
+    username: '',
+    email: '',
+    last_login: ''
+  },
+  authenticated: false,
 
   /* NavBar */
   isNavBarVisible: true,
@@ -46,18 +55,18 @@ export const mutations = {
 
   /* User */
   user (state, payload) {
-    if (payload.name) {
-      state.userName = payload.name
+    if (payload.first_name) {
+      state.userName = payload.first_name + ' ' + payload.last_name
     }
-    if (payload.email) {
-      state.userEmail = payload.email
+
+    if (payload) {
+      state.user = payload
     }
-    if (payload.avatar) {
-      state.userAvatar = payload.avatar
-    }
-    if (payload.user_level) {
-      state.user_level = payload.user_level
-    }
+
+  },
+
+  authenticated(state, payload){
+      state.authenticated = payload
   },
 
   /* Full Page mode */

@@ -14,15 +14,15 @@
           <user-avatar class="has-max-width is-aligned-center" />
           <hr>
           <b-field label="Name">
-            <b-input :value="userName" custom-class="is-static" readonly />
+            <b-input :value="user.username" custom-class="is-static" readonly />
           </b-field>
           <hr>
           <b-field label="E-mail">
-            <b-input :value="userEmail" custom-class="is-static" readonly />
+            <b-input :value="user.email" custom-class="is-static" readonly />
           </b-field>
         </card-component>
       </tiles>
-      <password-update-form />
+      <!-- <password-update-form /> -->
     </section>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
     titleStack () {
       return ['Admin', 'Profile']
     },
-    ...mapState(['userName', 'userEmail'])
+    ...mapState(['user'])
   }
 }
 </script>
