@@ -71,26 +71,20 @@ export default {
   methods: {
     async submit () {
       this.isLoading = true
-      let body = {
-        first_name: this.form.first_name
+      let payload = {
+        first_name: this.form.first_name,
+        last_name: this.form.last_name,
+
       }
-      const res = await fetch(this.$config.API_DOMAIN + 'user/update/', {
-        headers: {
-
-        },
-        body: JSON.stringify(body)
-
+      await this.$echomtg.updateUser(payload)
+      this.$buefy.snackbar.open({
+        message: 'Updated',
+        queue: false
       })
-      const data = await res.data();
+      let userdata = await this.$echomtg.getUserMeta();
+      this.$store.commit('user', userdata.user)
+      this.isLoading = false
 
-      setTimeout(() => {
-        this.isLoading = false
-        this.$store.commit('user', this.form)
-        this.$buefy.snackbar.open({
-          message: 'Updated',
-          queue: false
-        })
-      }, 500)
     }
   }
 }

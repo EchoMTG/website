@@ -202,6 +202,22 @@ export default (context, inject) => {
 
 
   }
+
+  echomtg.updateUser = async (payload) => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/update/`;
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
   echomtg.getUserMeta = async () => {
 
     let url = `${context.app.$config.API_DOMAIN}user/meta/`;
