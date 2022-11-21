@@ -143,7 +143,12 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
           label: 'Dashboard',
           icon: ''
         }
-      ]
+      ],
+      ...mapState([
+      'isAsideVisible',
+      'isAsideExpanded',
+      'isAsideMobileExpanded'
+      ]),
 
     },
     watch: {

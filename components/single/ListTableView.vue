@@ -48,11 +48,6 @@ export default {
       return this.$parent.sortOrder
     },
   },
-  events: {
-    eventName: function (data) {
-      alert('event')
-    },
-  },
   methods: {
     updateStatus: function () {
       this.$emit('updateStatus')

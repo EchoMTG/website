@@ -12,11 +12,13 @@
 
 <script>
 import AsideMenuItem from '@/components/AsideMenuItem'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AsideMenuList',
   components: {
-    AsideMenuItem
+    AsideMenuItem,
+    ...mapState(['asideActiveForcedKey', 'isAsideExpanded'])
   },
   props: {
     isSubmenuList: {
@@ -34,7 +36,9 @@ export default {
   },
   methods: {
     menuClick (item) {
+
       this.$emit('menu-click', item)
+
     }
   }
 }

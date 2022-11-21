@@ -44,7 +44,7 @@
                 </div>
               </div>
               <div class="column is-two-thirds"  style="min-height: 40px">
-                  <global-search firstsearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
+                  <global-search firstSearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
               </div>
             </div>
         </div>

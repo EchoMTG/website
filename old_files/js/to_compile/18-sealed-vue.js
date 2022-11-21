@@ -7,7 +7,7 @@ Vue.component('sealed-inventory-view', {
     props: ['symbol'],
     data: function data() {
 
-        return {   
+        return {
             limit: 1000,
             start: 0,
             status: 0,
@@ -122,7 +122,7 @@ Vue.component('sealed-inventory-view', {
         this.getItems();
     },
     template: `
-        <div class="inventory inventory-advanced"> 
+        <div class="inventory inventory-advanced">
              <br>
              <nav class="earnings-tabs level" id="finances">
               <div class="level-item has-text-centered">
@@ -153,23 +153,23 @@ Vue.component('sealed-inventory-view', {
                 <div>
                   <p class="heading">Gain/Loss</p>
                   <span class="title percentage red down" v-if="difference < 0">{{gainloss}}%</span>
-				  <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>  
+				  <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>
                 </div>
               </div>
-            </nav> 
+            </nav>
             <div class="container padded">
                  <div class="columns">
-                   
-                  
+
+
                      <div class="column is-two-thirds"  style="min-height: 40px">
-                     
-                         <global-search 
-                            firstsearch="booster box" 
+
+                         <global-search
+                            firstSearch="booster box"
                             callbackname="Add to Sealed"
-                            :callback="addSealed" 
-                            :showimage="true"></global-search> 
-                    
-                            
+                            :callback="addSealed"
+                            :showimage="true"></global-search>
+
+
                     </div>
                       <div class="column">
                         <div class="control has-icons-left has-icons-right">
@@ -179,8 +179,8 @@ Vue.component('sealed-inventory-view', {
                           </span>
                         </div>
                     </div>
-                 </div>    
-            </div>   
+                 </div>
+            </div>
             <table class="table is-narrow is-bordered is-striped">
                 <thead>
                     <tr>
@@ -197,7 +197,7 @@ Vue.component('sealed-inventory-view', {
                     <tr v-for="item in sealedItems" v-bind:data-id="item.inventory_id">
                         <td><a v-bind:href="item.echo_set_url"><img v-bind:src="item.set_image" style="max-height:18px; max-width:14px" /></a></td>
                         <td>
-                            <span v-if="item.foil == 1" class="foil foiled" style="border:1px grey solid; border-radius:3px; padding: 0px 3px;">F</span>	
+                            <span v-if="item.foil == 1" class="foil foiled" style="border:1px grey solid; border-radius:3px; padding: 0px 3px;">F</span>
                             <a v-bind:href="item.echo_url">{{item.name}}</a>
                         </td>
                         <td>
@@ -205,7 +205,7 @@ Vue.component('sealed-inventory-view', {
 				        </td>
 				        <td>
 				            <span class="percentage red down" v-if="item.gain < 0">{{item.gain}}%</span>
-				            <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>     
+				            <span class="percentage green up" v-if="item.gain > 0">{{item.gain}}%</span>
                         </td>
                         <td>
 				            {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" v-bind:value="item.price_acquired"/>

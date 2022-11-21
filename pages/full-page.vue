@@ -19,8 +19,8 @@
 export default {
   name: 'FullPage',
   mounted () {
-    this.$store.commit('fullPage', true)
-    this.$store.commit('asideRightToggle', false)
+    this.$store.commit('fullPage', false)
+    this.$store.commit('asideRightToggle', true)
   },
   beforeDestroy () {
     this.$store.commit('fullPage', false)

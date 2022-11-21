@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     componentIs () {
-      return this.item.to ? 'nuxt-link' : 'a'
+      return this.item?.to ? 'nuxt-link' : 'a'
     },
     hasSubmenuIcon () {
       return this.hasDropdown || this.item.menuSecondary
@@ -115,8 +115,10 @@ export default {
   },
   methods: {
     menuClick () {
+
       this.$emit('menu-click', this.item)
 
+      this.$store.commit('asideStateToggle', false)
       if (this.hasDropdown) {
         this.isDropdownActive = !this.isDropdownActive
 

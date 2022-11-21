@@ -38,15 +38,15 @@
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
-            <nuxt-link
+            <a
               v-for="tool in toolsMenu"
               v-bind:key="tool.icon"
-              :to="tool.to"
+              :href="tool.href"
               class="navbar-item"
             >
               <b-icon :icon="tool.icon" custom-size="default" />
               <span>{{tool.label}}</span>
-            </nuxt-link>
+            </a>
           </div>
         </nav-bar-menu>
 
@@ -157,12 +157,16 @@ export default {
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
     },
+
+    // this is the navboor icon to toggle asisde left nd eight
     menuToggleIcon () {
       if (this.isLayoutAsideHidden) {
         return this.isAsideVisible ? 'close' : 'menu'
       }
 
       const isExpanded = this.isLayoutMobile ? this.isAsideMobileExpanded : this.isAsideExpanded
+
+
 
       return isExpanded ? 'backburger' : 'forwardburger'
     },

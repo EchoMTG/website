@@ -17,7 +17,7 @@
       @close="menuSecondaryClose"
     />
     <nuxt />
-    <aside-right />
+    <!-- <aside-right /> -->
     <!-- <config-box /> -->
     <!-- <footer-bar /> -->
     <overlay @overlay-click="overlayClick" />
@@ -64,17 +64,17 @@ export default {
           'Magic: the Gathering',
           [
             {
-              to: '/sets',
+              href: '/sets',
               label: 'Expansions',
               icon: 'cards'
             },
             {
-              to: '/mtg/spoilers',
+              href: '/mtg/spoilers',
               label: 'Spoilers',
               icon: 'cake'
             },
             {
-              to: '/magic/reserve-list/',
+              href: '/magic/reserve-list/',
               label: 'Reserve List',
               icon: 'chess-king'
             },
@@ -96,47 +96,23 @@ export default {
             {
               label: 'Groups',
               icon: 'view-list',
-              menuSecondaryKey: 'submenu-1',
-              menuSecondaryIcon: 'view-list',
-              menuSecondaryLabel: 'Groups',
-              menuSecondary: [
-                'Something',
-                [
+              menu: [
                   {
-                    icon: 'view-list',
                     href: '#void',
                     label: 'Commanders'
                   },
                   {
-                    icon: 'view-list',
                     href: '#void',
                     label: 'Reserve List'
                   }
-                ],
-                // 'Dropdown',
-                // [
-                //   {
-                //     label: 'Submenus',
-                //     icon: 'view-list',
-                //     menu: [
-                //       {
-                //         href: '#void',
-                //         label: 'Sub-item One'
-                //       },
-                //       {
-                //         href: '#void',
-                //         label: 'Sub-item Two'
-                //       }
-                //     ]
-                //   }
-                // ]
-              ]
+                ]
+
             }
           ],
           'My Account',
           [
            {
-              to: '/profile',
+              href: '/profile',
               label: 'Profile',
               icon: 'account-circle'
             }
@@ -154,7 +130,7 @@ export default {
               icon: 'help-circle'
             },
             {
-              to: '/about/discord',
+              href: '/about/discord',
               label: 'Discord',
               icon: 'forum'
             }
@@ -222,6 +198,7 @@ export default {
       'isOverlayVisible',
       'isLayoutBoxed',
       'isAsideVisible',
+      'isAsideExpanded',
       'isNavBarVisible',
       'isLayoutAsideHidden',
       'isLayoutMobile'
@@ -275,6 +252,9 @@ export default {
     },
     menuClick (item) {
 
+        this.$store.commit('asideActiveForcedKeyToggle', item)
+        this.$store.commit('overlayToggle', true)
+
       if (item.menuSecondary) {
         this.menuSecondary = item.menuSecondary
         this.menuSecondaryLabel = item.menuSecondaryLabel
@@ -284,8 +264,7 @@ export default {
           ? item.menuSecondaryIcon
           : null
 
-        this.$store.commit('asideActiveForcedKeyToggle', item)
-        this.$store.commit('overlayToggle', true)
+
       } else if (item.action && item.action === 'logout') {
         this.$buefy.toast.open({
           message: 'Log out clicked',
@@ -303,6 +282,7 @@ export default {
       }
     },
     overlayClick () {
+
       if (this.menuSecondary) {
         this.menuSecondaryClose()
       } else {

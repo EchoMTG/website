@@ -27,7 +27,7 @@
         <template #end>
             <UserLogin/>
         </template>
-       
+
     </b-navbar>
 
 
@@ -44,39 +44,39 @@
                     :showimage="true"
                     currencysymbol="$"></global-search>
         </div>
-        
-        <div class="jump-links">	
-            <a href="/sets/">All Magic Sets</a> 
+
+        <div class="jump-links">
+            <a href="/sets/">All Magic Sets</a>
             |
-            <a href="/blog/">Articles</a> 
+            <a href="/blog/">Articles</a>
         </div>
-                    
-        
-        
+
+
+
         <div class="user-links">
 
-    
+
             <a class="" href="/user/" >
-                $USD		
+                $USD
             </a>
-            &nbsp; | &nbsp;	
-            
+            &nbsp; | &nbsp;
+
             <a class="has-text-danger"  href="/register/">
-                <span class="fa fa-user-plus"></span> create account 
+                <span class="fa fa-user-plus"></span> create account
             </a>
                     &nbsp;	&nbsp;
             <a class="round-button" href="/user/">
-                <span class="fa fa-sign-in"></span> login 
+                <span class="fa fa-sign-in"></span> login
             </a>
 
-            
+
             <ul class="drop-links">
                 <li>
                     <a href="/plans/">
                         <span class="fa fa-certificate"></span> Plan
                     </a>
                 </li>
-                <li><hr></li>	
+                <li><hr></li>
                 <li>
                     <a href="/user/profile/">
                     <span class="fa fa-user"></span> User Name
@@ -101,24 +101,24 @@
                     <a href="/user/password/">
                         <span class="fa fa-lock"></span> Change Password
                     </a>
-                </li>	
-            
-                <li><hr/></li>			
+                </li>
+
+                <li><hr/></li>
                 <li>
                     <a href="/about/discord/">
                         <span class="fa fa-life-saver"></span> Get Support
                     </a>
-                </li>	
-                <li><hr/></li>	
+                </li>
+                <li><hr/></li>
                 <li>
                     <a href="/logout/" >
-                        <span class="fa fa-sign-out"></span> Logout 
+                        <span class="fa fa-sign-out"></span> Logout
                     </a>
-                </li>			
+                </li>
             </ul>
-            
+
         </div>
-        
+
     </div> -->
 </template>
 
