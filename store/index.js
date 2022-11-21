@@ -57,10 +57,12 @@ export const mutations = {
   user (state, payload) {
     if (payload.first_name) {
       state.userName = payload.first_name + ' ' + payload.last_name
-    }
-
-    if (payload) {
       state.user = payload
+      state.authenticated = true
+      let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
+      state.isDarkModeActive = darkmode
+      document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active')
+      
     }
 
   },
@@ -89,7 +91,7 @@ export const mutations = {
     const isExpand = payload !== null ? payload : !state.isAsideExpanded
 
     document.documentElement.classList[isExpand ? 'add' : 'remove'](htmlAsideClassName)
-
+    
     state.isAsideExpanded = isExpand
   },
 

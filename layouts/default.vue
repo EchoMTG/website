@@ -57,7 +57,7 @@ export default {
   computed: {
     menu () {
 
-      if (this.amILoggedIn() && this.amIAuthed()){
+      if (this.authenticated){
         return [
           'Tools',
           ToolsArray,
@@ -201,7 +201,8 @@ export default {
       'isAsideExpanded',
       'isNavBarVisible',
       'isLayoutAsideHidden',
-      'isLayoutMobile'
+      'isLayoutMobile',
+      'authenticated'
     ])
   },
   watch: {
@@ -209,17 +210,17 @@ export default {
       if (newVal) {
         this.$store.commit('layoutBoxedToggle', false)
       }
+    },
+    authenticated() {
+      console.log('authed?',this.authenticated)
     }
   },
-  created () {
 
-  },
-  async fetch() {
 
-  },
-  mounted () {
+  async mounted () {
     /* Dark mode by default. Works only with '~/assets/scss/style-light-dark.scss' */
     // this.$store.commit('darkModeToggle', true)
+    await this.authenticatedUser()
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
@@ -229,27 +230,28 @@ export default {
     }
   },
   methods: {
+    async authenticatedUser(){
+      console.log(this.$cookies.get('token'), this.authenticated)
+      if(this.authenticated == false && this.$cookies.get('token')){
+        // fetch the meta
+        const userdata = await this.$echomtg.getUserMeta();
+
+        // store the user data
+        if(userdata.status == 'success'){
+
+          this.$store.commit('user', userdata.user);
+          this.$store.commit('authenticated',true);
+        } else {
+          this.$store.commit('authenticated',false);
+        }
+      }
+
+
+    },
     // if not logged in, the menu should render different
     // if not logged in, caching should run on all the informational pages
     // logged in state is checked by the cookie
     // the cookie needs to be verified via a request, if the cookie is expired it should be deleted
-    amILoggedIn() {
-      // uses this cookie package for SSR https://www.npmjs.com/package/cookie-universal-nuxt
-      return undefined !== this.$cookies.get('token')
-
-    },
-    async amIAuthed() {
-
-      let data = await this.$echomtg.getUserMeta();
-
-      if(data.status == 'success'){
-        data.user.name = data.user.first_name + ' ' + data.user.last_name
-        this.$store.commit('user', data.user)
-        return data.user
-      } else {
-        return null
-      }
-    },
     menuClick (item) {
 
         this.$store.commit('asideActiveForcedKeyToggle', item)

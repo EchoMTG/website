@@ -30,7 +30,6 @@
           <aside-menu-list
             v-else
             :key="index"
-            :is-secondary="isSecondary"
             :menu="menuGroup"
             @menu-click="menuClick"
 

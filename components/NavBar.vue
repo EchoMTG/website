@@ -152,7 +152,7 @@ export default {
   },
   computed: {
     isUserLoggedIn () {
-      return this.userName !== null
+      return this.authenticated
     },
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
@@ -198,9 +198,15 @@ export default {
       'isAsideRightVisible',
       'isAsideRightActive',
       'userName',
+      'authenticated',
       'user',
       'hasUpdates'
     ])
+  },
+  watch: {
+    authenticated() {
+      console.log('auth changed', this.authenticated)
+    }
   },
   mounted () {
     this.$router.afterEach(() => {
@@ -239,6 +245,7 @@ export default {
       })
       // empty the store
       this.$store.replaceState({});
+      this.$store.commit('authenticated',false)
       window.location = '/';
     },
     password () {
