@@ -59,9 +59,6 @@ export default {
     { src: '~/plugins/after-each.js', mode: 'client' },
     { src: '~/plugins/echomtg.js' },
     {src: '~/plugins/chart/chart.js', mode: 'client'}
-
-    // { src: '~/plugins/global-components.js', mode: 'client' },
-    //{ src: '~/plugins/cookiesServer.js', mode: 'server' }
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,

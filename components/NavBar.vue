@@ -38,19 +38,19 @@
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
-            <a
+            <nuxt-link
               v-for="tool in toolsMenu"
               v-bind:key="tool.icon"
-              :href="tool.href"
+              :to="tool.to"
               class="navbar-item"
             >
               <b-icon :icon="tool.icon" custom-size="default" />
               <span>{{tool.label}}</span>
-            </a>
+            </nuxt-link>
           </div>
         </nav-bar-menu>
 
-        <nav-bar-menu v-if="isUserLoggedIn" class="has-divider has-user-avatar">
+        <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
             <span>{{ userName }}</span>
@@ -89,7 +89,7 @@
         </nav-bar-menu>
 
 
-        <div class="navbar-item" v-if="!isUserLoggedIn">
+        <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
           <p class="control">
           <router-link to="/login"
@@ -147,13 +147,12 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
-      toolsMenu: ToolsArray
+      toolsMenu: ToolsArray,
+      authenticated: false
     }
   },
   computed: {
-    isUserLoggedIn () {
-      return this.authenticated
-    },
+
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
     },
@@ -165,7 +164,6 @@ export default {
       }
 
       const isExpanded = this.isLayoutMobile ? this.isAsideMobileExpanded : this.isAsideExpanded
-
 
 
       return isExpanded ? 'backburger' : 'forwardburger'
@@ -198,23 +196,26 @@ export default {
       'isAsideRightVisible',
       'isAsideRightActive',
       'userName',
-      'authenticated',
       'user',
       'hasUpdates'
     ])
-  },
-  watch: {
-    authenticated() {
-      console.log('auth changed', this.authenticated)
-    }
   },
   mounted () {
     this.$router.afterEach(() => {
       this.isMenuNavBarActive = false
     })
+
+    this.authenticated = window.localStorage.getItem('authenticated') !== null;
+
+  },
+  watch: {
+    user() {
+      this.authenticated = window.localStorage.getItem('authenticated') !== null;
+    }
   },
   methods: {
     menuToggle () {
+
       if (this.isLayoutMobile) {
         this.$store.commit('asideMobileStateToggle')
       } else if (this.isLayoutAsideHidden) {
@@ -246,6 +247,11 @@ export default {
       // empty the store
       this.$store.replaceState({});
       this.$store.commit('authenticated',false)
+      // STATE PERSISTANCE
+      window.localStorage.removeItem('user');
+      window.localStorage.removeItem('authenticated');
+
+      // reload to homepage
       window.location = '/';
     },
     password () {

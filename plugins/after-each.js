@@ -3,5 +3,6 @@ export default async ({ app }) => {
     app.store.commit('asideMobileStateToggle', false)
     app.store.commit('overlayToggle', false)
     app.store.commit('asideActiveForcedKeyToggle', null)
+    app.store.commit('asideStateToggle', false)
   })
 }

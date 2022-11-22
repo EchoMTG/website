@@ -22,11 +22,13 @@
         <b-icon :icon="submenuIcon" custom-size="default" />
       </div>
     </component>
-    <aside-menu-list
+    <!--
+      removed sub dropdown lists
+      <aside-menu-list
       v-if="hasDropdown"
       :menu="item.menu"
       :is-submenu-list="true"
-    />
+    /> -->
   </li>
 </template>
 
@@ -118,7 +120,6 @@ export default {
 
       this.$emit('menu-click', this.item)
 
-      this.$store.commit('asideStateToggle', false)
       if (this.hasDropdown) {
         this.isDropdownActive = !this.isDropdownActive
 

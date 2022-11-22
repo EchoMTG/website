@@ -1,25 +1,25 @@
 export default [{
-  href: '/',
+  to: '/',
   icon: 'chart-timeline-variant-shimmer',
   label: 'Dashboard'
 },
 {
-  href: '/tools/inventory/',
+  to: '/tools/inventory/',
   icon: 'ballot',
   label: 'Inventory'
 },
 {
-  href: '/tools/inventory/sealed/',
+  to: '/tools/inventory/sealed/',
   icon: 'wallet-giftcard',
   label: 'Sealed'
 },
 {
-  href: '/tools/lists/',
+  to: '/tools/lists/',
   icon: 'format-list-checkbox',
   label: 'Lists'
 },
 {
-  href: '/tools/watchlist/',
+  to: '/tools/watchlist/',
   icon: 'eye',
   label: 'Watch List'
 }

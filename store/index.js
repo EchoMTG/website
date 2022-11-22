@@ -1,17 +1,20 @@
+const shellUser = {
+  first_name: '',
+  last_name: '',
+  avatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
+  username: '',
+  email: '',
+  last_login: ''
+}
+
+
 export const state = () => ({
   /* User */
   userName: null,
   userEmail: null,
   userLevel: null,
   userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
-  user: {
-    first_name: '',
-    last_name: '',
-    avatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
-    username: '',
-    email: '',
-    last_login: ''
-  },
+  user: shellUser,
   authenticated: false,
 
   /* NavBar */
@@ -61,14 +64,23 @@ export const mutations = {
       state.authenticated = true
       let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
       state.isDarkModeActive = darkmode
-      document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active')
-      
+      document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active');
+      // store to locale store to persist later
+      window.localStorage.setItem('user', JSON.stringify(payload));
+
     }
 
   },
 
   authenticated(state, payload){
       state.authenticated = payload
+      // store to locale store to persist later
+      if(payload == true){
+        window.localStorage.setItem('authenticated', 'true');
+      } else {
+        window.localStorage.removeItem('authenticated')
+      }
+
   },
 
   /* Full Page mode */
@@ -91,7 +103,7 @@ export const mutations = {
     const isExpand = payload !== null ? payload : !state.isAsideExpanded
 
     document.documentElement.classList[isExpand ? 'add' : 'remove'](htmlAsideClassName)
-    
+
     state.isAsideExpanded = isExpand
   },
 

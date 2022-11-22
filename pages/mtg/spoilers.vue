@@ -85,7 +85,12 @@ export default {
       window.location.replace('/')
     }
   },
-  mounted() {
+  mounted () {
+    // this.$store.commit('fullPage', false)
+
+  },
+  beforeDestroy () {
+
 
   },
   computed: {

@@ -31,7 +31,6 @@ export default {
   async asyncData({ redirect, $config, env, $echomtg }) {
      let expansions;
 
-
     // try to get the json
     try {
       expansions = await $echomtg.getSets()

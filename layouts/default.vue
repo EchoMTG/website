@@ -10,7 +10,7 @@
     <aside-menu
       v-if="menuSecondary"
       :menu="menuSecondary"
-      :is-secondary="true"
+      :is-secondary="false"
       :label="menuSecondaryLabel"
       :icon="menuSecondaryIcon"
       @menu-click="menuClick"
@@ -64,55 +64,25 @@ export default {
           'Magic: the Gathering',
           [
             {
-              href: '/sets',
+              to: '/sets',
               label: 'Expansions',
               icon: 'cards'
             },
             {
-              href: '/mtg/spoilers',
+              to: '/mtg/spoilers',
               label: 'Spoilers',
               icon: 'cake'
             },
             {
-              href: '/magic/reserve-list/',
+              to: '/magic/reserve-list/',
               label: 'Reserve List',
               icon: 'chess-king'
             },
-
-            // {
-            //   label: 'Dropdown',
-            //   icon: 'arrow-down-bold-circle',
-            //   menu: [
-            //     {
-            //       href: '#void',
-            //       label: 'Sub-item One'
-            //     },
-            //     {
-            //       href: '#void',
-            //       label: 'Sub-item Two'
-            //     }
-            //   ]
-            // },
-            {
-              label: 'Groups',
-              icon: 'view-list',
-              menu: [
-                  {
-                    href: '#void',
-                    label: 'Commanders'
-                  },
-                  {
-                    href: '#void',
-                    label: 'Reserve List'
-                  }
-                ]
-
-            }
           ],
           'My Account',
           [
            {
-              href: '/profile',
+              to: '/profile',
               label: 'Profile',
               icon: 'account-circle'
             }
@@ -120,17 +90,17 @@ export default {
           'EchoMTG',
           [
             {
-              href: '/api',
+              to: '/api',
               label: 'API Docs',
               icon: 'code-json'
             },
             {
-              href: '/about',
+              to: '/about',
               label: 'About',
               icon: 'help-circle'
             },
             {
-              href: '/about/discord',
+              to: '/about/discord',
               label: 'Discord',
               icon: 'forum'
             }
@@ -210,17 +180,26 @@ export default {
       if (newVal) {
         this.$store.commit('layoutBoxedToggle', false)
       }
-    },
-    authenticated() {
-      console.log('authed?',this.authenticated)
     }
   },
 
 
   async mounted () {
+    // STORE PERSISTANCE
+    // if reloading, load store into state to persist
+    let persistedUser = window.localStorage.getItem('user');
+    if(persistedUser){
+      this.$store.commit('user', JSON.parse(persistedUser));
+      this.$store.commit('authenticated', 'true');
+    }
+    // STORE PERSISTANCE
+    // if there is a token available, attempt to authenticated the user and populate the store
+    if(this.$store.authenticated !== 'true' && this.$cookies.get('token')){
+      await this.authenticatedUser()
+    }
+
     /* Dark mode by default. Works only with '~/assets/scss/style-light-dark.scss' */
     // this.$store.commit('darkModeToggle', true)
-    await this.authenticatedUser()
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
@@ -231,19 +210,16 @@ export default {
   },
   methods: {
     async authenticatedUser(){
-      console.log(this.$cookies.get('token'), this.authenticated)
-      if(this.authenticated == false && this.$cookies.get('token')){
-        // fetch the meta
-        const userdata = await this.$echomtg.getUserMeta();
+      // fetch the meta
+      const userdata = await this.$echomtg.getUserMeta();
 
-        // store the user data
-        if(userdata.status == 'success'){
+      // store the user data
+      if(userdata.status == 'success'){
 
-          this.$store.commit('user', userdata.user);
-          this.$store.commit('authenticated',true);
-        } else {
-          this.$store.commit('authenticated',false);
-        }
+        this.$store.commit('user', userdata.user);
+        this.$store.commit('authenticated',true);
+      } else {
+        this.$store.commit('authenticated',false);
       }
 
 
