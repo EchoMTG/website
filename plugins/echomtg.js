@@ -26,6 +26,38 @@ export default (context, inject) => {
     }
   }
 
+  echomtg.getItem = async (emid) => {
+    let endpoint = `${context.app.$config.API_DOMAIN}data/item/?emid=${emid}`;
+    console.log('echo getitem',endpoint);
+    // pricing
+    const res = await fetch(endpoint, {
+      headers: {
+          'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
+          }
+      })
+      return await res.json();
+
+  }
+
+echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) => {
+  let endpoint = `${context.app.$config.API_DOMAIN}search/mass/?search=${query}&wcExpansion=${expansion}`;
+  endpoint += `&limit=${limit}&textsearch=${oracle}&type=${types}`;
+  // pricing
+  const res = await fetch(endpoint, {
+  headers: {
+      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY,
+      },
+  });
+  if (res.status !== 200){
+    return [];
+  }
+  const data = await res.json();
+  if (data.data === undefined){
+    return [];
+  }
+  return data.data;
+};
+
   echomtg.getSets = async () => {
     let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/`, {
       headers: {
@@ -54,7 +86,7 @@ export default (context, inject) => {
       return await res.json();
 
     } catch(err){
-      echomtg.log(err, res)
+      echomtg.log(err)
     }
   }
 

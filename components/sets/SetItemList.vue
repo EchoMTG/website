@@ -197,10 +197,13 @@
           </b-table-column>
           <b-table-column field="tcg_mid" v-if="totalRegular > 0" label="Regular" numeric sortable v-slot="props">
               <span v-if="props.row.tcg_mid > 0">{{cs}}{{ props.row.tcg_mid }}</span>
+              <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-primary" @click="addItem(props.row.emid, 0)"></b-button>
           </b-table-column>
           <b-table-column field="foil_price" v-if="totalFoiled > 0" label="Foil" numeric sortable v-slot="props">
               <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
+              <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" type="is-warning" @click="addItem(props.row.emid,1)"></b-button>
           </b-table-column>
+
 
           <template slot="detail" slot-scope="props">
             <tr>
@@ -334,6 +337,33 @@ export default {
           return 'tag'
         }
     },
+    addAPIURL: function(emid,foil=0){
+
+            return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${emid}&foil=${foil}`;
+        },
+    addItem: function (emid,foil=0){
+            fetch(this.addAPIURL(emid,foil),{
+                headers: {
+                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
+                }
+            }).then((response) => {
+                return response.json();
+            }).then((json) => {
+                this.$buefy.snackbar.open({
+                    message: json.message,
+                    type: 'is-success',
+                    queue: true,
+                    position: 'is-top',
+                })
+                this.actions++;
+            }).catch(function (error) {
+                this.$buefy.snackbar.open({
+                    message: error,
+                    type: 'is-error',
+                    position: 'is-top',
+                })
+            });
+        },
     replaceSymbols(str){
       return this.$echomtg.replaceSymbols(str)
     },
