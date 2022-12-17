@@ -1,27 +1,19 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-    <hero-bar>
-      Profile
-      <router-link slot="right" to="/" class="button">
-        Dashboard
-      </router-link>
-    </hero-bar>
+   
     <section class="section is-main-section">
-      <tiles>
-        <profile-update-form class="tile is-child" />
-        <card-component title="Profile" icon="account" class="tile is-child">
-          <user-avatar class="has-max-width is-aligned-center" />
-          <hr>
-          <b-field label="Name">
-            <b-input :value="user.username" custom-class="is-static" readonly />
-          </b-field>
-          <hr>
-          <b-field label="E-mail">
-            <b-input :value="user.email" custom-class="is-static" readonly />
-          </b-field>
-        </card-component>
-      </tiles>
+      <div class="columns">
+      <div class="column is-one-fifth"><user-sub-nav /></div>
+      <div class="column">
+        <tiles>
+            <card-component title="Settings" icon="cogs" class="tile is-child">
+              Edit Settings
+            </card-component>
+          </tiles>
+      </div>
+    </div>
+      
       <!-- <password-update-form /> -->
     </section>
   </div>
@@ -32,12 +24,13 @@ import { mapState } from 'vuex'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
+import UserSubNav from '@/components/user/UserSubNav'
 import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import PasswordUpdateForm from '@/components/PasswordUpdateForm'
 import Tiles from '@/components/Tiles'
 import UserAvatar from '@/components/UserAvatar'
 export default {
-  name: 'Profile',
+  name: 'Settings',
   components: {
     UserAvatar,
     Tiles,
@@ -45,16 +38,17 @@ export default {
     ProfileUpdateForm,
     HeroBar,
     TitleBar,
-    CardComponent
+    CardComponent,
+    UserSubNav
   },
   head () {
     return {
-      title: 'Profile — EchoMTG'
+      title: 'My Account Settings — EchoMTG'
     }
   },
   computed: {
     titleStack () {
-      return ['Admin', 'Profile']
+      return ['My Account', 'Settings']
     },
     ...mapState(['user'])
   }

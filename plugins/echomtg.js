@@ -264,6 +264,34 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.getUserSubscriptions = async () => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/subscriptions/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
+  echomtg.updateUserSubscriptions = async (body) => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/subscriptions/`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
   echomtg.inventoryDeleteItem = async (inventory_id) => {
 
     let url = `${context.app.$config.API_DOMAIN}inventory/remove/`;
