@@ -16,7 +16,7 @@
                       <div>
                         <p class="heading">Inventory Reports</p>
                         <b-field class="mt-3">
-                            <b-switch 
+                            <b-switch
                               v-model="reports">
                               {{ offOn(reports) }}
                             </b-switch>
@@ -27,7 +27,7 @@
                       <div>
                         <p class="heading">Watchlist and Trending Reports</p>
                         <b-field class="mt-3">
-                            <b-switch 
+                            <b-switch
                               v-model="watchlist">
                               {{offOn(watchlist)}}
                             </b-switch>
@@ -38,7 +38,7 @@
                       <div>
                         <p class="heading">General Emails</p>
                         <b-field class="mt-3">
-                            <b-switch 
+                            <b-switch
                               v-model="general">
                               {{offOn(general)}}
                             </b-switch>
@@ -54,7 +54,7 @@
                       <div>
                         <p class="heading">Feature Updates</p>
                         <b-field class="mt-3">
-                            <b-switch 
+                            <b-switch
                               v-model="features">
                               {{ offOn(features) }}
                             </b-switch>
@@ -65,7 +65,7 @@
                       <div>
                         <p class="heading">Blog Updates</p>
                         <b-field class="mt-3">
-                            <b-switch 
+                            <b-switch
                               v-model="blog">
                               {{ offOn(blog) }}
                             </b-switch>
@@ -76,12 +76,12 @@
                 </nav>
                 <hr />
                 <div class="content">
-                  <h3>Weekly Email Schedule</h3> 
+                  <h3>Weekly Email Schedule</h3>
                   <ul>
                     <li><strong>Sunday:</strong> Inventory Report</li>
                     <li><strong>Tuesday:</strong> Watchlist Report</li>
                     <li><strong>Thursday:</strong> Trending Report</li>
-                  </ul> 
+                  </ul>
                 </div>
               </card-component>
             </tiles>
@@ -182,7 +182,7 @@ export default {
     titleStack () {
       return ['My Account', 'Email Preferences']
     },
-   
+
     ...mapState(['user'])
   }
 }
