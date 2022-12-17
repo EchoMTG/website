@@ -42,7 +42,7 @@ export default {
         rel: 'stylesheet',
         type: 'text/css',
         href:
-          'https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css'
+          'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
       }
     ]
   },

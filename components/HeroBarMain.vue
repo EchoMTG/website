@@ -22,7 +22,7 @@
         </div>
         <div class="level-right">
           <div class="level-item">
-            <nuxt-link to="/profile" class="button is-light" title="Profile">
+            <nuxt-link to="/user/profile" class="button is-light" title="Profile">
               <b-icon icon="account" custom-size="default" />
               <span>Manage profile</span>
             </nuxt-link>

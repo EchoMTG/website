@@ -58,17 +58,21 @@
 
           <div slot="dropdown" class="navbar-dropdown">
             <nuxt-link
-              to="/profile"
+              to="/user/profile"
               class="navbar-item"
               exact-active-class="is-active"
             >
               <b-icon icon="account" custom-size="default" />
               <span>Edit Profile</span>
             </nuxt-link>
-            <a class="navbar-item">
+            <nuxt-link
+              to="/user/settings"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
               <b-icon icon="settings" custom-size="default" />
               <span>Edit Settings</span>
-            </a>
+            </nuxt-link>
             <a class="navbar-item">
               <b-icon icon="lock" @click="password" custom-size="default" />
               <span>Change Password</span>

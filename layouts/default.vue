@@ -87,7 +87,7 @@ export default {
         navList.push('My Account');
         navList.push([
            {
-              to: '/profile',
+              to: '/my-account/profile',
               label: 'Profile',
               icon: 'account-circle'
             },

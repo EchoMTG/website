@@ -5,13 +5,13 @@
       <div class="column is-two-fifths has-background-black">
         <img class="ml-6 mr-6 mt-6 p-4" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" />
 
-        <card-component
+      <card-component
         class="loginScreenComponent m-6"
-      title="Login"
-      icon="lock"
-      :has-card-header-background="true"
-      :has-button-slot="true"
-    >
+        title="Login"
+        icon="lock"
+        :has-card-header-background="true"
+        :has-button-slot="true"
+      >
       <router-link slot="button" to="/" class="button is-small">
         Home
       </router-link>
