@@ -50,17 +50,16 @@ export default {
       menuSecondary: null,
       menuSecondaryLabel: null,
       menuSecondaryIcon: null,
-      token: null,
-      user: null
+      token: null
     }
   },
   computed: {
-    menu () {
 
-      if (this.authenticated){
-        return [
-          'Tools',
-          ToolsArray,
+    menu () {
+      if(this.user && this.user.username != ''){
+        console.log(this.user);
+      }
+      let navList = [
           'Magic: the Gathering',
           [
             {
@@ -79,52 +78,74 @@ export default {
               icon: 'chess-king'
             },
           ],
-          'My Account',
-          [
+      ];
+
+
+      if (this.authenticated){
+        navList.push('Tools');
+        navList.push(ToolsArray);
+        navList.push('My Account');
+        navList.push([
            {
               to: '/profile',
               label: 'Profile',
               icon: 'account-circle'
-            }
-          ],
-          'EchoMTG',
-          [
-            {
-              to: '/api',
-              label: 'API Docs',
-              icon: 'code-json'
             },
             {
-              to: '/about',
-              label: 'About',
-              icon: 'help-circle'
+              to: '/logout',
+              icon: 'lock',
+              label: 'Logout'
             },
-            {
-              to: '/about/discord',
-              label: 'Discord',
-              icon: 'forum'
-            }
-          ]
-        ]
-      } else {
-         return [
+          ])
 
+      }
+      if (this.user && parseInt(this.user.user_level) > 2){
+       navList.push('Wiki Tools');
+        navList.push([
+           {
+              to: '/wiki/dashboard',
+              label: 'Wiki Home',
+              icon: 'wizard-hat'
+            },
+            {
+              to: '/wiki/import-set',
+              label: 'Import Set',
+              icon: 'download'
+            },
+            {
+              to: '/wiki/import-single',
+              label: 'Fetch Single',
+              icon: 'bone'
+            },
+            {
+              to: '/wiki/manage-sets',
+              label: 'Manage Sets',
+              icon: 'movie-open-edit'
+            },
+          ])
+      }
 
-          'Magic: the Gathering',
-          [
-            {
-              to: '/sets',
-              label: 'Expansions',
-              icon: 'cards'
-            },
-            {
-              to: '/mtg/spoilers',
-              label: 'Spoilers',
-              icon: 'cake'
-            },
-          ],
-           'EchoMTG',
-          [
+      navList.push('EchoMTG')
+      navList.push( [{
+          to: '/api',
+          label: 'API Docs',
+          icon: 'code-json'
+        },
+        {
+          to: '/about',
+          label: 'About',
+          icon: 'help-circle'
+        },
+        {
+          to: '/about/discord',
+          label: 'Discord',
+          icon: 'forum'
+        }]
+        )
+
+      if (!this.authenticated){
+          navList.push('User');
+          navList.push([
             {
               to: '/login',
               icon: 'lock',
@@ -135,24 +156,10 @@ export default {
               icon: 'plus',
               label: 'Create Account'
             },
-            {
-              to: '/api',
-              label: 'API Docs',
-              icon: 'code-json'
-            },
-            {
-              to: '/about',
-              label: 'About',
-              icon: 'help-circle'
-            },
-            {
-              to: '/about/discord',
-              label: 'Discord',
-              icon: 'forum'
-            }
-          ]
-        ]
+          ])
       }
+
+      return navList;
     },
     menuBottom () {
       return [
@@ -172,7 +179,8 @@ export default {
       'isNavBarVisible',
       'isLayoutAsideHidden',
       'isLayoutMobile',
-      'authenticated'
+      'authenticated',
+      'user'
     ])
   },
   watch: {
