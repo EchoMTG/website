@@ -250,6 +250,69 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.deleteUserCreditCard = async (card_id) => {
+    let body = {
+      card_id: card_id
+    }
+    let url = `${context.app.$config.API_DOMAIN}billing/remove_card/`;
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.addUserCreditCard = async (number,month,year,cvc) => {
+    let body = {
+      card_number: number,
+      exp_month: month,
+      exp_year: year,
+      cvc: cvc
+    }
+    let url = `${context.app.$config.API_DOMAIN}billing/add_card/`;
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.getUserCreditCard = async () => {
+    let url = `${context.app.$config.API_DOMAIN}billing/get_cards/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
+  echomtg.getUserPaymentHistory = async () => {
+    let url = `${context.app.$config.API_DOMAIN}billing/payments/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
   echomtg.getUserMeta = async () => {
 
     let url = `${context.app.$config.API_DOMAIN}user/meta/`;
