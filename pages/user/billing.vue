@@ -1,17 +1,18 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-    <section v-if="customer == false" class="section is-main-section">
-      <div class="content">
-        <h3>No Subscription Detected</h3>
-        <p>The billing section is only activated for subscribed users.</p>
-        <a class="button" href="/plans">Start your Subscription</a>
-      </div>
-    </section>
-    <section v-if="customer !== false" class="section is-main-section">
+
+    <section class="section is-main-section">
       <div class="columns">
         <div class="column is-one-fifth"><user-sub-nav /></div>
-        <div class="column">
+        <div v-if="customer == false" class="column">
+          <div class="content">
+            <h3>No Subscription Detected</h3>
+            <p>The billing section is only activated for subscribed users.</p>
+            <a class="button" href="/plans">Start your Subscription</a>
+          </div>
+        </div>
+        <div v-if="customer !== false" class="column">
           <tiles>
             <!-- subscription-->
             <card-component title="Subscription Plan" icon="script-text" class="tile is-child">
@@ -253,7 +254,7 @@ export default {
     cards = cards?.cards ? cards.cards : false;
     const plan = user.planObject;
 
-
+    customer = false;
     // return it
     if (user) {
       return {
