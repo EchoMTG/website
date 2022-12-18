@@ -398,6 +398,34 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.deleteUser = async () => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/delete/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  };
+
+  echomtg.logout = async () => {
+    let url = `${context.app.$config.API_DOMAIN}user/logout/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
+
   echomtg.inventoryDeleteItem = async (inventory_id) => {
 
     let url = `${context.app.$config.API_DOMAIN}inventory/remove/`;
@@ -422,7 +450,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       id: inventory_id,
       tradable: tradable ? 1 : 0
     }
-    console.log(body)
+    //console.log(body)
     const res = await fetch(url, {
       method: 'POST',
       headers: {

@@ -7,7 +7,7 @@
         <div class="column">
           <tiles>
             <card-component title="Stream Settings" icon="twitch" class="tile is-child">
-              Streamer Settings
+              Streamer Settings Coming Soon
             </card-component>
 
             <card-component title="Streamer Q&amp;A" icon="help-circle" class="tile is-child">

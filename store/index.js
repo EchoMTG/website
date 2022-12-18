@@ -58,8 +58,8 @@ export const mutations = {
 
   /* User */
   user (state, payload) {
-    if (payload.first_name) {
-      state.userName = payload.first_name + ' ' + payload.last_name
+    if (payload.username) {
+      state.userName = payload?.first_name ? payload.first_name + ' ' + payload.last_name : payload.username;
       state.user = payload
       state.authenticated = true
       let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
