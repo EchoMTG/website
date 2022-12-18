@@ -7,9 +7,9 @@
       <div class="column is-one-fifth"><user-sub-nav /></div>
       <div class="column">
         <tiles>
-            <card-component title="Settings" icon="cogs" class="tile is-child">
+            <card-component title="User Settings" icon="cogs" class="tile is-child">
                 <div class="content">
-                  <p>Manage your email preferences.</p>
+                  <p>Interface Personalization</p>
                 </div>
                 <nav class="level is-mobile">
                   <div class="level-left">
@@ -28,6 +28,31 @@
                       </div>
                     </div>
                     <div class="level-item ml-5">
+                      <div>
+                        <p class="heading">Default Inventory Sort</p>
+                        <b-field >
+                           <b-select v-model="default_sort" placeholder="Select a default Sort Option">
+                              <option
+                                  v-for="option in sortOptions"
+                                  :value="option.value"
+                                  :key="option.name">
+
+                                  {{ option.name }}
+                              </option>
+                          </b-select>
+                        </b-field>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </nav>
+                <div class="content">
+                  <p>Reporting Options</p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <div class="level-item">
                       <div>
                         <p class="heading">Market Pricing</p>
                         <b-field class="mt-4">
@@ -53,35 +78,24 @@
                         </b-field>
                       </div>
                     </div>
-
-                  </div>
-                </nav>
-                <nav class="level is-mobile">
-
-                  <div class="level-left">
-                    <div class="level-item">
-                      <div>
-                        <p class="heading">Feature Updates</p>
-
-                      </div>
-                    </div>
                     <div class="level-item ml-5">
                       <div>
-                        <p class="heading">Blog Updates</p>
+                        <p class="heading">Current Preference</p>
+                        <b-field >
+                           <b-select v-model="currency_code" placeholder="Select a default Sort Option">
+                              <option
+                                  v-for="option in currencyOptions"
+                                  :value="option.value"
+                                  :key="option.name">
 
+                                  {{ option.currency_code }} {{ option.name }}
+                              </option>
+                          </b-select>
+                        </b-field>
                       </div>
                     </div>
                   </div>
                 </nav>
-                <hr />
-                <div class="content">
-                  <h3>Weekly Email Schedule</h3>
-                  <ul>
-                    <li><strong>Sunday:</strong> Inventory Report</li>
-                    <li><strong>Tuesday:</strong> Watchlist Report</li>
-                    <li><strong>Thursday:</strong> Trending Report</li>
-                  </ul>
-                </div>
               </card-component>
           </tiles>
       </div>
@@ -108,12 +122,38 @@ export default {
       return {
         user: {},
         dark_mode: null,
-        currency_code: 'USD',
-        default_sort: 'i.id',
+        currency_code: null,
+        default_sort: null,
         image_pref: "0",
         setting_report_threshhold: null,
         show_real_name: "0",
-        use_market: null
+        use_market: null,
+        sortOptions: [
+          {
+            name: 'Latest Entry',
+            value: 'i.id'
+          },
+          {
+            name: 'Price',
+            value: 'p.tcg_mid'
+          },
+          {
+            name: 'Item Name',
+            value: 'c.card_name'
+          },
+          {
+            name: 'Personal Gain',
+            value: 'personal_gain'
+          },
+          {
+            name: '7-Day Change',
+            value: 'p.change'
+          },
+          {
+            name: 'Expansion Name',
+            value: 'c.expansion'
+          }
+        ]
       }
   },
   components: {
@@ -135,6 +175,12 @@ export default {
     },
     setting_report_threshhold: function() {
       this.updateValue('setting_report_threshhold',this.setting_report_threshhold);
+    },
+    default_sort: function() {
+      this.updateValue('default_sort',this.default_sort);
+    },
+    currency_code: function() {
+      this.updateValue('currency_code',this.currency_code);
     }
   },
   async asyncData({ redirect, $echomtg }) {
@@ -145,10 +191,12 @@ export default {
     const dark_mode = user.dark_mode;
     const use_market = user.use_market;
     const setting_report_threshhold = user.setting_report_threshhold;
+    const default_sort = user.default_sort;
+    const currency_code = user.currency_code;
     // return it
     if (user) {
       return {
-        user, dark_mode , use_market, setting_report_threshhold
+        user, dark_mode , use_market, setting_report_threshhold , default_sort, currency_code
       }
     } else {
       redirect('/')
@@ -175,6 +223,33 @@ export default {
   computed: {
     titleStack () {
       return ['My Account', 'Settings']
+    },
+    currencyOptions() {
+      return [{'value': 'USD', 'name':'USD - U.S. Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'GBP', 'name':'GBP - British Pounds', 'symbol':'£','symbol_html':'&pound;'},
+					{'value': 'EUR', 'name':'EUR - Euros', 'symbol':'€','symbol_html':'&euro;'},
+					{'value': 'AUD', 'name':'AUD - Australian Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'BRL', 'name':'BRL - Brazilian Real', 'symbol':'R$','symbol_html':'R$'},
+					{'value': 'CAD', 'name':'CAD - Canadian Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'CZK', 'name':'CZK - Czech koruny', 'symbol':'Kč','symbol_html':''},
+					{'value': 'DKK', 'name':'DKK - Danish Kroner', 'symbol':'kr','symbol_html':'kr'},
+					{'value': 'HKD', 'name':'HKD - Hong Kong Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'HUF', 'name':'HUF - Hungarian Forints', 'symbol':'Ft','symbol_html':'Ft'},
+					{'value': 'ILS', 'name':'ILS - Israeli Shekels', 'symbol':'₪','symbol_html':'&#8362;'},
+					{'value': 'JPY', 'name':'JPY - Japanese Yen', 'symbol':'¥','symbol_html':'&#165;'},
+					{'value': 'MYR', 'name':'MYR - Malaysian Ringgits', 'symbol':'RM','symbol_html':'RM'},
+					{'value': 'MXN', 'name':'MXN - Mexican Pesos', 'symbol':'$','symbol_html':'$'},
+					{'value': 'NZD', 'name':'NZD - New Zealand Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'NOK', 'name':'NOK - Norwegian Kroner', 'symbol':'kr','symbol_html':'kr'},
+					{'value': 'PHP', 'name':'PHP - Philippine Pesos', 'symbol':'Php','symbol_html':'Php'},
+					{'value': 'PLN', 'name':'PLN - Polish zloty', 'symbol':'zł','symbol_html':''},
+					{'value': 'SGD', 'name':'SGD - Singapore Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'SEK', 'name':'SEK - Swedish Kronor', 'symbol':'kr','symbol_html':'kr'},
+					{'value': 'CHF', 'name':'CHF - Swiss Francs', 'symbol':'CHF','symbol_html':'CHF'},
+					{'value': 'TWD', 'name':'TWD - Taiwan New Dollars', 'symbol':'$','symbol_html':'$'},
+					{'value': 'THB', 'name':'THB - Thai Baht', 'symbol':'฿','symbol_html':' &#3647;'},
+					{'value': 'TRY', 'name':'TRY - Turkish Liras', 'symbol':'TL','symbol_html':' &#3647;'},
+      ]
     },
     ...mapState(['user'])
   }
