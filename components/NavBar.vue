@@ -70,13 +70,13 @@
               class="navbar-item"
               exact-active-class="is-active"
             >
-              <b-icon icon="settings" custom-size="default" />
+              <b-icon icon="cogs" custom-size="default" />
               <span>Edit Settings</span>
             </nuxt-link>
-            <a class="navbar-item">
+            <!-- <a class="navbar-item">
               <b-icon icon="lock" @click="password" custom-size="default" />
               <span>Change Password</span>
-            </a>
+            </a> -->
 
             <hr class="navbar-divider">
             <a class="navbar-item" @click="toggleDark">
