@@ -32,7 +32,7 @@
                 <div v-if="subscriptions.length > 0">
                   <div class="columns mx-0 mb-4">
                     <div class="column content m-0 p-0">
-                      <p><strong>Balance:</strong> ${{customer.balance}}</p>
+                      <p><strong>Balance:</strong> ${{getStripeAmount(customer.balance)}}</p>
                     </div>
                     <div class="column content m-0 p-0">
                       <p><strong>Started:</strong> {{getDateFromUnixTimestamp(subscriptions[0].start_date)}}</p>
@@ -107,7 +107,7 @@
                 {{getDateFromUnixTimestamp(props.row.created)}}
                 </b-table-column>
                 <b-table-column field="amount" label="Amount" sortable  v-slot="props">
-                  ${{props.row.amount}}
+                  ${{getStripeAmount(props.row.amount)}}
                   <span class="has-text-danger" v-if="props.row.outcome.reason">{{props.row.outcome.reason}}</span>
                   <span class="has-text-success" v-if="!props.row.outcome.reason">{{props.row.outcome.seller_message}}</span>
                 </b-table-column>
