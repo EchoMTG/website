@@ -34,16 +34,27 @@
             </card-component>
           </tiles>
           <card-component title="Payment History" icon="receipt-text-check" class="tile is-child">
-              <b-table v-if="cards.length > 0" :data="payments">
-                <b-table-column field="amount" label="Amount"   v-slot="props">
-
-                  ${{props.row.amount}}
+              <b-table sortable="true" searchable="true" v-if="cards.length > 0" :data="payments">
+                <b-table-column field="statement_description" label="Description"   v-slot="props">
+                  <span :title="props.row.id">{{props.row.statement_description}}</span>
                 </b-table-column>
-                <b-table-column field="created" numeric label="Date Charged"   v-slot="props">
+                <b-table-column field="created" numeric label="Payment Date"   v-slot="props">
                 {{getDateFromUnixTimestamp(props.row.created)}}
                 </b-table-column>
-                <b-table-column field="source.name" numeric label="Charged to"   v-slot="props">
-                {{props.row.source.name}}
+                <b-table-column field="amount" label="Amount"   v-slot="props">
+                  ${{props.row.amount}}
+                  <span class="has-text-danger" v-if="props.row.outcome.reason">{{props.row.outcome.reason}}</span>
+                  <span class="has-text-success" v-if="!props.row.outcome.reason">{{props.row.outcome.seller_message}}</span>
+                </b-table-column>
+                <b-table-column field="card.id" label="Card"   v-slot="props">
+                  {{props.row.card.brand}} {{props.row.card.last4}} {{props.row.card.exp_month}}/{{props.row.card.exp_year}}
+                </b-table-column>
+
+
+
+
+                <b-table-column field="row.id" label="Transaction ID"   v-slot="props">
+                {{props.row.id}}
                 </b-table-column>
 
               </b-table>
