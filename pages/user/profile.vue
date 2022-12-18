@@ -1,13 +1,13 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-   
+
     <section class="section is-main-section">
       <div class="columns">
       <div class="column is-one-fifth"><user-sub-nav /></div>
       <div class="column">
         <tiles>
-            
+
             <profile-update-form class="tile is-child" />
             <card-component title="Profile" icon="account" class="tile is-child">
               <user-avatar class="has-max-width is-aligned-center" />
@@ -23,7 +23,7 @@
           </tiles>
       </div>
     </div>
-      
+
       <!-- <password-update-form /> -->
     </section>
   </div>
@@ -53,7 +53,7 @@ export default {
   },
   head () {
     return {
-      title: 'Profile — EchoMTG'
+      title: 'Profile - Account — EchoMTG'
     }
   },
   computed: {

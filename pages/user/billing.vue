@@ -1,7 +1,14 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack" />
-    <section class="section is-main-section">
+    <section v-if="customer == false" class="section is-main-section">
+      <div class="content">
+        <h3>No Subscription Detected</h3>
+        <p>The billing section is only activated for subscribed users.</p>
+        <a class="button" href="/plans">Start your Subscription</a>
+      </div>
+    </section>
+    <section v-if="customer !== false" class="section is-main-section">
       <div class="columns">
         <div class="column is-one-fifth"><user-sub-nav /></div>
         <div class="column">
@@ -215,7 +222,7 @@ export default {
   },
   head () {
     return {
-      title: 'My Account Billing — EchoMTG'
+      title: 'Billing - Account — EchoMTG'
     }
   },
   data() {
@@ -236,14 +243,14 @@ export default {
     const data = await $echomtg.getUserMeta();
     const user = data?.user ? data.user : false;
     let payments = await $echomtg.getUserPaymentHistory();
-    payments = payments.payments;
+    payments = payments?.payments ? payments.payments : false;
     let subscriptions = await $echomtg.getUserBillingSubscriptions();
-    subscriptions = subscriptions.subscriptions;
+    subscriptions = subscriptions?.subscriptions ? subscriptions.subscriptions : false;
     let customer = await $echomtg.getUserBillingCustomer();
-    customer = customer.customer;
+    customer = customer?.customer ? customer.customer : false;
 
     let cards = await $echomtg.getUserCreditCard();
-    cards = cards.cards;
+    cards = cards?.cards ? cards.cards : false;
     const plan = user.planObject;
 
 

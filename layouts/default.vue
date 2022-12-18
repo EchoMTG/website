@@ -87,9 +87,19 @@ export default {
         navList.push('My Account');
         navList.push([
            {
-              to: '/my-account/profile',
+              to: '/user/profile',
               label: 'Profile',
               icon: 'account-circle'
+            },
+            {
+              to: '/user/settings',
+              label: 'Settings',
+              icon: 'cogs'
+            },
+            {
+              to: '/user/streamer',
+              label: 'Streamer Perks',
+              icon: 'twitch'
             },
             {
               to: '/logout',

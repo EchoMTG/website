@@ -7,11 +7,11 @@
         <div class="column">
           <tiles>
             <card-component title="Plan" icon="palette-outline" class="tile is-child">
-             Alters
+             Coming Soon
             </card-component>
-           
+
           </tiles>
-         
+
         </div>
       </div>
     </section>
@@ -42,7 +42,7 @@ export default {
   },
   head () {
     return {
-      title: 'Alters - My Account  — EchoMTG'
+      title: 'Alters - Account — EchoMTG'
     }
   },
   computed: {

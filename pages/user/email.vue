@@ -145,7 +145,7 @@ export default {
   },
   head () {
     return {
-      title: 'My Account Email Preferences — EchoMTG'
+      title: 'Email Preferences - Account — EchoMTG'
     }
   },
   watch: {

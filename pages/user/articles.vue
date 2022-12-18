@@ -6,14 +6,11 @@
         <div class="column is-one-fifth"><user-sub-nav /></div>
         <div class="column">
           <tiles>
-            <card-component title="Plan" icon="script-text" class="tile is-child">
-              Clear Account
-            </card-component>
-            <card-component title="Credit Cards" icon="credit-card" class="tile is-child">
-              Credit Cards
+            <card-component title="My Articles" icon="script-text" class="tile is-child">
+              Coming Soon
             </card-component>
           </tiles>
-         
+
         </div>
       </div>
     </section>
@@ -44,12 +41,12 @@ export default {
   },
   head () {
     return {
-      title: 'Clear Inventory -  — EchoMTG'
+      title: 'My Articles - Account — EchoMTG'
     }
   },
   computed: {
     titleStack () {
-      return ['My Account', 'Clear Inventory']
+      return ['My Account', 'My Articles']
     },
     ...mapState(['user'])
   }

@@ -13,7 +13,7 @@
               Credit Cards
             </card-component>
           </tiles>
-         
+
         </div>
       </div>
     </section>
@@ -44,7 +44,7 @@ export default {
   },
   head () {
     return {
-      title: 'Clear Inventory -  — EchoMTG'
+      title: 'Clear Inventory - Account — EchoMTG'
     }
   },
   computed: {

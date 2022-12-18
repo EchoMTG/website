@@ -204,7 +204,7 @@ export default {
   },
   head () {
     return {
-      title: 'Settings - My Account — EchoMTG'
+      title: 'Settings - Account — EchoMTG'
     }
   },
   methods: {
