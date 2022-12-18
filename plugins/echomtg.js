@@ -313,6 +313,32 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.getUserBillingCustomer = async () => {
+    let url = `${context.app.$config.API_DOMAIN}billing/customer/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
+  echomtg.getUserBillingSubscriptions = async () => {
+    let url = `${context.app.$config.API_DOMAIN}billing/subscriptions/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  }
+
   echomtg.getUserMeta = async () => {
 
     let url = `${context.app.$config.API_DOMAIN}user/meta/`;
@@ -323,6 +349,22 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
         'Content-Type': 'application/json',
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
+    });
+    return await res.json();
+  }
+
+  echomtg.updateUserBillingDefaultCard = async (card_id) => {
+    let body = {};
+    body['card_id'] = card_id;
+
+    let url = `${context.app.$config.API_DOMAIN}billing/set_default_card/`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
     });
     return await res.json();
   }
@@ -340,6 +382,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     });
     return await res.json();
   }
+
 
   echomtg.updateUserSubscriptions = async (body) => {
 

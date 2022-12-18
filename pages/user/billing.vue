@@ -6,30 +6,87 @@
         <div class="column is-one-fifth"><user-sub-nav /></div>
         <div class="column">
           <tiles>
+            <!-- subscription-->
             <card-component title="Subscription Plan" icon="script-text" class="tile is-child">
-              <div class="content">
-                <p><strong>Plan:</strong> {{plan.name}} (<nuxt-link to="/plans">change</nuxt-link>)</p>
-                <p><strong>Max Items:</strong> {{plan.card_cap}}</p>
-                <p><strong>Max Lists:</strong> {{plan.list_cap}}</p>
-                <p>
+
+                <div class="columns mx-0 mb-5">
+                  <div class="column content m-0 p-0">
+                    <p><strong>Plan:</strong> {{plan.name}} (<nuxt-link to="/plans">change</nuxt-link>)</p>
+                  </div>
+                  <div class="column content m-0 p-0">
+                    <p><strong>Item Limit:</strong> {{plan.card_cap}}</p>
+                  </div>
+                  <div class="column content m-0 p-0">
+                    <p><strong>List Limit:</strong> {{plan.list_cap}}</p>
+                  </div>
+                </div>
+                <div class="columns mx-0  mb-5">
+                  <div class="column content m-0 p-0">
+                    <p>
                   <strong>Email Reports:</strong>
                     Inventory <span v-if="plan.id > 2">, Watchlist, and Trending</span>
                 </p>
-              </div>
+                  </div>
+                </div>
+                <hr />
+                <div v-if="subscriptions.length > 0">
+                  <div class="columns mx-0 mb-4">
+                    <div class="column content m-0 p-0">
+                      <p><strong>Balance:</strong> ${{customer.balance}}</p>
+                    </div>
+                    <div class="column content m-0 p-0">
+                      <p><strong>Started:</strong> {{getDateFromUnixTimestamp(subscriptions[0].start_date)}}</p>
+                    </div>
+
+                    <div class="column content m-0 p-0">
+                      <strong>Status:</strong>
+                      <b-tag v-if="!customer.delinquent" type="is-success">Paid</b-tag>
+                      <b-tag v-if="customer.delinquent" type="is-danger">Delinquent</b-tag>
+                    </div>
+                  </div>
+
+                  <div class="columns mx-0">
+                    <div class="column content m-0 p-0">
+                      <p><strong>Billed:</strong> Around the <strong>{{getBillingDayFromUnixTimestamp(subscriptions[0].billing_cycle_anchor)}}</strong> of each Month</p>
+                    </div>
+                  </div>
+                  <hr/>
+                </div>
+                <a class="button m-0 " href="/plans">Change Subscription</a>
+
+
+
+
+
             </card-component>
+            <!-- subscription-->
+
+            <!-- credit cards-->
             <card-component title="Credit Cards" icon="credit-card" class="tile is-child">
-              <b-table v-if="cards.length > 0" :data="cards">
-                <b-table-column field="card.last4" label="Last 4"   v-slot="props">
-                  <b-icon class="mr-4" icon="credit-card" />{{props.row.card.brand}} {{props.row.card.last4}}
-                  <span class="has-text-danger" v-if="isExpired(props.row.card.exp_year,props.row.card.exp_month)">Expired</span>
-                </b-table-column>
-                <b-table-column field="card.exp_year" label="Expiration"  width="40" v-slot="props">
-                  {{props.row.card.exp_month}}/{{props.row.card.exp_year}}
-                </b-table-column>
-                <b-table-column  width="40" v-slot="props">
-                  <b-button size="is-small" type="is-ghost" @click="deleteCard(props.row.id)" icon-right="delete"></b-button>
-                </b-table-column>
-              </b-table>
+              <div v-if="cards.length > 0">
+                <b-table class="m-0 p-0 mb-4" v-if="cards.length > 0" :data="cards">
+                  <b-table-column field="card.last4" label="Last 4"   v-slot="props">
+                    <b-icon class="mr-4" icon="credit-card" />{{props.row.card.brand}} {{props.row.card.last4}}
+                    <span class="has-text-danger" v-if="isExpired(props.row.card.exp_year,props.row.card.exp_month)">Expired</span>
+                     <b-tag v-if="customer.default_card == props.row.id"
+                        type="is-info"
+                      >Default</b-tag>
+                      <b-button v-if="customer.default_card !== props.row.id" size="is-small" @click="setDefaultCard(props.row.id)">Make Default</b-button>
+
+                  </b-table-column>
+                  <b-table-column field="card.exp_year" label="Expiration"  width="40" v-slot="props">
+                    {{props.row.card.exp_month}}/{{props.row.card.exp_year}}
+                  </b-table-column>
+                  <b-table-column  width="40" v-slot="props">
+                    <b-button size="is-small" type="is-ghost" @click="deleteCard(props.row.id)" icon-right="delete"></b-button>
+                  </b-table-column>
+                </b-table>
+              </div>
+              <div class="content" v-else>
+                <p>No credit cards on file.</p>
+                <hr/>
+              </div>
+
               <b-button @click="isCardModalActive = true">Add Card</b-button>
             </card-component>
           </tiles>
@@ -38,6 +95,8 @@
               <b-icon icon="help-circle" class="is-pulled-left" /> For billing inquires, please email <a href="mailto:iona@echomtg.com">iona@echomtg.com</a>
             </div>
           </div>
+          <!-- /credit cards-->
+
           <!-- Payment Table -->
           <card-component title="Payment History" icon="receipt-text-check" class="tile is-child">
               <b-table default-sort-direction="DESC" default-sort="created" v-if="cards.length > 0" :data="payments">
@@ -161,10 +220,11 @@ export default {
   },
   data() {
     return {
-      user: {},
       plan: {},
       cards: [],
       payments: [],
+      subscriptions: [],
+      customer: {},
       card_number: '',
       card_cvc: '',
       card_exp_month: "01",
@@ -177,20 +237,28 @@ export default {
     const user = data?.user ? data.user : false;
     let payments = await $echomtg.getUserPaymentHistory();
     payments = payments.payments;
+    let subscriptions = await $echomtg.getUserBillingSubscriptions();
+    subscriptions = subscriptions.subscriptions;
+    let customer = await $echomtg.getUserBillingCustomer();
+    customer = customer.customer;
 
     let cards = await $echomtg.getUserCreditCard();
     cards = cards.cards;
     const plan = user.planObject;
-    console.log(cards)
+
 
     // return it
     if (user) {
       return {
-        user, plan, cards, payments
+        plan, cards, payments, subscriptions, customer
       }
     } else {
       redirect('/')
     }
+  },
+  mounted(){
+    console.log(this.customer);
+    console.log(this.cards);
   },
   methods: {
     isExpired(cardyear, cardmonth){
@@ -205,21 +273,52 @@ export default {
       }
       return false;
     },
+    getStripeAmount(amount){
+      if(amount == 0) return 0;
+      return amount / 100;
+    },
+    async setDefaultCard(card_id){
+      const res = await this.$echomtg.updateUserBillingDefaultCard(card_id);
+      this.$buefy.snackbar.open({
+          message: res.message,
+          type: `is-${res.status}`,
+          position: 'is-top',
+      })
+
+      await this.refreshData();
+    },
     async addCard(){
       this.isCardModalActive = false
-      await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
-      await this.refreshCards();
+      const res = await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
+      this.$buefy.snackbar.open({
+          message: res.message,
+          type: `is-${res.status}`,
+          position: 'is-top',
+      })
+      await this.refreshData();
     },
     async deleteCard(card_id){
-      await this.$echomtg.deleteUserCreditCard(card_id);
-      await this.refreshCards();
+      const res = await this.$echomtg.deleteUserCreditCard(card_id);
+      this.$buefy.snackbar.open({
+          message: res.message,
+          type: `is-${res.status}`,
+          position: 'is-top',
+      })
+      await this.refreshData();
     },
-    async refreshCards(){
+    async refreshData(){
+      const payments = await this.$echomtg.getUserPaymentHistory();
+      this.payments = payments.payments;
+      const customer = await this.$echomtg.getUserBillingCustomer();
+      this.customer = customer.customer;
       let cards = await this.$echomtg.getUserCreditCard();
       this.cards = cards.cards;
     },
     getDateFromUnixTimestamp(unix_timestamp){
       return new Date(unix_timestamp * 1000).toLocaleDateString("en-US");
+    },
+    getBillingDayFromUnixTimestamp(unix_timestamp){
+      return new Date(unix_timestamp * 1000).getDate();
     }
   },
   computed: {
