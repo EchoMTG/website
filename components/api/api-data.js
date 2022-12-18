@@ -394,6 +394,389 @@ export default {
 					]
 				},
 				{
+					"name": "User: Subscriptions Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"general\" : \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/user/subscriptions/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"subscriptions",
+								""
+							]
+						},
+						"description": "View the user's email subscription preferences."
+					},
+					"response": [
+						{
+							"name": "User: Subscriptions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"general\" : \"1\",\n    \"blog\" : \"1\",\n    \"reports\" : \"1\",\n    \"watchlist\" : \"1\",\n    \"features\" : \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/subscriptions/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"subscriptions",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Dec 2022 14:41:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User subscription updated.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Subscriptions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/user/subscriptions/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"subscriptions",
+								""
+							]
+						},
+						"description": "View the user's email subscription preferences."
+					},
+					"response": [
+						{
+							"name": "User: Subscriptions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/subscriptions/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"subscriptions",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Dec 2022 14:41:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"user_id\": \"1\",\n        \"weekly_update\": \"1\",\n        \"watchlist_notifications\": \"1\",\n        \"blog_update\": \"1\",\n        \"feature_updates\": \"1\",\n        \"general_emails\": \"1\"\n    },\n    \"message\": \"User subscription accessed.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/user/logout/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"logout",
+								""
+							]
+						},
+						"description": "Destroy the user session and cookies. Invalidates the token."
+					},
+					"response": [
+						{
+							"name": "Logout",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/logout/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"logout",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 01:09:47 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1498"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User logged out\",\n    \"status\" : \"success\"\n}"
+						}
+					]
+				},
+				{
 					"name": "User: Update Meta Data",
 					"request": {
 						"method": "POST",
@@ -1478,7 +1861,7 @@ export default {
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    emid: 104517,\n    list: 145,\n    quantity: 1,\n    foil: 1,\n    sb: 0\n}",
+							"raw": "{\n    \"emid\": \"104517\",\n    \"list\": \"145\",\n    \"quantity\": \"1\",\n    \"foil\": \"1\",\n    \"sb\": \"0\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1486,10 +1869,10 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://dev.echomtg.com/api/lists/add/",
+							"raw": "https://www.echomtg.com/api/lists/add/",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"www",
 								"echomtg",
 								"com"
 							],
@@ -2164,6 +2547,619 @@ export default {
 				}
 			],
 			"description": "Endpoints to import or read card data."
+		},
+		{
+			"name": "Billing",
+			"item": [
+				{
+					"name": "Billing: Get Cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/get_cards/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"get_cards",
+								""
+							]
+						},
+						"description": "Get cards on file for the user using the Stripe API. Iterate through the cards data object to get `id` s which are used in set default and delete card endpoints."
+					},
+					"response": [
+						{
+							"name": "Billing: Get Cards",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/get_cards/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"get_cards",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card Added\",\n    \"status\": \"success\",\n    \"cards\": [\n        {\n            \"id\": \"card_1AmpblJ7PTISwI9vgu5I2NHQ\",\n            \"object\": \"payment_method\",\n            \"billing_details\": {\n                \"address\": {\n                    \"city\": null,\n                    \"country\": null,\n                    \"line1\": null,\n                    \"line2\": null,\n                    \"postal_code\": null,\n                    \"state\": null\n                },\n                \"email\": null,\n                \"name\": null,\n                \"phone\": null\n            },\n            \"card\": {\n                \"brand\": \"visa\",\n                \"checks\": {\n                    \"address_line1_check\": null,\n                    \"address_postal_code_check\": null,\n                    \"cvc_check\": \"pass\"\n                },\n                \"country\": \"US\",\n                \"exp_month\": 2,\n                \"exp_year\": 2023,\n                \"fingerprint\": \"BiHdU4oBTMxXhriO\",\n                \"funding\": \"credit\",\n                \"generated_from\": null,\n                \"last4\": \"4242\",\n                \"networks\": {\n                    \"available\": [\n                        \"visa\"\n                    ],\n                    \"preferred\": null\n                },\n                \"three_d_secure_usage\": {\n                    \"supported\": true\n                },\n                \"wallet\": null\n            },\n            \"created\": 1501790869,\n            \"customer\": \"cus_B97rP5lMMUayVf\",\n            \"livemode\": false,\n            \"metadata\": [],\n            \"type\": \"card\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Billing: Show Payments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/payments/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"payments",
+								""
+							]
+						},
+						"description": "Get cards on file for the user using the Stripe API. Iterate through the cards data object to get `id` s which are used in set default and delete card endpoints."
+					},
+					"response": [
+						{
+							"name": "Billing: Show Payments",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/payments/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"payments",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 18 Dec 2022 03:05:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invoices Received\",\n    \"status\": \"success\",\n    \"invoices\": [\n        {\n            \"id\": \"ch_3M1WOPJ7eeeee0KSDMFiB\",\n            \"object\": \"charge\",\n            \"amount\": 131,\n            \"amount_captured\": 0,\n            \"amount_refunded\": 0,\n            \"application\": null,\n            \"application_fee\": null,\n            \"application_fee_amount\": null,\n            \"balance_transaction\": null,\n            \"billing_details\": {\n                \"address\": {\n                    \"city\": null,\n                    \"country\": null,\n                    \"line1\": null,\n                    \"line2\": null,\n                    \"postal_code\": null,\n                    \"state\": null\n                },\n                \"email\": null,\n                \"name\": \"email@gmail.com\",\n                \"phone\": null\n            },\n            \"calculated_statement_descriptor\": \"ECHOMTG MYTHIC\",\n            \"captured\": false,\n            \"card\": {\n                \"id\": \"card_14je9LJ7PdddddaEuw6V4\",\n                \"object\": \"card\",\n                \"address_city\": null,\n                \"address_country\": null,\n                \"address_line1\": null,\n                \"address_line1_check\": null,\n                \"address_line2\": null,\n                \"address_state\": null,\n                \"address_zip\": null,\n                \"address_zip_check\": null,\n                \"brand\": \"Visa\",\n                \"country\": \"US\",\n                \"customer\": \"cus_4teeeetHLDu6\",\n                \"cvc_check\": null,\n                \"dynamic_last4\": null,\n                \"exp_month\": 7,\n                \"exp_year\": 2017,\n                \"fingerprint\": \"BiHdUwwwwMxXhriO\",\n                \"funding\": \"credit\",\n                \"last4\": \"4242\",\n                \"metadata\": [],\n                \"name\": \"email@gmail.com\",\n                \"tokenization_method\": null\n            },\n            \"created\": 1669041806,\n            \"currency\": \"usd\",\n            \"customer\": \"cus_4tR1ddddHLDu6\",\n            \"description\": \"Invoice 48A2F61-0117\",\n            \"destination\": null,\n            \"dispute\": null,\n            \"disputed\": false,\n            \"failure_balance_transaction\": null,\n            \"failure_code\": \"expired_card\",\n            \"failure_message\": \"Your card has expired.\",\n            \"fraud_details\": [],\n            \"invoice\": \"in_1M1VP0J7PeeeewnkShmL\",\n            \"livemode\": false,\n            \"metadata\": [],\n            \"on_behalf_of\": null,\n            \"order\": null,\n            \"outcome\": {\n                \"network_status\": \"declined_by_network\",\n                \"reason\": \"expired_card\",\n                \"risk_level\": \"normal\",\n                \"risk_score\": 27,\n                \"seller_message\": \"The bank returned the decline code `expired_card`.\",\n                \"type\": \"issuer_declined\"\n            },\n            \"paid\": false,\n            \"payment_intent\": \"pi_3M1WOPJ7PTISwI9v0cX4A1TS\",\n            \"payment_method\": \"card_14je9LJeeeee9vqaEuw6V4\",\n            \"payment_method_details\": {\n                \"card\": {\n                    \"brand\": \"visa\",\n                    \"checks\": {\n                        \"address_line1_check\": null,\n                        \"address_postal_code_check\": null,\n                        \"cvc_check\": null\n                    },\n                    \"country\": \"US\",\n                    \"exp_month\": 7,\n                    \"exp_year\": 2017,\n                    \"fingerprint\": \"BiHdUeeexXhriO\",\n                    \"funding\": \"credit\",\n                    \"installments\": null,\n                    \"last4\": \"4242\",\n                    \"mandate\": null,\n                    \"network\": \"visa\",\n                    \"three_d_secure\": null,\n                    \"wallet\": null\n                },\n                \"type\": \"card\"\n            },\n            \"receipt_email\": \"email@gmail.com\",\n            \"receipt_number\": null,\n            \"receipt_url\": null,\n            \"refunded\": false,\n            \"refunds\": {\n                \"object\": \"list\",\n                \"data\": [],\n                \"has_more\": false,\n                \"total_count\": 0,\n                \"url\": \"/v1/charges/ch_3M1WOPJ7PTISwI9v0KSDMFiB/refunds\"\n            },\n            \"review\": null,\n            \"shipping\": null,\n            \"source\": {\n                \"id\": \"card_14je9LJ7PTISwI9vqaEuw6V4\",\n                \"object\": \"card\",\n                \"address_city\": null,\n                \"address_country\": null,\n                \"address_line1\": null,\n                \"address_line1_check\": null,\n                \"address_line2\": null,\n                \"address_state\": null,\n                \"address_zip\": null,\n                \"address_zip_check\": null,\n                \"brand\": \"Visa\",\n                \"country\": \"US\",\n                \"customer\": \"cus_4tR1stCFtHLDu6\",\n                \"cvc_check\": null,\n                \"dynamic_last4\": null,\n                \"exp_month\": 7,\n                \"exp_year\": 2017,\n                \"fingerprint\": \"BiHdU4oBTMxXhriO\",\n                \"funding\": \"credit\",\n                \"last4\": \"4242\",\n                \"metadata\": [],\n                \"name\": \"apuzzo@gmail.com\",\n                \"tokenization_method\": null\n            },\n            \"source_transfer\": null,\n            \"statement_description\": \"EchoMTG Mythic\",\n            \"statement_descriptor\": \"EchoMTG Mythic\",\n            \"statement_descriptor_suffix\": null,\n            \"status\": \"failed\",\n            \"transfer_data\": null,\n            \"transfer_group\": null\n        }=\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Billing: Show Subscriptions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/subscriptions/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"subscriptions",
+								""
+							]
+						},
+						"description": "Get cards on file for the user using the Stripe API. Iterate through the cards data object to get `id` s which are used in set default and delete card endpoints."
+					},
+					"response": [
+						{
+							"name": "Billing: Show Subscriptions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/subscriptions/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"subscriptions",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 18 Dec 2022 14:48:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Subscriptions Received\",\n    \"status\": \"success\",\n    \"subscriptions\": [\n        {\n            \"id\": \"sub_4tR1Yeeeeee5L\",\n            \"object\": \"subscription\",\n            \"application\": null,\n            \"application_fee_percent\": null,\n            \"automatic_tax\": {\n                \"enabled\": false\n            },\n            \"billing\": \"charge_automatically\",\n            \"billing_cycle_anchor\": 1469557744,\n            \"billing_thresholds\": null,\n            \"cancel_at\": null,\n            \"cancel_at_period_end\": false,\n            \"canceled_at\": null,\n            \"collection_method\": \"charge_automatically\",\n            \"created\": 1412373827,\n            \"currency\": \"usd\",\n            \"current_period_end\": 1672079344,\n            \"current_period_start\": 1669487344,\n            \"customer\": \"cus_4tR1seeeeHLDu6\",\n            \"days_until_due\": null,\n            \"default_payment_method\": null,\n            \"default_source\": null,\n            \"default_tax_rates\": [],\n            \"description\": null,\n            \"discount\": null,\n            \"ended_at\": null,\n            \"invoice_customer_balance_settings\": {\n                \"consume_applied_balance_on_void\": true\n            },\n            \"items\": {\n                \"object\": \"list\",\n                \"data\": [\n                    {\n                        \"id\": \"si_18SoMAJ7PTISwI9vpBrTP6SA\",\n                        \"object\": \"subscription_item\",\n                        \"billing_thresholds\": null,\n                        \"created\": 1412373827,\n                        \"metadata\": [],\n                        \"plan\": {\n                            \"id\": \"rare\",\n                            \"object\": \"plan\",\n                            \"active\": true,\n                            \"aggregate_usage\": null,\n                            \"amount\": 299,\n                            \"amount_decimal\": \"299\",\n                            \"billing_scheme\": \"per_unit\",\n                            \"created\": 1412037694,\n                            \"currency\": \"usd\",\n                            \"interval\": \"month\",\n                            \"interval_count\": 1,\n                            \"livemode\": false,\n                            \"metadata\": [],\n                            \"name\": \"Rare\",\n                            \"nickname\": null,\n                            \"product\": \"prod_BVEq66c8So6QEi\",\n                            \"statement_description\": \"EchoMTG Rare\",\n                            \"statement_descriptor\": \"EchoMTG Rare\",\n                            \"tiers\": null,\n                            \"tiers_mode\": null,\n                            \"transform_usage\": null,\n                            \"trial_period_days\": null,\n                            \"usage_type\": \"licensed\"\n                        },\n                        \"price\": {\n                            \"id\": \"rare\",\n                            \"object\": \"price\",\n                            \"active\": true,\n                            \"billing_scheme\": \"per_unit\",\n                            \"created\": 1412037694,\n                            \"currency\": \"usd\",\n                            \"custom_unit_amount\": null,\n                            \"livemode\": false,\n                            \"lookup_key\": null,\n                            \"metadata\": [],\n                            \"nickname\": null,\n                            \"product\": \"prod_BVEq66c8So6QEi\",\n                            \"recurring\": {\n                                \"aggregate_usage\": null,\n                                \"interval\": \"month\",\n                                \"interval_count\": 1,\n                                \"trial_period_days\": null,\n                                \"usage_type\": \"licensed\"\n                            },\n                            \"tax_behavior\": \"unspecified\",\n                            \"tiers_mode\": null,\n                            \"transform_quantity\": null,\n                            \"type\": \"recurring\",\n                            \"unit_amount\": 299,\n                            \"unit_amount_decimal\": \"299\"\n                        },\n                        \"quantity\": 1,\n                        \"subscription\": \"sub_4tR1Y3aHRk3b5L\",\n                        \"tax_rates\": []\n                    }\n                ],\n                \"has_more\": false,\n                \"total_count\": 1,\n                \"url\": \"/v1/subscription_items?subscription=sub_4tR1Y3aHRk3b5L\"\n            },\n            \"latest_invoice\": \"in_1M8TASJ7PTISwI9vmwg1Isyh\",\n            \"livemode\": false,\n            \"metadata\": [],\n            \"next_pending_invoice_item_invoice\": null,\n            \"on_behalf_of\": null,\n            \"pause_collection\": null,\n            \"payment_settings\": {\n                \"payment_method_options\": null,\n                \"payment_method_types\": null,\n                \"save_default_payment_method\": null\n            },\n            \"pending_invoice_item_interval\": null,\n            \"pending_setup_intent\": null,\n            \"pending_update\": null,\n            \"plan\": {\n                \"id\": \"rare\",\n                \"object\": \"plan\",\n                \"active\": true,\n                \"aggregate_usage\": null,\n                \"amount\": 299,\n                \"amount_decimal\": \"299\",\n                \"billing_scheme\": \"per_unit\",\n                \"created\": 1412037694,\n                \"currency\": \"usd\",\n                \"interval\": \"month\",\n                \"interval_count\": 1,\n                \"livemode\": false,\n                \"metadata\": [],\n                \"name\": \"Rare\",\n                \"nickname\": null,\n                \"product\": \"prod_BVEq66c8So6QEi\",\n                \"statement_description\": \"EchoMTG Rare\",\n                \"statement_descriptor\": \"EchoMTG Rare\",\n                \"tiers\": null,\n                \"tiers_mode\": null,\n                \"transform_usage\": null,\n                \"trial_period_days\": null,\n                \"usage_type\": \"licensed\"\n            },\n            \"quantity\": 1,\n            \"schedule\": null,\n            \"start\": 1545353794,\n            \"start_date\": 1412373827,\n            \"status\": \"unpaid\",\n            \"tax_percent\": null,\n            \"test_clock\": null,\n            \"transfer_data\": null,\n            \"trial_end\": null,\n            \"trial_start\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Billing: Switch Plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plan\": \"rare\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/switch_plan/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"switch_plan",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Billing: Switch Plan",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"plan\": \"rare\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/switch_plan/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"switch_plan",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Hi teeg,<br/><br/>Woohoo welcome to the rare party! Let me know if you have any questions with the subscription upgrade and may you pull mythically!\",\n    \"data\": {\n        \"id\": \"sub_XXXXXX\",\n        \"object\": \"subscription\",\n        \"application\": null,\n        \"application_fee_percent\": null,\n        \"automatic_tax\": {\n            \"enabled\": false\n        },\n        \"billing\": \"charge_automatically\",\n        \"billing_cycle_anchor\": 111111,\n        \"billing_thresholds\": null,\n        \"cancel_at\": null,\n        \"cancel_at_period_end\": false,\n        \"canceled_at\": null,\n        \"collection_method\": \"charge_automatically\",\n        \"created\": 111111,\n        \"currency\": \"usd\",\n        \"current_period_end\": 111111,\n        \"current_period_start\": 11111,\n        \"customer\": \"cus_XXXXXXX\",\n        \"days_until_due\": null,\n        \"default_payment_method\": null,\n        \"default_source\": null,\n        \"default_tax_rates\": [],\n        \"description\": null,\n        \"discount\": null,\n        \"ended_at\": null,\n        \"invoice_customer_balance_settings\": {\n            \"consume_applied_balance_on_void\": true\n        },\n        \"items\": {\n            \"object\": \"list\",\n            \"data\": [\n                {\n                    \"id\": \"si_XXXXXXXX\",\n                    \"object\": \"subscription_item\",\n                    \"billing_thresholds\": null,\n                    \"created\": 1667852966,\n                    \"metadata\": [],\n                    \"plan\": {\n                        \"id\": \"rare\",\n                        \"object\": \"plan\",\n                        \"active\": true,\n                        \"aggregate_usage\": null,\n                        \"amount\": 299,\n                        \"amount_decimal\": \"299\",\n                        \"billing_scheme\": \"per_unit\",\n                        \"created\": 1412037694,\n                        \"currency\": \"usd\",\n                        \"interval\": \"month\",\n                        \"interval_count\": 1,\n                        \"livemode\": false,\n                        \"metadata\": [],\n                        \"name\": \"Rare\",\n                        \"nickname\": null,\n                        \"product\": \"prod_XXXXXXX\",\n                        \"statement_description\": \"EchoMTG Rare\",\n                        \"statement_descriptor\": \"EchoMTG Rare\",\n                        \"tiers\": null,\n                        \"tiers_mode\": null,\n                        \"transform_usage\": null,\n                        \"trial_period_days\": null,\n                        \"usage_type\": \"licensed\"\n                    },\n                    \"price\": {\n                        \"id\": \"rare\",\n                        \"object\": \"price\",\n                        \"active\": true,\n                        \"billing_scheme\": \"per_unit\",\n                        \"created\": 1412037694,\n                        \"currency\": \"usd\",\n                        \"custom_unit_amount\": null,\n                        \"livemode\": false,\n                        \"lookup_key\": null,\n                        \"metadata\": [],\n                        \"nickname\": null,\n                        \"product\": \"prod_XXXXXXX\",\n                        \"recurring\": {\n                            \"aggregate_usage\": null,\n                            \"interval\": \"month\",\n                            \"interval_count\": 1,\n                            \"trial_period_days\": null,\n                            \"usage_type\": \"licensed\"\n                        },\n                        \"tax_behavior\": \"unspecified\",\n                        \"tiers_mode\": null,\n                        \"transform_quantity\": null,\n                        \"type\": \"recurring\",\n                        \"unit_amount\": 299,\n                        \"unit_amount_decimal\": \"299\"\n                    },\n                    \"quantity\": 1,\n                    \"subscription\": \"sub_XXXXXX\",\n                    \"tax_rates\": []\n                }\n            ],\n            \"has_more\": false,\n            \"total_count\": 1,\n            \"url\": \"/v1/subscription_items?subscription=sub_XXXXXXXX\"\n        },\n        \"latest_invoice\": \"in_XXXXXXX\",\n        \"livemode\": false,\n        \"metadata\": [],\n        \"next_pending_invoice_item_invoice\": null,\n        \"on_behalf_of\": null,\n        \"pause_collection\": null,\n        \"payment_settings\": {\n            \"payment_method_options\": null,\n            \"payment_method_types\": null,\n            \"save_default_payment_method\": \"off\"\n        },\n        \"pending_invoice_item_interval\": null,\n        \"pending_setup_intent\": null,\n        \"pending_update\": null,\n        \"plan\": {\n            \"id\": \"rare\",\n            \"object\": \"plan\",\n            \"active\": true,\n            \"aggregate_usage\": null,\n            \"amount\": 299,\n            \"amount_decimal\": \"299\",\n            \"billing_scheme\": \"per_unit\",\n            \"created\": 1412037694,\n            \"currency\": \"usd\",\n            \"interval\": \"month\",\n            \"interval_count\": 1,\n            \"livemode\": false,\n            \"metadata\": [],\n            \"name\": \"Rare\",\n            \"nickname\": null,\n            \"product\": \"prod_XXXXXXXX\",\n            \"statement_description\": \"EchoMTG Rare\",\n            \"statement_descriptor\": \"EchoMTG Rare\",\n            \"tiers\": null,\n            \"tiers_mode\": null,\n            \"transform_usage\": null,\n            \"trial_period_days\": null,\n            \"usage_type\": \"licensed\"\n        },\n        \"quantity\": 1,\n        \"schedule\": null,\n        \"start\": 1667852965,\n        \"start_date\": 1667852965,\n        \"status\": \"active\",\n        \"tax_percent\": null,\n        \"test_clock\": null,\n        \"transfer_data\": null,\n        \"trial_end\": null,\n        \"trial_start\": null\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Set Default Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"card_id\" : \"card_XXXXXXX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/set_default_card/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"set_default_card",
+								""
+							]
+						},
+						"description": "Set an existing card to the default payment method. `card_id` comes from the card array returned by `billing/get_cards/`"
+					},
+					"response": [
+						{
+							"name": "Set Default Card",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"card_id\" : \"card_XXXXXXX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/set_default_card/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"set_default_card",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card set as default.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Billing: Add Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plan\": \"uncommon\",\r\n    \"card_number\": \"5555555555554444\",\r\n    \"exp_month\": \"04\",\r\n    \"exp_year\": \"2023\",\r\n    \"cvc\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/add_card/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"add_card",
+								""
+							]
+						},
+						"description": "Add Card endpoint is used for both for creating new customers and adding cards to their accounts. This endpoint was design this way since Echo paid plans require a credit card to start. If a user already exists, then a `plan` is optional."
+					},
+					"response": [
+						{
+							"name": "Billing: Add Card",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"plan\": \"uncommon\",\r\n    \"card_number\": \"5555555555554444\",\r\n    \"exp_month\": \"04\",\r\n    \"exp_year\": \"2023\",\r\n    \"cvc\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/add_card/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"add_card",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Plan set to uncommon and payment source added.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Billing: Charge",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\" : \"4.99\",\r\n    \"description\" : \"Pack of cards\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/charge/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"charge",
+								""
+							]
+						},
+						"description": "One off charge (not implemented yet). Requires a user to have a registered card through `/api/billing/add_card/`."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"card_id\" : \"card_XXXXXXX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/billing/remove/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"billing",
+								"remove",
+								""
+							]
+						},
+						"description": "Delete an existing card, `card_id` comes from the card array returned by `billing/get_cards/`"
+					},
+					"response": [
+						{
+							"name": "Delete Card",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"card_id\" : \"card_XXXXXXX\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/remove/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"remove",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card deleted.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			],
+			"description": "API Endpoints to controls a single users billing, all calls are in context of the authenticated user. EchoMTG is integrated with Stripe.com, keeping all sensitive data off the EchoMTG platform. Access is done through an obfuscated user token, which is stored on the EchoMTG user."
 		},
 		{
 			"name": "Deprecated",

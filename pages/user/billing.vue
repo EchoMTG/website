@@ -177,7 +177,7 @@ export default {
     const user = data?.user ? data.user : false;
     let payments = await $echomtg.getUserPaymentHistory();
     payments = payments.payments;
-    console.log(payments);
+
     let cards = await $echomtg.getUserCreditCard();
     cards = cards.cards;
     const plan = user.planObject;
