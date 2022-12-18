@@ -398,6 +398,21 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+
+  echomtg.clearUserInventory = async () => {
+
+    let url = `${context.app.$config.API_DOMAIN}user/clear/`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+    return await res.json();
+  };
+
   echomtg.deleteUser = async () => {
 
     let url = `${context.app.$config.API_DOMAIN}user/delete/`;
