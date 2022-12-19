@@ -16,6 +16,9 @@
               <p class="is-size-7">{{plan.description}}</p>
             </div>
             <div class="panel-block  has-background-light">
+              <b-button :style="`background: ${plan.color}; color: ${plan.text}`" size="is-small" @click="subscribe(plan.name)">Subscribe</b-button>
+            </div>
+            <div class="panel-block  has-background-light">
               <small>Usage Limits</small>
             </div>
             <div class="panel-block">
@@ -127,6 +130,9 @@
         </div>
       </div>
     </section>
+    <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
+      <AddCreditCardForm :plan="plan" :successCallback="() => refreshData()" :cancelCallback="() => deactivateModal()"/>
+    </b-modal>
   </div>
 </template>
 
@@ -135,12 +141,15 @@ import { mapState } from 'vuex'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
+import AddCreditCardForm from '@/components/billing/AddCreditCardForm'
+
 export default {
   name: 'Billing',
   components: {
     Tiles,
     HeroBar,
-    TitleBar
+    TitleBar,
+    AddCreditCardForm
   },
   head () {
     return {
@@ -149,23 +158,31 @@ export default {
   },
   data() {
     return {
-
+      isCardModalActive: false,
       customer: {},
       plan: '',
 
     }
   },
-  async asyncData({ redirect, $echomtg }) {
-
+  async asyncData({ $echomtg }) {
+    let customer = await $echomtg.getUserBillingCustomer();
+    customer = customer?.customer ? customer.customer : false;
+    // return it
+    return { customer };
   },
   mounted(){
-    console.log('user from store',this.user)
+    console.log('user from store',this.customer)
   },
   methods: {
 
     getStripeAmount(amount){
       if(amount == 0) return 0;
       return amount / 100;
+    },
+    async subscribe(plan_name){
+      this.plan = plan_name
+      this.isCardModalActive = true;
+
     },
 
     async addCard(){
@@ -178,8 +195,12 @@ export default {
       })
       await this.refreshData();
     },
-
+    deactivateModal() {
+      this.isCardModalActive = false
+    },
     async refreshData(){
+      this.isCardModalActive = false;
+
 
     },
     getDateFromUnixTimestamp(unix_timestamp){

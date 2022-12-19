@@ -89,7 +89,13 @@ export default {
   methods: {
     async addCard(){
 
-      const res = await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
+      const res = await this.$echomtg.addUserCreditCard(
+        this.card_number,
+        this.card_exp_month,
+        this.card_exp_year,
+        this.card_cvc,
+        this.plan
+      );
       this.$buefy.snackbar.open({
           message: res.message,
           type: `is-${res.status}`,

@@ -131,7 +131,7 @@
         </div>
       </div>
       <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
-          <AddCreditCardForm :successCallback="() => refreshData()" :cancelCallback="() => deactivateModel()"/>
+          <AddCreditCardForm :successCallback="() => refreshData()" :cancelCallback="() => deactivateModal()"/>
       </b-modal>
     </section>
   </div>
@@ -184,7 +184,6 @@ export default {
     let subscriptions = await $echomtg.getUserBillingSubscriptions();
     subscriptions = subscriptions?.subscriptions ? subscriptions.subscriptions : false;
     let customer = await $echomtg.getUserBillingCustomer();
-
     customer = customer?.customer ? customer.customer : false;
 
     let cards = await $echomtg.getUserCreditCard();
@@ -213,7 +212,7 @@ export default {
       }
       return false;
     },
-    deactivateModel() {
+    deactivateModal() {
       this.isCardModalActive = false;
     },
     getStripeAmount(amount){

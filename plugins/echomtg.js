@@ -267,12 +267,15 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
-  echomtg.addUserCreditCard = async (number,month,year,cvc) => {
+  echomtg.addUserCreditCard = async (number,month,year,cvc, plan = false) => {
     let body = {
       card_number: number,
       exp_month: month,
       exp_year: year,
       cvc: cvc
+    }
+    if(plan && plan !== ''){
+      body['plan'] = plan;
     }
     let url = `${context.app.$config.API_DOMAIN}billing/add_card/`;
 
