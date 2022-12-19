@@ -1,6 +1,12 @@
 export default (context, inject) => {
   const echomtg = {}
 
+  echomtg.getUserHeaders = () => {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+    }
+  }
   echomtg.log = (...params) => {
     if(/dev/i.test(context.app.$config.API_DOMAIN)){
       console.log(...params);
@@ -262,6 +268,21 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
         'Content-Type': 'application/json',
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.switchUserPlan = async (plan) => {
+    let body = {
+      plan: plan,
+    }
+
+    let url = `${context.app.$config.API_DOMAIN}billing/switch_plan/`;
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();

@@ -1,13 +1,24 @@
 <template>
   <div>
-    <title-bar :title-stack="titleStack" />
+    <title-bar :title-stack="titleStack">
+
+        <div class="level-item">
+          Show Annual Plans (save 16%) <b-switch class="ml-3" v-model="showAnnual" />
+        </div>
+        <div v-if="customer" class="ml-3 level-item">
+          <nuxt-link class="button" to="/user/billing">Manage Billing</nuxt-link>
+        </div>
+
+
+    </title-bar>
 
     <section class="section is-main-section">
       <div class="columns">
         <div v-for="plan in getPlans()" :key="plan.name" class="column pt-0 pl-0 pr-2">
           <div class="panel">
             <div class="panel-heading" :style="`background: ${plan.color}; color: ${plan.text}`">
-                <span v-if="plan.prices.monthly > 0" class="is-pulled-right">${{plan.prices.monthly}}<small>/mo</small></span>
+                <span v-if="plan.prices.monthly > 0 && showAnnual == false" class="is-pulled-right">${{plan.prices.monthly}}<small>/mo</small></span>
+                <span v-if="plan.prices.monthly > 0 && showAnnual == true" class="is-pulled-right">${{plan.prices.yearly}}<small>/year</small></span>
                 <span v-if="plan.prices.monthly == 0" class="is-pulled-right">FREE</span>
                 {{plan.label}}
 
@@ -15,9 +26,13 @@
             <div class="panel-block">
               <p class="is-size-7">{{plan.description}}</p>
             </div>
-            <div class="panel-block  has-background-light">
-              <b-button :style="`background: ${plan.color}; color: ${plan.text}`" size="is-small" @click="subscribe(plan.name)">Subscribe</b-button>
+            <!-- plan signup -->
+            <div v-if="isUserLoggedIn" class="panel-block  has-background-light">
+              <b-button icon-left="check" v-if="notCurrentPlan(plan.name)" :style="`background: ${plan.color}; color: ${plan.text}`" size="is-fullwidth is-rounded" @click="subscribe(plan.name)">{{subscribeWord}} {{plan.label}}</b-button>
+              <b-button v-if="!notCurrentPlan(plan.name)" size="is-fullwidth" disabled>Current Plan</b-button>
             </div>
+
+            <!-- plan information -->
             <div class="panel-block  has-background-light">
               <small>Usage Limits</small>
             </div>
@@ -161,17 +176,24 @@ export default {
       isCardModalActive: false,
       customer: {},
       plan: '',
-
+      isUserLoggedIn: false,
+      planObject: {},
+      showAnnual: false,
     }
   },
   async asyncData({ $echomtg }) {
     let customer = await $echomtg.getUserBillingCustomer();
     customer = customer?.customer ? customer.customer : false;
+    const data = await $echomtg.getUserMeta();
+    const user = data?.user ? data.user : false;
+    const isUserLoggedIn = user ? true: false;
+    const planObject = user.planObject;
     // return it
-    return { customer };
+    return { customer, isUserLoggedIn, planObject };
   },
   mounted(){
-    console.log('user from store',this.customer)
+    console.log('customer',this.customer)
+    console.log('plan',this.planObject)
   },
   methods: {
 
@@ -180,11 +202,27 @@ export default {
       return amount / 100;
     },
     async subscribe(plan_name){
-      this.plan = plan_name
-      this.isCardModalActive = true;
+      this.plan = this.showAnnual ? `${plan_name}Y` : plan_name
+
+      if(this.planObject){
+        // otherwise switch plan
+        await this.switchPlan(this.plan)
+      } else {
+        // load credit card prompt if not subcribed already
+        this.isCardModalActive = true;
+      }
 
     },
-
+    async switchPlan(name){
+      this.isCardModalActive = false
+      const res = await this.$echomtg.switchUserPlan(name);
+      this.$buefy.snackbar.open({
+          message: res.message,
+          type: `is-${res.status}`,
+          position: 'is-top',
+      })
+      await this.refreshData();
+    },
     async addCard(){
       this.isCardModalActive = false
       const res = await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
@@ -200,8 +238,13 @@ export default {
     },
     async refreshData(){
       this.isCardModalActive = false;
+      const data = await this.$echomtg.getUserMeta();
+      console.log(data);
+      this.planObject = data.user.planObject;
 
-
+    },
+    notCurrentPlan(name) {
+      return this.planObject.name.toLowerCase() !== name.toLowerCase();
     },
     getDateFromUnixTimestamp(unix_timestamp){
       return new Date(unix_timestamp * 1000).toLocaleDateString("en-US");
@@ -426,9 +469,15 @@ export default {
   },
   computed: {
     titleStack () {
-      return ['Subscription Plans']
+      if(this.planObject){
+        return ['Subscription Plans',`Current Plan: ${this.planObject.name}`]
+      } else {
+        return ['Subscription Plans']
+      }
     },
-
+    subscribeWord(){
+      return this.customer ? 'Switch to' : 'Sub to'
+    },
     ...mapState(['user'])
   }
 }

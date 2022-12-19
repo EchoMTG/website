@@ -179,6 +179,7 @@ export default {
   async asyncData({ redirect, $echomtg }) {
     const data = await $echomtg.getUserMeta();
     const user = data?.user ? data.user : false;
+    const plan = user.planObject;
     let payments = await $echomtg.getUserPaymentHistory();
     payments = payments?.payments ? payments.payments : false;
     let subscriptions = await $echomtg.getUserBillingSubscriptions();
@@ -188,7 +189,7 @@ export default {
 
     let cards = await $echomtg.getUserCreditCard();
     cards = cards?.cards ? cards.cards : false;
-    const plan = user.planObject;
+
 
     // return it
     if (user) {
@@ -253,9 +254,6 @@ export default {
     getBillingDayFromUnixTimestamp(unix_timestamp){
       return new Date(unix_timestamp * 1000).getDate();
     }
-  },
-  mounted() {
-    console.log(this.customer)
   },
   computed: {
     titleStack () {

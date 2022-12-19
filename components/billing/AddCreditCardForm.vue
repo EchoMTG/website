@@ -86,6 +86,7 @@ export default {
       card_exp_year: 2022,
     }
   },
+  //!! to do check the user subscription, change button text to swtich if user, hide button o existinging subscriptions
   methods: {
     async addCard(){
 

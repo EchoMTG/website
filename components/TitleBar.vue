@@ -10,19 +10,8 @@
           </ul>
         </div>
       </div>
-      <div class="level-right" v-if="hasButton">
-        <div class="level-item">
-          <div class="buttons is-right">
-            <a
-              to="/plans"
-              target="_blank"
-              class="button is-primary"
-            >
-              <b-icon icon="credit-card" custom-size="default" />
-              <span>Upgrade your Plan</span>
-            </a>
-          </div>
-        </div>
+      <div class="level-right">
+          <slot></slot>
       </div>
     </div>
   </section>
@@ -36,10 +25,12 @@ export default {
       type: Array,
       default: () => []
     },
-    hasButton: {
-      type: Boolean,
-      default: false
+  },
+  computed: {
+    hasRight() {
+      return !!this.$slots.default;
     }
   }
+
 }
 </script>
