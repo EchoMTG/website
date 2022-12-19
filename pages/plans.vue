@@ -2,10 +2,12 @@
   <div>
     <title-bar :title-stack="titleStack">
         <div v-if="customer" class="level-item">
-         <small>Plan switching is prorated ona 30 day basis. For example a $10 monthly sub switched 15 days after would apply $5 to the new plan.</small>
+         <small>Plan switching is prorated on a 30 day basis. For example a $10 monthly sub<br/> switched 15 days after would apply $5 to the new plan.</small>
         </div>
         <div class="level-item">
-          Show Annual Plans (save 16%) <b-switch class="ml-3" v-model="showAnnual" />
+          <div class="message is-success px-4 py-2 is-rounded is-flex" style="border: 1px solid green">
+            <span class="has-text-weight-bold has-text-green is-size-5">Save 16% Annually</span> <b-switch type="is-success" class="ml-3" v-model="showAnnual" />
+          </div>
         </div>
         <div v-if="customer" class="ml-3 level-item">
           <nuxt-link class="button" to="/user/billing">Manage Billing</nuxt-link>
