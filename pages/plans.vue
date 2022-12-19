@@ -1,16 +1,20 @@
 <template>
   <div>
     <title-bar :title-stack="titleStack">
-        <div v-if="customer" class="level-item">
+        <div v-if="customer" class="level-item mr-5">
          <small>Plan switching is prorated on a 30 day basis. For example a $10 monthly sub<br/> switched 15 days after would apply $5 to the new plan.</small>
         </div>
+        <div v-if="!customer" class="level-item mr-5">
+          <p>Premium memberships require a Credit Card to start. <br/> <small>After the 14-day trial, you will be charged once <span v-if="showAnnual">annually</span><span v-else>monthly</span>. You can switch memberships back to common (free) at any time.</small> </p>
+        </div>
+
         <div class="level-item">
           <div class="message is-success px-4 py-2 is-rounded is-flex" style="border: 1px solid green">
-            <span class="has-text-weight-bold has-text-green is-size-5">Save 16% Annually</span> <b-switch type="is-success" class="ml-3" v-model="showAnnual" />
+            <b-switch type="is-success" class="" v-model="showAnnual" /> <span class="has-text-weight-bold has-text-green is-size-5"><span v-if="!showAnnual">Turn on Annual Pricing, Save 16%</span> <span v-if="showAnnual">Turn off Annual Pricing</span></span>
           </div>
         </div>
         <div v-if="customer" class="ml-3 level-item">
-          <nuxt-link class="button" to="/user/billing">Manage Billing</nuxt-link>
+          <nuxt-link class="button is-medium" to="/user/billing">Manage Billing</nuxt-link>
         </div>
 
 
@@ -296,7 +300,7 @@ export default {
         {
           name: 'uncommon',
           label: 'Uncommon',
-          color: 'gray',
+          color: 'silver',
           text: 'black',
           description: 'If your collection worth over $1000? Is it growing? Time to know your asset.',
           data: this.commonFeatures,
@@ -473,10 +477,11 @@ export default {
   },
   computed: {
     titleStack () {
+      const name = this.showAnnual ? 'Annual Subscription Plans' : 'Monthly Subscription Plans';
       if(this.planObject){
-        return ['Subscription Plans',`Current Plan: ${this.planObject.name}`]
+        return [name,`Current Plan: ${this.planObject.name}`]
       } else {
-        return ['Subscription Plans']
+        return [name,'14-Day Free Trial']
       }
     },
     subscribeWord(){
