@@ -5,7 +5,7 @@ export default [{
 },
 {
   to: '/tools/inventory/',
-  icon: 'ballot',
+  icon: 'book-open-page-variant-outline',
   label: 'Inventory'
 },
 {
