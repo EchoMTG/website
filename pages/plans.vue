@@ -13,7 +13,7 @@
 
             </div>
             <div class="panel-block">
-              {{plan.description}}
+              <p class="is-size-7">{{plan.description}}</p>
             </div>
             <div class="panel-block  has-background-light">
               <small>Usage Limits</small>
@@ -365,41 +365,41 @@ export default {
             watchlist: 1000,
           }
         },
-        {
-          name: 'pro',
-          label: 'Pro',
-          color: 'black',
-          text: 'white',
-          description: 'You fanatically collect, have a store, a collection over $50K, and or you actively sell on eBay.',
-          data: this.commonFeatures,
-          prices: {
-            monthly: 15.00,
-            yearly: 150
-          },
-          emails: {
-            watchlist: true,
-            trending: true,
-            inventory: true,
-          },
-          sealed: true,
-          stats: true,
-          earnings: true,
-          streamer: true,
-          watchlist: true,
-          insurance: true,
-          filters: true,
-          lists: true,
-          sms: true,
-          ebay: true,
-          trade: true,
-          images: true,
-          limits: {
-            trade: 25000,
-            lists: 500,
-            inventory: 1000000,
-            watchlist: 5000,
-          }
-        }
+        // {
+        //   name: 'pro',
+        //   label: 'Pro',
+        //   color: 'black',
+        //   text: 'white',
+        //   description: 'You fanatically collect, have a store, a collection over $50K, and or you actively sell on eBay.',
+        //   data: this.commonFeatures,
+        //   prices: {
+        //     monthly: 15.00,
+        //     yearly: 150
+        //   },
+        //   emails: {
+        //     watchlist: true,
+        //     trending: true,
+        //     inventory: true,
+        //   },
+        //   sealed: true,
+        //   stats: true,
+        //   earnings: true,
+        //   streamer: true,
+        //   watchlist: true,
+        //   insurance: true,
+        //   filters: true,
+        //   lists: true,
+        //   sms: true,
+        //   ebay: true,
+        //   trade: true,
+        //   images: true,
+        //   limits: {
+        //     trade: 25000,
+        //     lists: 500,
+        //     inventory: 1000000,
+        //     watchlist: 5000,
+        //   }
+        // }
       ]
     }
   },

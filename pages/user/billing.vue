@@ -131,70 +131,8 @@
         </div>
       </div>
       <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
-            <div class="card has-background-white">
-                <header class="card-header has-background-grey">
-                  <p class="card-header-title has-text-white">
-                    <b-icon icon="credit-card" class="mr-3" /> Add a Credit Card
-                  </p>
-                </header>
-                <div class="card-content">
-                  <div class="columns">
-                    <div class="column is-8">
-                      <div class="content">
-                        <p>Billing information is not stored in EchoMTG.
-                          The <a href="https://en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard" target="_blan">PCI Compliant</a> system <a target="_blank" href="https://www.stripe.com">Stripe</a>
-                           handles transactions and storage. EchoMTG references your info in Stripe with safe hashes.
-                          </p>
-                      </div>
-                    </div>
-                    <div class="column is-4">
-                      <b-image style="width:100%" lazy src="https://assets.echomtg.com/interface/visa-mastercard-discover-amex.png" rounded responsive />
-                    </div>
-                  </div>
-
-                  <b-field label="Card Number">
-                    <b-input v-model="card_number" name="card_number" />
-                  </b-field>
-                  <div class="columns">
-                    <div class="column is-4">
-                      <b-field label="Expiration Month">
-                        <b-select v-model="card_exp_month" placeholder="Select a default Sort Option">
-                              <option
-                                  v-for="option in generateMonths"
-                                  :value="option.numeric"
-                                  :key="option.numeric">
-                                  {{ option.name }} ({{ option.numeric }})
-                              </option>
-                          </b-select>
-
-                      </b-field>
-                    </div>
-                    <div class="column is-4">
-                      <b-field label="Expiration Year">
-                        <b-select v-model="card_exp_year" placeholder="Select a default Sort Option">
-                              <option
-                                  v-for="option in generateYears"
-                                  :value="option"
-                                  :key="option">
-                                  {{ option }}
-                              </option>
-                          </b-select>
-                      </b-field>
-                    </div>
-                    <div class="column is-4">
-                      <b-field label="CVC Code">
-                        <b-input maxlength="4" minlength="3" v-model="card_cvc"  />
-                      </b-field>
-                    </div>
-                  </div>
-                </div>
-                <footer class="card-footer">
-                  <a @click="isCardModalActive = false" class="card-footer-item has-background-white has-text-gray">Cancel</a>
-                  <a @click="addCard()" class="card-footer-item has-background-success has-text-white">Add Card</a>
-
-                </footer>
-            </div>
-        </b-modal>
+          <AddCreditCardForm :successCallback="() => refreshData()" :cancelCallback="() => deactivateModel()"/>
+      </b-modal>
     </section>
   </div>
 </template>
@@ -207,6 +145,7 @@ import HeroBar from '@/components/HeroBar'
 import UserSubNav from '@/components/user/UserSubNav'
 import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import PasswordUpdateForm from '@/components/PasswordUpdateForm'
+import AddCreditCardForm from '@/components/billing/AddCreditCardForm'
 import Tiles from '@/components/Tiles'
 import UserAvatar from '@/components/UserAvatar'
 export default {
@@ -219,7 +158,8 @@ export default {
     HeroBar,
     TitleBar,
     CardComponent,
-    UserSubNav
+    UserSubNav,
+    AddCreditCardForm
   },
   head () {
     return {
@@ -233,10 +173,6 @@ export default {
       payments: [],
       subscriptions: [],
       customer: {},
-      card_number: '',
-      card_cvc: '',
-      card_exp_month: "01",
-      card_exp_year: 2022,
       isCardModalActive: false
     }
   },
@@ -248,13 +184,13 @@ export default {
     let subscriptions = await $echomtg.getUserBillingSubscriptions();
     subscriptions = subscriptions?.subscriptions ? subscriptions.subscriptions : false;
     let customer = await $echomtg.getUserBillingCustomer();
+
     customer = customer?.customer ? customer.customer : false;
 
     let cards = await $echomtg.getUserCreditCard();
     cards = cards?.cards ? cards.cards : false;
     const plan = user.planObject;
 
-    customer = false;
     // return it
     if (user) {
       return {
@@ -263,10 +199,6 @@ export default {
     } else {
       redirect('/')
     }
-  },
-  mounted(){
-    console.log(this.customer);
-    console.log(this.cards);
   },
   methods: {
     isExpired(cardyear, cardmonth){
@@ -280,6 +212,9 @@ export default {
         return true
       }
       return false;
+    },
+    deactivateModel() {
+      this.isCardModalActive = false;
     },
     getStripeAmount(amount){
       if(amount == 0) return 0;
@@ -295,16 +230,6 @@ export default {
 
       await this.refreshData();
     },
-    async addCard(){
-      this.isCardModalActive = false
-      const res = await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
-      this.$buefy.snackbar.open({
-          message: res.message,
-          type: `is-${res.status}`,
-          position: 'is-top',
-      })
-      await this.refreshData();
-    },
     async deleteCard(card_id){
       const res = await this.$echomtg.deleteUserCreditCard(card_id);
       this.$buefy.snackbar.open({
@@ -315,6 +240,7 @@ export default {
       await this.refreshData();
     },
     async refreshData(){
+      this.isCardModalActive=false;
       const payments = await this.$echomtg.getUserPaymentHistory();
       this.payments = payments.payments;
       const customer = await this.$echomtg.getUserBillingCustomer();
@@ -329,32 +255,12 @@ export default {
       return new Date(unix_timestamp * 1000).getDate();
     }
   },
+  mounted() {
+    console.log(this.customer)
+  },
   computed: {
     titleStack () {
       return ['My Account', 'Billing']
-    },
-    generateYears() {
-      let year = new Date().getFullYear();
-      let totalYears = 15;
-      let yearArray = [year]
-      for(let i=1; i < totalYears; i++){
-        yearArray.push(year+i);
-      }
-      return yearArray;
-    },
-    generateMonths(){
-      let monthNames = [ "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-"JUL", "AUG", "SEPT", "OCT", "NOV", "DEC" ];
-      let monthArray = []
-      let strMonth = ''
-      for(let i=1; i <= 12; i++){
-        strMonth = i < 10 ? `0${i}` : `${i}`
-        monthArray.push({
-          name: monthNames[i-1],
-          numeric: strMonth,
-        });
-      }
-      return monthArray;
     },
     paymentsColumns () {
       return [
