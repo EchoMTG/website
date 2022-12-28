@@ -39,8 +39,8 @@
                                             <img class="tradeThumbnail" :alt="trade.name" :src="trade.image_cropped">
                                         </div>
                                         <div class="column">
-                                            <h6>{{trade.name}}</h6>
-                                            <p>{{trade.expansion}}</p>
+                                            <h6 class="title is-7">{{trade.name}}</h6>
+                                            <p class="subtitle is-7">{{trade.expansion}}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -111,7 +111,7 @@ export default {
                   sort: 'condition'
               },
               {
-                  name: 'Card Info',
+                  name: 'Item Info',
                   sort: 'name'
               },
 
@@ -162,7 +162,7 @@ export default {
     // fetch the set
     let endpoint = `${$config.API_DOMAIN}trades/view/`;
     endpoint += `?user=${userHash}`
-    console.log('trades endpoint',endpoint);
+
     // try to get the json
     try {
       res = await fetch(
@@ -174,7 +174,7 @@ export default {
       );
 
       let json = await res.json();
-      console.log('data',json)
+
       if(json.hasOwnProperty('trades')){
 
           let trades = json.trades.trades
@@ -216,7 +216,7 @@ export default {
             message += `1x ${item.name}\n`
             total += parseFloat(item.current_price)
         })
-        message += `\nTotal: ${this.currency_symbol}${total}`
+        message += `\nTotal: ${(this.currency_symbol)}${total.toFixed(2)}`
 
         return message
 
