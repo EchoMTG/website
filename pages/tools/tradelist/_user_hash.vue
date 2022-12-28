@@ -187,9 +187,7 @@ export default {
           }
       }
     } catch (err) {
-      console.log('failed to access trades')
-
-       //redirect('/sets/')
+      redirect('/')
     }
 
 

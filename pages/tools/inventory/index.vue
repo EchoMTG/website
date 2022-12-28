@@ -6,10 +6,10 @@
 
         <div class="columns">
           <div class="column  is-two-thirds">
-            <h1 class="title">
+            <h1 class="title has-text-white">
                 Inventory
             </h1>
-            <h3 class="subtitle">
+            <h3 class="subtitle has-text-light">
                 Manage your collection
             </h3>
           </div>

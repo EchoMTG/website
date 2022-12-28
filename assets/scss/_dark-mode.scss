@@ -75,6 +75,13 @@ html {
     .select select:focus, .textarea:focus, .input:focus, .taginput .taginput-container.is-focusable:focus, .select select.is-focused, .is-focused.textarea, .is-focused.input, .taginput .is-focused.taginput-container.is-focusable, .select select:active, .textarea:active, .input:active, .taginput .taginput-container.is-focusable:active, .select select.is-active, .is-active.textarea, .is-active.input, .taginput .is-active.taginput-container.is-focusable {
       border-color: $cyan;
     }
+    .tag.is-dark {
+      background: $black !important;
+    }
+
+    .filterBar.has-background-white {
+      background: $black !important;
+    }
 
     .radio, .checkbox {
       &:hover {
@@ -199,6 +206,10 @@ html {
 
       td, th {
         border-color: $dark-mode-light-border-color;
+
+      }
+      th {
+        background: $black !important;
       }
 
       &.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
@@ -284,7 +295,7 @@ html {
         }
 
         &.has-divider {
-          border-color: $dark-mode-light-border-color;
+          border-color: transparent !important;
         }
 
         &.is-active {
