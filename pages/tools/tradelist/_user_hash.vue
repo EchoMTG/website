@@ -3,26 +3,29 @@
     <echo-bread-crumbs :data="crumbs" />
 
      <div class="tradelist table-container ">
-            <div class="columns">
+            <div class="columns is-gapless">
                 <div class="column is-two-thirds">
-                    <h4 class="title is-4">{{user.username}}'s {{trades.length}} items for trade</h4>
-                    <div class="tradefilterBar">
-                    <div class="columns">
-                        <div class="column">
-                            <input class="input is-rounded is-small" v-model="search" placeholder="search..">
+                    <div class="container p-5">
+                      <h4 class="title is-4">{{user.username}}'s {{trades.length}} items for trade</h4>
+                      <div class="tradefilterBar">
+                        <div class="columns">
+                            <div class="column">
+                                <input class="input is-rounded is-small" v-model="search" placeholder="search..">
+                            </div>
+                            <div class="column">
+                                <input class="input is-rounded is-small" v-model="min_price" placeholder="min price">
+                            </div>
+                            <div class="column">
+                                <input class="input is-rounded is-small" v-model="max_price" placeholder="max price">
+                            </div>
                         </div>
-                        <div class="column">
-                            <input class="input is-rounded is-small" v-model="min_price" placeholder="min price">
-                        </div>
-                        <div class="column">
-                            <input class="input is-rounded is-small" v-model="max_price" placeholder="max price">
-                        </div>
+                      </div>
                     </div>
-                 </div>
+
                     <table class="table tradelistTable is-fullwidth is-hoverable">
-                        <thead class="has-background-black">
+                        <thead>
                             <tr>
-                                <th v-for="title in columnTitles">{{title.name}}</th>
+                                <th v-for="title in columnTitles" v-bind:key="title.sort">{{title.name}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +49,8 @@
                     </table>
                 </div>
                 <!-- trade proposal -->
-                <div class="column proposal">
-                    <div class="">
+                <div class="column proposal has-background-light">
+                    <div class="container p-4">
                         <h4 class="title is-4">Tally</h4>
 <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
