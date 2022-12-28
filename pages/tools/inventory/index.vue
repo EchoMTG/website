@@ -120,7 +120,7 @@
             {{cs}}{{ props.row.price_acquired}}
         </b-table-column>
         <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
-          <span class="tag" :class="type(props.row.personal_gain)">
+          <span v-if="props.row.personal_gain" class="tag" :class="type(props.row.personal_gain)">
             {{ props.row.personal_gain }}%
           </span>
         </b-table-column>
