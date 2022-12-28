@@ -305,8 +305,8 @@ export default {
           description: 'If your collection worth over $1000? Is it growing? Time to know your asset.',
           data: this.commonFeatures,
           prices: {
-            monthly: 2.50,
-            yearly: 25
+            monthly: 2,
+            yearly: 20
           },
           emails: {
             watchlist: true,
@@ -340,8 +340,8 @@ export default {
           description: 'If you have a single binder or deck worth over $1000 dollars than this is the plan for you.',
           data: this.commonFeatures,
           prices: {
-            monthly: 3.50,
-            yearly: 35
+            monthly: 3,
+            yearly: 30
           },
           emails: {
             watchlist: true,
@@ -375,8 +375,8 @@ export default {
           description: 'For players and collectors with over $5K in inventory who need more tools.',
           data: this.commonFeatures,
           prices: {
-            monthly: 7.75,
-            yearly: 75
+            monthly: 7,
+            yearly: 70
           },
           emails: {
             watchlist: true,
@@ -402,41 +402,41 @@ export default {
             watchlist: 500,
           }
         },
-        {
-          name: 'reserved',
-          label: 'Reserved',
-          color: 'maroon',
-          text: 'white',
-          description: 'For fanatic collectors w/over $20K in cards and sealed product who the tools and extra space.',
-          data: this.commonFeatures,
-          prices: {
-            monthly: 10.00,
-            yearly: 100
-          },
-          emails: {
-            watchlist: true,
-            trending: true,
-            inventory: true,
-          },
-          sealed: true,
-          earnings: true,
-          streamer: true,
-          watchlist: true,
-          filters: true,
-          lists: true,
-          insurance: true,
-          stats: true,
-          sms: true,
-          trade: true,
-          images: true,
-          ebay: false,
-          limits: {
-            trade: 10000,
-            lists: 400,
-            inventory: 500000,
-            watchlist: 1000,
-          }
-        },
+        // {
+        //   name: 'reserved',
+        //   label: 'Reserved',
+        //   color: 'maroon',
+        //   text: 'white',
+        //   description: 'For fanatic collectors w/over $20K in cards and sealed product who the tools and extra space.',
+        //   data: this.commonFeatures,
+        //   prices: {
+        //     monthly: 10.00,
+        //     yearly: 100
+        //   },
+        //   emails: {
+        //     watchlist: true,
+        //     trending: true,
+        //     inventory: true,
+        //   },
+        //   sealed: true,
+        //   earnings: true,
+        //   streamer: true,
+        //   watchlist: true,
+        //   filters: true,
+        //   lists: true,
+        //   insurance: true,
+        //   stats: true,
+        //   sms: true,
+        //   trade: true,
+        //   images: true,
+        //   ebay: false,
+        //   limits: {
+        //     trade: 10000,
+        //     lists: 400,
+        //     inventory: 500000,
+        //     watchlist: 1000,
+        //   }
+        // },
         // {
         //   name: 'pro',
         //   label: 'Pro',

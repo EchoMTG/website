@@ -43,9 +43,16 @@
         label="Name"
         sortable
         searchable>
-        <b-tag class="has-background-warning-dark has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
-        <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" :lazy="true"  />
-        <item-inspector-wrapper :item="props.row" />
+        <div style="display: flex; flexDirection: row;">
+
+          <div style="width:70px; height: 30px; ">
+            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive="true"  />
+          </div>
+
+          <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
+          <b-tag style="flex: 1" class="has-background-warning-dark has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+
+        </div>
 
       </b-table-column>
       <b-table-column v-slot="props" field="expansion" label="Expansion" sortable searchable>
