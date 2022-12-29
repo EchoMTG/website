@@ -214,10 +214,24 @@ export default {
     offOn: function (subscriptionValue) {
       return subscriptionValue == "1" ? "On" : "Off";
     },
-    updateValue: function (name, value){
+    updateValue: async function (name, value){
       let body = {};
       body[name] = value;
-      this.$echomtg.updateUser(body)
+      if(name == 'dark_mode'){
+        this.$store.commit('darkModeToggle', parseInt(value) == 1)
+      }
+       // need to update user in store
+      await this.$echomtg.updateUser(body)
+
+      // get latest user info
+      const userdata = await this.$echomtg.getUserMeta();
+
+      // update store
+      if(userdata.status == 'success'){
+        console.log('upadting using after toggle',userdata);
+        this.$store.commit('user', userdata.user);
+      }
+
     }
   },
   computed: {

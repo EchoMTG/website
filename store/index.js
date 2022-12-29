@@ -8,6 +8,8 @@ const shellUser = {
 }
 
 
+// class: ['has-aside-left', 'has-aside-mobile-transition', 'has-navbar-fixed-top']
+
 export const state = () => ({
   /* User */
   userName: null,
@@ -62,9 +64,9 @@ export const mutations = {
       state.userName = payload?.first_name ? payload.first_name + ' ' + payload.last_name : payload.username;
       state.user = payload
       state.authenticated = true
-      let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
-      state.isDarkModeActive = darkmode
-      document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active');
+      // let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
+      // state.isDarkModeActive = darkmode
+      // document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active');
       // store to locale store to persist later
       window.localStorage.setItem('user', JSON.stringify(payload));
 
@@ -179,8 +181,9 @@ export const mutations = {
   darkModeToggle (state, payload = null) {
     const setIsDark = payload !== null ? payload : !state.isDarkModeActive
 
-    state.isDarkModeActive = setIsDark
 
+    state.isDarkModeActive = setIsDark
+    console.log('running dark mode toggle', setIsDark)
     document.documentElement.classList[setIsDark ? 'add' : 'remove']('is-dark-mode-active')
   },
 

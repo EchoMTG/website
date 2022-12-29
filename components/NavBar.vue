@@ -78,11 +78,11 @@
               <span>Change Password</span>
             </a> -->
 
-            <hr class="navbar-divider">
+            <!-- <hr class="navbar-divider">
             <a class="navbar-item" @click="toggleDark">
               <b-icon icon="brightness-4"  custom-size="default" />
               <span>Toggle Darkmode</span>
-            </a>
+            </a> -->
             <hr class="navbar-divider">
 
             <a class="navbar-item" @click="logout">

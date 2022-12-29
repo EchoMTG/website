@@ -187,6 +187,7 @@ export default {
       'isAsideVisible',
       'isAsideExpanded',
       'isNavBarVisible',
+      'isDarkModeActive',
       'isLayoutAsideHidden',
       'isLayoutMobile',
       'authenticated',
@@ -207,8 +208,16 @@ export default {
     // if reloading, load store into state to persist
     let persistedUser = window.localStorage.getItem('user');
     if(persistedUser){
-      this.$store.commit('user', JSON.parse(persistedUser));
+      let userObject = JSON.parse(persistedUser);
+      this.$store.commit('user', userObject);
+      console.log('user from default bue', userObject);
       this.$store.commit('authenticated', 'true');
+      if(parseInt(userObject.dark_mode) == 1){
+        this.$store.commit('darkModeToggle', true)
+      } else {
+        this.$store.commit('darkModeToggle', false)
+      }
+
     }
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
