@@ -202,8 +202,12 @@ export default {
     }
   },
 
-
   async mounted () {
+    // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
+    document.documentElement.classList['add']('has-aside-left');
+    document.documentElement.classList['add']('has-navbar-fixed-top');
+    document.documentElement.classList['add']('has-aside-mobile-transition');
+
     // STORE PERSISTANCE
     // if reloading, load store into state to persist
     let persistedUser = window.localStorage.getItem('user');

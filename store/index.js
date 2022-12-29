@@ -7,9 +7,6 @@ const shellUser = {
   last_login: ''
 }
 
-
-// class: ['has-aside-left', 'has-aside-mobile-transition', 'has-navbar-fixed-top']
-
 export const state = () => ({
   /* User */
   userName: null,

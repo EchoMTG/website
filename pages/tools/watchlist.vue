@@ -1,16 +1,16 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <section class="hero is-small is-dark is-hidden-mobile">
-      <div class="hero-body">
-          <div class="container">
+    <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-0">
+
+
               <div class="columns">
                 <div class="column  is-two-thirds">
-                  <h1 class="title">
+                  <h1 class="title has-text-white">
                       Watchlist
                   </h1>
-                  <h3 class="subtitle">
-                      Watch when items increase or decrease in price. Weekly email with updates sent on Tuesdays.
+                  <h3 class="subtitle has-text-light">
+                      Track items prices as they increase or decrease over 1 to 7 day periods. Weekly email with updates sent on Tuesdays. SMS Text updates availables for Mythic+ users.
                   </h3>
                 </div>
                 <div class="column is-one-third">
@@ -19,9 +19,9 @@
                   <h4 class="title is-size-6">Verify your mobile number</h4>
                   <p></p>
                 </div>
-              </div>
+
           </div>
-      </div>
+
     </section>
 
     <b-table

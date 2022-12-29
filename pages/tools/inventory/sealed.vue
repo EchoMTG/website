@@ -48,47 +48,47 @@
               </div>
             </div>
         </div>
-        <div class="container">
-            <b-table
-              class="my-3"
-              :data="sealedItems"
-              :striped="true"
-              :narrowed="true"
-              :focusable="true"
-              default-sort="tcg_mid"
-              default-sort-direction="desc"
-              >
-                <b-table-column field="name" label="Item Name" v-slot="props" sortable>
-                   <nav class="level  pb-0">
-                      <div class="level-left">
-                        <span class="level-item">
-                          <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
-                        </span>
-                        <span class="level-item">
-                          <item-inspector-wrapper :item="props.row" />
-                        </span>
-                      </div>
-                    </nav>
-                </b-table-column>
-                <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
-                  {{symbol}} {{props.row.tcg_mid}}
-                </b-table-column>
-                <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
-                  {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
-                </b-table-column>
-                <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
-                  <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
-                </b-table-column>
-                <b-table-column field="gain" label="Profit" v-slot="props" sortable>
-                  <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
-                  <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
-                </b-table-column>
-                <b-table-column v-slot="props">
-                  <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
-                  <span class="fa fa-trash"></span> </button>
-                </b-table-column>
-            </b-table>
-        </div>
+
+        <b-table
+          class="my-3"
+          :data="sealedItems"
+          :striped="true"
+          :narrowed="true"
+          :focusable="true"
+          default-sort="tcg_mid"
+          default-sort-direction="desc"
+          >
+            <b-table-column field="name" label="Item Name" v-slot="props" sortable>
+                <nav class="level  pb-0">
+                  <div class="level-left">
+                    <span class="level-item">
+                      <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
+                    </span>
+                    <span class="level-item">
+                      <item-inspector-wrapper :item="props.row" />
+                    </span>
+                  </div>
+                </nav>
+            </b-table-column>
+            <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
+              {{symbol}} {{props.row.tcg_mid}}
+            </b-table-column>
+            <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
+              {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
+            </b-table-column>
+            <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
+              <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
+            </b-table-column>
+            <b-table-column field="gain" label="Profit" v-slot="props" sortable>
+              <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
+              <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
+            </b-table-column>
+            <b-table-column v-slot="props">
+              <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
+              <span class="fa fa-trash"></span> </button>
+            </b-table-column>
+        </b-table>
+
     </div>
 </template>
 <script>
