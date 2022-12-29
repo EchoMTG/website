@@ -217,6 +217,7 @@ export default {
     updateValue: async function (name, value){
       let body = {};
       body[name] = value;
+      // control dark mode
       if(name == 'dark_mode'){
         this.$store.commit('darkModeToggle', parseInt(value) == 1)
       }
@@ -228,7 +229,6 @@ export default {
 
       // update store
       if(userdata.status == 'success'){
-        console.log('upadting using after toggle',userdata);
         this.$store.commit('user', userdata.user);
       }
 
