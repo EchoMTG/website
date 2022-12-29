@@ -4,21 +4,10 @@ export default {
   ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'website',
-    htmlAttrs: {
-      // lang: 'en',
-      // class: ['has-aside-left', 'has-aside-mobile-transition', 'has-navbar-fixed-top']
-    },
+    title: 'EchoMTG',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      // { hid: 'description', name: 'description', content: '' },
-      // { name: 'format-detection', content: 'telephone=no' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
     ],
     script: [
         {

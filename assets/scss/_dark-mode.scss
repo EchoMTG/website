@@ -77,6 +77,10 @@ html {
     }
     .tag.is-dark {
       background: $black !important;
+      color: white !important;
+    }
+    .has-text-warning-dark{
+      color: $warning !important;
     }
 
     .filterBar.has-background-white {
