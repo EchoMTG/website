@@ -103,6 +103,12 @@ export default {
           icon:  `handshake`,
           url: `/tools/tradelist/${this.userhash}`
         },
+        {
+          name: `Earnings`,
+          description: `Track you item sales.`,
+          icon:  `cash-multiple`,
+          url: `/tools/earnings/`
+        },
       ]
     }
 

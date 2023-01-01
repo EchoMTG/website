@@ -22,6 +22,11 @@ export default [{
   to: '/tools/watchlist/',
   icon: 'eye',
   label: 'Watch List'
-}
+},
+{
+  to: '/tools/earnings/',
+  icon: 'cash-multiple',
+  label: 'Earnings'
+},
 
 ]

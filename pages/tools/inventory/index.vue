@@ -239,6 +239,7 @@ export default {
     /*
     * Load async data
     */
+
     async loadAsyncData() {
 
         this.loading = true

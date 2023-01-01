@@ -7,6 +7,13 @@ export default (context, inject) => {
       'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
     }
   }
+
+  echomtg.getS2SHeaders = () => {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
+    }
+  }
   echomtg.log = (...params) => {
     if(/dev/i.test(context.app.$config.API_DOMAIN)){
       console.log(...params);
@@ -525,6 +532,44 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;
+
+    const res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+
+    return await res.json();
+  }
+
+
+  echomtg.getEarningsStats = async () => {
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/stats/`;
+
+    const res = await fetch(url, {
+      headers: echomtg.getUserHeaders()
+    });
+
+    return await res.json();
+  }
+
+  echomtg.getEarnings = async (
+    start=0,
+    limit=50,
+    direction='DESC',
+    sort='e.date_sold',
+    search='') => {
+
+    const params = [
+      `start=${start}`,
+      `limit=${limit}`,
+      `direction=${direction}`,
+      `sort=${sort}`,
+      `search=${search}`,
+    ].join('&')
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/view/?${params}`;
 
     const res = await fetch(url, {
       headers: {
