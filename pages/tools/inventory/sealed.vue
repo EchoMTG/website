@@ -123,7 +123,6 @@ export default {
             .then((response) => response.json())
             .then((data) => {
               this.sealed = [...this.sealed, ...data.items]
-              console.log('sealed',this.sealed);
 
             })
             .catch(function (error) {
@@ -171,7 +170,7 @@ export default {
       let id = item.inventory_id;
       let value = input.target.value;
 
-      let url = `${this.$config.API_DOMAIN}/inventory/adjust/id=${id}&value=${value}&auth=${token}`;
+      let url = `${this.$config.API_DOMAIN}/inventory/adjust/?id=${id}&value=${value}&auth=${token}`;
       fetch(url).then(response => response.json())
         .then(data=> {
           console.log(data);
@@ -182,7 +181,7 @@ export default {
       let id = item.inventory_id;
       let value = input.target.value;
 
-      let url = `${this.$config.API_DOMAIN}/inventory/adjust_date/id=${id}&value=${value}&auth=${token}`;
+      let url = `${this.$config.API_DOMAIN}/inventory/adjust_date/?id=${id}&value=${value}&auth=${token}`;
       fetch(url).then(response => response.json())
         .then(data=> {
           console.log(data);

@@ -15,7 +15,7 @@ export default (context, inject) => {
     }
   }
   echomtg.log = (...params) => {
-    if(/dev/i.test(context.app.$config.API_DOMAIN)){
+    if(/(dev)|(localhost)|(nuxt)/i.test(context.app.$config.API_DOMAIN)){
       console.log(...params);
     }
   }
@@ -496,7 +496,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       id: inventory_id,
       tradable: tradable ? 1 : 0
     }
-    //console.log(body)
+
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -597,7 +597,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       let data = await res.json();
       this.createGrowl(data.message);
     } catch (error){
-      console.log(error);
+      echomtg.log(error);
     }
   }
 

@@ -21,7 +21,7 @@
     </section>
 
     <b-table
-      v-if="authenticated === 'true'"
+      v-if="authenticated"
       :striped="true"
       :data="earnings"
       ref="table"
@@ -138,7 +138,7 @@ export default {
     }
   },
   mounted() {
-    console.log("authenticated",this.authenticated);
+
     if(this.authenticated){
       this.getEarningsStats()
       this.getEarnings()
