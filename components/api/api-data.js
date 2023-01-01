@@ -2503,6 +2503,747 @@ export default {
 			"description": "Track item price movement in a watchlist."
 		},
 		{
+			"name": "Earnings",
+			"item": [
+				{
+					"name": "Earnings: Get List View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/view/?start=0&limit=200&direction=DESC&sort=date_sold&search=",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"view",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "200"
+								},
+								{
+									"key": "direction",
+									"value": "DESC"
+								},
+								{
+									"key": "sort",
+									"value": "date_sold"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						},
+						"description": "Access the users earning data."
+					},
+					"response": [
+						{
+							"name": "Earnings: get view",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dev.echomtg.com/api/earnings/view/?start=0&limit=200&direction=DESC&sort=date_sold&search=",
+									"protocol": "https",
+									"host": [
+										"dev",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"earnings",
+										"view",
+										""
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "200"
+										},
+										{
+											"key": "direction",
+											"value": "DESC"
+										},
+										{
+											"key": "sort",
+											"value": "date_sold"
+										},
+										{
+											"key": "search",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 31 Dec 2022 22:54:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Earnings Accessed.\",\n    \"earnings\": [\n        {\n            \"tcg_low\": 5.99,\n            \"tcg_mid\": 7.11,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Commander+Legends+-+Draft+Booster+Pack&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": -1,\n            \"mc\": null,\n            \"main_type\": null,\n            \"colors\": null,\n            \"name\": \"Commander Legends - Draft Booster Pack\",\n            \"mid\": 100078301,\n            \"t\": null,\n            \"set\": \"Sealed Product - Booster Packs\",\n            \"rarity\": \"sealed\",\n            \"types\": null,\n            \"set_code\": \"PACK\",\n            \"expansion\": \"Sealed Product - Booster Packs\",\n            \"emid\": 123799,\n            \"earnings_id\": 296476,\n            \"date_sold\": \"8/30/2022\",\n            \"date_sold_html\": \"2022-08-30\",\n            \"foil\": 0,\n            \"price\": 6.76,\n            \"price_acquired\": 6.33,\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/pack.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/123799.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/123799.jpg\",\n            \"gain\": 6.79,\n            \"echo_set_url\": \"https://www.echomtg.com/set/PACK/commander-legends--draft-booster-pack/\",\n            \"echo_url\": \"https://www.echomtg.com/card/123799/commander-legends--draft-booster-pack/\"\n        },\n        {\n            \"tcg_low\": 1.24,\n            \"tcg_mid\": 1.93,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Drain+Life&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": null,\n            \"price_change\": 0,\n            \"mc\": \"{{x}}{{1}}{{b}}\",\n            \"main_type\": \"Sorcery\",\n            \"colors\": \"Black\",\n            \"name\": \"Drain Life\",\n            \"mid\": 658,\n            \"t\": \"Sorcery\",\n            \"set\": \"Unlimited Edition\",\n            \"rarity\": \"Common\",\n            \"types\": \"Sorcery\",\n            \"set_code\": \"2ED\",\n            \"expansion\": \"Unlimited Edition\",\n            \"emid\": 38,\n            \"earnings_id\": 196087,\n            \"date_sold\": \"5/10/2021\",\n            \"date_sold_html\": \"2021-05-10\",\n            \"foil\": 127,\n            \"price\": 0,\n            \"price_acquired\": 2.2,\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/2ed.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/38.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/38.jpg\",\n            \"gain\": -100,\n            \"echo_set_url\": \"https://www.echomtg.com/set/2ED/drain-life/\",\n            \"echo_url\": \"https://www.echomtg.com/card/38/drain-life/\"\n        },\n        {\n            \"tcg_low\": 0.2,\n            \"tcg_mid\": 0.49,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Echo+Mage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"foil_price\": 3.84,\n            \"price_change\": 0,\n            \"mc\": \"{{1}}{{u}}{{u}}\",\n            \"main_type\": \"Creature\",\n            \"colors\": \"Blue\",\n            \"name\": \"Echo Mage\",\n            \"mid\": 198163,\n            \"t\": \"Creature\",\n            \"set\": \"Rise of the Eldrazi\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Creature - Human Wizard\",\n            \"set_code\": \"ROE\",\n            \"expansion\": \"Rise of the Eldrazi\",\n            \"emid\": 64502,\n            \"earnings_id\": 136577,\n            \"date_sold\": \"9/05/2020\",\n            \"date_sold_html\": \"2020-09-05\",\n            \"foil\": 0,\n            \"price\": 0.49,\n            \"price_acquired\": 0.5,\n            \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/roe.png\",\n            \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/64502.hq.jpg\",\n            \"image\": \"https://assets.echomtg.com/magic/cards/original/64502.jpg\",\n            \"gain\": -2,\n            \"echo_set_url\": \"https://www.echomtg.com/set/ROE/echo-mage/\",\n            \"echo_url\": \"https://www.echomtg.com/card/64502/echo-mage/\"\n        },\n        \n    ],\n    \"meta\": {\n        \"total_cards\": 89,\n        \"total_foil\": 395,\n        \"acquired_value\": 588.16,\n        \"sold_value\": 1852.50,\n        \"total_mythics\": 13,\n        \"total_rares\": 50,\n        \"total_uncommon\": 21,\n        \"total_common\": 2,\n        \"profit\": \"1,264.34\",\n        \"change_value\": \"214.97\",\n        \"start\": 0,\n        \"limit\": 200,\n        \"total_results\": 89,\n        \"sort\": \"e.date_sold\",\n        \"direction\": \"DESC\"\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Earnings: Statistics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/stats/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"stats",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Earnings: Statistics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dev.echomtg.com/api/earnings/stats/",
+									"protocol": "https",
+									"host": [
+										"dev",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"earnings",
+										"stats",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Jan 2023 14:04:04 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Earning Stats calculated.\",\n    \"stats\": {\n        \"sold_value\": 1852.5000000000007,\n        \"acquired_value\": 588.1600000000007,\n        \"total_cards\": 89,\n        \"difference\": \"1,264.34\",\n        \"gainLoss\": 214.97,\n        \"mythics\": 13,\n        \"rares\": 50,\n        \"uncommons\": 21,\n        \"commons\": 2,\n        \"foils\": 395\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Earnings: Update Sold Price",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 296476,\n    \"value\": 7.33\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/adjust_sold/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"adjust_sold",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Earnings: Update Sold Price",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 296476,\n    \"value\": 7.33\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/earnings/adjust_sold/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"earnings",
+										"adjust_sold",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Jan 2023 22:24:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card sold price updated to 7.33 USD\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Earnings: Update Acquired Price",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 296476,\n    \"value\": 7.33\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/adjust_acquired/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"adjust_acquired",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Earnings: Update Acquired Price",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 296476,\n    \"value\": 7.33\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/earnings/adjust_acquired/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"earnings",
+										"adjust_acquired",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Jan 2023 22:24:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card acquired price updated to 7.33 USD\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Earnings: Update Sold Date",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 296476,\n    \"value\": \"2012-08-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/adjust_date/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"adjust_date",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Earnings: Delete Entry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 296476\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://www.echomtg.com/api/earnings/remove/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"earnings",
+								"remove",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Earnings: Delete Entry",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 296476\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/earnings/remove/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"earnings",
+										"remove",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Jan 2023 22:30:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card removed from earnings.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Importing",
 			"item": [
 				{
@@ -2851,6 +3592,128 @@ export default {
 					]
 				},
 				{
+					"name": "Billing: Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/billing/customer/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"billing",
+								"customer",
+								""
+							]
+						},
+						"description": "Get cards on file for the user using the Stripe API. Iterate through the cards data object to get `id` s which are used in set default and delete card endpoints."
+					},
+					"response": [
+						{
+							"name": "Billing: Show Subscriptions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/billing/subscriptions/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"billing",
+										"subscriptions",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 18 Dec 2022 14:48:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Subscriptions Received\",\n    \"status\": \"success\",\n    \"subscriptions\": [\n        {\n            \"id\": \"sub_4tR1Yeeeeee5L\",\n            \"object\": \"subscription\",\n            \"application\": null,\n            \"application_fee_percent\": null,\n            \"automatic_tax\": {\n                \"enabled\": false\n            },\n            \"billing\": \"charge_automatically\",\n            \"billing_cycle_anchor\": 1469557744,\n            \"billing_thresholds\": null,\n            \"cancel_at\": null,\n            \"cancel_at_period_end\": false,\n            \"canceled_at\": null,\n            \"collection_method\": \"charge_automatically\",\n            \"created\": 1412373827,\n            \"currency\": \"usd\",\n            \"current_period_end\": 1672079344,\n            \"current_period_start\": 1669487344,\n            \"customer\": \"cus_4tR1seeeeHLDu6\",\n            \"days_until_due\": null,\n            \"default_payment_method\": null,\n            \"default_source\": null,\n            \"default_tax_rates\": [],\n            \"description\": null,\n            \"discount\": null,\n            \"ended_at\": null,\n            \"invoice_customer_balance_settings\": {\n                \"consume_applied_balance_on_void\": true\n            },\n            \"items\": {\n                \"object\": \"list\",\n                \"data\": [\n                    {\n                        \"id\": \"si_18SoMAJ7PTISwI9vpBrTP6SA\",\n                        \"object\": \"subscription_item\",\n                        \"billing_thresholds\": null,\n                        \"created\": 1412373827,\n                        \"metadata\": [],\n                        \"plan\": {\n                            \"id\": \"rare\",\n                            \"object\": \"plan\",\n                            \"active\": true,\n                            \"aggregate_usage\": null,\n                            \"amount\": 299,\n                            \"amount_decimal\": \"299\",\n                            \"billing_scheme\": \"per_unit\",\n                            \"created\": 1412037694,\n                            \"currency\": \"usd\",\n                            \"interval\": \"month\",\n                            \"interval_count\": 1,\n                            \"livemode\": false,\n                            \"metadata\": [],\n                            \"name\": \"Rare\",\n                            \"nickname\": null,\n                            \"product\": \"prod_BVEq66c8So6QEi\",\n                            \"statement_description\": \"EchoMTG Rare\",\n                            \"statement_descriptor\": \"EchoMTG Rare\",\n                            \"tiers\": null,\n                            \"tiers_mode\": null,\n                            \"transform_usage\": null,\n                            \"trial_period_days\": null,\n                            \"usage_type\": \"licensed\"\n                        },\n                        \"price\": {\n                            \"id\": \"rare\",\n                            \"object\": \"price\",\n                            \"active\": true,\n                            \"billing_scheme\": \"per_unit\",\n                            \"created\": 1412037694,\n                            \"currency\": \"usd\",\n                            \"custom_unit_amount\": null,\n                            \"livemode\": false,\n                            \"lookup_key\": null,\n                            \"metadata\": [],\n                            \"nickname\": null,\n                            \"product\": \"prod_BVEq66c8So6QEi\",\n                            \"recurring\": {\n                                \"aggregate_usage\": null,\n                                \"interval\": \"month\",\n                                \"interval_count\": 1,\n                                \"trial_period_days\": null,\n                                \"usage_type\": \"licensed\"\n                            },\n                            \"tax_behavior\": \"unspecified\",\n                            \"tiers_mode\": null,\n                            \"transform_quantity\": null,\n                            \"type\": \"recurring\",\n                            \"unit_amount\": 299,\n                            \"unit_amount_decimal\": \"299\"\n                        },\n                        \"quantity\": 1,\n                        \"subscription\": \"sub_4tR1Y3aHRk3b5L\",\n                        \"tax_rates\": []\n                    }\n                ],\n                \"has_more\": false,\n                \"total_count\": 1,\n                \"url\": \"/v1/subscription_items?subscription=sub_4tR1Y3aHRk3b5L\"\n            },\n            \"latest_invoice\": \"in_1M8TASJ7PTISwI9vmwg1Isyh\",\n            \"livemode\": false,\n            \"metadata\": [],\n            \"next_pending_invoice_item_invoice\": null,\n            \"on_behalf_of\": null,\n            \"pause_collection\": null,\n            \"payment_settings\": {\n                \"payment_method_options\": null,\n                \"payment_method_types\": null,\n                \"save_default_payment_method\": null\n            },\n            \"pending_invoice_item_interval\": null,\n            \"pending_setup_intent\": null,\n            \"pending_update\": null,\n            \"plan\": {\n                \"id\": \"rare\",\n                \"object\": \"plan\",\n                \"active\": true,\n                \"aggregate_usage\": null,\n                \"amount\": 299,\n                \"amount_decimal\": \"299\",\n                \"billing_scheme\": \"per_unit\",\n                \"created\": 1412037694,\n                \"currency\": \"usd\",\n                \"interval\": \"month\",\n                \"interval_count\": 1,\n                \"livemode\": false,\n                \"metadata\": [],\n                \"name\": \"Rare\",\n                \"nickname\": null,\n                \"product\": \"prod_BVEq66c8So6QEi\",\n                \"statement_description\": \"EchoMTG Rare\",\n                \"statement_descriptor\": \"EchoMTG Rare\",\n                \"tiers\": null,\n                \"tiers_mode\": null,\n                \"transform_usage\": null,\n                \"trial_period_days\": null,\n                \"usage_type\": \"licensed\"\n            },\n            \"quantity\": 1,\n            \"schedule\": null,\n            \"start\": 1545353794,\n            \"start_date\": 1412373827,\n            \"status\": \"unpaid\",\n            \"tax_percent\": null,\n            \"test_clock\": null,\n            \"transfer_data\": null,\n            \"trial_end\": null,\n            \"trial_start\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
 					"name": "Billing: Switch Plan",
 					"request": {
 						"method": "POST",
@@ -2921,11 +3784,21 @@ export default {
 				{
 					"name": "Set Default Card",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"card_id\" : \"card_XXXXXXX\"\r\n}",
+							"raw": "{\r\n    \"card_id\" : \"card_1MGMvNJ7PTISwI9vPN3ZHLuZ\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2933,12 +3806,9 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://www.echomtg.com/api/billing/set_default_card/",
-							"protocol": "https",
+							"raw": "localhost/api/billing/set_default_card/",
 							"host": [
-								"www",
-								"echomtg",
-								"com"
+								"localhost"
 							],
 							"path": [
 								"api",
