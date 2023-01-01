@@ -46,7 +46,7 @@ export default {
       page: 1,
       total: 0,
       perPage: 50,
-      sortField: 'e.date_sold',
+      sortField: 'date_sold',
       sortOrder: 'DESC',
       loading: false,
     }

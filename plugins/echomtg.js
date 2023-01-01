@@ -580,6 +580,20 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.earningsDeleteItem = async (earnings_id) => {
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/remove/`;
+    let body = {
+      id: earnings_id
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
   echomtg.editListMeta = async (list_id, name, description) => {
 
     let n = encodeURIComponent(name)

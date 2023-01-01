@@ -182,7 +182,7 @@ export default {
     },
     async deleteItem(earnings_id) {
 
-      const data = await this.$echomtg.deleteFromEarnings(earnings_id)
+      const data = await this.$echomtg.earningsDeleteItem(earnings_id)
       this.$buefy.snackbar.open({
           message: data.message,
           type: 'is-warning',
@@ -190,7 +190,7 @@ export default {
           position: 'is-top',
       })
 
-      this.getWatchlist()
+      await this.getEarnings()
 
     },
 
