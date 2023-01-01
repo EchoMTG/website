@@ -33,6 +33,8 @@ import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
 import ToolsArray from '@/components/navigation/tools'
+import shellUser from '@/store/shellUser'
+
 // import ConfigBox from '@/components/ConfigBox'
 
 export default {
@@ -57,7 +59,7 @@ export default {
 
     menu () {
       if(this.user && this.user.username != ''){
-        console.log(this.user);
+        console.log('user, auth', this.authenticated,this.user);
       }
       let navList = [
           'Magic: the Gathering',
@@ -210,22 +212,22 @@ export default {
 
     // STORE PERSISTANCE
     // if reloading, load store into state to persist
-    let persistedUser = window.localStorage.getItem('user');
-    if(persistedUser){
-      let userObject = JSON.parse(persistedUser);
-      this.$store.commit('user', userObject);
-      console.log('user from default bue', userObject);
-      this.$store.commit('authenticated', 'true');
-      if(parseInt(userObject.dark_mode) == 1){
-        this.$store.commit('darkModeToggle', true)
-      } else {
-        this.$store.commit('darkModeToggle', false)
-      }
+    // let persistedUser = window.localStorage.getItem('user');
+    // if(persistedUser){
+    //   await this.authenticatedUser()
+    //   let userObject = JSON.parse(persistedUser);
+    //   this.$store.commit('user', userObject);
+    //   this.$store.commit('authenticated', true);
+    //   if(parseInt(userObject.dark_mode) == 1){
+    //     this.$store.commit('darkModeToggle', true)
+    //   } else {
+    //     this.$store.commit('darkModeToggle', false)
+    //   }
 
-    }
+    // }
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
-    if(this.$store.authenticated !== 'true' && this.$cookies.get('token')){
+    if(this.$cookies.get('token')){
       await this.authenticatedUser()
     }
 
@@ -245,12 +247,19 @@ export default {
       const userdata = await this.$echomtg.getUserMeta();
 
       // store the user data
-      if(userdata.status == 'success'){
+      if(userdata.status === 'success'){
 
         this.$store.commit('user', userdata.user);
         this.$store.commit('authenticated',true);
+        if(parseInt(userdata.user.dark_mode) == 1){
+          this.$store.commit('darkModeToggle', true)
+        } else {
+          this.$store.commit('darkModeToggle', false)
+        }
       } else {
         this.$store.commit('authenticated',false);
+        this.$store.commit('user', shellUser);
+        window.localStorage.removeItem('user')
       }
 
 

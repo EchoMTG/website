@@ -1,3 +1,4 @@
+
 const shellUser = {
   first_name: '',
   last_name: '',
@@ -78,6 +79,7 @@ export const mutations = {
         window.localStorage.setItem('authenticated', 'true');
       } else {
         window.localStorage.removeItem('authenticated')
+        window.localStorage.removeItem('user')
       }
 
   },
@@ -177,10 +179,7 @@ export const mutations = {
   /* Dark Mode */
   darkModeToggle (state, payload = null) {
     const setIsDark = payload !== null ? payload : !state.isDarkModeActive
-
-
     state.isDarkModeActive = setIsDark
-    console.log('running dark mode toggle', setIsDark)
     document.documentElement.classList[setIsDark ? 'add' : 'remove']('is-dark-mode-active')
   },
 

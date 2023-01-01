@@ -151,8 +151,7 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
-      toolsMenu: ToolsArray,
-      authenticated: false
+      toolsMenu: ToolsArray
     }
   },
   computed: {
@@ -201,7 +200,8 @@ export default {
       'isAsideRightActive',
       'userName',
       'user',
-      'hasUpdates'
+      'hasUpdates',
+      'authenticated'
     ])
   },
   mounted () {
@@ -209,14 +209,9 @@ export default {
       this.isMenuNavBarActive = false
     })
 
-    this.authenticated = window.localStorage.getItem('authenticated') !== null;
 
   },
-  watch: {
-    user() {
-      this.authenticated = window.localStorage.getItem('authenticated') !== null;
-    }
-  },
+
   methods: {
     menuToggle () {
 
