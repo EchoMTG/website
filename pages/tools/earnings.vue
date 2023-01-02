@@ -58,7 +58,7 @@
         <div style="display: flex; flexDirection: row;">
 
           <div style="width:50px; height: 20px; ">
-            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive="true"  />
+            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive  />
           </div>
 
           <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
@@ -71,9 +71,9 @@
         {{props.row.expansion}}
       </b-table-column>
 
-      <b-table-column v-slot="props" field="date_sold" label="Date Sold" sortable>
+      <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
         <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
-        {{props.row.date_sold}}
+
       </b-table-column>
       <b-table-column v-slot="props" field="gain" label="Gain/Loss" sortable width="50" :numeric="true">
         <span v-if="props.row.price_change != 0">

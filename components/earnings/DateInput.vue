@@ -5,9 +5,10 @@
         expanded
         size="is-small"
         @input="update"
-        :value="date"
+        :value="new Date(Date.parse(date))"
         placeholder="Select a date">
     </b-datepicker>
+    <!--  -->
     <b-button
         @click="$refs.datepicker.toggle()"
         icon-left="calendar-today"
@@ -35,7 +36,15 @@ export default {
  },
  methods: {
   update(value) {
-    this.$echomtg.earningChangeSoldDate(this.earnings_id,value )
+    value = new Date(Date.parse(value))
+    const yyyy = value.getFullYear();
+    let mm = value.getMonth() + 1; // Months start at 0!
+    let dd = value.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    this.$echomtg.earningChangeSoldDate(this.earnings_id,yyyy + '-' + mm + '-' + dd )
     if(this.callback){
       this.callback()
     }
