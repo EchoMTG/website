@@ -593,6 +593,52 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     });
     return await res.json();
   }
+  echomtg.earningChangeSoldPrice = async (earnings_id, price) => {
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_sold/`;
+    let body = {
+      id: earnings_id,
+      value: price
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.earningChangeAcquiredPrice = async (earnings_id, price) => {
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_acquired/`;
+    let body = {
+      id: earnings_id,
+      value: price
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.earningChangeSoldDate = async (earnings_id, date) => {
+
+    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_date/`;
+    let body = {
+      id: earnings_id,
+      value: date
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+
 
   echomtg.editListMeta = async (list_id, name, description) => {
 

@@ -72,6 +72,7 @@
       </b-table-column>
 
       <b-table-column v-slot="props" field="date_sold" label="Date Sold" sortable>
+        <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
         {{props.row.date_sold}}
       </b-table-column>
       <b-table-column v-slot="props" field="gain" label="Gain/Loss" sortable width="50" :numeric="true">
@@ -82,13 +83,10 @@
         </span>
       </b-table-column>
       <b-table-column v-slot="props" field="price" label="Sold For" width="100" sortable :numeric="true">
-        {{cs}}{{props.row.price}}
+        <sold-price-input v-if="props.row.price" :price="props.row.price" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
       <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="120" :numeric="true" sortable>
-        <span v-if="undefined !== props.row.price_acquired">
-         {{cs}}{{props.row.price_acquired}}
-          <!-- <threshold-input :threshold="props.row.threshold" :callback="updateItem" :watchlist_id="props.row.watchlist_id" /> -->
-        </span>
+        <acquired-price-input v-if="props.row.price_acquired" :price="props.row.price_acquired" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
 
       </b-table-column>
       <b-table-column v-slot="props">
@@ -103,15 +101,20 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import SoldPriceInput from '~/components/earnings/SoldPriceInput.vue'
+import AcquiredPriceInput from '~/components/earnings/AcquiredPriceInput.vue'
+import DateInput from '~/components/earnings/DateInput.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
-import ThresholdInput from '~/components/watchlist/ThresholdInput.vue'
+
 export default {
   name: 'Earnings',
   components: {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
-    ThresholdInput
+    DateInput,
+    SoldPriceInput,
+    AcquiredPriceInput
   },
   data () {
     return {
@@ -140,8 +143,7 @@ export default {
   mounted() {
 
     if(this.authenticated){
-      this.getEarningsStats()
-      this.getEarnings()
+      this.dataRefresh();
     }
     this.updateTableHeight()
     this.$nextTick(() => {
@@ -164,15 +166,18 @@ export default {
         this.sortOrder = order
         this.getEarnings()
     },
+    async dataRefresh(){
+      this.loading = true;
+      await this.getEarnings();
+      await this.getEarningsStats()
+      this.loading = false;
+    },
     async getEarnings() {
 
       let start = (this.page - 1) * this.perPage;
-
-      this.loading = true;
       let data = await this.$echomtg.getEarnings(start,this.perPage,this.sortOrder,this.sortField ,this.search);
-
       this.earnings = data.earnings;
-      this.loading = false;
+
 
     },
     async getEarningsStats(){
@@ -190,7 +195,7 @@ export default {
           position: 'is-top',
       })
 
-      await this.getEarnings()
+      await this.dataRefresh()
 
     },
 
