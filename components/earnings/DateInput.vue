@@ -8,7 +8,6 @@
         :value="new Date(Date.parse(date))"
         placeholder="Select a date">
     </b-datepicker>
-    <!--  -->
     <b-button
         @click="$refs.datepicker.toggle()"
         icon-left="calendar-today"

@@ -82,11 +82,11 @@
 
         </span>
       </b-table-column>
-      <b-table-column v-slot="props" field="price" label="Sold For" width="100" sortable :numeric="true">
-        <sold-price-input v-if="props.row.price" :price="props.row.price" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
+      <b-table-column v-slot="props" field="price" label="Sold For" width="110" sortable :numeric="true">
+        <sold-price-input v-if="props.row.price" :price="props.row.price.toFixed(2)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
-      <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="120" :numeric="true" sortable>
-        <acquired-price-input v-if="props.row.price_acquired" :price="props.row.price_acquired" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
+      <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
+        <acquired-price-input v-if="props.row.price_acquired" :price="props.row.price_acquired.toFixed(2)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
 
       </b-table-column>
       <b-table-column v-slot="props">
@@ -168,8 +168,8 @@ export default {
     },
     async dataRefresh(){
       this.loading = true;
-      await this.getEarnings();
       await this.getEarningsStats()
+      await this.getEarnings();
       this.loading = false;
     },
     async getEarnings() {
