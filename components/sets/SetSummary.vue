@@ -13,10 +13,14 @@
         <h1>
           <em class="has-text-white has-shadow has-text-weight-light is-size-6">Magic the Gathering MTG</em>
           <br />
-          <a class="is-size-3" :href="setURL">{{setName}} - {{setCode}}</a>
+          <a v-if="setCode !== ''" class="is-size-3" :href="setURL">{{setName}} - {{setCode}}</a>
+          <a v-else class="is-size-3" :href="setURL">All {{setName}} Cards</a>
         </h1>
-        <h2 class="has-text-weight-normal has-text-light-grey is-size-7">
+        <h2 v-if="setReleaseDate !== ''" class="has-text-weight-normal has-text-light-grey is-size-7">
           MTG {{setName}} was released on {{setReleaseDate}} with {{setTotalItems}} items.
+        </h2>
+        <h2 v-if="setReleaseDate == ''" class="has-text-weight-normal has-text-light-grey is-size-7">
+          Top {{setTotalItems}} {{setName}} cards from Magic the Gathering .
         </h2>
       </div>
       <div class="column">

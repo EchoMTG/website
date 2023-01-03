@@ -70,7 +70,7 @@ export default (context, inject) => {
 
   }
 
-  echomtg.getGroup = async (name,limit=150,type=false) => {
+  echomtg.getGroup = async (name,limit=150,type=false,unique=false) => {
     let params = [
       `limit=${limit}`,
       `name=${name}`
@@ -78,6 +78,9 @@ export default (context, inject) => {
 
     if(type){
       params.push(`type=${type}`)
+    }
+    if(unique){
+      params.push(`unique=true`)
     }
 
     let endpoint = `${context.app.$config.API_DOMAIN}magic/groups/?${params.join('&')}`;

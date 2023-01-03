@@ -12,13 +12,6 @@
             <h3 class="subtitle has-text-white">
                 In Magic: The Gathering, there are several different types of cards, each with its own unique characteristics and abilities.
             </h3>
-            <p>Creatures: These are cards that represent creatures and can be summoned by players to attack and defend.</p>
-            <p>Sorceries: These are one-time use spells that have a powerful effect, but are then discarded.</p>
-            <p>Instants: These are spells that can be played at any time, even during another player's turn.</p>
-            <p>Enchantments: These are permanents that remain on the battlefield and have a continuous effect.</p>
-            <p>Lands: These cards are used to produce mana, which is the resource used to cast spells and summon creatures.</p>
-            <p>There are also several other card types that are less common, such as planeswalkers and artifacts. These card types have their own unique abilities and rules.</p>
-            </h3>
           </div>
           <div class="column is-one-third">
            <h4 class="title is-size-5 has-text-white">Create an Echo MTG Accounts</h4>
