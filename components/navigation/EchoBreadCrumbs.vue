@@ -3,11 +3,12 @@
 
         <!-- Right -->
         <b-breadcrumb size="is-small">
-            <b-breadcrumb-item  href="/"><b-icon  size="is-small" class="mr-0 pr-0" icon="home"/></b-breadcrumb-item>
+            <b-breadcrumb-item  tag='router-link' to="/"><b-icon  size="is-small" class="mr-0 pr-0" icon="home"/></b-breadcrumb-item>
             <b-breadcrumb-item
               v-for="(item, index) in data"
+              tag='router-link'
               :key="item.label.toLowerCase().replace(' ','')"
-              :href="item.url"
+              :to="item.url"
               :active="(index + 1) == data.length"
               >{{item.label}}</b-breadcrumb-item>
         </b-breadcrumb>

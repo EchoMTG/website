@@ -47,7 +47,7 @@
         default-sort="total"
         >
         <b-table-column sortable :label="`Magic Type (${total} total types)`" v-slot="props" searchable field="type">
-          <nuxt-link :to="props.row.url">{{props.row.type}}</nuxt-link>
+          <nuxt-link :to="props.row.url" :prefetch="false">{{props.row.type}}</nuxt-link>
         </b-table-column>
         <b-table-column v-slot="props" :numeric="true" label="Total Printing in Each Type" sortable field="total">
           {{props.row.total}}

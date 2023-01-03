@@ -9,7 +9,7 @@
     <b-table :data="items">
       <b-table-column field="name" label="Card Name" v-slot="props" sortable searchable>
 
-        <nuxt-link :to="props.row.url" :title="`Open ${props.row.name} Page`">
+        <nuxt-link :to="props.row.url" no-prefetch>
             <b-image
                 lazy
                 :src="props.row.image_cropped"
