@@ -14,6 +14,14 @@ export default (context, inject) => {
       'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
     }
   }
+
+  echomtg.getS2SGetHeaders = () => {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
+    }
+  }
+
   echomtg.log = (...params) => {
     if(/(dev)|(localhost)|(nuxt)/i.test(context.app.$config.API_DOMAIN)){
       console.log(...params);
@@ -41,7 +49,7 @@ export default (context, inject) => {
 
   echomtg.getItem = async (emid) => {
     let endpoint = `${context.app.$config.API_DOMAIN}data/item/?emid=${emid}`;
-    console.log('echo getitem',endpoint);
+
     // pricing
     const res = await fetch(endpoint, {
       headers: {
@@ -49,6 +57,36 @@ export default (context, inject) => {
           }
       })
       return await res.json();
+
+  }
+
+  echomtg.getTypes = async () => {
+    let endpoint = `${context.app.$config.API_DOMAIN}magic/types/`;
+
+    const res = await fetch(endpoint, {
+      headers: echomtg.getS2SGetHeaders()
+    })
+    return await res.json();
+
+  }
+
+  echomtg.getGroup = async (name,limit=150,type=false) => {
+    let params = [
+      `limit=${limit}`,
+      `name=${name}`
+    ]
+
+    if(type){
+      params.push(`type=${type}`)
+    }
+
+    let endpoint = `${context.app.$config.API_DOMAIN}magic/groups/?${params.join('&')}`;
+    console.log(endpoint);
+
+    const res = await fetch(endpoint, {
+      headers: echomtg.getS2SGetHeaders()
+    })
+    return await res.json();
 
   }
 

@@ -75,7 +75,7 @@ export default {
               icon: 'cake'
             },
             {
-              to: '/magic/reserve-list/',
+              to: '/groups/magic-reserve-list/',
               label: 'Reserve List',
               icon: 'chess-king'
             },
