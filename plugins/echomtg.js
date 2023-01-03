@@ -84,10 +84,9 @@ export default (context, inject) => {
     }
 
     let endpoint = `${context.app.$config.API_DOMAIN}magic/groups/?${params.join('&')}`;
-    console.log(endpoint);
-
+    console.log(echomtg.getS2SGetHeaders())
     const res = await fetch(endpoint, {
-      headers: echomtg.getS2SGetHeaders()
+      headers:  { 'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY }
     })
     return await res.json();
 

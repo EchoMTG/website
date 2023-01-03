@@ -28,7 +28,10 @@
             <em v-html="replaceSymbols(props.row.mc)"></em>
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
-          <b-table-column field="expansion" label="Expansion" sortable v-slot="props">
+          <b-table-column field="types" label="Type" searchable sortable v-slot="props">
+              {{ props.row.types }}
+          </b-table-column>
+          <b-table-column field="expansion" label="Expansion" searchable sortable v-slot="props">
               {{ props.row.expansion }}
           </b-table-column>
           <b-table-column field="collectors_number" label="#" numeric sortable v-slot="props">
@@ -68,11 +71,13 @@ export default {
   data () {
     return {
       cs: '$',
-      items: [],
+      items: [{
+        image_cropped: ''
+      }],
       slug: ''
     }
   },
-  async asyncData({ params, redirect, $echomtg }) {
+  async asyncData({ params, redirect, $echomtg, $config }) {
 
     let data;
     try {
@@ -80,7 +85,7 @@ export default {
     } catch(err){
       console.log(err)
     }
-
+    console.log("transition",params,data)
 
     // return it
     if (data.items.length > 0) {
