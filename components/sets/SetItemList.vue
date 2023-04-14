@@ -187,7 +187,7 @@
             <em v-html="replaceSymbols(props.row.mc)"></em>
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
-          <b-table-column field="collectors_number" label="#" numeric sortable v-slot="props">
+          <b-table-column field="collectors_number_sort" label="#" numeric sortable v-slot="props">
             {{props.row.collectors_number}}
           </b-table-column>
           <b-table-column field="price_change" v-if="totalRegular > 0" label="7-Day" numeric sortable v-slot="props">
