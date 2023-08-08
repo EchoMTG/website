@@ -273,9 +273,39 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return data;
   }
 
+  echomtg.inventoryAdd = async (emid,options={}) => {
+    let endpoint = `${context.app.$config.API_DOMAIN}inventory/add/`;
+    let body = {
+      "emid": emid,
+      "language": options?.language ? options.language : "EN",
+      "condition": options?.condition ? options.condition : "NM",
+      "foil": options?.foil ? options.foil : 0,
+      "quantity" : options?.quantity ? options.quantity : 1
+    }
+    if(options?.acquired_price) {
+      body.acquired_price = options.acquired_price
+    }
+    if(options?.acquired_date) {
+      body.acquired_price = options.acquired_date
+    }
+
+    echomtg.log(endpoint, 'adding inventory', body);
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    })
+
+    return await res.json();
+  }
+
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
-    let url = `${context.app.$config.API_DOMAIN}inventory/add/emid=${emid}&foil=${foil}`;
+    let url = `${context.app.$config.API_DOMAIN}inventory/add/?emid=${emid}&foil=${foil}`;
     echomtg.log(url, 'adding inventory', context.app.$cookies.get('token'));
     const res = await fetch(url, {
       headers: {
@@ -283,8 +313,6 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       }
     });
     return await res.json();
-
-
   }
 
   echomtg.updateUser = async (payload) => {

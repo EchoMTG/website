@@ -78,8 +78,9 @@ export default {
         data: bodyFormData,
         config: { headers: { 'Content-Type': 'multipart/form-data' } },
       }).then(function (response) {
+        console.log(response)
         $this.$parent.updateStatus()
-        createGrowl(' Added to Inventory public ')
+        createGrowl(' Added to Inventory')
       })
     },
 

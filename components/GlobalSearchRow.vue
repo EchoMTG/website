@@ -124,37 +124,13 @@ export default {
 
             let ap = foil == 0 ? parseFloat(this.priceAcquired) : parseFloat(this.priceAcquiredFoil);
             let qty = foil == 0 ? this.quantity : this.quantityFoil;
-            let url = `/api/inventory/add/`
-            let payload = {
+            let options = {
                 foil: foil,
-                emid: this.emid,
                 acquired_price: ap,
                 quantity: qty
             }
-            fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    this.$buefy.snackbar.open({
-                        message: data.message,
-                        type: 'is-success',
-                        queue: true,
-                        position: 'is-top',
-                    })
-                    reloadInventory();
-                    reloadInventoryStats();
-                })
-                .catch(err => {
-                    this.$buefy.snackbar.open({
-                        message: err.message,
-                        type: 'is-error',
-                        queue: true,
-                        position: 'is-top',
-                    })
-                })
 
+            this.$echomtg.inventoryAdd(this.emid, options)
 
         }
     },
