@@ -114,7 +114,7 @@
           </span>
         </b-table-column>
         <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
-            {{ props.row.date_acquired ? new Date(props.row.date_acquired).toLocaleDateString() : 'N/A' }}
+            <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
         </b-table-column>
         <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
             <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
@@ -174,6 +174,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
 import PriceAcquiredInput from '~/components/inventory/PriceAcquiredInput.vue'
+import DateAcquiredInput from '~/components/inventory/DateAcquiredInput.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import ItemListBox from '~/components/items/ItemListBox.vue'
 export default {
@@ -187,7 +188,8 @@ export default {
     SetSelector,
     ToggleTradableButton,
     QuickGraph,
-    ItemListBox
+    ItemListBox,
+    DateAcquiredInput
   },
   data() {
       return {
