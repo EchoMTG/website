@@ -118,6 +118,7 @@
         </b-table-column>
         <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
             {{cs}}{{ props.row.price_acquired}}
+            <!-- make editable -->
         </b-table-column>
         <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
           <span v-if="props.row.personal_gain" class="tag" :class="type(props.row.personal_gain)">
