@@ -37,6 +37,14 @@ export default (context, inject) => {
     return `ss ss-${sc} ss-echo`
   }
 
+  echomtg.getAPIURL = () => {
+    return context.app.$config.API_DOMAIN;
+  }
+
+  echomtg.getToken = () => {
+    return context.app.$cookies.get('token');
+  }
+
   echomtg.createGrowl = (message,icon,color="grey") => {
     //alert(message + icon + color)
     if(context.app.$buefy){

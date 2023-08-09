@@ -15,7 +15,7 @@
           </div>
           <div class="column is-one-third">
             Export Options
-
+            <export-dropdown />
           </div>
         </div>
 
@@ -177,6 +177,7 @@ import PriceAcquiredInput from '~/components/inventory/PriceAcquiredInput.vue'
 import DateAcquiredInput from '~/components/inventory/DateAcquiredInput.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import ItemListBox from '~/components/items/ItemListBox.vue'
+import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
 export default {
   name: 'Inventory',
 
@@ -189,7 +190,8 @@ export default {
     ToggleTradableButton,
     QuickGraph,
     ItemListBox,
-    DateAcquiredInput
+    DateAcquiredInput,
+    ExportDropdown
   },
   data() {
       return {
