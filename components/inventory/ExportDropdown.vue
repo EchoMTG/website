@@ -1,8 +1,9 @@
 <template>
-   <b-dropdown size="is-small" aria-role="list">
+   <b-dropdown  aria-role="list">
       <template #trigger="{ active }">
           <b-button
               label="Export Options"
+              size="is-small"
               :icon-right="active ? 'menu-up' : 'menu-down'" />
       </template>
 
@@ -25,7 +26,7 @@ export default {
     downloadCSVURL() {
       const user = this.$echomtg.getUserMeta();
 
-      if(user.plan !== 'common' && user.plan !== 'uncommon' &&  user.plan !== 'rare'){
+      if(user.plan !== 'common' && user.plan !== 'uncommon' && user.plan !== 'uncommonY' && user.plan !== 'rareY' &&  user.plan !== 'rare'){
         return this.$echomtg.getAPIURL() + 'stores/export/?auth=' + this.$echomtg.getToken();
       } else {
         return this.$echomtg.getAPIURL() + 'inventory/export/?auth=' + this.$echomtg.getToken();

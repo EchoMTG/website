@@ -14,8 +14,9 @@
             </h3>
           </div>
           <div class="column is-one-third">
-            Export Options
-            <export-dropdown />
+            <div class="is-flex">
+              <export-dropdown class="is-align-items-end" />
+            </div>
           </div>
         </div>
 
