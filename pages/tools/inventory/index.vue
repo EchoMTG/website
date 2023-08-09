@@ -117,7 +117,7 @@
             {{ props.row.date_acquired ? new Date(props.row.date_acquired).toLocaleDateString() : 'N/A' }}
         </b-table-column>
         <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
-            {{cs}}{{ props.row.price_acquired}}
+            <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
             <!-- make editable -->
         </b-table-column>
         <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
@@ -173,6 +173,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
+import PriceAcquiredInput from '~/components/inventory/PriceAcquiredInput.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import ItemListBox from '~/components/items/ItemListBox.vue'
 export default {
@@ -182,6 +183,7 @@ export default {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
     DeleteInventoryButton,
+    PriceAcquiredInput,
     SetSelector,
     ToggleTradableButton,
     QuickGraph,
