@@ -273,6 +273,28 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return data;
   }
 
+  echomtg.inventoryUpdate = async (id,options={}) => {
+    let endpoint = `${context.app.$config.API_DOMAIN}inventory/update/`;
+
+    const body = {
+      "id": id,
+      ...options
+    }
+
+    echomtg.log(endpoint, 'updating inventory', body);
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(body)
+    })
+
+    return await res.json();
+  }
+
   echomtg.inventoryAdd = async (emid,options={}) => {
     let endpoint = `${context.app.$config.API_DOMAIN}inventory/add/`;
     let body = {
