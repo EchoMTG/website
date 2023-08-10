@@ -6,6 +6,7 @@
         size="is-small"
         @input="update"
         :value="new Date(Date.parse(date))"
+        style="max-width: 74px;"
         placeholder="Select a date">
     </b-datepicker>
     <b-button

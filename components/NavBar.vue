@@ -116,11 +116,7 @@
 
           </div>
         </div>
-        <!-- <a
-          href="https://justboil.me/bulma-admin-template/one"
-          class="navbar-item has-divider is-desktop-icon-only"
-          title="About"
-        >
+        <!--
           <b-icon icon="help-circle-outline" custom-size="default" />
           <span>About</span>
         </a> -->

@@ -88,7 +88,10 @@
       >
 
         <b-table-column field="name" label="Name" sortable v-slot="props">
-            <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
+
+            <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
+
+            </i>
             <item-inspector-wrapper :item="props.row" />
         </b-table-column>
         <b-table-column field="set" label="Expansion" sortable v-slot="props">
@@ -121,15 +124,15 @@
             {{ props.row.personal_gain }}%
           </span>
         </b-table-column>
-        <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
+        <b-table-column field="price_acquired" :label="`${cs} Purchased`" numeric sortable centered v-slot="props">
             <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
         </b-table-column>
-        <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
+        <b-table-column field="date_acquired" label="Purchase Date" date sortable centered v-slot="props">
             <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
         </b-table-column>
 
-
         <b-table-column v-slot="props">
+          <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData"></toggle-foil-button>
           <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
           <duplicate-button :copy="props.row" :callback="loadAsyncData" />
           <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
@@ -184,6 +187,7 @@ import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import ItemListBox from '~/components/items/ItemListBox.vue'
 import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
 import DuplicateButton from '~/components/inventory/DuplicateButton.vue'
+import ToggleFoilButton from '~/components/inventory/ToggleFoilButton.vue'
 
 export default {
   name: 'Inventory',
@@ -199,7 +203,8 @@ export default {
     ItemListBox,
     DateAcquiredInput,
     ExportDropdown,
-    DuplicateButton
+    DuplicateButton,
+    ToggleFoilButton
   },
   data() {
       return {
