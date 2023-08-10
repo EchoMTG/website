@@ -1,6 +1,6 @@
 <template>
   <b-button :class="classType(foil) + `   `" style="overflow:hidden; max-width: 36px; position: relative;" size="is-small" @click="toggleFoil()">
-    <i class="ss ss-htr ss-3x has-text-warning-dark" style="font-size: 28px; font-weight: bold; position: absolute; left: 5px; top: 0px;"></i>
+    <i :class="`ss ss-htr ss-3x ` + testClass(foil) " style="font-size: 28px; position: absolute; left: 5px; top: 0px;"></i>
   </b-button>
 </template>
 <script>
@@ -23,7 +23,10 @@ export default {
 
   methods: {
     classType(foil) {
-      return foil == 1 ? 'is-warning' : 'is-secondary'
+      return foil == 1 ? 'is-light' : 'is-secondary'
+    },
+    testClass(foil) {
+      return foil == 1 ? 'rainbow-text font-weight-bold' : ''
     },
     async toggleFoil() {
 
