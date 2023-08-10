@@ -14,8 +14,10 @@
             </h3>
           </div>
           <div class="column is-one-third">
-            <div class="is-flex">
+            <div class="is-flex is-flex-direction-row-reverse">
+
               <export-dropdown class="is-align-items-end" />
+              <b-button size="is-small" class="mr-2" href="/tools/inventory/import/" type="is-primary" icon-left="download">Import</b-button>
             </div>
           </div>
         </div>
@@ -101,7 +103,7 @@
           </b-taglist>
         </b-table-column>
 
-        <b-table-column field="tcg_market" label="Price" numeric sortable v-slot="props">
+        <b-table-column field="tcg_market" label="Today" numeric sortable v-slot="props">
           <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
           {{cs}}{{props.row.foil_price}}
           </span>
@@ -114,20 +116,22 @@
             {{ props.row.price_change }} %
           </span>
         </b-table-column>
-        <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
-            <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
-        </b-table-column>
-        <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
-            <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
-            <!-- make editable -->
-        </b-table-column>
-        <b-table-column field="personal_gain" label="P/L" numeric sortable centered v-slot="props">
+        <b-table-column field="personal_gain" label="Gain/Loss" numeric sortable centered v-slot="props">
           <span v-if="props.row.personal_gain" class="tag" :class="type(props.row.personal_gain)">
             {{ props.row.personal_gain }}%
           </span>
         </b-table-column>
+        <b-table-column field="price_acquired" :label="`Acq. ${cs}`" numeric sortable centered v-slot="props">
+            <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
+        </b-table-column>
+        <b-table-column field="date_acquired" label="Acq. Date" date sortable centered v-slot="props">
+            <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
+        </b-table-column>
+
+
         <b-table-column v-slot="props">
           <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
+          <duplicate-button :copy="props.row" :callback="loadAsyncData" />
           <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
         </b-table-column>
 
@@ -179,6 +183,8 @@ import DateAcquiredInput from '~/components/inventory/DateAcquiredInput.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import ItemListBox from '~/components/items/ItemListBox.vue'
 import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
+import DuplicateButton from '~/components/inventory/DuplicateButton.vue'
+
 export default {
   name: 'Inventory',
 
@@ -192,7 +198,8 @@ export default {
     QuickGraph,
     ItemListBox,
     DateAcquiredInput,
-    ExportDropdown
+    ExportDropdown,
+    DuplicateButton
   },
   data() {
       return {

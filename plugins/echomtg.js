@@ -316,7 +316,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       body.acquired_price = options.acquired_price
     }
     if(options?.acquired_date) {
-      body.acquired_price = options.acquired_date
+      body.acquired_date = options.acquired_date
     }
 
     echomtg.log(endpoint, 'adding inventory', body);
