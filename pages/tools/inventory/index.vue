@@ -7,7 +7,7 @@
         <div class="columns">
           <div class="column  is-two-thirds">
             <h1 class="title has-text-white">
-                Inventory
+                Binder Inventory
             </h1>
             <h3 class="subtitle has-text-light">
                 Manage your collection
@@ -124,7 +124,7 @@
             {{ props.row.personal_gain }}%
           </span>
         </b-table-column>
-        <b-table-column field="price_acquired" :label="`${cs} Purchased`" numeric sortable centered v-slot="props">
+        <b-table-column field="price_acquired" :label="`Purchase ${cs}`" numeric sortable centered v-slot="props">
             <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
         </b-table-column>
         <b-table-column field="date_acquired" label="Purchase Date" date sortable centered v-slot="props">
@@ -132,7 +132,9 @@
         </b-table-column>
 
         <b-table-column v-slot="props">
-          <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData"></toggle-foil-button>
+          <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="loadAsyncData"/>
+          <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
+
           <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
           <duplicate-button :copy="props.row" :callback="loadAsyncData" />
           <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
@@ -188,6 +190,7 @@ import ItemListBox from '~/components/items/ItemListBox.vue'
 import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
 import DuplicateButton from '~/components/inventory/DuplicateButton.vue'
 import ToggleFoilButton from '~/components/inventory/ToggleFoilButton.vue'
+import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 
 export default {
   name: 'Inventory',
@@ -204,7 +207,8 @@ export default {
     DateAcquiredInput,
     ExportDropdown,
     DuplicateButton,
-    ToggleFoilButton
+    ToggleFoilButton,
+    MoveToEarningsButton
   },
   data() {
       return {

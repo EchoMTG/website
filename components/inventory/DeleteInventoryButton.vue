@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="delete" size="is-small" @click="deleteItem()" />
+  <b-button icon-left="close" size="is-small" @click="deleteItem()" />
 </template>
 <script>
 

@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="handshake" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
+  <b-button icon-left="hand-coin" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
 </template>
 <script>
 
@@ -21,7 +21,7 @@ export default {
 
   methods: {
     classType(tradable) {
-      return tradable == 1 ? 'is-info' : ''
+      return tradable == 1 ? 'is-success is-light' : ''
     },
     async toggleTradeable() {
 

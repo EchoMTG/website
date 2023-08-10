@@ -74,17 +74,17 @@
       <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
         <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
-      <b-table-column v-slot="props" field="gain" label="Gain/Loss" sortable width="50" :numeric="true">
+      <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" :numeric="true">
         <span v-if="props.row.price_change != 0">
-          <b-tag type="is-success" v-if="props.row.gain > 0" icon="chevron-up"> {{props.row.gain}}%</b-tag>
-          <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">   {{props.row.gain}}%</b-tag>
+          <b-tag type="is-success" v-if="props.row.gain > 0" icon="chevron-up">{{props.row.gain}}%</b-tag>
+          <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">{{props.row.gain}}%</b-tag>
         </span>
       </b-table-column>
       <b-table-column v-slot="props" field="price" label="Sold For" width="110" sortable :numeric="true">
-        <sold-price-input v-if="props.row.price" :price="props.row.price.toFixed(2)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
+        <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
       <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
-        <acquired-price-input v-if="props.row.price_acquired" :price="props.row.price_acquired.toFixed(2)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
+        <acquired-price-input v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
       <b-table-column v-slot="props">
         <b-button class="is-small" @click="deleteItem(props.row.earnings_id)" icon-left="delete">
@@ -126,7 +126,7 @@ export default {
       page: 1,
       total: 0,
       perPage: 50,
-      sortField: 'e.date_sold',
+      sortField: 'date_sold',
       sortOrder: 'DESC',
       loading: false,
       stats: {
@@ -139,9 +139,9 @@ export default {
   },
   mounted() {
 
-    if(this.authenticated){
-      this.dataRefresh();
-    }
+
+    this.dataRefresh();
+
     this.updateTableHeight()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
