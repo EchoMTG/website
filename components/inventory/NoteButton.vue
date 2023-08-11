@@ -4,7 +4,7 @@
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
         <div class="card has-background-warning-light" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head has-background-warning">
-              <p class="modal-card-title">Note on <strong>{{this.inventory_item.name}}</strong> from <strong>{{this.inventory_item.expansion}}</strong></p>
+              <p class="modal-card-title"><strong v-if="this.noteExists == false">Create</strong> <strong>Note</strong> <strong v-if="this.noteExists == true">Created on {{this.note.created_at}}</strong></p>
                <b-button
                   size="is-small"
                   icon-right="close"
@@ -13,7 +13,7 @@
             </header>
             <div class="card-content">
                 <div class="content">
-                    <b-field label="Message">
+                  <b-field :label="`Note for ${this.inventory_item.name} from ${this.inventory_item.expansion}`">
                       <b-input v-model="editingNote" maxlength="200" type="textarea"></b-input>
                   </b-field>
 
