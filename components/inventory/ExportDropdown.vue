@@ -1,5 +1,7 @@
 <template>
-   <b-dropdown  aria-role="list">
+   <b-dropdown  aria-role="list" append-to-body
+
+                    trap-focus position="is-bottom-left">
       <template #trigger="{ active }">
           <b-button
               label="Export Options"

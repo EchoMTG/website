@@ -66,11 +66,14 @@ export default {
      // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/gtm',
-
+    '@nuxtjs/device',
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
     '@nuxtjs/markdownit'
   ],
+  device: {
+    refreshOnResize: true
+  },
   axios: {},
   markdownit: {
     runtime: true

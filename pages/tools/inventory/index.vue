@@ -13,7 +13,7 @@
           <div class="column is-one-third">
             <div class="is-flex is-flex-direction-row-reverse">
 
-              <export-dropdown class="is-align-items-end" />
+              <export-dropdown class="is-align-items-end"  />
               <b-button size="is-small" class="mr-2" href="/tools/inventory/import/" type="is-primary" icon-left="download">Import</b-button>
             </div>
           </div>
@@ -75,35 +75,41 @@
       :default-sort="[sortField, sortOrder]"
       @sort="onSort"
       striped
+      :mobile-cards="false"
       hoverable
       detailed
       custom-detail-row
       @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
-      :show-detail-icon="true"
+      :show-detail-icon="$device.isDesktop ? true : false"
       ref="table"
       detail-key="inventory_id"
       >
 
         <b-table-column field="name" label="Name" sortable v-slot="props">
-
+            <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
             <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
-
             </i>
             <item-inspector-wrapper :item="props.row" />
         </b-table-column>
-        <b-table-column field="set" label="Expansion" sortable v-slot="props">
-            <b-taglist attached>
-              <b-tag type="is-dark">
-                <a class="has-text-white" :href="props.row.echo_set_url.replace('https://www.echomtg.com','')">
-                  <i style="margin-top:-11px; margin-right: 2px" :class="getSetIcon(props.row.set_code)"></i>
-                  <span class="ellipsis mt-1" style="max-width: 120px; display: inline-block">{{ props.row.set }}</span>
-                </a>
-              </b-tag>
-              <b-tag><i style="margin-top:-3px" :class="getSetIcon('mtg')"></i></b-tag>
-          </b-taglist>
+        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
+          <set-tag :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+
         </b-table-column>
 
-        <b-table-column field="tcg_market" label="Today" numeric sortable v-slot="props">
+        <!-- Mobile Version Combined Price Data -->
+        <b-table-column cell-class="is-hidden-desktop" header-class="is-hidden-desktop"  field="tcg_market" label="Price Info" numeric sortable v-slot="props">
+          <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
+          {{cs}}{{props.row.foil_price}}
+          </span>
+          <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
+          {{cs}}{{props.row.tcg_market}}
+          </span>
+          <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
+            {{ props.row.price_change }} %
+          </span>
+        </b-table-column>
+
+        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_market" label="Today" numeric sortable v-slot="props">
           <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
           {{cs}}{{props.row.foil_price}}
           </span>
@@ -111,12 +117,12 @@
           {{cs}}{{props.row.tcg_market}}
           </span>
         </b-table-column>
-        <b-table-column field="price_change" label="7-Day" numeric sortable v-slot="props">
+        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" numeric sortable v-slot="props">
           <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
             {{ props.row.price_change }} %
           </span>
         </b-table-column>
-        <b-table-column field="personal_gain" label="Gain/Loss" numeric sortable centered v-slot="props">
+        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="personal_gain" label="Gain/Loss" numeric sortable centered v-slot="props">
           <span v-if="props.row.personal_gain" class="tag" :class="type(props.row.personal_gain)">
             {{ props.row.personal_gain }}%
           </span>
@@ -188,12 +194,12 @@ import ItemListBox from '~/components/items/ItemListBox.vue'
 import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
 import DuplicateButton from '~/components/inventory/DuplicateButton.vue'
 import ToggleFoilButton from '~/components/inventory/ToggleFoilButton.vue'
+import SetTag from '~/components/magic/SetTag.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 import NoteButton from '~/components/inventory/NoteButton.vue'
 
 export default {
   name: 'Inventory',
-
   components: {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
@@ -208,7 +214,8 @@ export default {
     DuplicateButton,
     ToggleFoilButton,
     MoveToEarningsButton,
-    NoteButton
+    NoteButton,
+    SetTag
   },
   data() {
       return {
