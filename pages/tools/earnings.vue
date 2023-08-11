@@ -72,6 +72,7 @@
       </b-table-column>
 
       <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
+
         <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
       </b-table-column>
       <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" :numeric="true">
@@ -127,7 +128,7 @@ export default {
       total: 0,
       perPage: 50,
       sortField: 'date_sold',
-      sortOrder: 'DESC',
+      sortOrder: 'desc',
       loading: false,
       stats: {
         acquired_value: 0,

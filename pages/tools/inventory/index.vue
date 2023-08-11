@@ -6,12 +6,9 @@
 
         <div class="columns">
           <div class="column  is-two-thirds">
-            <h1 class="title has-text-white">
-                Binder Inventory
+            <h1 class="title has-text-white" style="text-transform: capitalize">
+                {{user.username}}'s Collection Inventory
             </h1>
-            <h3 class="subtitle has-text-light">
-                Manage your collection
-            </h3>
           </div>
           <div class="column is-one-third">
             <div class="is-flex is-flex-direction-row-reverse">
@@ -132,6 +129,7 @@
         </b-table-column>
 
         <b-table-column v-slot="props">
+          <note-button :inventory_item="props.row" :callback="loadAsyncData"/>
           <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="loadAsyncData"/>
           <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
 
@@ -191,6 +189,7 @@ import ExportDropdown from '~/components/inventory/ExportDropdown.vue'
 import DuplicateButton from '~/components/inventory/DuplicateButton.vue'
 import ToggleFoilButton from '~/components/inventory/ToggleFoilButton.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
+import NoteButton from '~/components/inventory/NoteButton.vue'
 
 export default {
   name: 'Inventory',
@@ -208,7 +207,8 @@ export default {
     ExportDropdown,
     DuplicateButton,
     ToggleFoilButton,
-    MoveToEarningsButton
+    MoveToEarningsButton,
+    NoteButton
   },
   data() {
       return {
@@ -384,7 +384,11 @@ export default {
           icon: ''
         }
       ]
-    }
+    },
+    ...mapState([
+      'userName',
+      'user',
+    ])
   },
   head () {
       return {

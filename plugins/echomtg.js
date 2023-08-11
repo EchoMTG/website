@@ -8,6 +8,12 @@ export default (context, inject) => {
     }
   }
 
+  echomtg.getUserHeadersNoJSON = () => {
+    return {
+      'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+    }
+  }
+
   echomtg.getS2SHeaders = () => {
     return {
       'Content-Type': 'application/json',
@@ -634,6 +640,18 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       headers: {
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
+    });
+
+    return await res.json();
+  }
+
+  echomtg.notesGet = async (note_id) => {
+
+    let url = `${context.app.$config.API_DOMAIN}notes/note/?id=${note_id}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: echomtg.getUserHeadersNoJSON()
     });
 
     return await res.json();
