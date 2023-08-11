@@ -13,7 +13,14 @@
             </header>
             <div class="card-content">
                 <div class="content">
-                    {{note.note}}
+                    <b-field label="Message">
+                      <b-input v-model="editingNote" maxlength="200" type="textarea"></b-input>
+                  </b-field>
+
+                  <b-button v-if="this.noteExists == true" class="is-pulled-right" label="Save Note" type="is-success" icon-left="content-save" @click="saveNote()" />
+                  <b-button v-if="this.noteExists == false" class="is-pulled-right" type="is-success" label="Create Note" icon-left="plus" @click="createNote()" />
+                  <b-button v-if="this.noteExists == false"  label="Cancel" icon-left="close" @click="isCardModalActive = false" />
+                  <b-button v-if="this.noteExists == true"  label="Delete" type="is-danger" icon-left="delete" @click="deleteNote()" />
                 </div>
             </div>
         </div>
@@ -37,9 +44,11 @@ export default {
   data: () => {
     return {
       note: {
-        note: 'Loading Note'
+        note: ''
       },
-      isCardModalActive: false
+      editingNote: '',
+      isCardModalActive: false,
+      noteExists: false
     }
   },
   computed: {
@@ -51,13 +60,54 @@ export default {
     }
   },
   methods: {
-    async fetchNote(){
-      const res = await this.$echomtg.notesGet(this.inventory_item.note_id)
-      this.note = res.note
+    async fetchNote(id){
+      const data = await this.$echomtg.notesGet(id)
+      if(data.note?.id){
+        this.noteExists = true
+        this.note = data.note
+        this.editingNote = this.note.note
+      }
+    },
+    async deleteNote(){
+      try {
+        const data = await this.$echomtg.notesDelete(this.note.id)
+        // default back note
+        this.note = {
+          note: 'Loading Note'
+        }
+        this.noteExists = false
+        this.isCardModalActive = false
+        this.$echomtg.createGrowl(data.message)
+        if(this.callback){
+          this.callback()
+        }
+      } catch (err){
+        this.$echomtg.createGrowl(err.message)
+      }
+
+    },
+   async createNote(){
+      console.log(this.inventory_item)
+      const data = await this.$echomtg.notesCreate(this.inventory_item.inventory_id, this.editingNote)
+      this.$echomtg.createGrowl(data.message)
+      await this.fetchNote(data.note_id)
+      if(this.callback){
+        this.callback()
+      }
+
+
+    },
+    async saveNote(){
+      const data = await this.$echomtg.notesUpdate(this.note.id, this.editingNote)
+      this.$echomtg.createGrowl(data.message)
     },
     async openNote(){
       this.isCardModalActive = true
-      if(this.inventory_item.note_id > 0) await this.fetchNote()
+      try {
+        if(this.inventory_item.note_id > 0) await this.fetchNote(this.inventory_item.note_id)
+      } catch (err){
+        this.noteExists = false
+      }
     }
 
   }

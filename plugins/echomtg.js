@@ -657,6 +657,55 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.notesCreate = async (target_id, note, app = 'inventory' ) => {
+
+    let url = `${context.app.$config.API_DOMAIN}notes/create/`;
+    let body = {
+      target_id: target_id,
+      note: note,
+      target_app: app
+    }
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+
+    return await res.json();
+  }
+
+  echomtg.notesUpdate = async (note_id,note) => {
+
+    let url = `${context.app.$config.API_DOMAIN}notes/edit/`;
+    let body = {
+      id: note_id,
+      note: note
+    }
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+
+    return await res.json();
+  }
+
+  echomtg.notesDelete = async (note_id) => {
+
+    let url = `${context.app.$config.API_DOMAIN}notes/delete/`;
+    let body = {
+      id: note_id
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
 
   echomtg.getEarningsStats = async () => {
 
