@@ -83,6 +83,10 @@
       :show-detail-icon="$device.isDesktop ? true : false"
       ref="table"
       detail-key="inventory_id"
+      :checked-rows.sync="checkedRows"
+      checkable
+      :checkbox-position="`right`"
+      :checkbox-type="`is-white`"
       >
 
         <b-table-column field="name" label="Name" sortable v-slot="props">
@@ -235,7 +239,8 @@ export default {
           tableHeight: 400,
           windowHeight: 1000,
           debounce: null,
-          set_code: ''
+          set_code: '',
+          checkedRows: []
       }
   },
   watch: {
@@ -253,6 +258,9 @@ export default {
     },
     rarity() {
       this.loadAsyncData();
+    },
+    checkedRows(){
+      console.log(this.checkedRows)
     }
   },
   methods: {
