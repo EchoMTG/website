@@ -1,11 +1,29 @@
 <template>
   <b-modal v-model="isOpen" :active="active" :width="640" scroll="keep">
-      <div class="card">
-
+      <div class="card has-background-white">
+          <div class="card-header has-background-black" >
+            <p class="card-header-title has-text-white">{{actionNames[actiontype]}} ({{selecteditems.length}}) Inventory Items</p>
+          </div>
           <div class="card-content">
               <div class="content">
-                 {{actiontype}}
+                 <b-table
+                  :data="selecteditems"
+                  :striped="true"
+                  :narrowed="true"
+                  :mobile-cards="false"
+                >
+                    <b-table-column field="name" class="has-text-left" label="Name" numeric sortable v-slot="props">
+                      <b-image :alt="props.row.name" style="width:32px;height:18px" class="is-pulled-left" :src="props.row.image_cropped" />
+                      {{props.row.name}}
+                    </b-table-column>
+                    <b-table-column field="expansion" label="Expansion" numeric sortable v-slot="props">
+                      {{props.row.expansion}}
+                    </b-table-column>
+                 </b-table>
               </div>
+          </div>
+          <div class="card-content">
+            <b-button type="is-primary" :label="actionButton[actiontype]"></b-button>
           </div>
       </div>
   </b-modal>
@@ -40,7 +58,21 @@ export default {
  data: () => {
   return {
     acquired_date: 'xyz',
-    isOpen: false
+    isOpen: false,
+    actionNames: {
+      addtolist: 'Add to List',
+      delete: 'Delete',
+      togglefoil: 'Change foil status of',
+      changeprice:'Change Acquired Price of',
+      changedate: 'Change Acquired Date of'
+    },
+     actionButton: {
+      addtolist: 'Add to List',
+      delete: 'Delete',
+      togglefoil: 'Change foil Status',
+      changeprice:'Change Acquired Price',
+      changedate: 'Change Acquired Date'
+    }
   }
  },
  watch: {
