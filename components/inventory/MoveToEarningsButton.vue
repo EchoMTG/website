@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline">
-    <b-button icon-left="cart-plus" size="is-small" @click="isCardModalActive = true" />
+    <b-button icon-left="cash-multiple" size="is-small" @click="isCardModalActive = true" />
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
         <div class="card has-background-light" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head">

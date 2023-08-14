@@ -53,7 +53,9 @@
       </nav>
 
     </section>
-
+    <section>
+      <bulk-edit-modal :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="loadAsyncData" />
+    </section>
     <b-table
       :data="data"
       :loading="loading"
@@ -138,14 +140,35 @@
             <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
         </b-table-column>
 
-        <b-table-column v-slot="props">
-          <note-button :inventory_item="props.row" :callback="loadAsyncData"/>
-          <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="loadAsyncData"/>
-          <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
+        <b-table-column label="Bulk Action">
+          <template v-slot:header="{ column }">
+            <b-dropdown v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
+              <template #trigger>
+                  <b-button
+                      size="is-small"
+                      icon-left="lightning-bolt"
+                      class="is-pulled-right"
+                      type="is-info"
+                      :label="`${column.label} (${checkedRows.length})`"
+                      icon-right="menu-down" />
+              </template>
+              <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
+            </b-dropdown>
 
-          <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
-          <duplicate-button :copy="props.row" :callback="loadAsyncData" />
-          <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
+          </template>
+          <template v-slot="props">
+            <note-button :inventory_item="props.row" :callback="loadAsyncData"/>
+            <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="loadAsyncData"/>
+            <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
+
+            <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
+            <duplicate-button :copy="props.row" :callback="loadAsyncData" />
+            <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="loadAsyncData" />
+          </template>
         </b-table-column>
 
         <template slot="detail" slot-scope="props">
@@ -201,6 +224,7 @@ import ToggleFoilButton from '~/components/inventory/ToggleFoilButton.vue'
 import SetTag from '~/components/magic/SetTag.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 import NoteButton from '~/components/inventory/NoteButton.vue'
+import BulkEditModal from '~/components/inventory/BulkEditModal.vue'
 
 export default {
   name: 'Inventory',
@@ -219,7 +243,8 @@ export default {
     ToggleFoilButton,
     MoveToEarningsButton,
     NoteButton,
-    SetTag
+    SetTag,
+    BulkEditModal
   },
   data() {
       return {
@@ -240,7 +265,9 @@ export default {
           windowHeight: 1000,
           debounce: null,
           set_code: '',
-          checkedRows: []
+          checkedRows: [],
+          showBulkActionModal: false,
+          bulkActionType: 'Delete'
       }
   },
   watch: {
@@ -271,6 +298,10 @@ export default {
       } else {
         this.set_code = ''
       }
+    },
+    toggleBulkModal(type='') {
+      this.showBulkActionModal = !this.showBulkActionModal
+      this.bulkActionType = type !== '' ? type : 'delete'
     },
     getSetIcon(set_code){
       return this.$echomtg.setIconClass(set_code)
