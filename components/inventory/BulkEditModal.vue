@@ -7,6 +7,31 @@
             </p>
           </div>
           <div class="card-content">
+            <div v-if="actiontype == 'addtolist' && selecteditems.length > 0">
+              <b-dropdown
+                  :min="50" :max="250"
+                  :scrollable="true"
+                  :max-height="200"
+                  v-model="currentList"
+                  aria-role="list"
+              >
+                  <template #trigger>
+                      <b-button
+                          :label="currentList.name"
+                          icon-left="format-list-checkbox"
+                          icon-right="menu-down" />
+                  </template>
+
+
+                  <b-dropdown-item
+                      v-for="(menu, index) in this.availablelists"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+
+                      <h3>{{menu.name}}</h3>
+                  </b-dropdown-item>
+              </b-dropdown>
+            </div>
 
             <b-field v-if="actiontype == 'changeprice'">
               <p class="control">
@@ -62,7 +87,9 @@
 </template>
 <script>
 
+
 export default {
+
  name: 'BulkEditModal',
  props: {
   callback: {
@@ -97,6 +124,8 @@ export default {
  },
  data: () => {
   return {
+    availablelists: [],
+    currentList:{'name' : 'No Lists'},
     acquired_date: new Date(),
     price_acquired: 0.01,
     isOpen: false,
@@ -134,6 +163,7 @@ export default {
   active (newVal) {
 
     this.isOpen = newVal
+    this.getLists()
 
   },
   isOpen(newVal){
@@ -143,6 +173,13 @@ export default {
   }
  },
  methods: {
+  async getLists() {
+    const lists = await this.$echomtg.getAllLists()
+    if(lists.status == 'success'){
+      this.availablelists = lists.lists;
+    }
+    this.currentList = this.availablelists.length > 0 ? this.availablelists[0] : {'name' : 'No Lists'};
+  },
   async bulkEdit() {
     if(this.actiontype == 'delete'){
       for(let i = 0; i< this.selecteditems.length; i++){
@@ -180,6 +217,12 @@ export default {
         await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
           acquired_price: this.price_acquired
         })
+      }
+    }
+
+    if(this.actiontype == 'addtolist'){
+      for(let i = 0; i< this.selecteditems.length; i++){
+        await this.$echomtg.addToList(this.selecteditems[i].emid, this.currentList.id, this.selecteditems[i].foil);
       }
     }
 
