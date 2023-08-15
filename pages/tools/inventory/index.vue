@@ -54,7 +54,7 @@
 
     </section>
     <section>
-      <bulk-edit-modal :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="loadAsyncData" />
+      <bulk-edit-modal :removeChecked="clearChecked" :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="loadAsyncData" />
     </section>
     <b-table
       :data="data"
@@ -298,6 +298,9 @@ export default {
       } else {
         this.set_code = ''
       }
+    },
+    clearChecked(){
+      this.checkedRows = []
     },
     toggleBulkModal(type='') {
       this.showBulkActionModal = !this.showBulkActionModal

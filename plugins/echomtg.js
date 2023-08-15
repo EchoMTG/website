@@ -480,7 +480,6 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     const res = await fetch(url, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
     });
