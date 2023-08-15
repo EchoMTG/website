@@ -70,6 +70,49 @@
               <option value="false">Show All</option>
               <option value="true">Only Reserve</option>
           </b-select>
+
+
+            <b-field class="level-item is-hidden-mobile">
+              <p class="control">
+                  <b-button aria-disabled="true" type="is-secondary" disabled size="is-small">{{cs}} &gt;</b-button>
+              </p>
+              <b-input
+                v-model="priceOver"
+                size="is-small"
+                style="max-width: 57px"
+                 />
+            </b-field>
+
+            <b-field class="level-item is-hidden-mobile">
+              <p class="control">
+                  <b-button aria-disabled="true" type="is-secondary" disabled size="is-small">{{cs}} &lt;</b-button>
+              </p>
+              <b-input
+                v-model="priceUnder"
+                size="is-small"
+                style="max-width: 57px"
+                 />
+            </b-field>
+
+
+
+          <!-- <div class="level-item field has-addons is-hidden-mobile">
+            <p class="control">
+              <a
+                class="button is-small is-rounded is-static"
+              >
+                $ &lt;
+              </a>
+            </p>
+            <p class="control">
+              <input
+                class="input is-small is-rounded valueAboveInput"
+                v-model="valueBelow"
+                type="text"
+                placeholder="00.00"
+              />
+            </p>
+          </div> -->
         </div>
       </nav>
 
@@ -298,6 +341,8 @@ export default {
           color: '',
           cmc: '',
           reserve_list: '',
+          priceOver: null,
+          priceUnder: null,
           sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
@@ -336,6 +381,12 @@ export default {
       this.loadAsyncData();
     },
     reserve_list() {
+      this.loadAsyncData();
+    },
+    priceOver() {
+      this.loadAsyncData();
+    },
+    priceUnder() {
       this.loadAsyncData();
     }
   },
@@ -378,7 +429,9 @@ export default {
             this.rarity,
             this.tradable,
             this.reserve_list,
-            this.cmc
+            this.cmc,
+            this.priceOver,
+            this.priceUnder
             )
 
           this.data = []
