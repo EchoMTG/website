@@ -21,42 +21,56 @@
 
       </div>
       <nav class="level p-2">
-       <b-input
-            placeholder="Search Inventory..."
-            type="search"
-            v-model="search"
-            icon="magnify"
-            class="level-item"
+        <div class="level-left">
+        <b-input
+              placeholder="Search Inventory..."
+              type="search"
+              v-model="search"
+              icon="magnify"
+              class="level-item"
 
-            size="is-small"
-            />
-        <set-selector class="level-item"  :callback="setExpansion" />
-        <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
-            <option selected disabled value="">Trades</option>
-            <option disabled>---</option>
-            <option value="false">Show All</option>
-            <option value="true">Only Tradable</option>
-        </b-select>
+              size="is-small"
+              />
+          <set-selector class="level-item"  :callback="setExpansion" />
+          <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
+              <option selected disabled value="">Trades</option>
+              <option disabled>---</option>
+              <option value="false">Show All</option>
+              <option value="true">Only Tradable</option>
+          </b-select>
 
-        <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
-
-									<option selected="selected" value="">By Color</option>
-									<option disabled="disabled">----</option>
-									<option data-color="All" value="">All</option><option data-color="Land" value="land">Land</option><option data-color="Colorless" value="colorless">Colorless</option><option data-color="Blue" value="blue">Blue</option><option data-color="Black" value="black">Black</option><option data-color="White" value="white">White</option><option data-color="Red" value="red">Red</option><option data-color="Green" value="green">Green</option><option data-color="Multicolor" value="multicolor">Multicolor</option>
-        </b-select>
-        <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
-            <option selected="selected" value="" disabled="disabled">By Rarity</option>
-            <option value="false">All</option>
-            <option value="sealed">Sealed</option>
+          <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
+            <option selected="selected" value="">By Color</option>
             <option disabled="disabled">----</option>
-            <option value="Mythic Rare">Mythic</option>
-            <option value="Rare">Rare</option>
-            <option value="Uncommon">Uncommon</option>
-            <option value="Common">Common</option>
-            <option value="Basic Land">Basic Land</option>
-            <option value="Special">Special</option>
-            <option value="Token">Token</option>
-        </b-select>
+            <option data-color="All" value="">All</option><option data-color="Land" value="land">Land</option><option data-color="Colorless" value="colorless">Colorless</option><option data-color="Blue" value="blue">Blue</option><option data-color="Black" value="black">Black</option><option data-color="White" value="white">White</option><option data-color="Red" value="red">Red</option><option data-color="Green" value="green">Green</option><option data-color="Multicolor" value="multicolor">Multicolor</option>
+          </b-select>
+          <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
+              <option selected="selected" value="" disabled="disabled">By Rarity</option>
+              <option value="false">All</option>
+              <option value="sealed">Sealed</option>
+              <option disabled="disabled">----</option>
+              <option value="Mythic Rare">Mythic</option>
+              <option value="Rare">Rare</option>
+              <option value="Uncommon">Uncommon</option>
+              <option value="Common">Common</option>
+              <option value="Basic Land">Basic Land</option>
+              <option value="Special">Special</option>
+              <option value="Token">Token</option>
+          </b-select>
+
+          <b-select class="level-item"  placeholder="CMC" size="is-small" v-model="cmc">
+            <option selected="selected" value="">By CMC</option>
+            <option disabled="disabled">----</option>
+            <option value="">Any</option>
+            <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
+          </b-select>
+          <b-select class="level-item"  placeholder="Reserve List" size="is-small" v-model="reserve_list">
+              <option selected disabled value="">Reserve List</option>
+              <option disabled>---</option>
+              <option value="false">Show All</option>
+              <option value="true">Only Reserve</option>
+          </b-select>
+        </div>
       </nav>
 
     </section>
@@ -110,7 +124,7 @@
         </b-table-column>
 
         <!-- Mobile Version Combined Price Data -->
-        <b-table-column cell-class="is-hidden-desktop" header-class="is-hidden-desktop"  field="tcg_market" label="Price Info" numeric sortable v-slot="props">
+        <b-table-column cell-class="is-hidden-desktop" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
           <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
           {{cs}}{{props.row.foil_price}}
           </span>
@@ -140,11 +154,31 @@
             {{ props.row.personal_gain }}%
           </span>
         </b-table-column>
-        <b-table-column field="price_acquired" :label="`Purchase ${cs}`" numeric sortable centered v-slot="props">
+        <b-table-column field="price_acquired" :label="`Purchase ${cs}`" numeric sortable centered>
+           <template v-slot:header="{ column }">
+            <div class="is-hidden-touch">
+              {{column.label}}
+            </div>
+            <div class="is-hidden-desktop-only is-hidden-widescreen">
+              <span class="is-hidden-mobile">Purchase</span> <b-icon size="is-small" icon="currency-usd"/>
+            </div>
+          </template>
+          <template v-slot="props">
             <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
+          </template>
         </b-table-column>
-        <b-table-column field="date_acquired" label="Purchase Date" date sortable centered v-slot="props">
+        <b-table-column field="date_acquired" label="Purchase Date" date sortable centered>
+          <template v-slot:header="{ column }">
+            <div class="is-hidden-touch">
+              {{column.label}}
+            </div>
+            <div class="is-hidden-desktop-only is-hidden-widescreen">
+              <span class="is-hidden-mobile">Purchase</span> <b-icon size="is-small" icon="calendar"/>
+            </div>
+          </template>
+          <template v-slot="props">
             <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
+          </template>
         </b-table-column>
 
         <b-table-column label="Bulk Action">
@@ -262,6 +296,8 @@ export default {
           rarity: '',
           tradable: '',
           color: '',
+          cmc: '',
+          reserve_list: '',
           sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
@@ -294,6 +330,12 @@ export default {
       this.loadAsyncData();
     },
     color() {
+      this.loadAsyncData();
+    },
+    cmc() {
+      this.loadAsyncData();
+    },
+    reserve_list() {
       this.loadAsyncData();
     }
   },
@@ -334,7 +376,9 @@ export default {
             this.set_code,
             this.color,
             this.rarity,
-            this.tradable
+            this.tradable,
+            this.reserve_list,
+            this.cmc
             )
 
           this.data = []

@@ -619,7 +619,9 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     set_code='',
     color='',
     rarity='',
-    tradable='') => {
+    tradable='',
+    reserve_list=false,
+    cmc=false) => {
 
     const params = [
       `start=${start}`,
@@ -631,6 +633,8 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       `color=${color}`,
       `rarity=${rarity}`,
       `tradable=${tradable}`,
+      reserve_list ? `reserve_list=${reserve_list}` : null,
+      cmc ? `cmc=${cmc}` : null,
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;
