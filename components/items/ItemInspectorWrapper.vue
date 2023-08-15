@@ -1,7 +1,8 @@
 <template>
    <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" class="is-relative">
       <a class="itemLinkWithInspector ellipsis" @click="() => setShowItem(true, true)"  :href="getItemURL()">
-      {{displayName}}
+        <i v-if="showsetsymbol" :class="item.foil == 1 ? `${getSetIcon(item.set_code)} setsymbol rainbow-text` : `${getSetIcon(item.set_code)} setsymbol ${getSetIconColor(item.rarity)}`"></i>
+        {{displayName}}
       </a>
       <b-tag v-if="item.reserve_list == 1">Reserved</b-tag>
       <ItemInspector :item="item" v-if="showItem == true" :showFull="showFullItem" :closeToBottom="closeToBottom" />
@@ -28,6 +29,10 @@ export default {
         },
         required: true
     },
+    showsetsymbol: {
+      type: Boolean,
+      default: false
+    },
     name: {
       type: String,
       default: '',
@@ -53,6 +58,16 @@ export default {
         this.closeToBottom = false
       }
     },
+    getSetIcon(set_code){
+          return this.$echomtg.setIconClass(set_code)
+        },
+      getSetIconColor(rarity){
+
+        if(rarity.toLowerCase() == 'uncommon') return 'uncommon-symbol';
+        if(rarity.toLowerCase() == 'rare') return 'gold-symbol';
+        if(rarity.toLowerCase() == 'mythic rare' || rarity.toLowerCase() == 'mythic' || rarity.toLowerCase() == 'mythicrare') return 'mythic-symbol';
+        return 'common-symbol'
+      },
     setShowItem: function(showItem, showFullItem=false){
       this.isCloseToBottom()
       // double click open

@@ -21,23 +21,30 @@
 
       </div>
       <nav class="level p-2">
-       <b-input placeholder="Search by Card or Item Name..."
+       <b-input
+            placeholder="Search Inventory..."
             type="search"
             v-model="search"
             icon="magnify"
             class="level-item"
-            rounded
+
             size="is-small"
-            >
-        </b-input>
+            />
         <set-selector class="level-item"  :callback="setExpansion" />
-        <b-select class="level-item" rounded placeholder="Show Tradable" size="is-small" v-model="tradable">
+        <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
             <option selected disabled value="">Trades</option>
             <option disabled>---</option>
             <option value="false">Show All</option>
             <option value="true">Only Tradable</option>
         </b-select>
-        <b-select class="level-item" rounded placeholder="Rarity" size="is-small" v-model="rarity">
+
+        <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
+
+									<option selected="selected" value="">By Color</option>
+									<option disabled="disabled">----</option>
+									<option data-color="All" value="">All</option><option data-color="Land" value="land">Land</option><option data-color="Colorless" value="colorless">Colorless</option><option data-color="Blue" value="blue">Blue</option><option data-color="Black" value="black">Black</option><option data-color="White" value="white">White</option><option data-color="Red" value="red">Red</option><option data-color="Green" value="green">Green</option><option data-color="Multicolor" value="multicolor">Multicolor</option>
+        </b-select>
+        <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
             <option selected="selected" value="" disabled="disabled">By Rarity</option>
             <option value="false">All</option>
             <option value="sealed">Sealed</option>
@@ -93,9 +100,9 @@
 
         <b-table-column field="name" label="Name" sortable v-slot="props">
             <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
-            <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
-            </i>
-            <item-inspector-wrapper :item="props.row" />
+            <!-- <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
+            </i> -->
+            <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
         </b-table-column>
         <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
           <set-tag :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
@@ -284,6 +291,9 @@ export default {
       this.loadAsyncData();
     },
     rarity() {
+      this.loadAsyncData();
+    },
+    color() {
       this.loadAsyncData();
     }
   },

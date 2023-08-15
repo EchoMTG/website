@@ -1,11 +1,11 @@
 <template>
     <b-autocomplete
         :data="filteredDataArray"
-        placeholder="e.g. Innistrad"
-        icon="magnify"
+        placeholder="Expansion"
+        icon="text-search-variant"
         field="name"
         size="is-small"
-        rounded
+        icon-right="chevron-down"
         clearable
         v-model="search"
         @select="option => selected = option">
