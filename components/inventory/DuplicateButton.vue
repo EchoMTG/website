@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="content-copy" size="is-small" @click="duplicate()" />
+  <b-button title="Duplicate Item" icon-left="content-copy" size="is-small" @click="duplicate()" />
 </template>
 <script>
 

@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="hand-coin" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
+  <b-button :title="tradable ? `Remove from Trade Binder` : `Add to Trade Binder`" icon-left="hand-coin" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
 </template>
 <script>
 

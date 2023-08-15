@@ -1,5 +1,5 @@
 <template>
-  <b-button :class="classType(foil) + `   `" style="overflow:hidden; width: 30px; position: relative;" size="is-small" @click="toggleFoil()">
+  <b-button :title="disabled ? `Foil Not Available` : `Toggle Foil Status`" :disabled="disabled" :class="classType(foil) + `   `" style="overflow:hidden; width: 30px; position: relative;" size="is-small" @click="toggleFoil()">
     <i :class="`ss ss-htr ss-3x ` + testClass(foil) " style="font-size: 28px; position: absolute; left: 5px; top: 0px;"></i>
   </b-button>
 </template>
@@ -18,6 +18,10 @@ export default {
     inventory_id: {
       type: Number,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 

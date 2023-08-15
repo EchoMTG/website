@@ -1,5 +1,5 @@
 <template>
-  <b-button icon-left="delete-forever" size="is-small" @click="deleteItem()" />
+  <b-button title="Delete Item" type="is-danger" :outlined="true" icon-left="delete-forever" size="is-small" @click="deleteItem()" />
 </template>
 <script>
 

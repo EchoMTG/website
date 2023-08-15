@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline">
-    <b-button :icon-left="icon" :type="styleType" size="is-small" @click="openNote()" />
+    <b-button :title="this.inventory_item.note_id > 0 ? `Edit Note` : `Create Note`" :icon-left="icon" :type="styleType" size="is-small" @click="openNote()" />
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
         <div class="card has-background-warning-light" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head has-background-warning">

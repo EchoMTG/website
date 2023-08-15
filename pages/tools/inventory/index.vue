@@ -163,7 +163,7 @@
           <template v-slot="props">
             <note-button :inventory_item="props.row" :callback="loadAsyncData"/>
             <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="loadAsyncData"/>
-            <toggle-foil-button v-if="props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
+            <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="loadAsyncData" />
 
             <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="loadAsyncData" />
             <duplicate-button :copy="props.row" :callback="loadAsyncData" />
@@ -285,9 +285,6 @@ export default {
     },
     rarity() {
       this.loadAsyncData();
-    },
-    checkedRows(){
-      console.log(this.checkedRows)
     }
   },
   methods: {
@@ -339,7 +336,7 @@ export default {
               //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
               this.data.push(item)
           })
-
+          this.clearChecked()
           this.loading = false
 
         } catch (error){
