@@ -54,7 +54,7 @@
 
     </section>
     <section>
-      <bulk-edit-modal :removeChecked="clearChecked" :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="loadAsyncData" />
+      <bulk-edit-modal :currency_symbol="cs" :removeChecked="clearChecked" :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="loadAsyncData" />
     </section>
     <b-table
       :data="data"
