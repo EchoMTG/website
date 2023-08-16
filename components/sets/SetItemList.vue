@@ -182,27 +182,54 @@
 
 
           </b-table-column>
-          <b-table-column field="rarity" label="Rarity" sortable v-slot="props">
+          <b-table-column field="rarity" label="Rarity" sortable width="50" v-slot="props">
             <span class="is-mobile">[{{props.row.collectors_number}}]</span>
             <em v-html="replaceSymbols(props.row.mc)"></em>
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
-          <b-table-column field="collectors_number_sort" label="#" numeric sortable v-slot="props">
-            {{props.row.collectors_number}}
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" label="Regular" sortable v-slot="props">
+
+            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
+              <p class="control">
+                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
+              </p>
+              <b-input
+               :value="`${cs} ${props.row.tcg_mid}`"
+                size="is-small"
+                style="max-width: 50px;"
+                disabled
+                aria-disabled=""
+                 />
+            </b-field>
+
           </b-table-column>
-          <b-table-column field="price_change" v-if="totalRegular > 0" label="7-Day" numeric sortable v-slot="props">
+            <b-table-column field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
             <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
               {{ props.row.price_change }} %
             </span>
           </b-table-column>
-          <b-table-column field="tcg_mid" v-if="totalRegular > 0" label="Regular" numeric sortable v-slot="props">
-              <span v-if="props.row.tcg_mid > 0">{{cs}}{{ props.row.tcg_mid }}</span>
-              <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" label="Foil" sortable v-slot="props">
+
+            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
+              <p class="control">
+                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
+              </p>
+              <b-input
+               :value="`${cs} ${props.row.foil_price}`"
+                size="is-small"
+                style="max-width: 50px;"
+                disabled
+                aria-disabled=""
+                 />
+            </b-field>
+
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0" label="Foil" numeric sortable v-slot="props">
-              <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
-              <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
+
+          <b-table-column field="collectors_number_sort" label="Collector #" numeric sortable v-slot="props">
+            {{props.row.collectors_number}}
           </b-table-column>
+
+
 
 
           <template slot="detail" slot-scope="props">
