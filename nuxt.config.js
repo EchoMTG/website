@@ -7,18 +7,16 @@ export default {
     title: 'EchoMTG',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" }
+
     ],
-    script: [
-        {
-            type: 'text/javascript',
-            src: '/cookiesClient.js',
-            body: true
-        },
-    ],
-    serverMiddleware: ['~/server-middleware/logger'],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png' },
+      { 
+        rel: 'icon', 
+        type: 'image/x-icon', 
+        href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png' 
+      },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
       { rel: 'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'},
@@ -36,7 +34,6 @@ export default {
       }
     ]
   },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
   //   '@/assets/scss/main.scss'

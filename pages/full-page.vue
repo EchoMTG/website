@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="hero-foot has-text-centered">
-      <div class="logo" />
+      <div class="logo"></div>
     </div>
   </section>
 </template>
