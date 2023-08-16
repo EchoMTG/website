@@ -575,17 +575,21 @@ export default {
     ])
   },
   head () {
-      return {
-          title: this.user ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tools`,
-          meta: [
-            { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
-            {
-              hid: 'description',
-              name: 'description',
-              content:  `Manage your Trading card collection with EchoMTG organization tools.`
-            }
-          ]
-      }
+    return {
+        title: this.user ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tools`,
+        meta: [
+          { 
+            hid: 'og:image', 
+            property: 'og:image', 
+            content: `https://assets.echomtg.com/images/echomtg-og-default.png` 
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content:  `Manage your Trading card collection with EchoMTG organization tools.`
+          }
+        ]
     }
+  }
 }
 </script>

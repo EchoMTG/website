@@ -7,7 +7,7 @@ export default {
     title: 'EchoMTG',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     script: [
         {
@@ -41,7 +41,7 @@ export default {
   // css: [
   //   '@/assets/scss/main.scss'
   // ],
-    css: ['~/assets/scss/style-light-dark.scss'],
+    css: ['@/assets/scss/style-light-dark.scss'],
   //  css: ['~/assets/scss/style-default.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -58,7 +58,7 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
     '@nuxtjs/dotenv',
-    '@nuxtjs/moment',
+    '@nuxtjs/moment'
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

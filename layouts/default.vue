@@ -249,7 +249,10 @@ export default {
       // store the user data
       if(userdata.status === 'success'){
 
+        const quickstats = await this.$echomtg.inventoryQuickStats();
+
         this.$store.commit('user', userdata.user);
+        this.$store.commit('quickstats', quickstats.stats);
         this.$store.commit('authenticated',true);
         if(parseInt(userdata.user.dark_mode) == 1){
           this.$store.commit('darkModeToggle', true)

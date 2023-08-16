@@ -22,9 +22,9 @@
           <a href="/tools/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
         </div>
         <div class="navbar-item is-flex is-align-items-center"> 
-          <b-taglist class="" attached>
-              <b-tag type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag type="is-info" :class="`background-${user.plan}`">{{ user.plan }}</b-tag>
+          <b-taglist  attached>
+              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
+              <b-tag @click="openPlan()" style="cursor: pointer" type="is-info" :class="`background-${user.plan}`">{{ user.plan }}</b-tag>
           </b-taglist>
         </div>
         <a
@@ -219,6 +219,9 @@ export default {
   },
 
   methods: {
+    openPlan(){
+      this.$router.push({path: '/plans/'});
+    },
     menuToggle () {
 
       if (this.isLayoutMobile) {

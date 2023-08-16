@@ -191,7 +191,11 @@ export default {
       return {
           title: `Magic:the Gathering API for Collectors`,
           meta: [
-            { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png?1` },
+            { 
+              hid: 'og:image', 
+              property: 'og:image', 
+              content: `https://assets.echomtg.com/images/echomtg-og-default.png?1` 
+            },
             {
               hid: 'description',
               name: 'description',
