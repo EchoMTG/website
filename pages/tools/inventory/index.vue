@@ -5,12 +5,41 @@
       <div class="hero-body">
 
         <div class="columns">
-          <div class="column  is-two-thirds">
-            <h1 class="title has-text-white" style="text-transform: capitalize">
-                {{user.username}}'s Collection Inventory
-            </h1>
+          <div class="column  is-three-quarters">
+            <nav class="level">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Items Tracked</p>
+                  <p class="title has-text-light">{{quickstats.total_items}}</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">{{getDate()}} Value</p>
+                  <p class="title has-text-light">{{cs}}{{quickstats.current_value}}</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Purchase Cost</p>
+                  <p class="title has-text-light">{{cs}}{{quickstats.acquired_value}}</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">All-time Gain/Loss</p>
+                  <p class="title has-text-light"><span :class="quickstats.change_value >= 0 ? `has-text-success-dark` : `has-text-danger-dark`">{{quickstats.change_value}}%</span></p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Profit/Loss</p>
+                  <p class="title has-text-light"><span>{{cs}}{{quickstats.total_profit}}</span></p>
+                </div>
+              </div>
+            </nav>
           </div>
-          <div class="column is-one-third">
+          <div class="column is-one-quarter">
             <div class="is-flex is-flex-direction-row-reverse">
 
               <export-dropdown class="is-align-items-end"  />
@@ -401,7 +430,7 @@ export default {
     */
 
     async loadAsyncData() {
-
+        await this.refreshPriceMeta()
         this.loading = true
         try {
           let start = (this.page - 1) * this.perPage;
@@ -431,6 +460,8 @@ export default {
               this.data.push(item)
           })
           this.clearChecked()
+
+
           this.loading = false
 
         } catch (error){
@@ -439,6 +470,12 @@ export default {
             this.total = 0
             this.loading = false
         }
+    },
+
+    async refreshPriceMeta(){
+      const data = await this.$echomtg.inventoryQuickStats();
+
+      this.$store.commit('quickstats',data.stats);
     },
     /*
       * Handle page-change event
@@ -483,11 +520,13 @@ export default {
     onResize() {
       this.windowHeight = window.innerHeight
       this.updateTableHeight()
+    },
+    getDate(){
+      return this.$moment(new Date(), "MMM Do YY");
     }
   },
-  mounted() {
-    this.onResize();
-  },
+
+
   filters: {
     /**
     * Filter to truncate string, accepts a length parameter
@@ -503,6 +542,7 @@ export default {
   },
 
   mounted() {
+    this.onResize();
     this.loadAsyncData()
     this.updateTableHeight()
     this.$nextTick(() => {
@@ -528,11 +568,12 @@ export default {
     ...mapState([
       'userName',
       'user',
+      'quickstats'
     ])
   },
   head () {
       return {
-          title: this.user ? `${this.user.username}'s EchoMTG Inventory` : `Magic the Gathering Inventory Collection Tools`,
+          title: this.user ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tools`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {

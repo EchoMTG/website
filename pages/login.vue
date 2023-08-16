@@ -169,12 +169,15 @@ export default {
 
         // fetch the meta
         const userdata = await this.$echomtg.getUserMeta();
+        const quickstats = await this.$echomtg.inventoryQuickStats();
+
 
         // store the user data
         if(userdata.status == 'success'){
 
           this.$store.commit('user', userdata.user);
           this.$store.commit('authenticated',true);
+          this.$store.commit('quickstats',quickstats.stats);
         }
 
         // reload to the homepage, which is the users dashboard

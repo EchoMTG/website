@@ -8,6 +8,32 @@ const shellUser = {
   last_login: ''
 }
 
+const shellquickstats = {
+  acquired_value: 0,
+  current_value: 0,
+  current_high_value_value: 0,
+  current_value_low: 0,
+  current_value_market: 0,
+  total_items: 0,
+  total_cards: 0,
+  total_foils: 0,
+  total_nonfoils: 0,
+  total_sealed: 0,
+  sealed_value: 0,
+  total_packs: 0,
+  packs_value: 0,
+  total_mythic: 0,
+  total_rare: 0,
+  total_uncommon: 0,
+  total_common: 0,
+  currency_symbol: '$',
+  total_profit: 0,
+  change_value: 0,
+  user_items_stored: 0,
+  user_items_cap: 0,
+  user_items_cap_percentage_used: 0,
+}
+
 export const state = () => ({
   /* User */
   userName: null,
@@ -47,7 +73,9 @@ export const state = () => ({
   isDarkModeActive: false,
 
   /* ConfigBox */
-  isConfigBoxVisible: false
+  isConfigBoxVisible: false,
+
+  quickstats: shellquickstats
 })
 
 export const mutations = {
@@ -142,6 +170,10 @@ export const mutations = {
     state.isOverlayVisible = setIsVisible
 
     document.documentElement.classList[setIsVisible ? 'add' : 'remove']('is-clipped')
+  },
+
+  quickstats (state, payload = null){
+    state.quickstats = payload;
   },
 
   /* Layouts */

@@ -247,7 +247,6 @@ export default {
     async refreshData(){
       this.isCardModalActive = false;
       const data = await this.$echomtg.getUserMeta();
-      console.log(data);
       this.planObject = data.user.planObject;
 
     },
