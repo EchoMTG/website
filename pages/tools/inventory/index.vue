@@ -51,16 +51,19 @@
       </div>
       <nav class="level p-2">
         <div class="level-left">
-        <b-input
+          <b-input
               placeholder="Search Inventory..."
-              type="search"
+              type="is-info"
               v-model="search"
               icon="magnify"
-              class="level-item"
-
+              rounded
               size="is-small"
+              class="mr-2"
               />
           <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+        </div>
+        <div class="level-right">
+
           <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
               <option selected disabled value="">Trades</option>
               <option disabled>---</option>

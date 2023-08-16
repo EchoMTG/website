@@ -55,11 +55,11 @@
               </option>
             </select>
           </div>
-
-          <!-- <div
+<!-- isCardOwned(item.emid, 'regular') -->
+          <div
             class="select is-small is-rounded has-text-grey is-hidden-mobile"
             v-if="Object.keys(cardsowned).length > 0"
-          >isCardOwned(item.emid, 'regular')
+          >
             <select v-model="showOwned" class="has-text-grey">
               <option value="" selected>All</option>
               <option disabled>---</option>
@@ -68,7 +68,7 @@
               <option value="false reg">Not Owned Regular</option>
               <option value="false foil">Not Owned Foil</option>
             </select>
-          </div> -->
+          </div>
 
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
@@ -492,13 +492,13 @@ export default {
 
                 if(this.showOwned == "false reg"){
                     returnItems = returnItems.filter(item => {
-                        return !this.cardsowned?.regular ? !this.cardsowned?.regular.hasOwnProperty(item.emid) : false;
+                        return this.cardsowned?.regular ? !this.cardsowned.regular.hasOwnProperty(item.emid) : true;
                     });
                 }
 
                 if(this.showOwned == "false foil"){
                     returnItems = returnItems.filter(item => {
-                        return !this.cardsowned?.foiled ? !this.cardsowned?.foiled.hasOwnProperty(item.emid) : false;
+                        return this.cardsowned?.foiled ? !this.cardsowned.foiled.hasOwnProperty(item.emid) : true;
                     });
                 }
 
