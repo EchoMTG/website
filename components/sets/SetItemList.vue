@@ -182,12 +182,15 @@
 
 
           </b-table-column>
-          <b-table-column field="rarity" label="Rarity" sortable width="50" v-slot="props">
+          <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
             <span class="is-mobile">[{{props.row.collectors_number}}]</span>
             <em v-html="replaceSymbols(props.row.mc)"></em>
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" label="Regular" sortable v-slot="props">
+          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
+            {{props.row.collectors_number}}
+          </b-table-column>
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
               <p class="control">
@@ -196,7 +199,7 @@
               <b-input
                :value="`${cs} ${props.row.tcg_mid}`"
                 size="is-small"
-                style="max-width: 50px;"
+                style="max-width: 90px;"
                 disabled
                 aria-disabled=""
                  />
@@ -208,7 +211,7 @@
               {{ props.row.price_change }} %
             </span>
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" label="Foil" sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="130" :label="`Foil ${cs}`" sortable v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
               <p class="control">
@@ -217,7 +220,7 @@
               <b-input
                :value="`${cs} ${props.row.foil_price}`"
                 size="is-small"
-                style="max-width: 50px;"
+                style="max-width: 90px;"
                 disabled
                 aria-disabled=""
                  />
@@ -225,9 +228,7 @@
 
           </b-table-column>
 
-          <b-table-column field="collectors_number_sort" label="Collector #" numeric sortable v-slot="props">
-            {{props.row.collectors_number}}
-          </b-table-column>
+
 
 
 
