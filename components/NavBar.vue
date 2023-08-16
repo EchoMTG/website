@@ -18,6 +18,15 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
+        <div class="navbar-item is-flex is-align-items-center"> 
+          <a href="/tools/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
+        </div>
+        <div class="navbar-item is-flex is-align-items-center"> 
+          <b-taglist class="" attached>
+              <b-tag type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
+              <b-tag type="is-info" :class="`background-${user.plan}`">{{ user.plan }}</b-tag>
+          </b-taglist>
+        </div>
         <a
           class="navbar-item has-divider is-desktop-icon-only"
           :class="{ 'is-active': isAsideRightActive }"
@@ -34,7 +43,7 @@
         <nav-bar-menu class="has-divider">
 
           <div class="is-user-name">
-            <span>Collector Tools</span>
+            <span>Apps</span>
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
@@ -53,10 +62,10 @@
         <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
-            <span>{{ userName }}</span>
+            <span>{{ user.username }}</span>
           </div>
 
-          <div slot="dropdown" class="navbar-dropdown">
+          <div slot="dropdown" class="navbar-dropdown is-right">
             <nuxt-link
               to="/user/profile"
               class="navbar-item"
@@ -197,7 +206,8 @@ export default {
       'userName',
       'user',
       'hasUpdates',
-      'authenticated'
+      'authenticated',
+      'quickstats'
     ])
   },
   mounted () {

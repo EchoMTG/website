@@ -15,8 +15,8 @@
             type="is-primary"
             icon="currency"
             prefix="$"
-            :number="parseFloat(stats.current_value)"
-            :previous-number="parseInt(stats.total_items)"
+            :number="parseFloat(quickstats.current_value)"
+            :previous-number="parseInt(quickstats.total_items)"
             previous-period=" Tracked Items"
             label="Collection Value"
           />
@@ -34,17 +34,17 @@
             class="tile is-child"
             type="is-primary"
             icon="usd"
-            :number="parseFloat(stats.sealed_value)"
+            :number="parseFloat(quickstats.sealed_value)"
             prefix="$"
             previous-period="Sealed Items"
-            :previous-number="parseInt(stats.total_sealed)"
+            :previous-number="parseInt(quickstats.total_sealed)"
             label="Sealed Value"
           />
           <card-widget
             class="tile is-child"
             type="is-info"
             icon="usd"
-            :number="stats.change_value"
+            :number="quickstats.change_value"
 
             previous-period="Last 7 days"
             suffix="%"
@@ -131,10 +131,10 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
       },
       totalCards () {
 
-        return parseInt(this.stats.total_cards)
+        return parseInt(this.quickstats.total_cards)
       },
       totalCardsValue(){
-        let val = parseInt(this.stats.current_value) - parseInt(this.stats.sealed_value)
+        let val = parseInt(this.quickstats.current_value) - parseInt(this.quickstats.sealed_value)
         return val
       },
       crumbs: () => [
@@ -147,7 +147,8 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
       ...mapState([
       'isAsideVisible',
       'isAsideExpanded',
-      'isAsideMobileExpanded'
+      'isAsideMobileExpanded',
+      'quickstats'
       ]),
 
     },
@@ -155,12 +156,12 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
     '$route.query': '$fetch'
     },
     async fetch() {
-
+      const quickstats = await this.$echomtg.inventoryQuickStats();
+      if(quickstats.status == 'success'){
+        this.$store.commit('quickstats',quickstats.stats);
+      }
       let token = this.$cookies.get('token');
-      let url = this.$config.API_DOMAIN + 'inventory/quickstats/';
-      url += `?auth=${token}`;
-      this.stats = await fetch(url).then(res => res.json())
-      this.stats = this.stats.stats
+     
       let historyURL = this.$config.API_DOMAIN + `inventory/history/?auth=${token}`;
 
       this.history = await fetch(historyURL).then(res => res.json())
