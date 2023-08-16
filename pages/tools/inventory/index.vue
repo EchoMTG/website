@@ -63,7 +63,33 @@
           <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
         </div>
         <div class="level-right">
+          <b-field class="level-item" style="margin-bottom: 0 !important;">
+              <p class="control">
+                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                    <strong>{{cs}} &gt;</strong>
+                  </b-button>
+              </p>
+              <b-input
+                v-model="priceOver"
+                size="is-small"
+                style="max-width: 50px;"
+                placeholder="2.10"
+                 />
+            </b-field>
 
+            <b-field class="level-item" style="margin-bottom: 0 !important;">
+              <p class="control">
+                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                    <strong>{{cs}} &lt;</strong>
+                  </b-button>
+              </p>
+              <b-input
+                style="max-width: 50px;"
+                v-model="priceUnder"
+                size="is-small"
+                placeholder="9.20"
+                 />
+            </b-field>
           <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
               <option selected disabled value="">Trades</option>
               <option disabled>---</option>
@@ -104,33 +130,7 @@
           </b-select>
 
 
-            <b-field class="level-item" style="margin-bottom: 0 !important;">
-              <p class="control">
-                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
-                    <strong>{{cs}} &gt;</strong>
-                  </b-button>
-              </p>
-              <b-input
-                v-model="priceOver"
-                size="is-small"
-                style="max-width: 50px;"
-                placeholder="2.10"
-                 />
-            </b-field>
-
-            <b-field class="level-item">
-              <p class="control">
-                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
-                    <strong>{{cs}} &lt;</strong>
-                  </b-button>
-              </p>
-              <b-input
-                style="max-width: 50px;"
-                v-model="priceUnder"
-                size="is-small"
-                placeholder="9.20"
-                 />
-            </b-field>
+           
 
 
         </div>
