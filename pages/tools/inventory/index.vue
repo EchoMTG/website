@@ -31,7 +31,7 @@
 
               size="is-small"
               />
-          <set-selector class="level-item"  :callback="setExpansion" />
+          <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
           <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
               <option selected disabled value="">Trades</option>
               <option disabled>---</option>
@@ -58,13 +58,13 @@
               <option value="Token">Token</option>
           </b-select>
 
-          <b-select class="level-item"  placeholder="CMC" size="is-small" v-model="cmc">
+          <b-select class="level-item is-hidden-mobile"  placeholder="CMC" size="is-small" v-model="cmc">
             <option selected="selected" value="">By CMC</option>
             <option disabled="disabled">----</option>
             <option value="">Any</option>
             <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
           </b-select>
-          <b-select class="level-item"  placeholder="Reserve List" size="is-small" v-model="reserve_list">
+          <b-select class="level-item is-hidden-mobile"  placeholder="Reserve List" size="is-small" v-model="reserve_list">
               <option selected disabled value="">Reserve List</option>
               <option disabled>---</option>
               <option value="false">Show All</option>
@@ -72,47 +72,35 @@
           </b-select>
 
 
-            <b-field class="level-item is-hidden-mobile">
+            <b-field class="level-item" style="margin-bottom: 0 !important;">
               <p class="control">
-                  <b-button aria-disabled="true" type="is-secondary" disabled size="is-small">{{cs}} &gt;</b-button>
+                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                    <strong>{{cs}} &gt;</strong>
+                  </b-button>
               </p>
               <b-input
                 v-model="priceOver"
                 size="is-small"
-                style="max-width: 57px"
+                style="max-width: 50px;"
+                placeholder="2.10"
                  />
             </b-field>
 
-            <b-field class="level-item is-hidden-mobile">
+            <b-field class="level-item">
               <p class="control">
-                  <b-button aria-disabled="true" type="is-secondary" disabled size="is-small">{{cs}} &lt;</b-button>
+                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                    <strong>{{cs}} &lt;</strong>
+                  </b-button>
               </p>
               <b-input
+                style="max-width: 50px;"
                 v-model="priceUnder"
                 size="is-small"
-                style="max-width: 57px"
+                placeholder="9.20"
                  />
             </b-field>
 
 
-
-          <!-- <div class="level-item field has-addons is-hidden-mobile">
-            <p class="control">
-              <a
-                class="button is-small is-rounded is-static"
-              >
-                $ &lt;
-              </a>
-            </p>
-            <p class="control">
-              <input
-                class="input is-small is-rounded valueAboveInput"
-                v-model="valueBelow"
-                type="text"
-                placeholder="00.00"
-              />
-            </p>
-          </div> -->
         </div>
       </nav>
 
@@ -264,9 +252,8 @@
                     <b-image
                       :alt="props.row.name"
                       :src="props.row.image"
-
                       placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
-                      ></b-image>
+                      />
                   </div>
                   <div class="column is-two-fifths">
                     <quick-graph
@@ -545,13 +532,13 @@ export default {
   },
   head () {
       return {
-          title: `Inventory: Trading Card Collection tools`,
+          title: this.user ? `${this.user.username}'s EchoMTG Inventory` : `Magic the Gathering Inventory Collection Tools`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Manage your Trading card collection with the best organization tools on the internet.`
+              content:  `Manage your Trading card collection with EchoMTG organization tools.`
             }
           ]
       }

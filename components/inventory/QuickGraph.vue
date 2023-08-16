@@ -2,10 +2,11 @@
   <line-chart
         :chart-data="chartData"
         :chart-id="`cardLineChart-${inventory_id}-${emid}`"
-        :chart-options="chartOptions"
+        :chart-options="extraOptions"
       />
 </template>
 <script>
+import * as chartConfig from '@/components/Charts/chart.config'
 
 export default {
 
@@ -17,7 +18,8 @@ export default {
         date: [],
         regular: []
       },
-      pointdata: []
+      pointdata: [],
+      extraOptions: chartConfig.chartOptionsMain
   }
  },
  props: {
@@ -55,8 +57,11 @@ export default {
 
   chartData() {
     let cd = {
-      datasets: []
+      datasets: [],
+      labels: this.prices.date
     }
+
+
 
     if(this.acquired_price){
       cd.datasets.push({
@@ -68,7 +73,8 @@ export default {
         pointHoverRadius: 15,
         data: this.pointdata,
         parsing: {
-          yAxisKey: 'user'
+          yAxisKey: 'user',
+          xAxisKey: 'x'
         }
       })
     }
@@ -82,10 +88,7 @@ export default {
         spanGaps: true,
         pointHoverRadius: 8,
         fill: false,
-        data: this.pointdata,
-        parsing: {
-            yAxisKey: 'reg'
-        }
+        data: this.prices.regular
       });
     }
     if(this.foil == 1 || this.foil == null){
@@ -98,39 +101,11 @@ export default {
           pointRadius: 3,
           tension: 0.4,
           pointHoverRadius: 8,
-          data: this.pointdata,
-          parsing: {
-              yAxisKey: 'foil'
-          }
+          data: this.prices.foil
+
       })
     }
     return cd
-  },
-  chartOptions() {
-    return {
-      maintainAspectRatio: false,
-      scales: {
-        xAxes: [{
-          type: 'time'
-        }]
-      },
-      tooltip: {
-        intersect: false,
-    position: 'nearest',
-      },
-      interaction: {
-        mode: 'nearest',
-        axis: 'x',
-        intersect: 'true'
-      },
-      plugins: {
-        legend: {
-          display: false,
-
-        }
-      }
-
-    }
   }
 },
 methods: {
@@ -145,19 +120,21 @@ methods: {
       }
     );
     let priceData = await dataRes.json();
-
+    let point_data = []
     if(priceData.status == "success"){
        if(this.acquired_price){
-          priceData.point_data.push({
+          priceData.data.date.push(this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-DD-MM'))
+          point_data.push({
             user: this.acquired_price,
             x: this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-DD-MM'),
           })
         }
 
-      priceData.point_data = priceData.point_data.sort((a,b) => this.$moment(a.x,['YYYY-MM-DD','YYYY-DD-MM']).format('X') - this.$moment(b.x,['YYYY-MM-DD','YYYY-DD-MM']).format('X'));
+      priceData.data.date = priceData.data.date.sort((a,b) => this.$moment(a,['YYYY-MM-DD','YYYY-DD-MM']).format('X') - this.$moment(b,['YYYY-MM-DD','YYYY-DD-MM']).format('X'));
 
-      this.prices = priceData.prices;
-      this.pointdata = priceData.point_data;
+      console.log(priceData)
+      this.prices = priceData.data;
+      this.pointdata = point_data;
     } else {
       this.$buefy.toast.open({
         message: `Failed to fetch data for graph`,
