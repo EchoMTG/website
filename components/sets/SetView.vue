@@ -87,6 +87,7 @@
         :cardsowned="this.set.owned"
         :totalFoiled="this.set.total_foil_cards"
         :totalRegular="this.set.total_regular_cards"
+        :callback="callback"
         />
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />
@@ -122,6 +123,10 @@ export default {
             }
           }
         }
+      },
+      callback: {
+        type: Function,
+        required: true
       }
     },
     data: function data() {
@@ -140,7 +145,7 @@ export default {
             this.$refs[str+'Tab'].parentElement.classList.add('is-active')
         },
         addFullSet: function() {
-            var r = confirm("Add one of everycard? This cannot be undone.");
+            var r = confirm("Add one of everycard? This can only be undone from your inventory.");
 		        if (r == true) {
                 this.items.forEach(item => {
                     //setTimeout(addToInventoryByEchoID(item.emid),500);

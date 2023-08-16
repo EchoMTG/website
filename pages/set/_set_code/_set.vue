@@ -1,7 +1,7 @@
 <template>
   <div>
       <echo-bread-crumbs :data="crumbs" />
-      <SetView :set="set" />
+      <SetView :set="set" :callback="refreshData" />
    </div>
 
 </template>
@@ -25,6 +25,7 @@ export default {
       set: {
         name: '',
       },
+      set_code: '',
       checkedRows: []
     }
   },
@@ -40,7 +41,8 @@ export default {
     // return it
     if (data) {
       return {
-        set: data.set
+        set: data.set,
+        set_code: params.set_code
       }
     } else {
       redirect('/sets/')
@@ -50,6 +52,10 @@ export default {
 
     makeSetPath(code, path_part){
       return `/set/${code}/${path_part}/`
+    },
+    async refreshData() {
+      let data = await this.$echomtg.getSet(this.set_code);
+      this.set = data.set;
     }
 
   },
@@ -68,9 +74,6 @@ export default {
         }
       ]
     }
-  },
-  mounted() {
-    console.log("SET",this.set)
   },
   head () {
     return {

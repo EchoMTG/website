@@ -152,9 +152,9 @@
           >
           <b-table-column v-slot="props" width="30">
 
-            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark">{{isCardOwned(props.row.emid, 'regular')}}</b-tag>
+            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
             <br>
-            <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="has-background-warning-dark has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</b-tag>
+            <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
@@ -175,7 +175,7 @@
                     style="width: 120px; height:200px; float: left; margin-right: 4px;" />
             </a>
 
-            <b-tag class="has-background-warning-dark has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
+            <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
             {{props.row.types}}
             <a v-if="userLevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
@@ -197,11 +197,11 @@
           </b-table-column>
           <b-table-column field="tcg_mid" v-if="totalRegular > 0" label="Regular" numeric sortable v-slot="props">
               <span v-if="props.row.tcg_mid > 0">{{cs}}{{ props.row.tcg_mid }}</span>
-              <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-primary" @click="addItem(props.row.emid, 0)"></b-button>
+              <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
           </b-table-column>
           <b-table-column field="foil_price" v-if="totalFoiled > 0" label="Foil" numeric sortable v-slot="props">
               <span v-if="props.row.foil_price > 0">{{cs}}{{ props.row.foil_price }}</span>
-              <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" type="is-warning" @click="addItem(props.row.emid,1)"></b-button>
+              <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
           </b-table-column>
 
 
@@ -299,6 +299,10 @@ export default {
       type: Number,
       default: 0
     },
+    callback: {
+      type: Function,
+      required: true
+    }
   },
   data: function data() {
     return {
@@ -315,7 +319,8 @@ export default {
       wikiOpen: false,
       variant: '',
       variants: [],
-      fullView: false
+      fullView: false,
+      actions: 0
     };
 
   },
@@ -355,7 +360,7 @@ export default {
                     queue: true,
                     position: 'is-top',
                 })
-                this.actions++;
+                this.callback()
             }).catch(function (error) {
                 this.$buefy.snackbar.open({
                     message: error,
@@ -428,6 +433,11 @@ export default {
     items: function() {
         this.findVariants()
 
+    },
+    actions() {
+      if(this.callback){
+        this.callback();
+      }
     }
   },
   computed: {

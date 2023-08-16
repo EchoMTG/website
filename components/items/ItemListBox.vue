@@ -4,8 +4,8 @@
           <p class="card-header-title">
               <a href="/tools/lists/">Your Lists</a>
           </p>
-          <button 
-            class="card-header-icon" 
+          <button
+            class="card-header-icon"
             aria-label="collapse item list tools"
             @click="isOpen = !isOpen"
             :aria-expanded="isOpen"
@@ -59,12 +59,12 @@
         <b-table
           :paginated="paginated"
           :per-page="6"
-          v-if="lists.length > 0" 
-          :data="lists" 
+          v-if="lists.length > 0"
+          :data="lists"
           :striped="true">
           <b-table-column field="name" :label="`Lists with ${this.item.name}`" sortable v-slot="props">
             <a :href="`/tools/lists/${props.row.id}`" class="ellipsis">{{ props.row.name}}</a>
-            <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded has-background-warning-dark has-text-white">Foil</b-tag>
+            <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded rainbow-background has-text-white">Foil</b-tag>
           </b-table-column>
           <b-table-column v-slot="props">
             <b-button class="is-pulled-right is-small" @click="removeFromList(props.row.list_item_id,props.row.id)" icon-left="delete"></b-button>
@@ -123,7 +123,7 @@ export default {
       async addToList(){
         let foil = this.foil ? 1 : 0;
         const data = await this.$echomtg.addToList(this.item.emid, this.currentList.id, foil);
-        
+
         this.$buefy.snackbar.open({
             message: data.message,
             type: 'is-success',

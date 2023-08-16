@@ -62,7 +62,7 @@
           </div>
 
           <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
-          <b-tag style="flex: 1" class="has-background-warning-dark has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+          <b-tag style="flex: 1" class="rainbow-background has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
 
         </div>
 

@@ -4,8 +4,8 @@
             <p class="card-header-title">
                 <a href="/tools/inventory/">Your Inventory</a>
             </p>
-            <button 
-                class="card-header-icon" 
+            <button
+                class="card-header-icon"
                 aria-label="collapse item inventory tools"
                 @click="isOpen = !isOpen"
                 :aria-expanded="isOpen"
@@ -39,7 +39,7 @@
                     </b-table-column>
                     <b-table-column field="acquiredPrice" label="Acq. Price" sortable numeric v-slot="props">
 
-                        <b-tag v-if="props.row.foil == 1" class="has-background-warning-dark has-text-white" rounded>foil</b-tag>
+                        <b-tag v-if="props.row.foil == 1" class="rainbow-background has-text-white" rounded>foil</b-tag>
                         {{cs}}{{ props.row.acquiredPrice.toLocaleString("en-US") }}
                     </b-table-column>
 
@@ -109,7 +109,7 @@ export default {
             }).then( (response) => {
                 return response.json();
             }).then((json) => {
-               
+
                 this.$buefy.snackbar.open({
                     message: json.message,
                     type: 'is-success',
@@ -124,7 +124,7 @@ export default {
                     type: 'is-error',
                     position: 'is-top',
                 })
-               
+
             });
         },
         deleteItem: function (inventoryID){
@@ -186,7 +186,7 @@ export default {
                 const data = await res.json();
                 this.items = data.results;
             } catch (err){
-                this.$echomtg.log(err);  
+                this.$echomtg.log(err);
             }
         }
 

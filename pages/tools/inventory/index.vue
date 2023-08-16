@@ -519,7 +519,7 @@ export default {
           icon: ''
         },
         {
-          label: 'Inventory',
+          label: `${this.user.username}'s Inventory`,
           url: '/tools/inventory/',
           icon: ''
         }
