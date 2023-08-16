@@ -55,8 +55,7 @@
               :src="item.image"
               :alt="`${item.name} magic card front`"
               placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
-
-          ></b-image>
+          />
         </div>
         <div class="message m-3 p-4 is-overflowhidden">
           <nav class="level is-mobile">
@@ -113,12 +112,14 @@
                 <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
             </b-taglist>
           </div>
-      </b-field>
-        <line-chart
-          :chart-data="chartData"
-          :chart-options="extraOptions"
-          chart-id="cardLineChart"
-        />
+        </b-field>
+        <client-only>
+          <line-chart
+            :chart-data="chartData"
+            :chart-options="extraOptions"
+            chart-id="cardLineChart"
+          />
+        </client-only>
         <div class="card mt-3">
           <header class="card-header">
             <p class="card-header-title ">
@@ -364,7 +365,7 @@ export default {
           icon: ''
         },
         {
-          label: this.item.name,
+          label: `${this.item.name} ${this.item.set_code} `,
           url: this.$nuxt.$route.path,
           icon: ''
         }

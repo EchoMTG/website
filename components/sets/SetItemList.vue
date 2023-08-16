@@ -403,7 +403,6 @@ export default {
     findVariants(){
 
         this.items.forEach(item => {
-          console.log(item.name)
             if(/\(/.test(item.name) ){
 
                 let m = item.name.match(/\((.*)\)/m);

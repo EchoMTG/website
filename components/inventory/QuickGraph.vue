@@ -50,8 +50,8 @@ export default {
     required: true
   }
  },
- created() {
-  this.getPriceData()
+ async created() {
+  await this.getPriceData()
  },
  computed: {
 
@@ -132,7 +132,6 @@ methods: {
 
       priceData.data.date = priceData.data.date.sort((a,b) => this.$moment(a,['YYYY-MM-DD','YYYY-DD-MM']).format('X') - this.$moment(b,['YYYY-MM-DD','YYYY-DD-MM']).format('X'));
 
-      console.log(priceData)
       this.prices = priceData.data;
       this.pointdata = point_data;
     } else {
