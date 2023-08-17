@@ -222,7 +222,13 @@ export const mutations = {
   }
 }
 
+// your root getters
+export const getters = {
+  isAuthenticated(state){ return state.authenticated}
+}
+
 export const actions = {
+ 
   asideCloseAll ({ commit, state }) {
     commit('asideVisibilityToggle', false)
     commit('asideRightToggle', false)

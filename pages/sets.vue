@@ -2,7 +2,8 @@
   <div>
     <echo-bread-crumbs :data="crumbs" />
     <title-bar :title-stack="titleStack" />
-
+    <a href="/hello/">test</a>
+    <NuxtLink to="/hello/">test nuxt link</NuxtLink>
     <Expansions :expansions="expansions" />
   </div>
 </template>

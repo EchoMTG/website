@@ -15,7 +15,7 @@ Behind the scenes of the frontend, I will continue to contribute, upgrade, and o
 
 These command line tools must be installed to run this website on your local machine 
 
-* NodeJS https://nodejs.org/en/
+* NodeJS https://nodejs.org/en/ version 16 
 * NPM https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 * VueJS https://vuejs.org/v2/guide/installation.html
 * Nuxt https://nuxtjs.org/

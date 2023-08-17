@@ -49,7 +49,7 @@ export default {
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
-
+  middleware: ['mw'],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
@@ -78,7 +78,9 @@ export default {
   gtm: {
     id: 'GTM-5S54B96'
   },
-
+  router: {
+    middleware: 'mw'
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend (config, ctx) {
