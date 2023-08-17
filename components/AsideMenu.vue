@@ -4,7 +4,7 @@
     class="aside is-placed-left"
     :class="{
       'is-expanded': isAsideExpanded,
-      'is-secondary': isSecondary,
+      'is-secondary': isSecondary
     }"
   >
     <aside-tools :has-close="isSecondary" :icon="icon" @close="close">

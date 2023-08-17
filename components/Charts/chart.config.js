@@ -50,44 +50,6 @@ export const chartOptionsMain = {
     }
   },
   scales: {
-    xAxes: [{
-      time: {
-        displayFormats: {
-            quarter: 'MMM YYYY'
-        }
-      },
-      gridLines: {
-        drawBorder: false,
-        color: 'rgba(0,0,0,0.025)',
-        zeroLineColor: 'transparent',
-        offsetGridLines: true,
-        offset: true
-      },
-      ticks: {
-
-        fontColor: '#ccc',
-        beginAtZero: false,
-        autoSkip: true,
-        autoSkipPadding: 20,
-        maxTicksLimit: 16
-
-      }
-    }],
-    yAxes: [
-      {
-
-        gridLines: {
-          drawBorder: false,
-          color: 'rgba(0,0,0,0.05)',
-          zeroLineColor: 'transparent'
-        },
-
-        ticks: {
-          padding: 20,
-          fontColor: '#9a9a9a',
-          beginAtZero: false
-        }
-      }
-    ],
+   
   }
 }
