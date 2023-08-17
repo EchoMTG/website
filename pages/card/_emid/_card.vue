@@ -90,7 +90,8 @@
             <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
           </div>
           <div class="control">
-            <b-tag type="is-dark">{{this.item.expansion}}</b-tag>
+            <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
+
           </div>
           <div class="control">
             <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
@@ -212,13 +213,14 @@ import ItemToolBox from '@/components/items/ItemToolBox.vue'
 import ItemListBox from '@/components/items/ItemListBox.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
+import SetTag from '~/components/magic/SetTag.vue'
 
 export default {
   name: 'Expansion',
   components: {
     SetView,
     EchoBreadCrumbs,
-
+    SetTag,
     ItemToolBox,
     ItemInspectorWrapper,
     ItemPriceAnalysis,
