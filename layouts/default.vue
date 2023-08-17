@@ -7,15 +7,6 @@
       :class="{ 'has-secondary': !!menuSecondary }"
       @menu-click="menuClick"
     />
-    <aside-menu
-      v-if="menuSecondary"
-      :menu="menuSecondary"
-      :is-secondary="false"
-      :label="menuSecondaryLabel"
-      :icon="menuSecondaryIcon"
-      @menu-click="menuClick"
-      @close="menuSecondaryClose"
-    />
     <nuxt />
     <!-- <aside-right /> -->
     <!-- <config-box /> -->
@@ -59,7 +50,7 @@ export default {
 
     menu () {
       if(this.user && this.user.username != ''){
-        console.log('user, auth', this.authenticated,this.user);
+        this.$echomtg.log('user, auth', this.authenticated,this.user);
       }
       let navList = [
           'Magic: the Gathering',

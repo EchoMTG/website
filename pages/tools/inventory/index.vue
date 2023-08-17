@@ -130,7 +130,7 @@
           </b-select>
 
 
-           
+
 
 
         </div>
@@ -148,6 +148,8 @@
       :sticky-header="true"
       paginated
       backend-pagination
+      pagination-size="is-small"
+      pagination-order="is-right"
       :total="total"
       :per-page="perPage"
       @page-change="onPageChange"
@@ -155,7 +157,7 @@
       aria-previous-label="Previous page"
       aria-page-label="Page"
       aria-current-label="Current page"
-      :page-input="true"
+      :page-input="false"
       backend-sorting
       :default-sort-direction="defaultSortOrder"
       :default-sort="[sortField, sortOrder]"
@@ -302,6 +304,10 @@
               </section>
             </td>
           </tr>
+        </template>
+
+        <template #bottom-left>
+            <b>Total checked</b>: {{ checkedRows.length }}
         </template>
 
       </b-table>
@@ -578,10 +584,10 @@ export default {
     return {
         title: this.user ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tools`,
         meta: [
-          { 
-            hid: 'og:image', 
-            property: 'og:image', 
-            content: `https://assets.echomtg.com/images/echomtg-og-default.png` 
+          {
+            hid: 'og:image',
+            property: 'og:image',
+            content: `https://assets.echomtg.com/images/echomtg-og-default.png`
           },
           {
             hid: 'description',

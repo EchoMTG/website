@@ -55,7 +55,7 @@
               </option>
             </select>
           </div>
-<!-- isCardOwned(item.emid, 'regular') -->
+
           <div
             class="select is-small is-rounded has-text-grey is-hidden-mobile"
             v-if="Object.keys(cardsowned).length > 0"
