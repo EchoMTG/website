@@ -54,11 +54,11 @@ export default function ({req,route,redirect}) {
     const setRegex = new RegExp("/sets/", "ig"); // global insensitive
     found = setRegex.exec(route.path)
     if(found !== null && found.length > 0){
-      console.log('regex setRegex result',found)
-      console.log('regex result 0 ',found[0] ? found[0] : 'n/a')
+    //   console.log('regex setRegex result',found)
+    //   console.log('regex result 0 ',found[0] ? found[0] : 'n/a')
       return redirect(`/mtg/sets`);
     }
 
     // normal return
-    return
+    return true;
 }
