@@ -182,10 +182,16 @@
             <!-- <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
             </i> -->
             <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
+
+
         </b-table-column>
         <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
-          <set-tag :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+          <div class="is-flex	is-justify-content-space-between		">
+            <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+            <condition-select classes="is-hidden-touch mr-2" :inventory_id="props.row.inventory_id" :current_condition="props.row.condition"  />
+            <language-select classes="is-hidden-touch" :inventory_id="props.row.inventory_id" :current_language="props.row.lang"  />
 
+          </div>
         </b-table-column>
 
         <!-- Mobile Version Combined Price Data -->
@@ -334,6 +340,8 @@ import SetTag from '~/components/magic/SetTag.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 import NoteButton from '~/components/inventory/NoteButton.vue'
 import BulkEditModal from '~/components/inventory/BulkEditModal.vue'
+import ConditionSelect from '~/components/inventory/ConditionSelect.vue'
+import LanguageSelect from '~/components/inventory/LanguageSelect.vue'
 
 export default {
   name: 'Inventory',
@@ -353,7 +361,9 @@ export default {
     MoveToEarningsButton,
     NoteButton,
     SetTag,
-    BulkEditModal
+    BulkEditModal,
+    ConditionSelect,
+    LanguageSelect
   },
   data() {
       return {
