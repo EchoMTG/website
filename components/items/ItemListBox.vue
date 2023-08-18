@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              <a href="/tools/lists/">Your Lists</a>
+              <a href="/apps/lists/">Your Lists</a>
           </p>
           <button
             class="card-header-icon"
@@ -63,7 +63,7 @@
           :data="lists"
           :striped="true">
           <b-table-column field="name" :label="`Lists with ${this.item.name}`" sortable v-slot="props">
-            <a :href="`/tools/lists/${props.row.id}`" class="ellipsis">{{ props.row.name}}</a>
+            <a :href="`/apps/lists/${props.row.id}`" class="ellipsis">{{ props.row.name}}</a>
             <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded rainbow-background has-text-white">Foil</b-tag>
           </b-table-column>
           <b-table-column v-slot="props">

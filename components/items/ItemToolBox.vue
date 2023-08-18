@@ -2,7 +2,7 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
-                <a href="/tools/inventory/">Your Inventory</a>
+                <a href="/apps/inventory/">Your Inventory</a>
             </p>
             <button
                 class="card-header-icon"

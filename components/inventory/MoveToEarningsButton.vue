@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="content has-text-centered">
-                    This action removes your item from Inventory and transfers it to the <a href="/tools/earnings/">earnings</a> ledger.
+                    This action removes your item from Inventory and transfers it to the <a href="/apps/earnings/">earnings</a> ledger.
                 </div>
             </div>
         </div>

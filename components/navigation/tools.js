@@ -4,27 +4,27 @@ export default [{
   label: 'Dashboard'
 },
 {
-  to: '/tools/inventory/',
+  to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
   label: 'Inventory'
 },
 {
-  to: '/tools/inventory/sealed/',
+  to: '/apps/sealed/',
   icon: 'wallet-giftcard',
   label: 'Sealed'
 },
 {
-  to: '/tools/lists/',
+  to: '/apps/lists/',
   icon: 'format-list-checkbox',
   label: 'Lists'
 },
 {
-  to: '/tools/watchlist/',
+  to: '/apps/watchlist/',
   icon: 'eye',
   label: 'Watch List'
 },
 {
-  to: '/tools/earnings/',
+  to: '/apps/earnings/',
   icon: 'cash-multiple',
   label: 'Earnings'
 },

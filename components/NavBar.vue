@@ -19,7 +19,7 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
         <div class="navbar-item is-flex is-align-items-center">
-          <a href="/tools/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
+          <a href="/apps/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
         </div>
         <div class="navbar-item is-flex is-align-items-center">
           <b-taglist  attached>

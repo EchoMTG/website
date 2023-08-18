@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <NuxtLink :to="`/tools/lists/${item.id}`" class="has-text-black has-text-weight-bold">
+            <NuxtLink :to="`/apps/lists/${item.id}`" class="has-text-black has-text-weight-bold">
                 <span class="icon"><i class="fa fa-edit"></i></span>
                 <span>{{item.name}}</span>
             </NuxtLink>
