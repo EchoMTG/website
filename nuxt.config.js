@@ -79,7 +79,8 @@ export default {
     id: 'GTM-5S54B96'
   },
   router: {
-    middleware: 'mw'
+    middleware: 'mw',
+    trailingSlash: true
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

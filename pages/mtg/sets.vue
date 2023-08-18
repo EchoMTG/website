@@ -57,7 +57,13 @@ export default {
     crumbs () {
       return [
         {
-          label: 'Expansions',
+          label: 'Magic: the Gathering',
+          url: '/mtg/',
+          icon: ''
+
+        },
+        {
+          label: 'Sets',
           url: '/mtg/sets',
           icon: ''
         },

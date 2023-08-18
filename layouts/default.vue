@@ -56,17 +56,17 @@ export default {
           'Magic: the Gathering',
           [
             {
-              to: '/mtg/sets',
+              to: '/mtg/sets/',
               label: 'Expansions',
               icon: 'cards'
             },
             {
-              to: '/mtg/spoilers',
+              to: '/mtg/spoilers/',
               label: 'Spoilers',
               icon: 'cake'
             },
             {
-              to: '/mtg/groups/magic-reserve-list',
+              to: '/mtg/groups/magic-reserve-list/',
               label: 'Reserve List',
               icon: 'chess-king'
             },

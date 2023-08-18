@@ -46,7 +46,7 @@
         </div>
 
         <div class="jump-links">
-            <a href="/sets/">All Magic Sets</a>
+            <a href="/mtg/sets/">All Magic Sets</a>
             |
             <a href="/blog/">Articles</a>
         </div>

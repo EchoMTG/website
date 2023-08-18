@@ -129,10 +129,11 @@ export default {
     },
     crumbs () {
       return [
-      {
+        {
           label: 'Magic: the Gathering',
-          url: '/sets/',
+          url: '/mtg/',
           icon: ''
+
         },
       {
           label: 'Spoilers',

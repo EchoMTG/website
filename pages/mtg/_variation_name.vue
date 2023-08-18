@@ -146,7 +146,7 @@ export default {
         variations, original
       }
     } else {
-      redirect('/sets/')
+      redirect('/mtg/sets/')
     }
   },
   methods: {
@@ -211,7 +211,7 @@ export default {
       return [
         {
           label: 'Expansions',
-          url: '/sets/',
+          url: '/mtg/sets/',
           icon: ''
         },
          {

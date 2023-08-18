@@ -315,7 +315,7 @@ export default {
   methods: {
 
     makeSetPath(code, path_part){
-      return `/set/${code}/${path_part}/`
+      return `/mtg/sets/${code}/${path_part}/`
     },
     getSetIconClass(set_code){
       return this.$echomtg.setIconClass(set_code)
@@ -351,9 +351,15 @@ export default {
     },
     crumbs () {
       return [
+         {
+          label: 'Magic: the Gathering',
+          url: '/mtg/',
+          icon: ''
+
+        },
         {
           label: 'Expansions',
-          url: '/mtg/sets',
+          url: '/mtg/sets/',
           icon: ''
         },
          {

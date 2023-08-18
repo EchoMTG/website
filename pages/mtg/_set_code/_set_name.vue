@@ -45,7 +45,7 @@ export default {
         set_code: params.set_code
       }
     } else {
-      redirect('/sets/')
+      redirect('/mtg/sets/')
     }
   },
   methods: {
@@ -63,8 +63,14 @@ export default {
     crumbs () {
       return [
         {
-          label: 'Expansions',
-          url: '/sets/',
+          label: 'Magic: the Gathering',
+          url: '/mtg/',
+          icon: ''
+
+        },
+        {
+          label: 'Sets',
+          url: '/mtg/sets/',
           icon: ''
         },
         {
