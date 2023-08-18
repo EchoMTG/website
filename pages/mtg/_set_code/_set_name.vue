@@ -51,7 +51,7 @@ export default {
   methods: {
 
     makeSetPath(code, path_part){
-      return `/set/${code}/${path_part}/`
+      return `/mtg/${code}/${path_part}/`
     },
     async refreshData() {
       let data = await this.$echomtg.getSet(this.set_code);
