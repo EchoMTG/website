@@ -23,8 +23,7 @@ export default {
  name: 'DateAcquiredInput',
  props: {
   callback: {
-    type: Function,
-    required: true
+    type: Function
   },
   inventory_id: {
     type: Number,
