@@ -139,7 +139,7 @@ export default {
       },
       getFilteredTradeResults: function() {
           return this.trades.filter(trade => {
-              console.log(trade)
+              
               if(this.search == '') return true
 
               return trade.name.toLowerCase().includes(this.search.toLowerCase())
