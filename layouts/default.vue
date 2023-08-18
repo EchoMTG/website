@@ -56,7 +56,7 @@ export default {
           'Magic: the Gathering',
           [
             {
-              to: '/sets',
+              to: '/mtg/sets',
               label: 'Expansions',
               icon: 'cards'
             },
@@ -66,7 +66,7 @@ export default {
               icon: 'cake'
             },
             {
-              to: '/groups/magic-reserve-list/',
+              to: '/mtg/groups/magic-reserve-list',
               label: 'Reserve List',
               icon: 'chess-king'
             },

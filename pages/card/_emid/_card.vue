@@ -353,7 +353,7 @@ export default {
       return [
         {
           label: 'Expansions',
-          url: '/sets/',
+          url: '/mtg/sets',
           icon: ''
         },
          {

@@ -57,7 +57,7 @@ export default {
       return [
         {
           label: 'Groups',
-          url: '/groups',
+          url: '/mtg/groups',
           icon: ''
 
         }
@@ -68,13 +68,13 @@ export default {
           name: `Magic Reserve List`,
           description: `Card that can't be reprinted.`,
           icon: `animation`,
-          url: `/groups/magic-reserve-list/`
+          url: `/mtg/groups/magic-reserve-list`
         },
         {
           name: `Magic Power 9`,
           description: `Infamous 9 cards from the Alpha set`,
           icon: `animation`,
-          url: `/groups/power-9-magic-the-gathering/`
+          url: `/mtg/groups/power-9-magic-the-gathering`
         },
 
       ]
