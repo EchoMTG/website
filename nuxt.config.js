@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'universal',
+  target: 'server',
   ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -33,7 +33,7 @@ export default {
           'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
       }
     ]
-  },
+},
   // Global CSS: https://go.nuxtjs.dev/config-css
   // css: [
   //   '@/assets/scss/main.scss'
@@ -49,7 +49,7 @@ export default {
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: false,
-  middleware: ['mw'],
+  // middleware: ['mw'],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module

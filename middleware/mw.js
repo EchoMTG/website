@@ -15,7 +15,7 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
     if(route.path == '/inventory/stats/') return redirect(`/apps/stats/`);
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
-    
+
     // regex for tradelist
     // example: /tradelist/063c60f990e89705d97cecffc3a31832/
     // target: /apps/tradelist/063c60f990e89705d97cecffc3a31832
@@ -48,7 +48,7 @@ export default function ({route,redirect}) {
     const itemRegex = new RegExp("/card/([0-9]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
     found = itemRegex.exec(route.path)
     if(found !== null && found.length > 1){
-      return redirect(`/mtg/set_code/${found[2]}/${found[1]}`)
+      return redirect(`/mtg/items/${found[2]}/${found[1]}`)
     }
 
     // regex for magic sets from legacy echomtg.com website
@@ -57,13 +57,13 @@ export default function ({route,redirect}) {
     const setsRegex = new RegExp("/set/([a-z0-9A-z]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
     found = setsRegex.exec(route.path)
     if(found !== null && found.length > 1){
-      return redirect(`/mtg/${found[1].toLowerCase()}/${found[2].toLowerCase()}`);
+      return redirect(`/mtg/sets/${found[1].toLowerCase()}/${found[2].toLowerCase()}`);
     }
 
     // regex for magic set page
     // example: /sets/
     // target: /mtgs/sets
-    const setRegex = new RegExp("/sets/", "ig"); // global insensitive
+    const setRegex = new RegExp("^/sets/", "ig"); // global insensitive
     found = setRegex.exec(route.path)
     if(found !== null && found.length > 0){
       return redirect(`/mtg/sets/`);

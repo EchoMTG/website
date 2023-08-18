@@ -1,9 +1,9 @@
 <template>
+
   <div>
+    <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
     <title-bar :title-stack="titleStack" />
-    <a href="/hello/">test</a>
-    <NuxtLink to="/hello/">test nuxt link</NuxtLink>
     <Expansions :expansions="expansions" />
   </div>
 </template>
@@ -29,7 +29,11 @@ export default {
       expansions: []
     }
   },
-  async asyncData({ redirect, $config, env, $echomtg }) {
+  fetchOnServer: false,
+  async fetch() {
+    this.expansions = await $echomtg.getSets()
+  },
+  async asyncData({ redirect, $echomtg }) {
      let expansions;
 
     // try to get the json
@@ -47,7 +51,7 @@ export default {
         expansions: expansions
       }
     } else {
-      redirect('/sets/')
+      redirect('/mtg/')
     }
   },
   computed: {
@@ -64,7 +68,7 @@ export default {
         },
         {
           label: 'Sets',
-          url: '/mtg/sets',
+          url: '/mtg/sets/',
           icon: ''
         },
 
