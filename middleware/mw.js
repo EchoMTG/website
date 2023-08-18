@@ -7,6 +7,24 @@ export default function ({route,redirect}) {
     let found = null;
     // example: alter/1225/volcanic-island/
 
+    // app redirects
+    if(route.path == '/inventory/') return redirect(`/apps/inventory/`);
+    if(route.path == '/lists/') return redirect(`/apps/lists/`);
+    if(route.path == '/inventory/watchlist/') return redirect(`/apps/watchlist/`);
+    if(route.path == '/inventory/earnings/') return redirect(`/apps/earnings/`);
+    if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
+    if(route.path == '/inventory/stats/') return redirect(`/apps/stats/`);
+    if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
+    
+    // regex for tradelist
+    // example: /tradelist/063c60f990e89705d97cecffc3a31832/
+    // target: /apps/tradelist/063c60f990e89705d97cecffc3a31832
+    const tradelistRegex = new RegExp("/tradelist/([a-z0-9]+)/?", "ig"); // global insensitive
+    found = tradelistRegex.exec(route.path)
+    if(found !== null && found.length > 1){
+      return redirect(`/apps/tradelist/${found[1]}`)
+    }
+
     // alters database
     const altersRegex = new RegExp("/mtg-alters/", "ig"); // global insensitive
     found = altersRegex.exec(route.path)
