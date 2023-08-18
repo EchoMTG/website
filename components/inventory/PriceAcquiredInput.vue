@@ -38,6 +38,10 @@ export default {
       await this.$echomtg.inventoryUpdate(this.inventory_id, {
         acquired_price: value
       })
+      this.$buefy.snackbar.open({
+        message: `Purchase Price updated to: ${this.currency_symbol}${value}`,
+        queue: false
+      })
       if(this.callback){
         this.callback()
       }

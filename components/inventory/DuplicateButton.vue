@@ -26,6 +26,10 @@ export default {
         language: this.copy.language
       })
 
+      this.$buefy.snackbar.open({
+        message: `${this.copy.name} duplicated`,
+        queue: false
+      })
       if(this.callback){
         this.callback()
       }

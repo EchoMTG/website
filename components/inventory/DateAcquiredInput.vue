@@ -48,7 +48,10 @@ export default {
     this.$echomtg.inventoryUpdate(this.inventory_id,{
       acquired_date: yyyy + '-' + mm + '-' + dd
     });
-
+    this.$buefy.snackbar.open({
+      message: `Date Acquired updated to: ` + yyyy + '-' + mm + '-' + dd,
+      queue: false
+    })
     if(this.callback){
       this.callback()
     }

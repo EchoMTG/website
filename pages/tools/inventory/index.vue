@@ -235,7 +235,7 @@
             </div>
           </template>
           <template v-slot="props">
-            <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="loadAsyncData" />
+            <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
           </template>
         </b-table-column>
         <b-table-column field="date_acquired" label="Purchase Date" date sortable centered>
@@ -248,7 +248,7 @@
             </div>
           </template>
           <template v-slot="props">
-            <date-acquired-input :date="props.row.date_acquired" :callback="loadAsyncData" :inventory_id="props.row.inventory_id" />
+            <date-acquired-input :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
           </template>
         </b-table-column>
 

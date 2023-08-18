@@ -77,7 +77,10 @@ export default {
         }
         this.noteExists = false
         this.isCardModalActive = false
-        this.$echomtg.createGrowl(data.message)
+        this.$buefy.snackbar.open({
+          message: data.message,
+          queue: false
+        })
         if(this.callback){
           this.callback()
         }
@@ -90,7 +93,13 @@ export default {
       console.log(this.inventory_item)
       const data = await this.$echomtg.notesCreate(this.inventory_item.inventory_id, this.editingNote)
       this.$echomtg.createGrowl(data.message)
+      
       await this.fetchNote(data.note_id)
+      
+      this.$buefy.snackbar.open({
+        message: data.message,
+        queue: false
+      })
       if(this.callback){
         this.callback()
       }
@@ -99,7 +108,10 @@ export default {
     },
     async saveNote(){
       const data = await this.$echomtg.notesUpdate(this.note.id, this.editingNote)
-      this.$echomtg.createGrowl(data.message)
+      this.$buefy.snackbar.open({
+        message: data.message,
+        queue: false
+      })
     },
     async openNote(){
       this.isCardModalActive = true

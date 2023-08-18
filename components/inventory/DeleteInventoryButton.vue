@@ -19,6 +19,12 @@ export default {
   deleteItem() {
 
     this.$echomtg.inventoryDeleteItem(this.inventory_id)
+
+    this.$buefy.snackbar.open({
+        message: `Inventory Item #${this.inventory_id} Deleted`,
+        queue: false
+      })
+
     if(this.callback){
       this.callback()
     }

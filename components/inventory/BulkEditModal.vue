@@ -225,6 +225,10 @@ export default {
         await this.$echomtg.addToList(this.selecteditems[i].emid, this.currentList.id, this.selecteditems[i].foil);
       }
     }
+    this.$buefy.snackbar.open({
+      message: `Bulk (${this.selecteditems.length}) Operation: ${this.actionNames[this.actiontype]} Finished`,
+      queue: false
+    })
 
     if(this.callback){
       this.isOpen = false
