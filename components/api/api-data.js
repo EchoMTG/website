@@ -1104,7 +1104,7 @@ export default {
 								""
 							]
 						},
-						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\nCondition Options\n\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n ```\n\nLanguage Options\n\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n ```"
 					},
 					"response": [
 						{
@@ -1676,10 +1676,10 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://www.echomtg.com/api/inventory/view/?start=0&limit=200",
+							"raw": "https://dev.echomtg.com/api/inventory/view/?start=0&limit=200&price_over=10&price_under=50&search=e",
 							"protocol": "https",
 							"host": [
-								"www",
+								"dev",
 								"echomtg",
 								"com"
 							],
@@ -1697,9 +1697,22 @@ export default {
 								{
 									"key": "limit",
 									"value": "200"
+								},
+								{
+									"key": "price_over",
+									"value": "10"
+								},
+								{
+									"key": "price_under",
+									"value": "50"
+								},
+								{
+									"key": "search",
+									"value": "e"
 								}
 							]
-						}
+						},
+						"description": "View user inventory. All options can be combined.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| start | optional | 0 |  |\n| limit | optional | 100 | Number to records to return |\n| sort | optional | date_acquired | price_acquired, date_acquired, name, set, price_change, tcg_market, tcg_mid, foil_price |\n| direction | optional | ASC | Change sort direction |\n| cmc | optional |  | A math equation like '<=1' or '=0' or '>=5' |\n| color | optional |  | colorless, blue, white, red, multicolor, black, green |\n| tradable | optional |  | true, false |\n| reserve_list | optional |  | true, false |\n| price_under | optional |  | float number, return any item worth less than number |\n| price_over | optional |  | float number, return any item worth more than number |"
 					},
 					"response": [
 						{
@@ -4168,6 +4181,160 @@ export default {
 					]
 				}
 			]
+		},
+		{
+			"name": "Trades",
+			"item": [
+				{
+					"name": "Trades: View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dev.echomtg.com/api/trades/view/?start=0&limit=100&user=063c60f990e89705d97cecffc3a31832",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"trades",
+								"view",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "user",
+									"value": "063c60f990e89705d97cecffc3a31832"
+								}
+							]
+						},
+						"description": "View user inventory. All options can be combined.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| user | required |  | The public user hash of the tradable user. |\n| conversion | optional | 1 | NOT SUPPORTED, currency return related to user trade list. Will be used for currency conversion against USD, 1.5 would return all prices 1.5\\*USD |\n| start | optional | 0 |  |\n| limit | optional | 100 | Number to records to return, max is 250 |\n| sort | optional | date_acquired | price_acquired, date_acquired, name, set, price_change, tcg_market, tcg_mid, foil_price |\n| direction | optional | ASC | Change sort direction |\n| min_value | optional |  | float number, return any item worth more than number |\n| max_value | optional |  | float number, return any item worth less than number |"
+					},
+					"response": [
+						{
+							"name": "Trades: View",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.echomtg.com/api/trades/view/?start=0&limit=100&user=063c60f990e89705d97cecffc3a31832",
+									"protocol": "https",
+									"host": [
+										"api",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"trades",
+										"view",
+										""
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "100"
+										},
+										{
+											"key": "user",
+											"value": "063c60f990e89705d97cecffc3a31832"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Aug 2023 16:42:06 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Trades list accessed.\",\n    \"trades\": {\n        \"min_value\": false,\n        \"max_value\": false,\n        \"user_hash\": \"063c60f990e89705d97cecffc3a31832\",\n        \"message\": \"\",\n        \"user\": {\n            \"username\": \"teeg\",\n            \"conversion_rate\": \"1.00\",\n            \"currency_code\": \"USD\"\n        },\n        \"currency_code\": 1,\n        \"currency_symbol\": \"$\",\n        \"trades\": [\n            {\n                \"tcg_low\": \"4.58\",\n                \"tcg_mid\": \"7.17\",\n                \"tcg_market\": \"6.76\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Root+Maze&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"87.55\",\n                \"price_change\": \"0\",\n                \"mc\": \"{{g}}\",\n                \"main_type\": \"Enchantment\",\n                \"colors\": \"Green\",\n                \"condition\": \"NM\",\n                \"name\": \"Root Maze\",\n                \"mid\": \"135251\",\n                \"t\": \"Enchantment\",\n                \"set\": \"Tenth Edition\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Enchantment\",\n                \"set_code\": \"10E\",\n                \"expansion\": \"Tenth Edition\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"30740\",\n                \"inventory_id\": \"153326\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"87.55\",\n                \"personal_gain\": \"86.05000305175781\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/10e.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/30740.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/30740.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/10E/\",\n                \"echo_url\": \"https://www.echomtg.com/card/30740/root-maze/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n            },\n            {\n                \"tcg_low\": \"61.99\",\n                \"tcg_mid\": \"71\",\n                \"tcg_market\": \"70.94\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Sheoldred%2C+the+Apocalypse&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"70.24\",\n                \"price_change\": \"3\",\n                \"mc\": \"{{2}}{{b}}{{b}}\",\n                \"main_type\": \"Legendary Creature \",\n                \"colors\": \"Black\",\n                \"condition\": \"NM\",\n                \"name\": \"Sheoldred, the Apocalypse\",\n                \"mid\": \"100092716\",\n                \"t\": \"Legendary\",\n                \"set\": \"Dominaria United\",\n                \"rarity\": \"mythic\",\n                \"types\": \"Legendary Creature — Phyrexian Praetor\",\n                \"set_code\": \"dmu\",\n                \"expansion\": \"Dominaria United\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"139283\",\n                \"inventory_id\": \"47029740\",\n                \"note_id\": \"132551\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"70.24\",\n                \"personal_gain\": \"16.88999786376953\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/dmu.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/139283.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/139283.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/dmu/\",\n                \"echo_url\": \"https://www.echomtg.com/card/139283/sheoldred-the-apocalypse/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">3%</span>\"\n            },\n            {\n                \"tcg_low\": \"32.21\",\n                \"tcg_mid\": \"36.95\",\n                \"tcg_market\": \"33.82\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Endurance&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"55.57\",\n                \"price_change\": \"-5\",\n                \"mc\": \"{{1}}{{g}}{{g}}\",\n                \"main_type\": \"Creature \",\n                \"colors\": \"Green\",\n                \"condition\": \"NM\",\n                \"name\": \"Endurance\",\n                \"mid\": \"100081768\",\n                \"t\": \"Creature\",\n                \"set\": \"Modern Horizons 2\",\n                \"rarity\": \"Mythic Rare\",\n                \"types\": \"Creature — Elemental Incarnation\",\n                \"set_code\": \"mh2\",\n                \"expansion\": \"Modern Horizons 2\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"127902\",\n                \"inventory_id\": \"40055778\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"36.95\",\n                \"personal_gain\": \"7.820000762939454\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/mh2.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/127902.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/127902.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/mh2/\",\n                \"echo_url\": \"https://www.echomtg.com/card/127902/endurance/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-5%</span>\"\n            },\n            {\n                \"tcg_low\": \"16.06\",\n                \"tcg_mid\": \"22\",\n                \"tcg_market\": \"19.72\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Liliana+of+the+Veil&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"178.66\",\n                \"price_change\": \"-1\",\n                \"mc\": \"{{1}}{{b}}{{b}}\",\n                \"main_type\": \"Planeswalker - Liliana\",\n                \"colors\": \"Black\",\n                \"condition\": \"NM\",\n                \"name\": \"Liliana of the Veil\",\n                \"mid\": \"235597\",\n                \"t\": \"Planeswalker\",\n                \"set\": \"Innistrad\",\n                \"rarity\": \"Mythic Rare\",\n                \"types\": \"Planeswalker - Liliana\",\n                \"set_code\": \"ISD\",\n                \"expansion\": \"Innistrad\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"92094\",\n                \"inventory_id\": \"46508763\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"22\",\n                \"personal_gain\": \"3\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/isd.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/92094.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/92094.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/ISD/\",\n                \"echo_url\": \"https://www.echomtg.com/card/92094/liliana-of-the-veil/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-1%</span>\"\n            },\n            {\n                \"tcg_low\": \"8\",\n                \"tcg_mid\": \"13.15\",\n                \"tcg_market\": \"11.73\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Ensnaring+Bridge&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"21.37\",\n                \"price_change\": \"5\",\n                \"mc\": \"{{3}}\",\n                \"main_type\": \"Artifact\",\n                \"colors\": \"Colorless\",\n                \"condition\": \"NM\",\n                \"name\": \"Ensnaring Bridge\",\n                \"mid\": \"100075678\",\n                \"t\": \"Artifact\",\n                \"set\": \"Double Masters\",\n                \"rarity\": \"Mythic Rare\",\n                \"types\": \"Artifact\",\n                \"set_code\": \"2XM\",\n                \"expansion\": \"Double Masters\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"121176\",\n                \"inventory_id\": \"45970196\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"21.37\",\n                \"personal_gain\": \"2.1300008392334\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/2xm.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/121176.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/121176.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/2XM/\",\n                \"echo_url\": \"https://www.echomtg.com/card/121176/ensnaring-bridge/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">5%</span>\"\n            },\n            {\n                \"tcg_low\": \"6.99\",\n                \"tcg_mid\": \"11.6\",\n                \"tcg_market\": \"10.67\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Teferi%2C+Time+Raveler&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"25.02\",\n                \"price_change\": \"0\",\n                \"mc\": \"{{1}}{{w}}{{u}}\",\n                \"main_type\": \"Legendary Planeswalker \",\n                \"colors\": \"Blue, White\",\n                \"condition\": \"NM\",\n                \"name\": \"Teferi, Time Raveler\",\n                \"mid\": \"100056556\",\n                \"t\": \"Legendary\",\n                \"set\": \"War of the Spark\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Legendary Planeswalker — Teferi\",\n                \"set_code\": \"WAR\",\n                \"expansion\": \"War of the Spark\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"110114\",\n                \"inventory_id\": \"46699024\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"11.6\",\n                \"personal_gain\": \"-0.9699996185302737\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/war.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/110114.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/110114.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/WAR/\",\n                \"echo_url\": \"https://www.echomtg.com/card/110114/teferi-time-raveler/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n            },\n            {\n                \"tcg_low\": \"0.27\",\n                \"tcg_mid\": \"0.92\",\n                \"tcg_market\": \"0.53\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Glittering+Wish&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"10.99\",\n                \"price_change\": \"-7\",\n                \"mc\": \"{{g}}{{w}}\",\n                \"main_type\": \"Sorcery\",\n                \"colors\": \"Green, White\",\n                \"condition\": \"NM\",\n                \"name\": \"Glittering Wish\",\n                \"mid\": \"136157\",\n                \"t\": \"Sorcery\",\n                \"set\": \"Future Sight\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Sorcery\",\n                \"set_code\": \"FUT\",\n                \"expansion\": \"Future Sight\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"30810\",\n                \"inventory_id\": \"14666\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"10.99\",\n                \"personal_gain\": \"-9.000000228881834\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/fut.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/30810.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/30810.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/FUT/\",\n                \"echo_url\": \"https://www.echomtg.com/card/30810/glittering-wish/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-7%</span>\"\n            },\n            {\n                \"tcg_low\": \"2.7\",\n                \"tcg_mid\": \"5.22\",\n                \"tcg_market\": \"4.02\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Eidolon+of+the+Great+Revel&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"15.81\",\n                \"price_change\": \"2\",\n                \"mc\": \"{{r}}{{r}}\",\n                \"main_type\": \"Enchantment Creature - Spirit\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Eidolon of the Great Revel\",\n                \"mid\": \"380410\",\n                \"t\": \"Enchantment\",\n                \"set\": \"Journey into Nyx\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Enchantment Creature - Spirit\",\n                \"set_code\": \"JOU\",\n                \"expansion\": \"Journey into Nyx\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"93510\",\n                \"inventory_id\": \"15816\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"5.22\",\n                \"personal_gain\": \"3.5599997901916502\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/jou.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/93510.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/93510.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/JOU/\",\n                \"echo_url\": \"https://www.echomtg.com/card/93510/eidolon-of-the-great-revel/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">2%</span>\"\n            },\n            {\n                \"tcg_low\": \"2.59\",\n                \"tcg_mid\": \"4.26\",\n                \"tcg_market\": \"3.93\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spoils+of+Evil&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": null,\n                \"price_change\": \"-3\",\n                \"mc\": \"{{2}}{{b}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Black\",\n                \"condition\": \"NM\",\n                \"name\": \"Spoils of Evil\",\n                \"mid\": \"2487\",\n                \"t\": \"Instant\",\n                \"set\": \"Ice Age\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Instant\",\n                \"set_code\": \"ICE\",\n                \"expansion\": \"Ice Age\",\n                \"reserve_list\": \"1\",\n                \"emid\": \"2485\",\n                \"inventory_id\": \"40617919\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"4.26\",\n                \"personal_gain\": \"-0.7399997711181641\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ice.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/2485.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/2485.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/ICE/\",\n                \"echo_url\": \"https://www.echomtg.com/card/2485/spoils-of-evil/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n            },\n            {\n                \"tcg_low\": \"2.59\",\n                \"tcg_mid\": \"4.26\",\n                \"tcg_market\": \"3.93\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spoils+of+Evil&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": null,\n                \"price_change\": \"-3\",\n                \"mc\": \"{{2}}{{b}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Black\",\n                \"condition\": \"NM\",\n                \"name\": \"Spoils of Evil\",\n                \"mid\": \"2487\",\n                \"t\": \"Instant\",\n                \"set\": \"Ice Age\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Instant\",\n                \"set_code\": \"ICE\",\n                \"expansion\": \"Ice Age\",\n                \"reserve_list\": \"1\",\n                \"emid\": \"2485\",\n                \"inventory_id\": \"40617920\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"4.26\",\n                \"personal_gain\": \"-0.7399997711181641\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ice.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/2485.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/2485.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/ICE/\",\n                \"echo_url\": \"https://www.echomtg.com/card/2485/spoils-of-evil/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n            },\n            {\n                \"tcg_low\": \"2.59\",\n                \"tcg_mid\": \"4.26\",\n                \"tcg_market\": \"3.93\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Spoils+of+Evil&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": null,\n                \"price_change\": \"-3\",\n                \"mc\": \"{{2}}{{b}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Black\",\n                \"condition\": \"NM\",\n                \"name\": \"Spoils of Evil\",\n                \"mid\": \"2487\",\n                \"t\": \"Instant\",\n                \"set\": \"Ice Age\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Instant\",\n                \"set_code\": \"ICE\",\n                \"expansion\": \"Ice Age\",\n                \"reserve_list\": \"1\",\n                \"emid\": \"2485\",\n                \"inventory_id\": \"40617923\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"4.26\",\n                \"personal_gain\": \"-0.7399997711181641\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/ice.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/2485.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/2485.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/ICE/\",\n                \"echo_url\": \"https://www.echomtg.com/card/2485/spoils-of-evil/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-3%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.1\",\n                \"tcg_mid\": \"0.35\",\n                \"tcg_market\": \"0.2\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Electrickery&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"3.92\",\n                \"price_change\": \"5\",\n                \"mc\": \"{{r}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Electrickery\",\n                \"mid\": \"253545\",\n                \"t\": \"Instant\",\n                \"set\": \"Return to Ravnica\",\n                \"rarity\": \"Common\",\n                \"types\": \"Instant\",\n                \"set_code\": \"RTR\",\n                \"expansion\": \"Return to Ravnica\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"89106\",\n                \"inventory_id\": \"49619\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"3.92\",\n                \"personal_gain\": \"2.9200000762939453\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/rtr.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/89106.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/89106.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/RTR/\",\n                \"echo_url\": \"https://www.echomtg.com/card/89106/electrickery/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">5%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.1\",\n                \"tcg_mid\": \"0.35\",\n                \"tcg_market\": \"0.2\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Electrickery&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"3.92\",\n                \"price_change\": \"5\",\n                \"mc\": \"{{r}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Electrickery\",\n                \"mid\": \"253545\",\n                \"t\": \"Instant\",\n                \"set\": \"Return to Ravnica\",\n                \"rarity\": \"Common\",\n                \"types\": \"Instant\",\n                \"set_code\": \"RTR\",\n                \"expansion\": \"Return to Ravnica\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"89106\",\n                \"inventory_id\": \"109268\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"3.92\",\n                \"personal_gain\": \"3.780000076293945\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/rtr.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/89106.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/89106.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/RTR/\",\n                \"echo_url\": \"https://www.echomtg.com/card/89106/electrickery/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">5%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.7\",\n                \"tcg_mid\": \"1.68\",\n                \"tcg_market\": \"1.29\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Vindicate+%28Borderless%29&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"2.08\",\n                \"price_change\": \"2\",\n                \"mc\": \"{{1}}{{w}}{{b}}\",\n                \"main_type\": \"Sorcery\",\n                \"colors\": null,\n                \"condition\": \"NM\",\n                \"name\": \"Vindicate (Borderless)\",\n                \"mid\": \"100081942\",\n                \"t\": \"Sorcery\",\n                \"set\": \"Modern Horizons 2\",\n                \"rarity\": \"Rare\",\n                \"types\": \"Sorcery\",\n                \"set_code\": \"MH2\",\n                \"expansion\": \"Modern Horizons 2\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"128076\",\n                \"inventory_id\": \"40055795\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"1\",\n                \"current_price\": \"2.08\",\n                \"personal_gain\": \"-7.820000076293946\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/mh2.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/128076.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/128076.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/MH2/\",\n                \"echo_url\": \"https://www.echomtg.com/card/128076/vindicate-borderless/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">2%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.31\",\n                \"tcg_mid\": \"0.94\",\n                \"tcg_market\": \"0.92\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Fireblast&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": null,\n                \"price_change\": \"-2\",\n                \"mc\": \"{{4}}{{r}}{{r}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Fireblast\",\n                \"mid\": \"3686\",\n                \"t\": \"Instant\",\n                \"set\": \"Visions\",\n                \"rarity\": \"Common\",\n                \"types\": \"Instant\",\n                \"set_code\": \"VIS\",\n                \"expansion\": \"Visions\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"89773\",\n                \"inventory_id\": \"46773430\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"0.94\",\n                \"personal_gain\": \"-0.7600000023841857\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/vis.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/89773.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/89773.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/VIS/\",\n                \"echo_url\": \"https://www.echomtg.com/card/89773/fireblast/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage red down\\\">-2%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.1\",\n                \"tcg_mid\": \"0.35\",\n                \"tcg_market\": \"0.2\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Electrickery&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"3.92\",\n                \"price_change\": \"5\",\n                \"mc\": \"{{r}}\",\n                \"main_type\": \"Instant\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Electrickery\",\n                \"mid\": \"253545\",\n                \"t\": \"Instant\",\n                \"set\": \"Return to Ravnica\",\n                \"rarity\": \"Common\",\n                \"types\": \"Instant\",\n                \"set_code\": \"RTR\",\n                \"expansion\": \"Return to Ravnica\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"89106\",\n                \"inventory_id\": \"109265\",\n                \"note_id\": \"0\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"0.35\",\n                \"personal_gain\": \"0.2099999940395355\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/rtr.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/89106.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/89106.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/RTR/\",\n                \"echo_url\": \"https://www.echomtg.com/card/89106/electrickery/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage green up\\\">5%</span>\"\n            },\n            {\n                \"tcg_low\": \"0.01\",\n                \"tcg_mid\": \"0.2\",\n                \"tcg_market\": \"0.04\",\n                \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Stensia+Innkeeper&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n                \"foil_price\": \"0.23\",\n                \"price_change\": \"0\",\n                \"mc\": \"{{3}}{{r}}\",\n                \"main_type\": \"Creature - Vampire\",\n                \"colors\": \"Red\",\n                \"condition\": \"NM\",\n                \"name\": \"Stensia Innkeeper\",\n                \"mid\": \"414445\",\n                \"t\": \"Creature\",\n                \"set\": \"Eldritch Moon\",\n                \"rarity\": \"Common\",\n                \"types\": \"Creature  - Vampire\",\n                \"set_code\": \"EMN\",\n                \"expansion\": \"Eldritch Moon\",\n                \"reserve_list\": \"0\",\n                \"emid\": \"99177\",\n                \"inventory_id\": \"24955214\",\n                \"note_id\": \"132541\",\n                \"lang\": \"EN\",\n                \"foil\": \"0\",\n                \"current_price\": \"0.2\",\n                \"personal_gain\": \"-49.79999999701977\",\n                \"set_image\": \"https://assets.echomtg.com/magic/symbols/expansions/emn.png\",\n                \"image_cropped\": \"https://assets.echomtg.com/magic/cards/cropped/99177.hq.jpg\",\n                \"image\": \"https://assets.echomtg.com/magic/cards/original/99177.jpg\",\n                \"echo_set_url\": \"https://www.echomtg.com/set/EMN/\",\n                \"echo_url\": \"https://www.echomtg.com/card/99177/stensia-innkeeper/\",\n                \"market_percentage_html\": \"<span class=\\\"percentage na\\\">--</span>\"\n            }\n        ],\n        \"total_cards\": 17\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Trades are inventory items mark as tradable, when items are marked for trade they become searchable in a public trade list."
 		},
 		{
 			"name": "Importing",
