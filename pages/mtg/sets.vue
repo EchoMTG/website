@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      title: 'Expansions',
+      title: 'Sets',
       expansions: []
     }
   },
@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     titleStack () {
-      return ['Magic the Gathering', 'Expansions']
+      return ['Magic the Gathering', 'Sets']
     },
     crumbs () {
       return [

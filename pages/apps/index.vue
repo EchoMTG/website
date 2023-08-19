@@ -101,7 +101,7 @@ export default {
           name: `Tradelist`,
           description: `Mark inventory items for trade to access a publically available tradelist.`,
           icon:  `handshake`,
-          url: `/apps/tradelist/${this.userhash}`
+          url: `/apps/trades/${this.userhash}/`
         },
         {
           name: `Earnings`,

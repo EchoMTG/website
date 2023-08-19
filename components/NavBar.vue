@@ -115,11 +115,11 @@
           </p>
           <p class="control">
           <router-link to="/full-page/create"
-            class=" button is-primary"
+            class=" button is-success"
             title="Create Account"
           >
             <b-icon icon="account" custom-size="default" />
-            <span>Make Account</span>
+            <span>Free Account</span>
           </router-link>
           </p>
 

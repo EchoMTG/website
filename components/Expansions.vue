@@ -81,7 +81,7 @@
 import ModalBox from '@/components/ModalBox'
 
 export default {
-  name: 'Expansions',
+  name: 'Sets',
   components: { ModalBox },
   props: {
 

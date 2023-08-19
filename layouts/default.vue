@@ -57,7 +57,7 @@ export default {
           [
             {
               to: '/mtg/sets/',
-              label: 'Expansions',
+              label: 'Sets',
               icon: 'cards'
             },
             {
@@ -130,17 +130,17 @@ export default {
 
       navList.push('EchoMTG')
       navList.push( [{
-          to: '/api',
+          to: '/api/',
           label: 'API Docs',
           icon: 'code-json'
         },
         {
-          to: '/about',
+          to: '/about/',
           label: 'About',
           icon: 'help-circle'
         },
         {
-          to: '/about/discord',
+          to: '/about/discord/',
           label: 'Discord',
           icon: 'forum'
         }]
@@ -150,7 +150,7 @@ export default {
           navList.push('User');
           navList.push([
             {
-              to: '/login',
+              to: '/login/',
               icon: 'lock',
               label: 'Login'
             },

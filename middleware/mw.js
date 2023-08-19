@@ -15,18 +15,19 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
     if(route.path == '/inventory/stats/') return redirect(`/apps/stats/`);
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
+    if(route.path == '/sets/') return redirect(`/mtg/sets/`);
 
     // regex for tradelist
     // example: /tradelist/063c60f990e89705d97cecffc3a31832/
     // target: /apps/tradelist/063c60f990e89705d97cecffc3a31832
-    const tradelistRegex = new RegExp("/tradelist/([a-z0-9]+)/?", "ig"); // global insensitive
+    const tradelistRegex = new RegExp("^/tradelist/([a-z0-9]+)/?", "ig"); // global insensitive
     found = tradelistRegex.exec(route.path)
     if(found !== null && found.length > 1){
-      return redirect(`/apps/tradelist/${found[1]}`)
+      return redirect(`/apps/trades/${found[1]}`)
     }
 
     // alters database
-    const altersRegex = new RegExp("/mtg-alters/", "ig"); // global insensitive
+    const altersRegex = new RegExp("^/mtg-alters/", "ig"); // global insensitive
     found = altersRegex.exec(route.path)
     if(found !== null && found.length > 0){
       return redirect(`/mtg/alters/`);
@@ -35,7 +36,7 @@ export default function ({route,redirect}) {
     // regex for magic variations from legacy echomtg.com website
     // example : /magic-card/birds-of-paradise/
     // target : /mtg/birds-of-paradise
-    const allListingsRegex = new RegExp("/magic-card/(.+)", "ig"); // global insensitive
+    const allListingsRegex = new RegExp("^/magic-card/(.+)", "ig"); // global insensitive
     found = allListingsRegex.exec(route.path)
     if(found !== null && found.length > 1){
       return redirect(`/mtg/${found[1]}`)
@@ -45,7 +46,7 @@ export default function ({route,redirect}) {
     // example: /card/142633/portal-to-phyrexia/
     // notes: need to extract set_code by making request to api using card ID
     // target: /mtg/sets/[set_code]/[card_name]/[id]
-    const itemRegex = new RegExp("/card/([0-9]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
+    const itemRegex = new RegExp("^/card/([0-9]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
     found = itemRegex.exec(route.path)
     if(found !== null && found.length > 1){
       return redirect(`/mtg/items/${found[2]}/${found[1]}`)
@@ -54,19 +55,10 @@ export default function ({route,redirect}) {
     // regex for magic sets from legacy echomtg.com website
     // example: /set/bro/the-brothers-war/
     // target: /mtg/sets/bro/the-brothers-war
-    const setsRegex = new RegExp("/set/([a-z0-9A-z]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
+    const setsRegex = new RegExp("^/set/([a-z0-9A-z]+)/([a-z0-9-]+)/?", "ig"); // global insensitive
     found = setsRegex.exec(route.path)
     if(found !== null && found.length > 1){
       return redirect(`/mtg/sets/${found[1].toLowerCase()}/${found[2].toLowerCase()}`);
-    }
-
-    // regex for magic set page
-    // example: /sets/
-    // target: /mtgs/sets
-    const setRegex = new RegExp("^/sets/", "ig"); // global insensitive
-    found = setRegex.exec(route.path)
-    if(found !== null && found.length > 0){
-      return redirect(`/mtg/sets/`);
     }
 
     // trailing slash to be forces

@@ -175,6 +175,8 @@ export default {
 
       let json = await res.json();
 
+      console.log(json)
+
       if(json.hasOwnProperty('trades')){
 
           let trades = json.trades.trades
@@ -202,7 +204,7 @@ export default {
         },
         {
           label: 'Tradelist',
-          url: '/apps/tradelist/',
+          url: '/apps/trades/',
           icon: ''
         }
       ]

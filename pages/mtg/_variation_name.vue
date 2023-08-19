@@ -210,7 +210,7 @@ export default {
     crumbs () {
       return [
         {
-          label: 'Expansions',
+          label: 'Sets',
           url: '/mtg/sets/',
           icon: ''
         },
