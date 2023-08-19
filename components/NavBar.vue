@@ -48,7 +48,7 @@
 
           <div slot="dropdown" class="navbar-dropdown is-right">
             <nuxt-link
-              v-for="tool in toolsMenu"
+              v-for="tool in tools"
               v-bind:key="tool.icon"
               :to="tool.to"
               class="navbar-item"
@@ -118,7 +118,7 @@
             class=" button is-success"
             title="Create Account"
           >
-            <b-icon icon="account" custom-size="default" />
+            <b-icon icon="account-plus" custom-size="default" />
             <span>Free Account</span>
           </router-link>
           </p>
@@ -144,7 +144,7 @@ import { mapState } from 'vuex'
 import NavBarMenu from '@/components/NavBarMenu'
 import UserAvatar from '@/components/UserAvatar'
 import GlobalSearch from '@/components/GlobalSearch'
-import ToolsArray from '@/components/navigation/tools'
+import toolsMenu from '@/components/navigation/tools'
 
 export default {
   name: 'NavBar',
@@ -156,11 +156,15 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
-      toolsMenu: ToolsArray
+
     }
   },
   computed: {
-
+    tools(){
+      return toolsMenu({
+        tradesurl : `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/`
+      })
+    },
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
     },

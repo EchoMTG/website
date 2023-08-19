@@ -117,6 +117,7 @@ export default {
           totalTrades: 0,
           currency_symbol: '$',
           currency_conversion: 1,
+          userHash: '',
           min_price: null,
           max_price: null,
           proposalMessage: null,
@@ -183,30 +184,71 @@ export default {
               if(this.max_price == '' || this.max_price == null) return true
               return trade.current_price <= parseFloat(this.max_price)
           })
-      }
+      },
+      onPageChange(page) {
+            this.page = page
+            this.loadAsyncData()
+        },
+
+        onSort(field, order) {
+            this.sortField = field
+            this.sortOrder = order
+            this.loadAsyncData()
+        },
+        async loadAsyncData() {
+                // line these up to custom dropdown
+                const params = [
+                    'api_key=bb6f51bef07465653c3e553d6ab161a8',
+                    'language=en-US',
+                    'include_adult=false',
+                    'include_video=false',
+                    `sort_by=${this.sortField}.${this.sortOrder}`,
+                    `page=${this.page}`
+                ].join('&')
+
+                let json = await this.$echomtg.tradesView(this.userHash)
+                this.trades = json.trades.trades;
+                console.log(this.trades)
+
+                //  !!!
+                // // get total items, fill out variable below to turn on the searchable and
+
+
+               // this.loading = true
+                // this.$http.get(`https://api.themoviedb.org/3/discover/movie?${params}`)
+                //     .then(({ data }) => {
+                //         // api.themoviedb.org manage max 1000 pages
+                //         this.data = []
+                //         let currentTotal = data.total_results
+                //         if (data.total_results / this.perPage > 1000) {
+                //             currentTotal = this.perPage * 1000
+                //         }
+                //         this.total = currentTotal
+                //         data.results.forEach((item) => {
+                //             item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+                //             this.data.push(item)
+                //         })
+                //         this.loading = false
+                //     })
+                //     .catch((error) => {
+                //         this.data = []
+                //         this.total = 0
+                //         this.loading = false
+                //         throw error
+                //     })
+            },
 
   },
 
-  async asyncData({ params, redirect, $config }) {
+
+  async asyncData({ params, redirect, $config, $echomtg }) {
 
     let userHash = params.user_hash;
-    let res;
-
-    // fetch the set
-    let endpoint = `${$config.API_DOMAIN}trades/view/`;
-    endpoint += `?user=${userHash}`
 
     // try to get the json
     try {
-      res = await fetch(
-        endpoint, {
-          headers: {
-            'Authorization' : 'Bearer ' + $config.S2S_KEY
-          }
-        }
-      );
 
-      let json = await res.json();
+      let json = await $echomtg.tradesView(userHash)
 
       console.log(json)
 
@@ -219,7 +261,7 @@ export default {
           let totalTrades = json.trades.total_cards
           let currency_symbol = json.trades.currency_symbol
           return {
-            trades, user, totalTrades, currency_symbol
+            trades, user, totalTrades, currency_symbol, userHash
           }
       }
     } catch (err) {
@@ -237,8 +279,13 @@ export default {
           icon: ''
         },
         {
-          label: 'Tradelist',
+          label: 'Trades',
           url: '/apps/trades/',
+          icon: 'briefcase-arrow-left-right'
+        },
+        {
+          label: `${this.user.username}'s Trade List`,
+          url: this.$route.path,
           icon: ''
         }
       ]

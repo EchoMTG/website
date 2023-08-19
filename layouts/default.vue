@@ -23,7 +23,7 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
-import ToolsArray from '@/components/navigation/tools'
+import toolsMenu from '@/components/navigation/tools'
 import shellUser from '@/store/shellUser'
 
 // import ConfigBox from '@/components/ConfigBox'
@@ -75,8 +75,11 @@ export default {
 
 
       if (this.authenticated){
+        let tools = toolsMenu({
+          tradesurl : `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/`
+        });
         navList.push('Tools');
-        navList.push(ToolsArray);
+        navList.push(tools);
         navList.push('My Account');
         navList.push([
            {

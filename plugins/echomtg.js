@@ -665,6 +665,22 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.tradesView = async (user_hash) => {
+    let url = `${context.app.$config.API_DOMAIN}trades/view/?user=${user_hash}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: echomtg.getS2SHeaders()
+    });
+
+    return await res.json();
+
+  }
+  echomtg.tradesUserHash = (userid) => {
+    return echomtg.md5( userid + 'em123')
+  }
+
+
   echomtg.notesGet = async (note_id) => {
 
     let url = `${context.app.$config.API_DOMAIN}notes/note/?id=${note_id}`;

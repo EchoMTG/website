@@ -9,8 +9,9 @@
               tag='router-link'
               :key="item.label.toLowerCase().replace(' ','')"
               :to="item.url"
+              class="is-capitalized"
               :active="(index + 1) == data.length"
-              >{{item.label}}</b-breadcrumb-item>
+              ><b-icon v-if="item.icon != ''" class="ml-0" :icon="item.icon" size="is-small" />{{item.label}}</b-breadcrumb-item>
         </b-breadcrumb>
 
     </section>

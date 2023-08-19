@@ -1,4 +1,5 @@
-export default [{
+function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
+ return [{
   to: '/',
   icon: 'chart-timeline-variant-shimmer',
   label: 'Dashboard'
@@ -7,6 +8,11 @@ export default [{
   to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
   label: 'Inventory'
+},
+{
+  to: options.tradesurl,
+  icon: 'briefcase-arrow-left-right',
+  label: 'Trades'
 },
 {
   to: '/apps/sealed/',
@@ -27,6 +33,6 @@ export default [{
   to: '/apps/earnings/',
   icon: 'cash-multiple',
   label: 'Earnings'
-},
+}]}
 
-]
+export default toolsMenu;

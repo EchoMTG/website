@@ -42,7 +42,7 @@
         <div style="display: flex; flexDirection: row;">
 
           <div style="width:70px; height: 30px; ">
-            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive="true"  />
+            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" :responsive="true"  />
           </div>
 
           <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
