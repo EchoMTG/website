@@ -133,6 +133,7 @@ export default {
       addtolist: 'Add to List',
       delete: 'Delete',
       togglefoil: 'Change foil status of',
+      toggletradable: 'Change tradable status of',
       changeprice:'Change Acquired Price of',
       changedate: 'Change Acquired Date of'
     },
@@ -140,6 +141,7 @@ export default {
       addtolist: 'Add to List',
       delete: 'Delete',
       togglefoil: 'Change foil Status',
+      toggletradable: 'Change tradable Status',
       changeprice:'Change Acquired Price',
       changedate: 'Change Acquired Date'
     },
@@ -147,12 +149,14 @@ export default {
       addtolist: 'plus',
       delete: 'delete',
       togglefoil: 'star-shooting-outline',
+      toggletradable: 'hand-coin',
       changeprice:'currency-usd',
       changedate: 'calendar'
     },
     actionColor: {
       addtolist: 'dark',
       delete: 'danger',
+      toggletradable: 'light',
       togglefoil: 'warning',
       changeprice:'success',
       changedate: 'info'
@@ -225,6 +229,15 @@ export default {
         await this.$echomtg.addToList(this.selecteditems[i].emid, this.currentList.id, this.selecteditems[i].foil);
       }
     }
+
+     if(this.actiontype == 'toggletradable'){
+      for(let i = 0; i< this.selecteditems.length; i++){
+         await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
+          tradable: !this.selecteditems[i].tradable
+        })
+      }
+    }
+
     this.$buefy.snackbar.open({
       message: `Bulk (${this.selecteditems.length}) Operation: ${this.actionNames[this.actiontype]} Finished`,
       queue: false

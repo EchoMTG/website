@@ -22,7 +22,34 @@
                       </div>
                     </div>
 
-                    <table class="table tradelistTable is-fullwidth is-hoverable">
+                    <b-table
+                      :data="trades"
+                      :loading="loading"
+
+                      paginated
+                      backend-pagination
+                      :total="total"
+                      :per-page="perPage"
+                      @page-change="onPageChange"
+                      aria-next-label="Next page"
+                      aria-previous-label="Previous page"
+                      aria-page-label="Page"
+                      aria-current-label="Current page"
+
+                      backend-sorting
+                      :default-sort-direction="defaultSortOrder"
+                      :default-sort="[sortField, sortOrder]"
+                      @sort="onSort">
+
+                      <b-table-column field="name" label="Name" sortable v-slot="props">
+                          {{ props.row.name }} {{ props.row.expansion }}
+                      </b-table-column>
+
+
+
+                  </b-table>
+
+                    <!-- <table class="table tradelistTable is-fullwidth is-hoverable">
                         <thead>
                             <tr>
                                 <th v-for="title in columnTitles" v-bind:key="title.sort">{{title.name}}</th>
@@ -46,7 +73,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
@@ -77,8 +104,16 @@ export default {
       return {
           trades: [],
           user: {},
-          limit: 50,
+          loading: true,
+          limit: 100,
           start: 0,
+          total: 0,
+          loading: false,
+          sortField: 'date_acquired',
+          sortOrder: 'desc',
+          defaultSortOrder: 'desc',
+          page: 1,
+          perPage: 20,
           totalTrades: 0,
           currency_symbol: '$',
           currency_conversion: 1,
@@ -87,8 +122,6 @@ export default {
           proposalMessage: null,
           selectedItems: [],
           search: '',
-          sortOrder: 'DESC',
-          sortMetric: 'name',
           condition_price_modifiers: [
               {condition: 'NM', discount: 1},
               {condition: 'SP', discount: 0.9},
@@ -180,6 +213,7 @@ export default {
       if(json.hasOwnProperty('trades')){
 
           let trades = json.trades.trades
+          console.log(trades)
           let user = json.trades.user
           user.hash = json.trades.user_hash
           let totalTrades = json.trades.total_cards

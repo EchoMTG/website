@@ -269,6 +269,7 @@
               <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
               <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
               <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
             </b-dropdown>
 
           </template>
