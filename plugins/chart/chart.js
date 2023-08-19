@@ -1,4 +1,5 @@
 import Vue from "vue";
+import 'chartjs-adapter-moment';
 import { Line, Bar, Pie } from "vue-chartjs/legacy";
 
 import {
@@ -11,7 +12,8 @@ import {
   LinearScale,
   LineElement,
   PointElement,
-  ArcElement
+  ArcElement,
+  TimeScale
 } from "chart.js";
 
 ChartJS.register(
@@ -23,7 +25,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   LineElement,
-  ArcElement
+  ArcElement,
+  TimeScale
 );
 
 Vue.component("bar-chart", {

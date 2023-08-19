@@ -8,66 +8,23 @@
         Loading Dashboard
       </section>
       <section v-else class="section is-main-section">
-
-        <tiles>
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="currency"
-            prefix="$"
-            :number="parseFloat(quickstats.current_value)"
-            :previous-number="parseInt(quickstats.total_items)"
-            previous-period=" Tracked Items"
-            label="Collection Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="USD"
-            :number="totalCardsValue"
-            prefix="$"
-            :previous-number="parseInt(totalCards)"
-            previous-period="Individual Cards"
-            label="Individual Card Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="usd"
-            :number="parseFloat(quickstats.sealed_value)"
-            prefix="$"
-            previous-period="Sealed Items"
-            :previous-number="parseInt(quickstats.total_sealed)"
-            label="Sealed Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-info"
-            icon="usd"
-            :number="quickstats.change_value"
-
-            previous-period="Last 7 days"
-            suffix="%"
-            label="Performance"
-          />
-
-        </tiles>
-
         <card-component
-          title="Performance"
+          title="Collection Performance History"
           icon="finance"
           header-icon="reload"
           @header-icon-click="fillChartData"
         >
-          <div v-if="defaultChart.chartData" class="chart-area">
-            <line-chart
-              ref="bigChart"
-              style="height: 100%"
-              chart-id="big-line-chart"
-              :chart-data="defaultChart.chartData"
-              :chart-options="defaultChart.extraOptions"
-            />
-          </div>
+          <client-only>
+            <div v-if="defaultChart.chartData" class="chart-area">
+              <line-chart
+                ref="bigChart"
+                style="height: 100%"
+                chart-id="big-line-chart"
+                :chart-data="defaultChart.chartData"
+                :chart-options="defaultChart.extraOptions"
+              />
+            </div>
+          </client-only>
         </card-component>
       </section>
   </span>
@@ -148,7 +105,8 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
       'isAsideVisible',
       'isAsideExpanded',
       'isAsideMobileExpanded',
-      'quickstats'
+      'quickstats',
+      'user'
       ]),
 
     },
@@ -161,7 +119,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
         this.$store.commit('quickstats',quickstats.stats);
       }
       let token = this.$cookies.get('token');
-     
+
       let historyURL = this.$config.API_DOMAIN + `inventory/history/?auth=${token}`;
 
       this.history = await fetch(historyURL).then(res => res.json())
@@ -174,7 +132,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
         let labels = []
         if(this.history.data.length > 0){
           for(var i=0; i < this.history.data.length; i++){
-            labels.push(this.history.data[i].ts)
+            labels.push(this.$moment.unix(this.history.data[i].ts).format("MM/DD/YYYY"))
           }
         }
         return labels;
@@ -206,6 +164,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
               fill: false,
               borderColor: chartConfig.chartColors.default.primary,
               borderWidth: 2,
+              label: 'Market Value',
               borderDash: [],
               borderDashOffset: 0.0,
               pointBackgroundColor: chartConfig.chartColors.default.primary,
@@ -221,6 +180,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
               fill: false,
               borderColor: chartConfig.chartColors.default.info,
               borderWidth: 2,
+              label: 'Purchase Price (Acquired for Value)',
               borderDash: [],
               borderDashOffset: 0.0,
               pointBackgroundColor: chartConfig.chartColors.default.info,

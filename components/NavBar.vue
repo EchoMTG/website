@@ -24,7 +24,7 @@
         <div class="navbar-item is-flex is-align-items-center">
           <b-taglist  attached>
               <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer; background: ${user?.planObject?.color ? user.planObject.color : 'black'}`">{{ user.plan }}</b-tag>
+              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
           </b-taglist>
         </div>
         <!-- <a

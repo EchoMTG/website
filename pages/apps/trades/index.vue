@@ -28,9 +28,15 @@ export default {
     crumbs() {
       return [
         {
-          label: 'Magic: the Gathering',
-          url: '/mtg/',
+          label: 'Apps',
+          url: '/apps/',
           icon: ''
+
+        },
+        {
+          label: 'Tades',
+          url: '/apps/trades/',
+          icon: 'briefcase-arrow-left-right'
 
         }
       ]

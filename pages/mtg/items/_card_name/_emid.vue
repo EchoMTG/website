@@ -91,13 +91,10 @@
           </div>
           <div class="control">
             <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
-
           </div>
           <div class="control">
             <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
           </div>
-
-
           <div class="control">
             <b-tag>{{this.item.main_type}}</b-tag>
           </div>

@@ -50,6 +50,8 @@ export const chartOptionsMain = {
     }
   },
   scales: {
-   
+    x: {
+      type: 'time'
+    }
   }
 }

@@ -34,11 +34,18 @@ $nav-background: $mage-dark;
 .setsymbol {
   -webkit-text-stroke: .03em rgba(0,0,0,.4);
 }
-.gold-symbol{
+
+.gold-background, .rare-background{
+  background: linear-gradient(to left,#876a3b 0,#dfbd6b 50%,#876a3b 100%);
+}
+.gold-symbol, .rare-symbol{
   background: linear-gradient(to left,#876a3b 0,#dfbd6b 50%,#876a3b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
 
+.mythic-background{
+  background: linear-gradient(to left,#e16a02 0,#df8e6b 50%,#df8f0d 100%);
 }
 
 .mythic-symbol{
@@ -53,6 +60,13 @@ $nav-background: $mage-dark;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: .04em rgba(0,0,0,.6) !important;
 }
+.common-symbol{
+  background: white;
+}
+
+.uncommon-background{
+  background: linear-gradient(to left,#858585 0,#e4e4e4 50%,#8f8f8f 100%);
+}
 
 .uncommon-symbol{
   background: linear-gradient(to left,#858585 0,#e4e4e4 50%,#8f8f8f 100%);
@@ -60,21 +74,17 @@ $nav-background: $mage-dark;
   -webkit-text-fill-color: transparent;
 }
 
-
-.mythic-symbol{
-  color: maroon;
-}
-
 .mage-grey {
 	color: $mage-grey;
 }
-.rainbow-text{
+
+.rainbow-text, .foil-text{
   background: linear-gradient(to right,#e254dd 0%,#30ffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 // make these transpacrent
-.rainbow-background {
+.rainbow-background, .foil-background{
 
   background: linear-gradient(to right,#e254dd 0%,#30ffff 100%)
 
