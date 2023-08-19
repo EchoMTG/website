@@ -359,14 +359,14 @@ export default {
           url: '/mtg/sets/',
           icon: ''
         },
-         {
-          label: this.item.name.split('(')[0],
-          url: this.item.card_url,
-          icon: ''
-        },
         {
           label: this.item.expansion,
           url: this.item.set_url,
+          icon: ''
+        },
+        {
+          label: this.item.name.split('(')[0],
+          url: this.item.card_url,
           icon: ''
         },
         {
