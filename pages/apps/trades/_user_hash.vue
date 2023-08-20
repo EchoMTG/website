@@ -42,9 +42,60 @@
                       @sort="onSort">
 
                       <b-table-column field="name" label="Name" sortable v-slot="props">
-                          {{ props.row.name }} {{ props.row.expansion }}
-                      </b-table-column>
+                        <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
+                          <b-image
+                              lazy
+                              :src="props.row.image_cropped"
+                                custom-class="mr-3"
+                                placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                                style="height: 50px; width:70px; float: left; margin-right: 4px;" />
+                        </a>
+                        <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+            <!-- <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
+            </i> -->
+                        <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
 
+                      </b-table-column>
+                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_mid" label="Today" numeric sortable v-slot="props">
+                        <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
+                        {{props.row.foil_price}}
+                        </span>
+                        <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
+                        {{props.row.tcg_market}}
+                        </span>
+                      </b-table-column>
+                      <!-- <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" numeric sortable v-slot="props">
+                        <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
+                          {{ props.row.price_change }} %
+                        </span>
+                      </b-table-column> -->
+
+                      <!-- <template slot="detail" slot-scope="props">
+                              <tr>
+                                <td colspan="9" style="max-height: 300px">
+                                  <section >
+                                    <div class="columns">
+                                      <div class="column is-one-fifth">
+                                        <b-image
+                                          :alt="props.row.name"
+                                          :src="props.row.image"
+                                          placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
+                                          />
+                                      </div>
+                                      <div class="column is-two-fifths">
+                                        <quick-graph
+                                          :emid="props.row.emid"
+                                          :foil="props.row.foil"
+                                          />
+                                      </div>
+                                      <div class="column is-two-fifths">
+                                        <item-list-box :item="props.row" />
+                                      </div>
+                                    </div>
+                                  </section>
+                                </td>
+                              </tr>
+                            </template> -->
 
 
                   </b-table>
@@ -94,10 +145,15 @@
 // @ is an alias to /src
 import { mapState } from 'vuex'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
+import SetTag from '~/components/magic/SetTag.vue'
+
 export default {
   name: 'Tradelist',
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    SetTag,
+    ItemInspectorWrapper
   },
   data() {
 

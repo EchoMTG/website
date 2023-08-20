@@ -1858,7 +1858,7 @@ export default {
 					},
 					"response": [
 						{
-							"name": "User: Meta Data Copy",
+							"name": "Inventory: Quickstats",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -2287,9 +2287,12 @@ export default {
 									}
 								},
 								"url": {
-									"raw": "localhost/api/notes/edit/",
+									"raw": "https://api.echomtg.com/api/notes/edit/",
+									"protocol": "https",
 									"host": [
-										"localhost"
+										"api",
+										"echomtg",
+										"com"
 									],
 									"path": [
 										"api",
@@ -2365,7 +2368,7 @@ export default {
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"note_id\": \"0\",\n    \"message\": \"note created successfully\"\n}"
+							"body": "{\n    \"status\": \"success\",\n    \"note_id\": \"1234\",\n    \"message\": \"Note #1234 deleted.\"\n}"
 						}
 					]
 				},
@@ -4099,10 +4102,10 @@ export default {
 									}
 								},
 								"url": {
-									"raw": "https://www.echomtg.com/api/earnings/remove/",
+									"raw": "https://api.echomtg.com/api/earnings/remove/",
 									"protocol": "https",
 									"host": [
-										"www",
+										"api",
 										"echomtg",
 										"com"
 									],
@@ -4201,7 +4204,7 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.echomtg.com/api/trades/view/?start=102&limit=100&user=063c60f990e89705d97cecffc3a31832",
+							"raw": "https://api.echomtg.com/api/trades/view/?start=102&limit=100&user=063c60f990e89705d97cecffc3a31832&price_over=0&price_over=100",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -4226,6 +4229,14 @@ export default {
 								{
 									"key": "user",
 									"value": "063c60f990e89705d97cecffc3a31832"
+								},
+								{
+									"key": "price_over",
+									"value": "0"
+								},
+								{
+									"key": "price_over",
+									"value": "100"
 								}
 							]
 						},
@@ -5154,10 +5165,10 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://dev.echomtg.com/api/magic/groups/?name=reserved",
+							"raw": "https://api.echomtg.com/api/magic/groups/?limit=150&name=reserved",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"api",
 								"echomtg",
 								"com"
 							],
@@ -5168,6 +5179,10 @@ export default {
 								""
 							],
 							"query": [
+								{
+									"key": "limit",
+									"value": "150"
+								},
 								{
 									"key": "name",
 									"value": "reserved"
