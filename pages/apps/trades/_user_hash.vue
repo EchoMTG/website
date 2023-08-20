@@ -6,7 +6,7 @@
             <div class="columns is-gapless">
                 <div class="column is-two-thirds">
                     <div class="container p-5">
-                      <h4 class="title is-4">{{user.username}}'s {{trades.length}} items for trade</h4>
+                      <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{user.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
                       <div class="tradefilterBar">
                         <div class="columns">
                             <div class="column">
@@ -28,13 +28,30 @@
 
                       paginated
                       backend-pagination
-                      :total="total"
+                      :total="totalTrades"
                       :per-page="perPage"
                       @page-change="onPageChange"
                       aria-next-label="Next page"
                       aria-previous-label="Previous page"
                       aria-page-label="Page"
                       aria-current-label="Current page"
+
+                      hoverable
+
+                      :checked-rows.sync="selectedItems"
+                      checkable
+                      :checkbox-position="`right`"
+                      :checkbox-type="`is-info`"
+
+
+                      detailed
+                      custom-detail-row
+                      @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
+                      :show-detail-icon="$device.isDesktop ? true : false"
+                      ref="table"
+                      detail-key="inventory_id"
+
+                      :debounce-search="0"
 
                       backend-sorting
                       :default-sort-direction="defaultSortOrder"
@@ -46,23 +63,31 @@
                           <b-image
                               lazy
                               :src="props.row.image_cropped"
-                                custom-class="mr-3"
-                                placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                                style="height: 50px; width:70px; float: left; margin-right: 4px;" />
+                              custom-class="mr-3"
+                              placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
+                              style="height: 50px; width:70px; float: left; margin-right: 4px;"
+                              />
                         </a>
                         <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
-            <!-- <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1">
-            </i> -->
+                        <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1"></i>
                         <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
 
                       </b-table-column>
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_mid" label="Today" numeric sortable v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-                        {{props.row.foil_price}}
+                        {{currency_symbol}}{{props.row.foil_price}}
                         </span>
                         <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-                        {{props.row.tcg_market}}
+                        {{currency_symbol}}{{props.row.tcg_mid}}
                         </span>
+                      </b-table-column>
+                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
+                        <b-taglist attached>
+                          <b-tag type="is-dark">{{props.row.condition}}</b-tag>
+                          <b-tag type="is-light" style="cursor: help" :title="`Price adjusted ${getConditionDiscountPercentage(props.row.condition)} based on ${props.row.condition} condition.`">{{currency_symbol}}{{getConditionDiscount(props.row.tcg_mid, props.row.condition.toUpperCase())}}</b-tag>
+                      </b-taglist>
+
+
                       </b-table-column>
                       <!-- <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" numeric sortable v-slot="props">
                         <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
@@ -70,69 +95,42 @@
                         </span>
                       </b-table-column> -->
 
-                      <!-- <template slot="detail" slot-scope="props">
-                              <tr>
-                                <td colspan="9" style="max-height: 300px">
-                                  <section >
-                                    <div class="columns">
-                                      <div class="column is-one-fifth">
-                                        <b-image
-                                          :alt="props.row.name"
-                                          :src="props.row.image"
-                                          placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
-                                          />
-                                      </div>
-                                      <div class="column is-two-fifths">
-                                        <quick-graph
-                                          :emid="props.row.emid"
-                                          :foil="props.row.foil"
-                                          />
-                                      </div>
-                                      <div class="column is-two-fifths">
-                                        <item-list-box :item="props.row" />
-                                      </div>
-                                    </div>
-                                  </section>
-                                </td>
-                              </tr>
-                            </template> -->
+                      <template slot="detail" slot-scope="props">
+                        <tr>
+                          <td colspan="9" style="max-height: 300px">
+                            <section >
+                              <div class="columns">
+                                <div class="column is-one-fifth">
+                                  <b-image
+                                    :alt="props.row.name"
+                                    :src="props.row.image"
+                                    placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
+                                    />
+                                </div>
+                                <div class="column is-four-fifths">
+                                  <quick-graph
+                                    :emid="props.row.emid"
+                                    :foil="props.row.foil"
+                                    />
+                                </div>
+                              </div>
+                            </section>
+                          </td>
+                        </tr>
+                      </template>
 
 
                   </b-table>
-
-                    <!-- <table class="table tradelistTable is-fullwidth is-hoverable">
-                        <thead>
-                            <tr>
-                                <th v-for="title in columnTitles" v-bind:key="title.sort">{{title.name}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="trade in getFilteredTradeResults()" :key="trade.inventory_id" @click="addToList(trade)">
-                                <td>{{currency_symbol}}{{trade.current_price}}</td>
-                                <td>{{trade.foil}}</td>
-                                <td>{{trade.condition}}</td>
-                                <td>
-                                    <div class="columns">
-                                        <div class="column is-narrow">
-                                            <img class="tradeThumbnail" :alt="trade.name" :src="trade.image_cropped">
-                                        </div>
-                                        <div class="column">
-                                            <h6 class="title is-7">{{trade.name}}</h6>
-                                            <p class="subtitle is-7">{{trade.expansion}}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
-                    <div class="container p-4">
-                        <h4 class="title is-4">Tally</h4>
-<!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
+                    <div style=" top: 33px; position: sticky; display:block;">
+                      <div class="container p-4">
+                        <h4 class="title is-4">Message <b class="is-capitalized">{{user.username}}</b></h4>
+  <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
                         <div class="content tradeProposalList">{{proposalList}}</div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -147,29 +145,31 @@ import { mapState } from 'vuex'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import SetTag from '~/components/magic/SetTag.vue'
+import QuickGraph from '~/components/inventory/QuickGraph.vue'
 
 export default {
   name: 'Tradelist',
   components: {
     EchoBreadCrumbs,
     SetTag,
-    ItemInspectorWrapper
+    ItemInspectorWrapper,
+    QuickGraph
   },
   data() {
 
       return {
           trades: [],
+          meta: {},
           user: {},
           loading: true,
           limit: 100,
           start: 0,
-          total: 0,
           loading: false,
           sortField: 'date_acquired',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
-          perPage: 20,
+          perPage: 100,
           totalTrades: 0,
           currency_symbol: '$',
           currency_conversion: 1,
@@ -179,6 +179,7 @@ export default {
           proposalMessage: null,
           selectedItems: [],
           search: '',
+          debounce: null,
           condition_price_modifiers: [
               {condition: 'NM', discount: 1},
               {condition: 'SP', discount: 0.9},
@@ -210,6 +211,14 @@ export default {
       };
 
   },
+  watch: {
+    search() {
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        this.loadAsyncData();
+      }, 600)
+    },
+  },
 
   methods: {
 
@@ -227,72 +236,39 @@ export default {
           this.selectedItems.push(itemToAdd)
 
       },
-      getFilteredTradeResults: function() {
-          return this.trades.filter(trade => {
-
-              if(this.search == '') return true
-
-              return trade.name.toLowerCase().includes(this.search.toLowerCase())
-          }).filter(trade => {
-              if(this.min_price == '' || this.min_price == null) return true
-              return trade.current_price >= parseFloat(this.min_price)
-          }).filter(trade => {
-              if(this.max_price == '' || this.max_price == null) return true
-              return trade.current_price <= parseFloat(this.max_price)
-          })
+      getConditionDiscountPercentage(condition){
+        return  ((Math.round(((1 - this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) * 100) / 100) * -1) + '%'
+      },
+      getConditionDiscount(price, condition){
+        return Math.round((price * this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) / 100
       },
       onPageChange(page) {
-            this.page = page
-            this.loadAsyncData()
-        },
+        this.page = page
+        this.loadAsyncData()
+      },
+      onSort(field, order) {
+        console.log(order)
+          this.sortField = field
+          this.sortOrder = order
+          this.loadAsyncData()
+      },
+      async loadAsyncData() {
+        // line these up to custom dropdown
+        const params = [
+          `user=${this.userHash}`,
+          `search=${this.search}`,
+          `sort=${this.sortField}`,
+          `direction=${this.sortOrder}`,
+          `start=${(this.page - 1) * this.limit}`,
+          `limit=${this.limit}`,
+          `price_over=${this.limit}`,
+          `price_under=${this.limit}`,
+        ].join('&')
 
-        onSort(field, order) {
-            this.sortField = field
-            this.sortOrder = order
-            this.loadAsyncData()
-        },
-        async loadAsyncData() {
-                // line these up to custom dropdown
-                const params = [
-                    'api_key=bb6f51bef07465653c3e553d6ab161a8',
-                    'language=en-US',
-                    'include_adult=false',
-                    'include_video=false',
-                    `sort_by=${this.sortField}.${this.sortOrder}`,
-                    `page=${this.page}`
-                ].join('&')
+        let json = await this.$echomtg.tradesView(params)
+        this.trades = json.items;
 
-                let json = await this.$echomtg.tradesView(this.userHash)
-                this.trades = json.trades.trades;
-                console.log(this.trades)
-
-                //  !!!
-                // // get total items, fill out variable below to turn on the searchable and
-
-
-               // this.loading = true
-                // this.$http.get(`https://api.themoviedb.org/3/discover/movie?${params}`)
-                //     .then(({ data }) => {
-                //         // api.themoviedb.org manage max 1000 pages
-                //         this.data = []
-                //         let currentTotal = data.total_results
-                //         if (data.total_results / this.perPage > 1000) {
-                //             currentTotal = this.perPage * 1000
-                //         }
-                //         this.total = currentTotal
-                //         data.results.forEach((item) => {
-                //             item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
-                //             this.data.push(item)
-                //         })
-                //         this.loading = false
-                //     })
-                //     .catch((error) => {
-                //         this.data = []
-                //         this.total = 0
-                //         this.loading = false
-                //         throw error
-                //     })
-            },
+      },
 
   },
 
@@ -301,23 +277,29 @@ export default {
 
     let userHash = params.user_hash;
 
+    const reqParams = [
+          `user=${userHash}`,
+          `start=0`,
+          `limit=100`,
+        ].join('&')
+
     // try to get the json
     try {
 
-      let json = await $echomtg.tradesView(userHash)
+      let json = await $echomtg.tradesView(reqParams)
 
-      console.log(json)
 
       if(json.hasOwnProperty('trades')){
 
-          let trades = json.trades.trades
-          console.log(trades)
+          let trades = json.items
           let user = json.trades.user
           user.hash = json.trades.user_hash
-          let totalTrades = json.trades.total_cards
+          let totalTrades = json.meta.total_items
           let currency_symbol = json.trades.currency_symbol
+          let perPage = 100
+          let page = json.meta.current_page
           return {
-            trades, user, totalTrades, currency_symbol, userHash
+            trades, user, totalTrades, currency_symbol, userHash, perPage, page
           }
       }
     } catch (err) {

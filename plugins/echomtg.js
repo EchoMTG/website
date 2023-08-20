@@ -665,8 +665,10 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
-  echomtg.tradesView = async (user_hash) => {
-    let url = `${context.app.$config.API_DOMAIN}trades/view/?user=${user_hash}`;
+  echomtg.tradesView = async (params) => {
+
+
+    let url = `${context.app.$config.API_DOMAIN}trades/view/?${params}`;
 
     const res = await fetch(url, {
       method: 'GET',
