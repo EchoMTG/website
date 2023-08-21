@@ -14,7 +14,7 @@
               <h2 class="has-text-weight-normal has-text-light-grey is-size-7">MTG <?=$set->name?> was released on <?=$set->release_date?> with <?=$set->total_cards?> unique cards.</h2>
           </div>
           <div class="column">
-              <!-- CTA -->
+              <!-- CTA
               <?php if(!isset($_SESSION['user']['password']) ) { ?>
 
               <div class="card">
@@ -25,7 +25,7 @@
                           <h5>Receive weekly updates on your collection.</h2>
                           <p>Free membership gives you access to collection tracking and user-only features.</p>
 
-                          <a  href="/register/" class="button is-success" onclick=" ga('send', 'event', 'Register Button', 'click', 'Registration from Set View');">
+                          <a  href="/" class="button is-success" onclick=" ga('send', 'event', 'Register Button', 'click', 'Registration from Set View');">
                               <span class="icon">
                                   <i class="fa fa-user-plus"></i>
                               </span>
@@ -34,7 +34,7 @@
                       </div>
                   </div>
               </div>
-              <?php } ?>
+              <?php } ?> -->
 
           </div>
       </div>

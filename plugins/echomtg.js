@@ -51,6 +51,8 @@ export default (context, inject) => {
     return context.app.$cookies.get('token');
   }
 
+
+
   echomtg.createGrowl = (message,icon,color="grey") => {
     //alert(message + icon + color)
     if(context.app.$buefy){
@@ -347,6 +349,25 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       headers: {
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
+    });
+    return await res.json();
+  }
+
+  // USER
+
+  echomtg.registerUser = async (email, username, password) => {
+    let url = `${context.app.$config.API_DOMAIN}user/register/`;
+    const payload = {
+      'email' : email,
+      'username' : username,
+      'password' : password
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     });
     return await res.json();
   }

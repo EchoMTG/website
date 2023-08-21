@@ -11,8 +11,8 @@
         <div class="column is-7 ">
           <div class="pt-6 pl-6 pr-3">
             <div class="echo-header-text">
-              <h1 class="title is-1 has-text-white has-text-weight-light">Start Tracking Your Trading Card Collection Today</h1>
-              <p class="subtitle has-text-grey-light has-shadow is-4">Free membership gives you access to digital binder collection tools and user-only pricing features.</p>
+              <h1 class="title is-1 has-text-white has-text-weight-light">Data-Driven Trading Card Collection Tools</h1>
+              <p class="subtitle has-text-grey-light has-shadow is-4">Free membership gives you access to digital binder collection tools, user-only pricing features, and community access.</p>
               <b-menu>
                 <b-menu-list label="Tools you Need for Success">
                   <b-menu-item icon="email-outline" label="Weekly Email Reports"></b-menu-item>
@@ -57,7 +57,7 @@
           title="Multiple Apps" 
           icon="tools" 
           type="info"
-          description="List, Decks, Watchlists and many more tools." />
+          description="Lists, Decks, Watchlists and many more" />
         <promotion-card-widget 
           image="https://assets.echomtg.com/images/product/card-page-2023.png"
           class="tile is-child" 

@@ -108,7 +108,7 @@
            <div class="field is-grouped">
             
             <p class="control">
-              <router-link to="/full-page/create"
+              <router-link to="/"
                 class=" button is-success mythic-background"
                 title="Create Account"
               >

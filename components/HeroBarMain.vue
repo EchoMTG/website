@@ -5,7 +5,7 @@
         <div class="level-left">
           <div class="level-item is-hero-avatar-item">
             <div class="image is-user-avatar">
-              <img :src="user.avatar">
+              <img :src="getAvatar()">
             </div>
           </div>
           <div class="level-item is-hero-content-item">
@@ -88,6 +88,15 @@ export default {
    components: {
       CardWidget
     },
+  methods: {
+    getAvatar () {
+      if (this.user.avatar) {
+        return this.user.avatar
+      }
+
+      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
+    }
+  },
   computed: {
     ...mapState(['user','quickstats'])
   }

@@ -187,6 +187,7 @@ export default {
 
 
       } else {
+        this.isLoading = false
         this.$buefy.snackbar.open({
           message: 'Login Failed, please try again.',
           queue: false

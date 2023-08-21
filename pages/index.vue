@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- user dashboard -->
-    <user-dashboard v-if="this.loggedIn" />
+    <user-dashboard v-if="this.authenticated" />
 
     <!-- default homepage -->
-    <default-homepage v-if="!this.loggedIn" />
+    <default-homepage v-if="!this.authenticated" />
 
   </div>
 </template>
@@ -25,14 +25,14 @@ export default {
       loggedIn: false
     }
   },
-  asyncData({req, $cookies}) {
-    //console.log('async from index',req)
-    let loggedIn = false
-    if($cookies.get('token')){
-      loggedIn = true
-    }
-
-    return { loggedIn}
+  methods: {
+    toggleLoggedIn(){
+      this.loggedIn = !this.loggedIn;
+    }  
+  },
+  computed: {
+  
+    ...mapState(['authenticated'])
   },
   head () {
       return {
