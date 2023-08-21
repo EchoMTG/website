@@ -23,6 +23,9 @@
                     </div>
 
                     <b-table
+                      :height="tableHeight"
+                      :debounce-search="0"
+
                       :data="trades"
                       :loading="loading"
 
@@ -36,7 +39,7 @@
                       aria-page-label="Page"
                       aria-current-label="Current page"
 
-                      hoverable
+
 
                       :checked-rows.sync="selectedItems"
                       checkable
@@ -51,8 +54,10 @@
                       ref="table"
                       detail-key="inventory_id"
 
-                      :debounce-search="0"
 
+                      striped
+                       :sticky-header="true"
+                      sticky-checkbox
                       backend-sorting
                       :default-sort-direction="defaultSortOrder"
                       :default-sort="[sortField, sortOrder]"
@@ -124,13 +129,13 @@
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
-                    <div style=" top: 33px; position: sticky; display:block;">
+
                       <div class="container p-4">
                         <h4 class="title is-4">Message <b class="is-capitalized">{{user.username}}</b></h4>
   <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
                         <div class="content tradeProposalList">{{proposalList}}</div>
-                      </div>
+
                     </div>
                 </div>
             </div>
@@ -179,6 +184,7 @@ export default {
           proposalMessage: null,
           selectedItems: [],
           search: '',
+          tableHeight: this.tableHeight,
           debounce: null,
           condition_price_modifiers: [
               {condition: 'NM', discount: 1},
@@ -216,8 +222,31 @@ export default {
       clearTimeout(this.debounce)
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
-      }, 600)
+      }, 250)
     },
+    min_price() {
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        this.loadAsyncData();
+      }, 250)
+    },
+    max_price(){
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        this.loadAsyncData();
+      }, 250)
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+
+  mounted() {
+    this.onResize();
+    this.updateTableHeight()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
 
   methods: {
@@ -252,7 +281,20 @@ export default {
           this.sortOrder = order
           this.loadAsyncData()
       },
-      async loadAsyncData() {
+      updateTableHeight() {
+        console.log('test')
+        let height = 600;
+          if(this.$refs.table){
+            let rects = this.$refs.table.$el.getBoundingClientRect();
+            height = (this.windowHeight - rects.top) - 80 // 120 is the table header and pagination bar
+          }
+          this.tableHeight = height
+        },
+        onResize() {
+          this.windowHeight = window.innerHeight
+          this.updateTableHeight()
+        },
+        async loadAsyncData() {
         // line these up to custom dropdown
         const params = [
           `user=${this.userHash}`,
@@ -261,12 +303,14 @@ export default {
           `direction=${this.sortOrder}`,
           `start=${(this.page - 1) * this.limit}`,
           `limit=${this.limit}`,
-          `price_over=${this.limit}`,
-          `price_under=${this.limit}`,
+          this.min_price ? `price_over=${this.min_price}` : null,
+          this.max_price ? `price_under=${this.max_price}` : null,
         ].join('&')
 
         let json = await this.$echomtg.tradesView(params)
         this.trades = json.items;
+        this.totalTrades = json.meta.total_items
+        data.meta.total_pages * data.meta.items_per_page
 
       },
 
