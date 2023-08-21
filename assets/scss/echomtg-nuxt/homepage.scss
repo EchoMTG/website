@@ -1,7 +1,31 @@
 
 .homepage{
   // 56px is the header
-  height: calc(100vh - 56px);
-  background-image: url('https://assets.echomtg.com/images/echomtg-product-shot.jpg');
-  background-size: cover;
+  // height: calc(100vh - 56px);
+  background-image: url('https://assets.echomtg.com/images/echo-mtg-pile-cards.jpg');
+  background-size: contain;
+  background-position: bottom left;
+  position:relative;
+  .overlay{
+    position:absolute;
+    z-index: 1 !important;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(to bottom, rgba(0,0,0,1),rgba(0,0,0,0.9), rgba(0,0,0,0.2)); 
+  }
+  * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .icon-text {
+    color: #ccc
+  }
+}
+
+.signup-background{
+  background:rgba(10,10,10,0.7) ;
+
 }

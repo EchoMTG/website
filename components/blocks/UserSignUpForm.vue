@@ -1,5 +1,5 @@
 <template>
-    <section class="has-background-black p-5 mr-6 create-account-box">
+    <section :class="`signup-background p-5 `+classes">
         <h3 class="is-size-4 has-text-white has-text-weight-bold">Create an Account</h3>
         <b-field>
           <div class="control">
@@ -38,7 +38,7 @@
         </b-field>
         <b-field>
             <div class="control">
-            <button class="button is-primary">Create Account</button>
+            <b-button icon-left="account-plus" class="button is-primary mythic-background">Create Account</b-button>
         </div>
         </b-field>
     </section>
@@ -54,9 +54,13 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'AsideMenu',
+  name: 'UserSignUpForm',
   components: { },
   props: {
+    classes: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>

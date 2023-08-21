@@ -3,7 +3,7 @@
 export default function ({route,redirect}) {
 
 
-    console.log(route.path)
+    // console.log(route.path)
     let found = null;
     // example: alter/1225/volcanic-island/
 

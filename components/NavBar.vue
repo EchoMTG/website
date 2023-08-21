@@ -18,14 +18,16 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
-        <div class="navbar-item is-flex is-align-items-center">
-          <a href="/apps/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
-        </div>
-        <div class="navbar-item is-flex is-align-items-center">
-          <b-taglist  attached>
-              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
-          </b-taglist>
+        <div v-if="authenticated">
+          <div class="navbar-item is-flex is-align-items-center">
+            <a href="/apps/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
+          </div>
+          <div class="navbar-item is-flex is-align-items-center">
+            <b-taglist  attached>
+                <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
+                <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
+            </b-taglist>
+          </div>
         </div>
         <!-- <a
           class="navbar-item has-divider is-desktop-icon-only"
@@ -43,7 +45,7 @@
         <nav-bar-menu class="has-divider">
 
           <div class="is-user-name">
-            <span>Apps</span>
+            <span>My Apps</span>
           </div>
 
           <div slot="dropdown" class="navbar-dropdown is-right">
@@ -104,24 +106,25 @@
 
         <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
-          <p class="control">
-          <router-link to="/login"
-            class=" button is-secondary"
-            title="Login"
-          >
-            <b-icon icon="login" custom-size="default" />
-            <span>Login</span>
-          </router-link>
-          </p>
-          <p class="control">
-          <router-link to="/full-page/create"
-            class=" button is-success"
-            title="Create Account"
-          >
-            <b-icon icon="account-plus" custom-size="default" />
-            <span>Free Account</span>
-          </router-link>
-          </p>
+            
+            <p class="control">
+              <router-link to="/full-page/create"
+                class=" button is-success mythic-background"
+                title="Create Account"
+              >
+                <b-icon icon="account-plus" custom-size="default" />
+                <span>Free Account</span>
+              </router-link>
+            </p>
+            <p class="control">
+              <router-link to="/login"
+                class=" button is-secondary"
+                title="Login"
+              >
+                <b-icon icon="login" custom-size="default" />
+                <span>Login</span>
+              </router-link>
+            </p>
 
           </div>
         </div>

@@ -1081,11 +1081,8 @@ ol.slats,ul.slats{
 .homepage-hero{
 	background-size: cover;
 	height: 80vh;
-	background-image: url('https://assets.echomtg.com/images/echomtg-product-shot.jpg');
-	&.pricing-tool{
-		background-image: url('https://assets.echomtg.com/images/echomtg-tcgplayer-pricing-tool.jpg');
-
-	}
+	background-image: url('https://assets.echomtg.com/images/echo-mtg-pile-cards.jpg');
+	
 	@media all and (max-width: 640px){
 
 		height: auto;
