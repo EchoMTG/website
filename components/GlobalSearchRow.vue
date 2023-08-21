@@ -51,6 +51,7 @@
             </p>
             <p class="control">
                 <input class="input is-info is-small has-background-dark has-text-grey-light searchInput searchAcquiredPrice"
+                onclick="this.select()"
                 v-model="priceAcquired"
                 />
             </p>
@@ -73,6 +74,7 @@
             </p>
             <p class="control">
                 <input class="input is-warning is-small searchInput has-background-dark has-text-grey-light searchAcquiredPrice"
+                onclick="this.select()"
                 v-model="priceAcquiredFoil" />
             </p>
 
