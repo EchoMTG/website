@@ -686,10 +686,15 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
-  echomtg.tradesView = async (params) => {
+  echomtg.tradesPublicList = async (start=0,limit=100,search='') => {
 
+    const params = [
+      `start=${start}`,
+      `limit=${limit}`,
+      search == '' ? null : `search=${search}`
+    ].join('&')
 
-    let url = `${context.app.$config.API_DOMAIN}trades/view/?${params}`;
+    let url = `${context.app.$config.API_DOMAIN}trades/public_list/?${params}`;
 
     const res = await fetch(url, {
       method: 'GET',
@@ -699,6 +704,17 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
 
   }
+
+
+  echomtg.tradesView = async (params) => {
+    let url = `${context.app.$config.API_DOMAIN}trades/view/?${params}`;
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: echomtg.getS2SHeaders()
+    });
+    return await res.json();
+  }
+
   echomtg.tradesUserHash = (userid) => {
     return echomtg.md5( userid + 'em123')
   }
