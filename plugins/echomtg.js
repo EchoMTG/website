@@ -698,6 +698,25 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
     const res = await fetch(url, {
       method: 'GET',
+      headers: echomtg.getUserHeadersNoJSON()
+    });
+
+    return await res.json();
+
+  }
+
+  echomtg.tradesPublicListBackend = async (start=0,limit=100,search='') => {
+
+    const params = [
+      `start=${start}`,
+      `limit=${limit}`,
+      search == '' ? null : `search=${search}`
+    ].join('&')
+
+    let url = `${context.app.$config.API_DOMAIN}trades/public_list/?${params}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
       headers: echomtg.getS2SHeaders()
     });
 
