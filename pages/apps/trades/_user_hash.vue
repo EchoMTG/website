@@ -13,10 +13,17 @@
                                 <input class="input is-rounded is-small" v-model="search" placeholder="search..">
                             </div>
                             <div class="column">
+                              <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+
+                            </div>
+                            <div class="column">
                                 <input class="input is-rounded is-small" v-model="min_price" placeholder="min price">
                             </div>
                             <div class="column">
                                 <input class="input is-rounded is-small" v-model="max_price" placeholder="max price">
+                            </div>
+                            <div class="column">
+                                <b-button size="is-small" icon-left="close" v-if="hasFilters" @click="clearFilters()">Clear Filters</b-button>
                             </div>
                         </div>
                       </div>
@@ -78,6 +85,9 @@
                         <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
 
                       </b-table-column>
+                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
+                        <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+                      </b-table-column>
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_mid" label="Today" numeric sortable v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
                         {{currency_symbol}}{{props.row.foil_price}}
@@ -89,7 +99,7 @@
                        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
                         <b-taglist attached>
                           <b-tag type="is-dark">{{props.row.condition}}</b-tag>
-                          <b-tag type="is-light" style="cursor: help" :title="`Price adjusted ${getConditionDiscountPercentage(props.row.condition)} based on ${props.row.condition} condition.`">{{currency_symbol}}{{getConditionDiscount(props.row.tcg_mid, props.row.condition.toUpperCase())}}</b-tag>
+                          <b-tag type="is-light" style="cursor: help" :title="`Price adjusted ${getConditionDiscountPercentage(props.row.condition)} based on ${props.row.condition} condition.`">{{currency_symbol}}{{getConditionDiscount(props.row.current_price, props.row.condition.toUpperCase())}}</b-tag>
                       </b-taglist>
 
 
@@ -123,19 +133,19 @@
                           </td>
                         </tr>
                       </template>
-                      <template #footer v-if="!isCustom">
-                <div v-if="!authenticated" class="has-text-right">
-                    <div class="columns">
-                      <div class="column is-5">
-                        <h2 class="titel is-3">Login or Create a Free Account to browse all of {{username}} items</h2>
-                      </div>
-                      <div class="column is-5">
-                        <create-account-modal />
-                      </div>
+                      <template #footer v-if="!authenticated">
+                        <div v-if="!authenticated" class="has-text-right">
+                            <div class="columns">
+                              <div class="column is-5">
+                                <h2 class="titel is-3">Login or Create a Free Account to browse all of {{user.username}} items</h2>
+                              </div>
+                              <div class="column is-5">
+                                <create-account-modal />
+                              </div>
 
-                    </div>
-                </div>
-            </template>
+                            </div>
+                        </div>
+                    </template>
 
                   </b-table>
                 </div>
@@ -164,6 +174,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import SetTag from '~/components/magic/SetTag.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
+import SetSelector from '~/components/magic/SetSelector.vue'
 
 export default {
   name: 'Tradelist',
@@ -172,14 +183,17 @@ export default {
     SetTag,
     ItemInspectorWrapper,
     QuickGraph,
-    CreateAccountModal
+    CreateAccountModal,
+    SetSelector
   },
   data() {
 
       return {
           trades: [],
           meta: {},
-          user: {},
+          user: {
+            username: ''
+          },
           loading: true,
           limit: 100,
           start: 0,
@@ -188,6 +202,7 @@ export default {
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
+          set_code: '',
           perPage: 100,
           totalTrades: 0,
           currency_symbol: '$',
@@ -236,19 +251,22 @@ export default {
       clearTimeout(this.debounce)
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
-      }, 250)
+      }, 100)
     },
     min_price() {
       clearTimeout(this.debounce)
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
-      }, 250)
+      }, 100)
     },
     max_price(){
       clearTimeout(this.debounce)
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
-      }, 250)
+      }, 100)
+    },
+    set_code(){
+      this.loadAsyncData();
     },
     authenticated() {
       this.perPage = 100;
@@ -275,11 +293,22 @@ export default {
   },
 
   methods: {
-
+    clearFilters() {
+      this.search = ''
+      this.set_code = ''
+      this.min_price = null
+      this.max_price = null
+    },
     // get tradelist
     // populate it
     // setup filters
-
+    setExpansion(set){
+      if(set?.set_code){
+        this.set_code = set.set_code
+      } else {
+        this.set_code = ''
+      }
+    },
     addToList: function(itemToAdd){
 
         this.selectedItems.forEach(item => {
@@ -330,6 +359,7 @@ export default {
         `direction=${this.sortOrder}`,
         `start=${(this.page - 1) * this.limit}`,
         `limit=${this.limit}`,
+        this.set_code ? `set_code=${this.set_code}` : null,
         this.min_price ? `price_over=${this.min_price}` : null,
         this.max_price ? `price_under=${this.max_price}` : null,
       ].join('&')
@@ -337,7 +367,7 @@ export default {
       let json = await this.$echomtg.tradesView(params)
       this.trades = json.items;
       this.totalTrades = json.meta.total_items
-      data.meta.total_pages * data.meta.items_per_page
+      // data.meta.total_pages * data.meta.items_per_page
 
     },
 
@@ -380,6 +410,9 @@ export default {
 
   },
   computed: {
+    hasFilters(){
+      return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0)
+    },
     crumbs() {
       return [
         {
