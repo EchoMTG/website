@@ -168,14 +168,18 @@ export default {
       return navList;
     },
     menuBottom () {
-      return [
-        {
-          action: 'logout',
-          icon: 'logout',
-          label: 'Log out',
-          state: 'info'
-        }
-      ]
+      if(this.authenticated){
+        return [
+          {
+            action: 'logout',
+            icon: 'logout',
+            label: 'Log out',
+            state: 'info'
+          }
+        ]
+      } else {
+        return []
+      }
     },
     ...mapState([
       'isOverlayVisible',

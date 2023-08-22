@@ -34,14 +34,17 @@ export default {
 
         },
         {
-          label: 'Tades',
+          label: 'Trades',
           url: '/apps/trades/',
           icon: 'briefcase-arrow-left-right'
 
         }
       ]
     },
-
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
   },
   head () {
       return {

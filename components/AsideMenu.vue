@@ -77,7 +77,8 @@ export default {
   computed: mapState([
     'isAsideVisible',
     'isAsideExpanded',
-    'isAsideMobileExpanded'
+    'isAsideMobileExpanded',
+    'authenticated'
   ]),
   mounted () {
     this.ps = new PerfectScrollbar(this.$refs.menuContainer)
