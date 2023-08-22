@@ -6,19 +6,28 @@
       <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
         <div>
           <p class="heading is-size-8">Market</p>
-          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularMarketPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">
+            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
+          </p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.tcg_low > 0">
         <div>
           <p class="heading is-size-8">TCG Low</p>
-          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularLowPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">
+            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularLowPrice}}</a>
+
+            </p>
         </div>
       </div>
       <div class="level-item has-text-centered is-hidden-mobile" v-if="this.item.tcg_mid > 0">
         <div>
           <p class="heading is-size-8">TCG Mid</p>
-          <p class="title is-size-4 is-size-5-mobile">{{cs}}{{regularMidPrice}}</p>
+          <p class="title is-size-4 is-size-5-mobile">
+            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">
+              {{cs}}{{regularMidPrice}}
+            </a>
+          </p>
         </div>
       </div>
       <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
@@ -93,10 +102,10 @@
             <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
           </div>
           <div class="control">
-            <b-tag :type="typeColor">{{this.item.rarity}}</b-tag>
+            <b-tag :class="`${this.item.rarity.replace(' ','-').toLowerCase()}-background has-text-weight-bold`">{{this.item.rarity}}</b-tag>
           </div>
           <div class="control">
-            <b-tag>{{this.item.main_type}}</b-tag>
+            <b-tag type="is-black">{{this.item.main_type}}</b-tag>
           </div>
           <div class="control">
             <b-taglist attached>
@@ -108,6 +117,12 @@
             <b-taglist attached>
                 <b-tag>TCG ID</b-tag>
                 <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+            </b-taglist>
+          </div>
+          <div class="control">
+            <b-taglist attached>
+                <b-tag>Multiverse ID</b-tag>
+                <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
             </b-taglist>
           </div>
         </b-field>
