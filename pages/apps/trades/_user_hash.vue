@@ -29,7 +29,7 @@
                       :data="trades"
                       :loading="loading"
 
-                      paginated
+                      :paginated="this.authenticated ? true : false"
                       backend-pagination
                       :total="totalTrades"
                       :per-page="perPage"
@@ -39,7 +39,7 @@
                       aria-page-label="Page"
                       aria-current-label="Current page"
 
-
+                      narrowed
 
                       :checked-rows.sync="selectedItems"
                       checkable
@@ -123,7 +123,19 @@
                           </td>
                         </tr>
                       </template>
+                      <template #footer v-if="!isCustom">
+                <div v-if="!authenticated" class="has-text-right">
+                    <div class="columns">
+                      <div class="column is-5">
+                        <h2 class="titel is-3">Login or Create a Free Account to browse all of {{username}} items</h2>
+                      </div>
+                      <div class="column is-5">
+                        <user-sign-up-form />
+                      </div>
 
+                    </div>
+                </div>
+            </template>
 
                   </b-table>
                 </div>
@@ -151,6 +163,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import SetTag from '~/components/magic/SetTag.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
+import UserSignUpForm from '~/components/blocks/UserSignUpForm.vue'
 
 export default {
   name: 'Tradelist',
@@ -158,7 +171,8 @@ export default {
     EchoBreadCrumbs,
     SetTag,
     ItemInspectorWrapper,
-    QuickGraph
+    QuickGraph,
+    UserSignUpForm
   },
   data() {
 
@@ -247,6 +261,11 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    // if not authenticated cut the mount of items to show
+    if(!this.authenticated){
+      this.perPage = 10;
+      this.trades = this.trades.slice(0,5)
+    }
   },
 
   methods: {
@@ -282,7 +301,7 @@ export default {
           this.loadAsyncData()
       },
       updateTableHeight() {
-        console.log('test')
+
         let height = 600;
           if(this.$refs.table){
             let rects = this.$refs.table.$el.getBoundingClientRect();
@@ -383,7 +402,8 @@ export default {
 
         return message
 
-    }
+    },
+    ...mapState(['user','authenticated'])
   },
   head () {
       return {
