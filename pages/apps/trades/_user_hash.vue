@@ -249,6 +249,10 @@ export default {
       this.debounce = setTimeout(() => {
         this.loadAsyncData();
       }, 250)
+    },
+    authenticated() {
+      this.perPage = 100;
+      this.loadAsyncData()
     }
   },
   beforeDestroy() {
@@ -256,82 +260,86 @@ export default {
   },
 
   mounted() {
-    this.onResize();
-    this.updateTableHeight()
-    this.$nextTick(() => {
-      window.addEventListener('resize', this.onResize);
-    })
     // if not authenticated cut the mount of items to show
     if(!this.authenticated){
       this.perPage = 10;
       this.trades = this.trades.slice(0,5)
     }
+
+    this.onResize();
+    this.updateTableHeight()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+    
   },
 
   methods: {
 
-      // get tradelist
-      // populate it
-      // setup filters
+    // get tradelist
+    // populate it
+    // setup filters
 
-      addToList: function(itemToAdd){
+    addToList: function(itemToAdd){
 
-          this.selectedItems.forEach(item => {
-              if(item.inventory_id == itemToAdd.inventory_id){
-                  alert('already added')
-              }
-          })
-          this.selectedItems.push(itemToAdd)
+        this.selectedItems.forEach(item => {
+            if(item.inventory_id == itemToAdd.inventory_id){
+                alert('already added')
+            }
+        })
+        this.selectedItems.push(itemToAdd)
 
-      },
-      getConditionDiscountPercentage(condition){
-        return  ((Math.round(((1 - this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) * 100) / 100) * -1) + '%'
-      },
-      getConditionDiscount(price, condition){
-        return Math.round((price * this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) / 100
-      },
-      onPageChange(page) {
-        this.page = page
+    },
+    getConditionDiscountPercentage(condition){
+      if(this.condition_price_modifiers.find((obj) => obj.condition == condition) == undefined) return 1
+      return  ((Math.round(((1 - this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) * 100) / 100) * -1) + '%'
+    },
+    getConditionDiscount(price, condition){
+      if(this.condition_price_modifiers.find((obj) => obj.condition == condition) == undefined) return price
+      return Math.round((price * this.condition_price_modifiers.find((obj) => obj.condition == condition).discount) * 100) / 100
+    },
+    onPageChange(page) {
+      this.page = page
+      this.loadAsyncData()
+    },
+    onSort(field, order) {
+      console.log(order)
+        this.sortField = field
+        this.sortOrder = order
         this.loadAsyncData()
-      },
-      onSort(field, order) {
-        console.log(order)
-          this.sortField = field
-          this.sortOrder = order
-          this.loadAsyncData()
-      },
-      updateTableHeight() {
+    },
+    updateTableHeight() {
 
-        let height = 600;
-          if(this.$refs.table){
-            let rects = this.$refs.table.$el.getBoundingClientRect();
-            height = (this.windowHeight - rects.top) - 80 // 120 is the table header and pagination bar
-          }
-          this.tableHeight = height
-        },
-        onResize() {
-          this.windowHeight = window.innerHeight
-          this.updateTableHeight()
-        },
-        async loadAsyncData() {
-        // line these up to custom dropdown
-        const params = [
-          `user=${this.userHash}`,
-          `search=${this.search}`,
-          `sort=${this.sortField}`,
-          `direction=${this.sortOrder}`,
-          `start=${(this.page - 1) * this.limit}`,
-          `limit=${this.limit}`,
-          this.min_price ? `price_over=${this.min_price}` : null,
-          this.max_price ? `price_under=${this.max_price}` : null,
-        ].join('&')
+      let height = 600;
+        if(this.$refs.table){
+          let rects = this.$refs.table.$el.getBoundingClientRect();
+          height = (this.windowHeight - rects.top) - 80 // 120 is the table header and pagination bar
+        }
+        this.tableHeight = height
+    },
+    onResize() {
+      this.windowHeight = window.innerHeight
+      this.updateTableHeight()
+    },
+    async loadAsyncData() {
+      // line these up to custom dropdown
+      const params = [
+        `user=${this.userHash}`,
+        `search=${this.search}`,
+        `sort=${this.sortField}`,
+        `direction=${this.sortOrder}`,
+        `start=${(this.page - 1) * this.limit}`,
+        `limit=${this.limit}`,
+        this.min_price ? `price_over=${this.min_price}` : null,
+        this.max_price ? `price_under=${this.max_price}` : null,
+      ].join('&')
 
-        let json = await this.$echomtg.tradesView(params)
-        this.trades = json.items;
-        this.totalTrades = json.meta.total_items
-        data.meta.total_pages * data.meta.items_per_page
+      let json = await this.$echomtg.tradesView(params)
+      this.trades = json.items;
+      this.totalTrades = json.meta.total_items
+      data.meta.total_pages * data.meta.items_per_page
 
-      },
+    },
 
   },
 
