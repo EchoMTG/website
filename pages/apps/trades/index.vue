@@ -1,63 +1,50 @@
 <template>
   <div>
-    
-    
-
     <echo-bread-crumbs :data="crumbs" />
-    <b-field class="m-3">
-            <b-input placeholder="Search Users Open for Trade..."
-                type="search"
-                v-model="search"
-                icon="magnify"
-               
-               >
-            </b-input>
-        </b-field>
-          <b-table
-              :height="tableHeight"
-              :debounce-search="0"
+    <b-field v-if="authenticated" class="m-3">
+      <b-input placeholder="Search Users Open for Trade..."
+          type="search"
+          v-model="search"
+          icon="magnify"
+          >
+      </b-input>
+    </b-field>
+    <b-table
+      :height="tableHeight"
+      :debounce-search="0"
 
-              :data="public_trade_list"
-              :loading="loading"
+      :data="public_trade_list"
+      :loading="loading"
 
-              :paginated="authenticated ? true : false"
-              backend-pagination
-              :total="meta?.total ? meta.total : 0"
-              :per-page="meta?.limit ? meta.limit : 0"
-              @page-change="onPageChange"
-              aria-next-label="Next page"
-              aria-previous-label="Previous page"
-              aria-page-label="Page"
-              aria-current-label="Current page"
+      :paginated="authenticated ? true : false"
+      backend-pagination
+      :total="meta?.total ? meta.total : 0"
+      :per-page="meta?.limit ? meta.limit : 0"
+      @page-change="onPageChange"
+      aria-next-label="Next page"
+      aria-previous-label="Previous page"
+      aria-page-label="Page"
+      aria-current-label="Current page"
 
-              narrowed
+      narrowed
 
-              ref="table"
+      ref="table"
 
+      striped
+      :sticky-header="true"
+      >
+      
+      <b-table-column field="username" label="User Name" v-slot="props">
+        <a :href="`/apps/trades/${props.row.user_hash}/`" :title="`Open ${props.row.username} Trade Page`">
+          {{props.row.username}}
+        </a>
+      </b-table-column>
 
-              striped
-              :sticky-header="true"
-              >
+      <b-table-column field="total_trades" label="Total Items for Trade" numeric v-slot="props">
+          {{props.row.total_trades}}
+      </b-table-column>
 
-              <b-table-column field="username" label="User Name" v-slot="props">
-                <a :href="`/apps/trades/${props.row.user_hash}/`" :title="`Open ${props.row.username} Trade Page`">
-                 {{props.row.username}}
-                </a>
-
-              </b-table-column>
-
-              <b-table-column field="total_trades" label="Total Items for Trade" numeric v-slot="props">
-
-                 {{props.row.total_trades}}
-
-
-              </b-table-column>
-
-
-        </b-table>
-
-
-
+    </b-table>
   </div>
 </template>
 
