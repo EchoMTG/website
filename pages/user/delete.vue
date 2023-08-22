@@ -69,7 +69,12 @@ export default {
   },
   methods: {
     async deleteAccount(){
-      await this.$echomtg.deleteUser();
+      let res
+      try {
+        res = await this.$echomtg.deleteUser();
+      } catch (err){
+        console.log(err)
+      }
       await this.$echomtg.logout();
          // destroy the cookie
       this.$cookies.remove('token', {
