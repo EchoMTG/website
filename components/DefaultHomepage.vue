@@ -2,10 +2,10 @@
   <div>
     <div class="homepage">
       <div class="overlay"></div>
-     
+
 
       <!-- <div class="pl-6 pt-6 pr-6 pb-0">
-      
+
       </div> -->
       <div class="columns is-gapless">
         <div class="column is-7 ">
@@ -20,16 +20,16 @@
                   <b-menu-item icon="card-multiple-outline" label="Multiple Collection Apps"></b-menu-item>
                   <b-menu-item icon="briefcase-arrow-left-right-outline" label="Public Tradelist"></b-menu-item>
                   <b-menu-item icon="forum" label="Community Updates"></b-menu-item>
-                
+
                 </b-menu-list>
               </b-menu>
-            
+
             </div>
           </div>
 
         </div>
         <div class="column is-5">
-          <UserSignUpForm classes="mt-5 mr-5"  />
+          <UserSignUpForm classes="mt-5 mr-5 signup-hero-background"  />
         </div>
       </div>
       <section class="py-6 has-background-black">
@@ -44,39 +44,39 @@
     </div>
     <div class="container mt-4">
       <tiles>
-        <promotion-card-widget 
+        <promotion-card-widget
           image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
-          class="tile is-child" 
-          title="Collection Tracking" 
-          icon="chart-areaspline" 
+          class="tile is-child"
+          title="Collection Tracking"
+          icon="chart-areaspline"
           type="black"
           description="Financial Focused Tracking" />
-        <promotion-card-widget 
+        <promotion-card-widget
           image="https://assets.echomtg.com/images/product/dashboard-2023.png"
-          class="tile is-child" 
-          title="Multiple Apps" 
-          icon="tools" 
+          class="tile is-child"
+          title="Multiple Apps"
+          icon="tools"
           type="info"
           description="Lists, Decks, Watchlists and many more" />
-        <promotion-card-widget 
+        <promotion-card-widget
           image="https://assets.echomtg.com/images/product/card-page-2023.png"
-          class="tile is-child" 
-          title="Real-Time Pricing" 
+          class="tile is-child"
+          title="Real-Time Pricing"
           icon="currency-usd"
-          type="success" 
+          type="success"
           description="Charts, 7-day Gain/Loss Calculations" />
-        <promotion-card-widget 
+        <promotion-card-widget
           image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
-          class="tile is-child" 
-          title="Emailed Reports" 
+          class="tile is-child"
+          title="Emailed Reports"
           icon="email-outline"
-          type="danger" 
+          type="danger"
           description="Weekly Automated Assessment Emails" />
 
       </tiles>
     </div>
   </div>
-  
+
 </template>
 <style scoped>
 .echo-header-text{

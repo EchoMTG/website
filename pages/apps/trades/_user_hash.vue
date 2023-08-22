@@ -130,7 +130,7 @@
                         <h2 class="titel is-3">Login or Create a Free Account to browse all of {{username}} items</h2>
                       </div>
                       <div class="column is-5">
-                        <user-sign-up-form />
+                        <create-account-modal />
                       </div>
 
                     </div>
@@ -163,7 +163,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import SetTag from '~/components/magic/SetTag.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
-import UserSignUpForm from '~/components/blocks/UserSignUpForm.vue'
+import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
 
 export default {
   name: 'Tradelist',
@@ -172,7 +172,7 @@ export default {
     SetTag,
     ItemInspectorWrapper,
     QuickGraph,
-    UserSignUpForm
+    CreateAccountModal
   },
   data() {
 

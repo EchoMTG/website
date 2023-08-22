@@ -106,15 +106,17 @@
 
         <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
-            
+
             <p class="control">
-              <router-link to="/"
+              <!-- <router-link to="/"
                 class=" button is-success mythic-background"
                 title="Create Account"
               >
                 <b-icon icon="account-plus" custom-size="default" />
                 <span>Free Account</span>
               </router-link>
+               -->
+               <create-account-modal size="default" label="Free Account" />
             </p>
             <p class="control">
               <router-link to="/login"
@@ -148,13 +150,15 @@ import NavBarMenu from '@/components/NavBarMenu'
 import UserAvatar from '@/components/UserAvatar'
 import GlobalSearch from '@/components/GlobalSearch'
 import toolsMenu from '@/components/navigation/tools'
+import CreateAccountModal from '@/components/user/CreateAccountModal'
 
 export default {
   name: 'NavBar',
   components: {
     UserAvatar,
     NavBarMenu,
-    GlobalSearch
+    GlobalSearch,
+    CreateAccountModal
   },
   data () {
     return {
