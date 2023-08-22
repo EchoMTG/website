@@ -7,7 +7,11 @@
                 <div class="column is-two-thirds">
                     <div class="container p-5">
                       <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
-                      <div class="tradefilterBar">
+
+                      <skinny-ad v-if="!authenticated" />
+
+
+                      <div v-if="authenticated" class="tradefilterBar">
                         <div class="columns">
                             <div class="column">
                                 <input class="input is-rounded is-small" v-model="search" placeholder="search..">
@@ -175,6 +179,7 @@ import SetTag from '~/components/magic/SetTag.vue'
 import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
+import SkinnyAd from '~/components/cta/SkinnyAd.vue'
 
 export default {
   name: 'Tradelist',
@@ -184,7 +189,8 @@ export default {
     ItemInspectorWrapper,
     QuickGraph,
     CreateAccountModal,
-    SetSelector
+    SetSelector,
+    SkinnyAd
   },
   data() {
 
@@ -289,7 +295,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
-    
+
   },
 
   methods: {
