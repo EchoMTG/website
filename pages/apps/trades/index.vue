@@ -98,13 +98,18 @@ export default {
       this.loadAsyncData()
     }
   },
-  async asyncData({$echomtg}) {
+  async asyncData({$echomtg, $cookies}) {
 
     let public_trade_list = []
     let meta = {}
+    let json = null
 
     try {
-      const json = await $echomtg.tradesPublicListBackend()
+      if($cookies.get('token')){
+        json = await $echomtg.tradesPublicList()
+      } else {
+        json = await $echomtg.tradesPublicListBackend()
+      }
       public_trade_list = json.items
       meta = json.meta
 

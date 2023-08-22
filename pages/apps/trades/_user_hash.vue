@@ -6,7 +6,7 @@
             <div class="columns is-gapless">
                 <div class="column is-two-thirds">
                     <div class="container p-5">
-                      <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{user.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
+                      <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
                       <div class="tradefilterBar">
                         <div class="columns">
                             <div class="column">
@@ -137,7 +137,7 @@
                         <div v-if="!authenticated" class="has-text-right">
                             <div class="columns">
                               <div class="column is-5">
-                                <h2 class="titel is-3">Login or Create a Free Account to browse all of {{user.username}} items</h2>
+                                <h2 class="titel is-3">Login or Create a Free Account to browse all of {{tradeUser.username}} items</h2>
                               </div>
                               <div class="column is-5">
                                 <create-account-modal />
@@ -153,7 +153,7 @@
                 <div class="column proposal has-background-light">
 
                       <div class="container p-4">
-                        <h4 class="title is-4">Message <b class="is-capitalized">{{user.username}}</b></h4>
+                        <h4 class="title is-4">Message <b class="is-capitalized">{{tradeUser.username}}</b></h4>
   <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
                         <div class="content tradeProposalList">{{proposalList}}</div>
@@ -191,12 +191,12 @@ export default {
       return {
           trades: [],
           meta: {},
-          user: {
-            username: ''
-          },
           loading: true,
           limit: 100,
           start: 0,
+          tradeUser: {
+            username: ''
+          },
           loading: false,
           sortField: 'date_acquired',
           sortOrder: 'desc',
@@ -393,14 +393,14 @@ export default {
       if(json.hasOwnProperty('trades')){
 
           let trades = json.items
-          let user = json.trades.user
-          user.hash = json.trades.user_hash
+          let tradeUser = json.trades.user
+          tradeUser.hash = json.trades.user_hash
           let totalTrades = json.meta.total_items
           let currency_symbol = json.trades.currency_symbol
           let perPage = 100
           let page = json.meta.current_page
           return {
-            trades, user, totalTrades, currency_symbol, userHash, perPage, page
+            trades, tradeUser, totalTrades, currency_symbol, userHash, perPage, page
           }
       }
     } catch (err) {
