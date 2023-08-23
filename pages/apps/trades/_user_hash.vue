@@ -12,24 +12,53 @@
 
 
                       <div v-if="authenticated" class="tradefilterBar">
-                        <div class="columns">
-                            <div class="column">
-                                <input class="input is-rounded is-small" v-model="search" placeholder="search..">
-                            </div>
-                            <div class="column">
-                              <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+                        <nav class="level p-2">
+                          <div class="level-left">
 
-                            </div>
-                            <div class="column">
-                                <input class="input is-rounded is-small" v-model="min_price" placeholder="min price">
-                            </div>
-                            <div class="column">
-                                <input class="input is-rounded is-small" v-model="max_price" placeholder="max price">
-                            </div>
-                            <div class="column">
-                                <b-button size="is-small" icon-left="close" v-if="hasFilters" @click="clearFilters()">Clear Filters</b-button>
-                            </div>
-                        </div>
+                            <b-input class="level-item" size="is-small" v-model="search" placeholder="Search.." />
+
+                            <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+
+                            <b-select class="level-item is-hidden-mobile"  placeholder="Reserve List" size="is-small" v-model="reserve_list">
+                                <option selected value="false">Reserve List</option>
+                                <option disabled>---</option>
+                                <option value="false">Show All</option>
+                                <option value="true">Only Reserve</option>
+                            </b-select>
+
+                            <b-field class="level-item" style="margin-bottom: 0 !important;">
+                              <p class="control">
+                                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                                    <strong>{{currency_symbol}} &gt;</strong>
+                                  </b-button>
+                              </p>
+                              <b-input
+                                v-model="min_price"
+                                size="is-small"
+                                style="max-width: 50px;"
+                                placeholder="2.10"
+                                />
+
+                                <b-field class="level-item" style="margin-bottom: 0 !important;">
+                                  <p class="control">
+                                      <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                                        <strong>{{currency_symbol}} &lt;</strong>
+                                      </b-button>
+                                  </p>
+                                  <b-input
+                                    style="max-width: 50px;"
+                                    v-model="max_price"
+                                    size="is-small"
+                                    placeholder="9.20"
+                                    />
+                                </b-field>
+                            </b-field>
+
+                          </div>
+                          <div class="level-right">
+                            <b-button class="level-item" type="is-dark" size="is-small" icon-left="close" v-if="hasFilters" @click="clearFilters()">Clear Filters</b-button>
+                          </div>
+                        </nav>
                       </div>
                     </div>
 
@@ -38,7 +67,7 @@
                       :debounce-search="0"
 
                       :data="trades"
-                      :loading="loading"
+                      :loading="isLoading"
 
                       :paginated="this.authenticated ? true : false"
                       backend-pagination
@@ -157,7 +186,7 @@
                 <div class="column proposal has-background-light">
 
                       <div class="container p-4">
-                        <h4 class="title is-4">Message <b class="is-capitalized">{{tradeUser.username}}</b></h4>
+                        <h4 class="title is-4">Tally wants from <b class="is-capitalized">{{tradeUser.username}}</b></h4>
   <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
                         <div class="content tradeProposalList">{{proposalList}}</div>
@@ -197,12 +226,12 @@ export default {
       return {
           trades: [],
           meta: {},
-          loading: true,
           limit: 100,
           start: 0,
           tradeUser: {
             username: ''
           },
+          reserve_list: null,
           loading: false,
           sortField: 'date_acquired',
           sortOrder: 'desc',
@@ -214,6 +243,7 @@ export default {
           currency_symbol: '$',
           currency_conversion: 1,
           userHash: '',
+          isLoading: true,
           min_price: null,
           max_price: null,
           proposalMessage: null,
@@ -274,6 +304,9 @@ export default {
     set_code(){
       this.loadAsyncData();
     },
+    reserve_list(){
+      this.loadAsyncData();
+    },
     authenticated() {
       this.perPage = 100;
       this.loadAsyncData()
@@ -304,6 +337,7 @@ export default {
       this.set_code = ''
       this.min_price = null
       this.max_price = null
+      this.reserve_list = null
     },
     // get tradelist
     // populate it
@@ -357,6 +391,7 @@ export default {
       this.updateTableHeight()
     },
     async loadAsyncData() {
+      this.isLoading = true
       // line these up to custom dropdown
       const params = [
         `user=${this.userHash}`,
@@ -368,11 +403,13 @@ export default {
         this.set_code ? `set_code=${this.set_code}` : null,
         this.min_price ? `price_over=${this.min_price}` : null,
         this.max_price ? `price_under=${this.max_price}` : null,
+        this.reserve_list ? `reserve_list=${this.reserve_list}` : null,
       ].join('&')
 
       let json = await this.$echomtg.tradesView(params)
       this.trades = json.items;
       this.totalTrades = json.meta.total_items
+      this.isLoading = false
       // data.meta.total_pages * data.meta.items_per_page
 
     },
@@ -405,8 +442,9 @@ export default {
           let currency_symbol = json.trades.currency_symbol
           let perPage = 100
           let page = json.meta.current_page
+          let isLoading = false
           return {
-            trades, tradeUser, totalTrades, currency_symbol, userHash, perPage, page
+            trades, isLoading, tradeUser, totalTrades, currency_symbol, userHash, perPage, page
           }
       }
     } catch (err) {
@@ -417,7 +455,7 @@ export default {
   },
   computed: {
     hasFilters(){
-      return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0)
+      return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0 || this.reserve_list != null)
     },
     crumbs() {
       return [
@@ -454,7 +492,7 @@ export default {
   },
   head () {
       return {
-          title: `${this.tradeUser}'s Tradelist`,
+          title: `${this.tradeUser.username}'s Tradelist`,
           description: `A collector tools for sharing tradable items in their inventory`
       }
     }
