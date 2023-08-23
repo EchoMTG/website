@@ -1,104 +1,114 @@
 <template>
     <div>
         <echo-bread-crumbs :data="crumbs" />
-        <br>
-        <nav class="earnings-tabs level" id="finances">
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Sealed Tracking</p>
-                    <p class="title">{{ this.sealed.length }}</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Sealed Value</p>
-                    <p class="title">{{symbol}}{{totalValue}}</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Acquired For</p>
-                    <p class="title">{{symbol}}{{acquiredForValue}}</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Difference</p>
-                    <p class="title">{{symbol}}{{difference}}</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Gain/Loss</p>
-                    <span class="title percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
-                    <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>
-                </div>
-            </div>
-        </nav>
-        <div class="container mb-5 ml-4 mr-4">
-            <div class="columns">
-              <div class="column">
-                <div class="control has-icons-left has-icons-right">
-                    <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
-                    <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
-                </div>
-              </div>
-              <div class="column is-two-thirds"  style="min-height: 40px">
-                  <global-search firstSearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
-              </div>
-            </div>
-        </div>
-
-        <b-table
-          class="my-3"
-          :data="sealedItems"
-          :striped="true"
-          :narrowed="true"
-          :focusable="true"
-          default-sort="tcg_mid"
-          default-sort-direction="desc"
-          >
-            <b-table-column field="name" label="Item Name" v-slot="props" sortable>
-                <nav class="level  pb-0">
-                  <div class="level-left">
-                    <span class="level-item">
-                      <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
-                    </span>
-                    <span class="level-item">
-                      <item-inspector-wrapper :item="props.row" />
-                    </span>
+        <full-ad 
+          title="You Must be Logged in to Use the Sealed Product App" 
+          image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
+          v-if="!authenticated" />
+        <span v-if="authenticated">
+          <nav class="earnings-tabs level" id="finances">
+              <div class="level-item has-text-centered">
+                  <div>
+                      <p class="heading">Sealed Tracking</p>
+                      <p class="title">{{ this.sealed.length }}</p>
                   </div>
-                </nav>
-            </b-table-column>
-            <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
-              {{symbol}} {{props.row.tcg_mid}}
-            </b-table-column>
-            <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
-              {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
-            </b-table-column>
-            <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
-              <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
-            </b-table-column>
-            <b-table-column field="gain" label="Profit" v-slot="props" sortable>
-              <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
-              <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
-            </b-table-column>
-            <b-table-column v-slot="props">
-              <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
-              <span class="fa fa-trash"></span> </button>
-            </b-table-column>
-        </b-table>
+              </div>
+              <div class="level-item has-text-centered">
+                  <div>
+                      <p class="heading">Sealed Value</p>
+                      <p class="title">{{symbol}}{{totalValue}}</p>
+                  </div>
+              </div>
+              <div class="level-item has-text-centered">
+                  <div>
+                      <p class="heading">Acquired For</p>
+                      <p class="title">{{symbol}}{{acquiredForValue}}</p>
+                  </div>
+              </div>
+              <div class="level-item has-text-centered">
+                  <div>
+                      <p class="heading">Difference</p>
+                      <p class="title">{{symbol}}{{difference}}</p>
+                  </div>
+              </div>
+              <div class="level-item has-text-centered">
+                  <div>
+                      <p class="heading">Gain/Loss</p>
+                      <span class="title percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
+                      <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>
+                  </div>
+              </div>
+          </nav>
+          <div class="container mb-5 ml-4 mr-4">
+              <div class="columns">
+                <div class="column">
+                  <div class="control has-icons-left has-icons-right">
+                      <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
+                      <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+                  </div>
+                </div>
+                <div class="column is-two-thirds"  style="min-height: 40px">
+                    <global-search firstSearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
+                </div>
+              </div>
+          </div>
 
+          <b-table
+            class="my-3"
+            :data="sealedItems"
+            :striped="true"
+            :narrowed="true"
+            :focusable="true"
+            default-sort="tcg_mid"
+            default-sort-direction="desc"
+            >
+              <b-table-column field="name" label="Item Name" v-slot="props" sortable>
+                  <nav class="level  pb-0">
+                    <div class="level-left">
+                      <span class="level-item">
+                        <a v-bind:href="props.row.echo_set_url"><img v-bind:src="props.row.set_image" style="max-height:18px; max-width:14px" /></a>
+                      </span>
+                      <span class="level-item">
+                        <item-inspector-wrapper :item="props.row" />
+                      </span>
+                    </div>
+                  </nav>
+              </b-table-column>
+              <b-table-column field="tcg_mid" label="Current Price" v-slot="props" sortable>
+                {{symbol}} {{props.row.tcg_mid}}
+              </b-table-column>
+              <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
+                {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
+              </b-table-column>
+              <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
+                <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
+              </b-table-column>
+              <b-table-column field="gain" label="Profit" v-slot="props" sortable>
+                <span class="percentage red down" v-if="props.row.gain < 0">{{props.row.gain}}%</span>
+                <span class="percentage green up" v-if="props.row.gain > 0">{{props.row.gain}}%</span>
+              </b-table-column>
+              <b-table-column v-slot="props">
+                <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
+                <span class="fa fa-trash"></span> </button>
+              </b-table-column>
+          </b-table>
+        </span>
     </div>
 </template>
 <script>
-
+import { mapState } from 'vuex'
 import GlobalSearch from '@/components/GlobalSearch'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper'
+import FullAd from '~/components/cta/FullAd.vue'
 
 export default {
-  components: { GlobalSearch, EchoBreadCrumbs, ItemInspectorWrapper },
+  components: { 
+    GlobalSearch, 
+    EchoBreadCrumbs, 
+    ItemInspectorWrapper,
+    FullAd    
+  },
   data() {
     return {
       limit: 1000,
@@ -109,8 +119,13 @@ export default {
       search: '',
     }
   },
+  async fetch(){
+    this.fetchSealedData();
+  },
   methods: {
     fetchSealedData(){
+      if(!this.authenticated) return;
+
       let token = this.$cookies.get('token');
       let url = `${this.$config.API_DOMAIN}/inventory/view/?start=${this.start}&limit=${this.limit}&auth=${token}&set_code=`
       // get only inventory with PACK and SEAL as the sets
@@ -222,6 +237,10 @@ export default {
     gainloss() {
       return ((this.difference / this.totalValue) * 100).toFixed(2)
     },
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
   },
   watch: {
     status: function () {

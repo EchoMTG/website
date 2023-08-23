@@ -1,98 +1,104 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-0">
-      <div class="columns">
-        <div class="column  is-two-thirds">
-          <h1 class="title has-text-white">
-              Earnings
-          </h1>
-          <h3 v-if="authenticated" class="subtitle has-text-light">
-              {{this.total}} items acquired for {{cs}}{{this.stats.acquired_value.toFixed(2)}} sold at {{cs}}{{this.stats.sold_value.toFixed(2)}}. A {{this.stats.gainLoss}}% gain.
-          </h3>
-          <h3 v-if="!authenticated" class="subtitle has-text-light">
-            Track the profit and loss of items acquired and sold from your collection.
-          </h3>
+    <full-ad 
+      title="You Must be Logged in to Use the Earning App" 
+      image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
+      v-if="!authenticated" />
+    <span v-if="authenticated">
+      <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-0">
+        <div class="columns">
+          <div class="column  is-two-thirds">
+            <h1 class="title has-text-white">
+                Earnings
+            </h1>
+            <h3 v-if="authenticated" class="subtitle has-text-light">
+                {{this.total}} items acquired for {{cs}}{{this.stats.acquired_value.toFixed(2)}} sold at {{cs}}{{this.stats.sold_value.toFixed(2)}}. A {{this.stats.gainLoss}}% gain.
+            </h3>
+            <h3 v-if="!authenticated" class="subtitle has-text-light">
+              Track the profit and loss of items acquired and sold from your collection.
+            </h3>
+          </div>
+          <div class="column is-one-third">
+            <b-button v-if="authenticated" class="is-pulled-right" @click="downloadCSV()" icon-left="download">Download Earnings CSV</b-button>
+          </div>
         </div>
-        <div class="column is-one-third">
-          <b-button v-if="authenticated" class="is-pulled-right" @click="downloadCSV()" icon-left="download">Download Earnings CSV</b-button>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <b-table
-      v-if="authenticated"
-      :striped="true"
-      :data="earnings"
-      ref="table"
-      :height="tableHeight"
-      :debounce-search="0"
-      :sticky-header="true"
-      :sticky="true"
-      :loading="loading"
-      paginated
-      backend-pagination
-      :total="total"
-      :per-page="perPage"
-      @page-change="onPageChange"
-      aria-next-label="Next page"
-      aria-previous-label="Previous page"
-      aria-page-label="Page"
-      aria-current-label="Current page"
-      :page-input="true"
-      backend-sorting
-      :default-sort-direction="defaultSortOrder"
-      :default-sort="[sortField, sortOrder]"
-      @sort="onSort"
-      hoverable
+      <b-table
+        v-if="authenticated"
+        :striped="true"
+        :data="earnings"
+        ref="table"
+        :height="tableHeight"
+        :debounce-search="0"
+        :sticky-header="true"
+        :sticky="true"
+        :loading="loading"
+        paginated
+        backend-pagination
+        :total="total"
+        :per-page="perPage"
+        @page-change="onPageChange"
+        aria-next-label="Next page"
+        aria-previous-label="Previous page"
+        aria-page-label="Page"
+        aria-current-label="Current page"
+        :page-input="true"
+        backend-sorting
+        :default-sort-direction="defaultSortOrder"
+        :default-sort="[sortField, sortOrder]"
+        @sort="onSort"
+        hoverable
 
-       >
+        >
 
-      <b-table-column
+        <b-table-column
 
-        v-slot="props"
-        field="name"
-        label="Name"
-        sortable
-        searchable>
-        <div style="display: flex; flexDirection: row;">
+          v-slot="props"
+          field="name"
+          label="Name"
+          sortable
+          searchable>
+          <div style="display: flex; flexDirection: row;">
 
-          <div style="width:50px; height: 20px; ">
-            <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive  />
+            <div style="width:50px; height: 20px; ">
+              <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" responsive  />
+            </div>
+
+            <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
+            <b-tag style="flex: 1" class="rainbow-background has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+
           </div>
 
-          <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
-          <b-tag style="flex: 1" class="rainbow-background has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+        </b-table-column>
+        <b-table-column v-slot="props" field="expansion" label="Expansion" sortable searchable>
+          {{props.row.expansion}}
+        </b-table-column>
 
-        </div>
+        <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
 
-      </b-table-column>
-      <b-table-column v-slot="props" field="expansion" label="Expansion" sortable searchable>
-        {{props.row.expansion}}
-      </b-table-column>
+          <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
+        </b-table-column>
+        <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" :numeric="true">
+          <span v-if="props.row.price_change != 0">
+            <b-tag type="is-success" v-if="props.row.gain > 0" icon="chevron-up">{{props.row.gain}}%</b-tag>
+            <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">{{props.row.gain}}%</b-tag>
+          </span>
+        </b-table-column>
+        <b-table-column v-slot="props" field="price" label="Sold For" width="110" sortable :numeric="true">
+          <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
+        </b-table-column>
+        <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
+          <acquired-price-input v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
+        </b-table-column>
+        <b-table-column v-slot="props">
+          <b-button class="is-small" @click="deleteItem(props.row.earnings_id)" icon-left="delete">
 
-      <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
-
-        <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
-      </b-table-column>
-      <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" :numeric="true">
-        <span v-if="props.row.price_change != 0">
-          <b-tag type="is-success" v-if="props.row.gain > 0" icon="chevron-up">{{props.row.gain}}%</b-tag>
-          <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">{{props.row.gain}}%</b-tag>
-        </span>
-      </b-table-column>
-      <b-table-column v-slot="props" field="price" label="Sold For" width="110" sortable :numeric="true">
-        <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
-      </b-table-column>
-      <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
-        <acquired-price-input v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
-      </b-table-column>
-      <b-table-column v-slot="props">
-        <b-button class="is-small" @click="deleteItem(props.row.earnings_id)" icon-left="delete">
-
-        </b-button>
-      </b-table-column>
-    </b-table>
+          </b-button>
+        </b-table-column>
+      </b-table>
+    </span>
   </div>
 </template>
 
@@ -104,6 +110,7 @@ import AcquiredPriceInput from '~/components/earnings/AcquiredPriceInput.vue'
 import DateInput from '~/components/earnings/DateInput.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
+import FullAd from '~/components/cta/FullAd.vue'
 
 export default {
   name: 'Earnings',
@@ -112,7 +119,8 @@ export default {
     ItemInspectorWrapper,
     DateInput,
     SoldPriceInput,
-    AcquiredPriceInput
+    AcquiredPriceInput,
+    FullAd
   },
   data () {
     return {
@@ -138,10 +146,15 @@ export default {
       }
     }
   },
+  async fetch(){
+      if(!this.authenticated) return;
+      
+      this.loading = true;
+      await this.getEarningsStats()
+      await this.getEarnings();
+      this.loading = false;
+  },
   mounted() {
-
-
-    this.dataRefresh();
 
     this.updateTableHeight()
     this.$nextTick(() => {
@@ -165,10 +178,7 @@ export default {
         this.getEarnings()
     },
     async dataRefresh(){
-      this.loading = true;
-      await this.getEarningsStats()
-      await this.getEarnings();
-      this.loading = false;
+     this.$fetch();
     },
     async getEarnings() {
 
