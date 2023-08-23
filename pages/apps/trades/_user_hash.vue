@@ -8,7 +8,7 @@
                     <div class="container p-5">
                       <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
 
-                      <skinny-ad v-if="!authenticated" />
+                      <skinny-ad title="Access filters and trade search" v-if="!authenticated" />
 
 
                       <div v-if="authenticated" class="tradefilterBar">
@@ -121,7 +121,7 @@
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set_code" label="Expansion" sortable v-slot="props">
                         <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
                       </b-table-column>
-                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_mid" label="Today" numeric sortable v-slot="props">
+                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="current_price" label="Today" numeric sortable v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
                         {{currency_symbol}}{{props.row.foil_price}}
                         </span>
@@ -233,7 +233,7 @@ export default {
           },
           reserve_list: null,
           loading: false,
-          sortField: 'date_acquired',
+          sortField: 'current_price',
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
