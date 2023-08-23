@@ -14,6 +14,11 @@
                         alt="Trading Card collection tools screenshot" 
                         style="border-radius: 10px;"
                         class="mx-3 is-fullwidth" />
+
+                    <div class="px-4 pt-3">
+                        <p class="has-text-centered has-text-grey is-size-5">{{applicationText}}</p>
+                    </div>
+
                 
                 </div>
                 <div class="column is-4">
@@ -66,6 +71,10 @@
       description: {
         type: String,
         default: 'Users gain access to multiple apps and get weekly email collection reports'
+      },
+      applicationText: {
+        type: String,
+        default: 'EchoMTG Data Driven Collection Management'
       }
   
     }
