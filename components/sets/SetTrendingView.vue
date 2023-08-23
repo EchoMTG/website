@@ -98,9 +98,6 @@ export default {
       default: ''
     }
   },
-  created() {
-    this.$echomtg.log('top trending items',this.items)
-  },
   methods: {
     getDifference(price, change){
       return ( parseFloat(price) * (parseFloat(change) * .01)).toFixed(2)

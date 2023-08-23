@@ -1,5 +1,10 @@
 <template>
-  <b-button :title="tradable ? `Remove from Trade Binder` : `Add to Trade Binder`" icon-left="hand-coin" :class="classType(tradable)" size="is-small" @click="toggleTradeable()" />
+  <b-button
+    :title="tradable ? `Remove from Trade Binder` : `Add to Trade Binder`"
+    :icon-left="icon"
+    :class="classType(tradable)"
+    size="is-small"
+    @click="toggleTradeable()" />
 </template>
 <script>
 
@@ -16,11 +21,16 @@ export default {
     inventory_id: {
       type: Number,
       required: true
+    },
+    icon: {
+      type: String,
+      default: 'briefcase-arrow-left-right-outline'
     }
   },
 
   methods: {
     classType(tradable) {
+      if(this.icon == 'delete') return 'is-danger is-light'
       return tradable == 1 ? 'is-success is-light' : ''
     },
     async toggleTradeable() {

@@ -138,6 +138,7 @@
                       </b-table-column>
                       <b-table-column v-if="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"  numeric  v-slot="props">
                         <move-to-earnings-button :inventory_item="props.row" :currency_symbol="currency_symbol" :callback="loadAsyncData"/>
+                        <toggle-tradable-button icon="delete" type="danger" :inventory_id="parseInt(props.row.inventory_id)" :tradable="1" :callback="loadAsyncData" />
                       </b-table-column>
 
                       <template slot="detail" slot-scope="props">
@@ -209,6 +210,7 @@ import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import SkinnyAd from '~/components/cta/SkinnyAd.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
+import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
 
 export default {
   name: 'Tradelist',
@@ -220,7 +222,8 @@ export default {
     CreateAccountModal,
     SetSelector,
     SkinnyAd,
-    MoveToEarningsButton
+    MoveToEarningsButton,
+    ToggleTradableButton
   },
   data() {
 
