@@ -12,8 +12,12 @@
   </div>
 </template>
 <style scoped>
-  .skinnyAd{
-    background: pink
+  .skinnyAd {
+    background-image: url('https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg');
+    border-radius: 10px;
+    background-size: 100%;
+    background-position: center center;
+
   }
 </style>
 <script>

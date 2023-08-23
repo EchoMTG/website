@@ -261,6 +261,10 @@ export default {
         this.$store.commit('authenticated',false);
         this.$store.commit('user', shellUser);
         window.localStorage.removeItem('user')
+        this.$cookies.remove('token', {
+          domain: '.echomtg.com',
+          path: '/'
+        })
       }
 
 
