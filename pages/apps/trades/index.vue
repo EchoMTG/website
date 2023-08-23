@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
     <b-field v-if="authenticated" class="m-3">
       <b-input placeholder="Search Users Open for Trade..."
@@ -33,7 +34,7 @@
       striped
       :sticky-header="true"
       >
-      
+
       <b-table-column field="username" label="User Name" v-slot="props">
         <a :href="`/apps/trades/${props.row.user_hash}/`" :title="`Open ${props.row.username} Trade Page`">
           {{props.row.username}}
@@ -105,11 +106,9 @@ export default {
     let json = null
 
     try {
-      if($cookies.get('token')){
-        json = await $echomtg.tradesPublicList()
-      } else {
-        json = await $echomtg.tradesPublicListBackend()
-      }
+
+      json = await $echomtg.tradesPublicListBackend()
+
       public_trade_list = json.items
       meta = json.meta
 

@@ -8,8 +8,7 @@
                     <div class="container p-5">
                       <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
 
-                      <skinny-ad title="Access filters and trade search" v-if="!authenticated" />
-
+                      <skinny-ad :title="`Search ${totalTrades} trades with filters and sorting`" :description="`Login or Created a Free Account Now`" v-if="!authenticated" />
 
                       <div v-if="authenticated" class="tradefilterBar">
                         <nav class="level p-2">
@@ -166,15 +165,17 @@
                       </template>
                       <template #footer v-if="!authenticated">
                         <div v-if="!authenticated" class="has-text-right">
+                          <div class="message m-5">
                             <div class="columns">
-                              <div class="column is-5">
-                                <h2 class="titel is-3">Login or Create a Free Account to browse all of {{tradeUser.username}} items</h2>
+                              <div class="column is-6">
+                                <h2 class="is-size-6">Login or Create a Free Account to browse {{totalTrades}} of <strong>{{tradeUser.username}}'s</strong> items</h2>
                               </div>
                               <div class="column is-5">
-                                <create-account-modal />
+                                <create-account-modal size="is-small" />
                               </div>
 
                             </div>
+                          </div>
                         </div>
                     </template>
 

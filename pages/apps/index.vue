@@ -93,7 +93,7 @@ export default {
           name: `Tradelist`,
           description: `Mark inventory items for trade to access a publically available tradelist.`,
           icon:  `handshake`,
-          url: `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/`
+          url: this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
         },
         {
           name: `Earnings`,
@@ -104,7 +104,8 @@ export default {
       ]
     },
     ...mapState([
-      'user'
+      'user',
+      'authenticated'
     ])
   },
   head () {

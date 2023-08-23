@@ -705,12 +705,12 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
   }
 
-  echomtg.tradesPublicListBackend = async (start=0,limit=100,search='') => {
+  echomtg.tradesPublicListBackend = async (start=0,limit=100,search=null) => {
 
     const params = [
       `start=${start}`,
       `limit=${limit}`,
-      search == '' ? null : `search=${search}`
+      search == '' || search==null ? null : `search=${search}`
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}trades/public_list/?${params}`;
