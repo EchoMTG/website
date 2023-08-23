@@ -5,7 +5,7 @@
             :label="label"
             type="is-primary"
             :size="size"
-            class="mythic-background"
+            :class="`mythic-background ${classes}`"
             @click="isComponentModalActive = true" />
 
         <b-modal
@@ -33,6 +33,10 @@
           label: {
             type: String,
             default: 'Create Free Account'
+          },
+          classes: {
+            type: String,
+            default: ''
           },
           size: {
             type: String,

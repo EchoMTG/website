@@ -89,7 +89,7 @@
                         <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
 
                       </b-table-column>
-                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
+                      <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set_code" label="Expansion" sortable v-slot="props">
                         <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
                       </b-table-column>
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_mid" label="Today" numeric sortable v-slot="props">
@@ -432,7 +432,7 @@ export default {
           icon: 'briefcase-arrow-left-right'
         },
         {
-          label: `${this.user.username}'s Trade List`,
+          label: `${this.tradeUser.username}'s Trade List`,
           url: this.$route.path,
           icon: ''
         }
@@ -454,7 +454,7 @@ export default {
   },
   head () {
       return {
-          title: `Tradelist: share your collection items with the public`,
+          title: `${this.tradeUser}'s Tradelist`,
           description: `A collector tools for sharing tradable items in their inventory`
       }
     }
