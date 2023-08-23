@@ -34,6 +34,13 @@ export default {
 
 
   },
+  async fetch() {
+    let data = await this.$echomtg.getSet(params.set_code);
+
+    this.set = data.set,
+    this.set_code = params.set_code
+
+  },
   async asyncData({ params, redirect, $echomtg }) {
 
     let data = await $echomtg.getSet(params.set_code);
