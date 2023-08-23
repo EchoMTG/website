@@ -18,7 +18,7 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
-        
+
         <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
           <a href="/apps/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
         </div>
@@ -107,14 +107,6 @@
            <div class="field is-grouped">
 
             <p class="control">
-              <!-- <router-link to="/"
-                class=" button is-success mythic-background"
-                title="Create Account"
-              >
-                <b-icon icon="account-plus" custom-size="default" />
-                <span>Free Account</span>
-              </router-link>
-               -->
                <create-account-modal size="default" label="Free Account" />
             </p>
             <p class="control">

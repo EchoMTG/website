@@ -29,7 +29,7 @@ export default {
       expansions: []
     }
   },
-  fetchOnServer: false,
+  fetchOnServer: true,
   async fetch() {
     this.expansions = await this.$echomtg.getSets()
   },
