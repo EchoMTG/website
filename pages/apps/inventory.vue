@@ -1,7 +1,9 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad title="You Must be Logged in to Use the Inventory App" v-if="!authenticated"/>
+    <full-ad title="You Must be Logged in to Use the Inventory App" 
+      image="https://assets.echomtg.com/images/product/collection-app-2023.png"
+    v-if="!authenticated"/>
     <span v-if="authenticated">
       <section class="hero is-small has-background-black has-text-white is-hidden-mobile">
         <div class="hero-body">

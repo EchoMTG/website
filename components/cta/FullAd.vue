@@ -66,7 +66,7 @@
       },
       image: {
         type: String,
-        default: 'https://assets.echomtg.com/images/product/collection-app-2023.png'
+        default: 'https://assets.echomtg.com/images/product/card-page-2023.png'
       },
       description: {
         type: String,

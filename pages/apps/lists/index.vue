@@ -1,59 +1,71 @@
 <template>
 <div>
    <echo-bread-crumbs :data="crumbs"/>
-
-    <div class="lists2">
-        <div class="columns">
-            <div class="column">
-                <h2 class="title is-size-5">
-                    Your Lists
-                    <span class="has-text-grey">
-                        (<span v-html="lists.length"></span> of <span v-html="user.planObject.list_cap"></span>)
-                    </span>
-                    <a v-if="lists.length >= user.planObject.list_cap" class="button is-success is-small is-pulled-right" href="/plans/">
-                        <span class="icon">
-                            <i class="fa fa-lightbulb-o"></i>
+   <full-ad 
+      title="You Must be Logged in to Use Lists and Decks" 
+      v-if="!authenticated" />
+    <span v-if="authenticated">
+        <div class="lists2">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="title is-size-5">
+                        Your Lists
+                        <span class="has-text-grey">
+                            (<span v-html="lists.length"></span> of <span v-html="user.planObject.list_cap"></span>)
                         </span>
-                        <span>Get More Lists, Upgrade Plan</span>
-                    </a>
-                </h2>
-                <table v-if="lists.length > 0" class="table is-hoverable is-bordered is-fullwidth">
-                    <tbody>
-                        <tr is="list-item" v-for="(list, index) in lists" :item="list" :index="index" :key="index" />
-                    </tbody>
-                </table>
-            </div>
-            <div class="column is-one-third">
-                <create-list></create-list>
-            </div>
-            <div class="modal" id="delete-modal">
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                <!-- <section class="modal-card-body">
-                    Delete <span v-html="targetDeck.name"></span>?
-                </section> -->
-                    <footer class="modal-card-foot">
-                        <button class="button is-danger" v-bind:data-list-key="targetDeckKey" id="delete-list-button" @click="deleteList">Delete</button>
-                        <button class="button is-dark" onclick="document.querySelector('#delete-modal').classList.remove('is-active')">Cancel</button>
-                    </footer>
+                        <a v-if="lists.length >= user.planObject.list_cap" class="button is-success is-small is-pulled-right" href="/plans/">
+                            <span class="icon">
+                                <i class="fa fa-lightbulb-o"></i>
+                            </span>
+                            <span>Get More Lists, Upgrade Plan</span>
+                        </a>
+                    </h2>
+                    <table v-if="lists.length > 0" class="table is-hoverable is-bordered is-fullwidth">
+                        <tbody>
+                            <tr is="list-item" v-for="(list, index) in lists" :item="list" :index="index" :key="index" />
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column is-one-third">
+                    <create-list></create-list>
+                </div>
+                <div class="modal" id="delete-modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                    <!-- <section class="modal-card-body">
+                        Delete <span v-html="targetDeck.name"></span>?
+                    </section> -->
+                        <footer class="modal-card-foot">
+                            <button class="button is-danger" v-bind:data-list-key="targetDeckKey" id="delete-list-button" @click="deleteList">Delete</button>
+                            <button class="button is-dark" onclick="document.querySelector('#delete-modal').classList.remove('is-active')">Cancel</button>
+                        </footer>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </span>
 </div>
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
 import axios from 'axios'
 import CreateList from "@/components/list/CreateList.vue";
 import ListItem from "@/components/list/ListItem.vue";
 import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
+import FullAd from '~/components/cta/FullAd.vue'
 
   export default {
     components: {
       CreateList,
       ListItem,
-      EchoBreadCrumbs
+      EchoBreadCrumbs,
+      FullAd,
+      ...mapState([
+        'user',
+        'authenticated'
+      ])
     },
     data () {
       return {
@@ -105,6 +117,8 @@ import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
         },
     },
     created(){
+        if(!this.authenticated) return;
+
         let $this = this
         let token = this.$cookies.get('token');
         let url = `${this.$config.API_DOMAIN}lists/all/?&auth=${token}`
@@ -126,10 +140,6 @@ import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
                 $this.sortList();
             });
 
-        axios.get(`${this.$config.API_DOMAIN}user/meta/?&auth=${token}`)
-            .then(function(response){
-                $this.user = response.data.user;
-            });
     }
   }
 </script>
