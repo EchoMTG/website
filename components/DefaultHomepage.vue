@@ -45,7 +45,7 @@
     <div class="container mt-4">
       <tiles>
         <promotion-card-widget
-          image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
+          image="https://assets.echomtg.com/images/product/collection-app-2023.png"
           class="tile is-child"
           title="Collection Tracking"
           icon="chart-areaspline"
