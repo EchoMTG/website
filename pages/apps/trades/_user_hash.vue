@@ -82,7 +82,7 @@
                       narrowed
 
                       :checked-rows.sync="selectedItems"
-                      checkable
+                      :checkable="!isUserOwner"
                       :checkbox-position="`right`"
                       :checkbox-type="`is-info`"
 
@@ -137,11 +137,9 @@
 
 
                       </b-table-column>
-                      <!-- <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" numeric sortable v-slot="props">
-                        <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
-                          {{ props.row.price_change }} %
-                        </span>
-                      </b-table-column> -->
+                      <b-table-column v-if="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"  numeric  v-slot="props">
+                        <move-to-earnings-button :inventory_item="props.row" :currency_symbol="currency_symbol" :callback="loadAsyncData"/>
+                      </b-table-column>
 
                       <template slot="detail" slot-scope="props">
                         <tr>
@@ -209,6 +207,7 @@ import QuickGraph from '~/components/inventory/QuickGraph.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
 import SkinnyAd from '~/components/cta/SkinnyAd.vue'
+import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 
 export default {
   name: 'Tradelist',
@@ -219,7 +218,8 @@ export default {
     QuickGraph,
     CreateAccountModal,
     SetSelector,
-    SkinnyAd
+    SkinnyAd,
+    MoveToEarningsButton
   },
   data() {
 
@@ -454,6 +454,9 @@ export default {
 
   },
   computed: {
+    isUserOwner() {
+      return this.user.username == this.tradeUser.username
+    },
     hasFilters(){
       return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0 || this.reserve_list != null)
     },
