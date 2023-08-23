@@ -160,7 +160,7 @@ export default {
   computed: {
     tools(){
       return toolsMenu({
-        tradesurl : `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/`
+        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       })
     },
     menuNavBarToggleIcon () {

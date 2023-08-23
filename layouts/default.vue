@@ -76,7 +76,7 @@ export default {
 
       if (this.authenticated){
         let tools = toolsMenu({
-          tradesurl : `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/`
+          tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
         });
         navList.push('Tools');
         navList.push(tools);
