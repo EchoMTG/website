@@ -158,7 +158,10 @@
             <div v-if="this.prices.regular !== undefined && this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null">
               <item-price-analysis  :prices="this.prices"  />
             </div>
-            <div v-if="this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null">
+            <div v-if="!this.authenticated" class="has-text-centered pb-4">
+              <p><a href="/login/">Login</a> or Create an Account to see more Price Details</p><create-account-modal size="is-small" />
+            </div>
+            <div v-if="this.authenticated && (this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null)">
               <h3 class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
               <item-price-analysis :prices="this.prices" type="foil" />
             </div>
@@ -231,6 +234,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
 import SetTag from '~/components/magic/SetTag.vue'
 import CardAd from '@/components/cta/CardAd.vue'
+import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 
 export default {
   name: 'Expansion',
@@ -242,7 +246,8 @@ export default {
     ItemInspectorWrapper,
     ItemPriceAnalysis,
     ItemListBox,
-    CardAd
+    CardAd,
+    CreateAccountModal
   },
   data () {
     return {
