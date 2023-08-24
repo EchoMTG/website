@@ -62,7 +62,7 @@
                 icon="magnify"
                 rounded
                 size="is-small"
-                class="mr-2"
+                class="level-item mr-2"
                 />
             <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
 
@@ -501,6 +501,8 @@ export default {
 
 
         this.loading = false
+
+        this.onResize();
 
       } catch (error){
 
