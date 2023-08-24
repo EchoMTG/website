@@ -205,8 +205,11 @@
 
       </div>
       <div class="column is-one-quarter ">
-        <item-tool-box :item="this.item"></item-tool-box>
-        <item-list-box :item="this.item"></item-list-box>
+        <client-only>
+          <item-tool-box v-if="authenticated" :item="this.item"></item-tool-box>
+          <item-list-box v-if="authenticated" :item="this.item"></item-list-box>
+        </client-only>
+        <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
       </div>
     </div>
 
@@ -217,6 +220,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import SetView from '@/components/sets/SetView'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 
@@ -226,6 +230,7 @@ import ItemListBox from '@/components/items/ItemListBox.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
 import SetTag from '~/components/magic/SetTag.vue'
+import CardAd from '@/components/cta/CardAd.vue'
 
 export default {
   name: 'Expansion',
@@ -236,7 +241,8 @@ export default {
     ItemToolBox,
     ItemInspectorWrapper,
     ItemPriceAnalysis,
-    ItemListBox
+    ItemListBox,
+    CardAd
   },
   data () {
     return {
@@ -433,7 +439,11 @@ export default {
     lastUpdateDate() {
       if(undefined == this.prices.date) return 'N/A';
       return this.prices.date[this.prices.date.length - 1];
-    }
+    },
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
   },
   head () {
     return {
