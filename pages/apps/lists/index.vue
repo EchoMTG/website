@@ -61,11 +61,8 @@ import FullAd from '~/components/cta/FullAd.vue'
       CreateList,
       ListItem,
       EchoBreadCrumbs,
-      FullAd,
-      ...mapState([
-        'user',
-        'authenticated'
-      ])
+      FullAd
+      
     },
     data () {
       return {
@@ -89,7 +86,11 @@ import FullAd from '~/components/cta/FullAd.vue'
             icon: ''
           }
         ]
-      }
+      },
+      ...mapState([
+        'user',
+        'authenticated'
+      ])
     },
     methods: {
         deleteList(event) {

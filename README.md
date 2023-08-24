@@ -29,12 +29,21 @@ These command line tools must be installed to run this website on your local mac
 $ npm install
 
 # 2 ways to serve locally
+
 # Option A: on mac or linux serve with hot reload at localhost:3000
 $ npm run dev
+
+# view output from browser at http://localhost:3000/
+# note for login to work with cookies, edit /etc/hosts to add "nuxt.echomtg.com 127.0.0.1" 
+# to access http://nuxt.echomtg.com:3000/mtg/sets/dom/dominaria/
+
 # Option B: Running docker on WSL (windows)
 $ docker-compose up 
 
 # view output from browser at http://localhost:8080/
+# note for login to work with cookies, edit /etc/hosts to add "nuxt.echomtg.com 127.0.0.1" 
+# to access http://nuxt.echomtg.com:8080/mtg/sets/dom/dominaria/
+
 ```
 
 ### Building for Production
