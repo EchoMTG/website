@@ -1,7 +1,7 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad title="You Must be Logged in to Use the Inventory App" 
+    <full-ad title="You Must be Logged in to Use the Inventory App"
       image="https://assets.echomtg.com/images/product/collection-app-2023.png"
     v-if="!authenticated"/>
     <span v-if="authenticated">
@@ -65,6 +65,23 @@
                 class="mr-2"
                 />
             <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+
+            <b-dropdown class="level-item is-hidden-mobile" v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
+              <template #trigger>
+                  <b-button
+                      size="is-small"
+                      icon-left="lightning-bolt"
+                      type="is-info"
+                      :label="`Bulk Action (${checkedRows.length})`"
+                      icon-right="menu-down" />
+              </template>
+              <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
+              <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
+            </b-dropdown>
           </div>
           <div class="level-right">
             <b-field class="level-item" style="margin-bottom: 0 !important;">
@@ -177,8 +194,7 @@
         detail-key="inventory_id"
         :checked-rows.sync="checkedRows"
         checkable
-        :checkbox-position="`right`"
-        :checkbox-type="`is-white`"
+        :checkbox-position="`left`"
         >
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
@@ -254,7 +270,7 @@
 
           <b-table-column label="Bulk Action">
             <template v-slot:header="{ column }">
-              <b-dropdown v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
+              <!-- <b-dropdown v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
                 <template #trigger>
                     <b-button
                         size="is-small"
@@ -270,7 +286,7 @@
                 <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
                 <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
                 <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
-              </b-dropdown>
+              </b-dropdown> -->
 
             </template>
             <template v-slot="props">
@@ -314,11 +330,28 @@
           </template>
 
           <template #bottom-left>
-              <b>Total checked</b>: {{ checkedRows.length }}
+            <b-dropdown v-if="checkedRows.length > 0" position="is-top-right" :expanded="true" :triggers="['hover']" aria-role="list">
+                <template #trigger>
+                    <b-button
+                        size="is-small"
+                        icon-left="lightning-bolt"
+                        class="is-pulled-right"
+                        type="is-info"
+                        :label="`Bulk Action (${checkedRows.length})`"
+                        icon-right="menu-down" />
+                </template>
+                <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
+                <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
+                <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
+                <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
+                <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
+                <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
+              </b-dropdown>
+              <!-- <b>Total checked</b>: {{ checkedRows.length }} -->
           </template>
 
       </b-table>
-    </span>  
+    </span>
   </div>
 </template>
 
@@ -407,6 +440,9 @@ export default {
     set_code(){
       this.$fetch();
     },
+    authenticated(){
+      this.$fetch();
+    },
     tradable() {
       this.$fetch();
     },
@@ -431,7 +467,7 @@ export default {
   },
   async fetch() {
       if(!this.authenticated) return;
-      
+
       await this.refreshPriceMeta()
       this.loading = true
       try {
