@@ -2,6 +2,11 @@
   <div>
     <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
+    <full-ad 
+      title="Login Required to Search Trade Lists"
+      v-if="!authenticated && (public_trade_list.length == 0)" 
+      image="https://assets.echomtg.com/images/product/trades-app-2023.png"
+      />
     <b-field v-if="authenticated" class="m-3">
       <b-input placeholder="Search Users Open for Trade..."
           type="search"
@@ -11,6 +16,7 @@
       </b-input>
     </b-field>
     <b-table
+      v-if="public_trade_list.length !== 0"
       :height="tableHeight"
       :debounce-search="0"
 
@@ -51,20 +57,24 @@
 
 <script>
 import { mapState } from 'vuex'
+import FullAd from '~/components/cta/FullAd.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
+
 export default {
-  name: 'Tools',
+  name: 'Trades',
   components: {
     EchoBreadCrumbs,
-    CreateAccountModal
+    CreateAccountModal,
+    FullAd
   },
+  ssr: true,
   data () {
     return {
       public_trade_list: [],
       meta: {
         total: 0,
-        limit: 0
+        limit: 100
       },
       loading: false,
       tableHeight: 600,
@@ -100,7 +110,7 @@ export default {
     }
   },
   async asyncData({$echomtg, $cookies}) {
-
+    console.log('running')
     let public_trade_list = []
     let meta = {}
     let json = null
@@ -109,7 +119,7 @@ export default {
 
       json = await $echomtg.tradesPublicListBackend()
 
-      public_trade_list = json.items
+      public_trade_list = json.items ? json.items : []
       meta = json.meta
 
     } catch (error) {

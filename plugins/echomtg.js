@@ -21,6 +21,13 @@ export default (context, inject) => {
     }
   }
 
+  echomtg.getS2SHeadersNoJSON = () => {
+    return {
+      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
+    }
+  }
+
+
   echomtg.getS2SGetHeaders = () => {
     return {
       'Content-Type': 'application/json',
@@ -717,7 +724,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: echomtg.getS2SHeaders()
+      headers: echomtg.getS2SHeadersNoJSON()
     });
 
     return await res.json();

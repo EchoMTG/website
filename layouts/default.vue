@@ -49,9 +49,7 @@ export default {
   computed: {
 
     menu () {
-      if(this.user && this.user.username != ''){
-        this.$echomtg.log('user, auth', this.authenticated,this.user);
-      }
+     
       let navList = [
           'Magic: the Gathering',
           [
@@ -73,13 +71,14 @@ export default {
           ],
       ];
 
-
+      let tools = toolsMenu({
+        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
+      });
+      navList.push('TCG App');
+      navList.push(tools);
+      
       if (this.authenticated){
-        let tools = toolsMenu({
-          tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
-        });
-        navList.push('Tools');
-        navList.push(tools);
+        
         navList.push('My Account');
         navList.push([
            {
