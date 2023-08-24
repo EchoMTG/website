@@ -68,8 +68,7 @@ import FullAd from '~/components/cta/FullAd.vue'
       return {
           lists: [],
           targetDeck: {'name':'deck'},
-          targetDeckKey: 0,
-          user: { planObject: {'list_cap':5}}
+          targetDeckKey: 0
       }
     },
     computed: {
@@ -91,6 +90,22 @@ import FullAd from '~/components/cta/FullAd.vue'
         'user',
         'authenticated'
       ])
+    },
+    async fetch(){
+        
+        try{
+            const res = await this.$echomtg.getAllLists();
+
+            const mapped = Object.entries(res.lists).map(([k,v]) => v);
+    
+            mapped.forEach(item => {
+                this.lists.push(item)
+            })
+
+            this.sortList();
+        } catch (err){
+            
+        }
     },
     methods: {
         deleteList(event) {
@@ -117,30 +132,5 @@ import FullAd from '~/components/cta/FullAd.vue'
             this.lists.sort((obj1, obj2) => obj2.id - obj1.id);
         },
     },
-    created(){
-        if(!this.authenticated) return;
-
-        let $this = this
-        let token = this.$cookies.get('token');
-        let url = `${this.$config.API_DOMAIN}lists/all/?&auth=${token}`
-        axios.get(url)
-            .then(function(response){
-                const mapped = Object.entries(response.data.lists).map(([k,v]) => v);
-                // var result = Object.keys(response.data.lists).map((key) => { return { index: response.data.lists[key]}});
-                mapped.forEach(item => {
-                    $this.lists.push(item)
-                    // $this.targetDeck = item;
-                    // $this.targetDeckKey = index;
-                })
-
-                // for(index in mapped){
-                //     $this.lists.push(response.data.lists[index])
-                //     $this.targetDeck = response.data.lists[index];
-                //     $this.targetDeckKey = index;
-                // }
-                $this.sortList();
-            });
-
-    }
   }
 </script>
