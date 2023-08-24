@@ -221,11 +221,6 @@ export default {
 
 
   },
-  watch: {
-    dark_mode: function (){
-      this.updateValue('dark_mode',this.dark_mode);
-    }
-  },
   methods: {
     openPlan(){
       this.$router.push({path: '/plans/'});
@@ -267,6 +262,7 @@ export default {
     },
     toggleDark () {
       this.dark_mode = this.dark_mode == 1 ? 0 : 1;
+      this.updateValue('dark_mode',this.dark_mode);
     },
     logout () {
       this.$buefy.snackbar.open({
