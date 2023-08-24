@@ -88,11 +88,11 @@
               <span>Change Password</span>
             </a> -->
 
-            <!-- <hr class="navbar-divider">
+            <hr class="navbar-divider">
             <a class="navbar-item" @click="toggleDark">
               <b-icon icon="brightness-4"  custom-size="default" />
               <span>Toggle Darkmode</span>
-            </a> -->
+            </a>
             <hr class="navbar-divider">
 
             <a class="navbar-item" @click="logout">
@@ -154,6 +154,7 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
+      dark_mode: null
 
     }
   },
@@ -216,13 +217,37 @@ export default {
     this.$router.afterEach(() => {
       this.isMenuNavBarActive = false
     })
+    this.dark_mode = parseInt(this.user.dark_mode)
 
 
   },
-
+  watch: {
+    dark_mode: function (){
+      this.updateValue('dark_mode',this.dark_mode);
+    }
+  },
   methods: {
     openPlan(){
       this.$router.push({path: '/plans/'});
+    },
+    updateValue: async function (name, value){
+      let body = {};
+      body[name] = value;
+      // control dark mode
+      if(name == 'dark_mode'){
+        this.$store.commit('darkModeToggle', parseInt(value) == 1)
+      }
+       // need to update user in store
+      await this.$echomtg.updateUser(body)
+
+      // get latest user info
+      const userdata = await this.$echomtg.getUserMeta();
+
+      // update store
+      if(userdata.status == 'success'){
+        this.$store.commit('user', userdata.user);
+      }
+
     },
     menuToggle () {
 
@@ -241,7 +266,7 @@ export default {
       this.$store.dispatch('asideRightToggle')
     },
     toggleDark () {
-      this.$store.commit('darkModeToggle')
+      this.dark_mode = this.dark_mode == 1 ? 0 : 1;
     },
     logout () {
       this.$buefy.snackbar.open({

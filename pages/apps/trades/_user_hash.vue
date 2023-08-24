@@ -82,8 +82,6 @@
 
                       :checked-rows.sync="selectedItems"
                       :checkable="!isUserOwner"
-                      :checkbox-position="`right`"
-                      :checkbox-type="`is-info`"
 
 
                       detailed
@@ -96,24 +94,25 @@
 
                       striped
                        :sticky-header="true"
-                      sticky-checkbox
                       backend-sorting
                       :default-sort-direction="defaultSortOrder"
                       :default-sort="[sortField, sortOrder]"
                       @sort="onSort">
 
                       <b-table-column field="name" label="Name" sortable v-slot="props">
-                        <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
+                        <a class="is-pulled-left mr-3" style="position: relative; overflow: hidden;"  :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
                           <b-image
                               lazy
                               :src="props.row.image_cropped"
-                              custom-class="mr-3"
+                              custom-class=""
                               placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                              style="height: 50px; width:70px; float: left; margin-right: 4px;"
+                              style="height: 32px; width:44px;"
                               />
+                              <div v-if="props.row.foil == 1" class="rainbow-background" style="position: absolute; opacity: .3; top: 0; right: 0; bottom: 0; left: 0;"></div>
+                              <i v-if="props.row.foil == 1" class=" ss  ss-htr ss-3x" style="color: white; font-size: 24px; font-weight: bold; opacity: .5; position: absolute; bottom: -5px; right: 5px;" ></i>
                         </a>
                         <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
-                        <i class="has-text-warning-dark is-pulled-left mr-2 ss  ss-htr ss-3x rainbow-text" style="font-size: 24px; font-weight: bold" v-if="props.row.foil == 1"></i>
+
                         <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
 
                       </b-table-column>
