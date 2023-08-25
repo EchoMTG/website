@@ -113,10 +113,11 @@
                 />
             </b-field>
             <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
-                <option selected disabled value="">Trades</option>
+                <option selected value="">By Tradable</option>
                 <option disabled>---</option>
-                <option value="false">Show All</option>
-                <option value="true">Only Tradable</option>
+                <option value="">Show All</option>
+                <option value="0">Not for Trade</option>
+                <option value="1">Only Tradable</option>
             </b-select>
 
             <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
@@ -132,7 +133,7 @@
               <option data-color="Green" value="green">Green</option>
               <option data-color="Multicolor" value="multicolor">Multicolor</option>
             </b-select>
-            
+
             <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
                 <option selected="selected" value="" disabled="disabled">By Rarity</option>
                 <option value="false">All</option>
@@ -288,7 +289,7 @@
 
           <b-table-column label="Bulk Action">
             <template v-slot:header="{ column }">
-       
+
             </template>
             <template v-slot="props">
               <note-button :inventory_item="props.row" :callback="$fetch"/>

@@ -660,7 +660,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     set_code='',
     color='',
     rarity='',
-    tradable='',
+    tradable=false,
     reserve_list=false,
     cmc=false,
     priceOver=false,
@@ -676,12 +676,12 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
       `set_code=${set_code}`,
       `color=${color}`,
       `rarity=${rarity}`,
-      `tradable=${tradable}`,
+      tradable && tradable != '' ? `tradable=${tradable}` : null,
       reserve_list ? `reserve_list=${reserve_list}` : null,
       cmc ? `cmc=${cmc}` : null,
       priceUnder ? `price_under=${priceUnder}` : null,
       priceOver ? `price_over=${priceOver}` : null,
-      foil != ''? `foils=${foil}` : null
+      foil != '' ? `foils=${foil}` : null
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}inventory/view/?${params}`;

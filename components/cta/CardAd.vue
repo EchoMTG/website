@@ -1,7 +1,7 @@
 <template>
     <div class="cardAdd">
       <div class="card has-background-light">
-        <div class="card-header has-background-info">
+        <div class="card-header has-background-danger">
           <h3 class="has-text-white has-text-centered is-size-5 p-2">{{title}}</h3>
           <small class="has-text-centered pt-3 pr-2 has-text-white is-size-6">{{description}}</small>
         </div>

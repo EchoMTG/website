@@ -1,6 +1,6 @@
 <template>
   <b-modal v-model="isOpen" :active="active" :width="640" scroll="keep">
-      <div class="card has-background-white">
+      <div :class="isDarkModeActive ? `card has-background-dark` : `card has-background-white`">
           <div :class="`card-header has-background-${actionColor[actiontype]}`" >
             <p class="card-header-title has-text-white">
               <b-icon :icon="actionIcons[actiontype]" /> {{actionNames[actiontype]}} ({{selecteditems.length}}) Inventory Items
@@ -87,6 +87,7 @@
 </template>
 <script>
 
+import { mapState } from 'vuex'
 
 export default {
 
@@ -175,6 +176,9 @@ export default {
       this.toggleBulkModal(this.actiontype)
     }
   }
+ },
+ computed: {
+  ...mapState(['isDarkModeActive'])
  },
  methods: {
   async getLists() {
