@@ -7,7 +7,7 @@
       v-if="!authenticated" />
     <span v-if="authenticated">
 
-      <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-0">
+      <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-4">
         <div class="columns">
           <div class="column  is-two-thirds">
             <h1 class="title has-text-white">
@@ -18,10 +18,12 @@
             </h3>
           </div>
           <div class="column is-one-third">
-            <h3 class="title is-size-6">Notifications</h3>
-            <p>You must have a mythic account and a verified phone number to get daily notifications</p>
-            <h4 class="title is-size-6">Verify your mobile number</h4>
-            <p></p>
+            <feature-gate classes="mt-4 is-inline-block" size="is-large" :showAd="true" adText="Upgrade to Mythic for SMS Updates" :gate-level="4" >
+           
+              <h3 class="title is-size-6">Notifications</h3>
+              <p>You must have a mythic account and a verified phone number to get daily notifications</p>
+              <h4 class="title is-size-6">Verify your mobile number</h4>
+            </feature-gate>
           </div>
         </div>
       </section>
@@ -100,6 +102,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import ThresholdInput from '~/components/watchlist/ThresholdInput.vue'
 import FullAd from '~/components/cta/FullAd.vue'
+import FeatureGate from '~/components/user/FeatureGate.vue'
 
 export default {
   name: 'Watchlist',
@@ -107,7 +110,8 @@ export default {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
     ThresholdInput,
-    FullAd
+    FullAd,
+    FeatureGate
   },
   data () {
     return {
@@ -116,13 +120,24 @@ export default {
       }],
       cs: '$',
       tableHeight: 400,
-      windowHeight: 1000
+      windowHeight: 1000,
+      start: 0,
+      limit: 3
     }
   },
   async fetch(){
     await this.getWatchlist();
   },
+  watch: {
+    user() {
+      this.limit = this.user.planObject.access_level > 0 ? 100 : 3
+      this.getWatchlist();
+    }
+  },
   mounted() {
+
+   
+
     this.updateTableHeight()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
@@ -131,7 +146,7 @@ export default {
   methods: {
     async getWatchlist() {
       if(!this.authenticated) return;
-      let data = await this.$echomtg.getWatchlist()
+      let data = await this.$echomtg.getWatchlist(this.start, this.limit)
       this.watchlist = data.items;
     },
     async deleteItem(watchlist_id) {

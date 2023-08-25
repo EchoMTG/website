@@ -74,7 +74,7 @@ export default {
       let tools = toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       });
-      navList.push('TCG App');
+      navList.push('TCG Apps');
       navList.push(tools);
       
       if (this.authenticated){
