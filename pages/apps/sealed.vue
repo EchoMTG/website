@@ -1,56 +1,61 @@
 <template>
     <div>
         <echo-bread-crumbs :data="crumbs" />
-        <full-ad 
-          title="You Must be Logged in to Use the Sealed Product App" 
+        <full-ad
+          title="You Must be Logged in to Use the Sealed Product App"
           image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
           v-if="!authenticated" />
-        <span v-if="authenticated">
-          <nav class="earnings-tabs level" id="finances">
-              <div class="level-item has-text-centered">
-                  <div>
-                      <p class="heading">Sealed Tracking</p>
-                      <p class="title">{{ this.sealed.length }}</p>
+        <feature-locked-full title="Sealed App Locked" :authed="authenticated" :levelRequired="4" />
+        <feature-gate  :showAd="false" :gate-level="4">
+
+          <div class="has-background-dark ">
+            <nav class="earnings-tabs level pt-3 has-text-white" id="finances">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Sealed Tracking</p>
+                        <p class="title has-text-white">{{ this.sealed.length }}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Sealed Value</p>
+                        <p class="title has-text-white">{{symbol}}{{totalValue}}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Acquired For</p>
+                        <p class="title has-text-white">{{symbol}}{{acquiredForValue}}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Difference</p>
+                        <p class="title has-text-white">{{symbol}}{{difference}}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Gain/Loss</p>
+                        <span class="title has-text-white percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
+                        <span class="title has-text-white percentage green up" v-if="difference > 0">{{gainloss}}%</span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container  pb-5 pl-4 pr-4">
+                <div class="columns">
+                  <div class="column">
+                    <div class="control has-icons-left has-icons-right">
+                        <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
+                        <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+                    </div>
                   </div>
-              </div>
-              <div class="level-item has-text-centered">
-                  <div>
-                      <p class="heading">Sealed Value</p>
-                      <p class="title">{{symbol}}{{totalValue}}</p>
-                  </div>
-              </div>
-              <div class="level-item has-text-centered">
-                  <div>
-                      <p class="heading">Acquired For</p>
-                      <p class="title">{{symbol}}{{acquiredForValue}}</p>
-                  </div>
-              </div>
-              <div class="level-item has-text-centered">
-                  <div>
-                      <p class="heading">Difference</p>
-                      <p class="title">{{symbol}}{{difference}}</p>
-                  </div>
-              </div>
-              <div class="level-item has-text-centered">
-                  <div>
-                      <p class="heading">Gain/Loss</p>
-                      <span class="title percentage red down" v-if="difference <= 0">{{gainloss}}%</span>
-                      <span class="title percentage green up" v-if="difference > 0">{{gainloss}}%</span>
-                  </div>
-              </div>
-          </nav>
-          <div class="container mb-5 ml-4 mr-4">
-              <div class="columns">
-                <div class="column">
-                  <div class="control has-icons-left has-icons-right">
-                      <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
-                      <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+                  <div class="column is-two-thirds"  style="min-height: 40px">
+                      <global-search firstSearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
                   </div>
                 </div>
-                <div class="column is-two-thirds"  style="min-height: 40px">
-                    <global-search firstSearch="booster box" callbackname="Add to Sealed" :callback="addSealed" :showimage="true" />
-                </div>
-              </div>
+            </div>
           </div>
 
           <b-table
@@ -92,7 +97,7 @@
                 <span class="fa fa-trash"></span> </button>
               </b-table-column>
           </b-table>
-        </span>
+        </feature-gate>
     </div>
 </template>
 <script>
@@ -101,13 +106,17 @@ import GlobalSearch from '@/components/GlobalSearch'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper'
 import FullAd from '~/components/cta/FullAd.vue'
+import FeatureGate from '~/components/user/FeatureGate.vue'
+import FeatureLockedFull from '~/components/cta/FeatureLockedFull.vue'
 
 export default {
-  components: { 
-    GlobalSearch, 
-    EchoBreadCrumbs, 
+  components: {
+    GlobalSearch,
+    EchoBreadCrumbs,
     ItemInspectorWrapper,
-    FullAd    
+    FullAd,
+    FeatureGate,
+    FeatureLockedFull
   },
   data() {
     return {
@@ -212,7 +221,7 @@ export default {
           url: '/apps/'
         },
         {
-          icon: 'seal',
+          icon: 'package',
           label: 'Sealed',
           url:  '/apps/sealed/'
         }
@@ -246,6 +255,11 @@ export default {
     status: function () {
       this.fetchSealedData()
     },
+    authenticated() {
+      if(this.authenticated == true){
+        this.$fetch();
+      }
+    }
   },
   created() {
     this.fetchSealedData()

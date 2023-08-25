@@ -1676,10 +1676,10 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://dev.echomtg.com/api/inventory/view/?start=0&limit=200&price_over=10&price_under=50&search=e",
+							"raw": "https://api.echomtg.com/api/inventory/view/?start=0&limit=200&price_over=10&price_under=50&tradable=1",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"api",
 								"echomtg",
 								"com"
 							],
@@ -1708,7 +1708,12 @@ export default {
 								},
 								{
 									"key": "search",
-									"value": "e"
+									"value": "e",
+									"disabled": true
+								},
+								{
+									"key": "tradable",
+									"value": "1"
 								}
 							]
 						},
@@ -1754,6 +1759,11 @@ export default {
 										{
 											"key": "search",
 											"value": "e"
+										},
+										{
+											"key": "tradable",
+											"value": "1",
+											"disabled": true
 										}
 									]
 								}
@@ -5797,6 +5807,16 @@ export default {
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -5810,10 +5830,10 @@ export default {
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "https://www.echomtg.com/api/inventory/add/",
+							"raw": "https://api.echomtg.com/api/inventory/add/?emid=152571&foil=0&quantity=1&language=en&acquired_price=21.84",
 							"protocol": "https",
 							"host": [
-								"www",
+								"api",
 								"echomtg",
 								"com"
 							],
@@ -5822,6 +5842,28 @@ export default {
 								"inventory",
 								"add",
 								""
+							],
+							"query": [
+								{
+									"key": "emid",
+									"value": "152571"
+								},
+								{
+									"key": "foil",
+									"value": "0"
+								},
+								{
+									"key": "quantity",
+									"value": "1"
+								},
+								{
+									"key": "language",
+									"value": "en"
+								},
+								{
+									"key": "acquired_price",
+									"value": "21.84"
+								}
 							]
 						},
 						"description": "The user must be Auth'd to make this call. The call will add a card to the user inventory. It is called simple by sending the Multiverse ID (mid) of the card you want to add and the user Token (auth)."

@@ -16,7 +16,7 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 },
 {
   to: '/apps/sealed/',
-  icon: 'wallet-giftcard',
+  icon: 'package',
   label: 'Sealed'
 },
 {
