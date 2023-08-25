@@ -92,7 +92,7 @@
         </b-table-column>
       </b-table>
 
-      <feature-locked-full title="Upgrade Account to Access More" :authed="authenticated" :levelRequired="5" />
+      <feature-locked-full title="Upgrade Account to Access More" :authed="authenticated" :levelRequired="1" />
     </span>
   </div>
 </template>
