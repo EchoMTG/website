@@ -1,8 +1,8 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad 
-      title="You Must be Logged in to Use the Watchlist App" 
+    <full-ad
+      title="You Must be Logged in to Use the Watchlist App"
       image="https://assets.echomtg.com/images/product/card-page-2023.png"
       v-if="!authenticated" />
     <span v-if="authenticated">
@@ -18,8 +18,8 @@
             </h3>
           </div>
           <div class="column is-one-third">
-            <feature-gate classes="mt-4 is-inline-block" size="is-large" :showAd="true" adText="Upgrade to Mythic for SMS Updates" :gate-level="4" >
-           
+            <feature-gate classes="mt-4 is-inline-block" size="is-large" :showAd="true" adText="Upgrade to Mythic for SMS Updates" :gate-level="3" >
+
               <h3 class="title is-size-6">Notifications</h3>
               <p>You must have a mythic account and a verified phone number to get daily notifications</p>
               <h4 class="title is-size-6">Verify your mobile number</h4>
@@ -91,6 +91,8 @@
           </b-button>
         </b-table-column>
       </b-table>
+
+      <feature-locked-full title="Upgrade Account to Access More" :authed="authenticated" :levelRequired="5" />
     </span>
   </div>
 </template>
@@ -103,6 +105,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import ThresholdInput from '~/components/watchlist/ThresholdInput.vue'
 import FullAd from '~/components/cta/FullAd.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
+import FeatureLockedFull from '~/components/cta/FeatureLockedFull.vue'
 
 export default {
   name: 'Watchlist',
@@ -111,7 +114,8 @@ export default {
     ItemInspectorWrapper,
     ThresholdInput,
     FullAd,
-    FeatureGate
+    FeatureGate,
+    FeatureLockedFull
   },
   data () {
     return {
@@ -130,13 +134,14 @@ export default {
   },
   watch: {
     user() {
-      this.limit = this.user.planObject.access_level > 0 ? 100 : 3
+      // common users stuck at 3
+      this.limit = this.user.planObject.access_level >= 1 ? 100 : 3
       this.getWatchlist();
     }
   },
   mounted() {
 
-   
+
 
     this.updateTableHeight()
     this.$nextTick(() => {
