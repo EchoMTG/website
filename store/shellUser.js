@@ -4,5 +4,9 @@ export default {
   avatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
   username: '',
   email: '',
-  last_login: ''
+  last_login: '',
+  plan: 'common',
+  planObject: {
+    access_level: 0
+  } 
 }

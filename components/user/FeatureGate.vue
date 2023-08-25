@@ -3,7 +3,7 @@
         <b-button 
             v-if="showAd && !gateLevelCheck" 
             icon-left="arrow-up-bold-hexagon-outline" 
-            size="is-small" 
+            :size="size" 
             type="is-danger"
             href="/plans/" 
             class="">{{adText}}</b-button>
@@ -31,6 +31,10 @@ export default {
         adText: {
             type: String,
             default: 'Upgrade Plan'
+        },
+        size: {
+            type: String,
+            default: 'is-small'
         }
     },
     computed: {

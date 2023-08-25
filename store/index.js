@@ -1,12 +1,4 @@
-
-const shellUser = {
-  first_name: '',
-  last_name: '',
-  avatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
-  username: '',
-  email: '',
-  last_login: ''
-}
+const shellUser = require ('/store/shellUser');
 
 const shellquickstats = {
   acquired_value: 0,
@@ -40,7 +32,7 @@ export const state = () => ({
   userEmail: null,
   userLevel: null,
   userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
-  user: shellUser,
+  user: shellUser.default,
   authenticated: false,
 
   /* NavBar */

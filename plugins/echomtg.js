@@ -178,7 +178,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return data.data;
   }
 
-  echomtg.getWatchlist = async (start=0,limit=1000) => {
+  echomtg.getWatchlist = async (start=0,limit=100) => {
     let url = `${context.app.$config.API_DOMAIN}watchlist/view/?start=${start}&limit=${limit}`;
 
     let res = await fetch(url, {
