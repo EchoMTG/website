@@ -13,7 +13,7 @@
 
 
         <a v-if="this.$parent.userlevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
-        <a :href="item.echo_url" :title="`Open ${item.name} Page`">
+        <a :href="item.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${item.name} Page`">
             <b-image
                 lazy
                 v-if="fullview == false"

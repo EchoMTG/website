@@ -90,7 +90,7 @@ export default {
 
     },
     getItemURL: function () {
-      return this.showItem ? "javascript:void(0)" : this.item.echo_url;
+      return this.showItem ? "javascript:void(0)" : (this.item?.echo_url ? this.item?.echo_url.replace('https://www.echomtg.com','') : '') ;
     }
   }
 

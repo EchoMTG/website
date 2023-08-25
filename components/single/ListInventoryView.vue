@@ -30,7 +30,7 @@
                 <tbody>
                   <template v-for="(card, index) in list.card_list">
                     <tr :key="`card-item-${index}`">
-                        <td><a :href="card.echo_url">{{card.name}}</a>[<a :href="card.echo_set_url">{{card.set_code}}</a>]</td>
+                        <td><a :href="card.echo_url.replace('https://www.echomtg.com','')">{{card.name}}</a>[<a :href="card.echo_set_url">{{card.set_code}}</a>]</td>
                         <td v-if="card.tcg_low > 0">{{list.currency_symbol}}{{card.tcg_low}}-{{list.currency_symbol}}{{card.tcg_mid}}</td>
                         <td v-else class="is-size-7 is-light">N/A</td>
                         <td v-if="card.foil_price > 0">{{list.currency_symbol}}{{card.foil_price}}</td>

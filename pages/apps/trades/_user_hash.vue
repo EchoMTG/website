@@ -100,7 +100,7 @@
                       @sort="onSort">
 
                       <b-table-column field="name" label="Name" sortable v-slot="props">
-                        <a class="is-pulled-left mr-3" style="position: relative; overflow: hidden;"  :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
+                        <a class="is-pulled-left mr-3" style="position: relative; overflow: hidden;"  :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
                           <b-image
                               lazy
                               :src="props.row.image_cropped"

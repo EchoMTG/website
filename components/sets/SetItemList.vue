@@ -157,7 +157,7 @@
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
-            <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
+            <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
                 <b-image
                     lazy
                     v-if="fullView == false"
