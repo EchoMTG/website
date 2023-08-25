@@ -64,8 +64,9 @@
                 size="is-small"
                 class="level-item mr-2"
                 />
-            <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
-
+            <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
+              <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
+            </feature-gate>
             <b-dropdown class="level-item is-hidden-mobile" v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
               <template #trigger>
                   <b-button
@@ -121,8 +122,17 @@
             <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
               <option selected="selected" value="">By Color</option>
               <option disabled="disabled">----</option>
-              <option data-color="All" value="">All</option><option data-color="Land" value="land">Land</option><option data-color="Colorless" value="colorless">Colorless</option><option data-color="Blue" value="blue">Blue</option><option data-color="Black" value="black">Black</option><option data-color="White" value="white">White</option><option data-color="Red" value="red">Red</option><option data-color="Green" value="green">Green</option><option data-color="Multicolor" value="multicolor">Multicolor</option>
+              <option data-color="All" value="">All</option>
+              <option data-color="Land" value="land">Land</option>
+              <option data-color="Colorless" value="colorless">Colorless</option>
+              <option data-color="Blue" value="blue">Blue</option>
+              <option data-color="Black" value="black">Black</option>
+              <option data-color="White" value="white">White</option>
+              <option data-color="Red" value="red">Red</option>
+              <option data-color="Green" value="green">Green</option>
+              <option data-color="Multicolor" value="multicolor">Multicolor</option>
             </b-select>
+            
             <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
                 <option selected="selected" value="" disabled="disabled">By Rarity</option>
                 <option value="false">All</option>
@@ -136,23 +146,31 @@
                 <option value="Special">Special</option>
                 <option value="Token">Token</option>
             </b-select>
-
-            <b-select class="level-item is-hidden-mobile"  placeholder="CMC" size="is-small" v-model="cmc">
-              <option selected="selected" value="">By CMC</option>
-              <option disabled="disabled">----</option>
-              <option value="">Any</option>
-              <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
-            </b-select>
-            <b-select class="level-item is-hidden-mobile"  placeholder="Reserve List" size="is-small" v-model="reserve_list">
-                <option selected disabled value="">Reserve List</option>
-                <option disabled>---</option>
-                <option value="false">Show All</option>
-                <option value="true">Only Reserve</option>
-            </b-select>
-
-
-
-
+            <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
+              <b-select placeholder="Foil" size="is-small" v-model="foil">
+                <option selected="selected" value="">By Foil</option>
+                <option disabled="disabled">----</option>
+                <option data-color="All" value="">All</option>
+                <option data-color="Only Foils" value="1">Only Foils</option>
+                <option data-color="Non Foils" value="0">Non-foils</option>
+              </b-select>
+            </feature-gate>
+            <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
+              <b-select placeholder="CMC" size="is-small" v-model="cmc">
+                <option selected="selected" value="">By CMC</option>
+                <option disabled="disabled">----</option>
+                <option value="">Any</option>
+                <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
+              </b-select>
+            </feature-gate>
+            <feature-gate adText="Upgrade Plan to Access More Filter" :gateLevel="1" classes="level-item is-hidden-mobile">
+              <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
+                  <option selected disabled value="">Reserve List</option>
+                  <option disabled>---</option>
+                  <option value="false">Show All</option>
+                  <option value="true">Only Reserve</option>
+              </b-select>
+            </feature-gate>
 
           </div>
         </nav>
@@ -270,24 +288,7 @@
 
           <b-table-column label="Bulk Action">
             <template v-slot:header="{ column }">
-              <!-- <b-dropdown v-if="checkedRows.length > 0" :expanded="true" :triggers="['hover']" aria-role="list">
-                <template #trigger>
-                    <b-button
-                        size="is-small"
-                        icon-left="lightning-bolt"
-                        class="is-pulled-right"
-                        type="is-info"
-                        :label="`${column.label} (${checkedRows.length})`"
-                        icon-right="menu-down" />
-                </template>
-                <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
-              </b-dropdown> -->
-
+       
             </template>
             <template v-slot="props">
               <note-button :inventory_item="props.row" :callback="$fetch"/>
@@ -377,6 +378,7 @@ import BulkEditModal from '~/components/inventory/BulkEditModal.vue'
 import ConditionSelect from '~/components/inventory/ConditionSelect.vue'
 import LanguageSelect from '~/components/inventory/LanguageSelect.vue'
 import FullAd from '~/components/cta/FullAd.vue'
+import FeatureGate from '~/components/user/FeatureGate.vue'
 
 export default {
   fetchOnServer: true,
@@ -400,7 +402,8 @@ export default {
     BulkEditModal,
     ConditionSelect,
     LanguageSelect,
-    FullAd
+    FullAd,
+    FeatureGate
   },
   data() {
       return {
@@ -412,6 +415,7 @@ export default {
           tradable: '',
           color: '',
           cmc: '',
+          foil: '',
           reserve_list: '',
           priceOver: null,
           priceUnder: null,
@@ -447,6 +451,9 @@ export default {
       this.$fetch();
     },
     rarity() {
+      this.$fetch();
+    },
+    foil() {
       this.$fetch();
     },
     color() {
@@ -485,7 +492,8 @@ export default {
           this.reserve_list,
           this.cmc,
           this.priceOver,
-          this.priceUnder
+          this.priceUnder,
+          this.foil
           )
 
         this.data = []
