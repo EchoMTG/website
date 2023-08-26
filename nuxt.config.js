@@ -34,10 +34,6 @@ export default {
       }
     ]
 },
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  // css: [
-  //   '@/assets/scss/main.scss'
-  // ],
     css: ['@/assets/scss/style-light-dark.scss'],
   //  css: ['~/assets/scss/style-default.scss'],
 
@@ -66,7 +62,12 @@ export default {
     '@nuxtjs/device',
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    ['vue-social-sharing/nuxt', {
+      networks: {
+        x: 'https://twitter.com/intent/tweet?url=@url&text=@title'
+      }
+    }]
   ],
   device: {
     refreshOnResize: true

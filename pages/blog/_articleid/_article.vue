@@ -2,24 +2,27 @@
   <div>
     <echo-bread-crumbs :data="crumbs" />
 
-    <article class="blog-article" :style="`background-image: url(${article.image})`" itemscope="" itemtype="http://schema.org/BlogPosting">
-
-
+    <article class="blog-article" :style="`background-image: url(${article.image}); background-size: 100% auto; background-repeat: no-repeat`" itemscope="" itemtype="http://schema.org/BlogPosting">
 
       <div class="post post-body">
+
+        <div class="background-field">
         <h1 class="header" itemprop="name headline">
           {{article.title}}
         </h1>
-        <div class="background-field">
-
           <header class="article-header ">
 
             <hgroup class="hgroup">
 
               <div class="share-buttons">
-      <!-- <a  class="share-button custom-popup-button large-share" href='https://twitter.com/intent/tweet?url=<?=$article->fullUrl()?>&text="<?=$article->title?>" by <?=$author->twitter?> on @echomtg'  target="_blank" rel="nofollow" data-related="echomtg"><span class="fa fa-twitter"></span> Share</a>
-      <a class="share-button custom-popup-button facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?=$article->fullUrl()?>"><span class="fa fa-facebook"></span></a> -->
-
+                <!-- <a  class="share-button custom-popup-button large-share" href='https://twitter.com/intent/tweet?url=<?=$article->fullUrl()?>&text="<?=$article->title?>" by <?=$author->twitter?> on @echomtg'  target="_blank" rel="nofollow" data-related="echomtg"><span class="fa fa-twitter"></span> Share</a>
+                <a class="share-button custom-popup-button facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?=$article->fullUrl()?>"><span class="fa fa-facebook"></span></a> -->
+                <social-buttons
+                    :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+                    :title="article.title"
+                    :twitter="author.twitter"
+                    :hashtags="`${article.game},${article.category},echomtg`"
+                  />
               </div>
 
               <h6>
@@ -42,7 +45,12 @@
           </div>
 
           <footer class="article-footer">
-
+              <social-buttons
+                    :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+                    :title="article.title"
+                    :twitter="author.twitter"
+                    :hashtags="`${article.game},${article.category},echomtg`"
+                  />
           </footer>
           <hr class="clear"/>
 
@@ -78,6 +86,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import SetTag from '~/components/magic/SetTag.vue'
 import CardAd from '@/components/cta/CardAd.vue'
+import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 
 export default {
@@ -87,7 +96,8 @@ export default {
     SetTag,
     ItemInspectorWrapper,
     CardAd,
-    CreateAccountModal
+    CreateAccountModal,
+    SocialButtons
   },
   data () {
     return {

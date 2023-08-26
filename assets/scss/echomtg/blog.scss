@@ -18,7 +18,7 @@ $comment-background: lighten($mage-grey,30%);
 		//padding: 0px 20px;
 	}
 	table.list-stats{
-		
+
 		width: 100%;
 		tbody{
 			tr{
@@ -29,7 +29,7 @@ $comment-background: lighten($mage-grey,30%);
 						margin-top: 0px;
 						border-bottom: none;
 					}
-					
+
 					&:nth-child(3),&:nth-child(2){
 						display: none;
 					}
@@ -96,11 +96,11 @@ $comment-background: lighten($mage-grey,30%);
 
 	@media all and (max-width: $break-width){
 		padding-top: 0px;
-		padding-left: 0px;	
+		padding-left: 0px;
 		margin-top: 0px;
-		margin-left: 0px;	
+		margin-left: 0px;
 	}
-	
+
 }
 
 
@@ -109,7 +109,7 @@ $comment-background: lighten($mage-grey,30%);
 	div{
 		background: darken($mage-dark,5%);
 		border-bottom: 1px lighten($mage-dark,10%) solid;
-		border-right: 1px lighten($mage-dark,10%) solid;		
+		border-right: 1px lighten($mage-dark,10%) solid;
 		padding: 10px 5px;
 		font-size: 11px;
 		color: $mage-grey;
@@ -117,13 +117,13 @@ $comment-background: lighten($mage-grey,30%);
 }
 
 .blog{
-	
+
 	.heading-image{
 		width: 100%;
 		display: block;
 		border-bottom: 1px lighten($mage-dark,10%) solid;
 	}
-	
+
 	.article-single-list-view{
 		min-height: 70px;
 		display: block;
@@ -135,10 +135,10 @@ $comment-background: lighten($mage-grey,30%);
 			&:hover{
 			background-color: $mage-dark;
 				.labeled{
-				background: black;	
+				background: black;
 				}
 			}
-		}	
+		}
 		h4{
 			padding-top: 6px;
 			padding-bottom: 8px;
@@ -157,16 +157,16 @@ $comment-background: lighten($mage-grey,30%);
 			color: $mage-grey;
 			font-size: 13px;
 			letter-spacing: 1px;
-			
+
 		}
 		.meta-info{
 			font-size: 11px;
 			color: $mage-grey;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 .post.continue-reading{
@@ -190,18 +190,18 @@ $comment-background: lighten($mage-grey,30%);
 		color: white;
 		padding: 20px 0px;
 		color: $mage-dark;
-		
+
 	}
 	p {
 		color: $mage-grey;
 	}
 	.recent-article{
-		border-top: 1px #ccc solid;	
-		//min-height: 200px; 
+		border-top: 1px #ccc solid;
+		//min-height: 200px;
 		max-width: 700px;
 		padding-bottom: 20px;
 		img{
-			padding-top: 30px;			
+			padding-top: 30px;
 			float:right;
 			width: 160px;
 			margin-left: 20px;
@@ -225,9 +225,9 @@ $comment-background: lighten($mage-grey,30%);
 			font-weight: 200;
 			color: #666;
 			font-size: 18px;
-				
+
 			}
-			
+
 		}
 		strong{
 			font-size: 10px;
@@ -235,12 +235,12 @@ $comment-background: lighten($mage-grey,30%);
 		}
 	}
 	@media all and (max-width: $break-width){
-		padding: 0px 20px;	
+		padding: 0px 20px;
 		margin-top: 30px;
 		border-radius: 0px;
-		
-	}	
-	
+
+	}
+
 }
 
 .blog-listing{
@@ -251,9 +251,9 @@ $comment-background: lighten($mage-grey,30%);
 			display: block;
 			margin: 0px;
 			transition:all 200ms ease;
-			&.left-image{		
+			&.left-image{
 				padding-right: 5%;
-			}	
+			}
 			&.right-image{
 				padding-left: 5%;
 			}
@@ -263,7 +263,7 @@ $comment-background: lighten($mage-grey,30%);
 			cursor: pointer;
 			background: $mage-grey;
 			img{
-				@include grayscale(0);	
+				@include grayscale(0);
 			}
 		}
 		h4{
@@ -284,12 +284,12 @@ $comment-background: lighten($mage-grey,30%);
 }
 
 .share-buttons{
-	float:right;	
+	float:right;
 	&.card-share{
 		float:none;
 		margin-bottom: 0px;
 	}
-	
+
 	@media all and (max-width: $break-width){
 		float:none;
 		padding-bottom: 10px;
@@ -299,16 +299,16 @@ $comment-background: lighten($mage-grey,30%);
 			margin-bottom: 0px;
 			padding-bottom: 0px;
 		}
-	}		
+	}
 }
 
 @mixin sharebg($color){
-	background-color: $color; 
-	text-shadow: 0px -1px 0px darken($color,7%); 
+	background-color: $color;
+	text-shadow: 0px -1px 0px darken($color,7%);
 	&:hover{
-		background-color: lighten($color,10%);	
+		background-color: lighten($color,10%);
 		color: white;
-	}	
+	}
 }
 
 #custom-tweet-button, .share-button {
@@ -323,37 +323,37 @@ $comment-background: lighten($mage-grey,30%);
 	background-repeat: no-repeat;
 	font-size: 18px;
 	color: #fff;
-	text-shadow: 0px -1px 0px darken(#676767,7%); 	
-	
+	text-shadow: 0px -1px 0px darken(#676767,7%);
+
 	//@media all and (max-width: $break-width){
 		padding: 5px 16px 5px 16px;
 		font-size: 14px;
 	//}
-	
+
 	&:hover{
 		background-color: lighten(#676767,5%);
 		cursor: pointer;
-		
+
 	}
 	&:active,&:visited{
-		color: white;	
+		color: white;
 	}
 	&.facebook{
-		@include sharebg(#3B559F);	
+		@include sharebg(#3B559F);
 	}
 	&.gplus{
 		@include sharebg(#DC4A38);
 	}
-	
+
 	&.large-share{
-		background-color: #06AEEF; 
-		text-shadow: 0px -1px 0px darken(#06AEEF,7%); 
+		background-color: #06AEEF;
+		text-shadow: 0px -1px 0px darken(#06AEEF,7%);
 		color: #fff;
 		&:hover{
-			background-color: lighten(#06AEEF,10%);	
+			background-color: lighten(#06AEEF,10%);
 		}
 	}
-	
+
 }
 
 .twitter-tweet{
@@ -368,15 +368,12 @@ $comment-background: lighten($mage-grey,30%);
 
 .post{
 
-
-	max-width: $break-width;
-
+	max-width: ($break-width - 100);
 	padding-top: 30px;
-	margin-left: 50px;
-	
+	margin: 0 auto;
+
 	&.post-body{
-		position: relative;
-		top: 50px;
+
 		z-index: 2;
 
 	}
@@ -386,7 +383,7 @@ $comment-background: lighten($mage-grey,30%);
 		padding: 20px;
 		border-radius: 3px;
 		border: 1px $mage-grey solid;
-		
+
 	}
 	.background-field{
 		background:$post-background;
@@ -395,9 +392,9 @@ $comment-background: lighten($mage-grey,30%);
 	}
 	@media all and (max-width: $break-width){
 		padding: 20px;
-		margin: 0px;	
+		margin: 0px;
 		margin-top: 0px;
-		margin-left: 0px;	
+		margin-left: 0px;
 		border-radius: 0px;
 		&.post-body{
 			margin-top: 0px;
@@ -406,7 +403,7 @@ $comment-background: lighten($mage-grey,30%);
 		}
 	}
 	.article-header{
-		padding-bottom: 50px;
+		padding-bottom: 20px;
 		@media all and (max-width: $break-width){
 			padding-bottom: 10px;
 			margin-bottom: 20px;
@@ -415,42 +412,42 @@ $comment-background: lighten($mage-grey,30%);
 		h2{
 			font-weight: 100;
 			text-transform: normal;
-			text-align: left;	
+			text-align: left;
 			font-size: 24px;
 			color: $mage-dark;
 			padding: 0px ;
 			line-height: 1.5em;
 			@media all and (max-width: $break-width){
 				font-size: 18px;
-			}				
+			}
 		}
 		h6 {
 			text-align: left;
 			color: $mage-grey;
-			
+
 			font-weight: bold;
 			@media all and (max-width: $break-width){
 				display: block;
 				clear:both;
-			}			
-			
+			}
+
 			a{
-				
+
 				font-weight: bold;
 				color: $button-blue;
-				
+
 				&.twitter-handle{
 					color: $mage-grey;
 				}
 			}
 		}
-		
+
 	}
-	
+
 	h1{
 		text-align: left;
 		padding-bottom: 20px;
-		margin-top: 20px;
+		margin-top: 10px;
 		font-size: 42px;
 		line-height: 46px;
 		font-weight: bold;
@@ -466,10 +463,10 @@ $comment-background: lighten($mage-grey,30%);
 			font-size: 26px;
 			line-height: 36px;
 			margin-top: 20px;
-		}	
-		
+		}
+
 		a{
-			color: $button-blue;	
+			color: $button-blue;
 			font-size: 50px;
 			line-height: 60px;
 			font-weight: 700 !important;
@@ -479,13 +476,13 @@ $comment-background: lighten($mage-grey,30%);
 				text-align: left;
 				font-size:  30px;
 				line-height: 30px;
-				
-			
-			}	
-			&:hover{
-				text-decoration: none;	
+
+
 			}
-			
+			&:hover{
+				text-decoration: none;
+			}
+
 		}
 	}
 	h2{
@@ -495,20 +492,20 @@ $comment-background: lighten($mage-grey,30%);
 		margin: 10px 0px 15px 0px;
 		@media all and (max-width: $break-width){
 			font-size: 24px;
-		}			
+		}
 	}
 	h3{
 		font-size: 24px;
 		font-weight: bold;
 		margin: 10px 0px 15px 0px;
-		color: $mage-dark;		
+		color: $mage-dark;
 		@media all and (max-width: $break-width){
 			font-size: 20px;
-		}			
-	}	
+		}
+	}
 	hr{
 		border-bottom-color: lighten($mage-grey,30%);
-		
+
 	}
 	p{
 		font-size: 18px;
@@ -516,15 +513,15 @@ $comment-background: lighten($mage-grey,30%);
 		color: $mage-dark;
 		@media all and (max-width: $break-width){
 			font-size: 14px;
-		}			
+		}
 	}
-	
-	
-	
+
+
+
 	ul, ol{
 		margin: 20px;
 		font-size: 18px;
-		font-weight: bold;		
+		font-weight: bold;
 		li {
 			margin-left: 20px;
 			margin-bottom: 15px;
@@ -532,74 +529,73 @@ $comment-background: lighten($mage-grey,30%);
 			list-style: disc;
 			@media all and (max-width: $break-width){
 				font-size: 14px;
-				line-height: 16px;				
+				line-height: 16px;
 				margin-bottom: 8px;
 				margin-left: 0px;
-			}			
+			}
 
 		}
 	}
 	ol li {
-		list-style: decimal;	
+		list-style: decimal;
 	}
-	
+
 	.article-body{
-		
-		
+
+
 		img[align=right]{
-			margin: 0px 0px 10px 20px;	
+			margin: 0px 0px 10px 20px;
 		}
-		
+
 		img[align=left]{
 			margin: 0px 20px 10px 0px;
 			max-width: 400px;
 			width: 100%;
 		}
-		
+
 	}
-	
+
 	.blog-next{
 		text-align: right;
 	}
-	
+
 	.blog-last{
 		text-align: left;
-	}	
-	
+	}
+
 	.article-footer{
 		clear:both;
 		padding: 20px 0px;
-		
+
 		.tags{
 			clear: both;
 			font-size: 12px;
-			
+
 			a{
 				text-decoration: none;
-				background: $black;
-				color: white;
+
 				display: inline-block;
-				
+
 				padding: 3px 10px 4px 10px;
 				border-radius: 5px;
 				margin-left: 5px;
 				font-size: 16px;
 			}
 		}
-		
+
 		.permalink{
 			float:right;
 		}
-		
+
 		.blog-social{
 			margin-bottom: 15px;
-			
+
 			padding: 5px;
 			border-radius:5px;
-			
+
 		}
 	}
-	
+
 	.author {
 		padding: 20px 0px;
 		img {
@@ -610,62 +606,59 @@ $comment-background: lighten($mage-grey,30%);
 		}
 	}
 	.article-comments{
-		padding: 10px 0px;	
+		padding: 10px 0px;
 	}
-	
+
 	ul.article-listing{
-			
+
 		li{
 			list-style: none;
 			border-bottom: 1px darken($mage-grey, 10%) solid;
 			padding-top: 20px;
 		}
-		
+
 	}
-		
+
 	ul.recent-articles{
-	
+
 		li{
 			border-bottom: 1px darken($mage-grey, 10%) solid;
-			
+
 			&:last-child{
-				border: none;	
+				border: none;
 			}
-			
+
 			strong a{
 				font-weight: bold;
 			}
-			
+
 			p{
 				font-size: 8em;
 				margin-bottom: 5px;
 			}
-			
+
 			&:hover{
 				cursor: pointer;
 				opacity:.8;
-			}		
+			}
 		}
 	}
 	.author-picture{
 		img {
-			width: 100%;	
-		}		
+			width: 100%;
+		}
 	}
 	.author-bio{
 		padding: 0px;
 		p {
-			strong{
-				color: white;
-			}
 			text-indent: 0px;
 			margin-left: 25px;
 			font-size: 14px;
 			color: $mage-grey;
-		}	
-		
+		}
+
 	}
-	
+
 	ul.other-articles-by-author {
 		margin: 20px 0;
 		li {
@@ -680,7 +673,7 @@ $comment-background: lighten($mage-grey,30%);
 					color: $mage-grey;
 				}
 			}
-		}	
+		}
 	}
 
 }
@@ -692,20 +685,20 @@ $comment-background: lighten($mage-grey,30%);
 	padding: 20px;
 	padding-left: 50px;
 	padding-top: 30px;
-	
+
 	@media all and (max-width: $break-width){
 		padding: 0px;
 		padding-top: 30px;
 		margin: 0px 20px;
-	}	
+	}
 	.comment-bubble{
 		border-radius: 6px;
 		position: relative;
 		background-color: white;
 		padding: 10px 10px 5px 20px;
 		&:after{
-			width: 0; 
-			height: 0; 
+			width: 0;
+			height: 0;
 			border-top: 20px solid transparent;
 			border-bottom: 20px solid transparent;
 			border-left: 20px solid white;
@@ -714,9 +707,9 @@ $comment-background: lighten($mage-grey,30%);
 			right: 20px;
 			content: '';
 		}
-		
+
 	}
-	
+
 	hr{
 		border-bottom-color: lighten($mage-grey,30%);
 		max-width: 700px;
@@ -726,8 +719,8 @@ $comment-background: lighten($mage-grey,30%);
 		max-width: 700px;
 		p {
 			font-weight: 500;
-			line-height: 1.6em;	
-			
+			line-height: 1.6em;
+
 		}
 		.meta{
 			color: $mage-grey;
@@ -735,8 +728,8 @@ $comment-background: lighten($mage-grey,30%);
 			margin-right: 50px;
 			margin-top: 10px;
 		}
-		
-		
+
+
 	}
 	h4 {
 		font-size: 24px;
