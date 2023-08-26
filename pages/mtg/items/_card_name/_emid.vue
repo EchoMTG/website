@@ -65,6 +65,15 @@
               :alt="`${item.name} magic card front`"
               placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
           />
+
+        </div>
+        <div class="has-text-centered">
+          <social-buttons
+              :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+              :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
+              :twitter="`echomtg`"
+              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
+            />
         </div>
         <div class="message m-3 p-4 is-overflowhidden">
           <nav class="level is-mobile">
@@ -234,6 +243,7 @@ import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue';
 import ItemPriceAnalysis from '~/components/items/ItemPriceAnalysis.vue';
 import SetTag from '~/components/magic/SetTag.vue'
 import CardAd from '@/components/cta/CardAd.vue'
+import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 
 export default {
@@ -247,7 +257,8 @@ export default {
     ItemPriceAnalysis,
     ItemListBox,
     CardAd,
-    CreateAccountModal
+    CreateAccountModal,
+    SocialButtons
   },
   data () {
     return {
@@ -353,6 +364,9 @@ export default {
 
   },
   computed: {
+    changeVerb(){
+      return this.item.change > 0 ? 'gone up' : 'dropped'
+    },
     typeColor() {
       let color = 'is-warning'
       switch (this.item.rarity.toLowerCase()){

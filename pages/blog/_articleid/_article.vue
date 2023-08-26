@@ -161,8 +161,15 @@ export default {
   head () {
     return {
         title: `${this.article.title}`,
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
+        ],
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.article.image },
+          { hid: 'conanical', property: 'og:image', content: this.article.image },
           {
             hid: 'description',
             name: 'description',
