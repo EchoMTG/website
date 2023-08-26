@@ -22,8 +22,9 @@ export default (context, inject) => {
   }
 
   echomtg.getS2SHeadersNoJSON = () => {
+    let bearer = context.app.$cookies.get('token') ? context.app.$cookies.get('token') : context.app.$config.S2S_KEY
     return {
-      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
+      'Authorization' : 'Bearer ' + bearer
     }
   }
 
@@ -812,6 +813,17 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   echomtg.getArticle = async (id) => {
 
     let url = `${context.app.$config.API_DOMAIN}data/article/?id=${id}`;
+
+    const res = await fetch(url, {
+      headers: echomtg.getS2SHeadersNoJSON()
+    });
+
+    return await res.json();
+  }
+
+  echomtg.getArticles = async (start=0,limit=100,search='') => {
+
+    let url = `${context.app.$config.API_DOMAIN}data/articles/?start=${start}&limit=${limit}&search=${search}`;
 
     const res = await fetch(url, {
       headers: echomtg.getS2SHeadersNoJSON()

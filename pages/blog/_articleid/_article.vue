@@ -30,9 +30,9 @@
                 <a target="_blank" class="twitter-handle" :href="`https://www.twitter.com/${author.twitter}`">{{author.twitter}}</a>
 
                 |
-                <timestamp pubdate="" itemprop="datePublished" :datetime="article.date_created">
+                <span pubdate="" itemprop="datePublished" :datetime="article.date_created">
                   {{article.date_created}}
-                </timestamp>
+                </span>
               </h6>
             </hgroup>
 
@@ -107,7 +107,7 @@ export default {
       author: null,
     }
   },
-  async asyncData({ params, $echomtg}) {
+  async asyncData({ params, $echomtg, redirect}) {
 
     const articleid = params.articleid;
     let article = null
@@ -125,15 +125,13 @@ export default {
       console.log(err, article)
     }
 
-
-
     // return it
     if (article) {
       return {
        article, author
       }
     } else {
-      //redirect('/sets/')
+      redirect('/blog/')
     }
   },
   methods: {
@@ -143,8 +141,8 @@ export default {
     crumbs () {
       return [
          {
-          label: 'Articles',
-          url: '/articles/',
+          label: 'Blog',
+          url: '/blog/',
           icon: ''
 
         },

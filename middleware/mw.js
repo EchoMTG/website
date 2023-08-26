@@ -17,6 +17,18 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
 
+
+    // blog
+
+
+     // example: /blog/post/108/how-to-prepare-for-the-upcoming-renewal-on-mtga/
+    // target: /blog/108/how-to-prepare-for-the-upcoming-renewal-on-mtga/
+    const blogRegex = new RegExp("^/blog/post/([a-z0-9]+)/?", "ig"); // global insensitive
+    found = blogRegex.exec(route.path)
+    if(found !== null && found.length > 1){
+      return redirect(`/blog/${found[1]}`)
+    }
+
     // regex for tradelist
     // example: /tradelist/063c60f990e89705d97cecffc3a31832/
     // target: /apps/tradelist/063c60f990e89705d97cecffc3a31832

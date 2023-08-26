@@ -43,7 +43,7 @@
 import { mapState } from 'vuex'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 export default {
-  name: 'Tools',
+  name: 'Apps',
   components: {
     EchoBreadCrumbs
   },
@@ -58,7 +58,7 @@ export default {
       return [
         {
           label: 'Apps',
-          url: '/tools',
+          url: '/apps/',
           icon: ''
 
         }

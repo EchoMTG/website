@@ -42,7 +42,7 @@ export default {
     twitter:{
       type: String
     },
-    tags:{
+    hashtags:{
       type: String
     },
     classes:{

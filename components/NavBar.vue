@@ -106,10 +106,10 @@
         <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
 
-            <p class="control">
+            <div class="control">
                <create-account-modal size="default" label="Free Account" />
-            </p>
-            <p class="control">
+            </div>
+            <div class="control">
               <router-link to="/login"
                 class=" button is-secondary"
                 title="Login"
@@ -117,7 +117,7 @@
                 <b-icon icon="login" custom-size="default" />
                 <span>Login</span>
               </router-link>
-            </p>
+            </div>
 
           </div>
         </div>
