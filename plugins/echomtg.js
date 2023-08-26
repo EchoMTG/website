@@ -809,6 +809,17 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.getArticle = async (id) => {
+
+    let url = `${context.app.$config.API_DOMAIN}data/article/?id=${id}`;
+
+    const res = await fetch(url, {
+      headers: echomtg.getS2SHeadersNoJSON()
+    });
+
+    return await res.json();
+  }
+
 
   echomtg.getEarningsStats = async () => {
 
