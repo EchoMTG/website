@@ -126,14 +126,14 @@ export default {
   async asyncData({ redirect, $echomtg }) {
     const data = await $echomtg.getUserSubscriptions();
     const subscriptions = data?.data ? data.data : false;
-    console.log(subscriptions)
+
     // return it
     if (subscriptions) {
       return {
         subscriptions
       }
     } else {
-      redirect('/')
+      redirect('/login/')
     }
   },
   mounted() {

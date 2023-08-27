@@ -49,7 +49,7 @@ export default {
   computed: {
 
     menu () {
-     
+
       let navList = [
           'Magic: the Gathering',
           [
@@ -59,14 +59,19 @@ export default {
               icon: 'cards'
             },
             {
+              to: '/mtg/types/',
+              label: 'Types',
+              icon: 'format-list-bulleted-type'
+            },
+            {
               to: '/mtg/spoilers/',
               label: 'Spoilers',
-              icon: 'cake'
+              icon: 'table-headers-eye'
             },
             {
               to: '/mtg/groups/magic-reserve-list/',
               label: 'Reserve List',
-              icon: 'chess-king'
+              icon: 'gold'
             },
           ],
       ];
@@ -74,36 +79,9 @@ export default {
       let tools = toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       });
-      navList.push('TCG Apps');
+      navList.push('My Apps');
       navList.push(tools);
-      
-      if (this.authenticated){
-        
-        navList.push('My Account');
-        navList.push([
-           {
-              to: '/user/profile/',
-              label: 'Profile',
-              icon: 'account-circle'
-            },
-            {
-              to: '/user/settings/',
-              label: 'Settings',
-              icon: 'cogs'
-            },
-            {
-              to: '/user/streamer/',
-              label: 'Streamer Perks',
-              icon: 'twitch'
-            },
-            {
-              to: '/logout/',
-              icon: 'lock',
-              label: 'Logout'
-            },
-          ])
 
-      }
       if (this.user && parseInt(this.user.user_level) > 2){
        navList.push('Wiki Tools');
         navList.push([
@@ -131,7 +109,13 @@ export default {
       }
 
       navList.push('EchoMTG')
-      navList.push( [{
+      navList.push( [
+        {
+          to: '/blog/',
+          label: 'Blog',
+          icon: 'newspaper-variant-multiple'
+        },
+        {
           to: '/api/',
           label: 'API Docs',
           icon: 'code-json'
@@ -148,6 +132,34 @@ export default {
         }]
         )
 
+
+      if (this.authenticated){
+
+        navList.push('My Account');
+        navList.push([
+           {
+              to: '/user/profile/',
+              label: 'Profile',
+              icon: 'account-circle'
+            },
+            {
+              to: '/user/settings/',
+              label: 'Settings',
+              icon: 'cogs'
+            },
+            {
+              to: '/user/streamer/',
+              label: 'Streamer Perks',
+              icon: 'twitch'
+            },
+            {
+              to: '/logout/',
+              icon: 'lock',
+              label: 'Logout'
+            },
+          ])
+
+      }
       if (!this.authenticated){
           navList.push('User');
           navList.push([

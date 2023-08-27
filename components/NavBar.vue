@@ -68,7 +68,7 @@
 
           <div slot="dropdown" class="navbar-dropdown is-right">
             <nuxt-link
-              to="/user/profile"
+              to="/user/profile/"
               class="navbar-item"
               exact-active-class="is-active"
             >
@@ -76,17 +76,46 @@
               <span>Edit Profile</span>
             </nuxt-link>
             <nuxt-link
-              to="/user/settings"
+              to="/user/settings/"
               class="navbar-item"
               exact-active-class="is-active"
             >
               <b-icon icon="cogs" custom-size="default" />
               <span>Edit Settings</span>
             </nuxt-link>
-            <!-- <a class="navbar-item">
-              <b-icon icon="lock" @click="password" custom-size="default" />
+            <nuxt-link
+              to="/user/email/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="email" custom-size="default" />
+              <span>Email Settings</span>
+            </nuxt-link>
+            <nuxt-link
+              to="/user/streamer/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="twitch" custom-size="default" />
+              <span>Streamer</span>
+            </nuxt-link>
+            <nuxt-link
+              to="/user/billing/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="credit-card" custom-size="default" />
+              <span>Billing</span>
+            </nuxt-link>
+            <nuxt-link
+              to="/user/password/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="lock" custom-size="default" />
               <span>Change Password</span>
-            </a> -->
+            </nuxt-link>
+
 
             <hr class="navbar-divider">
             <a class="navbar-item" @click="toggleDark">

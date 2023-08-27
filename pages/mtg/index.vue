@@ -71,25 +71,25 @@ export default {
         {
           name: `Magic Expansions`,
           description: `Magic the gathering sets, expansions, precon decks.`,
-          icon: `animation`,
+          icon: `cards`,
           url: `/mtg/sets/`
         },
         {
           name: `Magic Types`,
           description: `Magic the gathering cards grouped by type.`,
-          icon: `animation`,
+          icon: `format-list-bulleted-type`,
           url: `/mtg/types/`
         },
         {
           name: `Magic Groups`,
           description: `Specific groups for magic cards, like reserve list.`,
-          icon: `animation`,
+          icon: `lightbulb-group`,
           url: `/mtg/groups/`
         },
         {
           name: `Magic Spoilers`,
           description: `Preview unreleased magic cards about to enter the game.`,
-          icon: `eye`,
+          icon: `table-headers-eye`,
           url: `/mtg/spoilers/`
         },
         {

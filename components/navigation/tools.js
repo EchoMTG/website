@@ -1,7 +1,7 @@
 function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
  return [{
   to: '/',
-  icon: 'chart-timeline-variant-shimmer',
+  icon: 'home-analytics',
   label: 'Dashboard'
 },
 {
