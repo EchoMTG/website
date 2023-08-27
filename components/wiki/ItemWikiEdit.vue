@@ -1,6 +1,6 @@
 <template>
-  <div :class="className" ref="modal" v-if="authenticated && parseInt(user.user_level) > 2" >
-    <div class="modal-background" @click="closeModal()"></div>
+  <div v-if="authenticated && parseInt(user.user_level) > 2" >
+    <b-modal v-model="isImageModalActive">
       <div class="modal-card">
         <div class="modal-card-head">
             <p  class="modal-card-title">Edit <strong>{{item.name}}</strong></p>
@@ -140,10 +140,9 @@
               <button class="button is-success" @click="updateWikiItem()">Update</button>
               <button type="button" class="button " @click="closeModal()">Close</button>
           </div>
-      </form>
-
-
-    </div>
+        </form>
+      </div>
+    </b-modal>
   </div>
 </template>
 <script>
@@ -166,11 +165,16 @@ export default {
           default: false
       }
   },
+  watch: {
+    open(){
+      this.isImageModalActive = this.open
+    }
+  },
   data: function data() {
       return {
           newSet: '',
           newSetCode: '',
-
+          isImageModalActive: false,
           rarities: [
               'Mythic Rare',
               'Rare',
@@ -184,46 +188,42 @@ export default {
 
   },
   methods: {
-      togglePreview: function (){
-          this.$refs.previewDiv.classList.toggle('isSelected')
-      },
-      updateWikiItem: function(){
-          var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
-          let url = `/api/wiki/update_name/`
-          fetch(url, {
-              method: 'POST',
-              body: formData
-          })
-          .then(res => res.json())
-          .then(data => {
-              this.$echomtg.createGrowl(data.message)
-              this.closeModal()
-          })
-          .catch(err => {
-              this.$echomtg.createGrowl(err.error)
-          })
+    togglePreview: function (){
+        this.$refs.previewDiv.classList.toggle('isSelected')
+    },
+    updateWikiItem: function(){
+        var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
+        let url = `/api/wiki/update_name/`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.$echomtg.createGrowl(data.message)
+            this.closeModal()
+        })
+        .catch(err => {
+            this.$echomtg.createGrowl(err.error)
+        })
 
-      },
-      changeSet: function(set,set_code){
-          this.newSet = set
-          this.newSetCode = set_code
-      },
-      closeModal() {
-          this.$refs.imageURLInput.value = ''
-          this.newSet = ''
-          this.newSetCode = ''
-          this.$emit('emit-wiki-close');
+    },
+    changeSet: function(set,set_code){
+        this.newSet = set
+        this.newSetCode = set_code
+    },
+    closeModal() {
+        this.$refs.imageURLInput.value = ''
+        this.newSet = ''
+        this.newSetCode = ''
+        this.$emit('emit-wiki-close');
 
-      },
-      checkRaritySelected: function(rarity,itemRarity=''){
-          return rarity.toLowerCase().includes(itemRarity.toLowerCase())
-      }
+    },
+    checkRaritySelected: function(rarity,itemRarity=''){
+        return rarity.toLowerCase().includes(itemRarity.toLowerCase())
+    }
   },
   computed: {
-    className: function() {
-        let shown = this.open ? `is-active` : ``;
-        return `modal ${shown}`;
-    },
     currentSet: function(){
         return (this.newSet != '') ? this.newSet : this.item.set
     },
@@ -241,9 +241,6 @@ export default {
       'authenticated'
     ])
 
-  },
-  watch: {
-      item: () => {}
-  },
+  }
 }
 </script>

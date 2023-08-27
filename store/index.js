@@ -34,6 +34,7 @@ export const state = () => ({
   userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
   user: shellUser.default,
   authenticated: false,
+  quickstats: shellquickstats,
 
   /* NavBar */
   isNavBarVisible: true,
@@ -67,7 +68,8 @@ export const state = () => ({
   /* ConfigBox */
   isConfigBoxVisible: false,
 
-  quickstats: shellquickstats
+  /*  data */
+  sets: []
 })
 
 export const mutations = {
@@ -166,6 +168,10 @@ export const mutations = {
 
   quickstats (state, payload = null){
     state.quickstats = payload;
+  },
+
+  sets (state, payload = null){
+    state.sets = payload;
   },
 
   /* Layouts */

@@ -19,15 +19,82 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
 
-        <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
-          <a href="/apps/inventory/" class="has-text-dark">{{quickstats.currency_symbol}}{{ quickstats.current_value }}</a>
-        </div>
-        <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
-          <b-taglist  attached>
-              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
-          </b-taglist>
-        </div>
+
+
+        <nav-bar-menu class="navbar-item pr-1 mr-0">
+
+          <div class="is-user-name">
+            <span>Recent Sets</span>
+          </div>
+
+          <div slot="dropdown" class="navbar-dropdown is-left">
+            <nuxt-link
+              v-for="si in recentSets"
+              v-bind:key="si.set_code"
+              :to="si.url"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <i :class="getSetIconClass(si.set_code)"></i>
+              <span>{{si.name}}</span>
+            </nuxt-link>
+             <nuxt-link
+              to="/mtg/sets/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <i :class="getSetIconClass('magic')"></i>
+              <span>Explore all Sets &amp; Expansions</span>
+            </nuxt-link>
+             <nuxt-link
+              to="/mtg/spoilers/"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="table-headers-eye" class="mr-2" size="default" />
+              <span>Preview Upcoming Spoilers</span>
+            </nuxt-link>
+          </div>
+        </nav-bar-menu>
+
+        <nuxt-link
+            to="/blog/"
+            class="navbar-item pl-0 ml-0"
+            exact-active-class="is-active"
+          >
+          <span>Articles</span>
+        </nuxt-link>
+
+
+        <nuxt-link
+            to="/help/"
+            class="navbar-item has-divider mr-0 pr-1"
+            exact-active-class="is-active"
+          >
+          <b-icon icon="help-circle-outline"></b-icon>
+        </nuxt-link>
+
+        <nav-bar-menu class="navbar-item">
+
+          <div class="is-user-name">
+            <span>My Apps</span>
+          </div>
+
+          <div slot="dropdown" class="navbar-dropdown is-right">
+            <nuxt-link
+              v-for="tool in tools"
+              v-bind:key="tool.icon"
+              :to="tool.to"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon :icon="tool.icon" custom-size="default" />
+              <span>{{tool.label}}</span>
+            </nuxt-link>
+          </div>
+        </nav-bar-menu>
+
+
         <!-- <a
           class="navbar-item has-divider is-desktop-icon-only"
           :class="{ 'is-active': isAsideRightActive }"
@@ -41,24 +108,7 @@
           />
           <span>Updates</span>
         </a> -->
-        <nav-bar-menu class="has-divider">
 
-          <div class="is-user-name">
-            <span>My Apps</span>
-          </div>
-
-          <div slot="dropdown" class="navbar-dropdown is-right">
-            <nuxt-link
-              v-for="tool in tools"
-              v-bind:key="tool.icon"
-              :to="tool.to"
-              class="navbar-item"
-            >
-              <b-icon :icon="tool.icon" custom-size="default" />
-              <span>{{tool.label}}</span>
-            </nuxt-link>
-          </div>
-        </nav-bar-menu>
 
         <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
@@ -129,8 +179,17 @@
               <span>Log Out</span>
             </a>
           </div>
-        </nav-bar-menu>
 
+        </nav-bar-menu>
+         <div v-if="authenticated" class="navbar-item mr-0 pr-0">
+          <a href="/apps/inventory/" class="has-text-success-dark has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
+        </div>
+        <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
+          <b-taglist  attached>
+              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
+              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
+          </b-taglist>
+        </div>
 
         <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
@@ -150,10 +209,6 @@
 
           </div>
         </div>
-        <!--
-          <b-icon icon="help-circle-outline" custom-size="default" />
-          <span>About</span>
-        </a> -->
 
 
 
@@ -192,6 +247,9 @@ export default {
       return toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       })
+    },
+    recentSets(){
+      return [...this.sets.slice(0,5)];
     },
     menuNavBarToggleIcon () {
       return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
@@ -239,18 +297,23 @@ export default {
       'user',
       'hasUpdates',
       'authenticated',
-      'quickstats'
+      'quickstats',
+      'sets'
     ])
   },
+
   mounted () {
     this.$router.afterEach(() => {
       this.isMenuNavBarActive = false
     })
+    this.$echomtg.log('sets',this.sets)
     this.dark_mode = parseInt(this.user.dark_mode)
-
 
   },
   methods: {
+     getSetIconClass(set_code){
+      return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-2'
+    },
     openPlan(){
       this.$router.push({path: '/plans/'});
     },

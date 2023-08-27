@@ -220,28 +220,13 @@ export default {
     document.documentElement.classList['add']('has-aside-mobile-transition');
 
     // STORE PERSISTANCE
-    // if reloading, load store into state to persist
-    // let persistedUser = window.localStorage.getItem('user');
-    // if(persistedUser){
-    //   await this.authenticatedUser()
-    //   let userObject = JSON.parse(persistedUser);
-    //   this.$store.commit('user', userObject);
-    //   this.$store.commit('authenticated', true);
-    //   if(parseInt(userObject.dark_mode) == 1){
-    //     this.$store.commit('darkModeToggle', true)
-    //   } else {
-    //     this.$store.commit('darkModeToggle', false)
-    //   }
-
-    // }
-    // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
     if(this.$cookies.get('token')){
       await this.authenticatedUser()
     }
+    // get sets
+    await this.getSets()
 
-    /* Dark mode by default. Works only with '~/assets/scss/style-light-dark.scss' */
-    // this.$store.commit('darkModeToggle', true)
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
@@ -251,6 +236,15 @@ export default {
     }
   },
   methods: {
+    async getSets(){
+      try{
+        const setsData = await this.$echomtg.getSets();
+        console.log('sets capture',setsData)
+        this.$store.commit('sets',setsData)
+      } catch(err){
+        console.log(err)
+      }
+    },
     async authenticatedUser(){
       // fetch the meta
       const userdata = await this.$echomtg.getUserMeta();

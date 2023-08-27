@@ -136,12 +136,10 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
   echomtg.getSets = async () => {
     let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/`, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
-      }
+      headers: echomtg.getS2SHeadersNoJSON()
     })
     let data = await res.json();
-    //echomtg.log('getting sets from echo api', data.data)
+
     return data.data;
   }
 
