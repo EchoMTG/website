@@ -968,6 +968,19 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     }
   }
 
+  echomtg.wikiItemPatch = async (body) => {
+
+    let url = `${context.app.$config.API_DOMAIN}wiki/update_item/`;
+
+    const res = await fetch(url, {
+      method: 'PATCH',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+
   echomtg.replaceSymbols = (str) => {
 
     if(str == null) return ''

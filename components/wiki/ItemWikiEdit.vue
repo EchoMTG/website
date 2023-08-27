@@ -7,21 +7,21 @@
             <b-button icon-left="close" @click="$emit('close')">
             </b-button>
         </div>
-        <form class="generic-form" ref="wikiUpdateForm" id="wikiUpdateForm">
+        <div class="generic-form" ref="wikiUpdateForm" id="wikiUpdateForm">
           <div class="modal-card-body has-background-light">
               <div class="columns">
                   <div class="column is-two-thirds">
                       <div class="field-body">
                           <fieldset class="field">
                               <label class="label">Card Name</label>
-                              <input class="input" name="name" type="text" :value="item.name">
+                              <input class="input" name="name" type="text" v-model="item.name">
                               <p class="help">{{item.name}}</p>
                           </fieldset>
                       </div>
                       <div class="field-body">
                           <fieldset class="field">
                               <label class="label">Replacement Image URL</label>
-                              <input class="input" ref="imageURLInput" name="image_url" type="text" placeholder="Paste Image full https url to replace current image">
+                              <input class="input" v-model="imageurl" ref="imageURLInput" name="image_url" type="text" placeholder="Paste Image full https url to replace current image">
                               <p class="help">{{item.image}}</p>
                           </fieldset>
                       </div>
@@ -34,6 +34,7 @@
                                   <select id="rarity" name="rarity" >
                                       <option
                                           v-for="rarity in rarities"
+                                          v-bind:key="rarity"
                                           :selected="checkRaritySelected(rarity,item.rarity)"
                                           >{{rarity}}</option>
                                   </select>
@@ -43,7 +44,7 @@
                           </div>
                           <div class="field"  style="flex: 100; flex-grow: 100;">
                               <label class="label">Expansion</label>
-                              <input type="hidden" name="set_code" :value="currentSetCode">
+                              <input type="hidden" name="set_code" v-model="currentSetCode">
                               <SetSelector
                                   v-bind:default-selection="currentSet"
                                   @changeSet="changeSet"
@@ -87,7 +88,7 @@
                           </div>
                           <div class="field" style="flex: 2; flex-grow: 100;">
                               <label class="label">Full Types</label>
-                              <input class="input" id="types" name="types" type="text" :value="item.types">
+                              <input class="input" id="types" name="types" type="text" v-model="item.types">
                               <p class="help">{{item.types}}</p>
                           </div>
                       </div>
@@ -97,12 +98,12 @@
                               <label class="label">
                                   Manacost <div class="cardcost is-pulled-right" ><small><span class="symbol colorless">1</span> = { {1} } <span class="symbol u">u</span> = { {u} } <span class="splitmana"><span class="symbol split left u">b</span><span class="symbol split right b">b</span></span> = { {ub} }</small></div>
                               </label>
-                              <input class="input" name="manacost" type="text" :value="item.mana_cost">
+                              <input class="input" name="manacost" type="text" v-model="item.mana_cost">
                               <p class="help">{{item.mana_cost}}</p>
                           </div>
                           <div class="field" style="flex: 1;">
                               <label class="label">CMC</label>
-                              <input class="input" name="cmc" type="text" :value="item.cmc">
+                              <input class="input" name="cmc" type="text" v-model="item.cmc">
                               <p class="help">{{item.cmc}}</p>
                           </div>
                       </fieldset>
@@ -117,27 +118,27 @@
               <div class="field-body">
                   <fieldset class="field">
                       <label class="label">Multiverse ID <small>({{item.mid}})</small></label>
-                      <input class="input" name="multiverse_id" type="text" :value="item.mid">
+                      <input class="input" name="multiverse_id" type="text" v-model="item.mid">
                   </fieldset>
                   <fieldset class="field">
                       <label class="label">Collector/Set Number <small>({{item.collectors_number}})</small></label>
-                      <input class="input" name="set_number" type="text" :value="item.collectors_number">
+                      <input class="input" name="set_number" type="text" v-model="item.collectors_number">
                   </fieldset>
                   <fieldset class="field">
                       <label class="label">TCGplayer ID <small>({{item.tcgplayer_id}})</small></label>
-                      <input class="input" name="tcgplayer_id" type="text" :value="item.tcgplayer_id">
+                      <input class="input" name="tcgplayer_id" type="text" v-model="item.tcgplayer_id">
                   </fieldset>
               </div>
-              <input name="emid" :value="item.emid" type="hidden">
+              <input name="emid" v-model="item.emid" type="hidden">
 
           </div>
 
 
           <div class="modal-card-foot">
-              <button class="button is-success" @click="updateWikiItem">Update</button>
+              <b-button type="is-success" @click="updateWikiItem">Update</b-button>
               <button type="button" class="button " @click="$emit('close')">Close</button>
           </div>
-        </form>
+        </div>
       </div>
   </div>
 </template>
@@ -156,6 +157,13 @@ export default {
           },
           required: false
       },
+      originalItem: {
+          type: Object,
+          default: function() {
+              return {}
+          },
+          required: false
+      },
       callback: {
         type: Function,
         required: false
@@ -164,6 +172,7 @@ export default {
   data: function data() {
       return {
           newSet: '',
+          imageurl: null,
           newSetCode: '',
           isImageModalActive: false,
           rarities: [
@@ -184,18 +193,55 @@ export default {
     },
     async updateWikiItem(){
         try {
-          var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
-          console.log(this.$refs.wikiUpdateForm);
-          console.log(formData); return;
-          // Conver to JSON
-          let url = `https://dev.echomtg.com/api/wiki/update_name/`
-          const res = await fetch(url, {
-              method: 'POST',
-              body: formData
-          });
 
 
-          const json = await res.json();
+
+
+          console.log('edited',this.item)
+          console.log('original', this.originalItem)
+
+
+          let body = {
+            "emid": this.item.emid,
+          }
+          // name
+          if(this.item.name != this.originalItem.name){
+            body.name = this.item.name;
+          }
+          // rarity
+          if(this.item.rarity != this.originalItem.rarity){
+            body.rarity = this.item.rarity;
+          }
+          // cmc
+          if(this.item.cmc != this.originalItem.cmc){
+            body.cmc = this.item.cmc;
+          }
+          // mana cost
+          if(this.item.mana_cost != this.originalItem.mana_cost){
+            body.mana_cost = this.item.mana_cost;
+          }
+          // expansion
+          if(this.currentSetCode != this.originalItem.set_code){
+            body.set_code = this.currentSetCode;
+          }
+
+          console.log('body',body)
+
+            // "expansion": this.item.expansion,
+            // "main_type": this.item.main_type,
+            // "types": this.item.types,
+            // "tcgplayer_id": this.item.tcgplayer_id,
+            // "multiverse_id": this.item.mid,
+            // "set_number": this.item.collectors_number,
+            // "oracle_text": this.item.oracle_text,
+            // "flavor_text": this.item.flavor_test,
+            // "image_url": this.imageurl
+
+
+          return;
+
+          const res = await this.$echomtg.wikiItemPatch(body)
+
           if(json.status == 'success'){
             this.$echomtg.createGrowl(data.message)
           } else {

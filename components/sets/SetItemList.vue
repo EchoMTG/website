@@ -292,6 +292,7 @@
             <template #default="props">
               <ItemWikiEdit
                 :item="wikiItem"
+                :originalItem="{...wikiItemOriginal}"
                 @close="props.close"
 
               />
@@ -358,6 +359,7 @@ export default {
       valueBelow: 0,
       textSearch: '',
       wikiItem: {},
+      wikiItemOriginal: {},
       isWikiModalActive: false,
       variant: '',
       variants: [],
@@ -447,10 +449,12 @@ export default {
     },
     openWiki: function(item){
         this.wikiItem = item
+        this.wikiItemOriginal = {...item}
         this.isWikiModalActive = true
     },
     closeWiki() {
       this.wikiItem = null
+      this.wikiItemOriginal = null
       this.isWikiModalActive = false
     },
     isCardOwned: function(emid, type='regular') {

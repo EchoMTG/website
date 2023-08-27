@@ -79,6 +79,7 @@
 
 <script>
 import ModalBox from '@/components/ModalBox'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Sets',
