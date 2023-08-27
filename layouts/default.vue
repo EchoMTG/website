@@ -239,7 +239,7 @@ export default {
     async getSets(){
       try{
         const setsData = await this.$echomtg.getSets();
-        console.log('sets capture',setsData)
+
         this.$store.commit('sets',setsData)
       } catch(err){
         console.log(err)

@@ -1,16 +1,14 @@
 <template>
   <div v-if="authenticated && parseInt(user.user_level) > 2" >
       <div class="modal-card">
-        <div class="modal-card-head">
-            <p  class="modal-card-title">Edit <strong>{{item.name}}</strong></p>
-            <button clasa="button is-outlined is-clickable" @click="$emit('close')">
-                <span class="icon">
-                <i class="fa fa-times-circle"></i>
-                </span>
-            </button>
+        <div class="modal-card-head has-background-dark ">
+            <p  class="modal-card-title has-text-white is-size-5 has-text-weight-bold">
+              <b-icon icon="wizard-hat" /> Wiki Edit {{item.name}}</p>
+            <b-button icon-left="close" @click="$emit('close')">
+            </b-button>
         </div>
         <form class="generic-form" ref="wikiUpdateForm" id="wikiUpdateForm">
-          <div class="modal-card-body">
+          <div class="modal-card-body has-background-light">
               <div class="columns">
                   <div class="column is-two-thirds">
                       <div class="field-body">
@@ -136,7 +134,7 @@
 
 
           <div class="modal-card-foot">
-              <button class="button is-success" @click="updateWikiItem()">Update</button>
+              <button class="button is-success" @click="updateWikiItem">Update</button>
               <button type="button" class="button " @click="$emit('close')">Close</button>
           </div>
         </form>
@@ -160,7 +158,7 @@ export default {
       },
       callback: {
         type: Function,
-        required: true
+        required: false
       }
   },
   data: function data() {
@@ -184,21 +182,28 @@ export default {
     togglePreview: function (){
         this.$refs.previewDiv.classList.toggle('isSelected')
     },
-    updateWikiItem: function(){
-        var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
-        let url = `/api/wiki/update_name/`
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
+    async updateWikiItem(){
+        try {
+          var formData = new FormData(this.$refs.wikiUpdateForm) //document.getElementById('wikiUpdateForm'))
+          console.log(this.$refs.wikiUpdateForm);
+          console.log(formData); return;
+          // Conver to JSON
+          let url = `https://dev.echomtg.com/api/wiki/update_name/`
+          const res = await fetch(url, {
+              method: 'POST',
+              body: formData
+          });
+
+
+          const json = await res.json();
+          if(json.status == 'success'){
             this.$echomtg.createGrowl(data.message)
-            this.closeModal()
-        })
-        .catch(err => {
-            this.$echomtg.createGrowl(err.error)
-        })
+          } else {
+            this.$echomtg.createGrowl(data.error)
+          }
+        } catch (err){
+          console.log(err)
+        }
 
     },
     changeSet: function(set,set_code){

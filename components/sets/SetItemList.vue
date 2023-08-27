@@ -178,9 +178,11 @@
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
             {{props.row.types}}
-            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" outlined class="is-pulled-right wikiButton" @click="openWiki(props.row)" >Wiki Edit</b-button>
 
 
+          </b-table-column>
+          <b-table-column :visible="parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
+            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit {{props.row.name}}</b-button>
           </b-table-column>
           <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
             <span class="is-mobile">[{{props.row.collectors_number}}]</span>
@@ -290,11 +292,9 @@
             <template #default="props">
               <ItemWikiEdit
                 :item="wikiItem"
-                :open="wikiOpen"
                 @close="props.close"
-                v-bind="formProps"
+
               />
-                <modal-form v-bind="formProps" ></modal-form>
             </template>
         </b-modal>
 

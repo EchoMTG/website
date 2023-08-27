@@ -48,6 +48,9 @@
   </div>
 </template>
 <script>
+
+  import { mapState } from 'vuex'
+
   export default {
 
     name: "SetSelector",
@@ -59,7 +62,6 @@
     },
     data: function data() {
         return {
-            sets: [],
             selection: this.defaultSelection,
             open: false,
             search: '',
@@ -69,7 +71,15 @@
     },
     methods: {
         getSets: async function () {
-          this.sets = await this.$echomtg.getSets()
+          if(this.sets.length > 0) return;
+
+            try{
+              const setsData = await this.$echomtg.getSets();
+
+              this.$store.commit('sets',setsData)
+            } catch(err){
+              console.log(err)
+            }
         },
         getClassName: function(pos){
             if(this.position == pos){
@@ -118,8 +128,8 @@
         }
     },
 
-    created: function()   {
-        this.getSets()
+    async created()   {
+        await this.getSets()
     },
     computed: {
         mainClass: function(){
@@ -153,7 +163,10 @@
                   return true
               }
             })
-        }
+        },
+        ...mapState([
+          'sets'
+        ])
     },
     watch: {
         open: () => {},
