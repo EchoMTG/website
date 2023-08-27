@@ -100,7 +100,11 @@ export default {
         }
 
       ]
-    }
+    },
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
 
   },
   head () {

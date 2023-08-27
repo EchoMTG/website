@@ -178,7 +178,7 @@
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
             {{props.row.types}}
-            <a v-if="userLevel >= 3" href="javascript:void(0)" class="button is-small is-pulled-right is-outlined wikiButton" @click="emitWiki()" >Wiki Edit</a>
+            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" outlined class="is-pulled-right wikiButton" @click="openWiki(props.row)" >Wiki Edit</b-button>
 
 
           </b-table-column>
@@ -468,7 +468,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userLevel']),
+    ...mapState(['userLevel','user','authenticated']),
       filteredItems: function(){
 
             if(this.items.length == 0) return

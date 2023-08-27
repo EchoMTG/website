@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" ref="modal" >
+  <div :class="className" ref="modal" v-if="authenticated && parseInt(user.user_level) > 2" >
     <div class="modal-background" @click="closeModal()"></div>
       <div class="modal-card">
         <div class="modal-card-head">
@@ -148,6 +148,7 @@
 </template>
 <script>
 import SetSelector from '@/components/wiki/SetSelector'
+import { mapState } from 'vuex'
 
 export default {
   name: 'ItemWikiEdit',
@@ -219,22 +220,26 @@ export default {
       }
   },
   computed: {
-      className: function() {
-          let shown = this.open ? `is-active` : ``;
-          return `modal ${shown}`;
-      },
-      currentSet: function(){
-          return (this.newSet != '') ? this.newSet : this.item.set
-      },
-      currentSetCode: function(){
-          return (this.newSetCode != '') ? this.newSetCode : this.item.set_code
-      },
-      fullImage: function(){
-          return this.item?.image ? this.item.image + '?' + Date.now() : ''
-      },
-      croppedImage: function(){
-          return this.item?.image_cropped ? this.item.image_cropped + '?' + Date.now() : ''
-      }
+    className: function() {
+        let shown = this.open ? `is-active` : ``;
+        return `modal ${shown}`;
+    },
+    currentSet: function(){
+        return (this.newSet != '') ? this.newSet : this.item.set
+    },
+    currentSetCode: function(){
+        return (this.newSetCode != '') ? this.newSetCode : this.item.set_code
+    },
+    fullImage: function(){
+        return this.item?.image ? this.item.image + '?' + Date.now() : ''
+    },
+    croppedImage: function(){
+        return this.item?.image_cropped ? this.item.image_cropped + '?' + Date.now() : ''
+    },
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
 
   },
   watch: {
