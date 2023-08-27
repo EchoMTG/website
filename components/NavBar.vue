@@ -306,9 +306,7 @@ export default {
     this.$router.afterEach(() => {
       this.isMenuNavBarActive = false
     })
-    this.$echomtg.log('sets',this.sets)
     this.dark_mode = parseInt(this.user.dark_mode)
-
   },
   methods: {
      getSetIconClass(set_code){

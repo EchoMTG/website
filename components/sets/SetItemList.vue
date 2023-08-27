@@ -278,13 +278,27 @@
               :item="item"
             />
           </tbody> -->
+          <b-modal
+            v-model="isWikiModalActive"
+            has-modal-card
+            trap-focus
+            :destroy-on-hide="false"
+            aria-role="dialog"
+            aria-label="Example Modal"
+            close-button-aria-label="Close"
+            aria-modal>
+            <template #default="props">
+              <ItemWikiEdit
+                :item="wikiItem"
+                :open="wikiOpen"
+                @close="props.close"
+                v-bind="formProps"
+              />
+                <modal-form v-bind="formProps" ></modal-form>
+            </template>
+        </b-modal>
 
 
-        <ItemWikiEdit
-          :item="wikiItem"
-          @emit-wiki-close="closeWiki()"
-          :open="wikiOpen"
-        />
       </div>
 </template>
 
@@ -344,7 +358,7 @@ export default {
       valueBelow: 0,
       textSearch: '',
       wikiItem: {},
-      wikiOpen: false,
+      isWikiModalActive: false,
       variant: '',
       variants: [],
       fullView: false,
@@ -357,6 +371,9 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    wikiControl(bool){
+      this.isWikiModalActive = bool
+    },
     changeTag(number) {
       if (number < -5) {
             return 'tag has-text-white has-background-danger'
@@ -430,10 +447,11 @@ export default {
     },
     openWiki: function(item){
         this.wikiItem = item
-        this.wikiOpen = true
+        this.isWikiModalActive = true
     },
     closeWiki() {
-        this.wikiOpen = false
+      this.wikiItem = null
+      this.isWikiModalActive = false
     },
     isCardOwned: function(emid, type='regular') {
       if(undefined == this.cardsowned) return 0;

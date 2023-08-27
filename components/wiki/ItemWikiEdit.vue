@@ -1,10 +1,9 @@
 <template>
   <div v-if="authenticated && parseInt(user.user_level) > 2" >
-    <b-modal v-model="isImageModalActive">
       <div class="modal-card">
         <div class="modal-card-head">
             <p  class="modal-card-title">Edit <strong>{{item.name}}</strong></p>
-            <button clasa="button is-outlined is-clickable" @click="closeModal()">
+            <button clasa="button is-outlined is-clickable" @click="$emit('close')">
                 <span class="icon">
                 <i class="fa fa-times-circle"></i>
                 </span>
@@ -138,11 +137,10 @@
 
           <div class="modal-card-foot">
               <button class="button is-success" @click="updateWikiItem()">Update</button>
-              <button type="button" class="button " @click="closeModal()">Close</button>
+              <button type="button" class="button " @click="$emit('close')">Close</button>
           </div>
         </form>
       </div>
-    </b-modal>
   </div>
 </template>
 <script>
@@ -160,15 +158,10 @@ export default {
           },
           required: false
       },
-      open: {
-          type: Boolean,
-          default: false
+      callback: {
+        type: Function,
+        required: true
       }
-  },
-  watch: {
-    open(){
-      this.isImageModalActive = this.open
-    }
   },
   data: function data() {
       return {
@@ -211,13 +204,6 @@ export default {
     changeSet: function(set,set_code){
         this.newSet = set
         this.newSetCode = set_code
-    },
-    closeModal() {
-        this.$refs.imageURLInput.value = ''
-        this.newSet = ''
-        this.newSetCode = ''
-        this.$emit('emit-wiki-close');
-
     },
     checkRaritySelected: function(rarity,itemRarity=''){
         return rarity.toLowerCase().includes(itemRarity.toLowerCase())
