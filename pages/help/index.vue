@@ -8,7 +8,7 @@
 
     </div>
      <div class="columns is-multiline m-3">
-      <div class="column is-one-quarter" v-for="(section,index) in helpSections" :key="`${section.label}${index}`">
+      <div class="column is-one-quarter" v-for="(section,index) in helpNav" :key="`${section.label}${index}`">
         <div class="card">
 
           <div class="card-content">
@@ -28,7 +28,7 @@
             </div>
           </div>
           <footer class="card-footer">
-            <a :href="section.url" class="card-footer-item">Open {{section.label}} Help Section</a>
+            <nuxt-link :to="section.to" class="card-footer-item">Open {{section.label}} Help Section</nuxt-link>
           </footer>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default {
         }
       ]
     },
-    helpSections() {
+    helpNav() {
       return helpMenu();
     },
     ...mapState([

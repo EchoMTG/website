@@ -59,6 +59,7 @@ import FullAd from '~/components/cta/FullAd.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
 import HelpSubNav from '~/components/help/HelpSubNav.vue'
+import helpMenu from '@/components/navigation/help'
 
 export default {
   name: 'Help',
@@ -70,7 +71,7 @@ export default {
   },
   data () {
     return {
-
+      helpNavPosition: 0
     }
   },
   computed: {
@@ -83,10 +84,9 @@ export default {
 
         },
         {
-          label: 'General Support',
-          url: '/help/support/',
-          icon: 'lifebuoy'
-
+          label: this.helpNav[this.helpNavPosition].label,
+          url: this.helpNav[this.helpNavPosition].to,
+          icon: this.helpNav[this.helpNavPosition].icon
         }
       ]
 
@@ -94,26 +94,17 @@ export default {
     ...mapState([
       'user',
       'authenticated'
-    ])
-  },
-  watch: {
-  },
-  async asyncData({$echomtg, $cookies}) {
-
-  },
-
-  mounted() {
-
-  },
-  methods: {
-
+    ]),
+    helpNav() {
+      return helpMenu();
+    }
 
   },
   head () {
-      return {
-          title: `EchoMTG Help and Support`,
-          description: `General help information for the EchoMTG Application.`
-      }
+    return {
+        title: this.helpNav[this.helpNavPosition].label,
+        description: this.helpNav[this.helpNavPosition].description
     }
+  }
 }
 </script>
