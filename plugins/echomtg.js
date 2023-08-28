@@ -973,9 +973,20 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     let url = `${context.app.$config.API_DOMAIN}wiki/update_item/`;
 
     const res = await fetch(url, {
-      method: 'POST',
+      method: 'PATCH',
       headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.getFAQs = async (start=0,limit=0,category=false) => {
+
+    let url = `${context.app.$config.API_DOMAIN}faqs/view/?start=${start}&limit=${limit}&category=${category}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: echomtg.getUserHeaders()
     });
     return await res.json();
   }
