@@ -991,6 +991,56 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return await res.json();
   }
 
+  echomtg.faqCreate = async (question,answer,category) => {
+
+    let url = `${context.app.$config.API_DOMAIN}faqs/create/`;
+    let body = {
+      question: question,
+      answer: answer,
+      category: category
+    }
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.faqEdit = async (id,question,answer,category) => {
+
+    let url = `${context.app.$config.API_DOMAIN}faqs/edit/`;
+    let body = {
+      id: id,
+      question: question,
+      answer: answer,
+      category: category
+    }
+
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.faqDelete = async (id) => {
+
+    let url = `${context.app.$config.API_DOMAIN}faqs/delete/`;
+    let body = {
+      id: id
+    }
+
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
 
   echomtg.replaceSymbols = (str) => {
 

@@ -8,7 +8,15 @@
         <help-sub-nav />
       </div>
       <div class="column is-four-fifths">
-        <div class="container">
+        <div class="container mr-3">
+          <b-button
+            type="is-success"
+            class="is-pulled-right "
+            @click="showCreateModal=true"
+            v-if="parseInt(user.user_level) >= 3"
+            icon-left="plus"
+            size="is-large">
+             <b-icon icon="wizard-hat"/> Wiki Create FAQ</b-button>
           <h1 class="title is-size-2">EchoMTG Frequently Asked Questions</h1>
           <b-input
             type="search"
@@ -64,20 +72,70 @@
 
         </b-field>
           <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light">
-                  <div class="content">
-                      <h3>
-                          {{faq.question}} <strong class="is-pulled-right">{{faq.category}} </strong>
-                      </h3>
-                      <p v-html="faq.answer">
-
-                      </p>
-                  </div>
-            </div>
+            <b-button type="is-danger" outlined size="is-small" icon-left="delete" @click="() => deleteFAQ(faq.id)" class="ml-2 is-pulled-right">
+               Delete
+            </b-button>
+            <b-tag type="is-dark" class="is-pulled-right">{{faq.category}}</b-tag>
+            <h3 class="title is-size-5 mb-2">{{faq.question}} </h3>
+            <div class="content" v-html="faq.answer" />
+          </div>
         </div>
       </div>
 
     </div>
 
+    <b-modal v-model="showCreateModal">
+      <div class="modal-card " style="width: auto">
+          <header class="modal-card-head has-background-info">
+            <p class="modal-card-title is-size-4 has-text-white"><b-icon icon="wizard-hat" /> Create new FAQ</p>
+            <button
+                type="button"
+                class="delete"
+                @click="$emit('close')"/>
+          </header>
+
+
+          <section class="modal-card-body">
+            <b-field label="Category">
+                  <b-select
+                      v-model="createCategory">
+                      <option value="inventory">Inventory</option>
+                  </b-select>
+              </b-field>
+
+              <b-field label="Question">
+                  <b-input
+                      type="textarea"
+                      v-model="createQuestion"
+                      placeholder="User Question Here"
+                      required>
+                  </b-input>
+              </b-field>
+
+             <b-field label="Answer">
+                  <b-input
+                      type="textarea"
+                      v-model="createAnswer"
+                      placeholder="Question answer here"
+                      required>
+                  </b-input>
+              </b-field>
+
+
+
+          </section>
+          <footer class="modal-card-foot">
+              <b-button
+                  label="Close"
+                  @click="$emit('close')" />
+              <b-button
+                  @click="createFAQ"
+                  icon-left="plus"
+                  label="Create New FAQ"
+                  type="is-success" />
+          </footer>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -100,12 +158,49 @@ export default {
       helpNavPosition: 1,
       faqs: [],
       search: '',
-      category: ''
+      category: '',
+      showCreateModal: false,
+      createQuestion: '',
+      createAnswer: '',
+      createCategory: 'inventory'
     }
   },
   methods: {
     clearIconClick(){
       this.search = ''
+    },
+    async editFAQ(id){
+      const res = this.$echomtg.faqEdit(id,this.createQuestion,this.createAnswer,this.createCategory)
+
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-success',
+        queue: false
+      })
+      await this.$fetch()
+    },
+    async createFAQ(){
+      const res = await this.$echomtg.faqCreate(this.createQuestion,this.createAnswer,this.createCategory)
+      this.createQuestion = ''
+      this.createAnswer = ''
+      this.createCategory = 'inventory'
+      this.showCreateModal = false
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-success'
+      })
+
+      await this.$fetch()
+    },
+     async deleteFAQ(id){
+      console.log(id)
+      const res = await this.$echomtg.faqDelete(id)
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-danger',
+        queue: false
+      })
+      await this.$fetch()
     }
   },
   computed: {
