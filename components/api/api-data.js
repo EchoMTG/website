@@ -5832,7 +5832,7 @@ export default {
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"emid\": 45,\n\t\"name\": \"Black Lotus\",\n    \"rarity\": \"rare\",\n    \"cmc\": \"0\",\n    \"mana_cost\": \"0\",\n    \"expansion\": \"LEA\",\n    \"main_type\": \"Artifact\",\n    \"types\": \"Artifact\",\n    \"tcgplayer_id\": \"1042\",\n    \"multiverse_id\": \"32\",\n    \"set_number\": \"232\",\n    \"oracle_text\": \"{t}, Sacrifice Black Lotus: Add three mana of any one color.\",\n    \"flavor_text\": \"\",\n    \"image_url\": \"https://assets.echomtg.com/magic/cards/original/45.jpg\"\n    \n}",
+							"raw": "{\n\t\"emid\": 45,\n\t\"name\": \"Black Lotus\",\n    \"rarity\": \"rare\",\n    \"cmc\": \"0\",\n    \"mana_cost\": \"0\",\n    \"expansion\": \"LEA\",\n    \"main_type\": \"Artifact\",\n    \"types\": \"Artifact\",\n    \"tcgplayer_id\": \"1042\",\n    \"multiverse_id\": \"3\",\n    \"set_number\": \"232\",\n    \"oracle_text\": \"{t}, Sacrifice Black Lotus: Add three mana of any one color.\",\n    \"flavor_text\": \"\",\n    \"image_url\": \"https://assets.echomtg.com/magic/cards/original/45.jpg\"\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5840,10 +5840,10 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://api.echomtg.com/api/wiki/update_item/",
+							"raw": "https://dev.echomtg.com/api/wiki/update_item/",
 							"protocol": "https",
 							"host": [
-								"api",
+								"dev",
 								"echomtg",
 								"com"
 							],
@@ -5860,6 +5860,293 @@ export default {
 				}
 			],
 			"description": "Functionalit only WIKI level users have access to to update system data."
+		},
+		{
+			"name": "FAQs",
+			"item": [
+				{
+					"name": "FAQs: View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.echomtg.com/api/faqs/view/?start=0&limit=150&search=",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"faqs",
+								"view",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "150"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						},
+						"description": "Fetched items dedicated in a group based on specific request parameters. Defaults to sorting by pricing high to low.\n\n**Unique** **Options**\n\ntrue or false, determins where to return unique cards with no variants or not. default: false\n\n**Name Options**\n\n- **reserved** - magic reserve list\n- **commanders** - magic legendary creatures\n- **lands** - magic rare land cycles\n- **artifacts** - top 150 magic artifacts\n- **tokens** - top 150 magic tokens\n- **creatures** - top 150 magic creatures\n- **power9** - magic power 9\n- **tiny** - magic tiny leaders\n- **trendingup** - magic items increasing in value\n- **trendingdown** - magic item decreasing in value\n- **custom** - look for a specific card type, see type options\n    \n\n**Type Options**\n\nType param only work with name=custom. Must be one part of a type like \"merfolk\" or \"instant\" or a fully qualified type like \"Elf Druid\". Examples:\n\n- Merfolk\n- Goblin\n- Instant\n- Elf Druid\n- Tribal\n- Enchantment\n- World Enchantment\n    \n\n**Limit Options**\n\nDefault is 150, accepting an integer. Optional."
+					},
+					"response": [
+						{
+							"name": "FAQs: View",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.echomtg.com/api/faqs/view/?start=0&limit=150&search=",
+									"protocol": "https",
+									"host": [
+										"api",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"faqs",
+										"view",
+										""
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "150"
+										},
+										{
+											"key": "search",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "access-control-allow-headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "GAESA=CoQBMDBlNjc2MDA3M2MxMDUwYTE5MGI1NDIyYjYzNjM5MTFjMzk1Mzk5OTg5ZmZhMmE0Njc1MzU3MzBiZDFmNTJhMzY0YTZmNzViMGU4YzQ5YmM3YWI3NjIyMzQ3YmYyM2M0NmVlNjQ5MWVjNThmMjEzZWYwMDIxOGVlN2I4OTAxM2ExMGRmEM-yluOjMQ; expires=Wed, 27-Sep-2023 13:46:45 GMT; path=/"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 28 Aug 2023 13:46:45 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"FAQs Accessed Successfully\",\n    \"data\": [\n        {\n            \"id\": \"2\",\n            \"question\": \"There is a card missing in the database!\",\n            \"answer\": \"You can add missing cards to the database using this tool: <a href=\\\\\\\"https://www.echomtg.com/user/fetch-card/\\\\\\\">https://www.echomtg.com/user/fetch-card/</a>. If you cannot find the set/expansion it is from from, email us!\",\n            \"category\": \"inventory\"\n        },\n        {\n            \"id\": \"3\",\n            \"question\": \"I\\\\'m trying to enter my collection and it keeps dividing groups of the same card into two different groups. For instance, Overgrown Tomb should have an inventory of 11. But it keeps saying \\\\\\\"8/3\\\\'. Is there a way of consolidating them?\",\n            \"answer\": \"That is the actual behavior of the time sort, it will show you cards you acquired in groups based on the time you acquired. Also, if cards have different printing (expansions etc) they will not group with each other. If you want to see all of your cards g\",\n            \"category\": \"inventory\"\n        },\n        {\n            \"id\": \"4\",\n            \"question\": \"Do you support Foreign Languages?\",\n            \"answer\": \"Not currently, we are working on a foreign language designation, but prices wont be until the following year when we integrate with MKM.\",\n            \"category\": \"inventory\"\n        },\n        {\n            \"id\": \"10\",\n            \"question\": \"Is there an export feature? \",\n            \"answer\": \"The Export button can be found in the upper right hand corner of the Inventory page.  \",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"11\",\n            \"question\": \"Is there a way to have two collections under one account?\",\n            \"answer\": \"There is one collection associated with each account, there is not a default option to create more than one collection under the same account.\",\n            \"category\": \"list\"\n        },\n        {\n            \"id\": \"12\",\n            \"question\": \"Why are there difference prices listed for the same card?\",\n            \"answer\": \"This would be a case of the card having multiple arts.  Each of the different art variations are worth a different amount.  \",\n            \"category\": \"tag\"\n        },\n        {\n            \"id\": \"13\",\n            \"question\": \"Why isn\\\\'t the 7-day trend showing?\",\n            \"answer\": \"If it is between the hours of 12am-6am on Sunday the list is being refreshed.  A full refresh of 24,000+ cards happens at this time very week.  Go back to bed for a little bit and then come back to check out the updates!\",\n            \"category\": \"pie-chart\"\n        },\n        {\n            \"id\": \"14\",\n            \"question\": \"Is there a way to track my shipping costs when adding cards to my inventory? \",\n            \"answer\": \"Each card you enter, has an acquired price that can be modified. You would want to add the shipping costs to that acquired price.\",\n            \"category\": \"money\"\n        },\n        {\n            \"id\": \"15\",\n            \"question\": \"Do you accept PayPal for subscription payment?\",\n            \"answer\": \"Please contact us to set up this transaction.\",\n            \"category\": \"user\"\n        },\n        {\n            \"id\": \"16\",\n            \"question\": \"I am trying to sign up for a paid account but the link does not seem to be working, what am I doing wrong?\",\n            \"answer\": \"Please check your credit card information, make sure you have entered the complete number along with a valid expiration date.  A mistake in one of these fields is most commonly why an error would occur with processing and the page will not let you proceed\",\n            \"category\": \"user\"\n        },\n        {\n            \"id\": \"17\",\n            \"question\": \"I am entering card prices in a currency other than USD, why does the price alter slightly from what I enter the price to be?\",\n            \"answer\": \"This has to do with currency conversion.  It calculates the value based on the conversion rate. We try to get the conversion from USD as precise as possible.\",\n            \"category\": \"tag\"\n        },\n        {\n            \"id\": \"18\",\n            \"question\": \"How do I delete my inventory to start new?\",\n            \"answer\": \"Right now there is not a way for you to delete all cards other than going through and deleting one by one.  Teeg will be working on this as an available action.  In the meantime Teeg can go into the codez and delete them all for you to make it easier on y\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"19\",\n            \"question\": \"When I export my inventory list will condition and language export as well?\",\n            \"answer\": \"Condition will export but language will not, yet.  We plan to implement language export as well down the road.\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"20\",\n            \"question\": \"Do you support foreign language cards or is there a way to designate foreign cards?\",\n            \"answer\": \"Not at the moment. Designating foreign cards is in the pipeline. Foreign prices will not happen for quite some time.\",\n            \"category\": \"tag\"\n        },\n        {\n            \"id\": \"21\",\n            \"question\": \"Do you have a plan for store/ retail use?\",\n            \"answer\": \"Yes we do! Please contact us for more information. \",\n            \"category\": \"usd\"\n        },\n        {\n            \"id\": \"22\",\n            \"question\": \"My collection keeps dividing groups of the same card into two different groups.  (For instance, Overgrown Tomb should have an inventory of 11. But it keeps saying \\\\'8/3\\\\') What\\\\'s going on? Is there a way of consolidating them? \",\n            \"answer\": \"That is the actual behavior of the time sort, it will show you cards you acquired in groups based on the time you acquired. Also, if cards have different printing (expansions etc) they will not group with each other. If you want to see all of your cards g\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"23\",\n            \"question\": \"How to I change plans or discontinue my plan?\",\n            \"answer\": \"If you would like to adjust your plan level please go to www.echomtg.com/plans and choose your plan from there. If you would like to discontinue your paid subscription please also go to www.echomtg.com/plans and switch your account level to the free plan,\",\n            \"category\": \"usd\"\n        },\n        {\n            \"id\": \"24\",\n            \"question\": \"How committed are you to this project?  I want to be sure that I don\\\\'t invest significant time, and then find out a few months later that this is being abandoned.\",\n            \"answer\": \"Really committed, 5000+ users ~8% support us with a paid subscription.\",\n            \"category\": \"user\"\n        },\n        {\n            \"id\": \"25\",\n            \"question\": \"Where do you generate the pricing data?  I\\\\'m curious about its reliability, especially on older cards, as I have significant Alpha/Beta stock.\",\n            \"answer\": \"All from TCG player, we have a few other sources in the works (MTGO and MKM) but they wont be later down the road. If a price is not available it defaults to its last price in memory.\",\n            \"category\": \"usd\"\n        },\n        {\n            \"id\": \"26\",\n            \"question\": \"Is there an easy ability for me to upload inventory of graded cards that can track each of the subgrades (e.g. BGS cards)?  Any pricing data for this, or can I manually enter what I think the price is?\",\n            \"answer\": \"We have an import tool, but it does not pair with grading at the moment. We do have a grading dropdown in the inventory section with NM, MP, SP, Altered etc, we can added BGS to that. The grade currently does not affect the price. Manually entering this d\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"27\",\n            \"question\": \"Is there a mass export tool, so that once I upload everything I can export into Excel or some other database so that I can have a backup for insurance or other purposes?\",\n            \"answer\": \"Yes, in the inventory section next to the card count, there is an export button. Depending on your subscription, different information is exported. As a mythic or LGS user you will get prices and  grades.\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"28\",\n            \"question\": \"Is there a way to segregate part of my inventory so that I can track some of it in a separate graph? For example, I have a complete Beta set that I would upload into my inventory, but I\\\\'d want to manage it separately.  This way I could track the value of\",\n            \"answer\": \"We have a list feature that would work for this. All cards you put into your inventory are under one arena, the inventory. List are made to separate different grouping (or decks), lists both read from your cards and let you know if you are missing particu\",\n            \"category\": \"list\"\n        },\n        {\n            \"id\": \"29\",\n            \"question\": \"Does card condition factor into the pricing/valuation?\",\n            \"answer\": \"No. We have talked about it, like a -10% for MP -30% for damaged etc, but nothing conclusive at the moment.\",\n            \"category\": \"usd\"\n        },\n        {\n            \"id\": \"30\",\n            \"question\": \"There are some cards that are not in the database.\",\n            \"answer\": \"If a card is missing you can enter it here <a href=\\\\\\\"https://www.echomtg.com/user/fetch-card/\\\\\\\">https://www.echomtg.com/user/fetch-card/</a>\\\\r\\\\nFor each card you enter, you will be awarded a storage bonus.\",\n            \"category\": \"database\"\n        },\n        {\n            \"id\": \"31\",\n            \"question\": \"Only full art lands are in the database, will you be added foil/premium versions of basic lands in?\",\n            \"answer\": \"This has been an increasing request and right now there is not a way.  Teeg is working on a tool for users to add missing cards in exchange for being awarded added storage space.  There is not a way for us capture these lands and have them added to the da\",\n            \"category\": \"database\"\n        }\n    ],\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "FAQs: Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\" : \"My question here\",\n    \"answer\" : \"My answer here\",\n    \"category\" : \"inventory\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.echomtg.com/api/faqs/create/",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"faqs",
+								"create",
+								""
+							]
+						},
+						"description": "Categories\n\n- inventory\n    \n- user\n    \n- usd (billing)\n    \n- list\n    \n- database (general)"
+					},
+					"response": []
+				},
+				{
+					"name": "FAQs: Edit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"23\",\n    \"question\" : \"My question here\",\n    \"answer\" : \"My answer here\",\n    \"category\" : \"inventory\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.echomtg.com/api/faqs/edit/",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"faqs",
+								"edit",
+								""
+							]
+						},
+						"description": "PUT request will overwrite the data, all field must be present.\n\n| **id** | **faq id** |\n| --- | --- |\n| question | string |"
+					},
+					"response": []
+				},
+				{
+					"name": "FAQs: Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"23\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.echomtg.com/api/faqs/delete/",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"faqs",
+								"delete",
+								""
+							]
+						},
+						"description": "Categories\n\n- inventory\n    \n- user\n    \n- usd (billing)\n    \n- list\n    \n- database (general)"
+					},
+					"response": []
+				}
+			],
+			"description": "Frequently Asked Questions"
 		},
 		{
 			"name": "Deprecated",
