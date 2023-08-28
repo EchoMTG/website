@@ -81,8 +81,8 @@
             </b-button>
 
 
-            <b-tag type="is-dark" class="is-pulled-right">{{faq.category}}</b-tag>
-            <h3 class="title is-size-5 mb-2">{{faq.question}} </h3>
+
+            <h3 class="title is-size-5 mb-2">{{faq.question}} <b-tag type="is-light is-info" size="is-small">{{faq.category}}</b-tag></h3>
             <div class="content" v-html="faq.answer" />
           </div>
         </div>
@@ -97,7 +97,7 @@
             <button
                 type="button"
                 class="delete"
-                @click="$emit('close')"/>
+                @click="showEditModal = false"/>
           </header>
 
           <section class="modal-card-body">
@@ -135,7 +135,7 @@
           <footer class="modal-card-foot">
               <b-button
                   label="Close"
-                  @click="$emit('close')" />
+                  @click="showEditModal = false" />
               <b-button
                   @click="editFAQ"
                   icon-left="plus"
@@ -152,7 +152,7 @@
             <button
                 type="button"
                 class="delete"
-                @click="$emit('close')"/>
+                @click="showCreateModal = false"/>
           </header>
 
           <section class="modal-card-body">
@@ -190,7 +190,7 @@
           <footer class="modal-card-foot">
               <b-button
                   label="Close"
-                  @click="$emit('close')" />
+                  @click="showCreateModal = false" />
               <b-button
                   @click="createFAQ"
                   icon-left="plus"
