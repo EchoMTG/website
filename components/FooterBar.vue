@@ -4,7 +4,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            &copy; {{ year }}, EchoMTG, ThoughtBomb Studios, LLC
+            &copy; {{ year }}, EchoMTG, ThoughtBomb Studios, LLC.
           </div>
         </div>
         <div class="level-right">

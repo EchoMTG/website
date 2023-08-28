@@ -4,7 +4,7 @@
 
      <div class="tradelist table-container ">
             <div class="columns is-gapless">
-                <div class="column is-two-thirds">
+                <div class="column is-four-fifths">
                     <div class="container p-5">
                       <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
 
