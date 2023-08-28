@@ -74,7 +74,7 @@
         class="button is-outlined has-background-dark is-small has-icon-left hide-mobile"
         style="margin-left: 3px"
         target="_blank"
-        href="https://www.echomtg.com/printable-checklist/SNC/streets-of-new-capenna/"
+        :href="`printable-check-list/`"
       >
         <span class="icon"><i class="fa fa-print"></i></span>
         <span>Checklist</span>
