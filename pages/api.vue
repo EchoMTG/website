@@ -64,7 +64,7 @@
 
 
       <div class="is-relative" v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" >
-        <div :id="getSubDocID(doc.name)" style="width: 1px; height: 1px; top: -100px; left: 0px;"></div>
+        <span :id="getSubDocID(doc.name)" style="position: absolute; width:1px; height: 1px; top: -155px;"></span>
         <div class="container mb-4" v-if="filterAPIDocs(doc.item) && filterAPIDocs(doc.item).length > 0 && search == ''" >
           <h2 class="title is-size-3 mb-2" >{{doc.name}}</h2>
           <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
@@ -74,14 +74,15 @@
           <div
             v-for="(subdoc,index) in filterAPIDocs(doc.item)"
             v-bind:key="`docsub${index}`"
-            :id="getSubDocID(subdoc.name)"
-            :class="getEndpointClass(index)"
+
+            :class="`is-relative ${getEndpointClass(index)}`"
             >
+            <span :id="getSubDocID(subdoc.name)" style="position: absolute; width:1px; height: 1px; top: -155px;"></span>
             <div class="container">
               <h3 class="title is-size-4 mt-5 mb-3">
                 <b-tag class="mr-3" v-if="subdoc.request" size="is-medium" type="is-dark">{{subdoc.request.method}}</b-tag>
                 {{subdoc.name}}
-                <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon icon="link"></b-icon></a>
+                <a :href="`#${getSubDocID(subdoc.name)}`"><b-icon type="is-info" icon="link"></b-icon></a>
               </h3>
               <div class="columns">
 
@@ -191,10 +192,10 @@ export default {
       return {
           title: `Magic:the Gathering API for Collectors`,
           meta: [
-            { 
-              hid: 'og:image', 
-              property: 'og:image', 
-              content: `https://assets.echomtg.com/images/echomtg-og-default.png?1` 
+            {
+              hid: 'og:image',
+              property: 'og:image',
+              content: `https://assets.echomtg.com/images/echomtg-og-default.png?1`
             },
             {
               hid: 'description',

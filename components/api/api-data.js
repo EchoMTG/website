@@ -5908,7 +5908,7 @@ export default {
 								}
 							]
 						},
-						"description": "Fetched items dedicated in a group based on specific request parameters. Defaults to sorting by pricing high to low.\n\n**Unique** **Options**\n\ntrue or false, determins where to return unique cards with no variants or not. default: false\n\n**Name Options**\n\n- **reserved** - magic reserve list\n- **commanders** - magic legendary creatures\n- **lands** - magic rare land cycles\n- **artifacts** - top 150 magic artifacts\n- **tokens** - top 150 magic tokens\n- **creatures** - top 150 magic creatures\n- **power9** - magic power 9\n- **tiny** - magic tiny leaders\n- **trendingup** - magic items increasing in value\n- **trendingdown** - magic item decreasing in value\n- **custom** - look for a specific card type, see type options\n    \n\n**Type Options**\n\nType param only work with name=custom. Must be one part of a type like \"merfolk\" or \"instant\" or a fully qualified type like \"Elf Druid\". Examples:\n\n- Merfolk\n- Goblin\n- Instant\n- Elf Druid\n- Tribal\n- Enchantment\n- World Enchantment\n    \n\n**Limit Options**\n\nDefault is 150, accepting an integer. Optional."
+						"description": "Fetch FAQ list"
 					},
 					"response": [
 						{
@@ -6024,7 +6024,7 @@ export default {
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{s2skey}}",
+									"value": "{{user_token}}",
 									"type": "string"
 								}
 							]
@@ -6041,10 +6041,10 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://dev.echomtg.com/api/faqs/create/",
+							"raw": "https://api.echomtg.com/api/faqs/create/",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"api",
 								"echomtg",
 								"com"
 							],
@@ -6067,7 +6067,7 @@ export default {
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{s2skey}}",
+									"value": "{{user_token}}",
 									"type": "string"
 								}
 							]
@@ -6110,7 +6110,7 @@ export default {
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{s2skey}}",
+									"value": "{{user_token}}",
 									"type": "string"
 								}
 							]

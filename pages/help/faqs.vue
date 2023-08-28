@@ -71,7 +71,8 @@
 
 
         </b-field>
-          <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light">
+          <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light is-relative">
+            <span :id="makeFAQSlug(faq.question)" style="position: absolute; top: -70px"></span>
             <b-button type="is-info" outlined size="is-small" icon-left="pencil" @click="() => openEditModal(faq)" class="ml-2 is-pulled-right">
                Edit
             </b-button>
@@ -82,8 +83,11 @@
 
 
 
-            <h3 class="title is-size-5 mb-2">{{faq.question}} <b-tag type="is-light is-info" size="is-small">{{faq.category}}</b-tag></h3>
-            <div class="content" v-html="faq.answer" />
+            <h3  class="title is-size-5 mb-2">{{faq.question}} <nuxt-link :to="{ path: path, hash:`#${makeFAQSlug(faq.question)}`}"> <b-icon type="is-info" icon="link"></b-icon></nuxt-link></h3>
+
+            <div class="content mb-2" v-html="faq.answer" />
+
+            <b-tag type="is-white" size="is-small">{{faq.category}}</b-tag>
           </div>
         </div>
       </div>
@@ -270,6 +274,10 @@ export default {
     openEditModal(item){
       this.editItem = item
       this.showEditModal = true
+    },
+    makeFAQSlug(question){
+
+      return question.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'').substring(0,50)
     }
   },
   computed: {
@@ -289,6 +297,9 @@ export default {
         }
       ]
 
+    },
+    path(){
+      return this.$nuxt.$route.path
     },
     ...mapState([
       'user',
