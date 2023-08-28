@@ -5469,7 +5469,7 @@ export default {
 					"response": []
 				},
 				{
-					"name": "Data: Single Article",
+					"name": "Data: Magic Types",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -5484,7 +5484,7 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://dev.echomtg.com/api/data/article/?id=32",
+							"raw": "https://dev.echomtg.com/api/magic/types/",
 							"protocol": "https",
 							"host": [
 								"dev",
@@ -5493,117 +5493,21 @@ export default {
 							],
 							"path": [
 								"api",
-								"data",
-								"article",
+								"magic",
+								"types",
 								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "32"
-								}
 							]
 						},
-						"description": "Fetch an article by its unique ID (int). Get ID from the URL or from querying the articles endpoint."
+						"description": "Return all the types in magic the gathering along with the total in the database."
 					},
-					"response": [
-						{
-							"name": "Data: Articles",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://api.echomtg.com/api/data/article/?id=32",
-									"protocol": "https",
-									"host": [
-										"api",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"data",
-										"article",
-										""
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "32"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 02 Jan 2023 19:55:59 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "PHP/8.1.11"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"data\": {\n        \"article\": {\n            \"id\": \"32\",\n            \"content\": \"<h3>Trading Volume Example: Siege Rhino</h3><p>Right now we<span style=\\\"font-size: 18px; line-height: 1.4;\\\">Â knowÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">170 </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">register Echo</span><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> players ownÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">568</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> <a href=\\\"https://www.echomtg.com/card/94360/siege-rhino/\\\">Siege Rhinos</a>; ~3.5 for each player. This total accounts for a volume of Siege Rhinos on tracked on Echo atÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">$2,385.60</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">USD</span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">. </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">170 players account for 8.5% of the total player base on EchoMTG. In 2013, there was an estimated 12 Million magic players (</span><a href=\\\"http://www.nbcnews.com/tech/video-games/20-magic-gathering-still-going-strong-not-just-school-lunchrooms-f8C11044163\\\" style=\\\"font-size: 18px; line-height: 1.4;\\\">source</a><span style=\\\"line-height: 1.4;\\\">). 1,020,000 is 8.5% of 12 million, whichÂ </span>averaging<span style=\\\"line-height: 1.4;\\\">Â 3.5Â Siege Rhinos a piece, accounts for 3,750,000 Siege Rhinos printed in circulation. That roughly puts Siege Rhino's total volume at <b>15 Million USD</b>.Â </span><br></p><h3><span style=\\\"line-height: 1.4;\\\">Calculating total Secondary Market Volume</span></h3><p><span style=\\\"line-height: 1.4;\\\">Siege Rhino is a single card in a secondary market with 25,000+ different card printings in it. Right now we know there are 1428 cards with a current price greater than <b>$4</b>USD, ranging anywhere from <b>$4</b>USD to <b>$10,000</b>USD each. For the sake of brains, lets assume they all have aÂ </span>similar<span style=\\\"line-height: 1.4;\\\">Â volume. Doing so puts the secondary marketÂ at <b>$21.4 Billion Dollars</b>. Want to try to buy out Siege RhinoÂ now?</span></p><h3><span style=\\\"line-height: 1.4;\\\">Mathematical Disclaimer</span></h3><p><span style=\\\"line-height: 1.4;\\\">I'm just a programmer making wild assumptions here, but one thing is clear, the secondary market is a real thing that drives many LGS storefronts, online sales, and new product opening. Even if that number of off by 50% in either direction, the number is still staggering. To put it in context, if these assumptions are near to the truth, than the secondary market for magic cards is larger than theÂ </span>Electronic & Computer Repair Services market (<a href=\\\"http://www.ibisworld.com/industry/default.aspx?indid=1702\\\">source</a>).<span style=\\\"line-height: 1.4;\\\">Â Â </span><br></p><p><span style=\\\"line-height: 1.4;\\\">If you have suggestions to help make this math clearer or more accurate, please comment below.</span></p>\",\n            \"short\": null,\n            \"title\": \"Hypothetical Math to Calculate Trading Volume using EchoMTG\",\n            \"image\": \"http://magic.wizards.com/sites/mtg/files/images/hero/MX2thumb_td20141124.jpg\",\n            \"category\": \"1\",\n            \"user_id\": \"1\",\n            \"date_updated\": null,\n            \"date_created\": \"2016-03-15 04:00:00\",\n            \"date_published\": \"2016-03-15 04:00:00\",\n            \"votes\": null,\n            \"featured\": null,\n            \"list_html\": null,\n            \"list_id\": \"0\",\n            \"images\": [],\n            \"videos\": [],\n            \"Parsedown\": {},\n            \"parsedContent\": \"<h3>Trading Volume Example: Siege Rhino</h3><p>Right now we<span style=\\\"font-size: 18px; line-height: 1.4;\\\">Â knowÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">170 </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">register Echo</span><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> players ownÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">568</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> <a href=\\\"https://www.echomtg.com/card/94360/siege-rhino/\\\">Siege Rhinos</a>; ~3.5 for each player. This total accounts for a volume of Siege Rhinos on tracked on Echo atÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">$2,385.60</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">USD</span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">. </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">170 players account for 8.5% of the total player base on EchoMTG. In 2013, there was an estimated 12 Million magic players (</span><a href=\\\"http://www.nbcnews.com/tech/video-games/20-magic-gathering-still-going-strong-not-just-school-lunchrooms-f8C11044163\\\" style=\\\"font-size: 18px; line-height: 1.4;\\\">source</a><span style=\\\"line-height: 1.4;\\\">). 1,020,000 is 8.5% of 12 million, whichÂ </span>averaging<span style=\\\"line-height: 1.4;\\\">Â 3.5Â Siege Rhinos a piece, accounts for 3,750,000 Siege Rhinos printed in circulation. That roughly puts Siege Rhino's total volume at <b>15 Million USD</b>.Â </span><br></p><h3><span style=\\\"line-height: 1.4;\\\">Calculating total Secondary Market Volume</span></h3><p><span style=\\\"line-height: 1.4;\\\">Siege Rhino is a single card in a secondary market with 25,000+ different card printings in it. Right now we know there are 1428 cards with a current price greater than <b>$4</b>USD, ranging anywhere from <b>$4</b>USD to <b>$10,000</b>USD each. For the sake of brains, lets assume they all have aÂ </span>similar<span style=\\\"line-height: 1.4;\\\">Â volume. Doing so puts the secondary marketÂ at <b>$21.4 Billion Dollars</b>. Want to try to buy out Siege RhinoÂ now?</span></p><h3><span style=\\\"line-height: 1.4;\\\">Mathematical Disclaimer</span></h3><p><span style=\\\"line-height: 1.4;\\\">I'm just a programmer making wild assumptions here, but one thing is clear, the secondary market is a real thing that drives many LGS storefronts, online sales, and new product opening. Even if that number of off by 50% in either direction, the number is still staggering. To put it in context, if these assumptions are near to the truth, than the secondary market for magic cards is larger than theÂ </span>Electronic & Computer Repair Services market (<a href=\\\"http://www.ibisworld.com/industry/default.aspx?indid=1702\\\">source</a>).<span style=\\\"line-height: 1.4;\\\">Â Â </span><br></p><p><span style=\\\"line-height: 1.4;\\\">If you have suggestions to help make this math clearer or more accurate, please comment below.</span></p>\"\n        },\n        \"author\": {\n            \"username\": \"teeg\",\n            \"about\": \"I'm the mythical programmer of EchoMTG. I?ve been a player since 1995, but took a hiatus before middle school, then returned in 2011. Upon returning I was hellbent on collecting nostalgic cards I once had in my collection (dual lands etc.) so I could jump into the legacy scene. Collecting duals needed to be done on a budget, so trading up was the only option. While trading heavily online, I started Echo database (early 2012) to help calculate quick trades. I take a lot of pride as a product author and still love mtg dearly, so Echo is a great avenue for experimental interface designs while feeding into my favorite hobby.\",\n            \"twitter\": \"@echomtg\",\n            \"email\": \"email@example.com\",\n            \"id\": \"1\",\n            \"avatar\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\"\n        },\n        \"category\": \"Finance\"\n    },\n    \"message\": \"Article '32' retrieved successfully.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
+					"response": []
+				}
+			],
+			"description": "Specific Data calls to EchoMTG to fill pages like expansions, groups, single item data, etc."
+		},
+		{
+			"name": "Articles",
+			"item": [
 				{
 					"name": "Data: Get Articles",
 					"request": {
@@ -5762,7 +5666,7 @@ export default {
 					]
 				},
 				{
-					"name": "Data: Magic Types",
+					"name": "Data: Get Single Article",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -5777,26 +5681,185 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://dev.echomtg.com/api/magic/types/",
+							"raw": "https://api.echomtg.com/api/data/article/?id=32",
 							"protocol": "https",
 							"host": [
-								"dev",
+								"api",
 								"echomtg",
 								"com"
 							],
 							"path": [
 								"api",
-								"magic",
-								"types",
+								"data",
+								"article",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "32"
+								}
+							]
+						},
+						"description": "Fetch an article by its unique ID (int). Get ID from the URL or from querying the articles endpoint."
+					},
+					"response": [
+						{
+							"name": "Data: Articles",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.echomtg.com/api/data/article/?id=32",
+									"protocol": "https",
+									"host": [
+										"api",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"data",
+										"article",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "32"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 19:55:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"article\": {\n            \"id\": \"32\",\n            \"content\": \"<h3>Trading Volume Example: Siege Rhino</h3><p>Right now we<span style=\\\"font-size: 18px; line-height: 1.4;\\\">Â knowÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">170 </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">register Echo</span><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> players ownÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">568</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> <a href=\\\"https://www.echomtg.com/card/94360/siege-rhino/\\\">Siege Rhinos</a>; ~3.5 for each player. This total accounts for a volume of Siege Rhinos on tracked on Echo atÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">$2,385.60</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">USD</span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">. </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">170 players account for 8.5% of the total player base on EchoMTG. In 2013, there was an estimated 12 Million magic players (</span><a href=\\\"http://www.nbcnews.com/tech/video-games/20-magic-gathering-still-going-strong-not-just-school-lunchrooms-f8C11044163\\\" style=\\\"font-size: 18px; line-height: 1.4;\\\">source</a><span style=\\\"line-height: 1.4;\\\">). 1,020,000 is 8.5% of 12 million, whichÂ </span>averaging<span style=\\\"line-height: 1.4;\\\">Â 3.5Â Siege Rhinos a piece, accounts for 3,750,000 Siege Rhinos printed in circulation. That roughly puts Siege Rhino's total volume at <b>15 Million USD</b>.Â </span><br></p><h3><span style=\\\"line-height: 1.4;\\\">Calculating total Secondary Market Volume</span></h3><p><span style=\\\"line-height: 1.4;\\\">Siege Rhino is a single card in a secondary market with 25,000+ different card printings in it. Right now we know there are 1428 cards with a current price greater than <b>$4</b>USD, ranging anywhere from <b>$4</b>USD to <b>$10,000</b>USD each. For the sake of brains, lets assume they all have aÂ </span>similar<span style=\\\"line-height: 1.4;\\\">Â volume. Doing so puts the secondary marketÂ at <b>$21.4 Billion Dollars</b>. Want to try to buy out Siege RhinoÂ now?</span></p><h3><span style=\\\"line-height: 1.4;\\\">Mathematical Disclaimer</span></h3><p><span style=\\\"line-height: 1.4;\\\">I'm just a programmer making wild assumptions here, but one thing is clear, the secondary market is a real thing that drives many LGS storefronts, online sales, and new product opening. Even if that number of off by 50% in either direction, the number is still staggering. To put it in context, if these assumptions are near to the truth, than the secondary market for magic cards is larger than theÂ </span>Electronic & Computer Repair Services market (<a href=\\\"http://www.ibisworld.com/industry/default.aspx?indid=1702\\\">source</a>).<span style=\\\"line-height: 1.4;\\\">Â Â </span><br></p><p><span style=\\\"line-height: 1.4;\\\">If you have suggestions to help make this math clearer or more accurate, please comment below.</span></p>\",\n            \"short\": null,\n            \"title\": \"Hypothetical Math to Calculate Trading Volume using EchoMTG\",\n            \"image\": \"http://magic.wizards.com/sites/mtg/files/images/hero/MX2thumb_td20141124.jpg\",\n            \"category\": \"1\",\n            \"user_id\": \"1\",\n            \"date_updated\": null,\n            \"date_created\": \"2016-03-15 04:00:00\",\n            \"date_published\": \"2016-03-15 04:00:00\",\n            \"votes\": null,\n            \"featured\": null,\n            \"list_html\": null,\n            \"list_id\": \"0\",\n            \"images\": [],\n            \"videos\": [],\n            \"Parsedown\": {},\n            \"parsedContent\": \"<h3>Trading Volume Example: Siege Rhino</h3><p>Right now we<span style=\\\"font-size: 18px; line-height: 1.4;\\\">Â knowÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">170 </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">register Echo</span><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> players ownÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">568</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\"> <a href=\\\"https://www.echomtg.com/card/94360/siege-rhino/\\\">Siege Rhinos</a>; ~3.5 for each player. This total accounts for a volume of Siege Rhinos on tracked on Echo atÂ </span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">$2,385.60</b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">USD</span><b style=\\\"font-size: 18px; line-height: 1.4;\\\">. </b><span style=\\\"font-size: 18px; line-height: 1.4;\\\">170 players account for 8.5% of the total player base on EchoMTG. In 2013, there was an estimated 12 Million magic players (</span><a href=\\\"http://www.nbcnews.com/tech/video-games/20-magic-gathering-still-going-strong-not-just-school-lunchrooms-f8C11044163\\\" style=\\\"font-size: 18px; line-height: 1.4;\\\">source</a><span style=\\\"line-height: 1.4;\\\">). 1,020,000 is 8.5% of 12 million, whichÂ </span>averaging<span style=\\\"line-height: 1.4;\\\">Â 3.5Â Siege Rhinos a piece, accounts for 3,750,000 Siege Rhinos printed in circulation. That roughly puts Siege Rhino's total volume at <b>15 Million USD</b>.Â </span><br></p><h3><span style=\\\"line-height: 1.4;\\\">Calculating total Secondary Market Volume</span></h3><p><span style=\\\"line-height: 1.4;\\\">Siege Rhino is a single card in a secondary market with 25,000+ different card printings in it. Right now we know there are 1428 cards with a current price greater than <b>$4</b>USD, ranging anywhere from <b>$4</b>USD to <b>$10,000</b>USD each. For the sake of brains, lets assume they all have aÂ </span>similar<span style=\\\"line-height: 1.4;\\\">Â volume. Doing so puts the secondary marketÂ at <b>$21.4 Billion Dollars</b>. Want to try to buy out Siege RhinoÂ now?</span></p><h3><span style=\\\"line-height: 1.4;\\\">Mathematical Disclaimer</span></h3><p><span style=\\\"line-height: 1.4;\\\">I'm just a programmer making wild assumptions here, but one thing is clear, the secondary market is a real thing that drives many LGS storefronts, online sales, and new product opening. Even if that number of off by 50% in either direction, the number is still staggering. To put it in context, if these assumptions are near to the truth, than the secondary market for magic cards is larger than theÂ </span>Electronic & Computer Repair Services market (<a href=\\\"http://www.ibisworld.com/industry/default.aspx?indid=1702\\\">source</a>).<span style=\\\"line-height: 1.4;\\\">Â Â </span><br></p><p><span style=\\\"line-height: 1.4;\\\">If you have suggestions to help make this math clearer or more accurate, please comment below.</span></p>\"\n        },\n        \"author\": {\n            \"username\": \"teeg\",\n            \"about\": \"I'm the mythical programmer of EchoMTG. I?ve been a player since 1995, but took a hiatus before middle school, then returned in 2011. Upon returning I was hellbent on collecting nostalgic cards I once had in my collection (dual lands etc.) so I could jump into the legacy scene. Collecting duals needed to be done on a budget, so trading up was the only option. While trading heavily online, I started Echo database (early 2012) to help calculate quick trades. I take a lot of pride as a product author and still love mtg dearly, so Echo is a great avenue for experimental interface designs while feeding into my favorite hobby.\",\n            \"twitter\": \"@echomtg\",\n            \"email\": \"email@example.com\",\n            \"id\": \"1\",\n            \"avatar\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\"\n        },\n        \"category\": \"Finance\"\n    },\n    \"message\": \"Article '32' retrieved successfully.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Create, edit, and retrieve articles."
+		},
+		{
+			"name": "Wiki",
+			"item": [
+				{
+					"name": "Wiki: Update Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"description": "User token gathered from /user/auth/",
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"emid\": 45,\n\t\"name\": \"Black Lotus\",\n    \"rarity\": \"rare\",\n    \"cmc\": \"0\",\n    \"mana_cost\": \"0\",\n    \"expansion\": \"LEA\",\n    \"main_type\": \"Artifact\",\n    \"types\": \"Artifact\",\n    \"tcgplayer_id\": \"1042\",\n    \"multiverse_id\": \"32\",\n    \"set_number\": \"232\",\n    \"oracle_text\": \"{t}, Sacrifice Black Lotus: Add three mana of any one color.\",\n    \"flavor_text\": \"\",\n    \"image_url\": \"https://assets.echomtg.com/magic/cards/original/45.jpg\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/wiki/update_item/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"wiki",
+								"update_item",
 								""
 							]
 						},
-						"description": "Return all the types in magic the gathering along with the total in the database."
+						"description": "Update an item in the EchoMTG database. This e Missing fields will default to the previous data entry.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID of card to update |\n| name | optional |  | Item name |\n| rarity | optional |  |  |\n| mana_cost | optional |  |  |\n| expansion | optional |  | the 3-5 letter set code of an expansion or set |\n| main_type | optional |  |  |\n| types | optional |  |  |\n| tcgplayer_id | optional |  | id from tcgplayer.com, this is used to make price updates |\n| multiverse_id | optional |  | Wizards ID from the gatherer |\n| set_number | optional |  | also known as collector number |\n| flavor_text | optional |  | bottom flavor text |\n| oracle_text | optional |  | main card legal text |\n| image_url | optional |  | remote url, replaces the current image with the remote url |"
 					},
 					"response": []
 				}
 			],
-			"description": "Specific Data calls to EchoMTG to fill pages like expansions, groups, single item data, etc."
+			"description": "Functionalit only WIKI level users have access to to update system data."
 		},
 		{
 			"name": "Deprecated",
