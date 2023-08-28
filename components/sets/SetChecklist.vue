@@ -1,6 +1,6 @@
  <template>
       <div class="set-item-list-container">
-     <div class="level">
+     <div class="checklist-filters p-3 level">
           <div class="select is-small is-rounded has-text-grey">
             <select v-model="rarity" class="has-text-grey">
               <option value="" selected>Any Rarity</option>
@@ -50,10 +50,10 @@
           ref="table"
 
           >
-          <b-table-column v-slot="props" width="30">
-
-            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
-            <br>
+          <b-table-column v-slot="props" centered label="R" width="30">
+          <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
+          </b-table-column>
+          <b-table-column v-slot="props" centered label="F" width="30">
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
@@ -81,7 +81,7 @@
 
 
           </b-table-column>
-           <b-table-column field="types" label="Types" sortable width="120" v-slot="props">
+           <b-table-column field="types" label="Types" sortable  v-slot="props">
             {{props.row.types}}
           </b-table-column>
            <b-table-column field="mc" label="Color" sortable width="120" v-slot="props">
@@ -156,10 +156,6 @@ export default {
     totalRegular: {
       type: Number,
       default: 0
-    },
-    callback: {
-      type: Function,
-      required: true
     }
   },
    watch: {

@@ -11,11 +11,14 @@
    </div>
 
 </template>
-<style scoped>
+<style>
 @media print {
   #navbar-main, .navbar, .aside {
 		display: none !important;
 	}
+  .checklist-filters{
+    display: none !important;
+  }
 
   body{
 		padding: 40px 0px 0px 40px;
@@ -41,6 +44,9 @@
 	table tr td:nth-child(3) {
 	 padding-left: 5px;
 	}
+  table tr td {
+    color: red !important!
+  }
 }
 
 
@@ -76,7 +82,7 @@ export default {
   async asyncData({ params, redirect, $echomtg }) {
 
     let data = await $echomtg.getSet(params.set_code);
-    console.log(data)
+
 
     // return it
     if (data) {
