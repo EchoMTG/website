@@ -8,7 +8,7 @@
 
     </div>
      <div class="columns is-multiline m-3">
-      <div class="column is-one-quarter" v-for="(section,index) in helpSections" :key="`${section.name}${index}`">
+      <div class="column is-one-quarter" v-for="(section,index) in helpSections" :key="`${section.label}${index}`">
         <div class="card">
 
           <div class="card-content">
@@ -19,7 +19,7 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4">{{section.name}}</p>
+                <p class="title is-4">{{section.label}}</p>
               </div>
             </div>
 
@@ -28,7 +28,7 @@
             </div>
           </div>
           <footer class="card-footer">
-            <a :href="section.url" class="card-footer-item">Open {{section.name}} Help Section</a>
+            <a :href="section.url" class="card-footer-item">Open {{section.label}} Help Section</a>
           </footer>
         </div>
       </div>
@@ -41,6 +41,7 @@ import { mapState } from 'vuex'
 import FullAd from '~/components/cta/FullAd.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import CreateAccountModal from '~/components/user/CreateAccountModal.vue'
+import helpMenu from '@/components/navigation/help'
 
 export default {
   name: 'Help',
@@ -60,27 +61,13 @@ export default {
         {
           label: 'Help',
           url: '/help/',
-          icon: 'lifebuoy'
+          icon: 'help-circle-outline'
 
         }
       ]
     },
     helpSections() {
-      return [
-        {
-          name: 'Support',
-          description: 'Resources to get your help',
-          url: '/help/support/',
-          icon: 'lifebuoy'
-        },
-        {
-          name: 'Frequently Asked Question',
-          description: 'Quick question answers for commonly asked questions',
-          url: '/apps/faqs/',
-          icon: 'help-circle-outline'
-
-        }
-      ]
+      return helpMenu();
     },
     ...mapState([
       'user',
