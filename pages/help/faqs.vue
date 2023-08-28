@@ -72,9 +72,15 @@
 
         </b-field>
           <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light">
+            <b-button type="is-info" outlined size="is-small" icon-left="pencil" @click="() => openEditModal(faq)" class="ml-2 is-pulled-right">
+               Edit
+            </b-button>
+
             <b-button type="is-danger" outlined size="is-small" icon-left="delete" @click="() => deleteFAQ(faq.id)" class="ml-2 is-pulled-right">
                Delete
             </b-button>
+
+
             <b-tag type="is-dark" class="is-pulled-right">{{faq.category}}</b-tag>
             <h3 class="title is-size-5 mb-2">{{faq.question}} </h3>
             <div class="content" v-html="faq.answer" />
@@ -84,9 +90,64 @@
 
     </div>
 
-    <b-modal v-model="showCreateModal">
+    <b-modal v-model="showEditModal">
       <div class="modal-card " style="width: auto">
           <header class="modal-card-head has-background-info">
+            <p class="modal-card-title is-size-4 has-text-white"><b-icon icon="wizard-hat" /> Edit FAQ</p>
+            <button
+                type="button"
+                class="delete"
+                @click="$emit('close')"/>
+          </header>
+
+          <section class="modal-card-body">
+            <b-field label="Category">
+                  <b-select
+                      v-model="editItem.category">
+                      <option value="inventory">Inventory</option>
+                      <option value="usd">Billing</option>
+                      <option value="user">My Account</option>
+                      <option value="list">List/Decks</option>
+                  </b-select>
+              </b-field>
+
+              <b-field label="Question">
+                  <b-input
+                      type="textarea"
+                      v-model="editItem.question"
+                      placeholder="User Question Here"
+                      required>
+                  </b-input>
+              </b-field>
+
+             <b-field label="Answer">
+                  <b-input
+                      type="textarea"
+                      v-model="editItem.answer"
+                      placeholder="Question answer here"
+                      required>
+                  </b-input>
+              </b-field>
+
+
+
+          </section>
+          <footer class="modal-card-foot">
+              <b-button
+                  label="Close"
+                  @click="$emit('close')" />
+              <b-button
+                  @click="editFAQ"
+                  icon-left="plus"
+                  label="Update FAQ"
+                  type="is-info" />
+          </footer>
+      </div>
+    </b-modal>
+
+    <b-modal v-model="showCreateModal">
+      <div class="modal-card " style="width: auto">
+          <header class="modal-card-head has-background-success">
             <p class="modal-card-title is-size-4 has-text-white"><b-icon icon="wizard-hat" /> Create new FAQ</p>
             <button
                 type="button"
@@ -94,12 +155,14 @@
                 @click="$emit('close')"/>
           </header>
 
-
           <section class="modal-card-body">
             <b-field label="Category">
                   <b-select
                       v-model="createCategory">
                       <option value="inventory">Inventory</option>
+                      <option value="usd">Billing</option>
+                      <option value="user">My Account</option>
+                      <option value="list">List/Decks</option>
                   </b-select>
               </b-field>
 
@@ -162,16 +225,18 @@ export default {
       showCreateModal: false,
       createQuestion: '',
       createAnswer: '',
-      createCategory: 'inventory'
+      createCategory: 'inventory',
+      showEditModal: false,
+      editItem: {}
     }
   },
   methods: {
     clearIconClick(){
       this.search = ''
     },
-    async editFAQ(id){
-      const res = this.$echomtg.faqEdit(id,this.createQuestion,this.createAnswer,this.createCategory)
-
+    async editFAQ(){
+      const res = this.$echomtg.faqEdit(this.editItem.id,this.editItem.question,this.editItem.answer,this.editItem.category)
+      this.showEditModal = false;
       this.$buefy.toast.open({
         message: res.message,
         type: 'is-success',
@@ -201,6 +266,10 @@ export default {
         queue: false
       })
       await this.$fetch()
+    },
+    openEditModal(item){
+      this.editItem = item
+      this.showEditModal = true
     }
   },
   computed: {
