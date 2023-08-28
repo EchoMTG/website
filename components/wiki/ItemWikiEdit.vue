@@ -15,14 +15,14 @@
                           <fieldset class="field">
                               <label class="label">Card Name</label>
                               <input class="input" name="name" type="text" v-model="item.name">
-                              <p class="help">{{item.name}}</p>
+                              <p class="help">{{originalItem.name}}</p>
                           </fieldset>
                       </div>
                       <div class="field-body">
                           <fieldset class="field">
                               <label class="label">Replacement Image URL</label>
                               <input class="input" v-model="imageurl" ref="imageURLInput" name="image_url" type="text" placeholder="Paste Image full https url to replace current image">
-                              <p class="help">{{item.image}}</p>
+                              <p class="help">{{originalItem.image}}</p>
                           </fieldset>
                       </div>
 
@@ -44,13 +44,13 @@
                           </div>
                           <div class="field"  style="flex: 100; flex-grow: 100;">
                               <label class="label">Expansion</label>
-                              <input type="hidden" name="set_code" v-model="currentSetCode">
+                              <input type="hidden" name="set_code" v-model="item.set_code">
                               <SetSelector
                                   v-bind:default-selection="currentSet"
                                   @changeSet="changeSet"
                                   />
 
-                                  <p class="help">{{currentSet}} [{{currentSetCode}}]</p>
+                                  <p class="help">{{originalItem.set}} [{{originalItem.set_code}}]</p>
                           </div>
 
                       </div>
@@ -84,12 +84,12 @@
                                   </select>
                               </div>
 
-                              <p class="help">{{item.main_type}}</p>
+                              <p class="help">{{originalItem.main_type}}</p>
                           </div>
                           <div class="field" style="flex: 2; flex-grow: 100;">
                               <label class="label">Full Types</label>
                               <input class="input" id="types" name="types" type="text" v-model="item.types">
-                              <p class="help">{{item.types}}</p>
+                              <p class="help">{{originalItem.types}}</p>
                           </div>
                       </div>
                       <fieldset class="field-body">
@@ -99,12 +99,12 @@
                                   Manacost <div class="cardcost is-pulled-right" ><small><span class="symbol colorless">1</span> = { {1} } <span class="symbol u">u</span> = { {u} } <span class="splitmana"><span class="symbol split left u">b</span><span class="symbol split right b">b</span></span> = { {ub} }</small></div>
                               </label>
                               <input class="input" name="manacost" type="text" v-model="item.mana_cost">
-                              <p class="help">{{item.mana_cost}}</p>
+                              <p class="help">{{originalItem.mana_cost}}</p>
                           </div>
                           <div class="field" style="flex: 1;">
                               <label class="label">CMC</label>
                               <input class="input" name="cmc" type="text" v-model="item.cmc">
-                              <p class="help">{{item.cmc}}</p>
+                              <p class="help">{{originalItem.cmc}}</p>
                           </div>
                       </fieldset>
                   </div>
@@ -117,15 +117,15 @@
 
               <div class="field-body">
                   <fieldset class="field">
-                      <label class="label">Multiverse ID <small>({{item.mid}})</small></label>
+                      <label class="label">Multiverse ID <small>({{originalItem.mid}})</small></label>
                       <input class="input" name="multiverse_id" type="text" v-model="item.mid">
                   </fieldset>
                   <fieldset class="field">
-                      <label class="label">Collector/Set Number <small>({{item.collectors_number}})</small></label>
+                      <label class="label">Collector/Set Number <small>({{originalItem.collectors_number}})</small></label>
                       <input class="input" name="set_number" type="text" v-model="item.collectors_number">
                   </fieldset>
                   <fieldset class="field">
-                      <label class="label">TCGplayer ID <small>({{item.tcgplayer_id}})</small></label>
+                      <label class="label">TCGplayer ID <small>({{originalItem.tcgplayer_id}})</small></label>
                       <input class="input" name="tcgplayer_id" type="text" v-model="item.tcgplayer_id">
                   </fieldset>
               </div>
@@ -173,7 +173,6 @@ export default {
       return {
           newSet: '',
           imageurl: null,
-          newSetCode: '',
           isImageModalActive: false,
           rarities: [
               'Mythic Rare',
@@ -193,13 +192,6 @@ export default {
     },
     async updateWikiItem(){
         try {
-
-
-
-
-          console.log('edited',this.item)
-          console.log('original', this.originalItem)
-
 
           let body = {
             "emid": this.item.emid,
@@ -221,40 +213,74 @@ export default {
             body.mana_cost = this.item.mana_cost;
           }
           // expansion
-          if(this.currentSetCode != this.originalItem.set_code){
-            body.set_code = this.currentSetCode;
+          if(this.item.set_code !== this.originalItem.set_code){
+            body.set_code = this.item.set_code;
           }
 
-          console.log('body',body)
+          // main_type
+          if(this.item.main_type !== this.originalItem.main_type){
+            body.main_type = this.item.main_type;
+          }
 
-            // "expansion": this.item.expansion,
-            // "main_type": this.item.main_type,
-            // "types": this.item.types,
-            // "tcgplayer_id": this.item.tcgplayer_id,
-            // "multiverse_id": this.item.mid,
-            // "set_number": this.item.collectors_number,
-            // "oracle_text": this.item.oracle_text,
-            // "flavor_text": this.item.flavor_test,
-            // "image_url": this.imageurl
+            // types
+          if(this.item.types !== this.originalItem.types){
+            body.types = this.item.types;
+          }
 
+            // tcgplayer_id
+          if(this.item.tcgplayer_id !== this.originalItem.tcgplayer_id){
+            body.tcgplayer_id = this.item.tcgplayer_id;
+          }
 
-          return;
+            // multiverse_id
+          if(this.item.mid !== this.originalItem.mid){
+            body.multiverse_id = this.item.mid;
+          }
 
-          const res = await this.$echomtg.wikiItemPatch(body)
+            // set_number
+          if(this.item.collectors_number !== this.originalItem.collectors_number){
+            body.set_number = this.item.collectors_number;
+          }
 
-          if(json.status == 'success'){
-            this.$echomtg.createGrowl(data.message)
+          // set_number
+          if(this.item.card_text != this.originalItem.card_text){
+            body.oracle_text = this.item.card_text;
+          }
+
+          // flavor_text
+          if(this.item.flavor_text != this.originalItem.flavor_text){
+            body.flavor_text = this.item.flavor_text;
+          }
+
+          // flavor_text
+          if(this.imageurl !== '' && this.imageurl !== null){
+            body.imageurl = this.imageurl;
+          }
+
+          const data = await this.$echomtg.wikiItemPatch(body)
+
+          if(data.status == 'success'){
+
+            this.$buefy.snackbar.open({
+              message: data.message,
+              queue: true
+            })
           } else {
-            this.$echomtg.createGrowl(data.error)
+             this.$buefy.snackbar.open({
+              message: data.message,
+              queue: true
+            })
           }
         } catch (err){
           console.log(err)
         }
 
+        this.$emit('close')
+
     },
     changeSet: function(set,set_code){
         this.newSet = set
-        this.newSetCode = set_code
+        this.item.set_code = set_code
     },
     checkRaritySelected: function(rarity,itemRarity=''){
         return rarity.toLowerCase().includes(itemRarity.toLowerCase())
