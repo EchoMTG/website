@@ -51,10 +51,12 @@
 
           >
           <b-table-column v-slot="props" centered label="R" width="30">
-          <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
+            <span v-if="isCardOwned(props.row.emid, 'regular')" >{{isCardOwned(props.row.emid, 'regular')}}</span>
+            <b-icon v-if="!props.row.tcg_mid > 0" size="is-small" icon="cancel" />
           </b-table-column>
           <b-table-column v-slot="props" centered label="F" width="30">
-            <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
+            <span v-if="isCardOwned(props.row.emid, 'foiled')">{{isCardOwned(props.row.emid, 'foiled')}}</span>
+            <b-icon v-if="!props.row.foil_price > 0" size="is-small" icon="cancel" />
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
 <!--
@@ -81,22 +83,23 @@
 
 
           </b-table-column>
-           <b-table-column field="types" label="Types" sortable  v-slot="props">
+          <b-table-column field="mc" label="MC" sortable v-slot="props">
+            {{props.row.mc.replace(/\{\{|\}\}/ig,'')}}
+          </b-table-column>
+           <!-- <b-table-column field="types" label="Types" sortable  v-slot="props">
             {{props.row.types}}
-          </b-table-column>
-           <b-table-column field="mc" label="Color" sortable width="120" v-slot="props">
-            <em v-html="replaceSymbols(props.row.mc)"></em>
-          </b-table-column>
-          <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
+          </b-table-column> -->
+
+          <b-table-column field="rarity" label="Rarity" sortable v-slot="props">
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
-          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
+          <b-table-column field="collectors_number_sort" width="60" label="C#" sortable v-slot="props">
             {{props.row.collectors_number}}
           </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" :label="`Regular ${cs}`" sortable v-slot="props">
 
             <span v-if="props.row.tcg_mid > 0">
-             {{cs}} {{props.row.tcg_mid}}
+             {{cs}}{{props.row.tcg_mid}}
             </span>
 
           </b-table-column>
@@ -105,9 +108,9 @@
               {{ props.row.price_change }} %
             </span>
           </b-table-column> -->
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="130" :label="`Foil ${cs}`" sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  :label="`Foil ${cs}`" sortable v-slot="props">
             <span v-if="props.row.foil_price > 0">
-             {{cs}} {{props.row.foil_price}}
+             {{cs}}{{props.row.foil_price}}
             </span>
           </b-table-column>
 

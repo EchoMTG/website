@@ -13,7 +13,7 @@
 </template>
 <style>
 @media print {
-  #navbar-main, .navbar, .aside {
+  #navbar-main, .navbar, .aside, .breadcrumbBox {
 		display: none !important;
 	}
   .checklist-filters{
@@ -37,15 +37,16 @@
 		background: #fffbe5;
 
 	}
-	table tr td:nth-child(7){
+	/* table tr td:nth-child(7){
 		padding-left: 10px;
 		font-weight: bold;
 	}
 	table tr td:nth-child(3) {
 	 padding-left: 5px;
-	}
+	} */
   table tr td {
-    color: red !important!
+    color: black !important;
+    font-size: 10px;
   }
 }
 
