@@ -333,10 +333,10 @@ export default {
 
             let results = await this.importCard(item);
             if(results.status == 'success'){
-                // Vue.delete(this.cards, i);
+                this.$delete(this.cards, i);
             } else {
                 this.errorCards.push(item)
-                // Vue.delete(this.cards, i);
+                this.$delete(this.cards, i);
             }
         }
 
