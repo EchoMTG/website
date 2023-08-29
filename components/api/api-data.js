@@ -5424,6 +5424,58 @@ export default {
 					]
 				},
 				{
+					"name": "Data: Set",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.echomtg.com/api/data/set/?set_code=WOE&minified=true&start=0&limit=5000",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"data",
+								"set",
+								""
+							],
+							"query": [
+								{
+									"key": "set_code",
+									"value": "WOE"
+								},
+								{
+									"key": "minified",
+									"value": "true"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "5000"
+								}
+							]
+						},
+						"description": "Fetches a set. Larger sets struggle to load in SSR apps. ?minified=true option added to reduce return sizes in half.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| set_code | true |  | 3-5 letter set code |\n| minified | false | true | Return results without card_text and purchase link |\n| start | false | 0 | index to start at |\n| limit | false | 5000 | total items to reutrn |"
+					},
+					"response": []
+				},
+				{
 					"name": "Data: TCGplayer",
 					"request": {
 						"auth": {

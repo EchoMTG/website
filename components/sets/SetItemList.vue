@@ -13,7 +13,8 @@
               <i class="fa fa-search"></i>
             </span>
           </div>
-
+          <!-- ORACLE TEXT SEARCH HIDDEN, TO REDUCE PAYLOAD in HALF, oracle search needs api call to work -->
+<!--
           <div class="control has-icons-left is-hidden-mobile">
             <input
               v-model="textSearch"
@@ -25,7 +26,7 @@
             <span class="icon is-small is-left">
               <i class="fa fa-search"></i>
             </span>
-          </div>
+          </div> -->
 
           <div class="select is-small is-rounded has-text-grey">
             <select v-model="rarity" class="has-text-grey">

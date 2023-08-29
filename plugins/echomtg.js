@@ -145,7 +145,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
   echomtg.getSet = async (set_code) => {
     // fetch the set
-    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}`;
+    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}&minified=true`;
     let token = context.app.$cookies.get('token') ? context.app.$cookies.get('token').trim() : context.app.$config.S2S_KEY;
 
     // try to get the json
