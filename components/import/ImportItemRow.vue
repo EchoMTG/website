@@ -162,11 +162,11 @@ export default {
         let arrName = listtype == 'error' ? 'errorCards' : 'cards'
         let results = await this.$parent.importCard(this.$parent[arrName][index])
         if(results.status == 'success'){
-            Vue.delete(this.$parent[arrName], index);
+            // Vue.delete(this.$parent[arrName], index);
         } else {
 
             this.$parent.errorCards.push(this.$parent[arrName][index])
-            Vue.delete(this.$parent[arrName], index);
+            // Vue.delete(this.$parent[arrName], index);
         }
 
     },

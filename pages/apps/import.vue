@@ -333,49 +333,26 @@ export default {
 
             let results = await this.importCard(item);
             if(results.status == 'success'){
-                Vue.delete(this.cards, i);
+                // Vue.delete(this.cards, i);
             } else {
                 this.errorCards.push(item)
-                Vue.delete(this.cards, i);
+                // Vue.delete(this.cards, i);
             }
         }
 
     },
     async importCard(card) {
 
-
-        let foil = card.foil ? 1 : 0;
-
-        // quanity, foil, id are required
-        var addURL = `https://api.echomtg.com/api/inventory/add/?emid=${card.extra_details.echo_id}&foil=${foil}&quantity=${card.quantity}`;
-
-        // language
-        if(card.language != "") addURL += `&language=${card.language}`
-
         // acquired price, if it has it on head, else, take the bulk value
         let acprice = card.acquire_price.replace('$','')
         if(!Number.isNaN(Number.parseFloat(acprice))) {
-            addURL += `&acquired_price=${acprice}`
+          card.acquired_price = acprice
         } else if(this.bulkValue > 0){
-            addURL += `&acquired_price=${this.bulkAVGValue}`
+          card.acquired_price = this.bulkAVGValue
         }
 
-        // acquired date
-        if(card.acquire_date != "") {
-            let ad = card.acquire_date.replace(/\//g,'-')
-            addURL += `&acquired_date=${ad}`
-        }
+        const json = await this.$echomtg.inventoryAdd(card.extra_details.echo_id, card)
 
-        // condition
-        if(card.condition != "") addURL += `&condition=${card.condition}`
-        let token = getCookie('token');
-        const res = await fetch(addURL,{
-          headers: {
-              'Content-Type': 'application/json',
-              'Authentication': `Bearer ${token}`,
-          }
-        })
-        const json = await response.json();
         this.$buefy.toast.open({
           message: json.message,
           type: 'is-success'
@@ -396,21 +373,19 @@ export default {
     async sendToCloudFunction(){
 
         this.$buefy.toast.open({
-          message: `Uploading FIle`,
+          message: `Uploading CSV File`,
           type: 'is-success'
         })
-        let endpoint = (window.location.hostname == 'www.echomtg.com') ? 'https://us-central1-echo-csv-dev.cloudfunctions.net/echo-csv-dev/upload' : 'https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload';
+        let endpoint = 'https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload';
         var formData  = new FormData();
         formData.append('csvFile', this.file);
-        console.log(endpoint);
+
         const res = await fetch(endpoint, {
             method: 'POST',
             body: formData
 
         });
         const json = await res.json();
-
-        console.log(json)
 
         this.cards = []
         this.errorCards = []
@@ -420,7 +395,6 @@ export default {
         this.parsingErrors = json.parsingErrors
         this.ready = true
 
-        console.log('cards', this.cards)
 
     }
   },
