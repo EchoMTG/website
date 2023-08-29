@@ -1,6 +1,6 @@
 <template>
   <div>
-      <nuxt keep-alive />
+
       <echo-bread-crumbs :data="crumbs" />
       <SetView :set="set" :callback="refreshData" />
    </div>
