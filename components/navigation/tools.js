@@ -33,6 +33,14 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
   to: '/apps/earnings/',
   icon: 'cash-multiple',
   label: 'Earnings'
-}]}
+},
+{
+  to: '/apps/import/',
+  icon: 'table-arrow-down',
+  label: 'Import'
+},
+
+]
+}
 
 export default toolsMenu;
