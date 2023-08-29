@@ -68,7 +68,7 @@
         href="/api/sets/download/?set_code=SNC"
       >
         <span class="icon"><i class="fa fa-file-excel-o"></i></span>
-        <span>CSV</span>
+        <span>Download Full Set</span>
       </a>
       <a
         class="button is-outlined has-background-dark is-small has-icon-left hide-mobile"

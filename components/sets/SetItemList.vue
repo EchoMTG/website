@@ -115,6 +115,13 @@
               </a>
             </p>
           </div>
+          <div class="field" style="margin-left: auto" >
+            <vue-json-to-csv
+                :json-data="filteredItems">
+                <b-button size="is-small" icon-left="download">Download Filtered List</b-button>
+            </vue-json-to-csv>
+          </div>
+
 
           <div class="field" style="margin-left: auto">
             <button

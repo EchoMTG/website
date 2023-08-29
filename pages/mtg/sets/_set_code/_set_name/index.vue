@@ -57,6 +57,7 @@ export default {
     async refreshData() {
       let data = await this.$echomtg.getSet(this.set_code);
       this.set = data.set;
+      console.log(data)
     }
 
   },

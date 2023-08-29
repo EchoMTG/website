@@ -1,5 +1,9 @@
  <template>
       <div class="set-item-list-container">
+        <div class="set-summary-printable">
+            <h1>{{set.name}} Checklist for {{user.username}}</h1>
+        </div>
+
      <div class="checklist-filters p-3 level">
           <div class="select is-small is-rounded has-text-grey">
             <select v-model="rarity" class="has-text-grey">
