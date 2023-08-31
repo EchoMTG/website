@@ -1,5 +1,7 @@
 <template>
   <div>
+    <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
+
     <echo-bread-crumbs :data="crumbs" />
 
     <nav class="level is-mobile pt-2 pb-2 todaysprices">
