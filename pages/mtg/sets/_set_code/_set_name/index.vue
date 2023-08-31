@@ -1,6 +1,6 @@
 <template>
   <div>
-      <nuxt keep-alive />
+      <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
       <echo-bread-crumbs :data="crumbs" />
       <SetView :set="set" :callback="refreshData" />
    </div>
@@ -10,7 +10,7 @@
 <script>
 import SetView from '@/components/sets/SetView'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
-
+import { mapState } from 'vuex'
 
 export default {
   name: 'Expansion',
@@ -32,7 +32,9 @@ export default {
   },
   computed: {
 
-
+    ...mapState([
+      'user'
+    ])
 
   },
   async asyncData({ params, redirect, $echomtg }) {

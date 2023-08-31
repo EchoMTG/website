@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt keep-alive />
+    <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
     <echo-bread-crumbs :data="crumbs" />
 
     <div class="columns ml-3 mt-3">
