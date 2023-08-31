@@ -171,7 +171,7 @@ export default {
 
     },
     setExpansion: function(value, obj){
-        console.log(obj)
+
         let arrName = obj.listtype == 'error' ? 'errorCards' : 'cards'
         let item = this.$parent[arrName][obj.index]
         item.set_code = value.value;

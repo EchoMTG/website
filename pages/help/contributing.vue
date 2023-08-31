@@ -8,7 +8,9 @@
         <help-sub-nav />
       </div>
       <div class="column is-four-fifths">
-        FAQs
+        <h1 class="title">Contributing to EchoMTG</h1>
+        <p>EchoMTG is a community driven application built on top of a proprietry publically documented API.
+          This page explains whats available to participate from developement to database management.</p>
       </div>
 
     </div>
@@ -32,7 +34,7 @@ export default {
   },
   data () {
     return {
-      helpNavPosition: 1
+      helpNavPosition: 2
     }
   },
   computed: {
