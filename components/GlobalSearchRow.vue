@@ -133,7 +133,7 @@ export default {
             }
 
             const res = await this.$echomtg.inventoryAdd(this.emid, options)
-            console.log(res);
+
             this.$buefy.toast.open({
               message: res.message,
               type: 'is-success',
@@ -142,6 +142,10 @@ export default {
             // refocus search
             this.$parent.$refs['searchInput'].focus()
 
+            const quickstats = await this.$echomtg.inventoryQuickStats();
+            if(quickstats.status == 'success'){
+              this.$store.commit('quickstats',quickstats.stats);
+            }
 
         }
     },
