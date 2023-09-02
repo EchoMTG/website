@@ -110,7 +110,17 @@
         </a> -->
 
 
-        <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
+
+         <div v-if="authenticated" class="navbar-item mr-0 pr-0">
+          <a href="/apps/inventory/" class="has-text-success-dark has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
+        </div>
+        <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
+          <b-taglist  attached>
+              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
+              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
+          </b-taglist>
+        </div>
+<nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
             <span>{{ user.username }}</span>
@@ -181,16 +191,6 @@
           </div>
 
         </nav-bar-menu>
-         <div v-if="authenticated" class="navbar-item mr-0 pr-0">
-          <a href="/apps/inventory/" class="has-text-success-dark has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
-        </div>
-        <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
-          <b-taglist  attached>
-              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
-          </b-taglist>
-        </div>
-
         <div class="navbar-item" v-if="!authenticated">
            <div class="field is-grouped">
 
