@@ -18,48 +18,38 @@
           Print {{set.name}} Checklist as is or apply filters and print
         </div>
 
-        <div class="level-item select is-small is-rounded has-text-grey">
-          <select v-model="rarity" class="has-text-grey">
-            <option value="" selected>Any Rarity</option>
-            <option disabled>---</option>
-            <option value="common">Common</option>
-            <option value="uncommon">Uncommon</option>
-            <option value="rare">Rare</option>
-            <option value="mythic">Mythic</option>
-            <option value="special">Special</option>
-            <option value="basic land">Basic Land</option>
-            <option value="token">Token</option>
-          </select>
-        </div>
 
-        <div
-          class="level-item select is-small is-rounded has-text-grey"
-          v-if="this.variants.length > 0"
-        >
-          <select v-model="variant" class="has-text-grey">
-            <option value="" selected>Any Variant</option>
-            <option disabled>---</option>
-            <option value="none">No Variants</option>
-            <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
-                {{ v.replace(') (', ' ') }}
+        <b-select v-model="rarity" class="level-item ">
+          <option value="" selected>Any Rarity</option>
+          <option disabled>---</option>
+          <option value="common">Common</option>
+          <option value="uncommon">Uncommon</option>
+          <option value="rare">Rare</option>
+          <option value="mythic">Mythic</option>
+          <option value="special">Special</option>
+          <option value="basic land">Basic Land</option>
+          <option value="token">Token</option>
+        </b-select>
 
-            </option>
-          </select>
-        </div>
+        <b-select v-if="this.variants.length > 0" v-model="variant" class="level-item ">
+          <option value="" selected>Any Variant</option>
+          <option disabled>---</option>
+          <option value="none">No Variants</option>
+          <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
+              {{ v.replace(') (', ' ') }}
 
-        <div
-          class="level-item select is-small is-rounded has-text-grey is-hidden-mobile"
-          v-if="Object.keys(cardsowned).length > 0"
-        >
-          <select v-model="showOwned" class="has-text-grey">
+          </option>
+        </b-select>
+
+          <b-select v-if="Object.keys(cardsowned).length > 0" v-model="showOwned" class="level-item">
             <option value="" selected>All</option>
             <option disabled>---</option>
             <option value="true reg">Owned Regular</option>
             <option value="true foil">Owned Foil</option>
             <option value="false reg">Not Owned Regular</option>
             <option value="false foil">Not Owned Foil</option>
-          </select>
-        </div>
+          </b-select>
+
         <b-button
           size="default"
           type="is-danger"
