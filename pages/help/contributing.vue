@@ -12,17 +12,18 @@
          <div class="container">
             <h1 class="title">Contributing to EchoMTG</h1>
             <p class="pr-6">EchoMTG is a community driven application built on top of a publically documented, but proprietary, API.
-              This page explains whats available to participate from developement to database management.</p>
+              This page explains whats available to participate from code developement to database management.</p>
             <hr />
           </div>
        <div class="columns">
         <div class="column is-half">
           <h2 class="title is-size-4 mb-1">Wiki-Team</h2>
           <b-tag type="is-info">Discord</b-tag> <b-tag type="is-light">TCG Knowledge</b-tag>
-          <p class="mb-2 mt-1">The team that keeps the database up to date and helps new users. The wiki team has special features in the application for updating and entering data.
+          <p class="mb-2 mt-1">The team that manages the community and database. The wiki team has special features in the application for updating and entering data.
             Wiki members get awarded inventory space for every database change made. There is a private discord channel for the wiki team where features, update, and ideas are discussed. Wiki team members who go above an beyond often recieve high end cards or other sealed goodies.</p>
 
-          <p class="mb-2">To join the the wiki team you need to first be involved in the community. Join the <nuxt-link to="/about/discord/">discord server</nuxt-link> to get started.</p>
+          <p class="mb-2">To join the the wiki team get involved with the community on the <nuxt-link to="/about/discord/">discord server</nuxt-link> first.</p>
+           <p><b-icon size="is-small" icon="discord" /> <strong>Discord:</strong> <nuxt-link to="/about/discord/">/about/discord/</nuxt-link></p>
           <hr />
 
           <h2 class="title is-size-4 mb-1">MTG CSV Importer</h2>
