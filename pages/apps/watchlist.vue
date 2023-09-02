@@ -92,7 +92,7 @@
         </b-table-column>
       </b-table>
 
-      <feature-locked-full title="Upgrade Account to Access More" :authed="authenticated" :levelRequired="1" />
+      <feature-locked-full title="Upgrade Account to Access More" :authed="authenticated" :levelRequired="2" />
     </span>
   </div>
 </template>
@@ -135,7 +135,7 @@ export default {
   watch: {
     user() {
       // common users stuck at 3
-      this.limit = this.user.planObject.access_level >= 1 ? 100 : 3
+      this.limit = this.user.planObject.access_level >= 2 ? 100 : 3
       this.getWatchlist();
     }
   },

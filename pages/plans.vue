@@ -24,7 +24,7 @@
       <div class="columns">
         <div v-for="plan in getPlans()" :key="plan.name" class="column pt-0 pl-0 pr-2">
           <div class="panel">
-            <div class="panel-heading" :style="`background: ${plan.color}; color: ${plan.text}`">
+            <div :class="`panel-heading`" :style="`background: ${plan.color}; color: ${plan.text}`">
                 <span v-if="plan.prices.monthly > 0 && showAnnual == false" class="is-pulled-right">${{plan.prices.monthly}}<small>/mo</small></span>
                 <span v-if="plan.prices.monthly > 0 && showAnnual == true" class="is-pulled-right">${{plan.prices.yearly}}<small>/year</small></span>
                 <span v-if="plan.prices.monthly == 0" class="is-pulled-right">FREE</span>
@@ -98,7 +98,7 @@
               <span class="panel-icon">
                 <b-icon size="is-small" icon="eye-check-outline" />
               </span>
-              Watchlist App
+              Watchlist App <span v-if="plan.name == 'mythic'"><b-icon size="is-small" class="ml-1" icon="cellphone-wireless" /> with SMS Alerts</span>
             </div>
             <div v-if="plan.sealed" class="panel-block">
               <span class="panel-icon">
