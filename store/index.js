@@ -24,6 +24,7 @@ const shellquickstats = {
   user_items_stored: 0,
   user_items_cap: 0,
   user_items_cap_percentage_used: 0,
+
 }
 
 export const state = () => ({
@@ -35,6 +36,7 @@ export const state = () => ({
   user: shellUser.default,
   authenticated: false,
   quickstats: shellquickstats,
+  currentInventoryPage: [],
 
   /* NavBar */
   isNavBarVisible: true,
@@ -104,6 +106,10 @@ export const mutations = {
         window.localStorage.removeItem('user')
       }
 
+  },
+
+  currentInventoryPage (state, payload) {
+    state.currentInventoryPage = payload
   },
 
   /* Full Page mode */

@@ -181,7 +181,7 @@
         <bulk-edit-modal :currency_symbol="cs" :removeChecked="clearChecked" :active="showBulkActionModal" :toggleBulkModal="toggleBulkModal" :selecteditems="checkedRows" :actiontype="bulkActionType" :callback="$fetch" />
       </section>
       <b-table
-        :data="data"
+        :data="currentInventoryPage"
         :loading="loading"
         :height="tableHeight"
         :debounce-search="0"
@@ -217,12 +217,12 @@
         >
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
-              <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+              <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
               <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
           </b-table-column>
           <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
             <div class="is-flex	is-justify-content-space-between		">
-              <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
+              <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
               <condition-select classes="is-hidden-touch mr-2" :inventory_id="props.row.inventory_id" :current_condition="props.row.condition"  />
               <language-select classes="is-hidden-touch" :inventory_id="props.row.inventory_id" :current_language="props.row.lang"  />
 
@@ -471,6 +471,9 @@ export default {
     },
     priceUnder() {
       this.$fetch();
+    },
+    data(){
+      this.$store.commit('currentInventoryPage',this.data);
     }
   },
   async fetch() {
@@ -498,16 +501,21 @@ export default {
           )
 
         this.data = []
+
+
+
         let currentTotal = data.meta.total_pages * data.meta.items_per_page
 
         this.total = currentTotal
 
-        data.items.forEach((item) => {
-            //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
-            this.data.push(item)
-        })
-        this.clearChecked()
 
+        // data.items.forEach((item) => {
+        //     //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
+        //     this.data.push(item)
+        // })
+
+        this.data = data.items
+        this.clearChecked()
 
         this.loading = false
 
@@ -637,7 +645,8 @@ export default {
       'userName',
       'user',
       'authenticated',
-      'quickstats'
+      'quickstats',
+      'currentInventoryPage'
     ])
   },
   head () {

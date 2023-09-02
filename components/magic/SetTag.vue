@@ -1,7 +1,7 @@
 <template>
    <b-taglist :class="classes" attached>
       <b-tag type="is-dark" class="mb-0">
-        <a class="has-text-white" :href="url.replace('https://www.echomtg.com','')">
+        <a class="has-text-white" :href="url ? url.replace('https://www.echomtg.com','') : ''">
           <i class="is-hidden-desktop" :class="getSetIcon(code)"></i>
           <i style="margin-top:-11px; margin-right: 2px" class="is-hidden-touch" :class="getSetIcon(code)"></i>
           <span class="ellipsis mt-1 is-hidden-touch" style="max-width: 120px; display: inline-block">{{name}}</span>

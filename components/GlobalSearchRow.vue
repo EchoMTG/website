@@ -87,6 +87,7 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'GlobalSearchRow',
@@ -146,10 +147,19 @@ export default {
             if(quickstats.status == 'success'){
               this.$store.commit('quickstats',quickstats.stats);
             }
+console.log('invenotry befpre', inventory)
+           let inventory = [...this.currentInventoryPage]
+           inventory.unshift({...res.card,...options})
+
+           console.log('invenotry', inventory)
+
+
+            this.$store.commit('currentInventoryPage',inventory);
 
         }
     },
     computed: {
+      ...mapState(['currentInventoryPage']),
         className: function() {
 
             let hasImage = this.showimage ? `searchHasImage` : ``;
