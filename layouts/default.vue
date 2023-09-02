@@ -228,11 +228,15 @@ export default {
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
-    if(this.$cookies.get('token')){
-      await this.authenticatedUser()
+    try {
+      if(this.$cookies.get('token')){
+        await this.authenticatedUser()
+      }
+      // get sets
+      await this.getSets()
+    } catch (err) {
+      console.log('offine')
     }
-    // get sets
-    await this.getSets()
 
 
     /* Detect mobile layout */
