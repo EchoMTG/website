@@ -5,8 +5,8 @@
           title="You Must be Logged in to Use the Sealed Product App"
           image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
           v-if="!authenticated" />
-        <feature-locked-full title="Sealed App Locked" :authed="authenticated" :levelRequired="3" />
-        <feature-gate  :showAd="false" :gate-level="3">
+        <feature-locked-full title="Sealed App Locked" :authed="authenticated" :levelRequired="2" />
+        <feature-gate  :showAd="false" :gate-level="2">
 
           <div class="has-background-dark ">
             <nav class="earnings-tabs level pt-3 has-text-white" id="finances">
