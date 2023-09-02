@@ -122,7 +122,7 @@ export default {
         togglePreview: function (){
             this.$refs.previewDiv.classList.toggle('isSelected')
         },
-        addRowToInventory: function(foil=0){
+        addRowToInventory: async function(foil=0){
 
             let ap = foil == 0 ? parseFloat(this.priceAcquired) : parseFloat(this.priceAcquiredFoil);
             let qty = foil == 0 ? this.quantity : this.quantityFoil;
@@ -132,7 +132,16 @@ export default {
                 quantity: qty
             }
 
-            this.$echomtg.inventoryAdd(this.emid, options)
+            const res = await this.$echomtg.inventoryAdd(this.emid, options)
+            console.log(res);
+            this.$buefy.toast.open({
+              message: res.message,
+              type: 'is-success',
+              position: 'is-bottom'
+            })
+            // refocus search
+            this.$parent.$refs['searchInput'].focus()
+
 
         }
     },
