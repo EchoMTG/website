@@ -42,8 +42,8 @@ export default {
   computed: {
     displayName () {
       if(this.name != '') return this.name;
-      if(this.item.name != '') return this.name;
-      if(this.item.card_name != '') return this.card_name;
+      if(this.item.name != '') return this.item.name;
+      if(this.item.card_name != '') return this.item.card_name;
       return this.item.name
     },
 

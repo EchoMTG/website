@@ -292,13 +292,14 @@
 
             </template>
             <template v-slot="props">
+
               <note-button :inventory_item="props.row" :callback="$fetch"/>
               <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
               <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
 
               <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
               <duplicate-button :copy="props.row" :callback="$fetch" />
-              <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="$fetch" />
+              <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
             </template>
           </b-table-column>
 
@@ -408,7 +409,7 @@ export default {
   },
   data() {
       return {
-          data: [],
+          item_data: [],
           total: 0,
           loading: false,
           search: '',
@@ -472,8 +473,8 @@ export default {
     priceUnder() {
       this.$fetch();
     },
-    data(){
-      this.$store.commit('currentInventoryPage',this.data);
+    item_data(){
+      this.$store.commit('currentInventoryPage',[...this.item_data]);
     }
   },
   async fetch() {
@@ -500,7 +501,7 @@ export default {
           this.foil
           )
 
-        this.data = []
+        this.item_data = []
 
 
 
@@ -514,7 +515,7 @@ export default {
         //     this.data.push(item)
         // })
 
-        this.data = data.items
+        this.item_data = data.items
         this.clearChecked()
 
         this.loading = false
@@ -523,7 +524,7 @@ export default {
 
       } catch (error){
 
-          this.data = []
+          this.item_data = []
           this.total = 0
           this.loading = false
       }
@@ -546,6 +547,10 @@ export default {
     },
     getSetIcon(set_code){
       return this.$echomtg.setIconClass(set_code)
+    },
+    removeFromList(index){
+      this.$delete(this.item_data, index)
+      this.refreshPriceMeta()
     },
 
     async refreshPriceMeta(){
