@@ -1,9 +1,16 @@
  <template>
   <div class="set-item-list-container">
-    <div class="set-summary-printable ">
-      <span>{{set.name}} Collection Tally</span>
-      <span>You owned {{ownedRegular}} of {{totalRegular}} Regular: {{percentOwnedRegular}}%</span>
-      <span>You own {{ownedFoil}} of {{totalFoiled}} Foiled: {{percentOwnedFoil}}%</span>
+    <div class="container set-summary-printable py-5">
+
+      <h1 class="title is-size-4"><span class="is-capitalized">{{user.username}}'s</span> {{set.name}} Collection Checklist</h1>
+
+      <nav class="level">
+        <div class="has-text-weight-bold">Regular Set Value {{quickstats.currency_symbol}}{{sumRegulars.toFixed(2)}}</div> <div>{{set.set_code}} released on {{set.release_date}}</div> <div>Total Cards {{set.items.length}}</div>    <div class="has-text-weight-bold">Foil Set Value {{quickstats.currency_symbol}}{{sumFoils.toFixed(2)}}</div>
+      </nav>
+      <nav class="level">
+      <div>You've collected {{ownedRegular}} of {{totalRegular}} regular cards: {{percentOwnedRegular}}%</div>
+      <div>You've collected {{ownedFoil}} of {{totalFoiled}} foil cards: {{percentOwnedFoil}}%</div>
+      </nav>
     </div>
 
     <div class="checklist-filters p-3 level has-background-light">
@@ -207,7 +214,7 @@ export default {
     this.isApple = /(Mac|iPhone|iPod|iPad)/i.test(window.navigator.userAgent);
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
-
+    console.log(this.user)
   },
   methods: {
     print() {
@@ -284,7 +291,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['userLevel','user','authenticated']),
+    ...mapState(['userLevel','user','authenticated','quickstats']),
     filteredItems: function(){
 
             if(this.items.length == 0) return
@@ -357,7 +364,17 @@ export default {
     },
     percentOwnedFoil() {
       return ((this.ownedFoil / this.totalFoiled) * 100).toFixed(2)
-    }
+    },
+    sumFoils(){
+      let sum = 0
+      this.items.forEach(item => sum += item.foil_price)
+      return sum
+    },
+    sumRegulars(){
+      let sum = 0
+      this.items.forEach(item => sum += item.tcg_mid)
+      return sum
+    },
 
   }
 }
