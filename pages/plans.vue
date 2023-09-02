@@ -94,6 +94,12 @@
               </span>
               Trade App
             </div>
+            <div  v-if="plan.setfilters" class="panel-block">
+              <span class="panel-icon">
+                <b-icon size="is-small" icon="list-status" />
+              </span>
+              Set Exports and Filters
+            </div>
             <div v-if="plan.sealed" class="panel-block">
               <span class="panel-icon">
                 <b-icon size="is-small" icon="eye-check-outline" />
@@ -277,6 +283,7 @@ export default {
             trending: false,
             inventory: true,
           },
+          setfilters: false,
           sealed: false,
           streamer: false,
           earnings: false,
@@ -312,6 +319,7 @@ export default {
             trending: false,
             inventory: true,
           },
+          setfilters: true,
           sealed: false,
           streamer: true,
           stats: false,
@@ -347,6 +355,7 @@ export default {
             trending: true,
             inventory: true,
           },
+          setfilters: true,
           sealed: true,
           streamer: true,
           stats: false,
@@ -382,6 +391,7 @@ export default {
             trending: true,
             inventory: true,
           },
+          setfilters: true,
           sealed: true,
           earnings: true,
           watchlist: true,

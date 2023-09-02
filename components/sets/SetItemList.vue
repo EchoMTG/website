@@ -150,7 +150,7 @@
           striped
           :data="filteredItems"
           :debounce-search="0"
-          hoverable
+
           detailed
           custom-detail-row
           @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"

@@ -140,9 +140,6 @@ export default {
     }
   },
   mounted() {
-
-
-
     this.updateTableHeight()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);

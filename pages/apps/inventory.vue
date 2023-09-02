@@ -204,7 +204,7 @@
         @sort="onSort"
         striped
         :mobile-cards="false"
-        hoverable
+
         detailed
         custom-detail-row
         @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"

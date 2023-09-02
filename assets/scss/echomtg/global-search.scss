@@ -146,11 +146,9 @@ $resultsMarginRight: 35px;
       .advancedSearchOptions {
         height: 0px;
         width: 100%;
-        background: #e8e8e8;
         overflow: hidden;
         transition: height 200ms ease;
         line-height: normal;
-        color: $grey;
         &.open{
           height: 90px;
           @media all and (max-width: $break-width){

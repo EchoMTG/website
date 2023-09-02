@@ -18,29 +18,38 @@
           Print {{set.name}} Checklist as is or apply filters and print
         </div>
 
+        <feature-gate :showAd="false" :gate-level="1" classes="level-item">
+          <b-select v-model="rarity">
+            <option value="" selected>Any Rarity</option>
+            <option disabled>---</option>
+            <option value="common">Common</option>
+            <option value="uncommon">Uncommon</option>
+            <option value="rare">Rare</option>
+            <option value="mythic">Mythic</option>
+            <option value="special">Special</option>
+            <option value="basic land">Basic Land</option>
+            <option value="token">Token</option>
+          </b-select>
+        </feature-gate>
 
-        <b-select v-model="rarity" class="level-item ">
-          <option value="" selected>Any Rarity</option>
-          <option disabled>---</option>
-          <option value="common">Common</option>
-          <option value="uncommon">Uncommon</option>
-          <option value="rare">Rare</option>
-          <option value="mythic">Mythic</option>
-          <option value="special">Special</option>
-          <option value="basic land">Basic Land</option>
-          <option value="token">Token</option>
-        </b-select>
+        <feature-gate :showAd="false" :gate-level="1" classes="level-item">
+          <b-select v-if="this.variants.length > 0" v-model="variant">
+            <option value="" selected>Any Variant</option>
+            <option disabled>---</option>
+            <option value="none">No Variants</option>
+            <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
+                {{ v.replace(') (', ' ') }}
 
-        <b-select v-if="this.variants.length > 0" v-model="variant" class="level-item ">
-          <option value="" selected>Any Variant</option>
-          <option disabled>---</option>
-          <option value="none">No Variants</option>
-          <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
-              {{ v.replace(') (', ' ') }}
+            </option>
+          </b-select>
+        </feature-gate>
 
-          </option>
-        </b-select>
-
+        <feature-gate
+          :showAd="true"
+          :gate-level="1"
+          adText="Upgrade for Print Filters"
+          size="default"
+          classes="level-item">
           <b-select v-if="Object.keys(cardsowned).length > 0" v-model="showOwned" class="level-item">
             <option value="" selected>All</option>
             <option disabled>---</option>
@@ -49,10 +58,11 @@
             <option value="false reg">Not Owned Regular</option>
             <option value="false foil">Not Owned Foil</option>
           </b-select>
+        </feature-gate>
 
         <b-button
           size="default"
-          type="is-danger"
+          type="is-success"
           class="level-item"
           icon-left="printer"
           @click="print()">Print Now ({{isApple ? 'CMD' : 'CTRL'}} + p) </b-button>
@@ -136,10 +146,11 @@
 
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import { mapState } from 'vuex'
+import FeatureGate from '~/components/user/FeatureGate.vue'
 
 export default {
   name: 'SetItemList',
-  components: { ItemInspectorWrapper },
+  components: { ItemInspectorWrapper, FeatureGate },
   props: {
     items: {
       type: Array,

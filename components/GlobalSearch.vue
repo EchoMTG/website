@@ -52,7 +52,7 @@
                                 <div class="column">
                                     <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-black">
+                                            <a class="button is-static is-small has-text-grey">
                                                 <span class="icon">
                                                     <i class="fa fa-text-height"></i>
                                                 </span>
@@ -75,7 +75,7 @@
                                 <div class="column">
                                       <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-black">
+                                            <a class="button is-static is-small has-text-grey">
                                                 <span class="icon">
                                                     <i class="fa fa-male"></i>
                                                 </span>

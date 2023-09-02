@@ -67,17 +67,17 @@
         target="_blank"
         href="/api/sets/download/?set_code=SNC"
       >
-        <span class="icon"><i class="fa fa-file-excel-o"></i></span>
-        <span>Download Full Set</span>
+        <b-icon icon="microsoft-excel" size="is-small" />
+        <span>Download Full Set CSV</span>
       </a>
       <a
-        class="button is-outlined has-background-dark is-small has-icon-left hide-mobile"
-        style="margin-left: 3px"
+        class="button is-success is-small has-icon-left hide-mobile ml-2 mr-2"
+
         target="_blank"
         :href="`printable-check-list/`"
       >
-        <span class="icon"><i class="fa fa-print"></i></span>
-        <span>Checklist</span>
+        <b-icon icon="printer" size="is-small" />
+        <span>Open Printable Checklist</span>
       </a>
     </div>
     <div class="setViews">
