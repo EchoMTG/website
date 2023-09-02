@@ -3,6 +3,7 @@
       <nuxt keep-alive />
       <echo-bread-crumbs :data="crumbs" />
       <set-checklist
+        :set="this.set"
         :items="this.set.items"
         :cardsowned="this.set.owned"
         :totalFoiled="this.set.total_foil_cards"
@@ -21,22 +22,28 @@
   }
 
   body{
-		padding: 40px 0px 0px 40px;
+		padding: 0px 0px 0px 0px !important;
 	}
 	table{
-		border: 1px #ccc solid;
+		border: 1px #ccc solid !important;
 		width: 900px;
+    border-left: 1px #ccc solid !important;
 	}
-	table tr {
-		border: 1px #ccc solid;
+   table thead {
+		background-color: #ccc !important;
 	}
-	table tr td:first-child, table tr td:nth-child(2){
-		border-right: 1px #ccc solid;
+  table thead tr th{
+		background-color: #ccc !important;
+  border-right: 1px #ccc solid !important;
+  border-bottom: 1px #ccc solid !important;
+  border-top: 1px #ccc solid !important;
 	}
-	table#set-table tr td:nth-child(2), table tr td:nth-child(7){
-		background: #fffbe5;
+	table tbody tr td{
+		border-right: 1px #ccc solid !important;
+    	border-bottom: 1px #ccc solid !important;
+	}
+  table tbody tr:nth-child(even) td {background: #CCC !important}
 
-	}
 	/* table tr td:nth-child(7){
 		padding-left: 10px;
 		font-weight: bold;
@@ -44,7 +51,7 @@
 	table tr td:nth-child(3) {
 	 padding-left: 5px;
 	} */
-  table tr td {
+  table tbody tr td {
     color: black !important;
     font-size: 10px;
   }

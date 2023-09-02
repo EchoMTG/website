@@ -1,53 +1,65 @@
  <template>
-      <div class="set-item-list-container">
-        <div class="set-summary-printable">
+  <div class="set-item-list-container">
+    <div class="set-summary-printable ">
+      <span>{{set.name}} Collection Tally</span>
+      <span>You owned {{ownedRegular}} of {{totalRegular}} Regular: {{percentOwnedRegular}}%</span>
+      <span>You own {{ownedFoil}} of {{totalFoiled}} Foiled: {{percentOwnedFoil}}%</span>
+    </div>
 
+    <div class="checklist-filters p-3 level has-background-light">
+        <div class="level-item">
+          Print {{set.name}} Checklist as is or apply filters and print
         </div>
 
-     <div class="checklist-filters p-3 level">
-          <div class="select is-small is-rounded has-text-grey">
-            <select v-model="rarity" class="has-text-grey">
-              <option value="" selected>Any Rarity</option>
-              <option disabled>---</option>
-              <option value="common">Common</option>
-              <option value="uncommon">Uncommon</option>
-              <option value="rare">Rare</option>
-              <option value="mythic">Mythic</option>
-              <option value="special">Special</option>
-              <option value="basic land">Basic Land</option>
-              <option value="token">Token</option>
-            </select>
-          </div>
-
-          <div
-            class="select is-small is-rounded has-text-grey"
-            v-if="this.variants.length > 0"
-          >
-            <select v-model="variant" class="has-text-grey">
-              <option value="" selected>Any Variant</option>
-              <option disabled>---</option>
-              <option value="none">No Variants</option>
-              <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
-                 {{ v.replace(') (', ' ') }}
-
-              </option>
-            </select>
-          </div>
-
-          <div
-            class="select is-small is-rounded has-text-grey is-hidden-mobile"
-            v-if="Object.keys(cardsowned).length > 0"
-          >
-            <select v-model="showOwned" class="has-text-grey">
-              <option value="" selected>All</option>
-              <option disabled>---</option>
-              <option value="true reg">Owned Regular</option>
-              <option value="true foil">Owned Foil</option>
-              <option value="false reg">Not Owned Regular</option>
-              <option value="false foil">Not Owned Foil</option>
-            </select>
-          </div>
+        <div class="level-item select is-small is-rounded has-text-grey">
+          <select v-model="rarity" class="has-text-grey">
+            <option value="" selected>Any Rarity</option>
+            <option disabled>---</option>
+            <option value="common">Common</option>
+            <option value="uncommon">Uncommon</option>
+            <option value="rare">Rare</option>
+            <option value="mythic">Mythic</option>
+            <option value="special">Special</option>
+            <option value="basic land">Basic Land</option>
+            <option value="token">Token</option>
+          </select>
         </div>
+
+        <div
+          class="level-item select is-small is-rounded has-text-grey"
+          v-if="this.variants.length > 0"
+        >
+          <select v-model="variant" class="has-text-grey">
+            <option value="" selected>Any Variant</option>
+            <option disabled>---</option>
+            <option value="none">No Variants</option>
+            <option v-for="(v, index) in this.variants" v-bind:key="`${v}${index}`" :value="v">
+                {{ v.replace(') (', ' ') }}
+
+            </option>
+          </select>
+        </div>
+
+        <div
+          class="level-item select is-small is-rounded has-text-grey is-hidden-mobile"
+          v-if="Object.keys(cardsowned).length > 0"
+        >
+          <select v-model="showOwned" class="has-text-grey">
+            <option value="" selected>All</option>
+            <option disabled>---</option>
+            <option value="true reg">Owned Regular</option>
+            <option value="true foil">Owned Foil</option>
+            <option value="false reg">Not Owned Regular</option>
+            <option value="false foil">Not Owned Foil</option>
+          </select>
+        </div>
+        <b-button
+          size="default"
+          type="is-danger"
+          class="level-item"
+          icon-left="printer"
+          @click="print()">Print Now ({{isApple ? 'CMD' : 'CTRL'}} + p) </b-button>
+    </div>
         <b-table
           striped
           :data="filteredItems"
@@ -88,7 +100,7 @@
 
           </b-table-column>
           <b-table-column field="mc" label="MC" sortable v-slot="props">
-            {{props.row.mc.replace(/\{\{|\}\}/ig,'')}}
+            {{props.row?.mc && props.row.mc.replace(/\{\{|\}\}/ig,'')}}
           </b-table-column>
            <!-- <b-table-column field="types" label="Types" sortable  v-slot="props">
             {{props.row.types}}
@@ -118,14 +130,7 @@
             </span>
           </b-table-column>
 
-
-
-
-
         </b-table>
-
-
-
       </div>
 </template>
 
@@ -142,6 +147,9 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    set: {
+      type: Object,
     },
     cardsowned: {
       type: Object,
@@ -190,15 +198,21 @@ export default {
       variant: '',
       variants: [],
       fullView: false,
-      actions: 0
+      actions: 0,
+      isApple: false
     };
 
   },
   mounted () {
+    this.isApple = /(Mac|iPhone|iPod|iPad)/i.test(window.navigator.userAgent);
     this.findVariants()
     window.scrollTo(0, 1); // account for lazy load
+
   },
   methods: {
+    print() {
+      window.print()
+    },
     changeTag(number) {
       if (number < -5) {
             return 'tag has-text-white has-background-danger'
@@ -271,7 +285,7 @@ export default {
   },
   computed: {
     ...mapState(['userLevel','user','authenticated']),
-      filteredItems: function(){
+    filteredItems: function(){
 
             if(this.items.length == 0) return
 
@@ -331,7 +345,19 @@ export default {
             return [...returnItems];
 
 
-        },
+    },
+    ownedFoil(){
+      return Object.keys(this.cardsowned.foiled).length
+    },
+    ownedRegular(){
+      return Object.keys(this.cardsowned.regular).length
+    },
+    percentOwnedRegular() {
+      return ((this.ownedRegular / this.totalRegular) * 100).toFixed(2)
+    },
+    percentOwnedFoil() {
+      return ((this.ownedFoil / this.totalFoiled) * 100).toFixed(2)
+    }
 
   }
 }

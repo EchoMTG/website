@@ -468,7 +468,7 @@ export default {
   },
   head () {
     return {
-        title: `${this.item.card_name} Price ${this.item.expansion} MTG`,
+        title: `${this.item.card_name } Price ${this.item.expansion} MTG`,
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.item.image_cropped },
           {
