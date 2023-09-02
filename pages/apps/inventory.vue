@@ -218,7 +218,7 @@
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
               <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
-              <item-inspector-wrapper :showsetsymbol="true" :item="props.row" />
+              <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
           </b-table-column>
           <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
             <div class="is-flex	is-justify-content-space-between		">

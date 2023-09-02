@@ -18,6 +18,13 @@ function helpMenu() {
       label: 'Contributing',
       description: 'Learn about the options for contributing'
     },
+    {
+      to: '/help/report-bug/',
+      icon: 'bug-outline',
+      label: 'Report Bug',
+      description: 'Report an issue with the website or mobile apps.'
+
+    }
   ]
 }
  export default helpMenu;

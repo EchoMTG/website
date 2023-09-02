@@ -37,6 +37,10 @@ export default {
       type: String,
       default: '',
       required: false
+    },
+    deactivateHover: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -72,6 +76,15 @@ export default {
       },
     setShowItem: function(showItem, showFullItem=false){
       this.isCloseToBottom()
+
+      // disable
+      // if(!this.item?.image && this.item.image != '') return;
+
+      if(this.deactivateHover) {
+        console.log('deactvaed',this.deactivateHover)
+        return;
+      }
+
       // double click open
       if(this.showItem && this.showFullItem && showItem && showFullItem){
         this.$router.push(this.item.card_url);

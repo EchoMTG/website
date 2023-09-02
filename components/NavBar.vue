@@ -65,11 +65,19 @@
           <span>Articles</span>
         </nuxt-link>
 
-
+        <nuxt-link
+            to="/help/report-bug/"
+            class="navbar-item has-divider mr-0 pr-1"
+            exact-active-class="is-active"
+            aria-label="Submit a bug report"
+          >
+          <b-icon icon="bug-outline"></b-icon>
+        </nuxt-link>
         <nuxt-link
             to="/help/"
             class="navbar-item has-divider mr-0 pr-1"
             exact-active-class="is-active"
+            aria-label="Open the help desk"
           >
           <b-icon icon="help-circle-outline"></b-icon>
         </nuxt-link>
