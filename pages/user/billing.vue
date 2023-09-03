@@ -98,11 +98,8 @@
               <b-button @click="isCardModalActive = true">Add Card</b-button>
             </card-component>
           </tiles>
-          <div class="card">
-            <div class="content p-3 has-text-centered">
-              <b-icon icon="help-circle" class="is-pulled-left" /> For billing inquires, please email <a href="mailto:iona@echomtg.com">iona@echomtg.com</a>
-            </div>
-          </div>
+
+          <nuxt-link  to="/help/billing/" class="button is-fullwidth mb-5"> <b-icon icon="help-circle" class="mr-2" size="is-small" /> Billing questions? Click here.</nuxt-link>
           <!-- /credit cards-->
 
           <!-- Payment Table -->

@@ -23,7 +23,13 @@ function helpMenu() {
       icon: 'bug-outline',
       label: 'Report Bug',
       description: 'Report an issue with the website or mobile apps.'
-
+    }
+    ,
+    {
+      to: '/help/billing/',
+      icon: 'credit-card',
+      label: 'Billing Questions',
+      description: 'How billing works and how to get something fixed.'
     }
   ]
 }

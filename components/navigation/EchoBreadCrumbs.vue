@@ -15,7 +15,7 @@
             ><b-icon v-if="item.icon != ''" class="ml-0" :icon="item.icon" size="is-small" />{{item.label}}</b-breadcrumb-item>
       </b-breadcrumb>
     </div>
-    <div class="level-right mr-4">
+    <div class="level-right mr-4 is-hidden-mobile">
       <small class="level-item is-small has-text-right has-text-grey">
         Magic: the Gathering™ references are property of Wizards of the Coast. Prices update daily from TCGplayer.com
       </small>

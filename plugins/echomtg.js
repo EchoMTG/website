@@ -1135,6 +1135,33 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 		}
   }
 
+  // IMAGE AND URL MAKING FUNCTIONS
+  echomtg.getImageCropURL = (emid) => {
+    return 'https://assets.echomtg.com/magic/cards/cropped/'+emid+'.hq.jpg';
+  }
+
+  echomtg.getImageFlipURL = (emid) => {
+      return 'https://assets.echomtg.com/magic/cards/original/'+emid+'.flip.jpg';
+  }
+
+  echomtg.getImageURL = (emid) => {
+    return 'https://assets.echomtg.com/magic/cards/original/'+emid+'.jpg';
+  }
+
+  echomtg.getSetSymbolURL = (set_code) => {
+      return 'https://assets.echomtg.com/magic/symbols/expansions/' + set_code.strtolower() + '.png';
+  }
+
+  echomtg.getSetURL = (setCode, $setName)  => {
+      return "/set/" + setCode + '/' + echomtg.cleanSet($setName) + '/';
+  }
+
+  echomtg.cleanSet = (set) => {
+    const toreplace = /[,_'\\\\/:.&()!]/ig;
+    return set.replace('--','-').strtolower().replace(toreplace,'-');
+  }
+
+
   echomtg.md5 = (string) => {
     function RotateLeft(lValue, iShiftBits) {
       return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));
