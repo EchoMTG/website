@@ -1,6 +1,7 @@
 <template>
   <div>
-
+    <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
+    <echo-bread-crumbs :data="crumbs" />
     <SetSummary
       :setName="set.name"
       :setCode="set.set_code"
@@ -11,9 +12,9 @@
 
     <div class="setTabs tabs is-boxed is-flex">
       <ul>
-        <li class="is-active">
+        <li :class="tabClass('list')">
           <a
-            class="has-icon"
+            class="navbar-item has-icon"
             ref="listTab"
             href="javascript:void(0)"
             @click="setTab('list')"
@@ -22,7 +23,7 @@
             <span>Card <span class="hide-mobile">&amp; Price</span> List</span>
           </a>
         </li>
-        <li>
+        <li :class="tabClass('calculations')">
           <a
             class="navbar-item has-icon"
             ref="calculationsTab"
@@ -37,9 +38,9 @@
             >
           </a>
         </li>
-        <li>
+        <li :class="tabClass('trending')">
           <a
-            class="has-icon"
+            class="navbar-item has-icon"
             ref="trendingTab"
             href="javascript:void(0)"
             @click="setTab('trending')"
@@ -49,7 +50,7 @@
           </a>
         </li>
 
-        <li>
+        <li :class="tabClass('sealed')">
           <a
             class="navbar-item has-icon"
             ref="sealedTab"
@@ -99,69 +100,91 @@
 </template>
 
 <script>
+
+import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
+import { mapState } from 'vuex'
 import SetItemList from '@/components/sets/SetItemList';
 import SetSummary from '@/components/sets/SetSummary';
-
 import SetSealed from '@/components/sets/SetSealed';
 import SetTrendingView from '@/components/sets/SetTrendingView';
 import SetCalculationsView from '@/components/sets/SetCalculationsView';
-import { mapState } from 'vuex'
+
 
 export default {
+  name: 'Expansion',
+  components: {
 
-    name: 'SetView',
-    components: { SetItemList, SetSummary, SetTrendingView, SetCalculationsView, SetSealed },
-    props: {
+    EchoBreadCrumbs,
+    SetItemList, SetSummary, SetTrendingView, SetCalculationsView, SetSealed
+  },
+  props: {
+
+  },
+  data () {
+    return {
       set: {
-        type: Object,
-        default: function(){
-          return {
-            'items': [],
-            'owned': {
-              regular: [],
-              foiled: []
-            }
-          }
-        }
+        name: '',
       },
-      current_tab: {
-        type: String,
-        default: 'list'
-      },
-      callback: {
-        type: Function,
-        required: true
+      set_code: '',
+      checkedRows: [],
+      tab: 'list'
+    }
+  },
+  computed: {
+
+    ...mapState([
+      'user'
+    ])
+
+  },
+  async asyncData({ params, redirect, $echomtg }) {
+
+    let data = await $echomtg.getSet(params.set_code);
+    let tab = params?.set_tab ? params.set_tab : 'list'
+
+    // return it
+    if (data) {
+      return {
+        set: data.set,
+        set_code: params.set_code,
+        tab: tab
       }
+    } else {
+      redirect('/mtg/sets/')
+    }
+  },
+  methods: {
+    tabClass(tab){
+      let classList = "";
+      if(this.tab == tab){
+        classList += ' is-active';
+      }
+      return classList;
     },
-    data: function data() {
-
-        return {
-            title: 'Set Name',
-            tab: 'list',
-            setCode: '',
-        };
-
+    addHashToLocation(url) {
+      history.pushState(
+        {},
+        null,
+        url
+      )
     },
-    methods: {
-      addHashToLocation(url) {
-        history.pushState(
-          {},
-          null,
-          url
-        )
-      },
-      makeSetPath(code, path_part){
-        return `/mtg/${code}/${path_part}/`
-      },
-      setTab: function(str){
-          this.$refs[this.tab+'Tab'].parentElement.classList.remove('is-active')
+    makeSetPath(code, set_name){
+      return `/mtg/sets/${code.toLowerCase()}/${this.$echomtg.cleanSet(set_name)}/`
+    },
+    async refreshData() {
+      let data = await this.$echomtg.getSet(this.set_code);
+      this.set = data.set;
+      console.log(data)
+    },
+    setTab: function(str){
+          // this.$refs[this.tab+'Tab'].parentElement.classList.remove('is-active')
           this.tab = str
-          this.$refs[str+'Tab'].parentElement.classList.add('is-active')
-
+          // this.$refs[str+'Tab'].parentElement.classList.add('is-active')
+          const seturl  = this.makeSetPath(this.set.set_code, this.set.name)
           if(this.tab == 'list'){
-            this.addHashToLocation(this.$route.path)
+            this.addHashToLocation(seturl)
           } else {
-            this.addHashToLocation(this.$route.path + this.tab + '/')
+            this.addHashToLocation(seturl + this.tab + '/')
           }
 
         },
@@ -200,23 +223,49 @@ export default {
             }
           },
 
-    },
-    watch: {
-      current_tab(){
-        this.tab = this.current_tab
-      }
-    },
-    mounted() {
+  },
+  mounted() {
 
         window.addEventListener("scroll", this.lazyLoad);
         window.scrollTo(0, 0);
         setTimeout(this.lazyLoad, 500)
       },
-    computed: {
-      owned() { return this.set?.owned ? this.set.owned : {} },
-      ...mapState(['userLevel'])
+  computed: {
+    crumbs () {
+      return [
+        {
+          label: 'Magic: the Gathering',
+          url: '/mtg/',
+          icon: ''
 
+        },
+        {
+          label: 'Sets',
+          url: '/mtg/sets/',
+          icon: ''
+        },
+        {
+          label: this.set.name,
+          url: this.$nuxt.$route.path,
+          icon: ''
+        }
+      ]
     }
+  },
+  head () {
+    return {
+        title: `${this.set.name} Price List and Card Data`,
+
+        meta: [
+          { hid: 'og:image', property: 'og:image', content: this.set.set_symbol },
+           {
+            hid: 'description',
+            name: 'description',
+            content:  `Card Images and Prices for the Magic the Gathering set ${this.set.name}, ${this.set.set_code}`
+          }
+        ]
+    }
+  }
+
 }
 </script>
-

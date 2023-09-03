@@ -1149,16 +1149,16 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   }
 
   echomtg.getSetSymbolURL = (set_code) => {
-      return 'https://assets.echomtg.com/magic/symbols/expansions/' + set_code.strtolower() + '.png';
+      return 'https://assets.echomtg.com/magic/symbols/expansions/' + set_code.toLowerCase() + '.png';
   }
 
-  echomtg.getSetURL = (setCode, $setName)  => {
-      return "/set/" + setCode + '/' + echomtg.cleanSet($setName) + '/';
+  echomtg.getSetURL = (setCode, setName)  => {
+      return "/mtg/set/" + setCode + '/' + echomtg.cleanSet(setName) + '/';
   }
 
   echomtg.cleanSet = (set) => {
-    const toreplace = /[,_'\\\\/:.&()!]/ig;
-    return set.replace('--','-').strtolower().replace(toreplace,'-');
+    const toreplace = /[,_'\\\\/:.&()! ]/ig;
+    return set.replace('--','-').toLowerCase().replace(toreplace,'-');
   }
 
 
