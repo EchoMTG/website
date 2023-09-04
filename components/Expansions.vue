@@ -18,7 +18,7 @@
       </div>
       <div class="column">
         <div class="content">
-        <p>Search a list of all Magic: the Gathering Expansions and Sets.</p>
+        <p>Search a list of all {{game}} Expansions, Promos, and Sets.</p>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
     >
 
       <b-table-column v-slot="props" label="Name" field="name" sortable>
-        <i :class="getSetIconClass(props.row.set_code)"></i>
+        <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
         <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
       </b-table-column>
       <b-table-column v-slot="props" label="Set Code" field="set_code" sortable>
@@ -129,9 +129,7 @@ export default {
   methods: {
 
     makeSetPath(code, path_part){
-      const split = $nuxt.$route.path.split('/')
-      console.log(split)
-      return `/${split[1]}/sets/${code.toLowerCase()}/${path_part}/`
+      return `/${this.game}/sets/${code.toLowerCase()}/${path_part}/`
     },
     getSetIconClass(set_code){
       return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-1'
@@ -145,6 +143,11 @@ export default {
 
   },
   computed: {
+    game() {
+      const split = $nuxt.$route.path.split('/')
+      console.log(split);
+      return split[1];
+    },
     filteredExpansionsList() {
 
       if(this.search == '') return this.expansions;
