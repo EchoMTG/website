@@ -144,9 +144,12 @@ export default {
   },
   computed: {
     game() {
-      const split = $nuxt.$route.path.split('/')
-      console.log(split);
-      return split[1];
+      if(this.$nuxt){
+        const split = this.$nuxt.$route.path.split('/')
+        return split[1];
+      } else {
+        return 'mtg'
+      }
     },
     filteredExpansionsList() {
 
