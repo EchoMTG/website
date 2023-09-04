@@ -55,7 +55,7 @@ export default {
           [
             {
               to: '/mtg/sets/',
-              label: 'Sets',
+              label: 'MTG Sets',
               icon: 'cards'
             },
             {
@@ -75,6 +75,14 @@ export default {
             },
           ],
       ];
+      navList.push('Disney Lorcana')
+      navList.push([
+            {
+              to: '/lorcana/sets/',
+              label: 'Lorcana Sets',
+              icon: 'cards'
+            }
+      ])
 
       let tools = toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`

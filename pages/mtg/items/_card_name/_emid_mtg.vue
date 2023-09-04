@@ -281,7 +281,7 @@ export default {
   },
   async asyncData({ params, redirect, $config }) {
 
-    let emid = params.emid;
+    let emid = params.emid_mtg;
     let item, res, dataRes, variations;
     let prices = {
       'date' : [],

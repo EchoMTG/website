@@ -176,7 +176,7 @@ export default {
     },
     getMedianValue() {
       let median = Math.ceil(this.prices[this.type].length / 2)
-      return this.prices[this.type][median].toLocaleString("en-US");
+      return (this.prices[this.type][median]) ? this.prices[this.type][median].toLocaleString("en-US") : this.prices[this.type][0];
     },
     getAverageValue() {
       return (this.prices[this.type].reduce((a, b) => a + b) / this.prices[this.type].length).toLocaleString("en-US");

@@ -134,8 +134,8 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   return data.data;
 };
 
-  echomtg.getSets = async () => {
-    let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/`, {
+  echomtg.getSets = async (game=1) => {
+    let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/?game=${game}`, {
       headers: echomtg.getS2SHeadersNoJSON()
     })
     let data = await res.json();
@@ -143,9 +143,9 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     return data.data;
   }
 
-  echomtg.getSet = async (set_code) => {
+  echomtg.getSet = async (set_code,game=1) => {
     // fetch the set
-    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}&minified=true`;
+    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}&minified=true&game=${game}`;
 
     // try to get the json
      try {
@@ -161,8 +161,8 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
     }
   }
 
-  echomtg.getSealed = async (set_code) => {
-    let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}`;
+  echomtg.getSealed = async (set_code,game=1) => {
+    let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}&game=${game}`;
 
     let res = await fetch(url, {
       headers: {

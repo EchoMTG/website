@@ -129,7 +129,9 @@ export default {
   methods: {
 
     makeSetPath(code, path_part){
-      return `/set/${code}/${path_part}/`
+      const split = $nuxt.$route.path.split('/')
+      console.log(split)
+      return `/${split[1]}/sets/${code.toLowerCase()}/${path_part}/`
     },
     getSetIconClass(set_code){
       return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-1'

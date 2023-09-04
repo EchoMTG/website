@@ -18,7 +18,7 @@
         </figure>
       </div>
       <nav class="level m-0 p-0">
-          <div v-if="item.tcg_mid > 0" class="level-item">{{cs}}{{item.tcg_mid.toLocaleString("en-US")}}</div>
+          <div v-if="item.tcg_mid > 0" class="level-item">{{cs}}{{item?.tcg_mid.toLocaleString("en-US")}}</div>
           <div v-if="item.foil_price > 0" class="level-item has-text-warning-dark">{{cs}}{{item.foil_price.toLocaleString("en-US")}}</div>
       </nav>
       <footer class="card-footer">

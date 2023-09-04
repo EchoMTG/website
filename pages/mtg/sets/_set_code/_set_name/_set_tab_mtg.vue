@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
+    <!-- <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive /> -->
     <echo-bread-crumbs :data="crumbs" />
     <SetSummary
       :setName="set.name"
@@ -66,7 +66,7 @@
       <a
         class="button is-outlined is-small has-icon-left hide-mobile"
         target="_blank"
-        href="/api/sets/download/?set_code=SNC"
+        :href="`/api/sets/download/?set_code=${set.set_code}`"
       >
         <b-icon icon="microsoft-excel" size="is-small" />
         <span>Download Full Set CSV</span>
@@ -88,7 +88,7 @@
         :cardsowned="this.set.owned"
         :totalFoiled="this.set.total_foil_cards"
         :totalRegular="this.set.total_regular_cards"
-        :callback="callback"
+        :callback="refreshData"
         />
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />
@@ -140,7 +140,7 @@ export default {
   async asyncData({ params, redirect, $echomtg }) {
 
     let data = await $echomtg.getSet(params.set_code);
-    let tab = params?.set_tab ? params.set_tab : 'list'
+    let tab = params?.set_tab_mtg ? params.set_tab_mtg : 'list'
 
     // return it
     if (data) {
