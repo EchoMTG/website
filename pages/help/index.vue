@@ -2,11 +2,18 @@
   <div>
     <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
-    <div class="content m-5 mb-0">
-      <h1>EchoMTG Help Section</h1>
-      <p>Find help related to the EchoMTG application</p>
-
-    </div>
+    <section class="hero is-info mb-4">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                EchoMTG Help Section
+              </h1>
+              <h3 class="subtitle">
+                Find help related to the EchoMTG application
+                 </h3>
+          </div>
+      </div>
+    </section>
      <div class="columns is-multiline m-3">
       <div class="column is-one-quarter" v-for="(section,index) in helpNav" :key="`${section.label}${index}`">
         <div class="card">

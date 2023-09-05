@@ -4,7 +4,7 @@
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
-                  EchoMTG Community Chat
+                  EchoMTG Roadmap
               </h1>
               <h3 class="subtitle">
                   Magic: the Gathering API for EchoMTG Collection Tools
@@ -12,10 +12,10 @@
           </div>
       </div>
     </section>
-    <div class="container ">
+    <div class="container">
         <div class="columns">
-          <div class="column is-one-fifth">
-            <about-sub-nav />
+          <div class="column is-one-fifth ">
+            <about-sub-nav  />
           </div>
           <div class="column content is-two-fifths">
             <p>EchoMTG hosts a chat room of awesome magic addicts that follow the  meta and finance market. Join by following this link: <a href="https://discord.gg/g9g7kAH">EchoMTG Discord Chat</a>.</p>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+// @ is an alias to /src
 import AboutSubNav from '~/components/about/AboutSubNav.vue'
 
 export default {

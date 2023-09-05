@@ -2,7 +2,18 @@
   <div>
     <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
-
+    <section class="hero is-info mb-4">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                General Support
+              </h1>
+              <h3 class="subtitle">
+                Resrouces to Find help related to the EchoMTG application and community.
+              </h3>
+          </div>
+      </div>
+    </section>
     <div class="columns ml-3 mt-3">
       <div class="column is-one-fifth">
         <help-sub-nav />

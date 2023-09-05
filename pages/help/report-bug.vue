@@ -2,18 +2,25 @@
   <div>
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
     <echo-bread-crumbs :data="crumbs" />
-
+    <section class="hero is-info mb-4">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                Submit a Bug Report
+              </h1>
+              <h3 class="subtitle">
+                EchoMTG is a community driven application. Bugs can be submitted on <a target="_blank" href="https://github.com/EchoMTG/website/issues/new?assignees=&labels=UI+BUG&projects=&template=bug_report.md&title=%5BBUG%5D+">Github</a> or to the @wiki-team through our <nuxt-link to="/about/discord/">discord server</nuxt-link>.  
+              </h3>
+          </div>
+      </div>
+    </section>
     <div class="columns ml-3 mt-3">
       <div class="column is-one-fifth">
         <help-sub-nav />
       </div>
 
       <div class="column is-four-fifths">
-         <div class="container">
-            <h1 class="title">Submit a Bug Report</h1>
-            <p class="pr-6">EchoMTG is a community driven application. Bugs can be submitted on <a target="_blank" href="https://github.com/EchoMTG/website/issues/new?assignees=&labels=UI+BUG&projects=&template=bug_report.md&title=%5BBUG%5D+">Github</a> or to the @wiki-team through our <nuxt-link to="/about/discord/">discord server</nuxt-link>.</p>
-            <hr />
-          </div>
+        
        <div class="columns">
         <div class="column is-half">
           <h2 class="title is-size-4 mb-1">Application Error</h2>
