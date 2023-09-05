@@ -89,6 +89,7 @@
         :totalFoiled="this.set.total_foil_cards"
         :totalRegular="this.set.total_regular_cards"
         :callback="refreshData"
+        :game="1"
         />
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />

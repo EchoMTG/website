@@ -35,9 +35,11 @@
               <option value="common">Common</option>
               <option value="uncommon">Uncommon</option>
               <option value="rare">Rare</option>
-              <option value="mythic">Mythic</option>
+              <option v-if="game == 71" value="super rare">Super Rare</option>
+              <option v-if="game == 71" value="legendary">Legendary</option>
+              <option v-if="game == 1" value="mythic">Mythic</option>
               <option value="special">Special</option>
-              <option value="basic land">Basic Land</option>
+              <option v-if="game == 1" value="basic land">Basic Land</option>
               <option value="token">Token</option>
             </select>
           </div>
@@ -350,6 +352,10 @@ export default {
       type: Number,
       default: 0
     },
+    game: {
+      type: Number,
+      default: 1
+    },
     callback: {
       type: Function,
       required: true
@@ -539,8 +545,8 @@ export default {
                     if(item.name.toLowerCase().includes(this.search.toLowerCase())){
                         return true
                     }
-
-                    if(item.t != null && item.t.toLowerCase().includes(this.search.toLowerCase())) {
+                    console.log(item.t)
+                    if(item.t != null && String(item.t).toLowerCase().includes(this.search.toLowerCase())) {
                         return true
                     }
                     if(item.collectors_number != null && item.collectors_number.toString().toLowerCase().includes(this.search.toLowerCase())) {
