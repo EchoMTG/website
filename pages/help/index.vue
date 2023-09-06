@@ -1,8 +1,7 @@
 <template>
   <div>
     <nuxt keep-alive />
-    <echo-bread-crumbs :data="crumbs" />
-    <section class="hero is-info mb-4">
+    <section class="hero is-info">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
@@ -14,29 +13,32 @@
           </div>
       </div>
     </section>
-     <div class="columns is-multiline m-3">
-      <div class="column is-one-quarter" v-for="(section,index) in helpNav" :key="`${section.label}${index}`">
-        <div class="card">
+    <echo-bread-crumbs :data="crumbs" class="mb-5" />
+    <div class="container">
+      <div class="columns is-multiline m-3">
+        <div class="column is-one-quarter" v-for="(section,index) in helpNav" :key="`${section.label}${index}`">
+          <div class="card">
 
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <b-icon :icon="section.icon" />
-                </figure>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <b-icon :icon="section.icon" />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{section.label}}</p>
+                </div>
               </div>
-              <div class="media-content">
-                <p class="title is-4">{{section.label}}</p>
+
+              <div class="content">
+                {{section.description}}
               </div>
             </div>
-
-            <div class="content">
-              {{section.description}}
-            </div>
+            <footer class="card-footer">
+              <nuxt-link :to="section.to" class="card-footer-item">Open {{section.label}} Help Section</nuxt-link>
+            </footer>
           </div>
-          <footer class="card-footer">
-            <nuxt-link :to="section.to" class="card-footer-item">Open {{section.label}} Help Section</nuxt-link>
-          </footer>
         </div>
       </div>
     </div>

@@ -1,14 +1,14 @@
 <template>
 
   <div>
-    <section class="hero is-black mb-4">
+    <section class="hero is-black mb-5">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
                   About EchoMTG
               </h1>
               <p class="subtitle">
-                  Software built and maintained by devoted Magic players.
+                  Software built and maintained by Magic players and trading card collecters.
               </p>
           </div>
       </div>

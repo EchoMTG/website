@@ -1,97 +1,111 @@
 <template>
   <div>
     <nuxt keep-alive />
-    <echo-bread-crumbs :data="crumbs" />
-    <NuxtChild  />
-    <div class="columns ml-3 mt-3">
-      <div class="column is-one-fifth">
-        <help-sub-nav />
+    <section class="hero is-info">
+      <div class="hero-body">
+          <div class="container">
+              <h1 class="title">
+                FAQs
+              </h1>
+              <h3 class="subtitle">
+                EchoMTG Frequently Asked Questions
+              </h3>
+          </div>
       </div>
-      <div class="column is-four-fifths">
-        <div class="container mr-3">
-          <b-button
-            type="is-success"
-            class="is-pulled-right "
-            @click="showCreateModal=true"
-            v-if="parseInt(user.user_level) >= 3"
-            icon-left="plus"
-            size="is-large">
-             <b-icon icon="wizard-hat"/> Wiki Create FAQ</b-button>
-          <h1 class="title is-size-2">EchoMTG Frequently Asked Questions</h1>
+    </section>
+    <echo-bread-crumbs :data="crumbs" class="mb-5" />
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <help-sub-nav />
+        </div>
+        <div class="column is-four-fifths">
+          <div class="container mr-3">
+            <b-button
+              type="is-success"
+              class="is-pulled-right "
+              @click="showCreateModal=true"
+              v-if="parseInt(user.user_level) >= 3"
+              icon-left="plus"
+              size="is-large">
+              <b-icon icon="wizard-hat"/> Wiki Create FAQ</b-button>
+           
+            
+            <b-field class="mb-5">
+              <b-radio-button v-model="category"
+                  native-value=""
+                  type="is-light">
+
+                  <span>All FAQs</span>
+              </b-radio-button>
+              <b-radio-button v-model="category"
+                  native-value="inventory"
+                  type="is-light">
+                  <b-icon icon="book-open-page-variant-outline"></b-icon>
+                  <span>Inventory</span>
+              </b-radio-button>
+
+              <b-radio-button v-model="category"
+                  native-value="database"
+                  type="is-light">
+                  <b-icon icon="database"></b-icon>
+                  <span>Database</span>
+              </b-radio-button>
+              <b-radio-button v-model="category"
+                  native-value="list"
+                  type="is-light">
+                  <b-icon icon="format-list-checkbox"></b-icon>
+                  <span>Lists/Decks</span>
+              </b-radio-button>
+              <b-radio-button v-model="category"
+                  native-value="user"
+                  type="is-light">
+                  <b-icon icon="account"></b-icon>
+                  <span>My Account</span>
+              </b-radio-button>
+              <b-radio-button v-model="category"
+                  native-value="usd"
+                  type="is-light">
+                  <b-icon icon="currency-usd"></b-icon>
+                  <span>Pricing</span>
+              </b-radio-button>
+
+
+          </b-field>
           <b-input
-            type="search"
-            class="mb-5"
-            icon="magnify"
-            style="max-width: 500px"
-            aria-placeholder="Search Frequently Asked Questions"
-            placeholder="Search Frequently Asked Questions"
-            v-model="search"
-            icon-right="close-circle"
-            icon-right-clickable
-            @icon-right-click="clearIconClick"
-            size="is-medium" />
-          <b-field class="mb-5">
-             <b-radio-button v-model="category"
-                native-value=""
-                type="is-light">
+              type="search"
+              class="mb-5"
+              icon="magnify"
+              style="max-width: 500px"
+              aria-placeholder="Search Frequently Asked Questions"
+              placeholder="Search Frequently Asked Questions"
+              v-model="search"
+              icon-right="close-circle"
+              icon-right-clickable
+              @icon-right-click="clearIconClick"
+              size="is-medium" />
+            <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light is-relative">
+              <span :id="makeFAQSlug(faq.question)" style="position: absolute; top: -70px"></span>
+              <b-button v-if="parseInt(user.user_level) >= 3" type="is-info" outlined size="is-small" icon-left="pencil" @click="() => openEditModal(faq)" class="ml-2 is-pulled-right">
+                Edit
+              </b-button>
 
-                <span>All FAQs</span>
-            </b-radio-button>
-            <b-radio-button v-model="category"
-                native-value="inventory"
-                type="is-light">
-                <b-icon icon="book-open-page-variant-outline"></b-icon>
-                <span>Inventory</span>
-            </b-radio-button>
-
-            <b-radio-button v-model="category"
-                native-value="database"
-                type="is-light">
-                <b-icon icon="database"></b-icon>
-                <span>Database</span>
-            </b-radio-button>
-            <b-radio-button v-model="category"
-                native-value="list"
-                type="is-light">
-                <b-icon icon="format-list-checkbox"></b-icon>
-                <span>Lists/Decks</span>
-            </b-radio-button>
-            <b-radio-button v-model="category"
-                native-value="user"
-                type="is-light">
-                <b-icon icon="account"></b-icon>
-                <span>My Account</span>
-            </b-radio-button>
-            <b-radio-button v-model="category"
-                native-value="usd"
-                type="is-light">
-                <b-icon icon="currency-usd"></b-icon>
-                <span>Pricing</span>
-            </b-radio-button>
-
-
-        </b-field>
-          <div v-for="faq in faqsFiltered" v-bind:key="`faq${faq.id}`" class="notification has-background-light is-relative">
-            <span :id="makeFAQSlug(faq.question)" style="position: absolute; top: -70px"></span>
-            <b-button type="is-info" outlined size="is-small" icon-left="pencil" @click="() => openEditModal(faq)" class="ml-2 is-pulled-right">
-               Edit
-            </b-button>
-
-            <b-button type="is-danger" outlined size="is-small" icon-left="delete" @click="() => deleteFAQ(faq.id)" class="ml-2 is-pulled-right">
-               Delete
-            </b-button>
+              <b-button v-if="parseInt(user.user_level) >= 3" type="is-danger" outlined size="is-small" icon-left="delete" @click="() => deleteFAQ(faq.id)" class="ml-2 is-pulled-right">
+                Delete
+              </b-button>
 
 
 
-            <h3  class="title is-size-5 mb-2">{{faq.question}} <nuxt-link :to="{ path: path, hash:`#${makeFAQSlug(faq.question)}`}"> <b-icon type="is-info" icon="link"></b-icon></nuxt-link></h3>
+              <h3  class="title is-size-5 mb-2">{{faq.question}} <nuxt-link :to="{ path: path, hash:`#${makeFAQSlug(faq.question)}`}"> <b-icon type="is-info" icon="link"></b-icon></nuxt-link></h3>
 
-            <div class="content mb-2" v-html="faq.answer" />
+              <div class="content mb-2" v-html="faq.answer" />
 
-            <b-tag type="is-white" size="is-small">{{faq.category}}</b-tag>
+              <b-tag type="is-white" size="is-small">{{faq.category}}</b-tag>
+            </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <b-modal v-model="showEditModal">

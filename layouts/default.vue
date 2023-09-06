@@ -131,12 +131,12 @@ export default {
         {
           to: '/about/',
           label: 'About',
-          icon: 'help-circle'
+          icon: 'pillar'
         },
         {
-          to: '/about/discord/',
-          label: 'Discord',
-          icon: 'forum'
+          to: '/help/',
+          label: 'Support',
+          icon: 'question-circle'
         }]
         )
 

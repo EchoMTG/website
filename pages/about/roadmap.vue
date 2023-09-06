@@ -1,13 +1,13 @@
 <template>
   <div>
-    <section class="hero is-black mb-4">
+    <section class="hero is-black mb-5">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
                   EchoMTG Roadmap
               </h1>
               <h3 class="subtitle">
-                  Magic: the Gathering API for EchoMTG Collection Tools
+                Gain insight into what is being worked on EchoMTG
               </h3>
           </div>
       </div>
@@ -18,26 +18,12 @@
             <about-sub-nav  />
           </div>
           <div class="column content is-two-fifths">
-            <p>EchoMTG hosts a chat room of awesome magic addicts that follow the  meta and finance market. Join by following this link: <a href="https://discord.gg/g9g7kAH">EchoMTG Discord Chat</a>.</p>
-
-            <h1 class="title is-5">Rules/Code of Conduct for Chat Room</h1>
-            <div class="box is-dark">
-            <ul class="">
-                <li>No offensive language around race/sex/religion, period. That includes jokes, inside jokes, or posting memes.</li>
-                <li>No posting nudity or provocative content.</li>
-                <li>No threats.</li>
-            </ul>
-            </div>
-            <p>We are a magic: the gathering forum, we have a diversity races, creeds, and political views, but none of that matters here, keep the dicussion around the game or be banned.</p>
-            <hr>
-            <p>If you violate the code of conduct you will receive a verbal warning from an admin. Each user is entitled to two verbal warnings. Any violation of the rules after the 2nd warning will results in permanentl ban from the chatroom.</p>
-
-              <hr>
-
+            <p>The roadmap is determined by the @wiki-team and @teeg based on user feedback and market research.</p>
+            <p>Gain insight into what is being worked on for both bugs and features at our Github boards <a target="_blank" href="https://github.com/orgs/EchoMTG/projects/4">Roadmap Board</a> and <a target="_blank" href="https://github.com/EchoMTG/website/discussions">Feature and Support Discussion Board</a></p>
+            <p>If you are passionate about a feature. Post a <a target="_blank" href="https://github.com/EchoMTG/website/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=">feature request</a> on the <a href="https://github.com/EchoMTG/website" target="_blank">EchoMTG Github Project</a>, and get some community member to upvote and comment on the issue.</p>             
           </div>
           <div class="column is-two-fifths">
-              <iframe src="https://discordapp.com/widget?id=377518692210180121&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
-          </div>
+                 </div>
         </div>
     </div>
 
@@ -49,7 +35,7 @@
 import AboutSubNav from '~/components/about/AboutSubNav.vue'
 
 export default {
-  name: 'API',
+  name: 'roadmap',
   components: {
     AboutSubNav
   },
@@ -78,13 +64,13 @@ export default {
   },
   head () {
       return {
-          title: `Magic:the Gathering Discord`,
+          title: `EchoMTG Developer Roadmap`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png?1` },
             {
               hid: 'description',
               name: 'description',
-              content:  `EchoMTG hosts a chat room of awesome magic addicts that follow the  meta and finance market.`
+              content:  `Gain insight into what is being worked on for both bugs and features on EchoMTG.`
             }
           ]
 
