@@ -8,7 +8,7 @@
                 General Support
               </h1>
               <h3 class="subtitle">
-                Resrouces to Find help related to the EchoMTG application and community.
+                Resources to Find help related to the EchoMTG application and community.
               </h3>
           </div>
       </div>
