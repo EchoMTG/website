@@ -11,7 +11,7 @@
 
 
       <feature-gate :gateLevel="3" :showAd="false">
-        <section class="hero is-success">
+        <section class="hero is-success mb-5">
           <div class="hero-body">
               <div class="container">
                   <h1 class="title">
@@ -25,11 +25,13 @@
         </section>
         <div class="container">
           <div class="columns">
-            <div class="column">
-              <pie-chart :chart-data="distributionData" :chart-options="chartOptions" />
+            <div class="column" style="height: 200px">
+              <h2 class="title is-size-4 has-text-centered" >Quantity Distribution of Collection Item Types</h2>
+              <pie-chart  :chart-data="distributionData" :chart-options="chartOptionsBar" />
             </div>
             <div class="column">
-              <bar-chart :chart-data="barChartDistributionData" :chart-options="chartOptions" />
+              <h2 class="title is-size-4 has-text-centered">Financial Distribution of Collection Item Types</h2>
+              <bar-chart :chart-data="distributionValueData" :chart-options="chartOptionsBar" />
             </div>
           </div>
         </div>
@@ -44,6 +46,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import FullAd from '~/components/cta/FullAd.vue'
 import FeatureLockedFull from '~/components/cta/FeatureLockedFull.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
+import * as chartConfig from '@/components/Charts/chart.config'
 
 export default {
   name: 'Earnings',
@@ -60,11 +63,6 @@ export default {
       earnings: null,
       stats: null,
       quickstats: null,
-      chartOptions: {
-          legend: {
-              display: false
-          }
-      },
       chartsColors: {
           'Black': 'rgba(38,38,38, 1)',
           'Blue': 'rgba(12,128,236, 1)',
@@ -81,6 +79,11 @@ export default {
         'backgroundColor' : []
       }],
       distributionDataset: [{
+        'data' : [],
+        'backgroundColor' : []
+      }],
+      distributionValueDataset: [{
+        'label': 'Financial Value',
         'data' : [],
         'backgroundColor' : []
       }],
@@ -107,11 +110,18 @@ export default {
         parseInt(this.quickstats.total_sealed)
       ];
       this.distributionDataset[0].backgroundColor = [
-          'brown',
-          'silver',
-          'black',
+          chartConfig.allChartColors.green,
+          chartConfig.allChartColors.purple,
+          chartConfig.allChartColors.red,
       ];
-      console.log(this.distributionDataset)
+      this.distributionValueDataset[0].data = [
+        parseFloat(this.quickstats.cards_value),
+        parseFloat(this.quickstats.packs_value),
+        parseFloat(this.quickstats.sealed_value)
+      ];
+       this.distributionValueDataset[0].backgroundColor = this.distributionDataset[0].backgroundColor;
+
+      console.log(this.distributionValueDataset);
 
       this.loading    = false;
   },
@@ -132,8 +142,14 @@ export default {
     distributionData(){
       return { datasets: this.distributionDataset, labels:this.distributionLabels }
     },
-    barChartDistributionData(){
-      return { datasets: this.distributionDataset, labels:this.distributionLabels }
+    distributionValueData(){
+      return { datasets: this.distributionValueDataset, labels:this.distributionLabels }
+    },
+    chartOptions(){
+      return chartConfig.chartOptionsMain
+    },
+    chartOptionsBar(){
+      return chartConfig.chartOptionsBar
     },
     crumbs() {
       return [

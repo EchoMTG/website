@@ -9,10 +9,22 @@ const footer = (tooltipItems) => {
 
 export const chartColors = {
   default: {
-    primary: '#00D1B2',
-    info: '#209CEE',
-    danger: '#FF3860'
+    primary: '#62c462',
+    info: '#5bc0de',
+    danger: '#ee5f5b'
   }
+}
+
+export const allChartColors = {
+  red: '#ee5f5b',
+  orange: '#f89406',
+  green: '#62c462',
+  purple: '#8a48c7',
+  blue: '#5bc0de',
+  grey: '#52575C',
+  darkgrey: '#3A3F44',
+  lightgrey: '#7A8288',
+  lightestgrey: '#98a4ad'
 }
 
 export const baseChartOptions = {
@@ -22,6 +34,20 @@ export const baseChartOptions = {
     position: 'chartArea'
   },
   responsive: true
+}
+export const chartOptionsBar = {
+  ...baseChartOptions,
+  tooltips: {
+    bodySpacing: 4,
+    xPadding: 12,
+    yPadding: 8,
+    mode: 'index',
+    intersect: false,
+    position: 'nearest',
+    callbacks: {
+      footer: footer,
+    }
+  },
 }
 
 export const chartOptionsMain = {
