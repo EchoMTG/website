@@ -13,7 +13,7 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/watchlist/') return redirect(`/apps/watchlist/`);
     if(route.path == '/inventory/earnings/') return redirect(`/apps/earnings/`);
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
-    if(route.path == '/inventory/stats/') return redirect(`/apps/stats/`);
+    if(route.path == '/inventory/stats/') return redirect(`/apps/statistics/`);
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
 
