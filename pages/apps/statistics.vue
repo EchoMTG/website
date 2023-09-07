@@ -29,6 +29,7 @@
               <pie-chart :chart-data="distributionData" :chart-options="chartOptions" />
             </div>
             <div class="column">
+              <bar-chart :chart-data="barChartDistributionData" :chart-options="chartOptions" />
             </div>
           </div>
         </div>
@@ -84,7 +85,7 @@ export default {
         'backgroundColor' : []
       }],
       distributionLabels: [
-        'black','blue','colorless','green','white','red'
+        'Individual Cards','Unopened Packs', 'Sealed Product'
       ]
     }
   },
@@ -101,18 +102,14 @@ export default {
       console.log('stats',this.stats)
 
       this.distributionDataset[0].data = [
-        this.stats.blue.total_cards,
-        this.stats.green.total_cards,
-        this.stats.colorless.total_cards,
-        this.stats.red.total_cards,
-        this.stats.white.total_cards,
+        parseInt(this.quickstats.total_cards),
+        parseInt(this.quickstats.total_packs),
+        parseInt(this.quickstats.total_sealed)
       ];
       this.distributionDataset[0].backgroundColor = [
-          this.chartsColors.Blue,
-          this.chartsColors.Green,
-          this.chartsColors.Colorless,
-          this.chartsColors.Red,
-          this.chartsColors.White
+          'brown',
+          'silver',
+          'black',
       ];
       console.log(this.distributionDataset)
 
@@ -133,6 +130,9 @@ export default {
 
   computed: {
     distributionData(){
+      return { datasets: this.distributionDataset, labels:this.distributionLabels }
+    },
+    barChartDistributionData(){
       return { datasets: this.distributionDataset, labels:this.distributionLabels }
     },
     crumbs() {
