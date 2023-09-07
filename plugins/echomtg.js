@@ -647,6 +647,19 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
 
   }
 
+  echomtg.inventoryStats = async () => {
+    let url = `${context.app.$config.API_DOMAIN}inventory/stats/`;
+
+    const res = await fetch(url, {
+      headers: {
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      }
+    });
+
+    return await res.json();
+
+  }
+
   echomtg.inventoryView = async (
     start=0,
     limit=200,
