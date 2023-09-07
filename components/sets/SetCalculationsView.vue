@@ -12,7 +12,7 @@
               <p class="heading is-size-7-mobile">
                 Reg. Set <span class="hide-mobile">Value</span>
               </p>
-              <p class="title is-size-4-mobile">${{set.total_value}}</p>
+              <p class="title is-size-4-mobile">${{set.total_value.toFixed(2)}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -21,7 +21,7 @@
                 Foil Set <span class="hide-mobile">Value</span>
               </p>
               <p class="title is-size-4-mobile">
-                <span class="average_foil">${{set.foil_value}}</span>
+                <span class="average_foil">${{set.foil_value.toFixed(2)}}</span>
               </p>
             </div>
           </div>
@@ -31,7 +31,7 @@
                 Box <span class="hide-mobile">Expected Value</span>
               </p>
               <p class="title is-size-4-mobile">
-                <span class="average_value">${{set.box_value}}</span>
+                <span class="average_value">${{set.box_value.toFixed(2)}}</span>
               </p>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <p class="heading is-size-7-mobile">
                 Pack <span class="hide-mobile">Expected Value</span>
               </p>
-              <p class="title is-size-4-mobile">${{set.pack_value}}</p>
+              <p class="title is-size-4-mobile">${{set.pack_value.toFixed(2)}}</p>
             </div>
           </div>
         </nav>

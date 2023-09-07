@@ -1,8 +1,8 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad 
-      title="You Must be Logged in to Use the Stats App" 
+    <full-ad
+      title="You Must be Logged in to Use the Stats App"
       image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
       v-if="!authenticated" />
       <span v-if="authenticated">
@@ -18,7 +18,7 @@
             </div>
         </div>
       </section>
-     
+
 
 
     </span>
@@ -58,20 +58,20 @@ export default {
   },
   async fetch(){
       if(!this.authenticated) return;
-      
+
       this.loading = true;
       await this.getEarningsStats()
-      await this.getEarnings();
+      await this.inventoryQuickStats()
       this.loading = false;
   },
   methods: {
-    
+
     async getEarningsStats(){
       let data = await this.$echomtg.getEarningsStats();
       this.stats = data.stats;
       this.total = data.stats.total_cards;
     },
-   
+
   },
 
   beforeDestroy() {
