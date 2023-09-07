@@ -35,6 +35,11 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
   label: 'Earnings'
 },
 {
+  to: '/apps/statistics/',
+  icon: 'chart-pie',
+  label: 'Statistics'
+},
+{
   to: '/apps/import/',
   icon: 'table-arrow-down',
   label: 'Import'

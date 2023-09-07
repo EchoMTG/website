@@ -88,7 +88,15 @@ export default {
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       });
       navList.push('My Apps');
-      navList.push(tools);
+      navList.push([
+            {
+              to: '/lorcana/sets/',
+              label: 'Lorcana Sets',
+              icon: 'cards'
+            }
+      ])
+      // showing tools in left
+      // navList.push(tools);
 
       if (this.user && parseInt(this.user.user_level) > 2){
        navList.push('Wiki Tools');
@@ -136,7 +144,7 @@ export default {
         {
           to: '/help/',
           label: 'Support',
-          icon: 'question-circle'
+          icon: 'lifebuoy'
         }]
         )
 

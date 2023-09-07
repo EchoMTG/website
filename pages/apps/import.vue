@@ -400,8 +400,6 @@ export default {
         this.errorCards = json.errors
         this.parsingErrors = json.parsingErrors
         this.ready = true
-
-
     }
   },
   computed: {

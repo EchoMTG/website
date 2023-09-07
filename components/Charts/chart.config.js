@@ -15,11 +15,26 @@ export const chartColors = {
   }
 }
 
+
+// chartConfig.allChartColors.yellow,
+// chartConfig.allChartColors.blue,
+// chartConfig.allChartColors.black,
+// chartConfig.allChartColors.red,
+// chartConfig.allChartColors.green,
+// chartConfig.allChartColors.gold,
+// chartConfig.allChartColors.red,
+// chartConfig.allChartColors.grey,
+// chartConfig.allChartColors.brown
+
 export const allChartColors = {
   red: '#ee5f5b',
   orange: '#f89406',
+  yellow: '#cfb982',
+  gold: '#cb8a29',
+  brown: '#8f6712',
   green: '#62c462',
   purple: '#8a48c7',
+  black: '#0d0323',
   blue: '#5bc0de',
   grey: '#52575C',
   darkgrey: '#3A3F44',
