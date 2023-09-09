@@ -10,6 +10,7 @@
       <nav class="level">
       <div>You've collected {{ownedRegular}} of {{totalRegular}} regular cards: {{percentOwnedRegular}}%</div>
       <div>You've collected {{ownedFoil}} of {{totalFoiled}} foil cards: {{percentOwnedFoil}}%</div>
+      <div>In total, you owned {{quickstats.currency_symbol}}{{ownedValue}} worth of {{set.set_code}}</div>
       </nav>
     </div>
 
@@ -356,6 +357,14 @@ export default {
     },
     ownedFoil(){
       return Object.keys(this.cardsowned.foiled).length
+    },
+    ownedValue(){
+      let totalOwned = 0;
+      for(let i=0; i < this.items.length; i++){
+
+        totalOwned += this.items[i].tcg_mid * this.isCardOwned(this.items[i].emid, 'regular')
+      }
+      return totalOwned;
     },
     ownedRegular(){
       return Object.keys(this.cardsowned.regular).length

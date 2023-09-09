@@ -75,7 +75,7 @@
         class="button is-success is-small has-icon-left hide-mobile ml-2 mr-2"
 
         target="_blank"
-        :href="`printable-check-list/`"
+        :href="tab == 'list' ? `printable-check-list/` : `../printable-check-list/`"
       >
         <b-icon icon="printer" size="is-small" />
         <span>Open Printable Checklist</span>
