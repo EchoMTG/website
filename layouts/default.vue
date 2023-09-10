@@ -90,14 +90,6 @@ export default {
             }
       ])
 
-      navList.push([
-            {
-              to: '/lorcana/sets/',
-              label: 'Lorcana Sets',
-              icon: 'cards'
-            }
-      ])
-
 
       if (this.user && parseInt(this.user.user_level) > 2){
        navList.push('Wiki Tools');
