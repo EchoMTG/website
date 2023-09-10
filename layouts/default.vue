@@ -49,8 +49,14 @@ export default {
   computed: {
 
     menu () {
-
-      let navList = [
+      let navList =[];
+      let tools = toolsMenu({
+        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
+      });
+      navList.push('My Apps');
+      // showing tools in left
+      navList.push(tools);
+      navList.push(
           'Magic: the Gathering',
           [
             {
@@ -74,7 +80,7 @@ export default {
               icon: 'gold'
             },
           ],
-      ];
+      );
       navList.push('Disney Lorcana')
       navList.push([
             {
@@ -84,10 +90,6 @@ export default {
             }
       ])
 
-      let tools = toolsMenu({
-        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
-      });
-      navList.push('My Apps');
       navList.push([
             {
               to: '/lorcana/sets/',
@@ -95,8 +97,7 @@ export default {
               icon: 'cards'
             }
       ])
-      // showing tools in left
-      // navList.push(tools);
+
 
       if (this.user && parseInt(this.user.user_level) > 2){
        navList.push('Wiki Tools');
