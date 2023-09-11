@@ -85,17 +85,19 @@ export default {
 
     let data;
     try {
-      data = await this.$echomtg.getGroup('reserved')
+      data = await this.$echomtg.getGroup(this.$route.params['group'])
+      console.log(data)
     } catch(err){
-      this.error({ statusCode: 500, message: err.message })
+      // Vue.error({ statusCode: 500, message: err.message })
     }
+
 
     // return it
     if (data.items.length > 0) {
       this.items = data.items
       this.slug = this.$route.params['group']
     } else {
-      this.error({ statusCode: 404, message: 'Page not found' })
+      // Vue.error({ statusCode: 404, message: 'Page not found' })
     }
   },
   methods: {
