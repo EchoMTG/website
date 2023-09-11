@@ -9,27 +9,27 @@
     </div>
 
     <div class="columns is-multiline m-3">
-      <div class="column is-one-quarter" v-for="(tool,index) in tools" :key="`${tool.name}${index}`">
+      <div class="column is-one-quarter" v-for="(group,index) in groups" :key="`${group.name}${index}`">
         <div class="card">
 
           <div class="card-content">
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
-                  <b-icon :icon="tool.icon" />
+                  <b-icon :icon="group.icon" />
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4">{{tool.name}}</p>
+                <p class="title is-4">{{group.title}}</p>
               </div>
             </div>
 
             <div class="content">
-              {{tool.description}}
+              {{group.description}}
             </div>
           </div>
           <footer class="card-footer">
-            <a :href="tool.url" class="card-footer-item">View the {{tool.name}} Group</a>
+            <a :href="`${group.slug}/`" class="card-footer-item">View the {{group.name}} Group</a>
           </footer>
         </div>
       </div>
@@ -49,8 +49,12 @@ export default {
   },
   data () {
     return {
-      test: null,
+      groups: [],
+
     }
+  },
+  async fetch() {
+    this.groups = (await this.$echomtg.getGroups(1)).items
   },
   computed: {
     crumbs() {

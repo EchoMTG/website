@@ -54,6 +54,10 @@
               <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" type="is-warning" @click="addItem(props.row.emid,1)"></b-button>
           </b-table-column>
     </b-table>
+    <hr />
+    <div class="content message container py-5 px-5 mb-5" v-if="custompage.content">
+      <div v-html="custompage.content" />
+    </div>
   </div>
 </template>
 <script>
@@ -177,8 +181,8 @@ export default {
           icon: ''
         },
         {
-          label: 'Types',
-          url: '/mtg/types/',
+          label: 'Groups',
+          url: '/mtg/groups/',
           icon: ''
         },
           {

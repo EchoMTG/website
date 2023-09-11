@@ -10,12 +10,12 @@
     <div class="columns">
       <div class="column is-three-quarters">
         <i :class="iconString"></i>
-        <h1>
+        <h1  class="has-text-white">
           <em class="has-text-white has-shadow has-text-weight-light is-size-6">Magic the Gathering MTG</em>
           <br />
           <a v-if="setCode !== ''" class="is-size-3" :href="setURL">{{setName}}</a> {{dynamicTitle}}
         </h1>
-        <p class="has-text-weight-normal has-text-light-grey is-size-7" v-html="dynamicDescription" />
+        <p class="has-text-weight-normal has-text-white is-size-7" v-html="dynamicDescription" />
       </div>
       <div class="column">
         <!-- CTA -->

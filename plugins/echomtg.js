@@ -94,6 +94,16 @@ export default (context, inject) => {
 
   }
 
+  echomtg.getGroups = async (game=1) => {
+
+    let endpoint = `${context.app.$config.API_DOMAIN}groups/all/?game=${game}`;
+    const res = await fetch(endpoint, {
+      headers:  echomtg.getUserHeaders()
+    })
+    return await res.json();
+
+  }
+
   echomtg.getGroup = async (name,limit=150,type=false,unique=false) => {
     let params = [
       `limit=${limit}`,
@@ -107,7 +117,7 @@ export default (context, inject) => {
       params.push(`unique=true`)
     }
 
-    let endpoint = `${context.app.$config.API_DOMAIN}magic/groups/?${params.join('&')}`;
+    let endpoint = `${context.app.$config.API_DOMAIN}groups/single/?${params.join('&')}`;
     const res = await fetch(endpoint, {
       headers:  echomtg.getUserHeaders()
     })

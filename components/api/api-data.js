@@ -1676,7 +1676,7 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.echomtg.com/api/inventory/view/?start=0&limit=200&price_over=10&price_under=50&tradable=1",
+							"raw": "https://api.echomtg.com/api/inventory/view/?start=0&limit=200&price_over=10&price_under=50&search=snap&tradable=1",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -1708,8 +1708,7 @@ export default {
 								},
 								{
 									"key": "search",
-									"value": "e",
-									"disabled": true
+									"value": "snap"
 								},
 								{
 									"key": "tradable",
@@ -5318,146 +5317,6 @@ export default {
 			"name": "Data",
 			"item": [
 				{
-					"name": "Data: Groups",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{s2skey}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.echomtg.com/api/magic/groups/?limit=150&name=reserved",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"magic",
-								"groups",
-								""
-							],
-							"query": [
-								{
-									"key": "limit",
-									"value": "150"
-								},
-								{
-									"key": "name",
-									"value": "reserved"
-								}
-							]
-						},
-						"description": "Fetched items dedicated in a group based on specific request parameters. Defaults to sorting by pricing high to low.\n\n**Unique** **Options**\n\ntrue or false, determins where to return unique cards with no variants or not. default: false\n\n**Name Options**\n\n- **reserved** - magic reserve list\n- **commanders** - magic legendary creatures\n- **lands** - magic rare land cycles\n- **artifacts** - top 150 magic artifacts\n- **tokens** - top 150 magic tokens\n- **creatures** - top 150 magic creatures\n- **power9** - magic power 9\n- **tiny** - magic tiny leaders\n- **trendingup** - magic items increasing in value\n- **trendingdown** - magic item decreasing in value\n- **custom** - look for a specific card type, see type options\n    \n\n**Type Options**\n\nType param only work with name=custom. Must be one part of a type like \"merfolk\" or \"instant\" or a fully qualified type like \"Elf Druid\". Examples:\n\n- Merfolk\n- Goblin\n- Instant\n- Elf Druid\n- Tribal\n- Enchantment\n- World Enchantment\n    \n\n**Limit Options**\n\nDefault is 150, accepting an integer. Optional."
-					},
-					"response": [
-						{
-							"name": "Data: Groups",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://api.echomtg.com/api/data/groups/?name=reserved",
-									"protocol": "https",
-									"host": [
-										"api",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"data",
-										"groups",
-										""
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "reserved"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 02 Jan 2023 15:29:29 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "PHP/8.1.11"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"items\": [\n        {\n            \"tcg_low\": \"59999.99\",\n            \"price\": \"59999.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEA\",\n            \"mid\": \"3\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Alpha\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEA\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.754\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"45\",\n            \"artist\": \"Christopher Rush\"\n        },\n        {\n            \"tcg_low\": \"42000\",\n            \"price\": \"42000\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEB\",\n            \"mid\": \"298\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Beta\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEB\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.805\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"326\",\n            \"artist\": \"Christopher Rush\"\n        }\n    ],\n    \"message\": \"Group 'reserved' retrieved successfully.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
 					"name": "Data: Set",
 					"request": {
 						"auth": {
@@ -6480,6 +6339,192 @@ export default {
 				}
 			],
 			"description": "Old endpoints are documented for informational purposes, if you are using old endpoint, please migrated to new endpoint documented above."
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Group: Get Single",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dev.echomtg.com/api/groups/single/?limit=150&name=magic-reserved-list",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"groups",
+								"single",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "150"
+								},
+								{
+									"key": "name",
+									"value": "magic-reserved-list"
+								}
+							]
+						},
+						"description": "Fetched items dedicated in a group based on specific request parameters. Defaults to sorting by pricing high to low.\n\n**Unique** **Options**\n\ntrue or false, determins where to return unique cards with no variants or not. default: false\n\n**Name Options**\n\n- **magic-reserved-list** \\- magic reserve list\n    \n- **commanders** - magic legendary creatures\n    \n- **lands** - magic rare land cycles\n    \n- **artifacts** - top 150 magic artifacts\n    \n- **tokens** - top 150 magic tokens\n    \n- **creatures** - top 150 magic creatures\n    \n- **power9** - magic power 9\n    \n- **tiny** - magic tiny leaders\n    \n- **trendingup** - magic items increasing in value\n    \n- **trendingdown** - magic item decreasing in value\n    \n- **custom** - look for a specific card type, see type options\n    \n\n**Type Options**\n\nType param only work with name=custom. Must be one part of a type like \"merfolk\" or \"instant\" or a fully qualified type like \"Elf Druid\". Examples:\n\n- Merfolk\n    \n- Goblin\n    \n- Instant\n    \n- Elf Druid\n    \n- Tribal\n    \n- Enchantment\n    \n- World Enchantment\n    \n\n**Limit Options**\n\nDefault is 150, accepting an integer. Optional."
+					},
+					"response": [
+						{
+							"name": "Groups: Get Single",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.echomtg.com/api/groups/single/?name=reserved",
+									"protocol": "https",
+									"host": [
+										"api",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"groups",
+										"single",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "reserved"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 15:29:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"tcg_low\": \"59999.99\",\n            \"price\": \"59999.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEA\",\n            \"mid\": \"3\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Alpha\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEA\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.754\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"45\",\n            \"artist\": \"Christopher Rush\"\n        },\n        {\n            \"tcg_low\": \"42000\",\n            \"price\": \"42000\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEB\",\n            \"mid\": \"298\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Beta\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEB\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.805\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"326\",\n            \"artist\": \"Christopher Rush\"\n        }\n    ],\n    \"message\": \"Group 'reserved' retrieved successfully.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Groups: Get All Groups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.echomtg.com/api/groups/all/?game=1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"groups",
+								"all",
+								""
+							],
+							"query": [
+								{
+									"key": "game",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get listing of groups per game"
+					},
+					"response": []
+				}
+			],
+			"description": "Custom collection of item data."
 		}
 	]
 }
