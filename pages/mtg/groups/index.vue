@@ -56,8 +56,14 @@ export default {
     crumbs() {
       return [
         {
+          label: 'Magic: The Gathering',
+          url: '/mtg/',
+          icon: ''
+
+        },
+        {
           label: 'Groups',
-          url: '/mtg/groups',
+          url: '/mtg/groups/',
           icon: ''
 
         }

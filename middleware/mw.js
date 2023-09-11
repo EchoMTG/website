@@ -17,6 +17,17 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
 
+    // original groups to types
+    if(route.path == '/groups/artifacts/') return redirect(`/mtg/types/artifact/`);
+    if(route.path == '/groups/artifacts/') return redirect(`/mtg/types/land/`);
+    if(route.path == '/groups/top-creatures/') return redirect(`/mtg/types/creature/`);
+    if(route.path == '/groups/magic-tokens/') return redirect(`/mtg/types/token/`);
+
+    // original groups to new groups
+    if(route.path == '/groups/power-9-magic-the-gathering/') return redirect(`/mtg/groups/power-9-magic-the-gathering/`);
+    if(route.path == '/groups/magic-reserve-list/') return redirect(`/mtg/groups/magic-reserve-list/`);
+    if(route.path == '/groups/commanders/') return redirect(`/mtg/groups/commanders/`);
+    if(route.path == '/groups/tiny-leaders/') return redirect(`/mtg/groups/tiny-leaders/`);
 
     // blog
 

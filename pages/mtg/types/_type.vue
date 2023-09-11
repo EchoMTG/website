@@ -55,6 +55,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import ItemCard from '~/components/items/ItemCard.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import SetSummary from '@/components/sets/SetSummary';
@@ -77,20 +78,20 @@ export default {
       slug: ''
     }
   },
-  async asyncData({ params, redirect, $echomtg, $config }) {
+  async asyncData({ params, redirect, $echomtg}) {
 
     let data;
     try {
-      data = await $echomtg.getGroup('custom',150,params.group.replace(/-/g,' '), true)
+      data = await $echomtg.getGroup('custom',150,params.type.replace(/-/g,' '), true)
     } catch(err){
       console.log(err)
     }
-    console.log("transition",params,data)
+    console.log("transition",params,data.custompage)
 
     // return it
     if (data.items.length > 0) {
       const items = data.items
-      const slug = params.group
+      const slug = params.type
       return {
         items, slug
       }
@@ -163,6 +164,7 @@ export default {
 
   },
   computed: {
+    ...mapState(['user','authenticated']),
     nameCleaned (){
       return
     },

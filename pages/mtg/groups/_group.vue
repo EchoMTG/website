@@ -3,6 +3,8 @@
     <echo-bread-crumbs :data="crumbs" />
     <SetSummary
       :setName="slug"
+      :customTitle="custompage.title"
+      :customDescription="custompage.description"
       :topcardImage="items[0].image_cropped"
       :setTotalItems="items.length"
     />
@@ -72,6 +74,7 @@ export default {
   data () {
     return {
       cs: '$',
+      custompage: {},
       items: [{
         image_cropped: ''
       }],
@@ -79,22 +82,21 @@ export default {
     }
   },
   created() {
-
   },
   async fetch() {
 
     let data;
     try {
       data = await this.$echomtg.getGroup(this.$route.params['group'])
-      console.log(data)
+
     } catch(err){
       // Vue.error({ statusCode: 500, message: err.message })
     }
 
-
     // return it
     if (data.items.length > 0) {
       this.items = data.items
+      this.custompage = data.custompage
       this.slug = this.$route.params['group']
     } else {
       // Vue.error({ statusCode: 404, message: 'Page not found' })
@@ -193,13 +195,13 @@ export default {
   },
   head () {
     return {
-        title: `${this.slug.replace('-',' ')} Printings, Prices, and Variations`,
+        title: `${this.custompage.seo_meta_title}`,
         meta: [
           { hid: 'og:image', property: 'og:image', content: ''},
           {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Magic the Gathering card ${this.slug.replace('-',' ')}`
+            content:  `${this.custompage.seo_meta_description}`,
           }
         ]
 

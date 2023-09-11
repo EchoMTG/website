@@ -13,15 +13,9 @@
         <h1>
           <em class="has-text-white has-shadow has-text-weight-light is-size-6">Magic the Gathering MTG</em>
           <br />
-          <a v-if="setCode !== ''" class="is-size-3" :href="setURL">{{setName}} - {{setCode}}</a>
-          <a v-else class="is-size-3 is-capitalized" :href="setURL">All {{setName}} Cards</a>
+          <a v-if="setCode !== ''" class="is-size-3" :href="setURL">{{setName}}</a> {{dynamicTitle}}
         </h1>
-        <h2 v-if="setReleaseDate !== ''" class="has-text-weight-normal has-text-light-grey is-size-7">
-          MTG {{setName}} was released on {{setReleaseDate}} with {{setTotalItems}} items.
-        </h2>
-        <h2 v-if="setReleaseDate == ''" class="has-text-weight-normal has-text-light-grey is-size-7">
-          Top {{setTotalItems}} {{setName}} cards from Magic the Gathering .
-        </h2>
+        <p class="has-text-weight-normal has-text-light-grey is-size-7" v-html="dynamicDescription" />
       </div>
       <div class="column">
         <!-- CTA -->
@@ -48,6 +42,14 @@ export default {
       type: String,
       default: ''
     },
+    customTitle: {
+      type: String,
+      default: ''
+    },
+    customDescription: {
+      type: String,
+      default: ''
+    },
     setReleaseDate: {
       type: String,
       default: ''
@@ -62,6 +64,16 @@ export default {
     }
   },
   computed: {
+    dynamicTitle() {
+      return (this.customTitle !== '') ? this.customTitle : `- ${this.setCode}`
+    },
+    dynamicDescription() {
+      if(this.customDescription !== '') return this.customDescription;
+      return this.setReleaseDate == '' ?
+        `Top ${this.setTotalItems} ${this.setName} cards from Magic the Gathering.`
+        :
+        `MTG ${this.setName} was released on ${this.setReleaseDate} with ${this.setTotalItems} items.`
+    },
     setNameClean() {
       return this.setName.replace('-',' ')
     },
