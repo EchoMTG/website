@@ -3,8 +3,8 @@
     <echo-bread-crumbs :data="crumbs" />
 
     <div class="content m-5 mb-0">
-      <h1>Magic: the Gathering Card Groups</h1>
-      <p>EchoMTG groups together cards for easy viewing.</p>
+      <h1>Magic: the Gathering Card Speculations</h1>
+      <p>EchoMTG algorithms searches the database for what is perceives could be great value pickups.</p>
 
     </div>
 
@@ -54,9 +54,13 @@ export default {
     }
   },
   async fetch() {
-    this.groups = (await this.$echomtg.getGroups(1)).items
+    this.groups = (await this.$echomtg.getGroups(1,'spec')).items
   },
   computed: {
+    ...mapState([
+      'user',
+      'authenticated'
+    ]),
     crumbs() {
       return [
         {
@@ -66,35 +70,18 @@ export default {
 
         },
         {
-          label: 'Groups',
-          url: '/mtg/groups/',
+          label: 'Speculations',
+          url: '/mtg/speculations/',
           icon: ''
 
         }
       ]
     },
-    tools() { return [
-        {
-          name: `Magic Reserve List`,
-          description: `Card that can't be reprinted.`,
-          icon: `animation`,
-          url: `/mtg/groups/magic-reserve-list`
-        },
-        {
-          name: `Magic Power 9`,
-          description: `Infamous 9 cards from the Alpha set`,
-          icon: `animation`,
-          url: `/mtg/groups/power-9-magic-the-gathering`
-        },
-
-      ]
-    }
-
   },
   head () {
       return {
-          title: `Grouping of popular Magic the Gathering card`,
-          description: `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+          title: `Magic Card Speculations`,
+          description: `EchoMTG algorithms searches the database for what is perceives could be great value pickups.`
       }
     }
 }

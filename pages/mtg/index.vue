@@ -87,6 +87,12 @@ export default {
           url: `/mtg/groups/`
         },
         {
+          name: `Magic Speculations`,
+          description: `Proprietary algorithm finds potentially high valuable cards are low costs.`,
+          icon: `currency-usd`,
+          url: `/mtg/speculations/`
+        },
+       {
           name: `Magic Spoilers`,
           description: `Preview unreleased magic cards about to enter the game.`,
           icon: `table-headers-eye`,

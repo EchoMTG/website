@@ -68,7 +68,7 @@ import SetSummary from '@/components/sets/SetSummary';
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 
 export default {
-  name: 'GroupTypes',
+  name: 'Speculation',
   components: {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
@@ -91,7 +91,7 @@ export default {
 
     let data;
     try {
-      data = await this.$echomtg.getGroup(this.$route.params['group'],1000)
+      data = await this.$echomtg.getGroup(this.$route.params['spec'],1000)
 
     } catch(err){
       // Vue.error({ statusCode: 500, message: err.message })
@@ -101,7 +101,7 @@ export default {
     if (data.items.length > 0) {
       this.items = data.items
       this.custompage = data.custompage
-      this.slug = this.$route.params['group']
+      this.slug = this.$route.params['spec']
     } else {
       // Vue.error({ statusCode: 404, message: 'Page not found' })
     }
@@ -181,8 +181,8 @@ export default {
           icon: ''
         },
         {
-          label: 'Groups',
-          url: '/mtg/groups/',
+          label: 'Speculations',
+          url: '/mtg/speculations/',
           icon: ''
         },
           {

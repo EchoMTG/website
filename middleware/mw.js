@@ -23,9 +23,6 @@ export default function ({route,redirect}) {
     if(route.path == '/groups/top-creatures/') return redirect(`/mtg/types/creature/`);
     if(route.path == '/groups/magic-tokens/') return redirect(`/mtg/types/token/`);
 
-
-
-
     // original groups to new groups
     if(route.path == '/groups/power-9-magic-the-gathering/') return redirect(`/mtg/groups/power-9-magic-the-gathering/`);
     if(route.path == '/groups/magic-reserve-list/') return redirect(`/mtg/groups/magic-reserve-list/`);
@@ -33,6 +30,13 @@ export default function ({route,redirect}) {
     if(route.path == '/groups/tiny-leaders/') return redirect(`/mtg/groups/tiny-leaders/`);
     if(route.path == '/groups/trending-down/') return redirect(`/mtg/groups/trending-down/`);
     if(route.path == '/groups/trending-up/') return redirect(`/mtg/groups/trending-up/`);
+
+    // original specs to new spect
+    if(route.path == '/speculations/foil-specs/') return redirect(`/mtg/speculation/foils/`);
+    if(route.path == '/speculations/bulk-mythics/') return redirect(`/mtg/speculation/bulk-mythic/`);
+    if(route.path == '/speculations/bulk-rares/') return redirect(`/mtg/speculation/bulk-rares/`);
+    if(route.path == '/speculations/bulk-uncommons/') return redirect(`/mtg/speculation/bulk-uncommons/`);
+
 
     // blog
 

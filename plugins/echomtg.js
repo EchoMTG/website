@@ -94,9 +94,9 @@ export default (context, inject) => {
 
   }
 
-  echomtg.getGroups = async (game=1) => {
+  echomtg.getGroups = async (game=1,type="group") => {
 
-    let endpoint = `${context.app.$config.API_DOMAIN}groups/all/?game=${game}`;
+    let endpoint = `${context.app.$config.API_DOMAIN}groups/all/?game=${game}&type=${type}`;
     const res = await fetch(endpoint, {
       headers:  echomtg.getUserHeaders()
     })
