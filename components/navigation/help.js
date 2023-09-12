@@ -26,11 +26,13 @@ function helpMenu() {
     }
     ,
     {
-      to: '/help/billing/',
-      icon: 'credit-card',
-      label: 'Billing Questions',
-      description: 'How billing works and how to get something fixed.'
+      to: '/help/training-videos/',
+      icon: 'youtube',
+      label: 'How to Videos',
+      description: 'Videos that train you on the interface and tricks of each apps.'
     }
+
+
   ]
 }
  export default helpMenu;

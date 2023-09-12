@@ -38,9 +38,8 @@ export default function ({route,redirect}) {
     if(route.path == '/speculations/bulk-uncommons/') return redirect(`/mtg/speculation/bulk-uncommons/`);
 
 
+
     // blog
-
-
      // example: /blog/post/108/how-to-prepare-for-the-upcoming-renewal-on-mtga/
     // target: /blog/108/how-to-prepare-for-the-upcoming-renewal-on-mtga/
     const blogRegex = new RegExp("^/blog/post/([a-z0-9]+)/?", "ig"); // global insensitive
