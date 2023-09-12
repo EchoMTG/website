@@ -37,6 +37,8 @@ export default function ({route,redirect}) {
     if(route.path == '/speculations/bulk-rares/') return redirect(`/mtg/speculation/bulk-rares/`);
     if(route.path == '/speculations/bulk-uncommons/') return redirect(`/mtg/speculation/bulk-uncommons/`);
 
+    // help and support
+    if(route.path == '/about/updates-roadmap/') return redirect(`/about/roadmap/`);
 
 
     // blog

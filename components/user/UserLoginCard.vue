@@ -13,21 +13,21 @@
           <form method="POST" @submit.prevent="submit">
 
             <b-field label="E-mail Address">
-              <b-input 
-                name="email" 
-                custom-class="has-background-white has-text-black" 
+              <b-input
+                name="email"
+                custom-class="has-background-white has-text-black"
                 type="email"
-                placeholder="your@email.com" 
-                v-model="email" 
-                required 
+                placeholder="your@email.com"
+                v-model="email"
+                required
                 autofocus />
             </b-field>
 
             <b-field label="Password">
-              <b-input 
-                type="password" 
-                custom-class="has-background-white has-text-black" 
-                name="password" 
+              <b-input
+                type="password"
+                custom-class="has-background-white has-text-black"
+                name="password"
                 password-reveal
                 v-model="password" required />
             </b-field>
@@ -52,7 +52,7 @@
               </div>
               <div class="control">
                 <router-link
-                  to="/full-page/password-recovery"
+                  to="/help/forgot-password/"
                   class="button is-outlined is-black has-text-info"
                 >
                   Forgot Password?

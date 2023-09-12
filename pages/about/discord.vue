@@ -24,15 +24,16 @@
               </a>
             <h1 class="title is-5">Rules/Code of Conduct for Chat Room</h1>
             <div class="box is-dark">
+              <p> The idea of the community is to have fun in a stress free envirnoment. With that comes some rules.</p>
             <ul class="">
-                <li>No offensive language around race/sex/religion, period. That includes jokes, inside jokes, or posting memes.</li>
-                <li>No posting nudity or provocative content.</li>
-                <li>No threats.</li>
+                <li>No offensive language</li>
+                <li>No posting nudity or provocative content</li>
+                <li>No threats</li>
             </ul>
             </div>
-            <p>We are a magic: the gathering forum, we have a diversity races, creeds, and political views, but none of that matters here, keep the dicussion around the game or be banned.</p>
+            <p>We are a magic: the gathering and trading card forum, we have a diversity races, creeds, and political views, but none of that matters here. Please keep the dicussion around gaming.</p>
             <hr>
-            <p>If you violate the code of conduct you will receive a verbal warning from an admin. Each user is entitled to two verbal warnings. Any violation of the rules after the 2nd warning will results in permanentl ban from the chatroom.</p>
+            <p>If you violate the code of conduct you will receive a verbal warning from an admin. Each user is entitled to three verbal warnings. Any violation of the rules after the 3rd warning will results in a ban from the chatroom.</p>
 
               <hr>
 

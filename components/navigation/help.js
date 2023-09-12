@@ -23,13 +23,18 @@ function helpMenu() {
       icon: 'bug-outline',
       label: 'Report Bug',
       description: 'Report an issue with the website or mobile apps.'
-    }
-    ,
+    },
     {
       to: '/help/training-videos/',
       icon: 'youtube',
       label: 'How to Videos',
       description: 'Videos that train you on the interface and tricks of each apps.'
+    },
+    {
+      to: '/help/forgot-password/',
+      icon: 'lock-question',
+      label: 'Forgot Password?',
+      description: 'Recovery a forgotten password.'
     }
 
 

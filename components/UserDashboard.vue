@@ -4,6 +4,31 @@
       <echo-bread-crumbs :data="crumbs" />
       <hero-bar-main />
 
+      <section class="mx-5 my-2">
+        <div class="columns">
+          <div class="column">
+            <div class="message is-light p-4">
+              <h2 class="has-text-weight-bold mb-2">Gain Bonus Storage by Sharing EchoMTG with a Friend</h2>
+              <form method="post" class="level">
+                  <b-input icon="email" type="text" class="level-item mr-2"	name="share_email" placeholder="friend@gmail.com"  />
+
+                  <b-button icon-right="arrow-right-bold" label="Share Now" class="level-item" type="is-info" onclick="ga('send', 'event', 'Share Button', 'click');" />
+              </form>
+              <hr/>
+
+              <form>
+                <fieldset>
+                  <label>Your custom share link. Copy the link below, and share.</label>
+                  <input class="form-text" type="text" :value="`https://www.echomtg.com/r/${user.referrer_code}/`" />
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div class="column">
+          </div>
+        </div>
+      </section>
+
       <section v-if="$fetchState.pending">
         Loading Dashboard
       </section>
@@ -76,6 +101,7 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
         message: 'Welcome back',
         queue: false
       })
+      console.log(this.user)
     },
     head () {
       return {
@@ -106,7 +132,8 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
       'isAsideExpanded',
       'isAsideMobileExpanded',
       'quickstats',
-      'user'
+      'user',
+      'authenticated'
       ]),
 
     },

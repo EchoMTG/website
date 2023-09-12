@@ -38,7 +38,7 @@ import HelpSubNav from '~/components/help/HelpSubNav.vue'
 import helpMenu from '@/components/navigation/help'
 
 export default {
-  name: 'Faqs',
+  name: 'TrainingVideos',
   components: {
     EchoBreadCrumbs,
     FullAd,
