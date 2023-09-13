@@ -418,8 +418,8 @@ export default {
                 console.log(json);
                 this.$buefy.snackbar.open({
                     message: json.message,
-                    type: 'is-success',
-                    queue: true,
+                    type: 'is-warning',
+                    queue: false,
                     duration: 10000,
                     position: 'is-bottom-right',
                     pauseOnHover: true,
