@@ -407,19 +407,30 @@ export default {
 
             return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${emid}&foil=${foil}`;
         },
-    addItem: function (emid,foil=0){
+    addItem: async function (emid,foil=0){
             fetch(this.addAPIURL(emid,foil),{
                 headers: {
                     'Authorization' : 'Bearer ' + this.$cookies.get('token')
                 }
             }).then((response) => {
                 return response.json();
-            }).then((json) => {
+            }).then(async (json) => {
+                console.log(json);
                 this.$buefy.snackbar.open({
                     message: json.message,
                     type: 'is-success',
                     queue: true,
-                    position: 'is-top',
+                    duration: 10000,
+                    position: 'is-bottom-right',
+                    pauseOnHover: true,
+                    actionText: 'UNDO',
+                    onAction: async () => {
+                        const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
+                        this.$buefy.snackbar.open({
+                          message: `${json.inventory_id} ${deleted.message}`,
+                          type: 'is-danger',
+                        });
+                    }
                 })
                 this.callback()
             }).catch(function (error) {
