@@ -135,11 +135,25 @@ export default {
 
             const res = await this.$echomtg.inventoryAdd(this.emid, options)
 
-            this.$buefy.toast.open({
+            this.$buefy.snackbar.open({
               message: res.message,
-              type: 'is-success',
-              position: 'is-bottom'
+              type: 'is-warning',
+              queue: false,
+              duration: 10000,
+              position: 'is-bottom-right',
+              pauseOnHover: true,
+              actionText: 'UNDO',
+              onAction: async () => {
+                  const deleted = await this.$echomtg.inventoryDeleteItem(res.inventory_id);
+                  this.$buefy.snackbar.open({
+                    message: `${res.inventory_id} ${deleted.message}`,
+                    type: 'is-danger',
+                    queue: false
+                  });
+              }
             })
+
+
             // refocus search
             this.$parent.$refs['searchInput'].focus()
 
@@ -147,12 +161,9 @@ export default {
             if(quickstats.status == 'success'){
               this.$store.commit('quickstats',quickstats.stats);
             }
-console.log('invenotry befpre', inventory)
+
            let inventory = [...this.currentInventoryPage]
            inventory.unshift({...res.card,...options})
-
-           console.log('invenotry', inventory)
-
 
             this.$store.commit('currentInventoryPage',inventory);
 

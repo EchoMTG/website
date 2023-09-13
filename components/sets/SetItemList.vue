@@ -429,6 +429,7 @@ export default {
                         this.$buefy.snackbar.open({
                           message: `${json.inventory_id} ${deleted.message}`,
                           type: 'is-danger',
+                          queue: false
                         });
                     }
                 })
