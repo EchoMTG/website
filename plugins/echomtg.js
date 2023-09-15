@@ -144,7 +144,17 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   return data.data;
 };
 
-  echomtg.getSets = async (game=1) => {
+echomtg.getPopularItems = async (game=1) => {
+  let res = await fetch(`${context.app.$config.API_DOMAIN}data/popular_items/?game=${game}`, {
+    headers: echomtg.getUserHeaders()
+  })
+  let data = await res.json();
+
+  return data.data;
+}
+
+
+echomtg.getSets = async (game=1) => {
     let res = await fetch(`${context.app.$config.API_DOMAIN}data/sets/?game=${game}`, {
       headers: echomtg.getS2SHeadersNoJSON()
     })

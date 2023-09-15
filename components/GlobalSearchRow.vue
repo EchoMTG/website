@@ -170,7 +170,7 @@ export default {
         }
     },
     computed: {
-      ...mapState(['currentInventoryPage']),
+        ...mapState(['currentInventoryPage']),
         className: function() {
 
             let hasImage = this.showimage ? `searchHasImage` : ``;

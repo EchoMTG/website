@@ -212,6 +212,7 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import GlobalSearchRow from '@/components/GlobalSearchRow'
 
 export default {
@@ -247,8 +248,41 @@ export default {
         },
         callback: {
             type: Function,
-            default: function(emid){
+            default: async function(emid){
+              if(this.authenticated){
+                const res = await this.$echomtg.inventoryQuickAdd(this.results[this.position].emid)
+                this.$buefy.snackbar.open({
+                  message: res.message,
+                  type: 'is-warning',
+                  queue: false,
+                  duration: 10000,
+                  position: 'is-bottom-right',
+                  pauseOnHover: true,
+                  actionText: 'UNDO',
+                  onAction: async () => {
+                      const deleted = await this.$echomtg.inventoryDeleteItem(res.inventory_id);
+                      this.$buefy.snackbar.open({
+                        message: `${res.inventory_id} ${deleted.message}`,
+                        type: 'is-danger',
+                        queue: false
+                      });
+                  }
+                })
+
+                const quickstats = await this.$echomtg.inventoryQuickStats();
+                if(quickstats.status == 'success'){
+                  this.$store.commit('quickstats',quickstats.stats);
+                }
+
+                let inventory = [...this.currentInventoryPage]
+                inventory.unshift({...res.card,...options})
+
+                this.$store.commit('currentInventoryPage',inventory);
+
+              } else {
                 window.location = this.results[this.position].url
+              }
+
             }
         },
         callbackname: {
@@ -396,7 +430,12 @@ export default {
     computed: {
         placeholderText() {
             return `Search Items to ${this.callbackname.replace(/<[^>]*>?/gm, '')}..`
-        }
+        },
+        ...mapState([
+          'currentInventoryPage',
+          'user',
+          'authenticated'
+        ])
     },
     mounted(){
         this.$refs.globalSearchBox.addEventListener('click', function (e) {
