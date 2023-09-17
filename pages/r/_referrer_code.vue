@@ -11,9 +11,7 @@ export default {
     const parts = this.$route.path.split('/')
     const referrerCode = parts[2]
 
-    console.log(referrerCode)
-
-    const days = 30
+    const days = 90
     // store a cookie
     this.$cookies.set('referrerCode', referrerCode,{
       path: '/',

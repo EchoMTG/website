@@ -36,41 +36,45 @@
           </div>
         </div>
         <div class="level-right">
-          <div class="tile">
-            <div class="tile is-child pr-3">
-              <card-widget
-                  type="is-info-dark"
-                  icon="book-open-page-variant-outline"
+          <div class="level-item">
+            <div v-if="quickstats.total_items > 5" class="tile">
+              <div class="tile is-child pr-3">
+                <card-widget
+                    type="is-info-dark"
+                    icon="book-open-page-variant-outline"
+                    prefix="$"
+                    :number="parseFloat(quickstats.current_value)"
+                    :previous-number="parseInt(quickstats.total_items)"
+                    previous-period="Tracked Items"
+                    label="Collection Value"
+                  />
+              </div>
+              <div class="tile is-child pr-3">
+                <card-widget
+                  type="is-warning-dark"
+                  icon="cards"
+                  :number="parseFloat(quickstats.current_value - quickstats.sealed_value)"
                   prefix="$"
-                  :number="parseFloat(quickstats.current_value)"
-                  :previous-number="parseInt(quickstats.total_items)"
-                  previous-period="Tracked Items"
-                  label="Collection Value"
+                  :previous-number="parseInt(quickstats.total_cards)"
+                  previous-period="Single Cards"
+                  label="Single Card Value"
                 />
+              </div>
+              <div class="tile is-child">
+                <card-widget
+                  type="is-success-dark"
+                  icon="gift"
+                  :number="parseFloat(quickstats.sealed_value)"
+                  prefix="$"
+                  previous-period="Sealed Items"
+                  :previous-number="parseInt(quickstats.total_sealed)"
+                  label="Sealed Value"
+                />
+              </div>
             </div>
-            <div class="tile is-child pr-3">
-              <card-widget
-                type="is-warning-dark"
-                icon="cards"
-                :number="parseFloat(quickstats.current_value - quickstats.sealed_value)"
-                prefix="$"
-                :previous-number="parseInt(quickstats.total_cards)"
-                previous-period="Single Cards"
-                label="Single Card Value"
-              />
-            </div>
-            <div class="tile is-child">
-              <card-widget
-                type="is-success-dark"
-                icon="gift"
-                :number="parseFloat(quickstats.sealed_value)"
-                prefix="$"
-                previous-period="Sealed Items"
-                :previous-number="parseInt(quickstats.total_sealed)"
-                label="Sealed Value"
-              />
-            </div>
+            <getting-started v-if="quickstats.total_items <= 5"/>
           </div>
+
         </div>
 
       </div>
@@ -81,12 +85,14 @@
 <script>
 import { mapState } from 'vuex'
 import CardWidget from '@/components/CardWidget'
+import GettingStarted from '@/components/dashboard/GettingStarted'
 
 export default {
 
   name: 'HeroBarMain',
    components: {
-      CardWidget
+      CardWidget,
+      GettingStarted
     },
   methods: {
     getAvatar () {
