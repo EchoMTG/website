@@ -7,24 +7,10 @@
       <section class="mx-5 my-2">
         <div class="columns">
           <div class="column">
-            <div class="message is-light p-4">
-              <h2 class="has-text-weight-bold mb-2">Gain Bonus Storage by Sharing EchoMTG with a Friend</h2>
-              <form method="post" class="level">
-                  <b-input icon="email" type="text" class="level-item mr-2"	name="share_email" placeholder="friend@gmail.com"  />
-
-                  <b-button icon-right="arrow-right-bold" label="Share Now" class="level-item" type="is-info" onclick="ga('send', 'event', 'Share Button', 'click');" />
-              </form>
-              <hr/>
-
-              <form>
-                <fieldset>
-                  <label>Your custom share link. Copy the link below, and share.</label>
-                  <input class="form-text" type="text" :value="`https://www.echomtg.com/r/${user.referrer_code}/`" />
-                </fieldset>
-              </form>
-            </div>
+            <invite-friend />
           </div>
           <div class="column">
+            <popular-items />
           </div>
         </div>
       </section>
@@ -66,7 +52,10 @@ import HeroBarMain from '@/components/HeroBarMain'
 import CardToolbar from '@/components/CardToolbar'
 import CardScrollable from '@/components/CardScrollable'
 import RefreshButton from '@/components/RefreshButton'
-import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
+import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs.vue'
+import PopularItems from '@/components/onboarding/PopularItems.vue'
+import InviteFriend from '@/components/cta/InviteFriend.vue'
+
   export default {
     name: 'UserDashboard',
     components: {
@@ -79,7 +68,9 @@ import EchoBreadCrumbs from './navigation/EchoBreadCrumbs.vue'
       CardWidget,
       Tiles,
       TitleBar,
-        EchoBreadCrumbs
+      EchoBreadCrumbs,
+      PopularItems,
+      InviteFriend
     },
     data() {
       return {

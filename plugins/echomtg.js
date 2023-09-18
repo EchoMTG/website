@@ -150,7 +150,7 @@ echomtg.getPopularItems = async (game=1) => {
   })
   let data = await res.json();
 
-  return data.data;
+  return data.items;
 }
 
 
@@ -614,6 +614,22 @@ echomtg.getSets = async (game=1) => {
         'Content-Type': 'application/json',
         'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
       }
+    });
+    return await res.json();
+  }
+
+  echomtg.userInviteFriend = async (email) => {
+    let url = `${context.app.$config.API_DOMAIN}user/invite_friend/`;
+    const payload = {
+      'email' : email
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
+      },
+      body: JSON.stringify(payload)
     });
     return await res.json();
   }

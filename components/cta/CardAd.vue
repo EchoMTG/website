@@ -29,7 +29,7 @@
 
 </style>
 <script>
-  import UserSignUpForm from '@/components/blocks/UserSignUpForm.vue'
+  import UserSignUpForm from '@/components/user/UserSignUpForm.vue'
 
   export default {
     name: 'SkinnyAd',
