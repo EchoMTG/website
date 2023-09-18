@@ -85,7 +85,7 @@
 <script>
 import { mapState } from 'vuex'
 import CardWidget from '@/components/CardWidget'
-import GettingStarted from '@/components/dashboard/GettingStarted'
+import GettingStarted from '@/components/onboarding/GettingStarted'
 
 export default {
 

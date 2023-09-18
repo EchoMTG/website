@@ -86,7 +86,7 @@
 <script>
 import Tiles from '@/components/Tiles'
 import PromotionCardWidget from '@/components/marketing/PromotionCardWidget'
-import UserSignUpForm from './blocks/UserSignUpForm'
+import UserSignUpForm from '@/components/user/UserSignUpForm'
 
 export default {
   name: 'DefaultHomepage',

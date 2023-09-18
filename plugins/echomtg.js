@@ -378,12 +378,13 @@ echomtg.getSets = async (game=1) => {
 
   // USER
 
-  echomtg.registerUser = async (email, username, password) => {
+  echomtg.registerUser = async (email, username, password, referrer='') => {
     let url = `${context.app.$config.API_DOMAIN}user/register/`;
     const payload = {
       'email' : email,
       'username' : username,
-      'password' : password
+      'password' : password,
+      'referrer' : referrer
     }
     const res = await fetch(url, {
       method: 'POST',

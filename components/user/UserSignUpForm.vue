@@ -1,5 +1,6 @@
 <template>
     <section :class="`userSignupForm p-5 `+classes">
+      <div v-if="!authenticated">
         <h3 class="is-size-4 has-text-white has-text-weight-bold">Create a Free Account</h3>
         <b-field>
           <div class="control">
@@ -37,6 +38,7 @@
         <b-field>
             <div class="control">
             <b-button
+
               @click="registerUser"
               icon-left="account-plus"
               class="button is-primary mythic-background">
@@ -44,6 +46,11 @@
             </b-button>
         </div>
         </b-field>
+      </div>
+      <div v-if="authenticated" class="content">
+        <h2>You are Logged in</h2>
+        <p>If you are trying to make a new account, log out and return back to this form.</p>
+      </div>
     </section>
 </template>
 <style scoped>
@@ -66,6 +73,12 @@ export default {
       password: ''
     }
   },
+  computed: {
+    ...mapState([
+      'user',
+      'authenticated'
+    ])
+  },
   props: {
     classes: {
       type: String,
@@ -77,10 +90,13 @@ export default {
   },
   methods: {
     async registerUser(){
+      const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
+
       const res = await this.$echomtg.registerUser(
         this.email,
         this.username,
-        this.password
+        this.password,
+        referrer
       )
       if(res.status == "success"){
         // let them know
