@@ -5,10 +5,11 @@
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
-                Training Videos
+                Forgot PAssword
               </h1>
               <h3 class="subtitle">
-                Get up to speed with hot tips and tricks on each app.
+                Can't remember your password? Reset it with the form below. An email with be sent to you with a link.
+                Click the link to open a dialouge box to reset your password.
               </h3>
           </div>
       </div>
@@ -21,8 +22,13 @@
         </div>
 
         <div class="column is-four-fifths">
+          <div class="card-content pt-1 px-3">
+            <div class="level">
+                <b-input icon="email" type="text" class="level-item mr-2"	v-model="email" placeholder="friends@email.com"  />
 
-            Coming soon
+                <b-button icon-right="arrow-right-bold" @click="send" label="Share Now" class="level-item" type="is-info" />
+            </div>
+          </div>
 
         </div>
       </div>
@@ -46,7 +52,9 @@ export default {
   },
   data () {
     return {
-      helpNavPosition: 5
+      helpNavPosition: 5,
+      loading: false,
+      email: ''
     }
   },
   computed: {
@@ -74,6 +82,22 @@ export default {
       return helpMenu();
     }
 
+  },
+  methods: {
+    async resetPassword() {
+      this.loading = true;
+      this.email = '';
+
+      const res = this.$echomtg.userResetPassword(this.email)
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-info',
+        queue: false
+      })
+
+      this.loading = false;
+
+    }
   },
   head () {
     return {

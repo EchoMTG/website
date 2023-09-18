@@ -634,6 +634,21 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
 
+  echomtg.userResetPassword = async (email) => {
+    let url = `${context.app.$config.API_DOMAIN}user/reset_password/`;
+    const payload = {
+      'email' : email
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
 
   echomtg.inventoryDeleteItem = async (inventory_id) => {
 

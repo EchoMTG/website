@@ -3,41 +3,40 @@
 
       <echo-bread-crumbs :data="crumbs" />
       <hero-bar-main />
-
-      <section class="mx-5 my-2">
-        <div class="columns">
-          <div class="column">
-            <invite-friend />
-          </div>
-          <div class="column">
-            <popular-items />
-          </div>
-        </div>
-      </section>
-
-      <section v-if="$fetchState.pending">
-        Loading Dashboard
-      </section>
-      <section v-else class="section is-main-section">
-        <card-component
-          title="Collection Performance History"
-          icon="finance"
-          header-icon="reload"
-          @header-icon-click="fillChartData"
-        >
-          <client-only>
-            <div v-if="defaultChart.chartData" class="chart-area">
-              <line-chart
-                ref="bigChart"
-                style="height: 100%"
-                chart-id="big-line-chart"
-                :chart-data="defaultChart.chartData"
-                :chart-options="defaultChart.extraOptions"
-              />
+      <div class="has-background-light">
+        <section class="mx-5 my-2">
+          <div class="columns">
+            <div class="column">
+              <invite-friend />
             </div>
-          </client-only>
-        </card-component>
-      </section>
+            <div class="column">
+              <popular-items />
+            </div>
+          </div>
+        </section>
+
+        <section v-if="$fetchState.pending">
+          Loading Dashboard
+        </section>
+        <section v-else class="mx-5 my-2">
+          <card-component
+            title="Collection Performance History"
+            icon="finance"
+          >
+            <client-only>
+              <div v-if="defaultChart.chartData" class="chart-area">
+                <line-chart
+                  ref="bigChart"
+                  style="height: 100%"
+                  chart-id="big-line-chart"
+                  :chart-data="defaultChart.chartData"
+                  :chart-options="defaultChart.extraOptions"
+                />
+              </div>
+            </client-only>
+          </card-component>
+        </section>
+      </div>
   </span>
 </template>
 <script>
