@@ -21,7 +21,11 @@
         </div>
 
         <div class="column is-four-fifths">
-          <div class="content">
+          <div class="content" v-if="isSent">
+            <h1>You will get an email sent to <strong>{{email}}</strong></h1>
+            <p>Open your email program and click the reset password link to proceed</p>
+          </div>
+          <div class="content" v-if="!isSent">
             <h1>Forgot your Password?</h1>
             <p>No worries, use the form below to reset your password. An email will be sent to you with a temporary hash, goto your email and click that button to reset your password.</p>
           </div>
@@ -59,7 +63,7 @@ export default {
   data () {
     return {
       helpNavPosition: 5,
-      loading: false,
+      isSent: false,
       email: ''
     }
   },
@@ -91,7 +95,7 @@ export default {
   },
   methods: {
     async resetPassword() {
-      this.loading = true;
+      this.isSent = true;
       this.email = '';
 
       const res = this.$echomtg.userResetPassword(this.email)
@@ -100,8 +104,6 @@ export default {
         type: 'is-info',
         queue: false
       })
-
-      this.loading = false;
 
     }
   },

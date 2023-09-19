@@ -5,7 +5,7 @@
       <div class="column is-two-fifths login-background">
         <img class="ml-6 mr-6 mt-6 p-4" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" />
         <user-login-card classes="has-background-black" redirect-path="/" />
-          
+
       </div>
     </div>
     <img class="bg-image" src="https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg"/>
@@ -78,7 +78,10 @@ export default {
   components: { UserLoginCard },
   head () {
     return {
-      title: 'Login — EchoMTG'
+      title: 'Login — EchoMTG',
+      meta: [
+        { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+      ]
     }
   },
 
