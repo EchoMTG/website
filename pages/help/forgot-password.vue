@@ -109,7 +109,10 @@ export default {
   head () {
     return {
         title: this.helpNav[this.helpNavPosition].label,
-        description: this.helpNav[this.helpNavPosition].description
+        description: this.helpNav[this.helpNavPosition].description,
+        meta: [
+          { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+        ]
     }
   }
 }

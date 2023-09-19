@@ -81,7 +81,10 @@ export default {
   },
   head () {
     return {
-      title: 'Update Password - Account — EchoMTG'
+      title: 'Update Password - Account — EchoMTG',
+      meta: [
+        { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+      ]
     }
   },
   watch: {
