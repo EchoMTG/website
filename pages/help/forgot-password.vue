@@ -5,11 +5,10 @@
       <div class="hero-body">
           <div class="container">
               <h1 class="title">
-                Forgot PAssword
+                Forgot Password
               </h1>
               <h3 class="subtitle">
-                Can't remember your password? Reset it with the form below. An email with be sent to you with a link.
-                Click the link to open a dialouge box to reset your password.
+                Can't remember your password? Reset it with the form below.
               </h3>
           </div>
       </div>
@@ -22,12 +21,19 @@
         </div>
 
         <div class="column is-four-fifths">
-          <div class="card-content pt-1 px-3">
-            <div class="level">
-                <b-input icon="email" type="text" class="level-item mr-2"	v-model="email" placeholder="friends@email.com"  />
+          <div class="content">
+            <h1>Forgot your Password?</h1>
+            <p>No worries, use the form below to reset your password. An email will be sent to you with a temporary hash, goto your email and click that button to reset your password.</p>
+          </div>
+          <div v-if="!authenticated" class="card has-background-light ">
+            <div class="level p-4">
+                <b-input icon="email" type="text" class="level-item mr-2"	v-model="email" placeholder="your@email.com"  />
 
-                <b-button icon-right="arrow-right-bold" @click="send" label="Share Now" class="level-item" type="is-info" />
+                <b-button icon-right="arrow-right-bold" @click="resetPassword" label="Reset Password" class="level-item" type="is-info" />
             </div>
+          </div>
+          <div v-if="authenticated" class="card has-background-light p-4">
+            You are logged in, signout to reset your password or goto the user account areas to change your password.
           </div>
 
         </div>
