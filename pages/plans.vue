@@ -36,7 +36,7 @@
             </div>
             <!-- plan signup -->
             <div v-if="isUserLoggedIn" class="panel-block  has-background-light">
-              <b-button icon-left="check" v-if="notCurrentPlan(plan.name)" :style="`background: ${plan.color}; color: ${plan.text}`" size="is-fullwidth is-rounded" @click="subscribe(plan.name)">{{subscribeWord}} {{plan.label}}</b-button>
+              <b-button icon-left="check" v-if="notCurrentPlan(plan.name)" :disabled="!loading" :style="`background: ${plan.color}; color: ${plan.text}`" size="is-fullwidth is-rounded" @click="subscribe(plan.name)">{{subscribeWord}} {{plan.label}}</b-button>
               <b-button v-if="!notCurrentPlan(plan.name)" size="is-fullwidth" disabled>Current Plan</b-button>
             </div>
 
@@ -160,7 +160,13 @@
       </div>
     </section>
     <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
-      <AddCreditCardForm :plan="plan" :successCallback="() => refreshData()" :cancelCallback="() => deactivateModal()"/>
+      <AddCreditCardForm
+        :title="`Subscribe to ${plan.toUpperCase()}, Enter Card to Start Trial Now.`"
+        :buttonText="`Subscribe Now`"
+        :plan="plan"
+        :successCallback="() => refreshData()"
+        :cancelCallback="() => deactivateModal()"
+        />
     </b-modal>
   </div>
 </template>
@@ -193,6 +199,7 @@ export default {
       isUserLoggedIn: false,
       planObject: {},
       showAnnual: false,
+      loading: false,
     }
   },
   async asyncData({ $echomtg }) {
@@ -210,7 +217,15 @@ export default {
     console.log('plan',this.planObject)
   },
   methods: {
+    async updateUserMeta() {
+      // get latest user info
+      const userdata = await this.$echomtg.getUserMeta();
 
+      // update store
+      if(userdata.status == 'success'){
+        this.$store.commit('user', userdata.user);
+      }
+    },
     getStripeAmount(amount){
       if(amount == 0) return 0;
       return amount / 100;
@@ -218,9 +233,11 @@ export default {
     async subscribe(plan_name){
       this.plan = this.showAnnual ? `${plan_name}Y` : plan_name
 
-      if(this.planObject){
+      if(this.customer !== false){
         // otherwise switch plan
-        await this.switchPlan(this.plan)
+        const res = await this.switchPlan(this.plan)
+        await this.refreshData();
+
       } else {
         // load credit card prompt if not subcribed already
         this.isCardModalActive = true;
@@ -229,16 +246,19 @@ export default {
     },
     async switchPlan(name){
       this.isCardModalActive = false
+      this.loading = true;
       const res = await this.$echomtg.switchUserPlan(name);
       this.$buefy.snackbar.open({
-          message: res.message,
+          message: `Subscription changed to ${this.plan}.`,
           type: `is-${res.status}`,
           position: 'is-top',
       })
       await this.refreshData();
+
     },
     async addCard(){
       this.isCardModalActive = false
+      this.loading = true;
       const res = await this.$echomtg.addUserCreditCard(this.card_number,this.card_exp_month,this.card_exp_year,this.card_cvc);
       this.$buefy.snackbar.open({
           message: res.message,
@@ -246,14 +266,18 @@ export default {
           position: 'is-top',
       })
       await this.refreshData();
+
     },
     deactivateModal() {
       this.isCardModalActive = false
     },
     async refreshData(){
       this.isCardModalActive = false;
-      const data = await this.$echomtg.getUserMeta();
-      this.planObject = data.user.planObject;
+
+      await this.updateUserMeta();
+
+      this.planObject = this.user.planObject;
+      this.loading = false;
 
     },
     notCurrentPlan(name) {
@@ -321,7 +345,7 @@ export default {
           },
           setfilters: true,
           sealed: false,
-          streamer: true,
+          streamer: false,
           stats: false,
           earnings: false,
           insurance: false,
@@ -487,7 +511,7 @@ export default {
   computed: {
     titleStack () {
       const name = this.showAnnual ? 'Annual Subscription Plans' : 'Monthly Subscription Plans';
-      if(this.planObject){
+      if(this.user.sub){
         return [name,`Current Plan: ${this.planObject.name}`]
       } else {
         return [name,'14-Day Free Trial']
@@ -496,7 +520,7 @@ export default {
     subscribeWord(){
       return this.customer ? 'Switch to' : 'Sub to'
     },
-    ...mapState(['user'])
+    ...mapState(['user','quickstats','authenticated'])
   }
 }
 </script>

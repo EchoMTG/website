@@ -2,25 +2,13 @@
   <div class="card has-background-white">
     <header class="card-header has-background-grey">
       <p class="card-header-title has-text-white">
-        <b-icon icon="credit-card" class="mr-3" /> Add a Credit Card
+        <b-icon icon="credit-card" class="mr-3" /> {{title}}
       </p>
     </header>
     <div class="card-content">
       <div class="columns">
-        <div class="column is-8">
-          <div class="content">
-            <p>Billing information is not stored in EchoMTG.
-              The <a href="https://en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard" target="_blan">PCI Compliant</a> system <a target="_blank" href="https://www.stripe.com">Stripe</a>
-                handles transactions and storage. EchoMTG references your info in Stripe with safe hashes.
-              </p>
-          </div>
-        </div>
-        <div class="column is-4">
-          <b-image style="width:100%" lazy src="https://assets.echomtg.com/interface/visa-mastercard-discover-amex.png" rounded responsive />
-        </div>
-      </div>
-
-      <b-field label="Card Number">
+        <div class="column is-9">
+<b-field label="Card Number">
         <b-input v-model="card_number" name="card_number" />
       </b-field>
       <div class="columns">
@@ -55,10 +43,31 @@
           </b-field>
         </div>
       </div>
+        </div>
+        <div class="column is-3">
+          <b-image style="width:100%" lazy src="https://assets.echomtg.com/interface/visa-mastercard-discover-amex.png" responsive />
+          <div class="message is-success has-text-centered py-2">
+            <b-icon icon="security" class="has-text-success" size="is-large" /><br>
+            Secure
+          </div>
+        </div>
+      </div>
+
+
+      <div class="content">
+        <p>Billing information securely stored in
+          the <a href="https://en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard" target="_blan">PCI Compliant</a> system <a target="_blank" href="https://www.stripe.com">Stripe</a>.
+          </p>
+      </div>
     </div>
     <footer class="card-footer">
+      <a @click="addCard()" class="card-footer-item has-background-success has-text-white">
+
+        <span>{{buttonText}}</span>
+        <i class="mdi mdi-check ml-3 has-text-weight-bold" />
+      </a>
       <a @click="cancelCallback()" class="card-footer-item has-background-white has-text-gray">Cancel</a>
-      <a @click="addCard()" class="card-footer-item has-background-success has-text-white">Add Card</a>
+
 
     </footer>
 </div>
@@ -77,6 +86,14 @@ export default {
     cancelCallback: {
         type: Function
     },
+    title: {
+      type: String,
+      default: 'Add a Credit Card'
+    },
+    buttonText: {
+      type: String,
+      default: 'Add Card'
+    }
   },
   data () {
     return {
