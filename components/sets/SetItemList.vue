@@ -202,6 +202,18 @@
           <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
             {{props.row.collectors_number}}
           </b-table-column>
+          <b-table-column field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
+            <div class="level">
+              <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
+                {{ props.row.price_change }} %
+              </span>
+
+            </div>
+
+          </b-table-column>
+           <b-table-column v-if="authenticated" width="60" label="Watch" v-slot="props">
+              <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
+           </b-table-column>
            <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
@@ -217,11 +229,6 @@
                  />
             </b-field>
 
-          </b-table-column>
-            <b-table-column field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
-            <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
-              {{ props.row.price_change }} %
-            </span>
           </b-table-column>
           <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="130" :label="`Foil ${cs}`" sortable v-slot="props">
 
@@ -322,10 +329,11 @@ import { mapState } from 'vuex'
 import QuickGraph from '@/components/inventory/QuickGraph.vue'
 import ItemListBox from '@/components/items/ItemListBox.vue'
 import ItemToolBox from '@/components/items/ItemToolBox.vue';
+import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow, ItemWikiEdit, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
+  components: { SetItemRow, ItemWikiEdit,WatchlistQuickAddButton, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
   props: {
     items: {
       type: Array,
@@ -408,40 +416,34 @@ export default {
             return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${emid}&foil=${foil}`;
         },
     addItem: async function (emid,foil=0){
-            fetch(this.addAPIURL(emid,foil),{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then((response) => {
-                return response.json();
-            }).then(async (json) => {
-                console.log(json);
+      try {
+        const json = this.$echomtg.inventoryQuickAdd(emid,foil);
+        this.$buefy.snackbar.open({
+            message: json.message,
+            type: 'is-warning',
+            queue: false,
+            duration: 10000,
+            position: 'is-bottom-right',
+            pauseOnHover: true,
+            actionText: 'UNDO',
+            onAction: async () => {
+                const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
                 this.$buefy.snackbar.open({
-                    message: json.message,
-                    type: 'is-warning',
-                    queue: false,
-                    duration: 10000,
-                    position: 'is-bottom-right',
-                    pauseOnHover: true,
-                    actionText: 'UNDO',
-                    onAction: async () => {
-                        const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
-                        this.$buefy.snackbar.open({
-                          message: `${json.inventory_id} ${deleted.message}`,
-                          type: 'is-danger',
-                          queue: false
-                        });
-                    }
-                })
-                this.callback()
-            }).catch(function (error) {
-                this.$buefy.snackbar.open({
-                    message: error,
-                    type: 'is-error',
-                    position: 'is-top',
-                })
-            });
-        },
+                  message: `${json.inventory_id} ${deleted.message}`,
+                  type: 'is-danger',
+                  queue: false
+                });
+            }
+        })
+        this.callback()
+      } catch (err){
+        this.$buefy.snackbar.open({
+          message: error,
+          type: 'is-error',
+          position: 'is-top',
+        })
+      }
+    },
     replaceSymbols(str){
       return this.$echomtg.replaceSymbols(str)
     },

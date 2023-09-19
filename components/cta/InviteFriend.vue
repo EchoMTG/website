@@ -9,8 +9,6 @@
 
           <b-button icon-right="arrow-right-bold" @click="send" label="Share Now" class="level-item" type="is-info" />
       </div>
-
-
       <fieldset>
         <label>Or, post your custom share link for an additional 100 inventory storage bonus.</label>
         <b-input type="text" readonly @focus="$event.target.select()" :value="`https://www.echomtg.com/r/${user.referrer_code}/`" />

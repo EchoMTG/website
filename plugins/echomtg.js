@@ -185,9 +185,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}&game=${game}`;
 
     let res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
-      }
+      headers: echomtg.getUserHeaders()
     })
     let data = await res.json();
     echomtg.log('getting sealed from echo api', data.data)
@@ -198,12 +196,28 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}watchlist/view/?start=${start}&limit=${limit}`;
 
     let res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     })
     return await res.json();
   }
+
+  echomtg.addToWatchlist = async (emid, foil = 0, threshold=20 ) => {
+    let url = `${context.app.$config.API_DOMAIN}watchlist/add/`;
+    let body =  {
+      "emid": emid,
+      "foil": foil,
+      "threshold": threshold
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+
+
 
   echomtg.deleteFromWatchlist = async (watchlist_id) => {
     let url = `${context.app.$config.API_DOMAIN}watchlist/remove/`;
@@ -212,10 +226,7 @@ echomtg.getSets = async (game=1) => {
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -228,10 +239,7 @@ echomtg.getSets = async (game=1) => {
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();

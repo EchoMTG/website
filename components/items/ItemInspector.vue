@@ -27,6 +27,9 @@
                               Add Foil
                             </b-button>
                           </div>
+                          <div class="column">
+                            <watchlist-quick-add-button :emid="item.emid" />
+                          </div>
 
                         </div>
 
@@ -40,13 +43,19 @@
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
 
             <a v-if="item.card_url" :href="item.variation_url" class="card-footer-item">All Variations</a>
-            <a :href="itemURL" class="card-footer-item">Card Page</a>
+            <a :href="itemURL" class="card-footer-item">Open Item Page</a>
         </footer>
     </div>
 </template>
 <script>
+import WatchlistQuickAddButton from '../watchlist/WatchlistQuickAddButton.vue'
+
+
 export default {
     name: 'ItemInspector',
+    components: {
+      WatchlistQuickAddButton
+    },
     data: function data() {
         return {
             toggleShowFull: false
