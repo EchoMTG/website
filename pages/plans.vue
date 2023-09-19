@@ -36,8 +36,20 @@
             </div>
             <!-- plan signup -->
             <div v-if="isUserLoggedIn" class="panel-block  has-background-light">
-              <b-button icon-left="check" v-if="notCurrentPlan(plan.name)" :disabled="!loading" :style="`background: ${plan.color}; color: ${plan.text}`" size="is-fullwidth is-rounded" @click="subscribe(plan.name)">{{subscribeWord}} {{plan.label}}</b-button>
-              <b-button v-if="!notCurrentPlan(plan.name)" size="is-fullwidth" disabled>Current Plan</b-button>
+              <b-button
+                :icon-left="`check`"
+                v-if="notCurrentPlan(plan.name)"
+                :disabled="loading"
+                :style="`background: ${plan.color}; color: ${plan.text}`"
+                size="is-fullwidth is-rounded"
+                @click="subscribe(plan.name)">
+                  {{subscribeWord}} {{plan.label}}
+                </b-button>
+              <b-button
+                v-if="!notCurrentPlan(plan.name)"
+                size="is-fullwidth" disabled>
+                Current Plan
+                </b-button>
             </div>
 
             <!-- plan information -->
@@ -213,8 +225,6 @@ export default {
     return { customer, isUserLoggedIn, planObject };
   },
   mounted(){
-    console.log('customer',this.customer)
-    console.log('plan',this.planObject)
   },
   methods: {
     async updateUserMeta() {
@@ -225,6 +235,10 @@ export default {
       if(userdata.status == 'success'){
         this.$store.commit('user', userdata.user);
       }
+
+      this.planObject = userdata.user.planObject;
+      let customer = await this.$echomtg.getUserBillingCustomer();
+      this.customer = customer?.customer ? customer.customer : false;
     },
     getStripeAmount(amount){
       if(amount == 0) return 0;
@@ -275,8 +289,6 @@ export default {
       this.isCardModalActive = false;
 
       await this.updateUserMeta();
-
-      this.planObject = this.user.planObject;
       this.loading = false;
 
     },
