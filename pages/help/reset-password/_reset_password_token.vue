@@ -25,23 +25,36 @@
             <h1>Update your Password</h1>
             <p>Use the form below to change your password.</p>
           </div>
-          <div class="message content is-danger" v-if="error">
-            <h1>There is a problem reseting the password to this email</h1>
+          <div class="message p-5 content is-danger" v-if="error">
+            <h4>There is a problem reseting the password to this email</h4>
             <p>If the token to update your password is from more than 24 hours ago, please create another reset token <a href="/user/forgot_password/">here</a> and try again.</p>
             <p>If the token is not 24 hours old, it is likely the email you are trying to reset for doesn't exist or there is a typo email when you created the account. If you have not seen a weekly email report or welcome to echo message to your email, this is likely the case.</p>
             <p>If you continue to experience a problem <nuxt-link to="/help/support/">contact us</nuxt-link></p>
           </div>
-          <div class="message content is-danger" v-if="success">
-            <h1>There is a problem reseting the password to this email</h1>
-            <p>If the token to update your password is from more than 24 hours ago, please create another reset token <a href="/user/forgot_password/">here</a> and try again.</p>
-            <p>If the token is not 24 hours old, it is likely the email you are trying to reset for doesn't exist or there is a typo email when you created the account. If you have not seen a weekly email report or welcome to echo message to your email, this is likely the case.</p>
-            <p>If you continue to experience a problem <nuxt-link to="/help/support/">contact us</nuxt-link></p>
+          <div class="message p-5 content is-success" v-if="success">
+            <h4>Password reset successfully.</h4>
+             <p>Please <nuxt-link to="/login/">login</nuxt-link> with your new password.</p>
           </div>
           <div v-if="!authenticated && !error && !success" class="card has-background-light ">
-            <div class="level p-4">
-                <b-input icon="lock" type="password" class="level-item mr-2"	v-model="password"  />
+            <div class=" p-4">
 
-                <b-button icon-left="content-save" @click="updatePassword" label="Update Password" class="level-item" type="is-info" />
+
+              <b-field
+                label="New Password"
+                 class="mr-2"
+                icon="lock"
+                :type="newPasswordType"
+                message="Requires 1 number, 1 lowercase or uppercase. Must be 6 characters or more."
+                >
+                <b-input
+                  icon="form-textbox-password"
+                  password-reveal
+                  type="password"
+
+                  v-model="password" />
+              </b-field>
+
+                <b-button :disabled="!active" icon-left="content-save" @click="updatePassword" label="Update Password" class="level-item" type="is-info" />
             </div>
           </div>
           <div v-if="authenticated" class="card has-background-light p-4">
@@ -74,7 +87,9 @@ export default {
       isSent: false,
       reset_token: '',
       error: false,
-      success: false
+      success: false,
+      active: false,
+      password: ''
     }
   },
   computed: {
@@ -100,16 +115,30 @@ export default {
     ]),
     helpNav() {
       return helpMenu();
-    }
+    },
+
+    newPasswordType(){
+      if(this.password == '') return ''
+      return this.passwordCheck(this.password) ? 'is-success' : 'is-danger'
+    },
 
   },
   async fetch(){
     this.reset_token = this.$route.params['reset_password_token'];
   },
+  watch: {
+    password() {
+      this.active = this.passwordCheck(this.password) ? true : false;
+
+    }
+  },
   methods: {
+    passwordCheck(password){
+      return (/\d/.test(password) && /[a-zA-Z]/.test(password) && this.password.length >= 6) ? true : false
+    },
     async updatePassword() {
 
-      const res = this.$echomtg.userUpdatePasswordWithHash(this.password, this.reset_token)
+      const res = await this.$echomtg.userUpdatePasswordWithHash(this.password, this.reset_token)
 
       if(res.status == 'error'){
         this.error = false;
@@ -119,7 +148,7 @@ export default {
           queue: false
         })
       } else {
-        this.sucess = true
+        this.success = true
          this.$buefy.toast.open({
           message: res.message,
           type: 'is-info',

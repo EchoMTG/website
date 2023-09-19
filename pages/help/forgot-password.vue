@@ -22,14 +22,14 @@
 
         <div class="column is-four-fifths">
           <div class="content" v-if="isSent">
-            <h1>You will get an email sent to <strong>{{email}}</strong></h1>
+            <h1>You will get an email sent to <strong>{{this.email}}</strong></h1>
             <p>Open your email program and click the reset password link to proceed</p>
           </div>
           <div class="content" v-if="!isSent">
             <h1>Forgot your Password?</h1>
             <p>No worries, use the form below to reset your password. An email will be sent to you with a temporary hash, goto your email and click that button to reset your password.</p>
           </div>
-          <div v-if="!authenticated" class="card has-background-light ">
+          <div v-if="!authenticated && !isSent" class="card has-background-light ">
             <div class="level p-4">
                 <b-input icon="email" type="text" class="level-item mr-2"	v-model="email" placeholder="your@email.com"  />
 
@@ -96,9 +96,8 @@ export default {
   methods: {
     async resetPassword() {
       this.isSent = true;
-      this.email = '';
 
-      const res = this.$echomtg.userResetPassword(this.email)
+      const res = this.$echomtg.userForgotPassword(this.email)
       this.$buefy.toast.open({
         message: res.message,
         type: 'is-info',
