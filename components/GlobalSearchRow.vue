@@ -51,6 +51,7 @@
             </p>
             <p class="control">
                 <input class="input is-info is-small has-background-dark has-text-grey-light searchInput searchAcquiredPrice"
+                onclick="this.select()"
                 v-model="priceAcquired"
                 />
             </p>
@@ -73,6 +74,7 @@
             </p>
             <p class="control">
                 <input class="input is-warning is-small searchInput has-background-dark has-text-grey-light searchAcquiredPrice"
+                onclick="this.select()"
                 v-model="priceAcquiredFoil" />
             </p>
 
@@ -85,6 +87,7 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'GlobalSearchRow',
@@ -120,35 +123,54 @@ export default {
         togglePreview: function (){
             this.$refs.previewDiv.classList.toggle('isSelected')
         },
-        addRowToInventory: function(foil=0){
+        addRowToInventory: async function(foil=0){
 
             let ap = foil == 0 ? parseFloat(this.priceAcquired) : parseFloat(this.priceAcquiredFoil);
             let qty = foil == 0 ? this.quantity : this.quantityFoil;
-            let url = `/api/inventory/add/`
-            let payload = {
+            let options = {
                 foil: foil,
-                emid: this.emid,
                 acquired_price: ap,
                 quantity: qty
             }
-            fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    createGrowl(data.message)
-                    reloadInventory();
-                    reloadInventoryStats();
-                })
-                .catch(err => {
-                    createGrowl(err.error)
-                })
 
+            const res = await this.$echomtg.inventoryAdd(this.emid, options)
+
+            this.$buefy.snackbar.open({
+              message: res.message,
+              type: 'is-warning',
+              queue: false,
+              duration: 10000,
+              position: 'is-bottom-right',
+              pauseOnHover: true,
+              actionText: 'UNDO',
+              onAction: async () => {
+                  const deleted = await this.$echomtg.inventoryDeleteItem(res.inventory_id);
+                  this.$buefy.snackbar.open({
+                    message: `${res.inventory_id} ${deleted.message}`,
+                    type: 'is-danger',
+                    queue: false
+                  });
+              }
+            })
+
+
+            // refocus search
+            this.$parent.$refs['searchInput'].focus()
+
+            const quickstats = await this.$echomtg.inventoryQuickStats();
+            if(quickstats.status == 'success'){
+              this.$store.commit('quickstats',quickstats.stats);
+            }
+
+           let inventory = [...this.currentInventoryPage]
+           inventory.unshift({...res.card,...options})
+
+            this.$store.commit('currentInventoryPage',inventory);
 
         }
     },
     computed: {
+        ...mapState(['currentInventoryPage']),
         className: function() {
 
             let hasImage = this.showimage ? `searchHasImage` : ``;

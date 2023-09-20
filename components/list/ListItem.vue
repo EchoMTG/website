@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <NuxtLink :to="`/tools/lists/${item.id}`" class="has-text-black has-text-weight-bold">
+            <NuxtLink :to="`/apps/lists/${item.id}`" class="has-text-black has-text-weight-bold">
                 <span class="icon"><i class="fa fa-edit"></i></span>
                 <span>{{item.name}}</span>
             </NuxtLink>
@@ -42,11 +42,10 @@ export default {
             //document.querySelector('#delete-list-button').setAttribute("data-list-key",key);
         },
         makePublic: function(id, index){
-            console.log(id);
             let token = this.$cookies.get('token');
             let listID = id;
             let $this = this;
-            let endpoint = `${process.env.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
+            let endpoint = `${this.$config.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
             let bodyFormData = new FormData();
             bodyFormData.set('list', listID);
             bodyFormData.set('public', 1);

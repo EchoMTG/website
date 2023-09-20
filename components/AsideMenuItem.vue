@@ -22,11 +22,13 @@
         <b-icon :icon="submenuIcon" custom-size="default" />
       </div>
     </component>
-    <aside-menu-list
+    <!--
+      removed sub dropdown lists
+      <aside-menu-list
       v-if="hasDropdown"
       :menu="item.menu"
       :is-submenu-list="true"
-    />
+    /> -->
   </li>
 </template>
 
@@ -54,7 +56,7 @@ export default {
   },
   computed: {
     componentIs () {
-      return this.item.to ? 'nuxt-link' : 'a'
+      return this.item?.to ? 'nuxt-link' : 'a'
     },
     hasSubmenuIcon () {
       return this.hasDropdown || this.item.menuSecondary
@@ -115,6 +117,7 @@ export default {
   },
   methods: {
     menuClick () {
+
       this.$emit('menu-click', this.item)
 
       if (this.hasDropdown) {

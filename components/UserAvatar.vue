@@ -1,6 +1,6 @@
 <template>
   <div class="is-user-avatar">
-    <img :src="newUserAvatar" :alt="userName">
+    <img :src="getAvatar" :alt="this.user.username">
   </div>
 </template>
 
@@ -15,24 +15,14 @@ export default {
     }
   },
   computed: {
-    newUserAvatar () {
-      if (this.avatar) {
-        return this.avatar
+    getAvatar () {
+      if (this.user.avatar) {
+        return this.user.avatar
       }
 
-      if (this.userAvatar) {
-        return this.userAvatar
-      }
-
-      let name = 'somename'
-
-      if (this.userName) {
-        name = this.userName.replace(/[^a-z0-9]+/i, '')
-      }
-
-      return `https://avatars.dicebear.com/v2/human/${name}.svg?options[mood][]=happy`
+      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
     },
-    ...mapState(['userAvatar', 'userName'])
+    ...mapState(['user'])
   }
 }
 </script>

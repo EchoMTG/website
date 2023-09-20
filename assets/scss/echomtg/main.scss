@@ -1,17 +1,7 @@
 
-html, body{
-	height: 100%;
-}
-*{
-	font-family: Roboto, Arial, sans-serif;
-}
 
 .push-margin-for-nav {
 	margin-top: $header-size !important;
-}
-#content {
-	background: black;
-	padding-bottom: 30px;
 }
 
 #bulk-action-box{
@@ -198,24 +188,6 @@ html, body{
 	}
 }
 
-.pagination{
-	background: fade(white,10%);
-	color: grey;
-	border-radius: 3px;
-	margin: 0px 3px;
-	border: 1px #3b3b3b solid;
-	display: inline-block;
-	padding: 3px 7px;
-	&:hover{
-		background-color: black;
-		cursor: pointer;
-	}
-	&.active{
-		background: grey;
-		color: black;
-	}
-
-}
 
 #registerTab{
 	background: $button-blue;
@@ -232,15 +204,6 @@ html, body{
 	}
 }
 
-a{
-	color: lighten($button-blue,18%);
-	text-decoration: none;
-
-	&:hover{
-		color: white;
-
-	}
-}
 .has-background-dark::placeholder{
 	color: $mage-grey;
 }
@@ -249,8 +212,13 @@ a{
 $height-variance: 10px;
 // search box
 $search-input-size: calc($header-size - $height-variance - 1px);
-
-
+.global-search {
+  input {
+    &.has-text-black{
+      color: black !important;
+    }
+  }
+}
 div.header{
 	background-color: #fff; //lighten($mage-dark,60%);
 	height: $header-size;
@@ -304,13 +272,7 @@ div.header{
 					background: #f7f7f7;
 				}
 
-				&.item-search-input {
-					border-right: none;
-					background: #f7f7f7;
-					@media all and (max-width: $break-width) {
-						border-radius: 0px;
-					}
-				}
+
 
 				&.expansion-search-input {
 					border-left: none;
@@ -912,9 +874,6 @@ $olheight: 24px;
 			&:first-child{
 				border: none;
 			}
-			&:nth(even){
-				background: black;
-			}
 		}
 
 	}
@@ -1080,12 +1039,6 @@ sup{
 
 }
 
-hr {
-		border:none;
-		border-bottom: 1px $oval-background solid;
-		margin: 5px 0px;
-
-	}
 // Comments!!
 ol.slats,ul.slats{
 	li {
@@ -1124,28 +1077,12 @@ ol.slats,ul.slats{
 	}
 }
 
-p {
-	font-size: 14px;
-	line-height: 1.4;
-	color: #ccc;
-	margin-bottom: 10px;
-	span.meta {
-		display: block;
-		font-size: 12px;
-		color: #666;
-		text-align: right;
-
-	}
-}
 
 .homepage-hero{
 	background-size: cover;
 	height: 80vh;
-	background-image: url('https://assets.echomtg.com/images/echomtg-product-shot.jpg');
-	&.pricing-tool{
-		background-image: url('https://assets.echomtg.com/images/echomtg-tcgplayer-pricing-tool.jpg');
-
-	}
+	background-image: url('https://assets.echomtg.com/images/echo-mtg-pile-cards.jpg');
+	
 	@media all and (max-width: 640px){
 
 		height: auto;
@@ -1296,7 +1233,7 @@ p {
 		text-decoration: none;
 		@include border-radius(3px);
 
-		@media all and(max-width: 480px){
+		@media all and (max-width: 480px){
 			padding: 4px 8px;
 			font-size: 11px;
 		}

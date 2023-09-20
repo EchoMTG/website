@@ -7,19 +7,10 @@
       :class="{ 'has-secondary': !!menuSecondary }"
       @menu-click="menuClick"
     />
-    <aside-menu
-      v-if="menuSecondary"
-      :menu="menuSecondary"
-      :is-secondary="true"
-      :label="menuSecondaryLabel"
-      :icon="menuSecondaryIcon"
-      @menu-click="menuClick"
-      @close="menuSecondaryClose"
-    />
     <nuxt />
-    <aside-right />
-    <config-box />
-    <footer-bar />
+    <!-- <aside-right /> -->
+    <!-- <config-box /> -->
+    <!-- <footer-bar /> -->
     <overlay @overlay-click="overlayClick" />
   </div>
 </template>
@@ -32,12 +23,15 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
-import ConfigBox from '@/components/ConfigBox'
+import toolsMenu from '@/components/navigation/tools'
+import shellUser from '@/store/shellUser'
+
+// import ConfigBox from '@/components/ConfigBox'
 
 export default {
   name: 'App',
   components: {
-    ConfigBox,
+    // ConfigBox,
     AsideRight,
     Overlay,
     FooterBar,
@@ -49,181 +43,175 @@ export default {
       menuSecondary: null,
       menuSecondaryLabel: null,
       menuSecondaryIcon: null,
-      token: null,
-      user: null
+      token: null
     }
   },
   computed: {
+
     menu () {
-
-      if (this.amILoggedIn() && this.amIAuthed()){
-        return [
-          'Tools',
-          [
-            {
-              to: '/',
-              icon: 'chart-timeline-variant-shimmer',
-              label: 'Dashboard'
-            },
-            {
-              to: '/tools/inventory/',
-              icon: 'ballot',
-              label: 'Inventory'
-            },
-            {
-              to: '/tools/inventory/sealed/',
-              icon: 'wallet-giftcard',
-              label: 'Sealed'
-            },
-            {
-              to: '/tools/lists/',
-              icon: 'format-list-checkbox',
-              label: 'Lists'
-            },
-            {
-              to: '/tools/watch-list/',
-              icon: 'eye',
-              label: 'Watch List'
-            }
-
-          ],
+      let navList =[];
+      let tools = toolsMenu({
+        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
+      });
+      navList.push('My Apps');
+      // showing tools in left
+      navList.push(tools);
+      navList.push(
           'Magic: the Gathering',
           [
             {
-              to: '/sets',
-              label: 'Expansions',
-              icon: 'view-list-outline',
-              updateMark: true
+              to: '/mtg/sets/',
+              label: 'MTG Sets',
+              icon: 'cards'
             },
             {
-              to: '/magic/reserve-list/',
+              to: '/mtg/types/',
+              label: 'Types',
+              icon: 'format-list-bulleted-type'
+            },
+            {
+              to: '/mtg/spoilers/',
+              label: 'Spoilers',
+              icon: 'table-headers-eye'
+            },
+            {
+              to: '/mtg/groups/magic-reserve-list/',
               label: 'Reserve List',
-              icon: 'chess-king'
+              icon: 'gold'
             },
-
-            {
-              label: 'Dropdown',
-              icon: 'arrow-down-bold-circle',
-              menu: [
-                {
-                  href: '#void',
-                  label: 'Sub-item One'
-                },
-                {
-                  href: '#void',
-                  label: 'Sub-item Two'
-                }
-              ]
-            },
-            {
-              label: 'Submenus',
-              icon: 'view-list',
-              menuSecondaryKey: 'submenu-1',
-              menuSecondaryIcon: 'view-list',
-              menuSecondaryLabel: 'Example',
-              menuSecondary: [
-                'Something',
-                [
-                  {
-                    icon: 'view-list',
-                    href: '#void',
-                    label: 'Sub-item One'
-                  },
-                  {
-                    icon: 'view-list',
-                    href: '#void',
-                    label: 'Sub-item Two'
-                  }
-                ],
-                'Dropdown',
-                [
-                  {
-                    label: 'Submenus',
-                    icon: 'view-list',
-                    menu: [
-                      {
-                        href: '#void',
-                        label: 'Sub-item One'
-                      },
-                      {
-                        href: '#void',
-                        label: 'Sub-item Two'
-                      }
-                    ]
-                  }
-                ]
-              ]
-            }
           ],
-          'My Account',
-          [
+      );
+      navList.push('Disney Lorcana')
+      navList.push([
+            {
+              to: '/lorcana/sets/',
+              label: 'Lorcana Sets',
+              icon: 'cards'
+            }
+      ])
+
+
+      if (this.user && parseInt(this.user.user_level) > 2){
+       navList.push('Wiki Tools');
+        navList.push([
            {
-              to: '/profile',
+              to: '/wiki/dashboard',
+              label: 'Wiki Home',
+              icon: 'wizard-hat'
+            },
+            {
+              to: '/wiki/import-set',
+              label: 'Import Set',
+              icon: 'download'
+            },
+            {
+              to: '/wiki/import-single',
+              label: 'Fetch Single',
+              icon: 'bone'
+            },
+            {
+              to: '/wiki/manage-sets',
+              label: 'Manage Sets',
+              icon: 'movie-open-edit'
+            },
+          ])
+      }
+
+      navList.push('EchoMTG')
+      navList.push( [
+        {
+          to: '/blog/',
+          label: 'Blog',
+          icon: 'newspaper-variant-multiple'
+        },
+        {
+          to: '/api/',
+          label: 'API Docs',
+          icon: 'code-json'
+        },
+        {
+          to: '/about/',
+          label: 'About',
+          icon: 'pillar'
+        },
+        {
+          to: '/help/',
+          label: 'Support',
+          icon: 'lifebuoy'
+        }]
+        )
+
+
+      if (this.authenticated){
+
+        navList.push('My Account');
+        navList.push([
+           {
+              to: '/user/profile/',
               label: 'Profile',
               icon: 'account-circle'
             },
             {
-              to: '/full-page/error',
-              label: 'Error v.1',
-              icon: 'power-plug'
+              to: '/user/settings/',
+              label: 'Settings',
+              icon: 'cogs'
             },
-          ],
-          'About',
-          [
             {
-              href: 'https://justboil.me/bulma-admin-template/one',
-              label: 'About',
-              icon: 'help-circle'
-            }
-          ]
-        ]
-      } else {
-         return [
-          'Create Account',
-          [
+              to: '/user/streamer/',
+              label: 'Streamer Perks',
+              icon: 'twitch'
+            },
             {
-              to: '/',
-              icon: 'desktop-mac',
-              label: 'Dashboard'
-            }
-          ],
-          'Login',
-          [
+              to: '/logout/',
+              icon: 'lock',
+              label: 'Logout'
+            },
+          ])
+
+      }
+      if (!this.authenticated){
+          navList.push('User');
+          navList.push([
             {
-              to: '/login',
+              to: '/login/',
               icon: 'lock',
               label: 'Login'
-            }
-          ],
-          'Magic: the Gathering',
-          [
-            {
-              to: '/sets',
-              label: 'Expansions',
-              icon: 'box',
-              updateMark: true
             },
-          ]
-        ]
+            {
+              to: '/',
+              icon: 'plus',
+              label: 'Create Account'
+            },
+          ])
       }
+
+      return navList;
     },
     menuBottom () {
-      return [
-        {
-          action: 'logout',
-          icon: 'logout',
-          label: 'Log out',
-          state: 'info'
-        }
-      ]
+      if(this.authenticated){
+        return [
+          {
+            action: 'logout',
+            icon: 'logout',
+            label: 'Log out',
+            state: 'info'
+          }
+        ]
+      } else {
+        return []
+      }
     },
     ...mapState([
       'isOverlayVisible',
       'isLayoutBoxed',
       'isAsideVisible',
+      'isAsideExpanded',
       'isNavBarVisible',
+      'isDarkModeActive',
       'isLayoutAsideHidden',
-      'isLayoutMobile'
+      'isLayoutMobile',
+      'authenticated',
+      'user'
     ])
   },
   watch: {
@@ -233,15 +221,32 @@ export default {
       }
     }
   },
-  created () {
+  beforeMount () {
 
+      window.addEventListener("hashchange", this.offsetAnchor);
   },
-  async fetch() {
+  beforeDestroy () {
+    window.removeEventListener('hashchange', this.offsetAnchor)
+  },
 
-  },
-  mounted () {
-    /* Dark mode by default. Works only with '~/assets/scss/style-light-dark.scss' */
-    // this.$store.commit('darkModeToggle', true)
+  async mounted () {
+    // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
+    document.documentElement.classList['add']('has-aside-left');
+    document.documentElement.classList['add']('has-navbar-fixed-top');
+    document.documentElement.classList['add']('has-aside-mobile-transition');
+
+    // STORE PERSISTANCE
+    // if there is a token available, attempt to authenticated the user and populate the store
+    try {
+      if(this.$cookies.get('token')){
+        await this.authenticatedUser()
+      }
+      // get sets
+      await this.getSets()
+    } catch (err) {
+      console.log('offine')
+    }
+
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
@@ -251,29 +256,58 @@ export default {
     }
   },
   methods: {
+    offsetAnchor() {
+        if(location.hash.length !== 0) {
+            window.scrollTo(window.scrollX, window.scrollY); // add -100 to adjust all
+        }
+        console.log('offset ancher')
+    },
+    async getSets(){
+      try{
+        const setsData = await this.$echomtg.getSets();
+
+        this.$store.commit('sets',setsData)
+      } catch(err){
+        console.log(err)
+      }
+    },
+    async authenticatedUser(){
+      // fetch the meta
+      const userdata = await this.$echomtg.getUserMeta();
+
+      // store the user data
+      if(userdata.status === 'success'){
+
+        const quickstats = await this.$echomtg.inventoryQuickStats();
+
+        this.$store.commit('user', userdata.user);
+        this.$store.commit('quickstats', quickstats.stats);
+        this.$store.commit('authenticated',true);
+        if(parseInt(userdata.user.dark_mode) == 1){
+          this.$store.commit('darkModeToggle', true)
+        } else {
+          this.$store.commit('darkModeToggle', false)
+        }
+      } else {
+        this.$store.commit('authenticated',false);
+        this.$store.commit('user', shellUser);
+        window.localStorage.removeItem('user')
+        this.$cookies.remove('token', {
+          domain: '.echomtg.com',
+          path: '/'
+        })
+      }
+
+
+    },
     // if not logged in, the menu should render different
     // if not logged in, caching should run on all the informational pages
     // logged in state is checked by the cookie
     // the cookie needs to be verified via a request, if the cookie is expired it should be deleted
-    amILoggedIn() {
-      // uses this cookie package for SSR https://www.npmjs.com/package/cookie-universal-nuxt
-      return undefined !== this.$cookies.get('token')
-
-    },
-    async amIAuthed() {
-      this.token = this.$cookies.get('token')
-      let response = await fetch('https://www.echomtg.com/api/user/meta/?auth='+this.token)
-      let data = await response.json()
-
-      if(data.status == 'success'){
-        data.user.name = data.user.first_name + ' ' + data.user.last_name
-        this.$store.commit('user', data.user)
-        return data.user
-      } else {
-        return null
-      }
-    },
     menuClick (item) {
+
+        this.$store.commit('asideActiveForcedKeyToggle', item)
+        this.$store.commit('overlayToggle', true)
 
       if (item.menuSecondary) {
         this.menuSecondary = item.menuSecondary
@@ -284,8 +318,7 @@ export default {
           ? item.menuSecondaryIcon
           : null
 
-        this.$store.commit('asideActiveForcedKeyToggle', item)
-        this.$store.commit('overlayToggle', true)
+
       } else if (item.action && item.action === 'logout') {
         this.$buefy.toast.open({
           message: 'Log out clicked',
@@ -303,6 +336,7 @@ export default {
       }
     },
     overlayClick () {
+
       if (this.menuSecondary) {
         this.menuSecondaryClose()
       } else {

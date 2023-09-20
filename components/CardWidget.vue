@@ -6,7 +6,7 @@
     :has-title-slot="true"
   >
     <span slot="title">
-      <b>{{ previousValue }}</b> <b>{{ previousPeriod }}</b>
+      <b>{{ previousValue ? previousValue : '' }}</b> <b>{{ previousPeriod }}</b>
     </span>
 
     <div class="level is-mobile">
@@ -38,7 +38,7 @@ export default {
   props: {
     icon: {
       type: String,
-      default: null
+      default: 'plus'
     },
     number: {
       type: Number,

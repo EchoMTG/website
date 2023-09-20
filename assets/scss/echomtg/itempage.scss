@@ -1,3 +1,5 @@
+@import "~bulma/sass/utilities/initial-variables";
+
 #card {
 	input.add-series {
 		padding: 0px 5px;
@@ -159,73 +161,14 @@ th.header{
 
 //// CARD!!
 
+
 $price-height: 60px;
 .todaysprices{
-	background: lighten($mage-grey,42%);
-	border-bottom: 1px $mage-grey solid;
+
+	border-bottom: 1px $grey-lighter solid;
 	height: $price-height + 1;
 	font-size: 24px;
 	display: flex;
-
-	@media all and (max-width: $break-width){
-		font-size: 14px;
-		height: $price-height - 10;
-	}
-
-	div{
-		text-align: center;
-		flex: 1;
-		@media all and (max-width: $break-width){
-
-		}
-
-		&.foil{
-			font-weight: normal;
-			@include vertical(#fff,lighten($foil-price,15%));
-
-
-		}
-	}
-	span.numbers{
-		display: block;
-		color: $mage-dark;
-
-		padding: ($price-height * .16) 0px;
-		border-right:  1px lighten($mage-grey,32%) solid;
-		font-weight: bold;
-		height: ($price-height * .66);
-		@media all and (max-width: $break-width){
-			height: ($price-height * .50);
-		}
-		&.foil_price{
-			color: darken($foil-price,20%);
-			font-weight: bold;
-		}
-
-		&.price_low{
-			color: lighten($mage-grey,10%);
-			font-weight: normal;
-		}
-		a{
-			color: $mage-grey;
-			&:hover{
-				color: $mage-dark;
-			}
-		}
-	}
-	span.label{
-		display: block;
-		background: lighten($mage-grey,35%);
-		border-bottom: 1px lighten($mage-grey,30%) solid;
-		border-right:  1px lighten($mage-grey,30%) solid;
-		font-size: 10px;
-		color: $mage-grey;
-		text-align: center;
-		line-height: ($price-height * .33);
-		height: ($price-height * .30);
-	}
-
-
 
 	.foil_price{
 		color:$foil-price;
@@ -323,7 +266,7 @@ $card-name-height: $price-height - 20;
 					font-style: italic;
 					font-weight: normal;
 					display: inline-block !important;
-					@media all and(max-width: $break-width){
+					@media all and (max-width: $break-width){
 						display: none !important;
 
 					}
@@ -384,14 +327,14 @@ $set-name-height: 50px;
 				line-height: $set-name-height;
 				margin-top:0px;
 				font-weight: bold;
-				@media all and(max-width: $break-width){
+				@media all and (max-width: $break-width){
 					font-size: 20px;
 
 				}
 
 			}
 
-			@media all and(max-width: $break-width){
+			@media all and (max-width: $break-width){
 				max-width: 250px;
 
 			}
@@ -400,23 +343,15 @@ $set-name-height: 50px;
 }
 
 
+.cardImageContainer{
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .card-page {
-
 	position: relative;
-
 	border-radius: 0px;
-
 	display: block;
-
-
-
-	img.cardImage {
-		width: 100%;
-		@media all and (max-width: $break-width){
-			width: 100%;
-		}
-	}
-
 	color: #fff;
 	//background: #fff;
 

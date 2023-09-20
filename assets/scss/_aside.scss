@@ -95,12 +95,19 @@ aside.aside {
   .menu-list {
     li {
       &.is-active {
+
         box-shadow: 0 1px $base-color-light;
         >a {
           box-shadow: 0 1px $base-color-light;
+
         }
       }
-
+      a {
+        color: $white-ter;
+        &.is-active{
+          color: $info;
+        }
+      }
       a.has-submenu-icon {
         position: relative;
         padding-right: $aside-icon-width;

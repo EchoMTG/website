@@ -9,7 +9,7 @@
                             <div class="field has-addons">
                                 <p class="control grow has-icons-left m-0">
                                     <input
-                                        class="input is-small is-rounded item-search-input"
+                                        class="input is-small is-rounded has-background-white has-text-black item-search-input"
                                         v-model="search"
                                         @input="$event.target.composing = false"
                                         ref="searchInput"
@@ -29,13 +29,13 @@
                             </div>
                           </div>
                           <div class="column is-one-third expansionColumn">
-                              <input class="input is-small expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
+                              <input class="input is-small  has-background-white has-text-black  expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
                           </div>
                        </div>
 
                     </div>
                     <div class="control inside-button">
-                        <button class="button is-small is-outlined is-rounded advanced-options-button" @click="openAdvancedOptions()">
+                        <button class="button is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
                             <span class="icon">
@@ -61,7 +61,7 @@
                                         </p>
                                         <p class="control">
                                             <input
-                                                class="input is-small"
+                                                class="input is-small has-text-black"
                                                 v-model="textsearch"
                                                 placeholder="Scry, Deathtouch, Counter..."
                                                 @input="$event.target.composing = false"
@@ -84,7 +84,7 @@
                                         </p>
                                         <p class="control">
                                            <input
-                                            class="input is-small"
+                                            class="input is-small  has-text-black"
                                             v-model="types"
                                             placeholder="Land, Creature, Goblin, Wizard..."
                                             @input="$event.target.composing = false"
@@ -137,22 +137,21 @@
 
                     <div v-if="results.length > 0" ref="cardContent" class="searchResults">
                         <GlobalSearchRow
-
                             v-for="(result, index) in results"
-                            :key="result.emid"
-                            v-bind:name="result.name"
-                            v-bind:setCode="result.setcode"
-                            v-bind:setName="result.set"
-                            v-bind:emid="result.emid"
-                            v-bind:url="result.url"
-                            v-bind:item="result"
-                            v-bind:showinventorybuttons="showinventorybuttons"
-                            v-bind:currencysymbol="currencysymbol"
+                            v-bind:key="`${result.mid}-${index}`"
+                            :name="result.name"
+                            :setCode="result.setcode"
+                            :setName="result.set"
+                            :emid="result.emid"
+                            :url="result.url"
+                            :item="result"
+                            :showinventorybuttons="showinventorybuttons"
+                            :currencysymbol="currencysymbol"
                             :ref="'pos'+index"
-                            v-bind:selected="index == position"
-                            v-bind:acquiredprice = "staticAcquiredPrice"
-                            v-bind:previewopen="index == position && previewopen"
-                            v-bind:manacost="result.mana_cost"
+                            :selected="index == position"
+                            :acquiredprice = "staticAcquiredPrice"
+                            :previewopen="index == position && previewopen"
+                            :manacost="result.mana_cost"
                             :showimage="showimage"
                             :callbackname="callbackname"
                             @primaryCallback="callback(result.emid)"
@@ -160,12 +159,12 @@
                     </div>
                     <!-- how to search message, shows when search is empty -->
                     <div v-if="results.length == 0 && search == ''">
-                        <div class="container padded">
-                            <h5 class="title is-size-4">Short Cuts</h5>
-                            <p><strong>Shift + Delete:</strong> Clear Item Search</p>
-                            <p><strong>Shift + Backspace:</strong> Clear Item Search</p>
-                            <p><strong>ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
-                            <p><strong>Enter</strong>: Shortcut to <span v-html="callbackname"></span></p>
+                        <div class="container padded ">
+                            <h5 class="title is-size-4 has-text-white">Short Cuts</h5>
+                            <p class="has-text-white"><strong class="has-text-white">Shift + Delete:</strong> Clear Item Search</p>
+                            <p class="has-text-white"><strong class="has-text-white">Shift + Backspace:</strong> Clear Item Search</p>
+                             <p class="has-text-white"><strong class="has-text-white">ESC</strong>: Minimize and Clear Item Search, Advanced Search, and Set Search</p>
+                            <p class="has-text-white"><strong class="has-text-white">Enter</strong>: Shortcut to <span v-html="callbackname"></span></p>
 
                         </div>
                     </div>
@@ -179,7 +178,7 @@
 
                 </div>
                <footer class="card-footer">
-                    <p class="card-footer-item">
+                    <p class="card-footer-item has-text-white">
 
                         <a @click="this.movePositionUp()" class="button is-small ">
                             <span class="fa fa-caret-down"></span>
@@ -213,6 +212,7 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import GlobalSearchRow from '@/components/GlobalSearchRow'
 
 export default {
@@ -248,8 +248,41 @@ export default {
         },
         callback: {
             type: Function,
-            default: function(emid){
+            default: async function(emid){
+              if(this.authenticated){
+                const res = await this.$echomtg.inventoryQuickAdd(this.results[this.position].emid)
+                this.$buefy.snackbar.open({
+                  message: res.message,
+                  type: 'is-warning',
+                  queue: false,
+                  duration: 10000,
+                  position: 'is-bottom-right',
+                  pauseOnHover: true,
+                  actionText: 'UNDO',
+                  onAction: async () => {
+                      const deleted = await this.$echomtg.inventoryDeleteItem(res.inventory_id);
+                      this.$buefy.snackbar.open({
+                        message: `${res.inventory_id} ${deleted.message}`,
+                        type: 'is-danger',
+                        queue: false
+                      });
+                  }
+                })
+
+                const quickstats = await this.$echomtg.inventoryQuickStats();
+                if(quickstats.status == 'success'){
+                  this.$store.commit('quickstats',quickstats.stats);
+                }
+
+                let inventory = [...this.currentInventoryPage]
+                inventory.unshift({...res.card,...options})
+
+                this.$store.commit('currentInventoryPage',inventory);
+
+              } else {
                 window.location = this.results[this.position].url
+              }
+
             }
         },
         callbackname: {
@@ -291,7 +324,7 @@ export default {
             }
             var $this = this
 
-            let url = `${process.env.API_DOMAIN}/search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
+            let url = `${this.$config.API_DOMAIN}/search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
                 url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
 
             fetch(encodeURI(url)).then(response => response.json()).then(response => {
@@ -397,7 +430,12 @@ export default {
     computed: {
         placeholderText() {
             return `Search Items to ${this.callbackname.replace(/<[^>]*>?/gm, '')}..`
-        }
+        },
+        ...mapState([
+          'currentInventoryPage',
+          'user',
+          'authenticated'
+        ])
     },
     mounted(){
         this.$refs.globalSearchBox.addEventListener('click', function (e) {

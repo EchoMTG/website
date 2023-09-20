@@ -2,9 +2,61 @@
 .setTabs{
 	position: relative;
 	z-index: 2;
-	margin-bottom: 0px !important; 
+	margin-bottom: 0px !important;
+	margin-top: -40px;
+	@media all and (max-width: $break-width){
+		margin-top: 0px;
+	}
+	&.tabs{
+		li{
+			a {
+				color: white;
+				text-shadow: 0px 0px 5px black;
+			}
+			a:hover {
+				background-color: rgba(255,255,255,.5);
+				color: black;
+				text-shadow: 0px 0px 5px white;
+			}
+			&.is-active {
+				a {
+					color: black;
+					text-shadow: none;
+					&:hover{
+						text-shadow: none;
+						background-color: white;
+					}
+				}
+
+			}
+
+		}
+	}
 }
 
+.is-dark-mode-active {
+	.setTabs.tabs{
+
+		li{
+
+
+			&.is-active{
+				a {
+					background: black;
+					color: white;
+					&:hover {
+						background-color: black;
+						color: white;
+						text-shadow: none;
+					}
+				}
+			}
+		}
+	}
+}
+.itemTDView{
+	position: relative;
+}
 #wikiUpdateForm {
 	.field-body {
 		margin-bottom: 5px;
@@ -34,13 +86,9 @@
 
 .set-item-list-container {
 	.filterBar{
-		position: sticky; 
-		top: 40px; 
-		background: black; 
+		position: sticky;
+		top: 50px;
 		z-index: 10;
-	}
-	.padded {
-		padding: 10px !important;
 	}
 	@media all and (max-width: $break-width){
 		$smallOverride: .69rem;
@@ -48,7 +96,7 @@
 			.is-small {
 				font-size: $smallOverride;
 			}
-		}	
+		}
 		.select.is-small, .button.is-small  {
 			font-size: $smallOverride;
 		}
@@ -75,19 +123,20 @@
 	.field {
 		margin-bottom: 0;
 	}
-	th {
-		background: black;
-		cursor: pointer;
-		&:hover{
-			color: white;
-		}
-	}
 }
 
+.setViews {
+}
+.is-dark-mode-active .setViews{
+  background: black;
+}
+$imageHeight: 180px;
 .setSummary, .cardSummary {
 	position: relative;
 	padding: 20px;
-	height: 140px;
+  overflow: hidden;
+	height: $imageHeight;
+	background: black;
 	@media all and (max-width: $break-width){
 		height: auto;
 	}
@@ -100,33 +149,61 @@
 	h1 {
 		font-size:  24px;
 		text-shadow: 0px 0px 3px #000,0px 0px 5px #000,0px 0px 4px #000;
-		margin-bottom: 5px;
+		margin-bottom: 0px;
+    a {
+      color: white;
+    }
 	}
-	h2 {
+	h2, p {
 		text-shadow: 0px 0px 3px #000,0px 0px 4px #000,0px 0px 5px #000;
+    color: white;
 	}
 	.largeSetIcon{
-		font-size: 80px !important;
+		font-size: 100px !important;
 		display: inline-block;
 		float: left;
+    color: white;
 		margin-right: 15px;
 		-webkit-text-stroke-width: 1px;
-		-webkit-text-stroke-color: white;
-		opacity: .7;
+		-webkit-text-stroke-color: black;
+		opacity: .9;
 	}
 
-	$imageHeight: 220px;
+  .largeBackgroundIcon{
+    -webkit-text-stroke-width: 0px;
+    opacity: 1;
+    color: #333;
+    float: none;
+    position: absolute;
+    top: -25%;
+    right: -2%;
+    transform: rotate(20deg);
+    font-size: 300px !important ;
+  }
+
+  .largeLorcanaBackgroundImage{
+
+    float: none;
+    position: absolute;
+    top: -15%;
+    right: -2%;
+    transform: rotate(20deg);
+  }
+
 	div.imageBox {
-		width: 300px;
-		height: $imageHeight;
+		width: 400px;
+		height: 100%;
 		position: absolute;
+    	overflow: hidden;
 		top: 0px;
 		left: 0px;
+    z-index: 0;
 		@media all and (max-width: $break-width){
 			width: 400px;
 			height: 320px;
 		}
-		&:after {
+
+    &::before {
 			content: ""; // ::before and ::after both require content
 			position: absolute;
 			top: 0;
@@ -134,26 +211,33 @@
 			right: 0;
 			bottom: 0px;
 			z-index: 1;
-			mix-blend-mode: color;
-			mix-blend-mode: hue;
-			mix-blend-mode: hard-light;
-			background-image: 
-					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1));
+			background-image:
+					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0), rgba(0, 0, 0, .5), rgba(0, 0, 0, 1));
 			@media all and (max-width: $break-width){
-				background-image: 
-					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1)), 
-					linear-gradient(180deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .8), rgba(0, 0, 0, 1));
+				background-image:
+					linear-gradient(90deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .5), rgba(0, 0, 0, 1)),
+					linear-gradient(180deg, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),rgba(0, 0, 0, .8), rgba(0, 0, 0, 1));
 			}
 		}
 
 		.setTopImage {
 			z-index: 0;
 			position: absolute;
-			top: 0px;
+			top: -20%;
 			left: 0px;
 			bottom: 0px;
 			right: 0px;
-			width: 100%;
+			width: 150%;
+		}
+    .setTopImageLorcana {
+			z-index: 0;
+			position: absolute;
+			top: -5%;
+			left: 0px;
+			bottom: 0px;
+			right: 0px;
+			width: 150%;
+      background-image: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0),  rgba(11, 14, 49, 0.5), rgb(11, 14, 49)) !important;
 		}
 	}
 
@@ -166,13 +250,6 @@
 
 // bulma overrides
 
-.tabs.is-boxed li.is-active a{
-	background: black !important;
-}
-
-#set-table tr th{
-	border-color: black;
-}
 
 .image-thumbnail{
 	float: left;
@@ -202,16 +279,11 @@
 		text-shadow: 0px 0px 1px #009900;
 		font-weight: bold;
 	}
-	
+
 }
 
 .todaysprices {
 	.label:not(:last-child){
 		margin-bottom: 0px;
-	}
-}
-.set,.sets {
-	.breadcrumb{
-		margin-bottom: 0px !important;
 	}
 }

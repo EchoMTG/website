@@ -50,7 +50,7 @@
                     </span>
                     <span>Get More Lists, Upgrade Plan</span>
                 </a>
-              
+
                 <button v-if="this.$parent.lists.length <= this.$parent.user.planObject.list_cap" class="button is-success" @click="createList">
                     <span class="icon">
                     <i class="fa fa-plus"></i>
@@ -80,7 +80,7 @@ export default {
             let bodyFormData = new FormData();
             bodyFormData.set('name', this.newDeck.name);
             bodyFormData.set('description', this.newDeck.description);
-            let endpoint = `${process.env.API_DOMAIN}lists/create/?&auth=${token}`;
+            let endpoint = `${this.$config.API_DOMAIN}lists/create/?&auth=${token}`;
             let $this = this;
             axios({
                 method: 'post',
@@ -101,7 +101,7 @@ export default {
         },
         addImportedCards(listID){
             let token = this.$cookies.get('token');
-            var add_endpoint = `${process.env.API_DOMAIN}lists/add/?&auth=${token}`;
+            var add_endpoint = `${this.$config.API_DOMAIN}lists/add/?&auth=${token}`;
             let $this = this;
 
             for (let index in this.newDeck.cards.main) {

@@ -6,12 +6,15 @@ $size-base: 1rem;
 $default-padding: $size-base * 1.5;
 
 /* Default font */
-$family-sans-serif: 'Nunito', sans-serif;
+$family-sans-serif: 'Roboto Condensed', sans-serif;
 
 /* Base color */
 $base-color: #2e323a;
 //$base-color-light: rgba(24,28,33,0.06);
 $base-color-light: #f1f2f2;
+
+$text: $grey-darker;
+$body-color: $text;
 
 /* General overrides */
 $primary: $cyan;
@@ -44,39 +47,39 @@ $navbar-avatar-size: 1.75rem;
 $menu-item-radius: 0;
 $menu-list-link-padding: $size-base * .5 0;
 $menu-label-color: lighten($base-color, 25%);
-$menu-item-color: $link;
-$menu-item-hover-color: $black;
-$menu-item-hover-background-color: transparent;
-$menu-item-active-color: $black-ter;
-$menu-item-active-background-color: transparent;
+$menu-item-color: $black;
+$menu-item-hover-color: $blue;
+$menu-item-hover-background-color: rgba(0,0,0,.03);
+$menu-item-active-color: $link;
+$menu-item-active-background-color:transparent;
 
 /* Aside: specifics */
-$aside-width: $size-base * 15;
+$aside-width: $size-base * 11;
 $aside-collapsed-width: $size-base * 4.5;
-$aside-mobile-width: $size-base * 15;
-$aside-right-width: $size-base * 15;
+$aside-mobile-width: $size-base * 11;
+$aside-right-width: $size-base * 11;
 $aside-icon-width: $size-base * 3;
 $aside-submenu-font-size: $size-base * .95;
-$aside-box-shadow: 1px 0 $base-color-light;
-$aside-background-color: $white;
+$aside-box-shadow: 1px 0 $black-ter;
+$aside-background-color: $black;
 $aside-tools-background-color: transparent;
-$aside-tools-color: $black-ter;
-$aside-tools-box-shadow: 0 1px $base-color-light;
+$aside-tools-color: $white;
+$aside-tools-box-shadow: 0 1px $black-ter;
 $aside-dropdown-background-color: transparent;
-$aside-right-box-shadow: -1px 0 $base-color-light;
-$aside-menu-list-active-box-shadow: 0 1px $base-color-light;
+$aside-right-box-shadow: -1px 0 $black-ter;
+$aside-menu-list-active-box-shadow: 0 1px $black-ter;
 $aside-has-secondary-box-shadow: $aside-box-shadow;
 $aside-boxed-has-secondary-box-shadow: $aside-box-shadow;
 
 /* Aside Secondary Submenu: specifics */
-$aside-secondary-background-color: $white;
+$aside-secondary-background-color: $black;
 $aside-secondary-item-active-background-color: transparent;
 $aside-secondary-item-hover-background-color: transparent;
 $aside-secondary-tools-background-color: transparent;
 $aside-secondary-box-shadow-mobile: none;
 $aside-secondary-dropdown-background-color: transparent;
 $aside-secondary-box-shadow: none;
-$aside-secondary-border-left-right: $light-border;
+$aside-secondary-border-left-right: $black-ter;
 
 /* Title Bar: specifics */
 $title-bar-color: $grey;

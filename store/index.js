@@ -1,8 +1,42 @@
+const shellUser = require ('/store/shellUser');
+
+const shellquickstats = {
+  acquired_value: 0,
+  current_value: 0,
+  current_high_value_value: 0,
+  current_value_low: 0,
+  current_value_market: 0,
+  total_items: 0,
+  total_cards: 0,
+  total_foils: 0,
+  total_nonfoils: 0,
+  total_sealed: 0,
+  sealed_value: 0,
+  total_packs: 0,
+  packs_value: 0,
+  total_mythic: 0,
+  total_rare: 0,
+  total_uncommon: 0,
+  total_common: 0,
+  currency_symbol: '$',
+  total_profit: 0,
+  change_value: 0,
+  user_items_stored: 0,
+  user_items_cap: 0,
+  user_items_cap_percentage_used: 0,
+
+}
+
 export const state = () => ({
   /* User */
   userName: null,
   userEmail: null,
-  userAvatar: null,
+  userLevel: null,
+  userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
+  user: shellUser.default,
+  authenticated: false,
+  quickstats: shellquickstats,
+  currentInventoryPage: [],
 
   /* NavBar */
   isNavBarVisible: true,
@@ -34,7 +68,10 @@ export const state = () => ({
   isDarkModeActive: false,
 
   /* ConfigBox */
-  isConfigBoxVisible: true
+  isConfigBoxVisible: false,
+
+  /*  data */
+  sets: []
 })
 
 export const mutations = {
@@ -45,15 +82,34 @@ export const mutations = {
 
   /* User */
   user (state, payload) {
-    if (payload.name) {
-      state.userName = payload.name
+    if (payload.username) {
+      state.userName = payload?.first_name ? payload.first_name + ' ' + payload.last_name : payload.username;
+      state.user = payload
+      state.authenticated = true
+      // let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
+      // state.isDarkModeActive = darkmode
+      // document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active');
+      // store to locale store to persist later
+      window.localStorage.setItem('user', JSON.stringify(payload));
+
     }
-    if (payload.email) {
-      state.userEmail = payload.email
-    }
-    if (payload.avatar) {
-      state.userAvatar = payload.avatar
-    }
+
+  },
+
+  authenticated(state, payload){
+      state.authenticated = payload
+      // store to locale store to persist later
+      if(payload == true){
+        window.localStorage.setItem('authenticated', 'true');
+      } else {
+        window.localStorage.removeItem('authenticated')
+        window.localStorage.removeItem('user')
+      }
+
+  },
+
+  currentInventoryPage (state, payload) {
+    state.currentInventoryPage = payload
   },
 
   /* Full Page mode */
@@ -116,6 +172,14 @@ export const mutations = {
     document.documentElement.classList[setIsVisible ? 'add' : 'remove']('is-clipped')
   },
 
+  quickstats (state, payload = null){
+    state.quickstats = payload;
+  },
+
+  sets (state, payload = null){
+    state.sets = payload;
+  },
+
   /* Layouts */
 
   layoutBoxedToggle (state, payload = null) {
@@ -151,9 +215,7 @@ export const mutations = {
   /* Dark Mode */
   darkModeToggle (state, payload = null) {
     const setIsDark = payload !== null ? payload : !state.isDarkModeActive
-
     state.isDarkModeActive = setIsDark
-
     document.documentElement.classList[setIsDark ? 'add' : 'remove']('is-dark-mode-active')
   },
 
@@ -164,7 +226,14 @@ export const mutations = {
   }
 }
 
+// your root getters
+export const getters = {
+  isAuthenticated(state){ return state.authenticated},
+  getUser(state){ return state.user}
+}
+
 export const actions = {
+
   asideCloseAll ({ commit, state }) {
     commit('asideVisibilityToggle', false)
     commit('asideRightToggle', false)

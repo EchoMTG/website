@@ -1,62 +1,61 @@
 <template>
   <div>
-    <modal-box
-      :is-active="isModalActive"
-      :trash-object-name="trashObjectName"
-      @confirm="trashConfirm"
-      @cancel="trashCancel"
-    />
+     <div class="columns m-2" ref="searchBox">
+
+      <div class="column">
+         <div slot="right" class="control has-icons-left">
+            <input
+              v-model="search"
+              class="input is-small is-rounded"
+              type="text"
+              @input="$event.target.composing = false"
+              placeholder="Search by Name..."
+            />
+            <span class="icon is-small is-left">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+      </div>
+      <div class="column">
+        <div class="content">
+        <p>Search a list of all {{game}} Expansions, Promos, and Sets.</p>
+        </div>
+      </div>
+    </div>
+
+
+
     <b-table
       :checked-rows.sync="checkedRows"
-      :checkable="checkable"
+      :checkable="false"
+      :sticky-header="true"
       :loading="isLoading"
       :paginated="paginated"
       :per-page="perPage"
       :striped="true"
       :hoverable="true"
-      default-sort="name"
-      :data="expansions"
+      default-sort-direction="DESC"
+      default-sort="release_date"
+      :data="filteredExpansionsList"
+      :height="tableHeight"
     >
-      <b-table-column
-        v-slot="props"
-        cell-class="has-no-head-mobile is-image-cell"
-      >
-        <div class="image">
-          <img :src="props.row.avatar" class="is-rounded">
-        </div>
-      </b-table-column>
+
       <b-table-column v-slot="props" label="Name" field="name" sortable>
+        <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
         <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
       </b-table-column>
       <b-table-column v-slot="props" label="Set Code" field="set_code" sortable>
         {{ props.row.set_code }}
       </b-table-column>
-      <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>
-        {{ props.row.release_date }}
-      </b-table-column>
+
 
       <b-table-column v-slot="props" label="Type" field="type" sortable>
         {{ props.row.type }}
       </b-table-column>
-      <b-table-column v-slot="props" label="Total Cards" field="total_cards" sortable>
-        {{ props.row.total_cards }}
+      <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>
+        {{ props.row.release_date }}
       </b-table-column>
 
-      <b-table-column
-        v-slot="props"
-        custom-key="actions"
-        cell-class="is-actions-cell"
-      >
-        <div class="buttons is-right">
-          <nuxt-link
-            :to="makeSetPath(props.row.set_code,props.row.set_code_path_part)"
-            class="button is-small is-primary"
-          >
-            <b-icon icon="account-edit" size="is-small" />
-          </nuxt-link>
-
-        </div>
-      </b-table-column>
 
       <section slot="empty" class="section">
         <div class="content has-text-grey has-text-centered">
@@ -79,86 +78,83 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'Expansions',
+  name: 'Sets',
   components: { ModalBox },
   props: {
-    dataUrl: {
-      type: String,
-      default: null
-    },
+
     checkable: {
       type: Boolean,
       default: false
+    },
+    expansions: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
       isModalActive: false,
-      trashObject: null,
-      expansions: [],
       isLoading: false,
       paginated: false,
-      perPage: 10,
-      checkedRows: []
+      perPage: 20,
+      checkedRows: [],
+      search: '',
+      tableHeight: '700px'
     }
   },
   computed: {
-    trashObjectName () {
-      if (this.trashObject) {
-        return this.trashObject.name
-      }
 
-      return null
-    }
+    ...mapState([
+      'authenticated',
+      'user',
+      'sets'
+    ])
 
   },
-  mounted () {
-    if (this.dataUrl) {
-      let api_url = process.env.API_DOMAIN + this.dataUrl
+  created () {
 
-      this.isLoading = true
-      axios
-        .get(api_url)
-        .then((r) => {
-          console.log(r.data)
-          this.isLoading = false
-          if (r.data && r.data.data) {
-            if (r.data.data.length > this.perPage) {
-              this.paginated = true
-            }
-            this.expansions = r.data.data
-          }
-        })
-        .catch((e) => {
-          this.isLoading = false
-          this.$buefy.toast.open({
-            message: `Error: ${e.message}`,
-            type: 'is-danger'
-          })
-        })
+    //console.log("expansions componenet", this.expansions)
+    if (this.expansions) {
+
+
     }
+  },
+  mounted() {
+    this.updateTableHeight()
   },
   methods: {
-    trashModal (trashObject) {
-      this.trashObject = trashObject
-      this.isModalActive = true
-    },
-    trashConfirm () {
-      this.isModalActive = false
-      this.$buefy.snackbar.open({
-        message: 'Confirmed',
-        queue: false
-      })
-    },
-    trashCancel () {
-      this.isModalActive = false
-    },
+
     makeSetPath(code, path_part){
-      return `/set/${code}/${path_part}/`
+      return `/${this.game}/sets/${code.toLowerCase()}/${path_part}/`
+    },
+    getSetIconClass(set_code){
+      return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-1'
+    },
+    updateTableHeight() {
+      let searchBoxRects = this.$refs.searchBox.getBoundingClientRect();
+
+      let height = window.innerHeight - searchBoxRects.bottom - 50
+      this.tableHeight = height + 'px'
+    }
+
+  },
+  computed: {
+    game() {
+      if(this.$nuxt){
+        const split = this.$nuxt.$route.path.split('/')
+        return split[1];
+      } else {
+        return 'mtg'
+      }
+    },
+    filteredExpansionsList() {
+
+      if(this.search == '') return this.expansions;
+      return this.expansions.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
     }
 
   }

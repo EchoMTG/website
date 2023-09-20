@@ -1,75 +1,42 @@
 <template>
   <span>
 
-      <title-bar :title-stack="titleStack" />
+      <echo-bread-crumbs :data="crumbs" />
       <hero-bar-main />
-
-      <section v-if="$fetchState.pending">
-        Loading Dashboard
-      </section>
-      <section v-else class="section is-main-section">
-
-        <tiles>
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="currency"
-            prefix="$"
-            :number="parseFloat(stats.current_value_market)"
-            :previous-number="parseInt(stats.total_items)"
-            previous-period=" Tracked Items"
-            label="Collection Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="USD"
-            :number="totalCardsValue"
-            prefix="$"
-            :previous-number="parseInt(totalCards)"
-            previous-period="Individual Cards"
-            label="Individual Card Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-primary"
-            icon="usd"
-            :number="parseFloat(stats.sealed_value)"
-            prefix="$"
-            previous-period="Sealed Items"
-            :previous-number="parseInt(stats.total_sealed)"
-            label="Sealed Value"
-          />
-          <card-widget
-            class="tile is-child"
-            type="is-info"
-            icon="usd"
-            :number="stats.change_value"
-
-            previous-period="Last 7 days"
-            suffix="%"
-            label="Performance"
-          />
-
-        </tiles>
-
-        <card-component
-          title="Performance"
-          icon="finance"
-          header-icon="reload"
-          @header-icon-click="fillChartData"
-        >
-          <div v-if="defaultChart.chartData" class="chart-area">
-            <line-chart
-              ref="bigChart"
-              style="height: 100%"
-              chart-id="big-line-chart"
-              :chart-data="defaultChart.chartData"
-              :extra-options="defaultChart.extraOptions"
-            />
+      <div class="has-background-light">
+        <section class="mx-5 my-2">
+          <div class="columns">
+            <div class="column">
+              <invite-friend />
+            </div>
+            <div class="column">
+              <popular-items />
+            </div>
           </div>
-        </card-component>
-      </section>
+        </section>
+
+        <section v-if="$fetchState.pending">
+          Loading Dashboard
+        </section>
+        <section v-else class="mx-5 my-2">
+          <card-component
+            title="Collection Performance History"
+            icon="finance"
+          >
+            <client-only>
+              <div v-if="defaultChart.chartData" class="chart-area">
+                <line-chart
+                  ref="bigChart"
+                  style="height: 100%"
+                  chart-id="big-line-chart"
+                  :chart-data="defaultChart.chartData"
+                  :chart-options="defaultChart.extraOptions"
+                />
+              </div>
+            </client-only>
+          </card-component>
+        </section>
+      </div>
   </span>
 </template>
 <script>
@@ -79,12 +46,15 @@ import TitleBar from '@/components/TitleBar'
 import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
-import LineChart from '@/components/Charts/LineChart'
 import ClientsTableSample from '@/components/ClientsTableSample'
 import HeroBarMain from '@/components/HeroBarMain'
 import CardToolbar from '@/components/CardToolbar'
 import CardScrollable from '@/components/CardScrollable'
 import RefreshButton from '@/components/RefreshButton'
+import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs.vue'
+import PopularItems from '@/components/onboarding/PopularItems.vue'
+import InviteFriend from '@/components/cta/InviteFriend.vue'
+
   export default {
     name: 'UserDashboard',
     components: {
@@ -93,11 +63,13 @@ import RefreshButton from '@/components/RefreshButton'
       CardToolbar,
       HeroBarMain,
       ClientsTableSample,
-      LineChart,
       CardComponent,
       CardWidget,
       Tiles,
-      TitleBar
+      TitleBar,
+      EchoBreadCrumbs,
+      PopularItems,
+      InviteFriend
     },
     data() {
       return {
@@ -119,6 +91,7 @@ import RefreshButton from '@/components/RefreshButton'
         message: 'Welcome back',
         queue: false
       })
+      console.log(this.user)
     },
     head () {
       return {
@@ -131,25 +104,40 @@ import RefreshButton from '@/components/RefreshButton'
       },
       totalCards () {
 
-        return parseInt(this.stats.total_cards)
+        return parseInt(this.quickstats.total_cards)
       },
       totalCardsValue(){
-        let val = parseInt(this.stats.current_value_market) - parseInt(this.stats.sealed_value)
+        let val = parseInt(this.quickstats.current_value) - parseInt(this.quickstats.sealed_value)
         return val
       },
+      crumbs: () => [
+        {
+          url: '/',
+          label: 'Dashboard',
+          icon: ''
+        }
+      ],
+      ...mapState([
+      'isAsideVisible',
+      'isAsideExpanded',
+      'isAsideMobileExpanded',
+      'quickstats',
+      'user',
+      'authenticated'
+      ]),
 
     },
     watch: {
     '$route.query': '$fetch'
     },
     async fetch() {
-
+      const quickstats = await this.$echomtg.inventoryQuickStats();
+      if(quickstats.status == 'success'){
+        this.$store.commit('quickstats',quickstats.stats);
+      }
       let token = this.$cookies.get('token');
-      let url = process.env.API_DOMAIN + 'inventory/quickstats/';
-      url += `?auth=${token}`;
-      this.stats = await fetch(url).then(res => res.json())
-      this.stats = this.stats.stats
-      let historyURL = process.env.API_DOMAIN + `inventory/history/?auth=${token}`;
+
+      let historyURL = this.$config.API_DOMAIN + `inventory/history/?auth=${token}`;
 
       this.history = await fetch(historyURL).then(res => res.json())
       this.fillChartData();
@@ -161,7 +149,7 @@ import RefreshButton from '@/components/RefreshButton'
         let labels = []
         if(this.history.data.length > 0){
           for(var i=0; i < this.history.data.length; i++){
-            labels.push(this.history.data[i].ts)
+            labels.push(this.$moment.unix(this.history.data[i].ts).format("MM/DD/YYYY"))
           }
         }
         return labels;
@@ -193,6 +181,7 @@ import RefreshButton from '@/components/RefreshButton'
               fill: false,
               borderColor: chartConfig.chartColors.default.primary,
               borderWidth: 2,
+              label: 'Market Value',
               borderDash: [],
               borderDashOffset: 0.0,
               pointBackgroundColor: chartConfig.chartColors.default.primary,
@@ -208,6 +197,7 @@ import RefreshButton from '@/components/RefreshButton'
               fill: false,
               borderColor: chartConfig.chartColors.default.info,
               borderWidth: 2,
+              label: 'Purchase Price (Acquired for Value)',
               borderDash: [],
               borderDashOffset: 0.0,
               pointBackgroundColor: chartConfig.chartColors.default.info,

@@ -15,7 +15,7 @@ Behind the scenes of the frontend, I will continue to contribute, upgrade, and o
 
 These command line tools must be installed to run this website on your local machine 
 
-* NodeJS https://nodejs.org/en/
+* NodeJS https://nodejs.org/en/ version 16 
 * NPM https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 * VueJS https://vuejs.org/v2/guide/installation.html
 * Nuxt https://nuxtjs.org/
@@ -29,12 +29,21 @@ These command line tools must be installed to run this website on your local mac
 $ npm install
 
 # 2 ways to serve locally
+
 # Option A: on mac or linux serve with hot reload at localhost:3000
 $ npm run dev
+
+# view output from browser at http://localhost:3000/
+# note for login to work with cookies, edit /etc/hosts to add "nuxt.echomtg.com 127.0.0.1" 
+# to access http://nuxt.echomtg.com:3000/mtg/sets/dom/dominaria/
+
 # Option B: Running docker on WSL (windows)
 $ docker-compose up 
 
 # view output from browser at http://localhost:8080/
+# note for login to work with cookies, edit /etc/hosts to add "nuxt.echomtg.com 127.0.0.1" 
+# to access http://nuxt.echomtg.com:8080/mtg/sets/dom/dominaria/
+
 ```
 
 ### Building for Production
@@ -63,6 +72,18 @@ Search for icons here: https://materialdesignicons.com/ icons listed from "Googl
 ENV values must be mapped in nuxt.config.js
 
 https://nuxtjs.org/tutorials/moving-from-nuxtjs-dotenv-to-runtime-config/
+
+### Client site use
+
+```
+this.$config.ENV_VALUE
+```
+
+### SSR
+
+```
+process.env.ENV_VALUE
+```
 
 
 # Working with NUXT (a VueJS page and routing framework)

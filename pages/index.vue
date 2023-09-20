@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- user dashboard -->
-    <user-dashboard v-if="this.userName" />
+    <user-dashboard v-if="this.authenticated" />
 
     <!-- default homepage -->
-    <default-homepage v-if="!this.userName" />
+    <default-homepage v-if="!this.authenticated" />
 
   </div>
 </template>
@@ -22,16 +22,32 @@ export default {
   },
   data () {
     return {
-      test: null
+      loggedIn: false
     }
   },
-  asyncData({req}) {
-    //console.log('async from index',req)
+  methods: {
+    toggleLoggedIn(){
+      this.loggedIn = !this.loggedIn;
+    }
   },
   computed: {
-    ...mapState([
-      'userName'
-    ])
+
+    ...mapState(['authenticated'])
   },
+  head () {
+      return {
+          title: `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
+          meta: [
+            { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
+            {
+              hid: 'description',
+              name: 'description',
+              content:  `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+            },
+            { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+          ]
+
+      }
+    }
 }
 </script>

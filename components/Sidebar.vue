@@ -11,7 +11,7 @@
                 open
             >
                 <div class="p-1">
-                 
+
                     <b-menu class="is-custom-mobile">
                         <b-menu-list label="Menu">
                             <b-menu-item icon="information-outline" label="Info"></b-menu-item>
@@ -62,10 +62,10 @@
 export default {
   data() {
     return {
-      expandOnHover: false,
+      expandOnHover: true,
       expandWithDelay: false,
       mobile: "reduce",
-      reduce: false
+      reduce: true
     };
   }
 };

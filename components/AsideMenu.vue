@@ -3,18 +3,18 @@
     v-show="isAsideVisible"
     class="aside is-placed-left"
     :class="{
-      'is-expanded': isAsideExpanded || isSecondary,
-      'is-secondary': isSecondary,
+      'is-expanded': isAsideExpanded,
+      'is-secondary': isSecondary
     }"
   >
     <aside-tools :has-close="isSecondary" :icon="icon" @close="close">
-      <span v-if="!isSecondary">
-
+      <nuxt-link to="/">
+        <span v-if="!isSecondary">
             <img class="expanded-logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG Logo">
             <img class="closed-logo" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo">
-
-      </span>
-      <span v-else-if="label">{{ label }}</span>
+        </span>
+        <span v-else-if="label">{{ label }}</span>
+      </nuxt-link>
     </aside-tools>
     <div ref="menuContainer" class="menu-container" @mouseenter="psUpdate">
       <div class="menu is-menu-main">
@@ -23,13 +23,13 @@
             v-if="typeof menuGroup === 'string'"
             :key="index"
             class="menu-label"
+
           >
             {{ menuGroup }}
           </p>
           <aside-menu-list
             v-else
             :key="index"
-            :is-secondary="isSecondary"
             :menu="menuGroup"
             @menu-click="menuClick"
 
@@ -77,13 +77,16 @@ export default {
   computed: mapState([
     'isAsideVisible',
     'isAsideExpanded',
-    'isAsideMobileExpanded'
+    'isAsideMobileExpanded',
+    'authenticated'
   ]),
   mounted () {
     this.ps = new PerfectScrollbar(this.$refs.menuContainer)
   },
   methods: {
     menuClick (item) {
+
+
       this.$emit('menu-click', item)
     },
     psUpdate () {

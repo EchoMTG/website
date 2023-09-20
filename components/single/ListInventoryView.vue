@@ -4,14 +4,14 @@
         <div class="column is-half content">
           <h2 class="title">Completion Info</h2>
           <p><strong class="tag">{{percentageComplete}}% complete</strong> compared to your inventory which shows you have <strong>{{list.total_cards_on_hand}}</strong> of <strong>{{list.total_cards}}</strong> in you inventory.</p>
-          <p><strong class="tag">{{cardsToComplete}}</strong> cards need to be collected to complete this list.</p> 
+          <p><strong class="tag">{{cardsToComplete}}</strong> cards need to be collected to complete this list.</p>
         </div>
         <div class="column is-half content">
             <h2>Cost to Complete</h2>
             <p><strong class="tag">{{list.currency_symbol}}{{list.cost_to_finish_low}}-{{list.currency_symbol}}{{list.cost_to_finish}}</strong> is the estimated cost to complete this list.</p>
             <a :href="buyAllFromTCGplayer" target="_blank" class="button is-success">Buy Missing From TCGPlayer</a>
             <a :href="buyAllFromCardKingdom" target="_blank" class="button is-info">Buy Missing From CardKingdom</a>
-            
+
         </div>
     </div>
     <div class="card" style="margin-top: 20px;">
@@ -25,12 +25,12 @@
                 <thead>
                     <tr>
                         <td v-for="(title, index) in tableHeaders" :key="`title-item-index-${index}`"><span>{{title}}</span></td>
-                    </tr>                        
+                    </tr>
                 </thead>
                 <tbody>
                   <template v-for="(card, index) in list.card_list">
                     <tr :key="`card-item-${index}`">
-                        <td><a :href="card.echo_url">{{card.name}}</a>[<a :href="card.echo_set_url">{{card.set_code}}</a>]</td>
+                        <td><a :href="card.echo_url.replace('https://www.echomtg.com','')">{{card.name}}</a>[<a :href="card.echo_set_url">{{card.set_code}}</a>]</td>
                         <td v-if="card.tcg_low > 0">{{list.currency_symbol}}{{card.tcg_low}}-{{list.currency_symbol}}{{card.tcg_mid}}</td>
                         <td v-else class="is-size-7 is-light">N/A</td>
                         <td v-if="card.foil_price > 0">{{list.currency_symbol}}{{card.foil_price}}</td>
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-const api_url = process.env.API_DOMAIN;
+
 export default {
   props: ['list'],
   data: function () {
@@ -65,7 +65,7 @@ export default {
     addToInventory: function (mid, foil = 0) {
       let $this = this
       let token = this.$cookies.get('token');
-      let endpoint = `${api_url}inventory/add/?auth=${token}`
+      let endpoint = `${this.$config.API_DOMAIN}inventory/add/?auth=${token}`
       let bodyFormData = new FormData()
       bodyFormData.set('mid', mid)
       if (foil != 0) {
@@ -78,8 +78,9 @@ export default {
         data: bodyFormData,
         config: { headers: { 'Content-Type': 'multipart/form-data' } },
       }).then(function (response) {
+        console.log(response)
         $this.$parent.updateStatus()
-        createGrowl(' Added to Inventory public ')
+        createGrowl(' Added to Inventory')
       })
     },
 

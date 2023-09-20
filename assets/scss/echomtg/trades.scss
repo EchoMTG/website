@@ -1,0 +1,21 @@
+.tradeThumbnail {
+  height: 40px;
+  border-radius: 5px;
+
+}
+
+.proposal{
+  position: sticky;
+  top: 60px;
+}
+.tradelistTable{
+  tr {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.tradeProposalList {
+  white-space: pre;
+}

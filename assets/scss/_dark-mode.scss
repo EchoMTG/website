@@ -75,6 +75,17 @@ html {
     .select select:focus, .textarea:focus, .input:focus, .taginput .taginput-container.is-focusable:focus, .select select.is-focused, .is-focused.textarea, .is-focused.input, .taginput .is-focused.taginput-container.is-focusable, .select select:active, .textarea:active, .input:active, .taginput .taginput-container.is-focusable:active, .select select.is-active, .is-active.textarea, .is-active.input, .taginput .is-active.taginput-container.is-focusable {
       border-color: $cyan;
     }
+    .tag.is-dark {
+      background: $black !important;
+      color: white !important;
+    }
+    .has-text-warning-dark{
+      color: $warning !important;
+    }
+
+    .filterBar.has-background-white {
+      background: $black !important;
+    }
 
     .radio, .checkbox {
       &:hover {
@@ -163,8 +174,30 @@ html {
           color: $state-color;
         }
       }
+      &.is-dark {
+        background-color: $white;
+        border: none;
+        color: $black;
+      }
     }
 
+    .is-dark {
+      background-color: $white;
+      border: none;
+      color: $black;
+    }
+    .has-text-black{
+      color: white !important;
+    }
+
+    .is-light {
+      background-color: rgba($black, 0.25);
+      border: none;
+      color: $white;
+    }
+    .has-background-light,  .message{
+      background-color: rgba($black, 0.25) !important;
+    }
     .table {
       background-color: transparent;
       color: $dark-mode-color;
@@ -177,6 +210,10 @@ html {
 
       td, th {
         border-color: $dark-mode-light-border-color;
+
+      }
+      th {
+        background: $black !important;
       }
 
       &.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
@@ -241,9 +278,10 @@ html {
       border-color: $dark-mode-light-border-color;
     }
 
+
+
     nav.navbar {
-      background-color: $dark-mode-background-color;
-      box-shadow: 0 1px $dark-mode-light-border-color;
+      background-color: $white;
 
       .navbar-item {
         color: $dark-mode-link-color;
@@ -261,7 +299,7 @@ html {
         }
 
         &.has-divider {
-          border-color: $dark-mode-light-border-color;
+          border-color: transparent !important;
         }
 
         &.is-active {
@@ -279,7 +317,7 @@ html {
     }
 
     aside.aside {
-      background-color: $dark-mode-background-color;
+      background-color: $black;
       box-shadow: 1px 0 $dark-mode-light-border-color!important;
 
       .aside-tools {

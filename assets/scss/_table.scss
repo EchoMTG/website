@@ -6,10 +6,10 @@ table.table {
   }
 
   td,th {
-    .image {
-      width: $table-avatar-size;
-      height: $table-avatar-size;
-    }
+    // .image {
+    //   width: $table-avatar-size;
+    //   height: $table-avatar-size;
+    // }
 
     &.is-progress-col {
       min-width: 5rem;
