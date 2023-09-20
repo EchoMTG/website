@@ -129,33 +129,23 @@ export default {
     }
   },
   async fetch(){
-    this.fetchSealedData();
+    await this.fetchSealedData();
   },
   methods: {
-    fetchSealedData(){
+    async fetchSealedData(){
       if(!this.authenticated) return;
 
       let token = this.$cookies.get('token');
       let url = `${this.$config.API_DOMAIN}/inventory/view/?start=${this.start}&limit=${this.limit}&auth=${token}&set_code=`
       // get only inventory with PACK and SEAL as the sets
       // get it all here, not pagination
-      fetch(url + 'PACK')
-        .then((response) => response.json())
-        .then((data) => {
-          this.sealed = [...data.items]
-          fetch(url + 'SEAL')
-            .then((response) => response.json())
-            .then((data) => {
-              this.sealed = [...this.sealed, ...data.items]
+      const packRes = await fetch(url + 'PACK');
+      const packData = await packRes.json();
+      console.log('pack data', packData)
+      const sealRes = await fetch(url + 'SEAL');
+      const sealData = await sealRes.json();
+      this.sealed = [...packData.items, ...sealData.items]
 
-            })
-            .catch(function (error) {
-              console.log(error)
-            })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
     },
     searchFilter(q) {
       this.search = q
