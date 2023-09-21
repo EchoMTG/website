@@ -5,13 +5,13 @@
         <b-field>
           <div class="control">
               <label class="label has-text-grey">User handle</label>
-            <b-input custom-class="has-backgorund-white" placeholder="User handle (custom validation for only lowercase)"
+            <b-input custom-class="has-ground-white" placeholder="User handle "
               type="text"
               required
                icon="account"
                v-model="username"
-              validation-message="Only lowercase is allowed"
-              pattern="[a-z]*">
+              validation-message="Minimum 3 letters, no spaces"
+              pattern="[a-zA-Z0-9]{3}">
             </b-input>
             </div>
         </b-field>
@@ -19,26 +19,37 @@
         <b-field>
            <div class="control has-icons-left">
               <label class="label has-text-grey">Email Address</label>
-              <b-input v-model="email" placeholder="Email" custom-class="has-backgorund-white" icon="email-outline" type="email"></b-input>
+              <b-input
+                v-model="email"
+                placeholder="your@email.com"
+                custom-class="has-backgorund-white"
+                icon="email-outline"
+                type="email"
+                validation-message="Valid email required."
+                pattern="(.*?)@[a-zA-Z0-9-]*\.[a-zA-Z0-9-]{2,9}"
+              ></b-input>
             </div>
         </b-field>
-        <b-field>
-          <div class="control">
-              <label class="label has-text-grey">Password</label>
 
-            <b-input type="password"
-                placeholder="Password"
-                v-model="password"
+
+          <b-field
+              label=" Password"
+              icon="lock"
+              :type="passwordType"
+              message="Minimum 6 characters. 1 number, 1 lowercase or uppercase."
+              >
+              <b-input
                 icon="form-textbox-password"
-                password-reveal>
-            </b-input>
-            <p class="help has-text-grey-lighter">Must contain one letter, one number, and be at least 6 characters.</p>
-            </div>
-        </b-field>
+                password-reveal
+                type="password"
+
+                v-model="password" />
+            </b-field>
+
         <b-field>
             <div class="control">
             <b-button
-
+              :disabled="!active"
               @click="registerUser"
               icon-left="account-plus"
               class="button is-primary mythic-background">
@@ -70,14 +81,27 @@ export default {
     return {
       email: '',
       username: '',
-      password: ''
+      password: '',
+      active: false
     }
   },
   computed: {
     ...mapState([
       'user',
       'authenticated'
-    ])
+    ]),
+    passwordType(){
+      if(this.password == '') return ''
+      return this.passwordCheck(this.password) ? 'is-success' : 'is-danger'
+    },
+  },
+  watch: {
+    password() {
+      this.active = this.passwordCheck(this.password) ? true : false;
+    },
+    username() {
+      return this.username.length > 2
+    }
   },
   props: {
     classes: {
@@ -89,6 +113,9 @@ export default {
     }
   },
   methods: {
+    passwordCheck(password){
+      return (/\d/.test(password) && /[a-zA-Z]/.test(password) && password.length >= 6) ? true : false
+    },
     async registerUser(){
       const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
 

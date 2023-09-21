@@ -657,6 +657,21 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
 
+  echomtg.userChangePassword = async (new_password, current_password) => {
+    let url = `${context.app.$config.API_DOMAIN}user/change_password/`;
+    const payload = {
+      new_password : new_password,
+      current_password : current_password
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
+
   echomtg.userUpdatePasswordWithHash = async (password, reset_token) => {
     let url = `${context.app.$config.API_DOMAIN}user/reset_password/`;
     const payload = {
