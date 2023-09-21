@@ -95,7 +95,12 @@ export default {
   },
   methods: {
     async updatePassword() {
-      alert('hello')
+      const res = await this.$echomtg.userChangePassword(this.new_password, this.current_password)
+      this.$buefy.toast.open({
+        message: `${res.message}`,
+        type: 'is-success'
+      })
+
     },
     passwordCheck(password){
       return (/\d/.test(password) && /[a-zA-Z]/.test(password) && this.new_password.length >= 6) ? true : false
