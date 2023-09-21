@@ -19,6 +19,8 @@
     "@nuxtjs/markdownit": "^2.0.0",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/robots": "^2.5.0",
+    "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.27.2",
     "chart.js": "^3.7.0",
     "chartjs-adapter-moment": "^1.0.1",

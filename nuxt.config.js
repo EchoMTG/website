@@ -65,6 +65,7 @@ export default {
     // https://www.npmjs.com/package/cookie-universal-nuxt
     'cookie-universal-nuxt',
     '@nuxtjs/markdownit',
+    '@nuxtjs/sitemap',
     ['vue-social-sharing/nuxt', {
       networks: {
         x: 'https://twitter.com/intent/tweet?url=@url&text=@title'
@@ -77,6 +78,16 @@ export default {
   axios: {},
   markdownit: {
     runtime: true
+  },
+  sitemap: {
+    hostname: 'https://www.echomtg.com',
+    gzip: true,
+    exclude: [
+      '/user',
+      '/user/**',
+      '/admin/**',
+      '/wiki/**'
+    ],
   },
   gtm: {
     id: 'GTM-5S54B96'

@@ -67,7 +67,7 @@ export default {
   },
   async asyncData({req, $echomtg, $moment}) {
     // get sets, filter by release date > current date
-    const sets = await $echomtg.getSets();
+    const sets = await $echomtg.getSets(71);
     const recentSets = sets.filter(set => $moment(set.release_date,['YYYY-MM-DD','YYYY-DD-MM']).format('x') > Date.now())
     // get cards from each set
     let setData = {}
