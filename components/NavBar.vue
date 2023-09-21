@@ -59,20 +59,21 @@
 
         <nuxt-link
             to="/blog/"
-            class="navbar-item pl-0 ml-0"
+            class="navbar-item pl-0 ml-0 "
             exact-active-class="is-active"
           >
           <span>Articles</span>
         </nuxt-link>
-      <a
+        <div class="navbar-item has-divider pl-2 ml-0 mr-0 pr-2">
+        <a
             href="https://legacy.echomtg.com"
             rel="nofollow"
-            class="navbar-item has-divider mr-0 pr-1 has-text-danger"
-            exact-active-class="is-active"
+            class="button is-small is-danger"
             aria-label="Goto the Legecy Website"
           >
-          <b-icon icon="exit"/> Legacy Website
+          Legacy Website
         </a>
+        </div>
 
         <nuxt-link
             to="/help/report-bug/"
