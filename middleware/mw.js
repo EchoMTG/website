@@ -39,6 +39,10 @@ export default function ({route,redirect}) {
 
     // help and support
     if(route.path == '/about/updates-roadmap/') return redirect(`/about/roadmap/`);
+    if(route.path == '/privacy/') return redirect(`/legal/privacy-policy/`);
+    if(route.path == '/terms/') return redirect(`/legal/terms-and-conditions/`);
+
+    //
 
 
     // blog
