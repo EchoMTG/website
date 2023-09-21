@@ -256,8 +256,8 @@
             </span>
           </b-table-column>
           <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="personal_gain" label="Gain/Loss" numeric sortable centered v-slot="props">
-            <span v-if="props.row.personal_gain" class="tag" :class="type(props.row.personal_gain)">
-              {{ props.row.personal_gain }}%
+            <span v-if="props.row.gain" class="tag" :class="type(props.row.gain)">
+              {{ props.row.gain }}%
             </span>
           </b-table-column>
           <b-table-column field="price_acquired" :label="`Purchase ${cs}`" numeric sortable centered>
