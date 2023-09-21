@@ -98,7 +98,7 @@ export default {
     },
     async addToEarnings() {
 
-      await this.$echomtg.earningsAdd(this.inventory_item.emid,this.acquired_price,this.sold_price,this.inventory_item);
+      await this.$echomtg.earningsAdd(this.inventory_item.emid,this.acquired_price,this.sold_price,this.inventory_item.foil);
       this.isCardModalActive = false;
       if(this.callback){
         this.callback()
