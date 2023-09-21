@@ -64,6 +64,15 @@
           >
           <span>Articles</span>
         </nuxt-link>
+      <a
+            href="https://legacy.echomtg.com"
+            rel="nofollow"
+            class="navbar-item has-divider mr-0 pr-1 has-text-danger"
+            exact-active-class="is-active"
+            aria-label="Goto the Legecy Website"
+          >
+          <b-icon icon="exit"/> Legacy Website
+        </a>
 
         <nuxt-link
             to="/help/report-bug/"
