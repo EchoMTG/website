@@ -7,10 +7,10 @@
         <section class="mx-5 my-2">
           <div class="columns">
             <div class="column">
-              <invite-friend />
+              <popular-items />
             </div>
             <div class="column">
-              <popular-items />
+              <invite-friend />
             </div>
           </div>
         </section>
