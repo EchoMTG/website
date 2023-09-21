@@ -75,6 +75,8 @@
 
       </tiles>
     </div>
+
+
   </div>
 
 </template>
@@ -87,6 +89,7 @@
 import Tiles from '@/components/Tiles'
 import PromotionCardWidget from '@/components/marketing/PromotionCardWidget'
 import UserSignUpForm from '@/components/user/UserSignUpForm'
+import FooterBar from './FooterBar.vue'
 
 export default {
   name: 'DefaultHomepage',
@@ -98,7 +101,8 @@ export default {
   components: {
       Tiles,
       UserSignUpForm,
-      PromotionCardWidget
+      PromotionCardWidget,
+      FooterBar
     },
   props: {
     icon: {

@@ -10,7 +10,7 @@
     <nuxt />
     <!-- <aside-right /> -->
     <!-- <config-box /> -->
-    <!-- <footer-bar /> -->
+    <footer-bar />
     <overlay @overlay-click="overlayClick" />
   </div>
 </template>
