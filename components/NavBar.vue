@@ -16,7 +16,18 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
 
-
+        <div class="px-3 pt-2 navbar-item is-hidden-tablet">
+          <router-link to="/login/"
+              class="  is-fullwidth button is-secondary"
+              title="Login"
+            >
+            <b-icon icon="login" custom-size="default" />
+            <span>Login</span>
+          </router-link>
+        </div>
+        <div class="px-3 pt-2 navbar-item is-hidden-tablet">
+           <create-account-modal size="default" label="Free Account" />
+        </div>
 
         <nav-bar-menu class="navbar-item pr-1 mr-0">
 
@@ -53,14 +64,15 @@
             </nuxt-link>
           </div>
         </nav-bar-menu>
-
-        <nuxt-link
-            to="/blog/"
-            class="navbar-item pl-0 ml-0 "
-            exact-active-class="is-active"
-          >
-          <span>Articles</span>
-        </nuxt-link>
+        <div class="navbar-item pl-0 ml-0 ">
+          <nuxt-link
+              to="/blog/"
+              class="navbar-item "
+              exact-active-class="is-active"
+            >
+            <span>Articles</span>
+          </nuxt-link>
+        </div>
         <div class="navbar-item has-divider pl-2 ml-0 mr-0 pr-2">
         <a
             href="https://legacy.echomtg.com"

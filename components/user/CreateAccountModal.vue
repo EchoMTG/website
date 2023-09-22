@@ -4,6 +4,7 @@
             :icon-left="icon"
             :label="label"
             type="is-primary"
+            class="is-fullwidth"
             :size="size"
             :class="`mythic-background ${classes}`"
             @click="isComponentModalActive = true" />
@@ -32,7 +33,7 @@
          props: {
           label: {
             type: String,
-            default: 'Create Free Account'
+            default: 'Start a Free Account'
           },
           classes: {
             type: String,

@@ -18,3 +18,15 @@
         display: none;
     }
 }
+
+.has-aside-mobile-expanded .aside {
+  .expanded-logo {
+    display: block !important;
+    width: 85% !important;
+    margin-left: 5px !important;
+    margin-top: 10px !important;
+  }
+  .closed-logo{
+      display: none;
+  }
+}

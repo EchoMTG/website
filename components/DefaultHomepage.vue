@@ -9,34 +9,35 @@
       </div> -->
       <div class="columns is-gapless">
         <div class="column is-7 ">
-          <div class="pt-6 pl-6 pr-3">
+          <div class="pt-5 pl-5 pr-3 ">
             <div class="echo-header-text">
-              <h1 class="title is-1 has-text-white has-text-weight-light">Data-Driven Trading Card Collection Tools</h1>
-              <p class="subtitle has-text-grey-light has-shadow is-4">Free membership gives you access to digital binder collection tools, user-only pricing features, and community access.</p>
-              <b-menu>
-                <b-menu-list label="Tools you Need for Success">
-                  <b-menu-item icon="email-outline" label="Weekly Email Reports"></b-menu-item>
-                  <b-menu-item icon="upload-multiple" label="Daily Price Updates"></b-menu-item>
-                  <b-menu-item icon="card-multiple-outline" label="Multiple Collection Apps"></b-menu-item>
-                  <b-menu-item icon="briefcase-arrow-left-right-outline" label="Public Tradelist"></b-menu-item>
-                  <b-menu-item icon="forum" label="Community Updates"></b-menu-item>
-
-                </b-menu-list>
-              </b-menu>
+              <h1 class="title  has-text-white has-text-weight-light is-size-1-tablet is-size-3-mobile">Data-Driven Trading Card Collection Tools by EchoMTG</h1>
+              <p class="subtitle has-text-grey-light has-shadow is-size-4-tablet is-size-6-mobile">Free membership starts with collection tools, user-only pricing, and weekly asset tracking. It makes collecting fun!</p>
+              <div class="columns is-mobile">
+                  <div class="column">
+                    <p class="has-text-white"><b-icon class="mr-2" icon="email-outline"/>Weekly Email Reports</p>
+                    <p class="has-text-white"><b-icon class="mr-2" icon="card-multiple-outline"/>Multiple Apps</p>
+                    <p class="has-text-white"><b-icon class="mr-2" icon="comment-text-multiple-outline"/>TCG Community</p>
+                  </div>
+                  <div class="column">
+                    <p class="has-text-white"><b-icon class="mr-2" icon="upload-multiple"/> Daily Price Updates</p>
+                    <p class="has-text-white"><b-icon class="mr-2" icon="chart-areaspline"/> Asset Tracking</p>
+                    <p class="has-text-white"><b-icon class="mr-2" icon="handshake"/>Public Tradelist</p>
+                  </div>
+              </div>
 
             </div>
           </div>
-
         </div>
         <div class="column is-5">
-          <UserSignUpForm classes="mt-5 mr-5 signup-hero-background"  />
+          <UserSignUpForm classes="mt-5  signup-hero-background"  />
         </div>
       </div>
-      <section class="py-6 has-background-black">
+      <section class="py-3 has-background-black">
         <div class="level">
 
           <div class="level-item has-text-centered">
-            <h3 class="title is-3 mb-0 has-text-weight-normal has-text-white"><span class="has-text-weight-bold">EchoMTG</span> is Proudly Tracking Over <span class="has-text-success has-text-weight-bold">${{millions}} Million</span> in Player Inventory</h3>
+            <h3 class="title is-size-3-tablet is-size-4-mobile mb-0 has-text-weight-normal has-text-white"><span class="has-text-weight-bold">EchoMTG</span> is Proudly Tracking Over <span class="has-text-success has-text-weight-bold">${{millions}} Million</span> in Player Inventory</h3>
           </div>
 
         </div>
