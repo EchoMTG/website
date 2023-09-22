@@ -6853,8 +6853,36 @@ export default {
 				{
 					"name": "Super: Latest Signups",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "localhost/api/super/latest_signups/?days=2",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"super",
+								"latest_signups",
+								""
+							],
+							"query": [
+								{
+									"key": "days",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				}
