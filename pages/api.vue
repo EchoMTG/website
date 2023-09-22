@@ -64,13 +64,13 @@
 
 
       <div class="is-relative" v-for="(doc,index) in this.docs" v-bind:key="`doc${index}`" >
-        <span :id="getSubDocID(doc.name)" style="position: absolute; width:1px; height: 1px; top: -155px;"></span>
-        <div class="container mb-4" v-if="filterAPIDocs(doc.item) && filterAPIDocs(doc.item).length > 0 && search == ''" >
+        <span v-if="doc.name != 'Super'" :id="getSubDocID(doc.name)" style="position: absolute; width:1px; height: 1px; top: -155px;"></span>
+        <div class="container mb-4" v-if="filterAPIDocs(doc.item) && filterAPIDocs(doc.item).length > 0 && search == '' && doc.name != 'Super'" >
           <h2 class="title is-size-3 mb-2" >{{doc.name}}</h2>
           <div v-if="doc.description" v-html="$md.render(doc.description)"></div>
         </div>
 
-        <div v-if="Array.isArray(doc.item) && doc.item.length > 0">
+        <div v-if="Array.isArray(doc.item) && doc.item.length > 0 && doc.name != 'Super'">
           <div
             v-for="(subdoc,index) in filterAPIDocs(doc.item)"
             v-bind:key="`docsub${index}`"

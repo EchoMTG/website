@@ -204,7 +204,6 @@
         @sort="onSort"
         striped
         :mobile-cards="false"
-
         detailed
         custom-detail-row
         @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
@@ -439,6 +438,14 @@ export default {
   watch: {
     search() {
       clearTimeout(this.debounce)
+      this.sortOrder = 'asc';
+      this.defaultSortOrder = 'asc';
+      this.sortField = 'name';
+      if(this.search == ''){
+        this.sortOrder = 'desc';
+        this.defaultSortOrder = 'desc';
+        this.sortField = 'date_acquired';
+      }
       this.debounce = setTimeout(() => {
         this.$fetch();
       }, 600)

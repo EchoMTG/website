@@ -1866,9 +1866,12 @@ export default {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/inventory/view/?start=0&limit=250&search=snap",
+							"raw": "https://api.echomtg.com/api/inventory/view/?start=0&limit=250",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"api",
+								"echomtg",
+								"com"
 							],
 							"path": [
 								"api",
@@ -1884,10 +1887,6 @@ export default {
 								{
 									"key": "limit",
 									"value": "250"
-								},
-								{
-									"key": "search",
-									"value": "snap"
 								}
 							]
 						},
@@ -6847,6 +6846,47 @@ export default {
 				}
 			],
 			"description": "Custom collection of item data."
+		},
+		{
+			"name": "Super",
+			"item": [
+				{
+					"name": "Super: Latest Signups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/super/latest_signups/?days=2",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"super",
+								"latest_signups",
+								""
+							],
+							"query": [
+								{
+									"key": "days",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
