@@ -5,37 +5,37 @@
       image="https://assets.echomtg.com/images/product/collection-app-2023.png"
     v-if="!authenticated"/>
     <span v-if="authenticated">
-      <section class="hero is-small has-background-black has-text-white is-hidden-mobile">
-        <div class="hero-body">
+      <section class="has-background-black has-text-white ">
 
-          <div class="columns">
+
+          <div class="columns mt-1">
             <div class="column  is-three-quarters">
-              <nav class="level">
+              <nav class="level is-mobile">
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Items Tracked</p>
-                    <p class="title has-text-light">{{quickstats.total_items}}</p>
+                    <p class="heading is-size-7-mobile">Items Tracked</p>
+                    <p class="title has-text-light is-size-4-mobile">{{quickstats.total_items}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">{{getDate()}} Value</p>
-                    <p class="title has-text-light">{{cs}}{{quickstats.current_value}}</p>
+                    <p class="heading is-size-7-mobile">{{getDate()}} Value</p>
+                    <p class="title has-text-light is-size-4-mobile">{{cs}}{{quickstats.current_value}}</p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div class="level-item has-text-centered is-hidden-mobile">
                   <div>
-                    <p class="heading">Purchase Cost</p>
+                    <p class="heading is-size-7-mobile">Purchase Cost</p>
                     <p class="title has-text-light">{{cs}}{{quickstats.acquired_value}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">All-time Gain/Loss</p>
-                    <p class="title has-text-light"><span :class="quickstats.change_value >= 0 ? `has-text-success-dark` : `has-text-danger-dark`">{{quickstats.change_value}}%</span></p>
+                    <p class="heading is-size-7-mobile">All-time Gain/Loss</p>
+                    <p class="title has-text-light is-size-4-mobile"><span :class="quickstats.change_value >= 0 ? `has-text-success-dark` : `has-text-danger-dark`">{{quickstats.change_value}}%</span></p>
                   </div>
                 </div>
-                <div class="level-item has-text-centered">
+                <div class="level-item has-text-centered is-hidden-mobile">
                   <div>
                     <p class="heading">Profit/Loss</p>
                     <p class="title has-text-light"><span>{{cs}}{{quickstats.total_profit}}</span></p>
@@ -43,17 +43,15 @@
                 </div>
               </nav>
             </div>
-            <div class="column is-one-quarter">
+            <div class="column is-one-quarter is-hidden-mobile">
               <div class="is-flex is-flex-direction-row-reverse">
 
                 <export-dropdown class="is-align-items-end"  />
                 <b-button size="is-small" class="mr-2" href="/apps/import/" type="is-primary" icon-left="table-arrow-down">Import CSV</b-button>
               </div>
             </div>
-          </div>
-
         </div>
-        <nav class="level p-2">
+        <nav class="level is-mobile p-2">
           <div class="level-left">
             <b-input
                 placeholder="Search Inventory..."
@@ -85,7 +83,7 @@
             </b-dropdown>
           </div>
           <div class="level-right">
-            <b-field class="level-item" style="margin-bottom: 0 !important;">
+            <b-field class="level-item is-hidden-mobile" style="margin-bottom: 0 !important;">
               <p class="control">
                   <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
                     <strong>{{cs}} &gt;</strong>
@@ -99,7 +97,7 @@
                 />
             </b-field>
 
-            <b-field class="level-item" style="margin-bottom: 0 !important;">
+            <b-field class="level-item is-hidden-mobile" style="margin-bottom: 0 !important;">
               <p class="control">
                   <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
                     <strong>{{cs}} &lt;</strong>
@@ -120,7 +118,7 @@
                 <option value="1">Only Tradable</option>
             </b-select>
 
-            <b-select class="level-item"  placeholder="Color" size="is-small" v-model="color">
+            <b-select class="level-item is-hidden-mobile"  placeholder="Color" size="is-small" v-model="color">
               <option selected="selected" value="">By Color</option>
               <option disabled="disabled">----</option>
               <option data-color="All" value="">All</option>
@@ -134,7 +132,7 @@
               <option data-color="Multicolor" value="multicolor">Multicolor</option>
             </b-select>
 
-            <b-select class="level-item"  placeholder="Rarity" size="is-small" v-model="rarity">
+            <b-select class="level-item  is-hidden-mobile"  placeholder="Rarity" size="is-small" v-model="rarity">
                 <option selected="selected" value="" disabled="disabled">By Rarity</option>
                 <option value="false">All</option>
                 <option value="sealed">Sealed</option>
@@ -204,7 +202,7 @@
         @sort="onSort"
         striped
         :mobile-cards="false"
-        detailed
+        :detailed="$device.isDesktop ? true : false"
         custom-detail-row
         @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
         :show-detail-icon="$device.isDesktop ? true : false"
@@ -216,8 +214,17 @@
         >
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
-              <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
-              <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
+            <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
+            <div class="is-hidden-desktop">
+              <note-button :inventory_item="props.row" :callback="$fetch"/>
+              <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
+              <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
+
+              <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
+              <duplicate-button :copy="props.row" :callback="$fetch" />
+              <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+
+            </div>
           </b-table-column>
           <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
             <div class="is-flex	is-justify-content-space-between		">
@@ -230,6 +237,7 @@
 
           <!-- Mobile Version Combined Price Data -->
           <b-table-column cell-class="is-hidden-desktop" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
+
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row.foil_price}}
             </span>
@@ -264,41 +272,42 @@
               <div class="is-hidden-touch">
                 {{column.label}}
               </div>
-              <div class="is-hidden-desktop-only is-hidden-widescreen">
+              <div class="is-hidden-mobile is-hidden-desktop-only is-hidden-widescreen">
                 <span class="is-hidden-mobile">Purchase</span> <b-icon size="is-small" icon="currency-usd"/>
               </div>
             </template>
             <template v-slot="props">
-              <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
+              <price-acquired-input class="is-hidden-mobile"  :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
             </template>
           </b-table-column>
-          <b-table-column field="date_acquired" label="Purchase Date" date sortable centered>
+          <b-table-column class="is-hidden-touch" field="date_acquired" label="Purchase Date" date sortable centered>
             <template v-slot:header="{ column }">
-              <div class="is-hidden-touch">
+              <div class="is-hidden-touch" >
                 {{column.label}}
               </div>
-              <div class="is-hidden-desktop-only is-hidden-widescreen">
+              <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen">
                 <span class="is-hidden-mobile">Purchase</span> <b-icon size="is-small" icon="calendar"/>
               </div>
             </template>
             <template v-slot="props">
-              <date-acquired-input :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
+              <date-acquired-input class="is-hidden-touch" :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
             </template>
           </b-table-column>
 
-          <b-table-column label="Bulk Action">
+          <b-table-column  label="Bulk Action">
             <template v-slot:header="{ column }">
 
             </template>
-            <template v-slot="props">
+            <template  v-slot="props">
+              <div class="is-hidden-touch">
+                <note-button :inventory_item="props.row" :callback="$fetch"/>
+                <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
+                <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
 
-              <note-button :inventory_item="props.row" :callback="$fetch"/>
-              <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
-              <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
-
-              <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
-              <duplicate-button :copy="props.row" :callback="$fetch" />
-              <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+                <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
+                <duplicate-button :copy="props.row" :callback="$fetch" />
+                <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+              </div>
             </template>
           </b-table-column>
 
@@ -610,7 +619,7 @@ export default {
       this.updateTableHeight()
     },
     getDate(){
-      return this.$moment(new Date(), "MMM Do YY");
+      return this.$moment().format("MMM D YYYY");
     }
   },
 
