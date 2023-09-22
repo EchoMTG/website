@@ -9,9 +9,6 @@
       <global-search showimage showinventorybuttons />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
-      <a class="navbar-item navbar-item-menu-toggle" @click.prevent="updatesToggle">
-        <b-icon icon="bell" custom-size="default" />
-      </a>
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="menuNavBarToggle">
         <b-icon :icon="menuNavBarToggleIcon" custom-size="default" />
       </a>
@@ -138,7 +135,7 @@
               <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
           </b-taglist>
         </div>
-<nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
+        <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
             <span>{{ user.username }}</span>
@@ -270,7 +267,7 @@ export default {
       return [...this.sets.slice(0,5)];
     },
     menuNavBarToggleIcon () {
-      return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
+      return this.isMenuNavBarActive ? 'close' : 'menu'
     },
 
     // this is the navboor icon to toggle asisde left nd eight
