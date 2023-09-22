@@ -16,7 +16,7 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
 
-        <div class="px-3 pt-2 navbar-item is-hidden-tablet">
+        <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
           <router-link to="/login/"
               class="  is-fullwidth button is-secondary"
               title="Login"
@@ -25,7 +25,7 @@
             <span>Login</span>
           </router-link>
         </div>
-        <div class="px-3 pt-2 navbar-item is-hidden-tablet">
+        <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
            <create-account-modal size="default" label="Free Account" />
         </div>
 

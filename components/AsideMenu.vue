@@ -18,7 +18,7 @@
       </nuxt-link>
     </aside-tools>
     <div ref="menuContainer" class="menu-container" @mouseenter="psUpdate">
-      <div class="px-3 pt-2 is-hidden-tablet">
+      <div v-if="!authenticated" class="px-3 pt-2 is-hidden-tablet">
        <router-link to="/login/"
           class="  is-fullwidth button is-secondary"
           title="Login"
