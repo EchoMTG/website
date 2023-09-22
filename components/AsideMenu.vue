@@ -12,11 +12,21 @@
         <span v-if="!isSecondary">
             <img class="expanded-logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG Logo">
             <img class="closed-logo" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo">
+
         </span>
         <span v-else-if="label">{{ label }}</span>
       </nuxt-link>
     </aside-tools>
     <div ref="menuContainer" class="menu-container" @mouseenter="psUpdate">
+      <div v-if="!authenticated" class="px-3 pt-2 is-hidden-tablet">
+       <router-link to="/login/"
+          class="  is-fullwidth button is-secondary"
+          title="Login"
+        >
+          <b-icon icon="login" custom-size="default" />
+          <span>Login</span>
+        </router-link>
+      </div>
       <div class="menu is-menu-main">
         <template v-for="(menuGroup, index) in menu">
           <p

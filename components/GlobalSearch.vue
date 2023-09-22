@@ -19,7 +19,7 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </p>
-                                <p class="control m-0">
+                                <p class="control m-0" v-if="search.length > 0">
                                      <button tabindex="-1" class="button is-small is-outlined clear-button" @click="clearSearch()">
                                           <span class="icon">
                                              <i class="fa fa-times-circle-o"></i>
@@ -35,7 +35,7 @@
 
                     </div>
                     <div class="control inside-button">
-                        <button class="button is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
+                        <button class="button is-hidden-mobile  is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
                             <span class="icon">
@@ -46,7 +46,7 @@
                 </header>
                 <div  class="card-content">
                     <!-- how to message -->
-                    <div class="advancedSearchOptions" ref="advancedSearchOptions">
+                    <div class="advancedSearchOptions is-hidden-mobile"  ref="advancedSearchOptions">
                         <div class="container">
                             <div class="columns">
                                 <div class="column">

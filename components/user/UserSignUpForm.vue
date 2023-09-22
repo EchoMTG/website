@@ -1,7 +1,7 @@
 <template>
     <section :class="`userSignupForm p-5 `+classes">
       <div v-if="!authenticated">
-        <h3 class="is-size-4 has-text-white has-text-weight-bold">Create a Free Account</h3>
+        <h3 class="is-size-4 has-text-white has-text-weight-bold">Start a Free Account</h3>
         <b-field>
           <div class="control">
               <label class="label has-text-grey">User handle</label>

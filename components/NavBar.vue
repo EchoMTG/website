@@ -9,9 +9,6 @@
       <global-search showimage showinventorybuttons />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
-      <a class="navbar-item navbar-item-menu-toggle" @click.prevent="updatesToggle">
-        <b-icon icon="bell" custom-size="default" />
-      </a>
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="menuNavBarToggle">
         <b-icon :icon="menuNavBarToggleIcon" custom-size="default" />
       </a>
@@ -19,7 +16,18 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive, 'no-negative-margin-right':isLayoutBoxed}">
       <div class="navbar-end">
 
-
+        <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
+          <router-link to="/login/"
+              class="  is-fullwidth button is-secondary"
+              title="Login"
+            >
+            <b-icon icon="login" custom-size="default" />
+            <span>Login</span>
+          </router-link>
+        </div>
+        <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
+           <create-account-modal size="default" label="Free Account" />
+        </div>
 
         <nav-bar-menu class="navbar-item pr-1 mr-0">
 
@@ -56,14 +64,15 @@
             </nuxt-link>
           </div>
         </nav-bar-menu>
-
-        <nuxt-link
-            to="/blog/"
-            class="navbar-item pl-0 ml-0 "
-            exact-active-class="is-active"
-          >
-          <span>Articles</span>
-        </nuxt-link>
+        <div class="navbar-item pl-0 ml-0 ">
+          <nuxt-link
+              to="/blog/"
+              class="navbar-item "
+              exact-active-class="is-active"
+            >
+            <span>Articles</span>
+          </nuxt-link>
+        </div>
         <div class="navbar-item has-divider pl-2 ml-0 mr-0 pr-2">
         <a
             href="https://legacy.echomtg.com"
@@ -138,7 +147,7 @@
               <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
           </b-taglist>
         </div>
-<nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
+        <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
           <user-avatar />
           <div class="is-user-name">
             <span>{{ user.username }}</span>
@@ -270,7 +279,7 @@ export default {
       return [...this.sets.slice(0,5)];
     },
     menuNavBarToggleIcon () {
-      return this.isMenuNavBarActive ? 'close' : 'dots-vertical'
+      return this.isMenuNavBarActive ? 'close' : 'menu'
     },
 
     // this is the navboor icon to toggle asisde left nd eight
