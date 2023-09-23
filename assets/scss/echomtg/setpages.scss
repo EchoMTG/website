@@ -4,9 +4,7 @@
 	z-index: 2;
 	margin-bottom: 0px !important;
 	margin-top: -40px;
-	@media all and (max-width: $break-width){
-		margin-top: 0px;
-	}
+
 	&.tabs{
 		li{
 			a {
@@ -31,6 +29,19 @@
 			}
 
 		}
+	}
+
+  @media all and (max-width: $break-width){
+		margin-top: 0px;
+    &.tabs{
+      li{
+        a {
+          color: black !important;
+          text-shadow: none !important;
+          font-size: 70%;
+        }
+      }
+    }
 	}
 }
 
@@ -137,9 +148,6 @@ $imageHeight: 180px;
   overflow: hidden;
 	height: $imageHeight;
 	background: black;
-	@media all and (max-width: $break-width){
-		height: auto;
-	}
 
 	* {
 		z-index: 2;
@@ -189,6 +197,18 @@ $imageHeight: 180px;
     right: -2%;
     transform: rotate(20deg);
   }
+
+  @media all and (max-width: $break-width){
+		height: $imageHeight * .7;
+    .largeSetIcon{
+      font-size: 60px !important;
+    }
+    h1, h2{
+      font-size: 80%;
+    }
+
+	}
+
 
 	div.imageBox {
 		width: 400px;

@@ -243,6 +243,15 @@ $fa-cc-visa: #0157a2;
 	cursor: zoom-in;
   display: inline-block;
   max-width: 250px;
+  @media all and (max-width: $break-width){
+    font-size: 70% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .itemLinkWithInspector {
+    max-width: 400px !important;
+  }
 }
 
 .itemInspectorCard {

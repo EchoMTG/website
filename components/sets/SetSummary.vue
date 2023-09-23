@@ -21,7 +21,7 @@
         <!-- CTA -->
       </div>
     </div>
-    <i :class="`${iconString} largeBackgroundIcon`"></i>
+    <i :class="`${iconString} largeBackgroundIcon is-hidden-touch`"></i>
   </div>
 </template>
 
