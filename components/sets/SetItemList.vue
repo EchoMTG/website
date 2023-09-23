@@ -153,10 +153,11 @@
           :data="filteredItems"
           :debounce-search="0"
 
-          detailed
           custom-detail-row
+          :mobile-cards="false"
+          :detailed="$device.isDesktop ? true : false"
           @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
-          :show-detail-icon="true"
+          :show-detail-icon="$device.isDesktop ? true : false"
           ref="table"
           detail-key="emid"
           >
