@@ -2,7 +2,6 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
   ssr: true,
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'EchoMTG',
     meta: [
@@ -37,8 +36,8 @@ export default {
           'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
       }
     ]
-},
-    css: ['@/assets/scss/style-light-dark.scss'],
+  },
+  css: ['@/assets/scss/style-light-dark.scss'],
 
   //  css: ['~/assets/scss/style-default.scss'],
 
@@ -81,8 +80,8 @@ export default {
     refreshOnResize: true
   },
   proxy: {
-    '/api/*/**': process.env.API_DOMAIN.replace('api/',''),
-    '/robots.txt': process.env.API_DOMAIN.replace('api/','')
+    '/api/*/**': process.env.NUXT_ENV_API_DOMAIN.replace('api/',''),
+    '/robots.txt': process.env.NUXT_ENV_API_DOMAIN.replace('api/','')
   },
   axios: {},
   markdownit: {
@@ -118,17 +117,15 @@ export default {
     }
   },
   env: {
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
+    API_DOMAIN: process.env.NUXT_ENV_API_DOMAIN || 'https://api.echomtg.com/api/',
     S2S_KEY: process.env.S2S_KEY || ''
-
   },
   publicRuntimeConfig: {
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
-    VUE_APP_API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
+    API_DOMAIN: process.env.NUXT_ENV_API_DOMAIN || 'https://api.echomtg.com/api/',
+    NUXT_ENV_API_DOMAIN: process.env.NUXT_ENV_API_DOMAIN || 'https://api.echomtg.com/api/'
   },
   privateRuntimeConfig: {
-    S2S_KEY: process.env.S2S_KEY
+    S2S_KEY: process.env.S2S_KEY || '',
+    API_DOMAIN: process.env.NUXT_ENV_API_DOMAIN || 'https://api.echomtg.com/api/'
   }
-
-
 }

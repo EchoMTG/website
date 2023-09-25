@@ -3,12 +3,16 @@ steps:
     args:
       - build
       - '--no-cache'
-      - '--build-arg=NUXT_ENV_API_DOMAIN=https://api.echomtg.com/api/'
+      - '--build-arg=NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/'
       - '-t'
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - .
       - '-f'
       - Dockerfile
+    env:
+      - API_DOMAIN=https://dev.echomtg.com/api/
+      - NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/
+      - S2S_KEY=OMMITED
     id: Build
   - name: gcr.io/cloud-builders/docker
     args:
@@ -28,8 +32,8 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
     env:
-      - API_DOMAIN=https://api.echomtg.com/api/
-      - NUXT_ENV_API_DOMAIN=https://api.echomtg.com/api/
+      - API_DOMAIN=https://dev.echomtg.com/api/
+      - NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/
       - S2S_KEY=OMMITED
     id: Deploy
     entrypoint: gcloud
@@ -38,9 +42,9 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
   env:
-    - 'API_DOMAIN=https://api.echomtg.com/api/'
+    - 'API_DOMAIN=https://dev.echomtg.com/api/'
     - 'S2S_KEY=OMMITED'
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
-  - website
+  - website-beta

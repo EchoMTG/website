@@ -98,7 +98,21 @@ export default {
     },
     async addToEarnings() {
 
-      await this.$echomtg.earningsAdd(this.inventory_item.emid,this.acquired_price,this.sold_price,this.inventory_item.foil);
+      const res = await this.$echomtg.earningsAdd(
+        this.inventory_item.emid,
+        this.acquired_price,
+        this.sold_price,
+        this.inventory_item.foil
+      );
+       this.$buefy.snackbar.open({
+          message: res.message,
+          type: 'is-success',
+          queue: false,
+          duration: 3000,
+          position: 'is-bottom-right',
+
+        })
+
       this.isCardModalActive = false;
       if(this.callback){
         this.callback()

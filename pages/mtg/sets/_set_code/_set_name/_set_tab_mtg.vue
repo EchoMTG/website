@@ -175,7 +175,6 @@ export default {
     async refreshData() {
       let data = await this.$echomtg.getSet(this.set_code);
       this.set = data.set;
-      console.log(data)
     },
     setTab: function(str){
           // this.$refs[this.tab+'Tab'].parentElement.classList.remove('is-active')
