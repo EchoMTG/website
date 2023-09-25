@@ -66,6 +66,7 @@ export default {
     'cookie-universal-nuxt',
     '@nuxtjs/markdownit',
     '@nuxtjs/sitemap',
+    '@nuxtjs/proxy',
     ['vue-social-sharing/nuxt', {
       networks: {
         x: 'https://twitter.com/intent/tweet?url=@url&text=@title'
@@ -74,6 +75,9 @@ export default {
   ],
   device: {
     refreshOnResize: true
+  },
+  proxy: {
+    '/api/*/**': 'https://api.echomtg.com/',
   },
   axios: {},
   markdownit: {
