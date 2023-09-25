@@ -82,6 +82,7 @@ export default {
   },
   proxy: {
     '/api/*/**': 'https://api.echomtg.com/',
+    '/robots.txt': 'https://api.echomtg.com/'
   },
   axios: {},
   markdownit: {
