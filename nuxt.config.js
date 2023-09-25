@@ -81,8 +81,8 @@ export default {
     refreshOnResize: true
   },
   proxy: {
-    '/api/*/**': 'https://api.echomtg.com/',
-    '/robots.txt': 'https://api.echomtg.com/'
+    '/api/*/**': process.env.API_DOMAIN.replace('api/',''),
+    '/robots.txt': process.env.API_DOMAIN.replace('api/','')
   },
   axios: {},
   markdownit: {
