@@ -3,11 +3,11 @@ steps:
     args:
       - build
       - '--no-cache'
+      - '--build-arg=NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/'
       - '-t'
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - .
       - '-f'
-      - '--build-arg=NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/'
       - Dockerfile
     env:
       - API_DOMAIN=https://dev.echomtg.com/api/
