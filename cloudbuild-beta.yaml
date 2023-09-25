@@ -8,6 +8,10 @@ steps:
       - .
       - '-f'
       - Dockerfile
+    env:
+      - API_DOMAIN=https://dev.echomtg.com/api/
+      - NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/
+      - S2S_KEY=OMMITED
     id: Build
   - name: gcr.io/cloud-builders/docker
     args:
