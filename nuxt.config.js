@@ -13,6 +13,10 @@ export default {
     ],
     link: [
       {
+        rel: 'manifest',
+        href: '/manifest.json'
+      },
+      {
         rel: 'icon',
         type: 'image/x-icon',
         href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png'

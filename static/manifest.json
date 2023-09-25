@@ -1,0 +1,13 @@
+{
+  "name": "echomtg",
+  "display":      "minimal-ui",
+  "orientation":  "portrait",
+	"icons": [
+		{
+			"src": "\/icon.png",
+			"sizes": "128x128",
+			"type": "image\/png",
+			"density": 1
+		}
+  ]
+}
