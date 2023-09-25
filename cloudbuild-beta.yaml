@@ -28,7 +28,7 @@ steps:
       - '--quiet'
     env:
       - API_DOMAIN=https://dev.echomtg.com/api/
-      - VUE_APP_API_DOMAIN=https://dev.echomtg.com/api/
+      - NUXT_ENV_API_DOMAIN=https://dev.echomtg.com/api/
       - S2S_KEY=OMMITED
     id: Deploy
     entrypoint: gcloud
