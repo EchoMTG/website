@@ -3,6 +3,7 @@ steps:
     args:
       - build
       - '--no-cache'
+      - '--build-arg=NUXT_ENV_API_DOMAIN=https://api.echomtg.com/api/'
       - '-t'
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - .
@@ -27,8 +28,8 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
     env:
-      - API_DOMAIN=https://www.echomtg.com/api/
-      - NUXT_ENV_API_DOMAIN=https://www.echomtg.com/api/
+      - API_DOMAIN=https://api.echomtg.com/api/
+      - NUXT_ENV_API_DOMAIN=https://api.echomtg.com/api/
       - S2S_KEY=OMMITED
     id: Deploy
     entrypoint: gcloud
@@ -37,7 +38,7 @@ images:
 options:
   substitutionOption: ALLOW_LOOSE
   env:
-    - 'API_DOMAIN=https://www.echomtg.com/api/'
+    - 'API_DOMAIN=https://api.echomtg.com/api/'
     - 'S2S_KEY=OMMITED'
 tags:
   - gcp-cloud-build-deploy-cloud-run
