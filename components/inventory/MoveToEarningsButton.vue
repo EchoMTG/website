@@ -108,7 +108,7 @@ export default {
           message: res.message,
           type: 'is-success',
           queue: false,
-          duration: 10000,
+          duration: 3000,
           position: 'is-bottom-right',
 
         })
