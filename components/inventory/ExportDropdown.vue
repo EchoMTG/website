@@ -15,7 +15,7 @@
   </b-dropdown>
 </template>
 <script>
-
+import { mapState } from 'vuex'
 export default {
   name: 'ExportDropdown',
   data: () => {
@@ -23,12 +23,14 @@ export default {
       active: true
     }
   },
-
+  computed: {
+    ...mapState(['user'])
+  },
   methods: {
     downloadCSVURL() {
-      const user = this.$echomtg.getUserMeta();
 
-      if(user.plan !== 'common' && user.plan !== 'uncommon' && user.plan !== 'uncommonY' && user.plan !== 'rareY' &&  user.plan !== 'rare'){
+
+      if(this.user.plan !== 'common' && this.user.plan !== 'uncommon' && this.user.plan !== 'uncommonY' && this.user.plan !== 'rareY' &&  this.user.plan !== 'rare'){
         return this.$echomtg.getAPIURL() + 'stores/export/?auth=' + this.$echomtg.getToken();
       } else {
         return this.$echomtg.getAPIURL() + 'inventory/export/?auth=' + this.$echomtg.getToken();

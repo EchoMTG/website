@@ -1,11 +1,11 @@
 <template>
     <span :class="`featureGate ${classes}`">
-        <b-button 
-            v-if="showAd && !gateLevelCheck" 
-            icon-left="arrow-up-bold-hexagon-outline" 
-            :size="size" 
+        <b-button
+            v-if="showAd && !gateLevelCheck"
+            icon-left="arrow-up-bold-hexagon-outline"
+            :size="size"
             type="is-danger"
-            href="/plans/" 
+            @click="gotoplans"
             class="">{{adText}}</b-button>
         <slot v-if="gateLevelCheck"></slot>
     </span>
@@ -37,10 +37,15 @@ export default {
             default: 'is-small'
         }
     },
+    methods: {
+      gotoplans() {
+        this.$router.push('/plans/')
+      }
+    },
     computed: {
         gateLevelCheck(){
             let userLevel = 0;
-            
+
             switch(this.user.plan.toLowerCase()){
                 case 'pro':
                 case 'proy':
@@ -58,7 +63,7 @@ export default {
                 case 'uncommony':
                     userLevel = 1;
                     break;
-                default: 
+                default:
                     userLevel = 0;
             }
 
