@@ -165,6 +165,12 @@
               </span>
               SMS Price Alerts
             </div>
+             <div v-if="plan.extra_export_data" class="panel-block">
+              <span class="panel-icon">
+                <b-icon size="is-small" icon="filter-check" />
+              </span>
+              Extra Inventory Export Data
+            </div>
 
 
           </div>
@@ -332,6 +338,7 @@ export default {
           trade: false,
           images: false,
           ebay: false,
+          extra_export_data: false,
           limits: {
             trade: 50,
             lists: 5,
@@ -363,11 +370,12 @@ export default {
           insurance: false,
           watchlist: true,
           lists: true,
-          filters: false,
+          filters: true,
           sms: false,
           trade: true,
           images: false,
           ebay: false,
+          extra_export_data: false,
           limits: {
             trade: 50,
             lists: 25,
@@ -399,11 +407,12 @@ export default {
           watchlist: true,
           insurance: false,
           lists: true,
-          filters: false,
+          filters: true,
           sms: false,
           trade: true,
           images: false,
           ebay: false,
+          extra_export_data: false,
           limits: {
             trade: 1000,
             lists: 50,
@@ -436,10 +445,11 @@ export default {
           lists: true,
           filters: true,
           insurance: false,
-          sms: false,
+          sms: true,
           trade: true,
           images: false,
           ebay: false,
+          extra_export_data: true,
           limits: {
             trade: 3000,
             lists: 200,
