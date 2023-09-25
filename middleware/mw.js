@@ -1,6 +1,6 @@
 // import  es  from '../store/index.js'
 
-export default function ({route,redirect}) {
+export default function ({route,redirect,host}) {
 
 
     // console.log(route.path)
