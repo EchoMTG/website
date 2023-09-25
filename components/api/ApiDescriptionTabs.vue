@@ -58,8 +58,17 @@ import { component as VueCodeHighlight } from 'vue-code-highlight';
           }
           return ''
         },
+        outputURL(url){
+          let newURL = url.replace('localhost','https://api.echomtg.com')
+          newURL = newURL.replace('dev.echomtg.com','api.echomtg.com')
+          newURL = newURL.replace('www.echomtg.com','api.echomtg.com')
+
+          return newURL
+
+        },
         buildRequest() {
           let endpoint = this.request?.url?.raw ? this.request.url.raw : '';
+          endpoint = this.outputURL(endpoint);
           if(this.request.method.toLowerCase() == 'post' && this.getResponse().includes('Login')){
             let body = this.request.body ? 'const body = ' + this.request.body.raw : ''
             return `
