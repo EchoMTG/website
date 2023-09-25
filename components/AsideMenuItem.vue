@@ -9,20 +9,22 @@
       :class="componentClass"
       @click="menuClick"
     >
-      <b-icon
-        v-if="item.icon"
-        :icon="item.icon"
-        :class="{ 'has-update-mark': item.updateMark }"
-        custom-size="default"
-      />
-      <span v-if="item.label" :class="{ 'menu-item-label': !!item.icon }">{{
-        item.label
-      }}</span>
-      <div v-if="hasSubmenuIcon" class="submenu-icon">
-        <b-icon :icon="submenuIcon" custom-size="default" />
-      </div>
+      <b-tooltip :label="item.label" position="is-bottom">
+        <b-icon
+          v-if="item.icon"
+          :icon="item.icon"
+          :class="{ 'has-update-mark': item.updateMark }"
+          custom-size="default"
+        />
+        <span v-if="item.label" :class="{ 'menu-item-label': !!item.icon }">{{
+          item.label
+        }}</span>
+        <div v-if="hasSubmenuIcon" class="submenu-icon">
+          <b-icon :icon="submenuIcon" custom-size="default" />
+        </div>
+      </b-tooltip>
     </component>
-    <!--
+<!--
       removed sub dropdown lists
       <aside-menu-list
       v-if="hasDropdown"

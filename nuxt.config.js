@@ -1,5 +1,4 @@
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
   ssr: true,
   head: {
@@ -18,7 +17,7 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: 'https://storage.googleapis.com/assets.echomtg.com/interface/echo.png'
+        href: '/favicon.png'
       },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
