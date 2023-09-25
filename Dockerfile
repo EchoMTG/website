@@ -9,6 +9,7 @@ EXPOSE 8080
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
+ENV NUXT_ENV_API_DOMAIN=https://api.echomtg.com/api/
 
 RUN npm run build
 
