@@ -2,18 +2,6 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
   ssr: true,
-  env: {
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
-    S2S_KEY: process.env.S2S_KEY || ''
-  },
-  publicRuntimeConfig: {
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
-    VUE_APP_API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
-  },
-  privateRuntimeConfig: {
-    S2S_KEY: process.env.S2S_KEY || '',
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
-  },
   head: {
     title: 'EchoMTG',
     meta: [
@@ -48,8 +36,8 @@ export default {
           'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
       }
     ]
-},
-    css: ['@/assets/scss/style-light-dark.scss'],
+  },
+  css: ['@/assets/scss/style-light-dark.scss'],
 
   //  css: ['~/assets/scss/style-default.scss'],
 
@@ -127,6 +115,17 @@ export default {
       // https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc
 
     }
+  },
+  env: {
+    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
+    S2S_KEY: process.env.S2S_KEY || ''
+  },
+  publicRuntimeConfig: {
+    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
+    VUE_APP_API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
+  },
+  privateRuntimeConfig: {
+    S2S_KEY: process.env.S2S_KEY || '',
+    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
   }
-
 }
