@@ -5,7 +5,6 @@ export default {
   env: {
     API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
     S2S_KEY: process.env.S2S_KEY || ''
-
   },
   publicRuntimeConfig: {
     API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
@@ -13,9 +12,8 @@ export default {
   },
   privateRuntimeConfig: {
     S2S_KEY: process.env.S2S_KEY || '',
-    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/',
+    API_DOMAIN: process.env.API_DOMAIN || 'https://api.echomtg.com/api/'
   },
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'EchoMTG',
     meta: [
