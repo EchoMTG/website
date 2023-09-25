@@ -96,7 +96,7 @@
                 </div>
                 <div class="column is-half">
                   <b-field  v-if="subdoc.request.body && subdoc.request.body.raw !== undefined" class="mt-2" :label="`URL ${subdoc.request.method} Endpoint`">
-                    <b-input @mousedown="this.highlight(event)" :value="subdoc.request.url.raw" />
+                    <b-input @mousedown="this.highlight(event)" :value="outputURL(subdoc.request.url.raw)" />
                   </b-field>
                   <b-field class="mt-2" :label="`Authentication Header`">
                     <b-input @mousedown="this.highlight(event)" :value="`Bearer ${api_token}`" />
@@ -161,6 +161,14 @@ export default {
     //console.log('async from index',req)
   },
   methods: {
+    outputURL(url){
+      let newURL = url.replace('localhost','https://api.echomtg.com')
+      newURL = newURL.replace('dev.echomtg.com','api.echomtg.com')
+      newURL = newURL.replace('www.echomtg.com','api.echomtg.com')
+
+      return newURL
+
+    },
     filterAPIDocs(items) {
       if(!Array.isArray(items)) return [];
       if(this.search == '') return items;
