@@ -1,5 +1,5 @@
 <template>
-  <div class="deck-view">
+  <div class="deck-view px-5">
     <div class="columns">
         <div class="column">
             <div class="tabs is-toggle is-toggle-rounded is-small ">
@@ -31,7 +31,7 @@
     <template v-if="list.id">
       <div class="columns is-multiline" v-if="orderBy == 'type'">
         <template v-for="(sort, index) in typeArray">
-          <div class="column is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd" v-if="list[sort].total_main > 0" :key="`type-list-item-${index}`">
+          <div class="column is-half-tablet is-one-third-desktop is-one-third-widescreen is-one-quarter-fullhd  mb-0" v-if="list[sort].total_main > 0" :key="`type-list-item-${index}`">
               <h2 class="title is-6">{{list[sort].scalar}} <span class="has-text-grey">({{list[sort].total_main}})</span> </h2>
               <ul>
                   <li
@@ -44,6 +44,8 @@
                       v-bind:card="list.card_list[cardInfo.reference_id]"
                       v-bind:cardInfo="cardInfo"
                       v-bind:sideboard="0"
+                       v-bind:listid="list.id"
+                       v-bind:callback="callback"
                       ></li>
               </ul>
           </div>
@@ -67,7 +69,10 @@
                       v-for="(item, index) in list[sort].grouped_list"
                       v-bind:card="list.card_list[item.reference_id]"
                       v-bind:cardInfo="item"
+                      v-bind:listid="list.id"
+                       v-bind:callback="callback"
                       v-bind:sideboard="0"
+
                       :key="`color-list-${index}`"
                       ></li>
                   <li>list {{index}} </li>
@@ -84,15 +89,18 @@
               <div>
                   <deck-list-type-title :title="list.sideboard.scalar" :count="list.sideboard.total"></deck-list-type-title>
                   <ul>
-                      <li is="deck-list-item"
-                      v-on:moveToSideboard="moveToSideboard"
-                      v-on:addCard="addCard"
-                      v-on:removeCard="removeCard"
-                      v-for="(item, index) in list.sideboard.grouped_list"
-                      v-bind:card="list.card_list[item.reference_id]"
-                      v-bind:cardInfo="item"
-                      :key="`deck-list-item-${index}`"
-                      v-bind:sideboard="1" ></li>
+                      <li
+                        is="deck-list-item"
+                        v-on:moveToSideboard="moveToSideboard"
+                        v-on:addCard="addCard"
+                        v-on:removeCard="removeCard"
+                        v-for="(item, index) in list.sideboard.grouped_list"
+                        v-bind:card="list.card_list[item.reference_id]"
+                        v-bind:cardInfo="item"
+                        v-bind:listid="list.id"
+                        v-bind:callback="callback"
+                        :key="`deck-list-item-${index}`"
+                        v-bind:sideboard="1" ></li>
                   </ul>
               </div>
           </div>
@@ -107,7 +115,17 @@ import DeckListTypeTitle from './DeckListTypeTitle.vue';
 export default {
   name: 'deck-view',
   components: { DeckListItem, DeckListTypeTitle },
-  props: ['list'],
+  props: {
+    list: {
+      type: Object,
+      required: true
+    },
+    callback: {
+      type: Function,
+      required: true
+    }
+
+  },
   data: function data() {
     return {
       orderBy: 'type',

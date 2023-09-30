@@ -43,7 +43,7 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 },
 {
   to: '/apps/import/',
-  icon: 'upload',
+  icon: 'file-upload-outline',
   label: 'Import'
 },
 

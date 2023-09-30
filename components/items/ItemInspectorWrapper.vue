@@ -1,5 +1,5 @@
 <template>
-   <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" class="is-relative">
+   <div @mouseenter="() => setShowItem(true, false)" ref="container" @mouseleave="setShowItem(false, false)" :class="`is-relative ${classes}`">
       <a class="itemLinkWithInspector ellipsis" @click="() => setShowItem(true, true)"  :href="getItemURL()">
         <i v-if="showsetsymbol" :class="item.foil == 1 ? `${getSetIcon(item.set_code)} setsymbol rainbow-text` : `${getSetIcon(item.set_code)} setsymbol ${getSetIconColor(item.rarity)}`"></i>
         {{displayName}}
@@ -37,6 +37,10 @@ export default {
       type: String,
       default: '',
       required: false
+    },
+    classes: {
+      type: String,
+      default: '',
     },
     deactivateHover: {
       type: Boolean,
