@@ -216,15 +216,13 @@
     methods: {
       async getList(){
 
-        let token = this.$cookies.get('token');
         try {
-          const res = await fetch(`${api_url}lists/get/?list=${this.id}&auth=${token}`);
-          const json = await res.json();
-          console.log('list json',json)
+          this.list = (await this.$echomtg.getList(this.id)).list
 
-          this.list = json.list;
           this.calculateGraphData();
           this.cardArray = this.list.card_list;
+
+          console.log(this.list)
           if(this.sortOrder == 'ASC'){
               this.sortListASC();
           } else {

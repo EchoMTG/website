@@ -297,6 +297,16 @@ echomtg.getSets = async (game=1) => {
 
   }
 
+  echomtg.getList = async (id) => {
+    let url = `${context.app.$config.API_DOMAIN}lists/get/?list=${id}`;
+
+    const res = await fetch(url, {
+      headers: echomtg.getUserHeaders(),
+    });
+
+    return await res.json();
+  }
+
   echomtg.getAllLists = async () => {
     let url = `${context.app.$config.API_DOMAIN}lists/all/`;
 

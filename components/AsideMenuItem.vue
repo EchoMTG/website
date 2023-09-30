@@ -9,7 +9,7 @@
       :class="componentClass"
       @click="menuClick"
     >
-      <b-tooltip :label="item.label" position="is-bottom">
+      <b-tooltip :active="!isAsideExpanded" :label="item.label" position="is-bottom">
         <b-icon
           v-if="item.icon"
           :icon="item.icon"

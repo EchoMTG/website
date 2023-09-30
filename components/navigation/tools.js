@@ -7,7 +7,7 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 {
   to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
-  label: 'Collection'
+  label: 'Inventory / Binder'
 },
 {
   to: '/apps/lists/',
@@ -43,7 +43,7 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 },
 {
   to: '/apps/import/',
-  icon: 'tray-arrow-down',
+  icon: 'upload',
   label: 'Import'
 },
 
