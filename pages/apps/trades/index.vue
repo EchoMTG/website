@@ -2,9 +2,9 @@
   <div>
     <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad 
+    <full-ad
       title="Login Required to Search Trade Lists"
-      v-if="!authenticated && (public_trade_list.length == 0)" 
+      v-if="!authenticated && (public_trade_list.length == 0)"
       image="https://assets.echomtg.com/images/product/trades-app-2023.png"
       />
     <b-field v-if="authenticated" class="m-3">
@@ -94,7 +94,7 @@ export default {
         {
           label: 'Trades',
           url: '/apps/trades/',
-          icon: 'briefcase-arrow-left-right'
+          icon: 'swap-horizontal-bold'
 
         }
       ]

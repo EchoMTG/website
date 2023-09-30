@@ -47,7 +47,7 @@
               <div class="is-flex is-flex-direction-row-reverse">
 
                 <export-dropdown class="is-align-items-end"  />
-                <b-button size="is-small" class="mr-2" href="/apps/import/" type="is-primary" icon-left="table-arrow-down">Import CSV</b-button>
+                <b-button size="is-small" class="mr-2" href="/apps/import/" type="is-primary" icon-left="tray-arrow-down">Import CSV</b-button>
               </div>
             </div>
         </div>

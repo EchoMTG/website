@@ -47,7 +47,7 @@ export const state = () => ({
 
   /* Aside */
   isAsideVisible: true,
-  isAsideExpanded: false,
+  isAsideExpanded: true,
   isAsideMobileExpanded: false,
   asideActiveForcedKey: null,
   isAsideRightVisible: false,

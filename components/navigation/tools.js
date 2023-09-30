@@ -7,28 +7,30 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 {
   to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
-  label: 'Inventory'
+  label: 'Inventory / Binder'
+},
+{
+  to: '/apps/lists/',
+  icon: 'clipboard-list',
+  label: 'Lists/Decks'
+},
+{
+  to: '/apps/watchlist/',
+  icon: 'table-headers-eye',
+  label: 'Watchlist'
 },
 {
   to: options.tradesurl,
-  icon: 'briefcase-arrow-left-right',
+  icon: 'swap-horizontal-bold',
   label: 'Trades'
 },
 {
   to: '/apps/sealed/',
-  icon: 'package',
+  icon: 'gift',
   label: 'Sealed'
 },
-{
-  to: '/apps/lists/',
-  icon: 'format-list-checkbox',
-  label: 'Lists'
-},
-{
-  to: '/apps/watchlist/',
-  icon: 'eye',
-  label: 'Watch List'
-},
+
+
 {
   to: '/apps/earnings/',
   icon: 'cash-multiple',
@@ -41,7 +43,7 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 },
 {
   to: '/apps/import/',
-  icon: 'table-arrow-down',
+  icon: 'upload',
   label: 'Import'
 },
 

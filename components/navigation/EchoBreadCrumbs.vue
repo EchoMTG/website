@@ -1,6 +1,6 @@
 <template>
 
-  <nav class="breadcrumbBox level pt-2 pb-2 pl-3 mb-0">
+  <nav class="breadcrumbBox level pt-2 pb-1 pl-3 mb-0">
     <!-- Left side -->
     <div class="level-left">
       <b-breadcrumb size="level-item is-small mb-0">
@@ -22,6 +22,15 @@
     </div>
   </nav>
 </template>
+<style lang="scss" scoped>
+.breadcrumbs {
+  line-height: 100%;
+}
+.breadcrumb a {
+  font-size: .85rem;
+
+}
+</style>
 
 <script>
 export default {

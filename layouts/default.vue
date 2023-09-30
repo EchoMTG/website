@@ -53,15 +53,12 @@ export default {
       let tools = toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       });
-      navList.push('My Apps');
-      // showing tools in left
-      navList.push(tools);
       navList.push(
           'Magic: the Gathering',
           [
             {
               to: '/mtg/sets/',
-              label: 'MTG Sets',
+              label: 'Sets / Expansions',
               icon: 'cards'
             },
             {
@@ -69,25 +66,43 @@ export default {
               label: 'Types',
               icon: 'format-list-bulleted-type'
             },
-            {
-              to: '/mtg/spoilers/',
-              label: 'Spoilers',
-              icon: 'table-headers-eye'
-            },
-            {
-              to: '/mtg/groups/magic-reserve-list/',
-              label: 'Reserve List',
-              icon: 'gold'
-            },
           ],
       );
+
+      navList.push('My Apps');
+      // showing tools in left
+      navList.push(tools);
+        navList.push('EchoMTG')
+      navList.push( [
+        {
+          to: '/blog/',
+          label: 'Blog',
+          icon: 'newspaper-variant-multiple'
+        },
+        {
+          to: '/api/',
+          label: 'API Docs',
+          icon: 'code-json'
+        },
+        {
+          to: '/about/',
+          label: 'About',
+          icon: 'pillar'
+        },
+        {
+          to: '/help/',
+          label: 'Support',
+          icon: 'lifebuoy'
+        }]
+        )
+
       navList.push('Disney Lorcana')
       navList.push([
-            {
-              to: '/lorcana/sets/',
-              label: 'Lorcana Sets',
-              icon: 'cards'
-            }
+        {
+          to: '/lorcana/sets/',
+          label: 'Lorcana Sets',
+          icon: 'cards'
+        }
       ])
 
 
@@ -117,29 +132,6 @@ export default {
           ])
       }
 
-      navList.push('EchoMTG')
-      navList.push( [
-        {
-          to: '/blog/',
-          label: 'Blog',
-          icon: 'newspaper-variant-multiple'
-        },
-        {
-          to: '/api/',
-          label: 'API Docs',
-          icon: 'code-json'
-        },
-        {
-          to: '/about/',
-          label: 'About',
-          icon: 'pillar'
-        },
-        {
-          to: '/help/',
-          label: 'Support',
-          icon: 'lifebuoy'
-        }]
-        )
 
 
       if (this.authenticated){
@@ -234,6 +226,8 @@ export default {
     document.documentElement.classList['add']('has-aside-left');
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
+    document.documentElement.classList['add']('has-aside-expanded');
+
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
