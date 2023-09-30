@@ -287,10 +287,39 @@ echomtg.getSets = async (game=1) => {
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+
+  }
+
+  echomtg.toggleListItemFoil = async (list_item_id,list_id,foil) => {
+    let url = `${context.app.$config.API_DOMAIN}lists/toggle_foil/`;
+    let body = {
+      id: list_item_id,
+      list_id: list_id,
+      foil: foil
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+
+  }
+
+  echomtg.toggleListItemSideboard = async (list_item_id,list_id,sb) => {
+    let url = `${context.app.$config.API_DOMAIN}lists/toggle_sideboard/`;
+    let body = {
+      id: list_item_id,
+      list_id: list_id,
+      sb: sb
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();

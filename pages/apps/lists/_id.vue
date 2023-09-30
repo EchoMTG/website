@@ -4,8 +4,9 @@
         <echo-bread-crumbs :data="crumbs" />
 
         <div class="lists2">
-            <div class="columns">
-                <div class="column is-one-half">
+          <div class="hero is-black pl-5 has-text-white pb-4">
+            <div class="columns mb-0">
+                <div class="column is-one-half mb-0">
                    <list-summary :list="list">
                      <div class="is-pulled-right">
                         <div class="columns">
@@ -33,18 +34,18 @@
                    </list-summary>
                 </div>
             </div>
-            <div class="container" style="min-height: 80px">
-                <p>Search to add cards to your list:</p>
+              <p class="mt-0">Search to add cards to your deck or list:</p>
               <global-search
-                        :callback="addCardByEMID"
-                        callbackname="Add to List"
-                        :showimage="true"></global-search>
-                </div>
+                :callback="addCardByEMID"
+                callbackname="Add to List"
+                :showimage="true"></global-search>
+
+          </div>
            <div class="columns ">
 
                 <div class="column">
 
-                    <div class="tabs">
+                    <div class="tabs has-background-black">
                       <ul>
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-view'}" v-on:click.stop="setCurrentTab('deck-view')">
                           <a >
@@ -100,6 +101,8 @@
                     <component
                         v-bind:list="list"
                         v-bind:cardArray="cardArray"
+                        v-bind:items="items"
+                        v-bind:callback="$fetch"
                         v-on:toggleFoil="toggleFoil"
                         v-on:updateStatus="updateStatus"
                         v-on:addCard="addCard"
@@ -114,6 +117,20 @@
 </div>
   </div>
 </template>
+<style scoped>
+.tabs,.tabs ul {
+  border-bottom: none !important;
+}
+.tabs .is-active{
+  background: white;
+  color: black;
+  border-bottom: none;
+
+}
+.tabs .is-active a{
+  border-bottom: none !important;
+}
+</style>
 
 <script>
   import GlobalSearch from "@/components/GlobalSearch.vue";
@@ -143,25 +160,29 @@
       ListSummary,
       EchoBreadCrumbs
     },
-    async asyncData({ params, $cookies }) {
-      let token = $cookies.get('token');
-      const id = params.id // When calling /abc the slug will be "abc"
+    async fetch() {
+
+      this.id = this.$route.params['id'] // When calling /abc the slug will be "abc"
       try {
-        const res = await fetch(`${api_url}lists/get/?list=${id}&auth=${token}`);
-        const json = await res.json();
-        const list = json.list
-        const cardArray = json.list.card_list
-        return { id, list , cardArray}
+        const res = await this.$echomtg.getList(this.id);
+        this.list = res.list;
+        this.calculateGraphData();
+        this.cardArray = this.list.card_list;
+        this.items = this.list.items;
+
       } catch (error) {
-        console.log('error fetching list SSR', error)
-        return  {}
+        this.$echomtg.log('error fetching list SSR', error)
       }
 
     },
     data() {
         return {
-            list: {},
-            cardArray: [],
+          id: 0,
+            list: {
+              name: ''
+            },
+            cardArray: {},
+            items: [],
             status: 1,
             public: false,
             sortMetric: 'name',
@@ -214,28 +235,8 @@
     },
 
     methods: {
-      async getList(){
 
-        try {
-          this.list = (await this.$echomtg.getList(this.id)).list
-
-          this.calculateGraphData();
-          this.cardArray = this.list.card_list;
-
-          console.log(this.list)
-          if(this.sortOrder == 'ASC'){
-              this.sortListASC();
-          } else {
-              this.sortListDESC();
-          }
-
-
-        } catch (error) {
-            console.log(error);
-        }
-
-      },
-        calculateGraphData: function calculateGraphData(){
+        calculateGraphData(){
             // read the cmcs for curve
 
             // read the colors for distribution chart
@@ -505,10 +506,6 @@
         }
     },
     watch: {
-        status: async function(){
-            await this.getList()
-
-        },
         sortOrder: function(){
             if(this.sortOrder == 'ASC'){
                 this.sortListASC();

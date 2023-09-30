@@ -4,7 +4,7 @@
         <slot />
       </div>
         <div class="content">
-            <h1 class="is-title"><strong>{{list.name}}</strong>  <small class="is-size-5 has-text-grey"> ({{list.total_cards_on_hand}} of {{list.total_cards}} in inventory)</small></h1>
+            <h1 class="is-title has-text-white"><strong>{{list.name}}</strong>  <small class="is-size-5 has-text-grey"> ({{list.total_cards_on_hand}} of {{list.total_cards}} in inventory)</small></h1>
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
                     <span class="tags has-addons">
