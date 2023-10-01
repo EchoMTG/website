@@ -154,8 +154,7 @@ echomtg.getPopularItems = async (game=1) => {
 }
 
 echomtg.getMarketData = async (start=0,limit=10,game=1) => {
-  // const res = await fetch(`${context.app.$config.API_DOMAIN}data/market/?years=${years}&game=${game}`);
-  const res = await fetch(`http://localhost/api/data/market/?start=${start}&limit=${limit}&game=${game}`);
+  const res = await fetch(`${context.app.$config.API_DOMAIN}data/market/?start=${start}&limit=${limit}&game=${game}`);
   return await res.json();
 }
 
