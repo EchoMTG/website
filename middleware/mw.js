@@ -7,6 +7,9 @@ export default function ({route,redirect}) {
     let found = null;
     // example: alter/1225/volcanic-island/
 
+    // market page
+    if(route.path == '/market/') return redirect(`/mtg/market/`);
+
     // app redirects
     if(route.path == '/inventory/') return redirect(`/apps/inventory/`);
     if(route.path == '/lists/') return redirect(`/apps/lists/`);

@@ -80,7 +80,7 @@
             class="button is-small is-danger"
             aria-label="Goto the Legecy Website"
           >
-          Legacy Website
+          <b-icon icon="share" size="is-small"/>Old Website
         </a>
         </div>
 
