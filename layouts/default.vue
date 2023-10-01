@@ -62,9 +62,14 @@ export default {
               icon: 'cards'
             },
             {
+              to: '/mtg/market/',
+              label: 'MTG Stock Market',
+              icon: 'chart-line-stacked'
+            },
+            {
               to: '/mtg/types/',
-              label: 'Types',
-              icon: 'format-list-bulleted-type'
+              label: 'Card Types',
+              icon: 'lightbulb-group'
             },
           ],
       );

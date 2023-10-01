@@ -64,8 +64,8 @@
 .menu {
   font-size: .85rem !important;
 }
-.menu-list .icon {
-    width: 1.7rem;
+.has-aside-expanded .menu-list .icon {
+    width: 1.8rem !important;
 }
 </style>
 <script>
