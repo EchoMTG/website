@@ -40,7 +40,7 @@ export default {
         required: true
       },
       sideboard: {
-        type: Boolean,
+        type: Number,
       },
       card: {
         type: Object,

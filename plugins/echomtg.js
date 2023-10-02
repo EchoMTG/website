@@ -263,21 +263,18 @@ echomtg.getSets = async (game=1) => {
     return data;
   }
 
-  echomtg.addToList = async (emid,list_id,foil=0) => {
+  echomtg.addToList = async (emid,list_id,foil=0,sb=0) => {
     let url = `${context.app.$config.API_DOMAIN}lists/add/`;
     let body = {
       emid: emid,
       list: list_id,
       quantity: 1,
       foil: foil,
-      sb: 0
+      sb: sb
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     let data = await res.json();
