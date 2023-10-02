@@ -1,6 +1,6 @@
 <template>
     <card-component
-            :class="`loginScreenComponent m-6 `+classes"
+            :class="`loginScreenComponent `+classes"
             title="Login"
             icon="lock"
             :has-card-header-background="true"
