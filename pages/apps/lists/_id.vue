@@ -169,7 +169,7 @@
         this.calculateGraphData();
         this.cardArray = this.list.card_list;
         this.items = this.list.items;
-
+        this.$echomtg.log('fetched list', res)
       } catch (error) {
         this.$echomtg.log('error fetching list SSR', error)
       }
@@ -372,16 +372,15 @@
             });
 
         },
-        addCardByEMID: function (emid,sideboard=0){
-            var $this = this;
-            var apiURL = api_url + 'lists/add/list='+ this.list.id+'&echomtg_id=' + emid + '&sb=' + sideboard;
+        async addCardByEMID(emid,sideboard=0){
 
-            axios.get(apiURL).then(function (response) {
-                $this.updateStatus();
-                createGrowl(response.data.message);
-            }).catch(function (error) {
-                console.log(error);
-            });
+            const res = await this.$echomtg.addToList(emid, this.list.id, 0, sideboard);
+            this.$buefy.toast.open({
+              message: `${res.message}`,
+              type: 'is-success'
+            })
+            await this.$fetch()
+
 
         },
         addCard: function (cardMid,sideboard=0){

@@ -1,15 +1,15 @@
 <template>
 <div>
    <echo-bread-crumbs :data="crumbs"/>
-   <full-ad 
-      title="You Must be Logged in to Use Lists and Decks" 
+   <full-ad
+      title="You Must be Logged in to Use Lists and Decks"
       v-if="!authenticated" />
     <span v-if="authenticated">
         <div class="lists2">
             <div class="columns">
                 <div class="column">
-                    <h2 class="title is-size-5">
-                        Your Lists
+                    <h2 class="title is-size-5 p-5">
+                        Your Lists and Decks
                         <span class="has-text-grey">
                             (<span v-html="lists.length"></span> of <span v-html="user.planObject.list_cap"></span>)
                         </span>
@@ -20,14 +20,21 @@
                             <span>Get More Lists, Upgrade Plan</span>
                         </a>
                     </h2>
-                    <table v-if="lists.length > 0" class="table is-hoverable is-bordered is-fullwidth">
+                    <b-field class="px-3">
+                        <b-input placeholder="Search by list name..."
+                            type="search"
+                            v-model="search"
+                            icon="magnify">
+                        </b-input>
+                    </b-field>
+                    <table v-if="lists.length > 0" class="table is-striped is-bordered is-fullwidth">
                         <tbody>
-                            <tr is="list-item" v-for="(list, index) in lists" :item="list" :index="index" :key="index" />
+                            <tr is="list-item" v-for="(list, index) in filteredLists" :item="list" :index="index" :key="index" />
                         </tbody>
                     </table>
                 </div>
                 <div class="column is-one-third">
-                    <create-list></create-list>
+                    <create-list class="pr-3 pt-5"></create-list>
                 </div>
                 <div class="modal" id="delete-modal">
                     <div class="modal-background"></div>
@@ -62,16 +69,21 @@ import FullAd from '~/components/cta/FullAd.vue'
       ListItem,
       EchoBreadCrumbs,
       FullAd
-      
+
     },
     data () {
       return {
           lists: [],
           targetDeck: {'name':'deck'},
-          targetDeckKey: 0
+          targetDeckKey: 0,
+          search: ''
       }
     },
     computed: {
+      filteredLists() {
+        if(this.search == '') return this.lists;
+        return this.lists.filter((list) => list.name.toLowerCase().includes(this.search.toLowerCase()))
+      },
       crumbs() {
         return [
           {
@@ -92,19 +104,19 @@ import FullAd from '~/components/cta/FullAd.vue'
       ])
     },
     async fetch(){
-        
+
         try{
             const res = await this.$echomtg.getAllLists();
 
             const mapped = Object.entries(res.lists).map(([k,v]) => v);
-    
+
             mapped.forEach(item => {
                 this.lists.push(item)
             })
 
             this.sortList();
         } catch (err){
-            
+
         }
     },
     methods: {
