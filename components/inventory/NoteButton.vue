@@ -2,7 +2,7 @@
   <div style="display: inline">
     <b-button :title="this.inventory_item.note_id > 0 ? `Edit Note` : `Create Note`" :icon-left="icon" :type="styleType" size="is-small" @click="openNote()" />
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
-        <div class="card has-background-warning-light" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
+        <div class="card" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head has-background-warning">
               <p class="modal-card-title"><strong v-if="this.noteExists == false">Create</strong> <strong>Note</strong> <strong v-if="this.noteExists == true">Created on {{this.note.created_at}}</strong></p>
                <b-button
@@ -93,9 +93,9 @@ export default {
       console.log(this.inventory_item)
       const data = await this.$echomtg.notesCreate(this.inventory_item.inventory_id, this.editingNote)
       this.$echomtg.createGrowl(data.message)
-      
+
       await this.fetchNote(data.note_id)
-      
+
       this.$buefy.snackbar.open({
         message: data.message,
         queue: false

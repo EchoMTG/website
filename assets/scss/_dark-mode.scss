@@ -30,6 +30,7 @@ html {
     }
 
     .card {
+      background: $dark-mode-background-color;
       .card-header {
         .button {
           border-color: $dark-mode-card-header-button-color!important;
