@@ -2,7 +2,7 @@
   <div style="display: inline">
     <b-button title="Add to Earnings Ledger" icon-left="cash-multiple" size="is-small" @click="isCardModalActive = true" />
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
-        <div class="card has-background-light" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
+        <div class="card" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head">
               <p class="modal-card-title">Move <strong>{{this.inventory_item.name}}</strong> from <strong>{{this.inventory_item.expansion}}</strong> to Earnings</p>
                <b-button
