@@ -5,17 +5,14 @@
     <section class="hero is-dark has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">App Users</h1>
-              <h3 class="subtitle">
-                Search through Users by email or username
-              </h3>
+              <h1 class="title">EchoMTG Users</h1>
           </div>
       </div>
     </section>
 
 
     <b-field class="px-3">
-        <b-input placeholder="Search by list name..."
+        <b-input placeholder="Search by username or email..."
             type="search"
             v-model="search"
             icon="magnify">
@@ -36,9 +33,8 @@
       <b-table-column :key="username" label="Username" v-slot="props">
         {{props.row.username}}
       </b-table-column>
-
        <b-table-column :key="plan" label="Plan" v-slot="props">
-        {{props.row.plan}}
+        <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
       </b-table-column>
       <b-table-column :key="plan" label="Stripe Link" v-slot="props">
         <a v-if="props.row.stripe_id" :href="`https://dashboard.stripe.com/customers/${props.row.stripe_id}`">

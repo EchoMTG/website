@@ -5,8 +5,10 @@
     <section class="hero is-dark has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">EchoMTG Applications Stats</h1>
-
+              <h1 class="title">App Stats</h1>
+              <h3 class="subtitle">
+                Echo Application Statistics
+              </h3>
           </div>
       </div>
     </section>
@@ -44,14 +46,18 @@
           </div>
         </div>
       </div>
+      <hr />
+      <div class="columns">
+        <div class="column" style="height: 200px">
+          <h2 class="title is-size-4 has-text-centered" >User Plan Distribution</h2>
+          <!-- <pie-chart  :chart-data="distributionData" :chart-options="chartOptionsBar" /> -->
+        </div>
+
+      </div>
 
     </div>
-  <hr />
-  <h3 class="title is-size-4 ml-3">
-                {{latestUsers.meta.total}} new users in the last {{latestUsers.meta.days}} days
-              </h3>
 
-
+    <h2 class="title is-size-4">{{latestUsers.meta.total}} new users in the last {{latestUsers.meta.days}} days</h2>
     <b-table
       striped
       narrowed
@@ -72,7 +78,7 @@
         {{props.row.email}}
       </b-table-column>
        <b-table-column :key="plan" label="Plan" v-slot="props">
-        <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
+        {{props.row.plan}}
       </b-table-column>
        <b-table-column :key="plan" label="Created/LastLogin" v-slot="props">
         <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
@@ -90,7 +96,7 @@ import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import * as chartConfig from '@/components/Charts/chart.config'
 
 export default {
-  name: 'admin',
+  name: 'financials',
   components: {
     EchoBreadCrumbs,
   },
@@ -116,6 +122,19 @@ export default {
       },
       stats: null,
 
+      colorDataset: [{
+        'data' : [],
+        'backgroundColor' : []
+      }],
+      distributionDataset: [{
+        'data' : [],
+        'backgroundColor' : []
+      }],
+      distributionValueDataset: [{
+        'label': 'Financial Value',
+        'data' : [],
+        'backgroundColor' : []
+      }]
 
 
     }
@@ -128,7 +147,7 @@ export default {
 
 
       this.latestUsers = await this.getLatestUsers(2)
-      this.data_totals = (await this.getDataTotals()).totals
+      this.data_totals = await this.getDataTotals()
 
       this.loading    = false;
   },
