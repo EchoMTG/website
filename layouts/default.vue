@@ -26,6 +26,7 @@ import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
 import AsideRight from '@/components/AsideRight'
 import toolsMenu from '@/components/navigation/tools'
+import adminMenu from '@/components/navigation/admin'
 import shellUser from '@/store/shellUser'
 
 // import ConfigBox from '@/components/ConfigBox'
@@ -56,6 +57,7 @@ export default {
       let tools = toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       });
+      let admin = adminMenu();
       navList.push(
           'Magic: the Gathering',
           [
@@ -80,7 +82,14 @@ export default {
       navList.push('My Apps');
       // showing tools in left
       navList.push(tools);
-        navList.push('EchoMTG')
+
+      if (this.user && parseInt(this.user.user_level) >= 8){
+        navList.push('Admin');
+        // showing tools in left
+        navList.push(admin);
+      }
+
+      navList.push('EchoMTG')
       navList.push( [
         {
           to: '/blog/',
