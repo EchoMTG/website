@@ -11,7 +11,7 @@
     </header>
     <div v-if="image != ''" class="card-image">
       <figure class="image">
-        <img :src="image" alt="Placeholder image">
+        <b-image lazy :src="image" :alt="title" />
       </figure>
     </div>
     <div class="card-content has-background-light has-text-black has-text-centered">
