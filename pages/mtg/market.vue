@@ -109,7 +109,7 @@ export default {
   async fetch() {
     this.loading=true
     // get sets, filter by release date > current date
-    this.sets = await this.$echomtg.getMarketData(0,50,1,this.search,this.year);
+    this.sets = await this.$echomtg.getMarketData(0,36,1,this.search,this.year);
     this.loading=false
 
   },
