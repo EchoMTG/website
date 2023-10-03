@@ -21,7 +21,7 @@
               </div>
           </div>
         </section>
-        
+
         <div class="container">
           <div class="level">
             <div class="level-item has-text-centered">
@@ -42,7 +42,7 @@
                 <p class="title">{{quickstats?.currency_symbol}}{{ quickstats?.current_value_low }}</p>
               </div>
             </div>
-            
+
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">Cards Value</p>
@@ -126,7 +126,7 @@
                   <div :style="`background: ${rarityDistributionDataset[0]?.backgroundColor[6]}; height: 3px;`"></div>
                 </div>
               </div>
-              
+
               <div class="level-item has-text-centered">
                 <div>
                   <p class="heading">Land ({{ stats?.land.total_cards }} items)</p>
@@ -134,11 +134,11 @@
                   <div :style="`background: ${rarityDistributionDataset[0]?.backgroundColor[7]}; height: 3px;`"></div>
                 </div>
               </div>
-              
-              
+
+
             </div>
-       
-            
+
+
             <bar-chart :chart-data="rarityData" :chart-options="chartOptionsRarity" />
           </div>
         </div>
@@ -190,7 +190,7 @@ export default {
         'label': 'Mythic',
         'data' : [],
         'backgroundColor' : [
-          
+
           chartConfig.allChartColors.grey,
           chartConfig.allChartColors.yellow,
           chartConfig.allChartColors.blue,
@@ -212,15 +212,12 @@ export default {
 
   async fetch(){
       if(!this.authenticated) return;
-      console.log(this.user)
+
       this.loading    = true;
       this.earnings   = (await this.getEarningsStats()).stats
       this.quickstats = (await this.$echomtg.inventoryQuickStats()).stats
       this.stats      = (await this.$echomtg.inventoryStats()).stats
 
-      console.log('earnings',this.earnings)
-      console.log('quick stats',this.quickstats)
-      console.log('stats',this.stats)
 
       // type distribution
       this.distributionDataset[0].data = [
@@ -243,62 +240,61 @@ export default {
 
       // Rarity Distribution
       this.rarityDistributionDataset[0].data = [
-        this.stats.colorless.mythics_value,  
-        this.stats.white.mythics_value,   
-        this.stats.blue.mythics_value, 
-        this.stats.black.mythics_value, 
-        this.stats.red.mythics_value, 
+        this.stats.colorless.mythics_value,
+        this.stats.white.mythics_value,
+        this.stats.blue.mythics_value,
+        this.stats.black.mythics_value,
+        this.stats.red.mythics_value,
         this.stats.green.mythics_value,
-        this.stats.multicolor.mythics_value, 
-        this.stats.land.mythics_value       
+        this.stats.multicolor.mythics_value,
+        this.stats.land.mythics_value
       ]
 
       this.rarityDistributionDataset.push({
         label: 'Rare',
-        data: [ 
-          this.stats.colorless.rares_value, 
-          this.stats.white.rares_value,   
-          this.stats.blue.rares_value, 
-          this.stats.black.rares_value, 
-          this.stats.red.rares_value, 
+        data: [
+          this.stats.colorless.rares_value,
+          this.stats.white.rares_value,
+          this.stats.blue.rares_value,
+          this.stats.black.rares_value,
+          this.stats.red.rares_value,
           this.stats.green.rares_value,
           this.stats.multicolor.rares_value,
-          this.stats.land.rares_value       
+          this.stats.land.rares_value
         ],
         backgroundColor: this.rarityDistributionDataset[0].backgroundColor
       })
       this.rarityDistributionDataset.push({
         label: 'Uncommon',
         data: [
-          this.stats.colorless.uncommons_value,   
-          this.stats.white.uncommons_value,   
-          this.stats.blue.uncommons_value, 
-          this.stats.black.uncommons_value, 
-          this.stats.red.uncommons_value, 
+          this.stats.colorless.uncommons_value,
+          this.stats.white.uncommons_value,
+          this.stats.blue.uncommons_value,
+          this.stats.black.uncommons_value,
+          this.stats.red.uncommons_value,
           this.stats.green.uncommons_value,
-          this.stats.multicolor.uncommons_value, 
-          
-          this.stats.land.uncommons_value       
+          this.stats.multicolor.uncommons_value,
+
+          this.stats.land.uncommons_value
         ],
         backgroundColor: this.rarityDistributionDataset[0].backgroundColor
       })
       this.rarityDistributionDataset.push({
         label: 'Common',
         data: [
-          this.stats.colorless.commons_value, 
-          this.stats.white.commons_value,   
-          this.stats.blue.commons_value, 
-          this.stats.black.commons_value, 
-          this.stats.red.commons_value, 
+          this.stats.colorless.commons_value,
+          this.stats.white.commons_value,
+          this.stats.blue.commons_value,
+          this.stats.black.commons_value,
+          this.stats.red.commons_value,
           this.stats.green.commons_value,
-          this.stats.multicolor.commons_value, 
-          this.stats.land.commons_value       
+          this.stats.multicolor.commons_value,
+          this.stats.land.commons_value
         ],
         backgroundColor: this.rarityDistributionDataset[0].backgroundColor
       })
-     
 
-      console.log(this.distributionValueDataset);
+
 
       this.loading    = false;
   },
@@ -334,16 +330,16 @@ export default {
     chartOptionsRarity(){
       return {
         ...chartConfig.chartOptionsBar,
-        
+
         legend: {
           label: {
             color: '#000000'
           }
         }
-      
+
       }
     },
-    
+
     crumbs() {
       return [
         {

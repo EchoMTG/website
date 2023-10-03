@@ -141,7 +141,6 @@ export default {
       // get it all here, not pagination
       const packRes = await fetch(url + 'PACK');
       const packData = await packRes.json();
-      console.log('pack data', packData)
       const sealRes = await fetch(url + 'SEAL');
       const sealData = await sealRes.json();
       this.sealed = [...packData.items, ...sealData.items]

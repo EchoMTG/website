@@ -74,13 +74,10 @@ export default (context, inject) => {
   echomtg.getItem = async (emid) => {
     let endpoint = `${context.app.$config.API_DOMAIN}data/item/?emid=${emid}`;
 
-    // pricing
     const res = await fetch(endpoint, {
-      headers: {
-          'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY
-          }
-      })
-      return await res.json();
+      headers: echomtg.getS2SGetHeaders()
+    })
+    return await res.json();
 
   }
 
@@ -342,9 +339,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}lists/all/`;
 
     const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     let data = await res.json();
 
@@ -373,10 +368,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     })
 
@@ -403,10 +395,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     })
 
@@ -418,9 +407,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}inventory/add/?emid=${emid}&foil=${foil}`;
     echomtg.log(url, 'adding inventory', context.app.$cookies.get('token'));
     const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   }
@@ -468,10 +455,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -506,10 +490,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -520,10 +501,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   }
@@ -533,10 +511,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   }
@@ -546,10 +521,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     });
     return await res.json();
   }
@@ -559,10 +531,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     });
     return await res.json();
   }
@@ -573,9 +542,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     });
     return await res.json();
   }
@@ -587,10 +554,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}billing/set_default_card/`;
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -602,10 +566,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   }
@@ -616,10 +577,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}user/subscriptions/`;
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -632,10 +590,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   };
@@ -646,10 +601,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders(),
     });
     return await res.json();
   };
@@ -659,10 +611,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     });
     return await res.json();
   }
@@ -674,10 +623,7 @@ echomtg.getSets = async (game=1) => {
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(payload)
     });
     return await res.json();
@@ -741,10 +687,7 @@ echomtg.getSets = async (game=1) => {
     }
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -760,10 +703,7 @@ echomtg.getSets = async (game=1) => {
 
     const res = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      },
+      headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
     });
     return await res.json();
@@ -1005,9 +945,7 @@ echomtg.getSets = async (game=1) => {
     let url = `${context.app.$config.API_DOMAIN}earnings/view/?${params}`;
 
     const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
+      headers: echomtg.getUserHeaders()
     });
 
     return await res.json();
@@ -1102,9 +1040,7 @@ echomtg.getSets = async (game=1) => {
     try {
       const res = await fetch(url, {
         method: 'GET',
-        headers: {
-          'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-        }
+        headers: echomtg.getUserHeaders()
       });
       let data = await res.json();
       this.createGrowl(data.message);
