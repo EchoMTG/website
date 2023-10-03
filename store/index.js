@@ -37,6 +37,7 @@ export const state = () => ({
   authenticated: false,
   quickstats: shellquickstats,
   currentInventoryPage: [],
+  loginSignupModalShow: false,
 
   /* NavBar */
   isNavBarVisible: true,
@@ -179,6 +180,13 @@ export const mutations = {
   sets (state, payload = null){
     state.sets = payload;
   },
+
+  loginSignupModalShow (state, payload = null){
+    state.loginSignupModalShow = payload;
+    console.log('login toggle',payload)
+  },
+
+
 
   /* Layouts */
 

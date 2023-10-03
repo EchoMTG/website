@@ -12,6 +12,7 @@
     <!-- <config-box /> -->
     <footer-bar />
     <overlay @overlay-click="overlayClick" />
+    <login-signup-modal />
   </div>
 </template>
 
@@ -19,6 +20,7 @@
 // @ is an alias to /src
 import { mapState } from 'vuex'
 import NavBar from '@/components/NavBar'
+import LoginSignupModal from '@/components/user/LoginSignupModal'
 import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
@@ -36,7 +38,8 @@ export default {
     Overlay,
     FooterBar,
     AsideMenu,
-    NavBar
+    NavBar,
+    LoginSignupModal
   },
   data () {
     return {
@@ -208,7 +211,7 @@ export default {
       'isLayoutAsideHidden',
       'isLayoutMobile',
       'authenticated',
-      'user'
+      'user',
     ])
   },
   watch: {

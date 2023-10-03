@@ -143,27 +143,38 @@ export default {
       return color;
     },
     addItem: function (emid,foil=0){
-      fetch(this.addAPIURL(emid,foil),{
-          headers: {
-              'Authorization' : 'Bearer ' + this.$cookies.get('token')
-          }
-      }).then((response) => {
-          return response.json();
-      }).then((json) => {
+      try {
+        const json = this.$echomtg.inventoryQuickAdd(emid,foil);
+        if(json.status == 'success'){
           this.$buefy.snackbar.open({
               message: json.message,
-              type: 'is-success',
-              queue: true,
-              position: 'is-top',
+              type: 'is-warning',
+              queue: false,
+              duration: 10000,
+              position: 'is-bottom-right',
+              pauseOnHover: true,
+              actionText: 'UNDO',
+              onAction: async () => {
+                  const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
+                  this.$buefy.snackbar.open({
+                    message: `${json.inventory_id} ${deleted.message}`,
+                    type: 'is-danger',
+                    queue: false
+                  });
+              }
           })
-          this.actions++;
-      }).catch(function (error) {
-          this.$buefy.snackbar.open({
-              message: error,
-              type: 'is-error',
-              position: 'is-top',
-          })
-      });
+          this.callback()
+        } else {
+          this.$store.commit('loginSignupModalShow',true);
+          this.$echomtg.log('failed to add')
+        }
+      } catch (err){
+        this.$buefy.snackbar.open({
+          message: error,
+          type: 'is-error',
+          position: 'is-top',
+        })
+      }
     },
     replaceSymbols(str){
       return this.$echomtg.replaceSymbols(str)

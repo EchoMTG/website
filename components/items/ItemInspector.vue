@@ -5,7 +5,7 @@
             <div class="columns">
                 <div class="column is-one-third">
                     <a :href="itemURL">
-                        <img class="popoverImage" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px"  />
+                        <b-image class="popoverImage" custom-class="expandedImage"	 :src="item.image" alt="Placeholder image"  />
                     </a>
                 </div>
                 <div class="column is-two-thirds ">
@@ -15,7 +15,7 @@
                         </p>
                         <p class="subtitle is-size-6 mb-1">{{item.types}}</p>
 
-                        <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)" />
+                        <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
 
                         <div class="columns" v-if="this.$echomtg.isLoggedIn()">
                           <div class="column">
@@ -47,6 +47,11 @@
         </footer>
     </div>
 </template>
+<style lang="scss" scoped>
+    .expandedImage {
+        margin-bottom: -7px;
+    }
+</style>
 <script>
 import WatchlistQuickAddButton from '../watchlist/WatchlistQuickAddButton.vue'
 

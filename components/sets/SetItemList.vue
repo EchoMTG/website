@@ -419,24 +419,29 @@ export default {
     addItem: async function (emid,foil=0){
       try {
         const json = this.$echomtg.inventoryQuickAdd(emid,foil);
-        this.$buefy.snackbar.open({
-            message: json.message,
-            type: 'is-warning',
-            queue: false,
-            duration: 10000,
-            position: 'is-bottom-right',
-            pauseOnHover: true,
-            actionText: 'UNDO',
-            onAction: async () => {
-                const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
-                this.$buefy.snackbar.open({
-                  message: `${json.inventory_id} ${deleted.message}`,
-                  type: 'is-danger',
-                  queue: false
-                });
-            }
-        })
-        this.callback()
+        if(json.status == 'success'){
+          this.$buefy.snackbar.open({
+              message: json.message,
+              type: 'is-warning',
+              queue: false,
+              duration: 10000,
+              position: 'is-bottom-right',
+              pauseOnHover: true,
+              actionText: 'UNDO',
+              onAction: async () => {
+                  const deleted = await this.$echomtg.inventoryDeleteItem(json.inventory_id);
+                  this.$buefy.snackbar.open({
+                    message: `${json.inventory_id} ${deleted.message}`,
+                    type: 'is-danger',
+                    queue: false
+                  });
+              }
+          })
+          this.callback()
+        } else {
+          this.$store.commit('loginSignupModalShow',true);
+          this.$echomtg.log('failed to add')
+        }
       } catch (err){
         this.$buefy.snackbar.open({
           message: error,

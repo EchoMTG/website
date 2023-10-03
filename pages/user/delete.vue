@@ -8,22 +8,27 @@
           <tiles>
             <card-component title="Delete Account" icon="delete" class="tile is-child">
               <div class="content">
-                <p>Delete your account forever. All your user data, collection, and history on Echo. This can't be undone.</p>
-                <p>Type your username ({{user.username}}) to proceed</p>
-                <b-field label="Type your username to delete">
-                <b-input v-model="username" type="text" />
-                </b-field>
-                <div class="message py-5 is-rounded" v-if="username == user.username">
-                  <div class="columns is-vcentered" >
-                    <div class="column is-2">
-                      <b-image responsive rounded src="https://assets.echomtg.com/interface/gaddock-teeg.jpg" />
-                    </div>
-                    <div class="column is-10">
-                     <p>Clicking <strong>"Delete Account"</strong> will purge your account and data forever.</p><p>Thank you for trying Echo! &mdash; Teeg</p>
+                <b-message type="is-danger" v-if="user.plan !== 'common'">
+                  <strong>To Delete your account, first <nuxt-link class="has-text-info" to="/plans/">change your plan to "common"</nuxt-link> to stop billing. Then come back here to delete.</strong>
+                </b-message>
+                <div v-if="user.plan == 'common'">
+                  <p>Delete your account forever. All your user data, collection, and history on Echo. This can't be undone.</p>
+                  <p>Type your username ({{user.username}}) to proceed</p>
+                  <b-field label="Type your username to delete">
+                  <b-input v-model="username" type="text" />
+                  </b-field>
+                  <div class="message py-5 is-rounded" v-if="username == user.username">
+                    <div class="columns is-vcentered" >
+                      <div class="column is-2">
+                        <b-image responsive rounded src="https://assets.echomtg.com/interface/gaddock-teeg.jpg" />
+                      </div>
+                      <div class="column is-10">
+                      <p>Clicking <strong>"Delete Account"</strong> will purge your account and data forever.</p><p>Thank you for trying Echo! &mdash; Teeg</p>
+                      </div>
                     </div>
                   </div>
+                  <b-button @click="deleteAccount()" icon-left="delete" v-if="username == user.username" size="is-large" type="is-danger is-fullwidth">Delete Account</b-button>
                 </div>
-                <b-button @click="deleteAccount()" icon-left="delete" v-if="username == user.username" size="is-large" type="is-danger is-fullwidth">Delete Account</b-button>
               </div>
 
             </card-component>
