@@ -35,22 +35,29 @@ $nav-background: $mage-dark;
   -webkit-text-stroke: .03em rgba(0,0,0,.4);
 }
 
-.gold-background, .rare-background{
+.gold-background, .rare-background, .rareY-background{
   background: linear-gradient(to left,#876a3b 0,#dfbd6b 50%,#876a3b 100%);
 }
-.gold-symbol, .rare-symbol{
+.gold-symbol, .rare-symbol, .rareY-symbol{
   background: linear-gradient(to left,#876a3b 0,#dfbd6b 50%,#876a3b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: white !important;
 }
 
-.mythic-background,.mythic-rare-background,.mythicrare-background{
+.gold-outline,.rare-outline,.rareY-outline,.goldrare-outline{
+  border: 1px #dfbd6b solid !important;
+}
+
+.mythicY-background,.mythic-background,.mythic-rare-background,.mythicrare-background{
   background: linear-gradient(to left,#e16a02 0,#df8e6b 50%,#df8f0d 100%);
   color: white !important;
 }
+.mythicY-outline,.mythic-outline,.mythic-rare-outline,.mythicrare-outline{
+  border: 1px #e16a02 solid !important;
+}
 
-.mythic-symbol,.mythic-rare-symbol,.mythicrare-symbol {
+.mythic-symbol,.mythicY-symbol,.mythic-rare-symbol,.mythicrare-symbol {
   background: linear-gradient(to left,#e16a02 0,#df8e6b 50%,#df8f0d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -67,12 +74,20 @@ $nav-background: $mage-dark;
   background: white;
 }
 
-.uncommon-background{
+.common-outline{
+  border: 1px #eee solid !important;
+}
+
+.uncommon-background, .uncommonY-background{
   background: linear-gradient(to left,#858585 0,#e4e4e4 50%,#8f8f8f 100%);
   color: #333;
 }
 
-.uncommon-symbol{
+.uncommon-outline,.uncommonY-outline{
+  border: 1px #858585 solid !important;
+}
+
+.uncommon-symbol, .uncommonY-symbol{
   background: linear-gradient(to left,#858585 0,#e4e4e4 50%,#8f8f8f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
