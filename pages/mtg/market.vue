@@ -26,8 +26,8 @@
             {{year}}
           </option>
         </b-select>
-        <b-field class="is-flex-grow">
-          <b-input placeholder="Search by username or email..."
+        <b-field class="is-flex-grow-2">
+          <b-input class="is-fullwidth" placeholder="Search by name or set code..."
               type="search"
               v-model="search"
               icon="magnify">
@@ -120,10 +120,13 @@ export default {
       'quickstats'
     ]),
     years() {
-      return [
-        '1994',
-        '1993'
-      ]
+      const thisyear = new Date().getFullYear();
+      const firstyear = 1993
+      let arr = []
+      for(let i=firstyear;i <= thisyear; i++ ){
+        arr.push(i)
+      }
+      return arr;
     },
     crumbs () {
       return [
