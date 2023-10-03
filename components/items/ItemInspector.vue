@@ -104,8 +104,19 @@ export default {
             return `card itemInspectorCard ${ctb} ${full}`;
         },
         itemURL() {
-          if(this.item.echo_url) return this.item.echo_url.replace('https://www.echomtg.com','')
-          return this.item.card_url;
+            this.$echomtg.log('inspector item',this.item)
+            let url = '';
+            if(this.item.echo_url) {
+                url = this.item.echo_url
+            } else {
+                url = this.item.card_url
+            }
+            url = url.replace('https://www.echomtg.com','')
+            let split = url.split('/')
+            let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
+            url = `/${game}/items/${split[3]}/${this.item.emid}/`
+
+            return url;
         }
     },
     methods: {
@@ -116,6 +127,7 @@ export default {
                 this.toggleShowFull = true
             }
         },
+    
         inventoryQuickAdd: function(emid,foil=0) {
             this.$echomtg.inventoryQuickAdd(emid, foil)
         },

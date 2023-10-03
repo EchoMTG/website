@@ -6,7 +6,6 @@ export default {
   name: 'WatchlistQuickAddButton',
   props: {
     emid: {
-      type: String,
       required: true
     },
     showLabel: {

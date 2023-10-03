@@ -239,6 +239,7 @@ export default {
   },
 
   async mounted () {
+    // these classes are added through the nuxt config
     // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
     document.documentElement.classList['add']('has-aside-left');
     document.documentElement.classList['add']('has-navbar-fixed-top');
