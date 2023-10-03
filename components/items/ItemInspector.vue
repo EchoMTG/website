@@ -107,15 +107,20 @@ export default {
             this.$echomtg.log('inspector item',this.item)
             let url = '';
             if(this.item.echo_url) {
+                // single item variation
                 url = this.item.echo_url
             } else {
+                // full item variation
                 url = this.item.card_url
             }
             url = url.replace('https://www.echomtg.com','')
             let split = url.split('/')
             let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
-            url = `/${game}/items/${split[3]}/${this.item.emid}/`
-
+            if(split.length > 3){
+                url = `/${game}/items/${split[3]}/${this.item.emid}/`
+            } else {
+                url = `/${game}/${split[3]}/`
+            }
             return url;
         }
     },
