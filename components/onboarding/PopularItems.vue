@@ -86,7 +86,7 @@ export default{
             type: 'is-warning',
             queue: false,
             duration: 10000,
-            position: 'is-bottom-right',
+            position: 'is-bottom',
             pauseOnHover: true,
             actionText: 'UNDO',
             onAction: async () => {
