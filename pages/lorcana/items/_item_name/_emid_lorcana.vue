@@ -476,6 +476,12 @@ export default {
             name: 'description',
             content:  `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`
           }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
         ]
     }
   }

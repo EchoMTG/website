@@ -41,11 +41,11 @@
     <td>{{card.acquire_date}}</td>
     <td>
       <a v-if="listtype !== 'error'" @click="importCard(listtype,ckey)" class="button is-small is-success has-icon has-text-white">
-        <i class="icon fa fa-arrow-up"></i>
+        <b-icon icon="arrow-up" size="is-small"/>
           <!--<span>Remove</span>-->
       </a>
       <a @click="removeCard(listtype,ckey)" class="button is-small is-danger has-icon has-text-white">
-          <i class="icon fa fa-trash"></i>
+        <b-icon icon="delete" size="is-small"/> 
           <!--<span>Remove</span>-->
       </a>
     </td>

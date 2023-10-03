@@ -44,8 +44,12 @@
                     </b-table-column>
 
                     <b-table-column v-slot="props">
-                        <a class="button is-small"  @click="soldItem(props.row.acquiredPrice,props.row.inventoryID,props.row.foil)"><i class="fa fa-usd"></i></a>
-                        <a class="button is-small" @click="deleteItem(props.row.inventoryID)"><i class="fa fa-trash"></i></a>
+                        <a class="button is-small"  @click="soldItem(props.row.acquiredPrice,props.row.inventoryID,props.row.foil)">
+                            <b-icon icon="currency-usd" size="is-small" />
+                        </a>
+                        <a class="button is-small" @click="deleteItem(props.row.inventoryID)">
+                            <b-icon icon="trash" size="is-small" />
+                        </a>
                     </b-table-column>
                 </b-table>
             </div>

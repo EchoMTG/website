@@ -263,6 +263,12 @@ export default {
             name: 'description',
             content:  `Card Images and Prices for the Disney Lorana set ${this.set.name}, ${this.set.set_code}`
           }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
         ]
     }
   }

@@ -3,6 +3,10 @@ export default {
   ssr: true,
   head: {
     title: 'EchoMTG',
+    htmlAttrs: {
+      lang: 'en',
+      'class': 'has-aside-left has-navbar-fixed-top has-aside-mobile-transition has-aside-expanded'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
