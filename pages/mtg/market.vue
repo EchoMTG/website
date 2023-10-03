@@ -18,8 +18,25 @@
            <create-account-modal />
           </div>
         </div>
+        <div class="is-flex">
+        <b-select v-model="year" class=" mr-3">
+          <option value="">Select Year</option>
+          <option>---</option>
+          <option v-for="year in years" v-bind:key="year" :value="year">
+            {{year}}
+          </option>
+        </b-select>
+        <b-field class="is-flex-grow-2">
+          <b-input class="is-fullwidth" placeholder="Search by name or set code..."
+              type="search"
+              v-model="search"
+              icon="magnify">
+          </b-input>
+        </b-field>
 
       </div>
+      </div>
+
     </section>
 
     <section>
@@ -75,13 +92,25 @@ export default {
   },
   data () {
     return {
-      sets: {}
+      sets: {},
+      search: '',
+      year: '',
+      loading: true
     }
   },
+  watch: {
+    search(){
+      this.$fetch()
+    },
+    year(){
+      this.$fetch()
+    },
+  },
   async fetch() {
+    this.loading=true
     // get sets, filter by release date > current date
-    this.sets = await this.$echomtg.getMarketData(0,99,1);
-
+    this.sets = await this.$echomtg.getMarketData(0,36,1,this.search,this.year);
+    this.loading=false
 
   },
   computed: {
@@ -90,6 +119,15 @@ export default {
       'user',
       'quickstats'
     ]),
+    years() {
+      const thisyear = new Date().getFullYear();
+      const firstyear = 1993
+      let arr = []
+      for(let i=firstyear;i <= thisyear; i++ ){
+        arr.push(i)
+      }
+      return arr;
+    },
     crumbs () {
       return [
         {

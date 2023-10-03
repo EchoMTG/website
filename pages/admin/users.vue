@@ -23,31 +23,34 @@
       striped
       narrowed
       :data="users"
+      default-sort="last_login"
+      default-sort-direction="desc"
       >
-      <b-table-column :key="email" label="Email" v-slot="props">
+      <b-table-column field="email" sortable label="Email" v-slot="props">
         <b-icon :class="props.row.plan == 'common' ? 'has-text-grey' : 'has-text-success'" :icon="props.row.plan == 'common' ? 'account' : 'account-badge'" size="is-small" /> {{props.row.email}}
       </b-table-column>
-      <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
-        {{props.row.referrer_url}}
+      <b-table-column field="id" sortable label="ID" v-slot="props">
+        {{props.row.id}}
       </b-table-column>
-      <b-table-column :key="username" label="Username" v-slot="props">
+      <b-table-column field="username" sortable label="Username" v-slot="props">
         {{props.row.username}}
       </b-table-column>
-       <b-table-column :key="plan" label="Plan" v-slot="props">
-        <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
+       <b-table-column field="plan" sortable label="Plan" v-slot="props">
+        <b-tag type="is-dark" :class="`${props.row.plan}-outline`">{{props.row.plan}}</b-tag>
       </b-table-column>
-      <b-table-column :key="plan" label="Stripe Link" v-slot="props">
-        <a v-if="props.row.stripe_id" :href="`https://dashboard.stripe.com/customers/${props.row.stripe_id}`">
-          <b-icon :icon="'currency-usd'" size="is-small" /> {{props.row.stripe_id}}
+      <b-table-column field="stripe_id" sortable label="Stripe Link" v-slot="props">
+        <b-tag type="is-dark"  v-if="!props.row.stripe_id && props.row.plan !== 'common'">free</b-tag>
+        <a class="button is-small is-outlined" target="_blank" v-if="props.row.stripe_id" :href="`https://dashboard.stripe.com/customers/${props.row.stripe_id}`">
+          <b-icon :icon="'currency-usd'" size="is-small" class="mr-1" /> {{props.row.stripe_id}}
         </a>
       </b-table-column>
-       <b-table-column :key="plan" label="Created/LastLogin" v-slot="props">
-        {{props.row.date_created}}/{{props.row.last_login}}
+      <b-table-column field="login_Count" sortable label="Logins" v-slot="props">
+        {{props.row.login_Count}}
       </b-table-column>
 
-
-
-
+       <b-table-column field="last_login" sortable label="Created/LastLogin" v-slot="props">
+        <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
+      </b-table-column>
 
     </b-table>
   </div>

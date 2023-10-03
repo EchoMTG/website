@@ -150,8 +150,11 @@ echomtg.getPopularItems = async (game=1) => {
   return data.items;
 }
 
-echomtg.getMarketData = async (start=0,limit=10,game=1) => {
-  const res = await fetch(`${context.app.$config.API_DOMAIN}data/market/?start=${start}&limit=${limit}&game=${game}`);
+echomtg.getMarketData = async (start=0,limit=10,game=1,search=false,year=false) => {
+  let url = `${context.app.$config.API_DOMAIN}data/market/?start=${start}&limit=${limit}&game=${game}`;
+  if(year) url += `&year=${encodeURIComponent(year)}`;
+  if(search) url += `&search=${encodeURIComponent(search)}`;
+  const res = await fetch(url);
   return await res.json();
 }
 
@@ -414,13 +417,14 @@ echomtg.getSets = async (game=1) => {
 
   // USER
 
-  echomtg.registerUser = async (email, username, password, referrer='') => {
+  echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com') => {
     let url = `${context.app.$config.API_DOMAIN}user/register/`;
     const payload = {
       'email' : email,
       'username' : username,
       'password' : password,
-      'referrer' : referrer
+      'referrer' : referrer,
+      'referrer_url' : referrer_url
     }
     const res = await fetch(url, {
       method: 'POST',
