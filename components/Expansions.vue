@@ -12,7 +12,7 @@
               placeholder="Search by Name..."
             />
             <span class="icon is-small is-left">
-              <i class="fa fa-search"></i>
+              <b-icon size="is-small" icon="magnify"/>
             </span>
           </div>
       </div>

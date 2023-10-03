@@ -279,7 +279,7 @@ export default {
 
     }
   },
-  async asyncData({ params, redirect, $config }) {
+  async asyncData({ params, redirect, $echomtg, $config }) {
 
     let emid = params.emid_mtg;
     let item, res, dataRes, variations;
@@ -298,18 +298,14 @@ export default {
     try {
       res = await fetch(
         endpoint, {
-          headers: {
-            'Authorization' : 'Bearer ' + $config.S2S_KEY
-          }
+          headers: $echomtg.getS2SGetHeaders()
         }
       );
       item = await res.json();
 
-      dataRes = await fetch(
-        dataEndpoint, {
-          headers: {
-            'Authorization' : 'Bearer ' + $config.S2S_KEY
-          }
+      dataRes = await fetch( dataEndpoint, 
+        {
+          headers: $echomtg.getS2SGetHeaders()
         }
       );
       let priceData = await dataRes.json();
@@ -325,9 +321,7 @@ export default {
 
       const vRes = await fetch(
         variationsEndpoint, {
-          headers: {
-            'Authorization' : 'Bearer ' + $config.S2S_KEY
-          }
+          headers: $echomtg.getS2SGetHeaders()
         }
       );
       let vData = await vRes.json();
@@ -475,8 +469,18 @@ export default {
             hid: 'description',
             name: 'description',
             content:  `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`
+          },
+          {
+            hid:'',
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
           }
         ]
+
     }
   }
 

@@ -72,9 +72,24 @@ export default {
               icon: 'chart-line-stacked'
             },
             {
+              to: '/mtg/groups/magic-reserve-list/',
+              label: 'Reserve List',
+              icon: 'gold'
+            },
+            {
               to: '/mtg/types/',
-              label: 'Card Types',
+              label: 'Type Explorer',
+              icon: 'note-search-outline'
+            },
+            {
+              to: '/mtg/groups/',
+              label: 'Smart Groups',
               icon: 'lightbulb-group'
+            },
+            {
+              to: '/mtg/speculations/',
+              label: 'Speculations',
+              icon: 'cash-fast'
             },
           ],
       );
@@ -239,6 +254,7 @@ export default {
   },
 
   async mounted () {
+    // these classes are added through the nuxt config
     // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
     document.documentElement.classList['add']('has-aside-left');
     document.documentElement.classList['add']('has-navbar-fixed-top');

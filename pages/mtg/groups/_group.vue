@@ -218,6 +218,12 @@ export default {
             name: 'description',
             content:  `${this.custompage.seo_meta_description}`,
           }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
         ]
 
     }

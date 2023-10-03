@@ -2,7 +2,6 @@
     <tr>
         <td>
             <NuxtLink :to="`/apps/lists/${item.id}`" class="has-text-black has-text-weight-bold">
-                <span class="icon"><i class="fa fa-edit"></i></span>
                 <span>{{item.name}}</span>
             </NuxtLink>
         </td>
@@ -10,13 +9,11 @@
         <td>
             <button v-if="item.public == 0" class="button is-primary is-small"  @click="makePublic(item.id, index)">Make Sharable</button>
             <button v-if="item.public == 1" class="button is-info is-small"  @click="openPublicLink">
-                <span class="icon">
-                    <i class="fa fa-share"></i>
-                </span>
+                <b-icon icon="share" size="is-small" />
                 <span>open public link</span>
             </button>
             <button class="button is-danger is-small modal-button is-pulled-right"  @click="openDeleteModal($vnode.key)" aria-haspopup="true">
-                <i class="fa fa-trash-o"></i>
+                <b-icon icon="delete" size="is-small" />
             </button>
         </td>
     </tr>

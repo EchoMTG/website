@@ -231,7 +231,13 @@ export default {
           {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Magic the Gathering card ${this.original.name}`
+            content:  `Card Images and Prices for the MTG card ${this.original.name}`
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
           }
         ]
 

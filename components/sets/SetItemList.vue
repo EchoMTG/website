@@ -249,10 +249,6 @@
           </b-table-column>
 
 
-
-
-
-
           <template slot="detail" slot-scope="props">
             <tr>
               <td colspan="9" style="max-height: 300px">
@@ -283,21 +279,6 @@
           </template>
 
         </b-table>
-
-          <!-- <tbody v-if="items.length > 0">
-            <SetItemRow
-              v-for="item in filteredItems"
-              :key="item.emid"
-              :ownsAny="Object.keys(cardsowned.regular).length > 0 || Object.keys(cardsowned.foiled).length > 0"
-              :owned="isCardOwned(item.emid, 'regular')"
-              :ownedfoil="isCardOwned(item.emid, 'foiled')"
-              :fullview="fullView"
-              :hasFoilsInSet="totalFoiled > 0"
-              :hasRegularInSet="totalRegular > 0"
-              @emit-wiki="openWiki(item)"
-              :item="item"
-            />
-          </tbody> -->
           <b-modal
             v-model="isWikiModalActive"
             has-modal-card

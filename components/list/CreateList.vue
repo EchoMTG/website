@@ -4,7 +4,7 @@
         <div class="box">
             <div class="field">
               <label class="label is-small">
-                <span class="fa fa-tag"></span>List/Deck Name
+                <b-icon icon="text-short" size="is-small" /> List/Deck Name
               </label>
               <div class="control">
                 <input class="input is-small" v-model="newDeck.name" type="text" id="newDeckName" placeholder="Deck or List Name">
@@ -12,7 +12,8 @@
             </div>
             <div class="field ">
               <label class="label is-small">
-                  <span class="fa fa-list-alt"></span>
+                  <b-icon icon="text" size="is-small" />
+                 
                   Description <span class="has-text-grey-light">(optional)</span>
               </label>
               <div class="control">
@@ -21,7 +22,7 @@
             </div>
             <div class="field">
             <label class="label is-small">
-                <span class="fa fa-file-text-o"></span>
+                <b-icon icon="file" size="is-small" />
                 Import Deck File <span class="has-text-grey-light">(optional)</span>
             </label>
           <div class="file is-small has-name">
@@ -29,7 +30,7 @@
               <input class="file-input" type="file" name="file" @change="importList" id="fileinput">
               <span class="file-cta">
                 <span class="file-icon">
-                  <i class="fa fa-upload"></i>
+                    <b-icon icon="upload" size="is-small" />
                 </span>
                 <span class="file-label">
                   Select File
@@ -45,16 +46,15 @@
         <div class="field is-grouped">
             <div class="control">
                 <a v-if="this.$parent.lists.length >= this.$parent.user.planObject.list_cap" class="button is-dark is-small is-pulled-right" href="/plans/">
-                    <span class="icon">
-                        <i class="fa fa-lightbulb-o"></i>
-                    </span>
+                    <b-icon icon="lightbulb" size="is-small" />
+    
+                    
+                    
                     <span>Get More Lists, Upgrade Plan</span>
                 </a>
 
                 <button v-if="this.$parent.lists.length <= this.$parent.user.planObject.list_cap" class="button is-success" @click="createList">
-                    <span class="icon">
-                    <i class="fa fa-plus"></i>
-                    </span>
+                    <b-icon icon="plus" size="is-small" />
                     <span>Create New List</span>
                 </button>
             </div>
