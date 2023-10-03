@@ -135,16 +135,16 @@ export default {
       }
       return color;
     },
-    addItem: async function (emid,foil=0){
+    async addItem(emid,foil=0){
       try {
-        const json = this.$echomtg.inventoryQuickAdd(emid,foil);
+        const json = await this.$echomtg.inventoryQuickAdd(emid,foil);
         if(json.status == 'success'){
           this.$buefy.snackbar.open({
               message: json.message,
               type: 'is-warning',
               queue: false,
               duration: 10000,
-              position: 'is-bottom-right',
+              position: 'is-bottom',
               pauseOnHover: true,
               actionText: 'UNDO',
               onAction: async () => {
