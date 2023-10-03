@@ -72,9 +72,24 @@ export default {
               icon: 'chart-line-stacked'
             },
             {
+              to: '/mtg/groups/magic-reserve-list/',
+              label: 'Reserve List',
+              icon: 'gold'
+            },
+            {
               to: '/mtg/types/',
-              label: 'Card Types',
+              label: 'Type Explorer',
+              icon: 'note-search-outline'
+            },
+            {
+              to: '/mtg/groups/',
+              label: 'Smart Groups',
               icon: 'lightbulb-group'
+            },
+            {
+              to: '/mtg/speculations/',
+              label: 'Speculations',
+              icon: 'cash-fast'
             },
           ],
       );
