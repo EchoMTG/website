@@ -15,15 +15,11 @@
                                         ref="searchInput"
                                         type="text"
                                         :placeholder="placeholderText">
-                                    <span class="icon is-small is-left">
-                                        <i class="fa fa-search"></i>
-                                    </span>
+                                    <b-icon icon="magnify" class="is-left" size="is-small" />
                                 </p>
                                 <p class="control m-0" v-if="search.length > 0">
                                      <button tabindex="-1" class="button is-small is-outlined clear-button" @click="clearSearch()">
-                                          <span class="icon">
-                                             <i class="fa fa-times-circle-o"></i>
-                                          </span>
+                                          <b-icon icon="times" size="is-small" />
                                      </button>
                                 </p>
                             </div>
@@ -38,9 +34,7 @@
                         <button class="button is-hidden-mobile  is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
-                            <span class="icon">
-                                <i class="fa fa-caret-down"></i>
-                            </span>
+                            <b-icon icon="menu-down" size="is-small" />
                         </button>
                     </div>
                 </header>
@@ -54,7 +48,7 @@
                                         <p class="control">
                                             <a class="button is-static is-small has-text-grey">
                                                 <span class="icon">
-                                                    <i class="fa fa-text-height"></i>
+                                                    <b-icon icon="text" size="is-small" />
                                                 </span>
                                                 <span>Card Text</span>
                                             </a>
@@ -76,9 +70,8 @@
                                       <div class="field has-addons">
                                         <p class="control">
                                             <a class="button is-static is-small has-text-grey">
-                                                <span class="icon">
-                                                    <i class="fa fa-male"></i>
-                                                </span>
+
+                                                <b-icon icon="human-male-height" size="is-small" />
                                                 <span>Types</span>
                                             </a>
                                         </p>
@@ -99,7 +92,7 @@
                                             <p class="control">
                                                 <a class="button is-static is-small has-text-grey">
                                                     <span class="icon">
-                                                        <i class="fa fa-usd"></i>
+                                                        <b-icon icon="currency-usd" size="is-small" />
                                                     </span>
                                                     <span>Acquired Price</span>
                                                 </a>
@@ -181,19 +174,19 @@
                     <p class="card-footer-item has-text-white">
 
                         <a @click="this.movePositionUp()" class="button is-small ">
-                            <span class="fa fa-caret-down"></span>
+                            <b-icon icon="menu-down" size="is-small" />
                         </a>
                         &nbsp;
                        <a @click="this.movePositionDown()" class="button is-small ">
-                            <span class="fa fa-caret-up"></span>
+                            <b-icon icon="menu-up" size="is-small" />
                         </a>
                         &nbsp; results &nbsp;
                         <a @click="this.closeCardPreview()" class="button is-small ">
-                            <span class="fa fa-caret-left"></span>
+                            <b-icon icon="menu-left" size="is-small" />
                         </a>
                         &nbsp;
                        <a @click="this.displayCardPreview()" class="button is-small ">
-                            <span class="fa fa-caret-right"></span>
+                            <b-icon icon="menu-right" size="is-small" />
                         </a>
                          &nbsp; toggle preview &nbsp;
                         <a @click="enterAction()" class="button is-small">

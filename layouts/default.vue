@@ -87,7 +87,7 @@ export default {
             {
               to: '/mtg/speculations/',
               label: 'Speculations',
-              icon: 'cash-fast'
+              icon: 'diamond-stone'
             },
           ],
       );
