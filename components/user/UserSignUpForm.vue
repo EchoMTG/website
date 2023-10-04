@@ -1,7 +1,7 @@
 <template>
     <section :class="`userSignupForm p-5 `+classes">
       <div v-if="!authenticated">
-        <h3 class="is-size-4 has-text-white has-text-weight-bold">Start a Free Account</h3>
+        <h3 class="is-size-4 has-text-white has-text-weight-bold">Join now with a Free Account</h3>
         <b-field>
           <div class="control">
               <label class="label has-text-grey">User handle</label>
@@ -52,7 +52,7 @@
               :disabled="!active"
               @click="registerUser"
               icon-left="account-plus"
-              class="button is-primary mythic-background">
+              class="button mythic-background">
               Create Account
             </b-button>
         </div>
