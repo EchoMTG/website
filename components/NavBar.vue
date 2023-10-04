@@ -344,12 +344,13 @@ export default {
     updateValue: async function (name, value){
       let body = {};
       body[name] = value;
-      // control dark mode
-      if(name == 'dark_mode'){
-        this.$store.commit('darkModeToggle', 1 == parseInt(value))
-      }
        // need to update user in store
-      await this.$echomtg.updateUser(body)
+      const res = await this.$echomtg.updateUser(body)
+
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-success'
+      })
 
       // get latest user info
       const userdata = await this.$echomtg.getUserMeta();
@@ -394,9 +395,6 @@ export default {
       // empty the store
       this.$store.replaceState({});
       this.$store.commit('authenticated',false)
-      // STATE PERSISTANCE
-      window.localStorage.removeItem('user');
-      window.localStorage.removeItem('authenticated');
 
       // reload to homepage
       window.location = '/';
