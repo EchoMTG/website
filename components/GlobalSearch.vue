@@ -280,7 +280,7 @@ export default {
         },
         callbackname: {
             type: String,
-            default: '<span class="icon is-small"><i class="fa fa-share"></i></span><span>Open Card Page</span>'
+            default: '<span class="icon is-small"><i class="mdi mdi-share"></i></span><span>Open Card Page</span>'
         },
         currencysymbol: {
             type: String,

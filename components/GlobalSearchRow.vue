@@ -12,7 +12,7 @@
             <h4><a :href="url">{{name}}</a></h4>
             <div :class="this.previewOpenClass" >
                 <div class="icon" @click="togglePreview">
-                    <i class="fa fa-image"></i>
+                   <b-icon icon="image" class="is-left" size="is-small" />
                 </div>
                 <div class="cardPreview" ref="previewDiv">
                     <img :src="this.cardImage" @click="togglePreview">
@@ -37,9 +37,7 @@
         <div  v-if="regularPrice > 0 || foilPrice == 0" class="field has-addons">
             <p class="control">
                 <button @click="addRowToInventory(0)" class="button is-small is-outlined is-info">
-                    <span class="icon">
-                      <i class="fa fa-plus"></i>
-                    </span>
+                     <b-icon icon="plus" size="is-small" />
                     <span>Reg.</span>
                 </button>
             </p>
@@ -60,9 +58,7 @@
 
             <p class="control">
                 <button @click="addRowToInventory(1)" class="button is-small is-outlined is-warning">
-                      <span class="icon">
-                      <i class="fa fa-plus"></i>
-                    </span>
+                    <b-icon icon="plus" size="is-small" />
                     <span>Foil</span>
                 </button>
             </p>
