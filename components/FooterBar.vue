@@ -11,7 +11,7 @@
           <div class="level-item">
             <div class="logo">
               <a href="https://www.echomtg.com">
-                <img src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg">
+                <NuxtImg width="100" height="27"  src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg" />
               </a>
             </div>
           </div>
