@@ -243,13 +243,6 @@ export default {
       }
     }
   },
-  beforeMount () {
-
-      window.addEventListener("hashchange", this.offsetAnchor);
-  },
-  beforeDestroy () {
-    window.removeEventListener('hashchange', this.offsetAnchor)
-  },
 
   async mounted () {
     // these classes are added through the nuxt config
@@ -281,12 +274,6 @@ export default {
     }
   },
   methods: {
-    offsetAnchor() {
-        if(location.hash.length !== 0) {
-            window.scrollTo(window.scrollX, window.scrollY); // add -100 to adjust all
-        }
-        console.log('offset anchor')
-    },
     async getSets(){
       try{
         const setsData = await this.$echomtg.getSets();

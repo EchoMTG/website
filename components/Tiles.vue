@@ -24,10 +24,10 @@ export default {
   },
   mounted () {
     this.updateWindowOuterWidth()
-    window.addEventListener('resize', this.updateWindowOuterWidth)
+    window.addEventListener('resize', this.updateWindowOuterWidth, {passive: true})
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.updateWindowOuterWidth)
+    window.removeEventListener('resize', this.updateWindowOuterWidth, {passive: true})
   },
   methods: {
     renderAncestor (createElement, elements) {
