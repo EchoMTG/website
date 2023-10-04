@@ -1,11 +1,12 @@
 <template>
     <div :class="cardClass">
-        <img v-if="!toggleShowFull" class="popoverImage" @click="imageTrigger()" :src="item.image" :alt="`${item.name} magic image`" style="margin-bottom: -7px" />
+
+        <NuxtPicture v-if="!toggleShowFull" :alt="`${item.name} magic image`" @click="imageTrigger()" placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image"  />
         <div v-if="toggleShowFull">
             <div class="columns">
                 <div class="column is-one-third">
                     <nuxt-link :to="itemURL">
-                        <b-image class="popoverImage" custom-class="expandedImage"	 :src="item.image" :alt="`${item.name} magic image`"  />
+                        <NuxtPicture placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image" :alt="`${item.name} magic image`"  />
                     </nuxt-link>
                 </div>
                 <div class="column is-two-thirds ">

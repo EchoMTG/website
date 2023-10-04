@@ -163,21 +163,28 @@
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
-                <b-image
-                    lazy
+
+                <NuxtPicture
+                     loading="lazy"
                     v-if="fullView == false"
                     :src="props.row.image_cropped"
-                    custom-class="mr-3"
+                    class="mr-3 is-pulled-left"
+                    width="70"
+                    height="50"
+                    quality="80"
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    style="height: 50px; width:70px; float: left; margin-right: 4px;" />
+                     />
 
-                <b-image
-                    lazy
+                <NuxtPicture
+                    loading="lazy"
                     v-if="fullView == true"
                     :src="props.row.image"
-                    custom-class="mr-2"
+                    class="mr-2 is-pulled-left"
+                    width="200"
+                    height="120"
+                    quality="90"
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    style="width: 120px; height:200px; float: left; margin-right: 4px;" />
+                    />
             </a>
 
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
