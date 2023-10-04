@@ -9,7 +9,6 @@
     />
     <nuxt />
     <!-- <aside-right /> -->
-    <!-- <config-box /> -->
     <footer-bar />
     <overlay @overlay-click="overlayClick" />
     <login-signup-modal />
@@ -243,15 +242,18 @@ export default {
       }
     }
   },
-
-  async mounted () {
-    // these classes are added through the nuxt config
+  beforeMount() {
+    // ideally these classes are added through the nuxt config but they overwrite ever route change if so
     // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
     document.documentElement.classList['add']('has-aside-left');
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
     document.documentElement.classList['add']('is-dark-mode-active');
+
+  },
+
+  async mounted () {
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store

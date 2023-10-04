@@ -7,6 +7,19 @@ export default {
       lang: 'en',
       // 'class': 'has-aside-left has-navbar-fixed-top has-aside-mobile-transition has-aside-expanded'
     },
+    // script: [
+    //   {
+    //   type: 'text/javascript',
+    //   innerHTML: `
+    //     document.documentElement.classList['add']('has-aside-left');
+    //     document.documentElement.classList['add']('has-navbar-fixed-top');
+    //     document.documentElement.classList['add']('has-aside-mobile-transition');
+    //     document.documentElement.classList['add']('has-aside-expanded');
+    //     document.documentElement.classList['add']('is-dark-mode-active');
+    //     alert('hell');
+    //   `
+    //   }
+    // ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
