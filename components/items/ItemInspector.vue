@@ -117,20 +117,12 @@ export default {
             url = url.replace('https://www.echomtg.com','')
             let split = url.split('/')
             let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
-<<<<<<< HEAD
-            if(split.length > 3){
-                url = `/${game}/items/${split[3]}/${this.item.emid}/`
-            } else {
-                url = `/${game}/${split[3]}/`
-            }
-=======
             if(split.length > 4){
               url = `/${game}/items/${split[3]}/${this.item.emid}/`
             } else {
               url = `/${game}/${split[2]}/`
             }
 
->>>>>>> 56cdf1d3176ba9004ac231b514904dafe9bccb8c
             return url;
         }
     },
