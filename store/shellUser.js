@@ -5,8 +5,9 @@ export default {
   username: '',
   email: '',
   last_login: '',
+  dark_mode: 1,
   plan: 'common',
   planObject: {
     access_level: 0
-  } 
+  }
 }

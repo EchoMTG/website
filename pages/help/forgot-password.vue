@@ -111,7 +111,7 @@ export default {
         title: this.helpNav[this.helpNavPosition].label,
         description: this.helpNav[this.helpNavPosition].description,
         meta: [
-          { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+
         ]
     }
   }
