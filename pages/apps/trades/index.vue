@@ -110,7 +110,6 @@ export default {
     }
   },
   async asyncData({$echomtg, $cookies}) {
-    console.log('running')
     let public_trade_list = []
     let meta = {}
     let json = null

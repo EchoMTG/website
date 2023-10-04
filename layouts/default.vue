@@ -258,7 +258,7 @@ export default {
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
-
+    document.documentElement.classList['add']('is-dark-mode-active');
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
@@ -285,7 +285,7 @@ export default {
         if(location.hash.length !== 0) {
             window.scrollTo(window.scrollX, window.scrollY); // add -100 to adjust all
         }
-        console.log('offset ancher')
+        console.log('offset anchor')
     },
     async getSets(){
       try{
@@ -308,15 +308,10 @@ export default {
         this.$store.commit('user', userdata.user);
         this.$store.commit('quickstats', quickstats.stats);
         this.$store.commit('authenticated',true);
-        if(parseInt(userdata.user.dark_mode) == 1){
-          this.$store.commit('darkModeToggle', true)
-        } else {
-          this.$store.commit('darkModeToggle', false)
-        }
+
       } else {
         this.$store.commit('authenticated',false);
         this.$store.commit('user', shellUser);
-        window.localStorage.removeItem('user')
         this.$cookies.remove('token', {
           domain: '.echomtg.com',
           path: '/'

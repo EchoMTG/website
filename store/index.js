@@ -86,10 +86,9 @@ export const mutations = {
       state.user = payload
       state.authenticated = true
 
-      state.isDarkModeActive = parseInt(state.user.dark_mode) == 1 ? true : false;
-      document.documentElement.classList[state.isDarkModeActive ? 'add' : 'remove']('is-dark-mode-active');
-      // store to locale store to persist later
-      window.localStorage.setItem('user', JSON.stringify(payload));
+      state.isDarkModeActive = parseInt(payload.dark_mode) == 1 ? true : false;
+      document.documentElement.classList[parseInt(payload.dark_mode) == 1 ? 'add' : 'remove']('is-dark-mode-active');
+
 
     }
 
@@ -97,13 +96,7 @@ export const mutations = {
 
   authenticated(state, payload){
       state.authenticated = payload
-      // store to locale store to persist later
-      if(payload == true){
-        window.localStorage.setItem('authenticated', 'true');
-      } else {
-        window.localStorage.removeItem('authenticated')
-        window.localStorage.removeItem('user')
-      }
+
 
   },
 
@@ -180,7 +173,6 @@ export const mutations = {
 
   loginSignupModalShow (state, payload = null){
     state.loginSignupModalShow = payload;
-    console.log('login toggle',payload)
   },
 
 
@@ -218,9 +210,10 @@ export const mutations = {
   },
 
   /* Dark Mode */
-  darkModeToggle (state, payload = null) {
+  darkModeToggle (state, payload) {
     // const setIsDark = payload !== null ? payload : !state.isDarkModeActive
     state.isDarkModeActive = payload
+    document.documentElement.classList['add']('hotweiners')
     document.documentElement.classList[payload ? 'add' : 'remove']('is-dark-mode-active')
   },
 

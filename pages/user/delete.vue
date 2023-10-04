@@ -89,10 +89,6 @@ export default {
       // empty the store
       this.$store.replaceState({});
       this.$store.commit('authenticated',false)
-      // STATE PERSISTANCE
-      window.localStorage.removeItem('user');
-      window.localStorage.removeItem('authenticated');
-
       this.$router.push({path: '/'});
 
 
