@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="border: none">
-        
+
     <header :class="`card-header has-background-${type}`">
       <p class="card-header-title has-text-weight-light is-size-4 has-text-white">
         {{title}}
@@ -11,7 +11,14 @@
     </header>
     <div v-if="image != ''" class="card-image">
       <figure class="image">
-        <b-image lazy :src="image" :alt="title" />
+        <NuxtPicture
+          :src="image"
+          :alt="title"
+          loading="lazy"
+          width="300"
+          height="200"
+           />
+
       </figure>
     </div>
     <div class="card-content has-background-light has-text-black has-text-centered">
@@ -25,7 +32,6 @@
 <script>
 export default {
   name: 'PromotionCardWidget',
-  components: {   },
   props: {
     icon: {
       type: String,

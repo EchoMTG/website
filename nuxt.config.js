@@ -5,11 +5,11 @@ export default {
     title: 'EchoMTG',
     htmlAttrs: {
       lang: 'en',
-      'class': 'has-aside-left has-navbar-fixed-top has-aside-mobile-transition has-aside-expanded'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'apple-itunes-app', content: 'app-id=864697496' },
       { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" }
 
     ],
@@ -25,18 +25,11 @@ export default {
       },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
-      { rel: 'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'},
       { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed'
-      },
-      {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href:
-          'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
+        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
       }
     ]
   },
@@ -59,8 +52,23 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
     '@nuxtjs/dotenv',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    '@nuxt/image'
   ],
+  image: {
+    providers: {
+      customProvider: {
+        name: 'imgproxy',
+        provider: '~/providers/imgproxy.js',
+        options: {
+          baseURL: 'https://imgproxy-jnfdvl5ydq-uc.a.run.app',
+          key: 'xxxxxxxxxxxxxx',
+          salt: 'xxxxxxxxxxxxxx',
+        }
+      }
+    },
+    provider: 'imgproxy',
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'nuxt-buefy',
@@ -79,6 +87,12 @@ export default {
       }
     }]
   ],
+  buefy: {
+    css: true,
+    materialDesignIcons: true,
+    materialDesignIconsHRef: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css'
+
+  },
   device: {
     refreshOnResize: true
   },

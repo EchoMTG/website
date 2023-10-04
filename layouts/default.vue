@@ -9,7 +9,6 @@
     />
     <nuxt />
     <!-- <aside-right /> -->
-    <!-- <config-box /> -->
     <footer-bar />
     <overlay @overlay-click="overlayClick" />
     <login-signup-modal />
@@ -29,12 +28,10 @@ import toolsMenu from '@/components/navigation/tools'
 import adminMenu from '@/components/navigation/admin'
 import shellUser from '@/store/shellUser'
 
-// import ConfigBox from '@/components/ConfigBox'
 
 export default {
   name: 'App',
   components: {
-    // ConfigBox,
     AsideRight,
     Overlay,
     FooterBar,
@@ -72,9 +69,24 @@ export default {
               icon: 'chart-line-stacked'
             },
             {
+              to: '/mtg/groups/magic-reserve-list/',
+              label: 'Reserve List',
+              icon: 'gold'
+            },
+            {
               to: '/mtg/types/',
-              label: 'Card Types',
+              label: 'Type Explorer',
+              icon: 'note-search-outline'
+            },
+            {
+              to: '/mtg/groups/',
+              label: 'Smart Groups',
               icon: 'lightbulb-group'
+            },
+            {
+              to: '/mtg/speculations/',
+              label: 'Speculations',
+              icon: 'diamond-stone'
             },
           ],
       );
@@ -189,7 +201,7 @@ export default {
             {
               to: '/',
               icon: 'plus',
-              label: 'Create Account'
+              label: 'Join Now'
             },
           ])
       }
@@ -230,22 +242,18 @@ export default {
       }
     }
   },
-  beforeMount () {
-
-      window.addEventListener("hashchange", this.offsetAnchor);
-  },
-  beforeDestroy () {
-    window.removeEventListener('hashchange', this.offsetAnchor)
-  },
-
-  async mounted () {
-    // these classes are added through the nuxt config
+  beforeMount() {
+    // ideally these classes are added through the nuxt config but they overwrite ever route change if so
     // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
     document.documentElement.classList['add']('has-aside-left');
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
+    document.documentElement.classList['add']('is-dark-mode-active');
 
+  },
+
+  async mounted () {
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
@@ -268,12 +276,6 @@ export default {
     }
   },
   methods: {
-    offsetAnchor() {
-        if(location.hash.length !== 0) {
-            window.scrollTo(window.scrollX, window.scrollY); // add -100 to adjust all
-        }
-        console.log('offset ancher')
-    },
     async getSets(){
       try{
         const setsData = await this.$echomtg.getSets();
@@ -295,15 +297,10 @@ export default {
         this.$store.commit('user', userdata.user);
         this.$store.commit('quickstats', quickstats.stats);
         this.$store.commit('authenticated',true);
-        if(parseInt(userdata.user.dark_mode) == 1){
-          this.$store.commit('darkModeToggle', true)
-        } else {
-          this.$store.commit('darkModeToggle', false)
-        }
+
       } else {
         this.$store.commit('authenticated',false);
         this.$store.commit('user', shellUser);
-        window.localStorage.removeItem('user')
         this.$cookies.remove('token', {
           domain: '.echomtg.com',
           path: '/'

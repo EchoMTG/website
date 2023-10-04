@@ -19,7 +19,7 @@
             <about-sub-nav />
           </div>
           <div class="column content is-two-fifths">
-     
+
               <p>EchoMTG is a cloud software for collectors, players, and traders of the Magic: the Gathering world. The software is packed with tools manage your collection online, build decks, and track prices.</p>
               <p>Never miss out an important spike or dip of any card in your collection.</p>
 
@@ -44,7 +44,7 @@
               <h4>Join Our Community</h4>
               <p>We have an active Discord channel where people discuss cards, deck, magic events, and software ideas. You can join by clicking the button below.</p>
               <a class="button is-link is-small" target="_blank" href="https://discord.gg/f6VFybb">
-                  <span class="fa fa-comments"></span>&nbsp; Join EchoMTG Chat
+                  <b-icon icon="comments" size="is-small" />&nbsp; Join EchoMTG Chat
               </a>
           </div>
           <div class="column content is-two-fifths">

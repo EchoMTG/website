@@ -83,7 +83,7 @@ export default {
     return {
       title: 'Update Password - Account — EchoMTG',
       meta: [
-        { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+
       ]
     }
   },

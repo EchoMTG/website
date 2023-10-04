@@ -8,7 +8,7 @@
         <!-- info area -->
         <div class="columns">
                 <div class="column">
-                    
+
             <div class="uploader" v-if="this.ready != true">
                 <section class="hero is-info mb-5">
                     <div class="hero-body">
@@ -29,7 +29,7 @@
                             </span>
                         </b-upload>
                     </b-field>
-                    <p class="m-2"><span class="fa fa-warning"></span> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
+                    <p class="m-2"><b-icon icon="alert" size="is-small" /> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
                 </div>
                 <div class="errorBox" v-if="this.parsingErrors.length > 0">
                     <h2>Errors were detected with your CSV File</h2>
@@ -52,7 +52,7 @@
                             </ul>
                             <h3>Working with Custom CSVs</h3>
                             <p>Common columns headers are card, card name, name, expansion, set, set code, tcgplayer_id, price acquired, bought price, date, date acquired, language, lang, condition</p>
-                            
+
                             </div>
                     </div>
 
@@ -94,7 +94,7 @@
                             </ul>
                             <h3>Bulk Price</h3>
                             <p>Enter a bulk price and EchoMTG will divide the total cards to import by this price and use that for the default acquired price. If a card has a custom acquired price, the custom price will be used.</p>
-                        
+
                             <h3>Handling Errors</h3>
                             <p>The importer will put your list into two sets, ready to import and errors. A summary will explain how many are in each category.</p>
                             <p>Cards that are errors can be fixed by searching for their </p>
@@ -112,15 +112,14 @@
 
                     <p class="pull-right">
                         <button class="import is-dark button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
-                            <span class="icon">
-                                <i class="fa fa-step-backward"></i>
-                            </span>
+
+
+                            <b-icon icon="step-backward" size="is-small" />
+
                             <span>Start Over</span>
                         </button>
                         <button class="import is-success button has-icons-left" @click="startImport()" aria-label="start import">
-                            <span class="icon">
-                                <i class="fa fa-arrow-up"></i>
-                            </span>
+                            <b-icon icon="upload" size="is-small" />
                             <span>Start Importing Matched Cards</span>
                         </button>
                     </p>

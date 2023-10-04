@@ -3,10 +3,10 @@
         <b-button
             :icon-left="icon"
             :label="label"
-            type="is-primary"
+            contained
             class="is-fullwidth"
             :size="size"
-            :class="`mythic-background ${classes}`"
+            :class="`mythic-background has-text-white ${classes}`"
             @click="isComponentModalActive = true" />
 
         <b-modal
@@ -33,7 +33,7 @@
          props: {
           label: {
             type: String,
-            default: 'Start a Free Account'
+            default: 'Start with a Free Account'
           },
           classes: {
             type: String,

@@ -26,7 +26,7 @@
           </router-link>
         </div>
         <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
-           <create-account-modal size="default" label="Free Account" />
+           <create-account-modal size="default" label="Join Now" />
         </div>
 
         <nav-bar-menu class="navbar-item pr-1 mr-0">
@@ -78,7 +78,7 @@
             href="https://legacy.echomtg.com"
             rel="nofollow"
             class="button is-small is-danger"
-            aria-label="Goto the Legecy Website"
+            aria-label="Old Website"
           >
           <b-icon icon="share" size="is-small"/>Old Website
         </a>
@@ -205,7 +205,7 @@
 
 
             <hr class="navbar-divider">
-            <a class="navbar-item" @click="toggleDark">
+            <a class="navbar-item" @click="() => toggleDark()">
               <b-icon icon="brightness-4"  custom-size="default" />
               <span>Toggle Darkmode</span>
             </a>
@@ -222,11 +222,11 @@
            <div class="field is-grouped">
 
             <div class="control">
-               <create-account-modal size="default" label="Free Account" />
+               <create-account-modal size="default" label="Join Now" />
             </div>
             <div class="control">
               <router-link to="/login"
-                class=" button is-secondary"
+                class=" button is-primary"
                 title="Login"
               >
                 <b-icon icon="login" custom-size="default" />
@@ -265,7 +265,6 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
-      dark_mode: null
 
     }
   },
@@ -345,12 +344,13 @@ export default {
     updateValue: async function (name, value){
       let body = {};
       body[name] = value;
-      // control dark mode
-      if(name == 'dark_mode'){
-        this.$store.commit('darkModeToggle', parseInt(value) == 1)
-      }
        // need to update user in store
-      await this.$echomtg.updateUser(body)
+      const res = await this.$echomtg.updateUser(body)
+
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-success'
+      })
 
       // get latest user info
       const userdata = await this.$echomtg.getUserMeta();
@@ -378,8 +378,8 @@ export default {
       this.$store.dispatch('asideRightToggle')
     },
     toggleDark () {
-      this.dark_mode = this.dark_mode == 1 ? 0 : 1;
-      this.updateValue('dark_mode',this.dark_mode);
+      const mode = parseInt(this.user.dark_mode) == 1 ? 0 : 1;
+      this.updateValue('dark_mode',mode);
     },
     logout () {
       this.$buefy.snackbar.open({
@@ -395,9 +395,6 @@ export default {
       // empty the store
       this.$store.replaceState({});
       this.$store.commit('authenticated',false)
-      // STATE PERSISTANCE
-      window.localStorage.removeItem('user');
-      window.localStorage.removeItem('authenticated');
 
       // reload to homepage
       window.location = '/';

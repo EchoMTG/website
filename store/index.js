@@ -66,10 +66,8 @@ export const state = () => ({
   isLayoutMobile: false,
 
   /* Dark mode (available with style-light-dark.scss only) */
-  isDarkModeActive: false,
+  isDarkModeActive: true,
 
-  /* ConfigBox */
-  isConfigBoxVisible: false,
 
   /*  data */
   sets: []
@@ -87,11 +85,10 @@ export const mutations = {
       state.userName = payload?.first_name ? payload.first_name + ' ' + payload.last_name : payload.username;
       state.user = payload
       state.authenticated = true
-      // let darkmode = parseInt(state.user.dark_mode) == 1 ? true : false;
-      // state.isDarkModeActive = darkmode
-      // document.documentElement.classList[darkmode ? 'add' : 'remove']('is-dark-mode-active');
-      // store to locale store to persist later
-      window.localStorage.setItem('user', JSON.stringify(payload));
+
+      state.isDarkModeActive = parseInt(payload.dark_mode) == 1 ? true : false;
+      document.documentElement.classList[parseInt(payload.dark_mode) == 1 ? 'add' : 'remove']('is-dark-mode-active');
+
 
     }
 
@@ -99,13 +96,7 @@ export const mutations = {
 
   authenticated(state, payload){
       state.authenticated = payload
-      // store to locale store to persist later
-      if(payload == true){
-        window.localStorage.setItem('authenticated', 'true');
-      } else {
-        window.localStorage.removeItem('authenticated')
-        window.localStorage.removeItem('user')
-      }
+
 
   },
 
@@ -115,7 +106,6 @@ export const mutations = {
 
   /* Full Page mode */
   fullPage (state, payload) {
-    state.isConfigBoxVisible = !payload
     state.isNavBarVisible = !payload
     state.isAsideVisible = !payload
     state.isFooterBarVisible = !payload
@@ -183,7 +173,6 @@ export const mutations = {
 
   loginSignupModalShow (state, payload = null){
     state.loginSignupModalShow = payload;
-    console.log('login toggle',payload)
   },
 
 
@@ -221,10 +210,11 @@ export const mutations = {
   },
 
   /* Dark Mode */
-  darkModeToggle (state, payload = null) {
-    const setIsDark = payload !== null ? payload : !state.isDarkModeActive
-    state.isDarkModeActive = setIsDark
-    document.documentElement.classList[setIsDark ? 'add' : 'remove']('is-dark-mode-active')
+  darkModeToggle (state, payload) {
+    // const setIsDark = payload !== null ? payload : !state.isDarkModeActive
+    state.isDarkModeActive = payload
+    document.documentElement.classList['add']('hotweiners')
+    document.documentElement.classList[payload ? 'add' : 'remove']('is-dark-mode-active')
   },
 
   /* Misc */

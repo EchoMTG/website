@@ -50,9 +50,8 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-header-title">
-              <span class="icon has-text-grey">
-                <i class="fa fa-calculator"></i>
-              </span>
+
+               <b-icon icon="calculator" class="icon has-text-grey" size="is-small" />
               <span>{{set.name}} and Pull Odds</span>
             </h3>
           </div>
@@ -103,8 +102,9 @@
           <div class="card-header">
             <h3 class="card-header-title">
               <span class="icon has-text-grey">
-                <i class="fa fa-database"></i>
+                <b-icon icon="database" size="is-small" />
               </span>
+
               <span>{{set.name}} Collection Tally</span>
             </h3>
           </div>
@@ -114,7 +114,7 @@
               @click="emitAddFullSet()"
               class="button is-small has-icon-left is-pulled-right"
             >
-              <span class="icon"><i class="fa fa-plus"></i></span>
+              <b-icon icon="plus" size="is-small" />
               <span>Add Full Set</span>
             </a>
             <h5 class="title is-size-6">

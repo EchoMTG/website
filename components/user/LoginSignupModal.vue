@@ -35,7 +35,7 @@
         props: {
           label: {
             type: String,
-            default: 'Start a Free Account'
+            default: 'Start with a Free Account'
           },
           classes: {
             type: String,

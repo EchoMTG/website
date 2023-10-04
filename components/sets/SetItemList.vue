@@ -9,9 +9,7 @@
               @input="$event.target.composing = false"
               placeholder="Name or Type.."
             />
-            <span class="icon is-small is-left">
-              <i class="fa fa-search"></i>
-            </span>
+            <b-icon icon="magnify" class="is-left" size="is-small" />
           </div>
           <!-- ORACLE TEXT SEARCH HIDDEN, TO REDUCE PAYLOAD in HALF, oracle search needs api call to work -->
 <!--
@@ -23,9 +21,9 @@
               @input="$event.target.composing = false"
               placeholder="Card/Oracle Text.."
             />
-            <span class="icon is-small is-left">
-              <i class="fa fa-search"></i>
-            </span>
+
+              <b-icon icon="magnify" class="is-left" size="is-small" />
+
           </div> -->
 
           <div class="select is-small is-rounded has-text-grey">
@@ -112,9 +110,7 @@
           <div class="field is-hidden-mobile">
             <p class="control">
               <a class="button is-small is-rounded" @click="toggleFullView()">
-                <span class="icon">
-                  <i class="fa fa-file-photo-o"></i>
-                </span>
+                <b-icon icon="image"  size="is-small" />
               </a>
             </p>
           </div>
@@ -131,9 +127,7 @@
               class="button is-small is-dark has-text-danger is-outlined"
               @click="clearFilters()"
             >
-              <span class="icon is-small is-left">
-                <i class="fa fa-times-circle-o"></i>
-              </span>
+              <b-icon icon="times" class="is-left" size="is-small" />
               <span>Clear <span class="is-hidden-mobile">Filters</span></span>
             </button>
           </div>
@@ -169,21 +163,28 @@
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
-                <b-image
-                    lazy
+
+                <NuxtPicture
+                     loading="lazy"
                     v-if="fullView == false"
                     :src="props.row.image_cropped"
-                    custom-class="mr-3"
+                    class="mr-3 is-pulled-left"
+                    width="70"
+                    height="50"
+                    quality="80"
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    style="height: 50px; width:70px; float: left; margin-right: 4px;" />
+                     />
 
-                <b-image
-                    lazy
+                <NuxtPicture
+                    loading="lazy"
                     v-if="fullView == true"
                     :src="props.row.image"
-                    custom-class="mr-2"
+                    class="mr-2 is-pulled-left"
+                    width="200"
+                    height="120"
+                    quality="90"
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    style="width: 120px; height:200px; float: left; margin-right: 4px;" />
+                    />
             </a>
 
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>

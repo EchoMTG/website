@@ -2,9 +2,11 @@
 export default async ({ app }) => {
   await app.router.afterEach(() => {
     app.store.commit('asideMobileStateToggle', false)
-    const userDarkMode = app.store.state?.user?.dark_mode ? parseInt(app.store.state.user.dark_mode) : false;
-    const darkMode = userDarkMode === 1 ? true : false
-    document.documentElement.classList[darkMode ? 'add' : 'remove']('is-dark-mode-active')
+    let darkMode = true;
+    if(app.store.state?.user){
+      darkMode = app.store.state.user.dark_mode == 1 ? true : false;
+    }
+    app.store.commit('darkModeToggle', darkMode)
 
     app.store.commit('overlayToggle', false)
     app.store.commit('asideActiveForcedKeyToggle', null)

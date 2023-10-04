@@ -1,12 +1,13 @@
 <template>
     <div :class="cardClass">
-        <img v-if="!toggleShowFull" class="popoverImage" @click="imageTrigger()" :src="item.image" alt="Placeholder image" style="margin-bottom: -7px" />
+
+        <NuxtPicture v-if="!toggleShowFull" :alt="`${item.name} magic image`" @click="imageTrigger()" placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image"  />
         <div v-if="toggleShowFull">
             <div class="columns">
                 <div class="column is-one-third">
-                    <a :href="itemURL">
-                        <b-image class="popoverImage" custom-class="expandedImage"	 :src="item.image" alt="Placeholder image"  />
-                    </a>
+                    <nuxt-link :to="itemURL">
+                        <NuxtPicture placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image" :alt="`${item.name} magic image`"  />
+                    </nuxt-link>
                 </div>
                 <div class="column is-two-thirds ">
                     <div class="mr-3 ml-2">
@@ -116,11 +117,20 @@ export default {
             url = url.replace('https://www.echomtg.com','')
             let split = url.split('/')
             let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
+<<<<<<< HEAD
             if(split.length > 3){
                 url = `/${game}/items/${split[3]}/${this.item.emid}/`
             } else {
                 url = `/${game}/${split[3]}/`
             }
+=======
+            if(split.length > 4){
+              url = `/${game}/items/${split[3]}/${this.item.emid}/`
+            } else {
+              url = `/${game}/${split[2]}/`
+            }
+
+>>>>>>> 56cdf1d3176ba9004ac231b514904dafe9bccb8c
             return url;
         }
     },
@@ -132,7 +142,7 @@ export default {
                 this.toggleShowFull = true
             }
         },
-    
+
         inventoryQuickAdd: function(emid,foil=0) {
             this.$echomtg.inventoryQuickAdd(emid, foil)
         },

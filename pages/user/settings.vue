@@ -21,6 +21,7 @@
                               v-model="dark_mode"
                               true-value="1"
                               false-value="0"
+                              @input="toggleDarkMode"
                               >
                               {{offOn(dark_mode)}}
                             </b-switch>
@@ -31,12 +32,11 @@
                       <div>
                         <p class="heading">Default Inventory Sort</p>
                         <b-field >
-                           <b-select v-model="default_sort" placeholder="Select a default Sort Option">
+                           <b-select @change="this.updateValue('default_sort',this.default_sort)" v-model="default_sort" placeholder="Select a default Sort Option">
                               <option
                                   v-for="option in sortOptions"
                                   :value="option.value"
                                   :key="option.name">
-
                                   {{ option.name }}
                               </option>
                           </b-select>
@@ -60,6 +60,7 @@
                               v-model="use_market"
                               true-value="1"
                               false-value="0"
+                              @input="this.updateValue('use_market',this.use_market)"
                               >
                               {{offOn(use_market)}}
                             </b-switch>
@@ -74,6 +75,7 @@
                               type="number"
                               min="0"
                               v-model="setting_report_threshhold"
+                              @change=" this.updateValue('setting_report_threshhold',this.setting_report_threshhold)"
                               />
                         </b-field>
                       </div>
@@ -82,7 +84,7 @@
                       <div>
                         <p class="heading">Current Preference</p>
                         <b-field >
-                           <b-select v-model="currency_code" placeholder="Select a default Sort Option">
+                           <b-select @change="this.updateValue('currency_code',this.currency_code)" v-model="currency_code" placeholder="Select a default Sort Option">
                               <option
                                   v-for="option in currencyOptions"
                                   :value="option.value"
@@ -120,8 +122,7 @@ export default {
   name: 'Settings',
     data() {
       return {
-        user: {},
-        dark_mode: null,
+        dark_mode: 1,
         currency_code: null,
         default_sort: null,
         image_pref: "0",
@@ -166,41 +167,23 @@ export default {
     CardComponent,
     UserSubNav
   },
-  watch: {
-    dark_mode: function (){
-      this.updateValue('dark_mode',this.dark_mode);
-    },
-    use_market: function (){
-      this.updateValue('use_market',this.use_market);
-    },
-    setting_report_threshhold: function() {
-      this.updateValue('setting_report_threshhold',this.setting_report_threshhold);
-    },
-    default_sort: function() {
-      this.updateValue('default_sort',this.default_sort);
-    },
-    currency_code: function() {
-      this.updateValue('currency_code',this.currency_code);
+  async fetch() {
+
+    const userdata = await this.$echomtg.getUserMeta();
+
+    // redirect out if bad request
+    if(userdata.status == 'error'){
+      this.$router.push('/')
     }
-  },
-  async asyncData({ redirect, $echomtg }) {
-    const data = await $echomtg.getUserMeta();
-    console.log(data);
-    const user = data?.user ? data.user : false;
-    console.log(user)
-    const dark_mode = user.dark_mode;
-    const use_market = user.use_market;
-    const setting_report_threshhold = user.setting_report_threshhold;
-    const default_sort = user.default_sort;
-    const currency_code = user.currency_code;
-    // return it
-    if (user) {
-      return {
-        user, dark_mode , use_market, setting_report_threshhold , default_sort, currency_code
-      }
-    } else {
-      redirect('/')
-    }
+
+    this.$store.commit('user', userdata.user);
+    this.dark_mode = userdata.user.dark_mode;
+    this.use_market = userdata.user.use_market;
+    this.setting_report_threshhold = userdata.user.setting_report_threshhold;
+    this.default_sort = userdata.user.default_sort;
+    this.currency_code = userdata.user.currency_code;
+
+
   },
   head () {
     return {
@@ -208,29 +191,25 @@ export default {
     }
   },
   methods: {
+    async toggleDarkMode() {
+
+      this.updateValue('dark_mode',this.dark_mode);
+    },
     trueFalse: function (subscriptionValue) {
       return subscriptionValue == "1" ? true : false;
     },
     offOn: function (subscriptionValue) {
-      return subscriptionValue == "1" ? "On" : "Off";
+      return parseInt(subscriptionValue) == 1 ? "On" : "Off";
     },
     updateValue: async function (name, value){
       let body = {};
       body[name] = value;
-      // control dark mode
-      if(name == 'dark_mode'){
-        this.$store.commit('darkModeToggle', parseInt(value) == 1)
-      }
+
        // need to update user in store
-      await this.$echomtg.updateUser(body)
+      await this.$echomtg.updateUser(body);
 
-      // get latest user info
-      const userdata = await this.$echomtg.getUserMeta();
-
-      // update store
-      if(userdata.status == 'success'){
-        this.$store.commit('user', userdata.user);
-      }
+      // update user
+      await this.$fetch();
 
     }
   },

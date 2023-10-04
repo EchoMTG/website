@@ -2,8 +2,18 @@ html {
   &.is-dark-mode-active {
     background-color: $dark-mode-background-color;
 
+    .navbar {
+      // background: $dark-mode-background-color !important;
+
+      // box-shadow: 0 1px #000 !important;
+    }
     &.has-boxed-layout {
       //background-color: $dark-mode-html-boxed-background-color;
+    }
+    input.has-text-black{
+      &.has-background-white{
+        color: black !important;
+      }
     }
 
     .loading-overlay .loading-background {

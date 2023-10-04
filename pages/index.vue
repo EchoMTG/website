@@ -44,7 +44,7 @@ export default {
               name: 'description',
               content:  `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
             },
-            { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+
           ]
 
       }

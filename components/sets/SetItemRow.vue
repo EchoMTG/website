@@ -1,10 +1,10 @@
 <template>
   <tr class="setItemRow">
     <td v-if="ownsAny">
-        <span v-if="owned > 0" title="You own this card" style="color: white; -webkit-text-stroke: 1px #ccc;" class="fa fa-check-circle">
+        <span v-if="owned > 0" title="You own this card" style="color: white; -webkit-text-stroke: 1px #ccc;" class="mdi mdi-check-circle">
         {{owned}}
         </span>
-        <span v-if="ownedfoil > 0" title="You own this card" style="color: yellow; -webkit-text-stroke: 1px gold;" class="fa fa-check-circle">
+        <span v-if="ownedfoil > 0" title="You own this card" style="color: yellow; -webkit-text-stroke: 1px gold;" class="mdi mdi-check-circle">
         {{ownedfoil}}
         </span>
 
@@ -61,9 +61,7 @@
         <div v-if="hasRegular">
             <span class="has-text-weight-bold">${{item.tcg_mid}}</span>
             <button class="button is-info is-small is-outlined " @click="inventoryQuickAdd(item.emid,0)">
-                <span class="icon">
-                    <i class="fa fa-plus"></i>
-                </span>
+                <b-icon icon="plus" size="is-small" />
             </button>
         </div>
     </td>
@@ -71,9 +69,7 @@
         <div v-if="hasFoil">
             <span  class="has-text-weight-bold has-text-warning">${{item.foil_price}}</span>
             <button class="button is-warning is-small is-outlined " @click="inventoryQuickAdd(item.emid,1)">
-                <span class="icon">
-                    <i class="fa fa-plus"></i>
-                </span>
+                <b-icon icon="plus" size="is-small" />
             </button>
         </div>
     </td>

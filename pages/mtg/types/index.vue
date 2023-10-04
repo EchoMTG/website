@@ -15,7 +15,7 @@
           </div>
           <div v-if="!authenticated" class="column is-one-third">
            <h4 class="title is-size-5 has-text-white">Create an Echo MTG Accounts</h4>
-           <b-button @click="signuplink" type="is-success">Start a Free Account</b-button>
+           <b-button @click="signuplink" type="is-success">Start with a Free Account</b-button>
 
           </div>
         </div>
