@@ -205,7 +205,7 @@
 
 
             <hr class="navbar-divider">
-            <a class="navbar-item" @click="toggleDark">
+            <a class="navbar-item" @click="() => toggleDark()">
               <b-icon icon="brightness-4"  custom-size="default" />
               <span>Toggle Darkmode</span>
             </a>
@@ -265,7 +265,6 @@ export default {
   data () {
     return {
       isMenuNavBarActive: false,
-      dark_mode: null
 
     }
   },
@@ -347,7 +346,7 @@ export default {
       body[name] = value;
       // control dark mode
       if(name == 'dark_mode'){
-        this.$store.commit('darkModeToggle', parseInt(value) == 1)
+        this.$store.commit('darkModeToggle', 1 == parseInt(value))
       }
        // need to update user in store
       await this.$echomtg.updateUser(body)
@@ -378,8 +377,8 @@ export default {
       this.$store.dispatch('asideRightToggle')
     },
     toggleDark () {
-      this.dark_mode = this.dark_mode == 1 ? 0 : 1;
-      this.updateValue('dark_mode',this.dark_mode);
+      const mode = parseInt(this.user.dark_mode) == 1 ? 0 : 1;
+      this.updateValue('dark_mode',mode);
     },
     logout () {
       this.$buefy.snackbar.open({

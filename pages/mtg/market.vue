@@ -58,7 +58,11 @@
                   <b-icon size="is-small" icon="triangle-small-down" class="has-text-danger" v-if="parseFloat(card.price_change) < 0" />
 
                   <item-inspector-wrapper classes="is-flex-grow-1" :item="card" />
-                  <span :class="parseFloat(card.price_change) > 0 ? 'has-text-success has-text-right' : 'has-text-danger has-text-right'" v-if="parseFloat(card.price_change) !== 0 || card.price_change != null">{{card.price_change}}%</span>
+                  <span
+                    :class="parseFloat(card.price_change) > 0 ? 'has-text-success has-text-right' : 'has-text-danger has-text-right'"
+                    v-if="parseInt(card.price_change) !== 0 && card.price_change != null">
+                    {{card.price_change}}%
+                    </span>
                 </td>
                 <td><span v-if="card.tcg_mid > 0 ">{{quickstats.currency_symbol}}{{card.tcg_mid}}</span></td>
                 <td><span class="has-text-warning-dark" v-if="card.foil_price > 0 ">{{quickstats.currency_symbol}}{{card.foil_price}}</span></td>
@@ -126,7 +130,7 @@ export default {
       for(let i=firstyear;i <= thisyear; i++ ){
         arr.push(i)
       }
-      return arr;
+      return arr.reverse();
     },
     crumbs () {
       return [

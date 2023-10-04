@@ -29,12 +29,10 @@ import toolsMenu from '@/components/navigation/tools'
 import adminMenu from '@/components/navigation/admin'
 import shellUser from '@/store/shellUser'
 
-// import ConfigBox from '@/components/ConfigBox'
 
 export default {
   name: 'App',
   components: {
-    // ConfigBox,
     AsideRight,
     Overlay,
     FooterBar,

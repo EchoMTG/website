@@ -5,7 +5,7 @@ export default {
     title: 'EchoMTG',
     htmlAttrs: {
       lang: 'en',
-      'class': 'has-aside-left has-navbar-fixed-top has-aside-mobile-transition has-aside-expanded'
+      'class': 'has-aside-left has-navbar-fixed-top has-aside-mobile-transition has-aside-expanded is-dark-mode-active'
     },
     meta: [
       { charset: 'utf-8' },
