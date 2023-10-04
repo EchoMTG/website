@@ -5,6 +5,11 @@ html {
     &.has-boxed-layout {
       //background-color: $dark-mode-html-boxed-background-color;
     }
+    input.has-text-black{
+      &.has-background-white{
+        color: black !important;
+      }
+    }
 
     .loading-overlay .loading-background {
       background: rgba($dark-mode-light-border-color, .125);

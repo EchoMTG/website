@@ -5,9 +5,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-header-title">
-                  <span class="icon">
-                    <i class="fa fa-arrow-circle-up has-text-success"></i>
-                  </span>
+                  <b-icon icon="arrow-up-circle" size="is-small" type="is-success" />
                   <span>{{setName}} Cards Trending Up</span>
                 </h3>
               </div>
@@ -43,9 +41,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-header-title">
-                  <span class="icon">
-                    <i class="fa fa-arrow-circle-down has-text-danger"></i>
-                  </span>
+                  <b-icon icon="arrow-down-circle" size="is-small" type="is-success" />
+
                   <span>{{setName}} Cards Trending Down</span>
                 </h3>
               </div>

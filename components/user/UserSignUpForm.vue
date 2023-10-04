@@ -5,13 +5,13 @@
         <b-field>
           <div class="control">
               <label class="label has-text-grey">User handle</label>
-            <b-input custom-class="has-ground-white" placeholder="User handle "
+            <b-input custom-class="has-background-white has-text-black" placeholder="User handle "
               type="text"
               required
                icon="account"
                v-model="username"
-              validation-message="Minimum 3 letters, no spaces"
-              pattern="[a-zA-Z0-9]{3}">
+
+              >
             </b-input>
             </div>
         </b-field>
@@ -22,9 +22,9 @@
               <b-input
                 v-model="email"
                 placeholder="your@email.com"
-                custom-class="has-backgorund-white"
                 icon="email-outline"
                 type="email"
+                custom-class="has-background-white has-text-black"
                 validation-message="Valid email required."
                 pattern="(.*?)@[a-zA-Z0-9-]*\.[a-zA-Z0-9-]{2,9}"
               ></b-input>
@@ -42,7 +42,7 @@
                 icon="form-textbox-password"
                 password-reveal
                 type="password"
-
+                custom-class="has-background-white has-text-black"
                 v-model="password" />
             </b-field>
 
@@ -69,6 +69,9 @@
   border-radius: 5px;
   box-shadow: 0px 0px 10px black;
   border: 1px #333 solid;
+}
+div.control input {
+  color: black !important;
 }
 </style>
 <script>
