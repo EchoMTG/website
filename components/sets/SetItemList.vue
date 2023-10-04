@@ -9,9 +9,7 @@
               @input="$event.target.composing = false"
               placeholder="Name or Type.."
             />
-            <span class="icon is-small is-left">
-              <i class="fa fa-search"></i>
-            </span>
+            <b-icon icon="magnify" class="is-left" size="is-small" />
           </div>
           <!-- ORACLE TEXT SEARCH HIDDEN, TO REDUCE PAYLOAD in HALF, oracle search needs api call to work -->
 <!--
@@ -23,9 +21,9 @@
               @input="$event.target.composing = false"
               placeholder="Card/Oracle Text.."
             />
-            <span class="icon is-small is-left">
-              <i class="fa fa-search"></i>
-            </span>
+
+              <b-icon icon="magnify" class="is-left" size="is-small" />
+
           </div> -->
 
           <div class="select is-small is-rounded has-text-grey">
@@ -112,9 +110,7 @@
           <div class="field is-hidden-mobile">
             <p class="control">
               <a class="button is-small is-rounded" @click="toggleFullView()">
-                <span class="icon">
-                  <i class="fa fa-file-photo-o"></i>
-                </span>
+                <b-icon icon="image"  size="is-small" />
               </a>
             </p>
           </div>
@@ -131,9 +127,7 @@
               class="button is-small is-dark has-text-danger is-outlined"
               @click="clearFilters()"
             >
-              <span class="icon is-small is-left">
-                <i class="fa fa-times-circle-o"></i>
-              </span>
+              <b-icon icon="times" class="is-left" size="is-small" />
               <span>Clear <span class="is-hidden-mobile">Filters</span></span>
             </button>
           </div>
