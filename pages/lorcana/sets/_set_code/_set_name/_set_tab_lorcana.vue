@@ -19,7 +19,7 @@
             href="javascript:void(0)"
             @click="setTab('list')"
           >
-            <span class="icon"><i class="fa fa-table"></i></span>
+            <b-icon icon="table-large" size="is-small" />
             <span>Card <span class="hide-mobile">&amp; Price</span> List</span>
           </a>
         </li>
@@ -30,7 +30,7 @@
             href="javascript:void(0)"
             @click="setTab('calculations')"
           >
-            <span class="icon"><i class="fa fa-calculator"></i></span>
+            <b-icon icon="calculator" size="is-small" />
             <span
               >Calculations<span class="hide-mobile">
                 &amp; Pack Odds</span
@@ -45,7 +45,7 @@
             href="javascript:void(0)"
             @click="setTab('trending')"
           >
-            <span class="icon"><i class="fa fa-area-chart"></i></span>
+            <b-icon icon="chart-areaspline" size="is-small" />
             <span>Trending <span class="hide-mobile">Prices</span></span>
           </a>
         </li>
@@ -57,7 +57,7 @@
             href="javascript:void(0)"
             @click="setTab('sealed')"
           >
-            <span class="icon"><i class="fa fa-gift"></i></span>
+            <b-icon icon="gift" size="is-small" />
             <span>Sealed <span class="hide-mobile">Product</span></span>
           </a>
         </li>

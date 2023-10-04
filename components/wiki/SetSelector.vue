@@ -14,7 +14,8 @@
                       @click="setOpen(true)"
                 >
                 <span class="icon is-left">
-                  <i class="fa fa-search" aria-hidden="true"></i>
+
+                  <b-icon icon="magnify" aria-hidden="true" size="is-small" />
                 </span>
               </p>
             </div>

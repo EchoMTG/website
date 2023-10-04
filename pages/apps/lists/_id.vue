@@ -22,10 +22,8 @@
                                       <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
                                     </select>
                                   </div>
-                                  <span class="icon is-left" style="margin-left: -1px; margin-top: -2px;">
-
-                                      <i class="fa fa-download"></i>
-
+                                  <span class="is-left" style="margin-left: -1px; margin-top: -2px;">
+                                      <b-icon icon="download" size="is-small" />
                                   </span>
                                 </div>
                             </div>
@@ -49,46 +47,46 @@
                       <ul>
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-view'}" v-on:click.stop="setCurrentTab('deck-view')">
                           <a >
-                            <span class="icon is-small"><i class="fa fa-archive" aria-hidden="true"></i></span>
+                            <b-icon icon="archive" size="is-small" />
                             <span>Deck Mode</span>
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-table-view'}" v-on:click.stop="setCurrentTab('list-table-view')"  >
                           <a >
-                            <span class="icon is-small"><i class="fa fa-table" aria-hidden="true"></i></span>
+                            <b-icon icon="table-large" size="is-small" />
                             <span>List Mode</span>
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-statistics-view'}" v-on:click.stop="setCurrentTab('deck-statistics-view')">
                           <a >
-                            <span class="icon is-small"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
+                            <b-icon icon="chart-pie" size="is-small" />
                             <span>Statistics</span>
                           </a>
                         </li>
                         <li v-bind:class="{ 'is-active': currentTabComponent == 'list-probabilities-view'}"  v-on:click.stop="setCurrentTab('list-probabilities-view')"   >
                           <a >
-                            <span class="icon is-small"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                            <span>Probabilities</span>
+                            <b-icon icon="beaker-question-outline" size="is-small" />
+                            <span>Deck Testing</span>
                           </a>
                         </li>
 
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-inventory-view'}" v-on:click.stop="setCurrentTab('list-inventory-view')"  >
                           <a >
-                            <span class="icon is-small"><i class="fa fa-book" aria-hidden="true"></i></span>
+                            <b-icon icon="book-open-page-variant-outline" size="is-small" />
                             <span>My Inventory</span>
 
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'meta-view'}" v-on:click.stop="setCurrentTab('meta-view')"  >
                           <a>
-                            <span class="icon is-small"><i class="fa fa-info" aria-hidden="true"></i></span>
-                            <span>Meta</span>
+                            <b-icon icon="archive-edit" size="is-small" />
+                            <span>Name/Description</span>
                           </a>
                         </li>
                         <span class="is-hidden">
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-sell-view'}" v-on:click.stop="setCurrentTab('list-sell-view')"  >
                           <a>
-                            <span class="icon is-small"><i class="fa fa-money" aria-hidden="true"></i></span>
+                            <b-icon icon="money" size="is-small" />
                             <span>Sell Now</span>
                           </a>
                         </li>

@@ -6,20 +6,28 @@
       <item-inspector-wrapper :classes="`tag color-strip ${card.colors.toLowerCase().replace(',','')}` " :item="card" />
 
       <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand == 0">
-          <i class="fa fa-exclamation-triangle has-text-danger"></i>
+
+          <b-icon icon="alert" type="is-danger" size="is-small" />
       </a>
       <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand != 0 && cardInfo.missing != 0">
-          <i class="fa fa-exclamation has-text-warning"></i>
+          <b-icon icon="alert" type="is-warning" size="is-small" />
       </a>
       <a class="tag is-size-7 is-dark" @click="openMissingInventory"  v-if="cardInfo.missing == 0">
-          <i class="fa fa-check has-text-success"></i>
+          <b-icon icon="check" type="is-success" size="is-small" />
       </a>
       <span class="tag is-size-7 ">
-          <a v-on:click.stop="addToList(card.emid,card.foil)"><span class="fa fa-plus-circle"></span></a>
-          <a v-on:click.stop="removeItemFromList(card.id)"><span class="fa fa-minus-circle"></span></a>
+          <a v-on:click.stop="addToList(card.emid,card.foil)">
+
+            <b-icon icon="plus-circle" size="is-small" />
+          </a>
+          <a v-on:click.stop="removeItemFromList(card.id)">
+            <b-icon icon="minus-circle" size="is-small" />
+          </a>
       </span>
         <span class="tag is-size-7 is-dark">
-          <a v-on:click.stop="moveToSideboard(card.id,sideboard)"><span class="fa fa-exchange fa-rotate-90"></span></a>
+          <a v-on:click.stop="moveToSideboard(card.id,sideboard)">
+            <b-icon icon="swap-horizontal" size="is-small" />
+          </a>
       </span>
   </div>
 

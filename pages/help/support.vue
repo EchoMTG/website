@@ -20,7 +20,7 @@
           <help-sub-nav />
         </div>
         <div class="column is-two-fifths">
-            <h2 class="title is-size-3"><span class="fa fa-comments-o  has-text-grey"></span> Join Discord for Help</h2>
+            <h2 class="title is-size-3"><b-icon icon="comments" size="is-small" /> Join Discord for Help</h2>
             <p>For general support, help, or missing card inquires, please <a href="https://discord.gg/9CGwDs8nBj">Join our Discord server</a> and reach out to the community. <a href="https://discord.gg/9CGwDs8nBj">Click here to join.</a></p>
             <hr>
             <iframe src="https://discordapp.com/widget?id=377518692210180121&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
