@@ -187,7 +187,7 @@ export default {
       return name.toLowerCase().replace(/(\s|'|:|\(|\))/gi,'-').replace('--','-').replace(/-$/,'')
     },
     highlight(event){
-      console.log(event)
+      // console.log(event)
       // this.value.select()
 
     },

@@ -26,7 +26,7 @@
           </router-link>
         </div>
         <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
-           <create-account-modal size="default" label="Free Account" />
+           <create-account-modal size="default" label="Join Now" />
         </div>
 
         <nav-bar-menu class="navbar-item pr-1 mr-0">
@@ -222,11 +222,11 @@
            <div class="field is-grouped">
 
             <div class="control">
-               <create-account-modal size="default" label="Free Account" />
+               <create-account-modal size="default" label="Join Now" />
             </div>
             <div class="control">
               <router-link to="/login"
-                class=" button is-secondary"
+                class=" button is-primary"
                 title="Login"
               >
                 <b-icon icon="login" custom-size="default" />

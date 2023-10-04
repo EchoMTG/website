@@ -74,6 +74,12 @@ export default {
       }
     }]
   ],
+  buefy: {
+    css: true,
+    materialDesignIcons: true,
+    materialDesignIconsHRef: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css'
+
+  },
   device: {
     refreshOnResize: true
   },

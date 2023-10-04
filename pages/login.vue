@@ -80,7 +80,7 @@ export default {
     return {
       title: 'Login — EchoMTG',
       meta: [
-        { 'http-equiv': 'X-Frame-Options', content: 'deny' },
+
       ]
     }
   },
