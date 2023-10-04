@@ -14,7 +14,14 @@
         <a @click="toggleFoil" v-if="card.foil == 1" class="tag is-warning">Foil</a>
         <a @click="toggleFoil" v-if="card.foil == 0" class="tag is-gray">Normal</a>
         </td>
-        <td><button @click="addCard" class="button is-dark is-small"><i class="fa fa-plus"></i></button> <button @click="removeCard" class="button is-danger is-text is-small"><i class="fa fa-trash"></i></button></td>
+        <td>
+          <button @click="addCard" class="button is-dark is-small">
+            <b-icon icon="plus" size="is-small" />
+          </button>
+          <button @click="removeCard" class="button is-danger is-text is-small">
+            <b-icon icon="delete" size="is-small" />
+          </button>
+        </td>
     </tr>
 </template>
 

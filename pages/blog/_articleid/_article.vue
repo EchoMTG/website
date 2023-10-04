@@ -15,9 +15,7 @@
             <hgroup class="hgroup">
 
               <div class="share-buttons">
-                <!-- <a  class="share-button custom-popup-button large-share" href='https://twitter.com/intent/tweet?url=<?=$article->fullUrl()?>&text="<?=$article->title?>" by <?=$author->twitter?> on @echomtg'  target="_blank" rel="nofollow" data-related="echomtg"><span class="fa fa-twitter"></span> Share</a>
-                <a class="share-button custom-popup-button facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?=$article->fullUrl()?>"><span class="fa fa-facebook"></span></a> -->
-                <social-buttons
+                 <social-buttons
                     :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
                     :title="article.title"
                     :twitter="author.twitter"

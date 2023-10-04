@@ -37,8 +37,8 @@
                         <td v-else> N/A</td>
                         <td>
                           <a v-bind:href="card.purchase_link" target="_blank" class="button has-icons-left is-small is-success">Buy</a>
-                          <a v-if="card.tcg_mid > 0" @click="addToInventory(card.mid)" class="button has-icons-left is-small is-primary"><i class="fa fa-plus icon"></i><span>Add Regular</span></a>
-                          <a v-if="card.foil_price > 0" @click="addToInventory(card.mid,1)" class="button has-icons-left is-small is-primary"><i class="fa fa-plus icon"></i><span>Add Foil</span></a>
+                          <a v-if="card.tcg_mid > 0" @click="addToInventory(card.mid)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /><span>Add Regular</span></a>
+                          <a v-if="card.foil_price > 0" @click="addToInventory(card.mid,1)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /></i><span>Add Foil</span></a>
                         </td>
                     </tr>
                   </template>

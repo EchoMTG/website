@@ -6,19 +6,21 @@
               <ul class="deck-tabs ">
                 <li>
                   <a href="javascript:void(0)" @click="changeOrder($event,'color')">
-                    <span class="icon is-small"><i class="fa fa-tint"></i></span>
+                    <span class="icon is-small">
+                      <b-icon icon="palette" size="is-small" />
+                      </span>
                     <span>Color</span>
                   </a>
                 </li>
                 <li class="is-active">
                   <a href="javascript:void(0)" @click="changeOrder($event,'type')">
-                    <span class="icon is-small"><i class="fa fa-magic"></i></span>
+                    <b-icon icon="magic-staff" size="is-small" />
                     <span>Spell Type</span>
                   </a>
                 </li>
                 <!-- <li class="sort-type">
                   <a @click="changeOrder($event, 'cost')">
-                    <span class="icon is-small"><i class="fa fa-usd"></i></span>
+                    <b-icon icon="hand-coin" size="is-small" />
                     <span>Mana Cost</span>
                   </a>
                 </li> -->
@@ -75,7 +77,6 @@
 
                       :key="`color-list-${index}`"
                       ></li>
-                  <li>list {{index}} </li>
               </ul>
           </div>
         </template>

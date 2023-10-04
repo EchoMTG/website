@@ -48,7 +48,7 @@
                   <div class="column">
                     <div class="control has-icons-left has-icons-right">
                         <input v-model="search" class="input is-small is-rounded" placeholder="Search Your Sealed Inventory...">
-                        <span class="icon is-small is-left"><i class="fa fa-search"></i></span>
+                        <b-icon icon="magnify" class="is-left" size="is-small" />
                     </div>
                   </div>
                   <div class="column is-two-thirds"  style="min-height: 40px">
@@ -94,7 +94,7 @@
               </b-table-column>
               <b-table-column v-slot="props">
                 <button class="button is-dark is-small pull-right" :data-id="props.row.id" @click="deleteItem(props.row.inventory_id)" >
-                <span class="fa fa-trash"></span> </button>
+                <b-icon icon="delete" size="is-small" /> </button>
               </b-table-column>
           </b-table>
         </feature-gate>

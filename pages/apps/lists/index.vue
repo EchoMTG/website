@@ -14,9 +14,7 @@
                             (<span v-html="lists.length"></span> of <span v-html="user.planObject.list_cap"></span>)
                         </span>
                         <a v-if="lists.length >= user.planObject.list_cap" class="button is-success is-small is-pulled-right" href="/plans/">
-                            <span class="icon">
-                                <i class="fa fa-lightbulb-o"></i>
-                            </span>
+                            <b-icon icon="lightbulb" size="is-small" />
                             <span>Get More Lists, Upgrade Plan</span>
                         </a>
                     </h2>
