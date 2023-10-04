@@ -78,7 +78,7 @@
             href="https://legacy.echomtg.com"
             rel="nofollow"
             class="button is-small is-danger"
-            aria-label="Goto the Legecy Website"
+            aria-label="Old Website"
           >
           <b-icon icon="share" size="is-small"/>Old Website
         </a>

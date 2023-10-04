@@ -31,13 +31,7 @@ export default {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed'
-      },
-      {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href:
-          'https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css'
+        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
       }
     ]
   },
