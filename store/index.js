@@ -85,7 +85,6 @@ export const mutations = {
       state.userName = payload?.first_name ? payload.first_name + ' ' + payload.last_name : payload.username;
       state.user = payload
       state.authenticated = true
-      console.log('current dark mode',parseInt(payload.dark_mode));
 
       state.isDarkModeActive = parseInt(payload.dark_mode) == 1 ? true : false;
       document.documentElement.classList[parseInt(payload.dark_mode) == 1 ? 'add' : 'remove']('is-dark-mode-active');
@@ -174,7 +173,6 @@ export const mutations = {
 
   loginSignupModalShow (state, payload = null){
     state.loginSignupModalShow = payload;
-    console.log('login toggle',payload)
   },
 
 

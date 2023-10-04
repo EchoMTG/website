@@ -285,7 +285,7 @@ export default {
         if(location.hash.length !== 0) {
             window.scrollTo(window.scrollX, window.scrollY); // add -100 to adjust all
         }
-        console.log('offset ancher')
+        console.log('offset anchor')
     },
     async getSets(){
       try{

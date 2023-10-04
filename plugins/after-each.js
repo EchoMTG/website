@@ -4,9 +4,7 @@ export default async ({ app }) => {
     app.store.commit('asideMobileStateToggle', false)
     let darkMode = true;
     if(app.store.state?.user){
-
       darkMode = app.store.state.user.dark_mode == 1 ? true : false;
-      console.log('darkmode',darkMode)
     }
     app.store.commit('darkModeToggle', darkMode)
 

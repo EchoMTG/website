@@ -177,7 +177,6 @@ export default {
     }
 
     this.$store.commit('user', userdata.user);
-    console.log('user data',userdata)
     this.dark_mode = userdata.user.dark_mode;
     this.use_market = userdata.user.use_market;
     this.setting_report_threshhold = userdata.user.setting_report_threshhold;

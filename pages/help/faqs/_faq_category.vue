@@ -29,8 +29,8 @@
               icon-left="plus"
               size="is-large">
               <b-icon icon="wizard-hat"/> Wiki Create FAQ</b-button>
-           
-            
+
+
             <b-field class="mb-5">
               <b-radio-button v-model="category"
                   native-value=""
@@ -288,7 +288,6 @@ export default {
       await this.$fetch()
     },
      async deleteFAQ(id){
-      console.log(id)
       const res = await this.$echomtg.faqDelete(id)
       this.$buefy.toast.open({
         message: res.message,
