@@ -178,59 +178,28 @@ export default {
       this.set = data.set;
     },
     setTab: function(str){
-          // this.$refs[this.tab+'Tab'].parentElement.classList.remove('is-active')
-          this.tab = str
-          // this.$refs[str+'Tab'].parentElement.classList.add('is-active')
-          const seturl  = this.makeSetPath(this.set.set_code, this.set.name)
-          if(this.tab == 'list'){
-            this.addHashToLocation(seturl)
-          } else {
-            this.addHashToLocation(seturl + this.tab + '/')
-          }
+      // this.$refs[this.tab+'Tab'].parentElement.classList.remove('is-active')
+      this.tab = str
+      // this.$refs[str+'Tab'].parentElement.classList.add('is-active')
+      const seturl  = this.makeSetPath(this.set.set_code, this.set.name)
+      if(this.tab == 'list'){
+        this.addHashToLocation(seturl)
+      } else {
+        this.addHashToLocation(seturl + this.tab + '/')
+      }
 
-        },
-        addFullSet: function() {
-            var r = confirm("Add one of everycard? This can only be undone from your inventory.");
-		        if (r == true) {
-                this.items.forEach(item => {
-                    //setTimeout(addToInventoryByEchoID(item.emid),500);
-                    return item
-                });
-            }
-        },
-
-        lazyLoad: function () {
-            let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-            let active = false;
-            if (active === false) {
-              active = true;
-              setTimeout(() => {
-                lazyImages.forEach(function (lazyImage) {
-                  if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
-                    lazyImage.src = lazyImage.dataset.src;
-                    lazyImage.classList.remove("lazy");
-                    lazyImages = lazyImages.filter(function (image) {
-                      return image !== lazyImage;
-                    });
-
-                    if (lazyImages.length === 0) {
-                      window.removeEventListener("scroll", this.lazyLoad);
-                    }
-                  }
-                });
-                active = false;
-              }, 200)
-
-            }
-          },
+    },
+    addFullSet: function() {
+        var r = confirm("Add one of everycard? This can only be undone from your inventory.");
+        if (r == true) {
+            this.items.forEach(item => {
+                //setTimeout(addToInventoryByEchoID(item.emid),500);
+                return item
+            });
+        }
+    },
 
   },
-  mounted() {
-
-        window.addEventListener("scroll", this.lazyLoad);
-        window.scrollTo(0, 0);
-        setTimeout(this.lazyLoad, 500)
-      },
   computed: {
     crumbs () {
       return [
