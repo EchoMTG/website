@@ -333,7 +333,8 @@ html {
 
       .aside-tools {
         color: $dark-mode-color;
-        box-shadow: 0 1px $dark-mode-light-border-color;
+        box-shadow: none;
+        // box-shadow: 0 1px $dark-mode-light-border-color;
 
         .aside-close {
           color: $dark-mode-color;
