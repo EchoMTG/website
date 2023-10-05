@@ -10,8 +10,8 @@
         <div class="level-right">
           <div class="level-item">
             <div class="logo">
-              <a title="EchoMTG Homepage" href="https://www.echomtg.com">
-                <img alt="EchoMTG Logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg">
+              <a href="https://www.echomtg.com">
+                <NuxtImg width="100" height="27"  src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg" />
               </a>
             </div>
           </div>

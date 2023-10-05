@@ -59,10 +59,13 @@
     </nav>
 
     <div class="columns mr-2">
-      <div class="column is-one-quarter ">
+      <div class="column is-one-quarter">
         <div class="cardImageContainer m-3">
-          <b-image
-              lazy
+          <NuxtPicture
+              loading="lazy"
+              quality="30"
+              width="318"
+              height="442"
               :src="item.image"
               :alt="`${item.name} magic card front`"
               placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
