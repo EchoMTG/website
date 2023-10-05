@@ -55,6 +55,7 @@
     <b-table
       striped
       narrowed
+      :mobile-cards="false"
       :data="latestUsers.results"
       :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
       >

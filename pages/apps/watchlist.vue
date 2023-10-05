@@ -38,6 +38,7 @@
         :debounce-search="0"
         :sticky-header="true"
         :sticky="true"
+        :mobile-cards="false"
         :row-class="(row, index) => (row.price_change >= row.threshold) && 'has-background-success-light'"
         >
         <b-table-column

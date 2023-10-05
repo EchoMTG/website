@@ -22,6 +22,7 @@
     <b-table
       striped
       narrowed
+      :mobile-cards="false"
       :data="users"
       default-sort="last_login"
       default-sort-direction="desc"
