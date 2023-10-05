@@ -312,6 +312,23 @@ echomtg.getSets = async (game=1) => {
 
   }
 
+  echomtg.postReq = async (url,body) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.deleteList = async (list_item_id) => {
+    let url = `${context.app.$config.API_DOMAIN}lists/delete/`;
+    let body = {
+      id: list_item_id
+    }
+    return await echomtg.postReq(url,body);
+  }
+
   echomtg.toggleListItemSideboard = async (list_item_id,list_id,sb) => {
     let url = `${context.app.$config.API_DOMAIN}lists/toggle_sideboard/`;
     let body = {

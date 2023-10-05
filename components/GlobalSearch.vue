@@ -173,29 +173,29 @@
                <footer class="card-footer">
                     <p class="card-footer-item has-text-white">
 
-                        <a @click="this.movePositionUp()" class="button is-small ">
+                        <button class="button is-small ">
                             <b-icon icon="menu-down" size="is-small" />
-                        </a>
+                        </button>
                         &nbsp;
-                       <a @click="this.movePositionDown()" class="button is-small ">
+                       <button class="button is-small ">
                             <b-icon icon="menu-up" size="is-small" />
-                        </a>
+                        </button>
                         &nbsp; results &nbsp;
-                        <a @click="this.closeCardPreview()" class="button is-small ">
+                        <button class="button is-small ">
                             <b-icon icon="menu-left" size="is-small" />
-                        </a>
+                        </button>
                         &nbsp;
-                       <a @click="this.displayCardPreview()" class="button is-small ">
+                       <button class="button is-small ">
                             <b-icon icon="menu-right" size="is-small" />
-                        </a>
+                        </button>
                          &nbsp; toggle preview &nbsp;
-                        <a @click="enterAction()" class="button is-small">
+                        <button class="button is-small">
                             <span class="icon">↵</span>
                             <span>Return</span>
-                        </a>&nbsp;
+                        </button>&nbsp;
                         to {{callbackname.replace(/<[^>]*>?/gm, '')}}  &nbsp;
 
-                        <a @click="closeFocus()" class="button is-small">ESC</a>
+                        <button @click="closeFocus()" class="button is-small">ESC</button>
                         &nbsp; to exit.
                     </p>
 
