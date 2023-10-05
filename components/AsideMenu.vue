@@ -12,7 +12,6 @@
         <span v-if="!isSecondary">
             <NuxtPicture quality="100" width="125" height="34" class="expanded-logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG Logo" />
             <NuxtPicture quality="100" width="43" height="43" class="closed-logo" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo" />
-
         </span>
         <span v-else-if="label">{{ label }}</span>
       </nuxt-link>

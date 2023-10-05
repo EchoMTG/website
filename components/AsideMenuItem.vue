@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     componentIs () {
-      return this.item?.to ? 'nuxt-link' : 'a'
+      return this.item?.to && this.authenticated ? 'nuxt-link' : 'a'
     },
     hasSubmenuIcon () {
       return this.hasDropdown || this.item.menuSecondary
@@ -76,7 +76,12 @@ export default {
       return this.item.to ? this.item.to : null
     },
     itemHref () {
-      return this.item.href ? this.item.href : null
+      if(this.authenticated && this.item.to) return null;
+      let url = this.item.href ? this.item.href : null;
+      if(!this.authenticated && !url){
+        url = this.item.to
+      }
+      return url
     },
     componentTitle () {
       return !this.isAsideExpanded && this.item.label ? this.item.label : null
@@ -108,7 +113,7 @@ export default {
       }
       return 'is-active'
     },
-    ...mapState(['asideActiveForcedKey', 'isAsideExpanded'])
+    ...mapState(['asideActiveForcedKey', 'isAsideExpanded','authenticated'])
   },
   watch: {
     isAsideExpanded (newValue) {
