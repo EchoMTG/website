@@ -1,8 +1,8 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad 
-      title="You Must be Logged in to Use the Earning App" 
+    <full-ad
+      title="You Must be Logged in to Use the Earning App"
       image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
       v-if="!authenticated" />
     <span v-if="authenticated">
@@ -45,6 +45,7 @@
         aria-page-label="Page"
         aria-current-label="Current page"
         :page-input="true"
+        :mobile-cards="false"
         backend-sorting
         :default-sort-direction="defaultSortOrder"
         :default-sort="[sortField, sortOrder]"
@@ -148,7 +149,7 @@ export default {
   },
   async fetch(){
       if(!this.authenticated) return;
-      
+
       this.loading = true;
       await this.getEarningsStats()
       await this.getEarnings();

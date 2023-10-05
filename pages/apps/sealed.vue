@@ -62,6 +62,7 @@
             class="my-3"
             :data="sealedItems"
             :striped="true"
+            :mobile-cards="false"
             :narrowed="true"
             :focusable="true"
             default-sort="tcg_mid"

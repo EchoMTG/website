@@ -167,7 +167,7 @@
         <div v-if="cards.length > 0">
             <h2 class="title is-size-3">{{cards.length}} Items Correctly Matched <em class="has-text-grey-dark">- Click the Green Start Import Button</em></h2>
             <div class="cardsToInput table-container">
-                <table class="table is-striped">
+                <table class="table is-striped is-fullwidth">
                     <thead >
                         <tr class="has-background-black" style="border: none;">
     <!--                                    <th style="border: none;">EchoID</th>-->
