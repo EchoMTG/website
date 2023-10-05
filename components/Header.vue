@@ -3,8 +3,8 @@
         <template #brand>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                  <a href="/" title="EchoMTG" class="logo">
-                    <img src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG">
-                    <img class="mobile" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo">
+                    <NuxtPicture quality="100" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG">
+                    <NuxtPicture quality="100" class="mobile" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo">
                 </a>
             </b-navbar-item>
         </template>
@@ -31,9 +31,3 @@
     </b-navbar>
 
 </template>
-
-<style>
-.nuxt-logo {
-  height: 180px;
-}
-</style>

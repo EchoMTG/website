@@ -180,10 +180,10 @@ aside.aside {
 
 @include touch {
   #app, nav.navbar {
-    @include transition(margin-left);
+    @include transition(100ms margin-left ease-in);
   }
   aside.aside {
-    @include transition(left);
+    @include transition(100ms left ease-in);
     height: 100vh;
 
     .menu-label {
@@ -267,7 +267,7 @@ aside.aside {
   html {
     &.has-aside-left, &.has-aside-right {
       nav.navbar, body {
-        @include transition(padding);
+        @include transition(100ms padding ease-in);
       }
     }
     &.has-aside-left {

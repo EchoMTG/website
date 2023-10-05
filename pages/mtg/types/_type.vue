@@ -86,7 +86,6 @@ export default {
     } catch(err){
       console.log(err)
     }
-    console.log("transition",params,data.custompage)
 
     // return it
     if (data.items.length > 0) {
