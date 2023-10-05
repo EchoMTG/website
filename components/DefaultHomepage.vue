@@ -37,7 +37,7 @@
         <div class="level">
 
           <div class="level-item has-text-centered">
-            <h3 class="title is-size-3-tablet is-size-4-mobile mb-0 has-text-weight-normal has-text-white"><span class="has-text-weight-bold">EchoMTG</span> is Proudly Tracking Over <span class="has-text-success has-text-weight-bold">${{millions}} Million</span> in Player Inventory</h3>
+            <h3 class="title is-size-3-tablet is-size-4-mobile mb-0 has-text-weight-normal has-text-white"><span class="has-text-weight-bold">EchoMTG</span> is Proudly Tracking Over <span class="has-text-weight-bold" style="color: #00FF00">${{millions}} Million</span> in Player Inventory</h3>
           </div>
 
         </div>
