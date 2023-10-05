@@ -8,7 +8,7 @@
       :topcardImage="items[0].image_cropped"
       :setTotalItems="items.length"
     />
-    <b-table v-if="items.length > 1" :data="items">
+    <b-table v-if="items.length > 1" :data="items" striped :mobile-cards="false">
       <b-table-column field="name" label="Card Name" v-slot="props" sortable searchable>
 
         <nuxt-link :to="props.row.url" no-prefetch>

@@ -26,9 +26,10 @@
     <section>
       <b-table
         :data="types"
-        :striped="true"
         default-sort-direction="DESC"
         default-sort="total"
+         striped
+         :mobile-cards="false"
         >
         <b-table-column sortable :label="`Magic Type (${total} total types)`" v-slot="props" searchable field="type">
           <nuxt-link :to="props.row.url" :prefetch="false">{{props.row.type}}</nuxt-link>
