@@ -200,13 +200,13 @@ export default {
   },
   head () {
       return {
-          title: `Statistics: Gain Insight into your Your Collection`,
+          title: `Admin: Dashboard`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Graphs and charts breaking down your trading card collections statistics.`
+              content:  ``
             }
           ]
       }
