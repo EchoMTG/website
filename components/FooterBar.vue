@@ -4,7 +4,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            &copy; {{ year }}, EchoMTG, ThoughtBomb Studios, LLC.&nbsp;<nuxt-link class="has-text-grey" to="/legal/privacy-policy/">Privacy Policy</nuxt-link>&nbsp;and&nbsp;<nuxt-link class="has-text-grey"  to="/legal/terms-and-conditions/">Terms and Conditions</nuxt-link>
+            &copy; {{ year }}, EchoMTG, ThoughtBomb Studios, LLC.&nbsp;<echo-link class="has-text-grey" url="/legal/privacy-policy/">Privacy Policy</echo-link>&nbsp;and&nbsp;<echo-link class="has-text-grey"  url="/legal/terms-and-conditions/">Terms and Conditions</echo-link>
           </div>
         </div>
         <div class="level-right">
@@ -24,8 +24,10 @@
 <script>
 import dayjs from 'dayjs'
 import { mapState } from 'vuex'
+import EchoLink from './EchoLink.vue'
 
 export default {
+  components: { EchoLink },
   name: 'FooterBar',
   computed: {
     year () {

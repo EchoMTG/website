@@ -29,77 +29,83 @@
            <create-account-modal size="default" label="Join Now" />
         </div>
 
-        <nav-bar-menu class="navbar-item pr-1 mr-0">
+        <nav-bar-menu class="navbar-item pr-0 mr-0">
 
           <div class="is-user-name">
             <span>Recent Sets</span>
           </div>
 
           <div slot="dropdown" class="navbar-dropdown is-left">
-            <nuxt-link
+            <echo-link
               v-for="si in recentSets"
               v-bind:key="si.set_code"
-              :to="si.url"
+              :url="si.url"
               class="navbar-item"
+              :title="`${si.name} Pricing List Page`"
               exact-active-class="is-active"
             >
               <i :class="getSetIconClass(si.set_code)"></i>
               <span>{{si.name}}</span>
-            </nuxt-link>
-             <nuxt-link
-              to="/mtg/sets/"
+            </echo-link>
+             <echo-link
+              url="/mtg/sets/"
               class="navbar-item"
+              title="Magic the gathering Sets and Expansions"
               exact-active-class="is-active"
             >
               <i :class="getSetIconClass('magic')"></i>
               <span>Explore all Sets &amp; Expansions</span>
-            </nuxt-link>
-             <nuxt-link
-              to="/mtg/spoilers/"
+            </echo-link>
+             <echo-link
+              url="/mtg/spoilers/"
+              title="Magic the gathering Spoilers"
               class="navbar-item"
               exact-active-class="is-active"
             >
               <b-icon icon="table-headers-eye" class="mr-2" size="default" />
               <span>Preview Upcoming Spoilers</span>
-            </nuxt-link>
+            </echo-link>
           </div>
         </nav-bar-menu>
         <div class="navbar-item pl-0 ml-0 ">
-          <nuxt-link
-              to="/blog/"
+          <echo-link
+              url="/blog/"
               class="navbar-item "
               exact-active-class="is-active"
+              title="Trading Card Blog"
             >
             <span>Articles</span>
-          </nuxt-link>
+          </echo-link>
         </div>
-        <div class="navbar-item has-divider pl-2 ml-0 mr-0 pr-2">
+        <div class="navbar-item has-divider pl-0 ml-0 mr-0 pr-2">
         <a
             href="https://legacy.echomtg.com"
             rel="nofollow"
-            class="button is-small is-danger"
+            class="button is-small has-background-danger is-rounded has-text-white is-contained"
             aria-label="Old Website"
           >
           <b-icon icon="share" size="is-small"/>Old Website
         </a>
         </div>
 
-        <nuxt-link
-            to="/help/report-bug/"
+        <echo-link
+            url="/help/report-bug/"
             class="navbar-item has-divider mr-0 pr-1"
             exact-active-class="is-active"
             aria-label="Submit a bug report"
+            title="Submit Bug Report"
           >
           <b-icon icon="bug-outline"></b-icon>
-        </nuxt-link>
-        <nuxt-link
-            to="/help/"
+        </echo-link>
+        <echo-link
+            url="/help/"
             class="navbar-item has-divider mr-0 pr-1"
             exact-active-class="is-active"
             aria-label="Open the help desk"
+            title="Support and Help"
           >
           <b-icon icon="help-circle-outline"></b-icon>
-        </nuxt-link>
+        </echo-link>
 
         <nav-bar-menu class="navbar-item">
 
@@ -108,16 +114,17 @@
           </div>
 
           <div slot="dropdown" class="navbar-dropdown is-right">
-            <nuxt-link
+            <echo-link
               v-for="tool in tools"
               v-bind:key="tool.icon"
-              :to="tool.to"
-              class="navbar-item"
+              :url="tool.to"
+              :title="tool.label"
+              classes="navbar-item"
               exact-active-class="is-active"
             >
               <b-icon :icon="tool.icon" custom-size="default" />
               <span>{{tool.label}}</span>
-            </nuxt-link>
+            </echo-link>
           </div>
         </nav-bar-menu>
 
@@ -139,7 +146,7 @@
 
 
          <div v-if="authenticated" class="navbar-item mr-0 pr-0">
-          <a href="/apps/inventory/" class="has-text-success-dark has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
+          <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
         </div>
         <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
           <b-taglist  attached>
@@ -253,6 +260,7 @@ import UserAvatar from '@/components/UserAvatar'
 import GlobalSearch from '@/components/GlobalSearch'
 import toolsMenu from '@/components/navigation/tools'
 import CreateAccountModal from '@/components/user/CreateAccountModal'
+import EchoLink from '@/components/EchoLink.vue'
 
 export default {
   name: 'NavBar',
@@ -260,7 +268,8 @@ export default {
     UserAvatar,
     NavBarMenu,
     GlobalSearch,
-    CreateAccountModal
+    CreateAccountModal,
+    EchoLink
   },
   data () {
     return {

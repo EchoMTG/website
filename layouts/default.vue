@@ -60,11 +60,13 @@ export default {
           [
             {
               to: '/mtg/sets/',
+              href: '/mtg/sets/',
               label: 'Sets / Expansions',
               icon: 'cards'
             },
             {
               to: '/mtg/market/',
+              href: '/mtg/market/',
               label: 'MTG Stock Market',
               icon: 'chart-line-stacked'
             },
