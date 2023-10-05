@@ -19,6 +19,8 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/stats/') return redirect(`/apps/statistics/`);
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
+    if(route.path == '/plans-yearly/') return redirect(`/plans/`);
+
 
     // original groups to types
     if(route.path == '/groups/artifacts/') return redirect(`/mtg/types/artifact/`);
