@@ -33,7 +33,7 @@
       :paginated="paginated"
       :per-page="perPage"
       :striped="true"
-      :hoverable="true"
+      :mobile-cards="false"
       default-sort-direction="DESC"
       default-sort="release_date"
       :data="filteredExpansionsList"
@@ -44,12 +44,12 @@
         <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
         <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
       </b-table-column>
-      <b-table-column v-slot="props" label="Set Code" field="set_code" sortable>
+      <b-table-column column-class="is-hidden-touch" header-class="is-hidden-touch" v-slot="props" label="Set Code" field="set_code" sortable>
         {{ props.row.set_code }}
       </b-table-column>
 
 
-      <b-table-column v-slot="props" label="Type" field="type" sortable>
+      <b-table-column column-class="is-hidden-touch" header-class="is-hidden-touch" v-slot="props" label="Type" field="type" sortable>
         {{ props.row.type }}
       </b-table-column>
       <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>

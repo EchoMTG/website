@@ -213,7 +213,6 @@ export const mutations = {
   darkModeToggle (state, payload) {
     // const setIsDark = payload !== null ? payload : !state.isDarkModeActive
     state.isDarkModeActive = payload
-    document.documentElement.classList['add']('hotweiners')
     document.documentElement.classList[payload ? 'add' : 'remove']('is-dark-mode-active')
   },
 
