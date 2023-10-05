@@ -418,7 +418,7 @@ echomtg.getSets = async (game=1) => {
   // USER
 
   echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com') => {
-    let url = `http://localhost/api/user/register/`;
+    let url = `${context.app.$config.API_DOMAIN}/api/user/register/`;
     const payload = {
       'email' : email,
       'username' : username,
