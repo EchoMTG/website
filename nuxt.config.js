@@ -61,7 +61,7 @@ export default {
         name: 'imgproxy',
         provider: '~/providers/imgproxy.js',
         options: {
-          baseURL: 'https://imgproxy-jnfdvl5ydq-uc.a.run.app',
+          baseURL: 'https://image.echomtg.com',
           key: 'xxxxxxxxxxxxxx',
           salt: 'xxxxxxxxxxxxxx',
         }
