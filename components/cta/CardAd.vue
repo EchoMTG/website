@@ -1,11 +1,16 @@
 <template>
     <div class="cardAdd">
       <div class="card has-background-light">
-        <div class="card-header has-background-danger">
-          <h3 class="has-text-white has-text-centered is-size-5 p-2">{{title}}</h3>
-          <small class="has-text-centered pt-3 pr-2 has-text-white is-size-6">{{description}}</small>
+        <div class="card-header has-background-info">
+          <h3 class="has-text-white has-text-centered is-size-5 p-2">
+            <b-icon icon="account-plus" />
+            {{title}}
+          </h3>
+
         </div>
+        <div class="px-3 py-2"><small class="has-text-centered pt-3 pr-2 has-text-white is-size-6">{{description}}</small></div>
         <div class="has-background-black">
+
             <img
               :src="image"
               :alt="applicationText"
@@ -42,7 +47,7 @@
       },
       title: {
         type: String,
-        default: 'Track Your Collection'
+        default: 'Start Tracking Your Collection'
       },
       image: {
         type: String,
@@ -50,7 +55,7 @@
       },
       description: {
         type: String,
-        default: 'Users gain access to multiple apps and get weekly email collection reports'
+        default: 'Users gain access to multiple apps and receive weekly email collection reports'
       },
       applicationText: {
         type: String,

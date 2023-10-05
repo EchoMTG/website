@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="is-flex is-align-items-center" style="width: 100%;">
-      <global-search showimage showinventorybuttons />
+      <global-search showimage showinventorybuttons :callbackname="authenticated ? 'Add to Inventory' : 'Open Page'" />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="menuNavBarToggle">
