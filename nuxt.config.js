@@ -52,8 +52,23 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     //'@nuxtjs/eslint-module'
     '@nuxtjs/dotenv',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    '@nuxt/image'
   ],
+  image: {
+    providers: {
+      customProvider: {
+        name: 'imgproxy',
+        provider: '~/providers/imgproxy.js',
+        options: {
+          baseURL: 'https://image.echomtg.com',
+          key: 'xxxxxxxxxxxxxx',
+          salt: 'xxxxxxxxxxxxxx',
+        }
+      }
+    },
+    provider: 'imgproxy',
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'nuxt-buefy',

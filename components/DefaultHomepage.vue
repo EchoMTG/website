@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="homepage">
+    <div class="homepage" :style="backgroundStyles()">
       <div class="overlay"></div>
 
 
@@ -43,7 +43,7 @@
         </div>
       </section>
     </div>
-    <div class="container mt-4">
+    <div class="container mt-4 pb-5">
       <tiles>
         <promotion-card-widget
           image="https://assets.echomtg.com/images/product/collection-app-2023.png"
@@ -120,6 +120,12 @@ export default {
     }
   },
   methods: {
+
+    backgroundStyles() {
+      const imgUrl = this.$img('https://assets.echomtg.com/images/echo-mtg-pile-cards.jpg', { width: 1000 })
+      return { backgroundImage: `url('${imgUrl}')` }
+    }
+
   }
 }
 </script>
