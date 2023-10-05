@@ -46,12 +46,12 @@
                                 <div class="column">
                                     <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <button class="button is-static is-small has-text-grey">
                                                 <span class="icon">
                                                     <b-icon icon="text" size="is-small" />
                                                 </span>
                                                 <span>Card Text</span>
-                                            </a>
+                                            </button>
                                         </p>
                                         <p class="control">
                                             <input
@@ -69,11 +69,11 @@
                                 <div class="column">
                                       <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <button class="button is-static is-small has-text-grey">
 
                                                 <b-icon icon="human-male-height" size="is-small" />
                                                 <span>Types</span>
-                                            </a>
+                                            </button>
                                         </p>
                                         <p class="control">
                                            <input
@@ -90,12 +90,12 @@
                                  <div class="column" v-if="showinventorybuttons">
                                      <div class="field has-addons">
                                             <p class="control">
-                                                <a class="button is-static is-small has-text-grey">
+                                                <button class="button is-static is-small has-text-grey">
                                                     <span class="icon">
                                                         <b-icon icon="currency-usd" size="is-small" />
                                                     </span>
                                                     <span>Acquired Price</span>
-                                                </a>
+                                                </button>
                                             </p>
                                             <p class="control">
                                                 <input
