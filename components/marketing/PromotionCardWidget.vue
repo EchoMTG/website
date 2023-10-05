@@ -11,9 +11,10 @@
     </header>
     <div v-if="image != ''" class="card-image">
       <figure class="image">
-        <NuxtPicture
+        <NuxtImg
           :src="image"
           :alt="title"
+          quality="99"
           loading="lazy"
           width="300"
           height="200"
