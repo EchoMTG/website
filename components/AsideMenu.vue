@@ -61,7 +61,7 @@
   padding-left: .5rem;
 }
 .menu {
-  font-size: .85rem !important;
+  font-size: .75rem !important;
 }
 .has-aside-expanded .menu-list .icon {
     width: 1.8rem !important;
