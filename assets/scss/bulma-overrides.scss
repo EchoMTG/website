@@ -1,4 +1,15 @@
 // Overrides
+
+html {
+  font-size: 12px;
+  @include tablet {
+    font-size: 14px;
+  }
+  @include desktop {
+    font-size: 14px;
+  }
+}
+
 @mixin btn-shadow($color) {
     background-image: linear-gradient(
                     180deg,
@@ -17,15 +28,15 @@
     );
     filter: none;
   }
-  
+
   .section {
     background-color: $body-background-color;
   }
-  
+
   .hero {
     background-color: $grey-dark;
   }
-  
+
   .button,
   .input,
   .pagination-ellipsis,
@@ -39,17 +50,17 @@
   .control.has-icons-right .icon {
     height: 2.5em;
   }
-  
+
   .button {
     transition: all 200ms ease;
     @each $name, $pair in $colors {
       $color: nth($pair, 1);
       $color-invert: nth($pair, 2);
-  
+
       &.is-#{$name} {
         &:not(.is-outlined):not(.is-inverted) {
           @include btn-shadow($color);
-  
+
           &.is-hovered,
           &:hover {
             @include btn-shadow-inverse($color);
@@ -59,12 +70,12 @@
       }
     }
   }
-  
+
   .notification {
     @each $name, $pair in $colors {
       $color: nth($pair, 1);
       $color-invert: nth($pair, 2);
-  
+
       &.is-#{$name} {
         a:not(.button) {
           color: $color-invert;
@@ -73,63 +84,63 @@
       }
     }
   }
-  
+
   .card {
     border: 1px solid $border;
     border-radius: $radius;
-  
+
     .card-image {
       img {
         border-radius: $radius $radius 0 0;
       }
     }
-  
+
     .card-header {
       border-radius: $radius $radius 0 0;
     }
-  
+
     .card-footer,
     .card-footer-item {
       border-width: 1px;
       border-color: $border;
     }
   }
-  
+
   .navbar {
     border: 1px solid $dark;
-  
+
     @include touch {
       .navbar-menu {
         background-color: inherit;
       }
     }
-  
+
     .navbar-item,
     .navbar-link {
       color: rgba($white, 0.75);
       border-left: 1px solid rgba($white, 0.1);
       border-right: 1px solid rgba($black, 0.2);
-  
+
       &.is-active {
         background-color: rgba($dark, 0.1);
       }
-  
+
       &:hover {
         color: $white;
         border-left: 1px solid rgba($black, 0.2);
         background-color: rgba($black, 0.2);
       }
     }
-  
+
     @each $name, $pair in $colors {
       $color: nth($pair, 1);
       $color-invert: nth($pair, 2);
-  
+
       &.is-#{$name} {
         .navbar-item,
         .navbar-link {
           color: rgba($color-invert, 0.75);
-  
+
           &.is-active {
             color: rgba($color-invert, 1);
           }
@@ -137,7 +148,7 @@
       }
     }
   }
-  
+
   .hero {
     .navbar {
       background-color: $background;
@@ -145,7 +156,7 @@
     @each $name, $pair in $colors {
       $color: nth($pair, 1);
       $color-invert: nth($pair, 2);
-  
+
       &.is-#{$name} {
         .navbar {
           background: none;
@@ -153,7 +164,7 @@
       }
     }
   }
-  
+
   .tabs {
     a {
       &:hover {
@@ -161,7 +172,7 @@
         border-bottom-color: $link-hover;
       }
     }
-  
+
     li {
       &.is-active {
         a {
@@ -171,7 +182,7 @@
       }
     }
   }
-  
+
   .modal {
     .modal-card-body {
       background-color: $body-background-color;

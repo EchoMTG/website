@@ -25,12 +25,12 @@ export default {
       },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
-      { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
-      {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
-      }
+      // { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
+      // {
+      //   rel: 'stylesheet',
+      //   type: 'text/css',
+      //   href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
+      // }
     ]
   },
   css: ['@/assets/scss/style-light-dark.scss'],

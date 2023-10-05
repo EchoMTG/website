@@ -5,7 +5,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-header-title">
-                  <b-icon icon="arrow-up-circle" size="is-small" type="is-success" />
+                  <b-icon icon="arrow-up-circle" class="mr-2" size="is-small" type="is-success" />
                   <span>{{setName}} Cards Trending Up</span>
                 </h3>
               </div>
@@ -41,7 +41,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-header-title">
-                  <b-icon icon="arrow-down-circle" size="is-small" type="is-success" />
+                  <b-icon icon="arrow-down-circle" class="mr-2" size="is-small" type="is-danger" />
 
                   <span>{{setName}} Cards Trending Down</span>
                 </h3>

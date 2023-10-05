@@ -228,15 +228,15 @@ html {
       }
 
       &.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
-        background-color: $dark-mode-light-border-color;
+        background-color: darken($dark-mode-light-border-color,8%);
 
         &:nth-child(even) {
-          background-color: $grey-dark;
+          background-color: darken($grey-dark,8%);
         }
       }
 
       &.is-striped tbody tr:not(.is-selected):nth-child(even) {
-        background-color: $dark-mode-light-border-color;
+        background-color: darken($dark-mode-light-border-color,8%);
       }
     }
 

@@ -11,8 +11,8 @@
         <div class="column is-7 ">
           <div class="pt-5 pl-5 pr-3 ">
             <div class="echo-header-text">
-              <h1 class="title  has-text-white has-text-weight-light is-size-1-tablet is-size-3-mobile">Collection Tools for Magic Collectors and Players</h1>
-              <p class="subtitle has-text-grey-light has-shadow is-size-4-tablet is-size-6-mobile">Free membership starts with collection tools, user-only pricing, and weekly asset tracking. It makes collecting fun!</p>
+              <h1 class="title  has-text-white has-text-weight-bold is-size-1-tablet is-size-3-mobile">Collection tools for Trading Card collectors and players</h1>
+              <p class="subtitle has-text-grey-light has-shadow is-size-5-tablet is-size-6-mobile">Free membership starts with collection tools, user-only pricing, and weekly asset tracking.</p>
               <div class="columns is-mobile">
                   <div class="column">
                     <p class="has-text-white"><b-icon class="mr-2" icon="email-outline"/>Weekly Email Reports</p>

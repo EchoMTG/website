@@ -1,12 +1,12 @@
 <template>
     <div :class="cardClass">
 
-        <NuxtImg v-if="!toggleShowFull" :alt="`${item.name} magic image`" @click="imageTrigger()" placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image"  />
+        <NuxtImg v-if="!toggleShowFull" :alt="`${item.name} magic image`" @click="imageTrigger()" :placeholder="placeholder" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder"  />
         <div v-if="toggleShowFull">
             <div class="columns">
                 <div class="column is-one-third">
                     <nuxt-link :to="itemURL">
-                        <NuxtImg placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image" :alt="`${item.name} magic image`"  />
+                        <NuxtImg :placeholder="placeholder" width="200" quality="70" loading="lazy" class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder" :alt="`${item.name} magic image`"  />
                     </nuxt-link>
                 </div>
                 <div class="column is-two-thirds ">
@@ -93,37 +93,40 @@ export default {
         }
     },
     computed: {
-        hasFoil() {
-            return this.item.foil_price == null ? false : true;
-        },
-        hasRegular() {
-            return this.item.tcg_mid == null ? false : true;
-        },
-        cardClass() {
-            let full = this.toggleShowFull ? 'full' : '';
-            let ctb = this.closeToBottom ? 'closeToBottom' : '';
-            return `card itemInspectorCard ${ctb} ${full}`;
-        },
-        itemURL() {
-            this.$echomtg.log('inspector item',this.item)
-            let url = '';
-            if(this.item.echo_url) {
-                // single item variation
-                url = this.item.echo_url
-            } else {
-                // full item variation
-                url = this.item.card_url
-            }
-            url = url.replace('https://www.echomtg.com','')
-            let split = url.split('/')
-            let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
-            if(split.length > 4){
-              url = `/${game}/items/${split[3]}/${this.item.emid}/`
-            } else {
-              url = `/${game}/${split[2]}/`
-            }
+      placeholder() {
+        return 'https://assets.echomtg.com/magic/cards/magic-card-back.jpg'
+      },
+      hasFoil() {
+          return this.item.foil_price == null ? false : true;
+      },
+      hasRegular() {
+          return this.item.tcg_mid == null ? false : true;
+      },
+      cardClass() {
+          let full = this.toggleShowFull ? 'full' : '';
+          let ctb = this.closeToBottom ? 'closeToBottom' : '';
+          return `card itemInspectorCard ${ctb} ${full}`;
+      },
+      itemURL() {
+          this.$echomtg.log('inspector item',this.item)
+          let url = '';
+          if(this.item.echo_url) {
+              // single item variation
+              url = this.item.echo_url
+          } else {
+              // full item variation
+              url = this.item.card_url
+          }
+          url = url.replace('https://www.echomtg.com','')
+          let split = url.split('/')
+          let game = this.item?.game && this.item.game == 71 ? 'lorcana' : 'mtg'
+          if(split.length > 4){
+            url = `/${game}/items/${split[3]}/${this.item.emid}/`
+          } else {
+            url = `/${game}/${split[2]}/`
+          }
 
-            return url;
+          return url;
         }
     },
     methods: {
