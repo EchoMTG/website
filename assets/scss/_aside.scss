@@ -17,14 +17,14 @@ aside.aside {
     left: auto;
     right: $aside-right-width * -1;
     background: $white;
-    box-shadow: $aside-right-box-shadow;
+    // box-shadow: $aside-right-box-shadow;
   }
 
   &.is-secondary {
     background-color: $aside-secondary-background-color;
 
     .aside-tools {
-      box-shadow: $aside-tools-box-shadow;
+      // box-shadow: $aside-tools-box-shadow;
       background-color: $aside-secondary-tools-background-color;
     }
 
@@ -180,10 +180,10 @@ aside.aside {
 
 @include touch {
   #app, nav.navbar {
-    @include transition(100ms margin-left ease-in);
+    // @include transition(100ms margin-left ease-in);
   }
   aside.aside {
-    @include transition(100ms left ease-in);
+    // @include transition(100ms left ease-in);
     height: 100vh;
 
     .menu-label {
@@ -267,7 +267,7 @@ aside.aside {
   html {
     &.has-aside-left, &.has-aside-right {
       nav.navbar, body {
-        @include transition(100ms padding ease-in);
+        // @include transition(100ms padding ease-in);
       }
     }
     &.has-aside-left {
