@@ -1,6 +1,11 @@
 /* We'll need some initial vars to use here */
 @import "~bulma/sass/utilities/initial-variables";
 
+$cyan: #0366DD;
+$red: #a00202;
+$green: #086819;
+
+
 /* Base: Size  */
 $size-base: .85rem;
 $default-padding: $size-base * 1.4;

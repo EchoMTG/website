@@ -32,7 +32,7 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-mobile">All-time Gain/Loss</p>
-                    <p class="title has-text-light is-size-4-mobile"><span :class="quickstats.change_value >= 0 ? `has-text-success-dark` : `has-text-danger-dark`">{{quickstats.change_value}}%</span></p>
+                    <p class="title has-text-light is-size-4-mobile"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered is-hidden-mobile">

@@ -75,12 +75,12 @@ export default{
     async fetchPopularItems(){
 
       this.popularItems = await this.$echomtg.getPopularItems()
+      console.log(this.popularItems )
 
     },
     addItem: async function (emid,foil=0){
       try {
         const json = await this.$echomtg.inventoryQuickAdd(emid,foil);
-        console.log(json);
         this.$buefy.snackbar.open({
             message: json.message,
             type: 'is-warning',
@@ -116,7 +116,6 @@ export default{
   },
   async fetch() {
     await this.fetchPopularItems();
-    console.log(this.popularItems)
   },
 
 }

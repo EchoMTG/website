@@ -29,7 +29,7 @@
            <create-account-modal size="default" label="Join Now" />
         </div>
 
-        <nav-bar-menu class="navbar-item pr-1 mr-0">
+        <nav-bar-menu class="navbar-item pr-0 mr-0">
 
           <div class="is-user-name">
             <span>Recent Sets</span>
@@ -77,11 +77,11 @@
             <span>Articles</span>
           </echo-link>
         </div>
-        <div class="navbar-item has-divider pl-2 ml-0 mr-0 pr-2">
+        <div class="navbar-item has-divider pl-0 ml-0 mr-0 pr-2">
         <a
             href="https://legacy.echomtg.com"
             rel="nofollow"
-            class="button is-small is-danger"
+            class="button is-small has-background-danger is-rounded has-text-white is-contained"
             aria-label="Old Website"
           >
           <b-icon icon="share" size="is-small"/>Old Website
@@ -146,7 +146,7 @@
 
 
          <div v-if="authenticated" class="navbar-item mr-0 pr-0">
-          <a href="/apps/inventory/" class="has-text-success-dark has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
+          <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
         </div>
         <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
           <b-taglist  attached>
