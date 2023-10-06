@@ -1,3 +1,8 @@
+// this is to prevent CLI warning on pagespeed tests
+html {
+  padding-top: 3.25rem;
+}
+
 aside.aside {
   display: flex;
   flex-direction: column;
@@ -264,8 +269,15 @@ aside.aside {
 }
 
 @include desktop {
+
+  // this is to prevent CLI warning on pagespeed tests
+  html body, html nav.navbar {
+    padding-left: $aside-width;
+  }
+
   html {
     &.has-aside-left, &.has-aside-right {
+
       nav.navbar, body {
         // @include transition(100ms padding ease-in);
       }
