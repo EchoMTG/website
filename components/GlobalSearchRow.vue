@@ -4,7 +4,7 @@
     <div v-if="showimage" class="searchImage">
         <div class="mana" v-html="manacost"></div>
         <i :class="this.iconClassName"></i>
-        <NuxtImg :src="croppedImage" :alt="name" />
+        <NuxtImg :src="croppedImage" width="140" :alt="name" />
     </div>
 
     <div class="itemName is-flex is-flex-direction-column">

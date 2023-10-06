@@ -203,7 +203,7 @@ export default {
             {
               to: '/',
               icon: 'plus',
-              label: 'Join Now'
+              label: 'Free Account'
             },
           ])
       }

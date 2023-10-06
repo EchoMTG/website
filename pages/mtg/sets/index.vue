@@ -4,7 +4,7 @@
     <nuxt v-if="user && user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
     <echo-bread-crumbs :data="crumbs" />
     <div class="pt-4 pl-4">
-    <h1 class="title is-size-5">Magic the Gathering Sets and Expansions</h1>
+    <h1 class="title is-size-5">MTG Sets and Expansions</h1>
     </div>
     <Expansions :expansions="expansions" />
   </div>

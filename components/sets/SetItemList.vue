@@ -141,23 +141,20 @@
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
-            <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
+            <a :href="itemURL(props.row)" :title="`Open ${props.row.name} Page`">
 
                 <NuxtImg
                     :loading="props.index > 10 ? 'lazy' : 'eager'"
-
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
                     :alt="`${props.row.name} Cropped Item Image Thumbnail`"
                     width="70"
                     height="50"
                     quality="80"
-                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                      />
 
             </a>
 
-            <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
             <div class="is-flex"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
 
@@ -167,9 +164,7 @@
             <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit {{props.row.name}}</b-button>
           </b-table-column>
           <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
-            <span class="is-mobile">[{{props.row.collectors_number}}]</span>
-
-            <span class="">{{props.row.rarity}}</span>
+            {{props.row.rarity}}
           </b-table-column>
           <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
             {{props.row.collectors_number}}
@@ -191,7 +186,7 @@
               <b-button
                 :aria-label="`Add ${props.row.name} Regular Version to Inventory`"
                 v-if="props.row.tcg_mid"
-                icon-left="plus-circle"
+                icon-right="plus-circle"
                 size="is-small"
                 variant="contained"
                 type="is-dark"
@@ -205,7 +200,7 @@
             <b-button
               :aria-label="`Add ${props.row.name} Foil Version to Inventory`"
               v-if="props.row.foil_price"
-              icon-left="plus-circle"
+              icon-right="plus-circle"
               size="is-small"
               variant="contained"
               class="rainbow-background has-text-white has-text-weight-bold is-fullwidth"
@@ -342,6 +337,9 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    itemURL(item){
+      return this.$echomtg.itemURL(item)
+    },
     wikiControl(bool){
       this.isWikiModalActive = bool
     },
@@ -444,7 +442,7 @@ export default {
         this.textSearch='';
         this.valueAbove=0;
         this.valueBelow=0;
-    },
+  },
 
 
   },

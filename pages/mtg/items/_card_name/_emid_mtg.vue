@@ -68,7 +68,6 @@
               height="442"
               :src="item.image"
               :alt="`${item.name} magic card front`"
-              placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
           />
 
         </div>
@@ -306,7 +305,7 @@ export default {
       );
       item = await res.json();
 
-      dataRes = await fetch( dataEndpoint, 
+      dataRes = await fetch( dataEndpoint,
         {
           headers: $echomtg.getS2SGetHeaders()
         }

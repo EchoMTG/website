@@ -29,7 +29,7 @@
           </router-link>
         </div>
         <div v-if="!authenticated" class="px-3 pt-2 navbar-item is-hidden-tablet">
-           <create-account-modal size="default" label="Join Now" />
+           <create-account-modal size="default" label="Free Account" />
         </div>
 
         <nav-bar-menu class="navbar-item pr-0 mr-0">
@@ -83,7 +83,7 @@
         <a
             href="https://legacy.echomtg.com"
             rel="nofollow"
-            class="button is-small has-background-danger is-rounded has-text-white is-contained"
+            class="button is-small has-background-black is-rounded has-text-white is-contained"
             aria-label="Old Website"
           >
           <b-icon icon="share" size="is-small"/>Old Website
@@ -231,7 +231,7 @@
            <div class="field is-grouped">
 
             <div class="control">
-               <create-account-modal size="default" label="Join Now" />
+               <create-account-modal size="default" label="Free Account" />
             </div>
             <div class="control">
               <router-link to="/login"
