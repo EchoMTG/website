@@ -251,7 +251,7 @@ export default {
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
-    document.documentElement.classList['add']('is-dark-mode-active');
+    // document.documentElement.classList['add']('is-dark-mode-active');
 
   },
 
