@@ -151,16 +151,15 @@
           pagination-position="bottom"
           per-page="25"
           pagination-order="is-centered"
-          custom-detail-row
+          :custom-detail-row="authenticated ? true : false"
           :mobile-cards="false"
-          :detailed="$device.isDesktop ? true : false"
+          :detailed="$device.isDesktop && authenticated ? true : false"
           @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
-          :show-detail-icon="$device.isDesktop ? true : false"
+          :show-detail-icon="$device.isDesktop && authenticated ? true : false"
           ref="table"
           detail-key="emid"
           >
-          <b-table-column v-slot="props" width="30">
-
+          <b-table-column :visible="authenticated ? true : false"  v-slot="props" width="30">
             <b-tag v-if="isCardOwned(props.row.emid, 'regular')" class="has-background-grey"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
             <br>
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
@@ -173,6 +172,7 @@
                     v-if="fullView == false"
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
+                    :alt="`${props.row.name} Cropped Item Image Thumbnail`"
                     width="70"
                     height="50"
                     quality="80"
@@ -183,6 +183,7 @@
                     :loading="props.index > 10 ? 'lazy' : 'eager'"
                     v-if="fullView == true"
                     :src="props.row.image"
+                    :alt="`${props.row.name} Full Item Image`"
                     class="mr-2 is-pulled-left"
                     width="200"
                     height="120"
@@ -193,16 +194,16 @@
 
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
-            {{props.row.types}}
+            <div class="is-flex"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
 
 
           </b-table-column>
-          <b-table-column :visible="parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
+          <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
             <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit {{props.row.name}}</b-button>
           </b-table-column>
           <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
             <span class="is-mobile">[{{props.row.collectors_number}}]</span>
-            <em v-html="replaceSymbols(props.row.mc)"></em>
+
             <span class="">{{props.row.rarity}}</span>
           </b-table-column>
           <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
@@ -224,7 +225,7 @@
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
               <p class="control">
-                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
+                  <b-button :aria-label="`Add ${props.row.name} Regular Version to Inventory`" v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
               </p>
               <b-input
                :value="`${cs} ${props.row.tcg_mid}`"
@@ -240,7 +241,7 @@
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
               <p class="control">
-                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
+                  <b-button :aria-label="`Add ${props.row.name} Foil Version to Inventory`" v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
               </p>
               <b-input
                :value="`${cs} ${props.row.foil_price}`"
