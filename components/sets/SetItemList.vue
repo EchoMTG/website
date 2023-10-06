@@ -149,7 +149,7 @@
           paginated
           pagination-size="is-small"
           pagination-position="bottom"
-          per-page="50"
+          per-page="30"
           pagination-order="is-centered"
           custom-detail-row
           :mobile-cards="false"
