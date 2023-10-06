@@ -30,13 +30,15 @@
       :checkable="false"
       :loading="isLoading"
       :paginated="paginated"
+      pagination-size="is-small"
+      pagination-position="bottom"
+      pagination-order="is-centered"
       :per-page="perPage"
       :striped="true"
       :mobile-cards="false"
       default-sort-direction="DESC"
       default-sort="release_date"
       :data="filteredExpansionsList"
-      :height="tableHeight"
     >
 
       <b-table-column v-slot="props" label="Name" field="name" sortable>
@@ -112,11 +114,10 @@ export default {
     return {
       isModalActive: false,
       isLoading: false,
-      paginated: false,
-      perPage: 20,
+      paginated: true,
+      perPage: 50,
       checkedRows: [],
-      search: '',
-      tableHeight: '700px'
+      search: ''
     }
   },
   computed: {
