@@ -10,8 +10,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'apple-itunes-app', content: 'app-id=864697496' },
-      { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" }
-
+      { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" },
+      // { 'http-equiv' :"Content-Security-Policy",  content: "default-src 'self' echomtg.com *.echomtg.com cdn.jsdelivr.net script-src www.googletagmanager.com" }
     ],
     link: [
       {
