@@ -5,8 +5,11 @@
         <b-icon :icon="menuToggleIcon" />
       </a>
     </div>
-    <div class="is-flex is-align-items-center" style="width: 100%;">
-      <global-search showimage showinventorybuttons :callbackname="authenticated ? 'Add to Inventory' : 'Open Page'" />
+    <div class="is-flex is-align-items-center is-flex-grow-2" style="width: 100%;">
+      <global-search
+        showimage
+        showinventorybuttons
+        :callbackname="authenticated ? 'Add to Inventory' : 'Open Page'" />
     </div>
     <div v-if="isLayoutMobile" class="navbar-brand is-right">
       <a class="navbar-item navbar-item-menu-toggle" @click.prevent="menuNavBarToggle">
@@ -67,17 +70,16 @@
             </echo-link>
           </div>
         </nav-bar-menu>
-        <div class="navbar-item pl-0 ml-0 ">
           <echo-link
               url="/blog/"
-              class="navbar-item "
+              class="navbar-item pl-0 ml-0 "
               exact-active-class="is-active"
               title="Trading Card Blog"
             >
             <span>Articles</span>
           </echo-link>
-        </div>
-        <div class="navbar-item has-divider pl-0 ml-0 mr-0 pr-2">
+
+        <div class="navbar-item p-0 m-0">
         <a
             href="https://legacy.echomtg.com"
             rel="nofollow"
@@ -107,7 +109,7 @@
           <b-icon icon="help-circle-outline"></b-icon>
         </echo-link>
 
-        <nav-bar-menu class="navbar-item">
+        <nav-bar-menu v-if="authenticated" class="navbar-item">
 
           <div class="is-user-name">
             <span>My Apps</span>
@@ -233,7 +235,7 @@
             </div>
             <div class="control">
               <router-link to="/login"
-                class=" button is-primary"
+                class=" button is-outlined is-primary"
                 title="Login"
               >
                 <b-icon icon="login" custom-size="default" />

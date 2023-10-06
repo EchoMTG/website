@@ -310,6 +310,10 @@ aside.aside {
       nav.navbar, body {
         padding-left: $aside-collapsed-width;
       }
+
+      .icon {
+        width: 2.8rem !important;
+      }
       /*aside.is-placed-left {
         display: flex;
         flex-direction: column;

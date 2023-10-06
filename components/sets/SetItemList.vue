@@ -1,33 +1,17 @@
  <template>
       <div class="set-item-list-container">
         <div v-if="items.length > 0" class="is-flex padded filterBar has-background-white">
-          <div class="control has-icons-left">
-            <input
+          <b-input
+
+              placeholder="Search by name..."
+              type="search"
               v-model="search"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Name or Type.."
-            />
-            <b-icon icon="magnify" class="is-left" size="is-small" />
-          </div>
-          <!-- ORACLE TEXT SEARCH HIDDEN, TO REDUCE PAYLOAD in HALF, oracle search needs api call to work -->
-<!--
-          <div class="control has-icons-left is-hidden-mobile">
-            <input
-              v-model="textSearch"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Card/Oracle Text.."
-            />
+              size="is-small"
+              class="mr-1"
+              icon="magnify" />
 
-              <b-icon icon="magnify" class="is-left" size="is-small" />
 
-          </div> -->
-
-          <div class="select is-small is-rounded has-text-grey">
-            <select v-model="rarity" class="has-text-grey">
+            <b-select size="is-small" v-model="rarity" class="mr-1">
               <option value="" selected>Any Rarity</option>
               <option disabled>---</option>
               <option value="common">Common</option>
@@ -39,14 +23,13 @@
               <option value="special">Special</option>
               <option v-if="game == 1" value="basic land">Basic Land</option>
               <option value="token">Token</option>
-            </select>
-          </div>
+            </b-select>
 
-          <div
-            class="select is-small is-rounded has-text-grey"
-            v-if="this.variants.length > 0"
-          >
-            <select v-model="variant" class="has-text-grey">
+            <b-select
+              size="is-small"
+              v-if="this.variants.length > 0"
+              v-model="variant"
+              class="mr-1">
               <option value="" selected>Any Variant</option>
               <option disabled>---</option>
               <option value="none">No Variants</option>
@@ -54,34 +37,35 @@
                  {{ v.replace(') (', ' ') }}
 
               </option>
-            </select>
-          </div>
+            </b-select>
 
-          <div
-            class="select is-small is-rounded has-text-grey is-hidden-mobile"
-            v-if="Object.keys(cardsowned).length > 0"
-          >
-            <select v-model="showOwned" class="has-text-grey">
+
+            <b-select
+              size="is-small"
+              class="mr-1 is-hidden-mobile"
+              v-if="Object.keys(cardsowned).length > 0"
+              v-model="showOwned"
+              >
               <option value="" selected>All</option>
               <option disabled>---</option>
               <option value="true reg">Owned Regular</option>
               <option value="true foil">Owned Foil</option>
               <option value="false reg">Not Owned Regular</option>
               <option value="false foil">Not Owned Foil</option>
-            </select>
-          </div>
+            </b-select>
+
 
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static"
+                class="button is-small is-static"
               >
                 $ &gt;
               </a>
             </p>
             <p class="control">
               <input
-                class="input is-small is-rounded valueAboveInput"
+                class="input is-small valueAboveInput"
                 v-model="valueAbove"
                 type="text"
                 placeholder="00.00"
@@ -92,26 +76,18 @@
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static"
+                class="button is-small is-static"
               >
                 $ &lt;
               </a>
             </p>
             <p class="control">
               <input
-                class="input is-small is-rounded valueAboveInput"
+                class="input is-small valueAboveInput"
                 v-model="valueBelow"
                 type="text"
                 placeholder="00.00"
               />
-            </p>
-          </div>
-
-          <div class="field is-hidden-mobile">
-            <p class="control">
-              <a class="button is-small is-rounded" @click="toggleFullView()">
-                <b-icon icon="image"  size="is-small" />
-              </a>
             </p>
           </div>
           <div class="field" style="margin-left: auto" >
@@ -149,7 +125,7 @@
           paginated
           pagination-size="is-small"
           pagination-position="bottom"
-          per-page="25"
+          :per-page="authenticated ? 50 : 25"
           pagination-order="is-centered"
           :custom-detail-row="authenticated ? true : false"
           :mobile-cards="false"
@@ -169,7 +145,7 @@
 
                 <NuxtImg
                     :loading="props.index > 10 ? 'lazy' : 'eager'"
-                    v-if="fullView == false"
+
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
                     :alt="`${props.row.name} Cropped Item Image Thumbnail`"
@@ -179,17 +155,6 @@
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                      />
 
-                <NuxtImg
-                    :loading="props.index > 10 ? 'lazy' : 'eager'"
-                    v-if="fullView == true"
-                    :src="props.row.image"
-                    :alt="`${props.row.name} Full Item Image`"
-                    class="mr-2 is-pulled-left"
-                    width="200"
-                    height="120"
-                    quality="100"
-                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    />
             </a>
 
             <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
@@ -373,7 +338,6 @@ export default {
       isWikiModalActive: false,
       variant: '',
       variants: [],
-      fullView: false,
       actions: 0
     };
 
@@ -464,9 +428,6 @@ export default {
             this.variants.push(name)
         }
 
-    },
-    toggleFullView: function(){
-        this.fullView = this.fullView == false ? true : false;
     },
     openWiki: function(item){
         this.wikiItem = item
