@@ -186,37 +186,32 @@
            <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" :label="`Regular ${cs}`" sortable v-slot="props">
 
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
-              <p class="control">
-                  <b-button :aria-label="`Add ${props.row.name} Regular Version to Inventory`" v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
-              </p>
-              <b-input
-               :value="`${cs} ${props.row.tcg_mid}`"
+              <b-button
+                :aria-label="`Add ${props.row.name} Regular Version to Inventory`"
+                v-if="props.row.tcg_mid"
+                icon-left="plus-circle"
                 size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
-            </b-field>
+                variant="contained"
+                type="is-dark"
+                class="has-text-weight-bold is-fullwidth"
+                @click="addItem(props.row.emid, 0)">
+                {{cs}}{{props.row.tcg_mid}}
+              </b-button>
 
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="130" :label="`Foil ${cs}`" sortable v-slot="props">
-
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
-              <p class="control">
-                  <b-button :aria-label="`Add ${props.row.name} Foil Version to Inventory`" v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
-              </p>
-              <b-input
-               :value="`${cs} ${props.row.foil_price}`"
-                size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
-            </b-field>
-
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" :label="`Foil ${cs}`" sortable v-slot="props">
+            <b-button
+              :aria-label="`Add ${props.row.name} Foil Version to Inventory`"
+              v-if="props.row.foil_price"
+              icon-left="plus-circle"
+              size="is-small"
+              variant="contained"
+              class="rainbow-background has-text-white has-text-weight-bold is-fullwidth"
+              @click="addItem(props.row.emid,1)">
+              {{cs}}{{props.row.foil_price}}
+            </b-button>
           </b-table-column>
 
 
