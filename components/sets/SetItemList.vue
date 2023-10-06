@@ -168,8 +168,8 @@
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
 
-                <NuxtPicture
-                     loading="lazy"
+                <NuxtImg
+                    :loading="props.index > 10 ? 'lazy' : 'eager'"
                     v-if="fullView == false"
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
@@ -179,8 +179,8 @@
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                      />
 
-                <NuxtPicture
-                    loading="lazy"
+                <NuxtImg
+                    :loading="props.index > 10 ? 'lazy' : 'eager'"
                     v-if="fullView == true"
                     :src="props.row.image"
                     class="mr-2 is-pulled-left"
