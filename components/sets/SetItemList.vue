@@ -90,23 +90,30 @@
               />
             </p>
           </div>
-          <div class="field" style="margin-left: auto" >
+
+
+
+
+          <b-button
+            type="is-danger"
+            outlined
+            size="is-small"
+            v-if="dirtyFilters"
+            @click="clearFilters()"
+            icon-left="close"
+          >
+            <span>Clear <span class="is-hidden-mobile">Filters</span></span>
+          </b-button>
+
             <vue-json-to-csv
+                class="ml-auto"
+                v-if="dirtyFilters"
                 :json-data="filteredItems">
-                <b-button size="is-small" icon-left="download">Download Filtered List</b-button>
+                <b-button size="is-small"  type="is-info" icon-left="download">Download Filtered List</b-button>
             </vue-json-to-csv>
-          </div>
 
 
-          <div class="field" style="margin-left: auto">
-            <button
-              class="button is-small is-dark has-text-danger is-outlined"
-              @click="clearFilters()"
-            >
-              <b-icon icon="times" class="is-left" size="is-small" />
-              <span>Clear <span class="is-hidden-mobile">Filters</span></span>
-            </button>
-          </div>
+
         </div>
         <div
           v-if="items.length > 0 && filteredItems.length == 0"
@@ -442,6 +449,8 @@ export default {
         this.textSearch='';
         this.valueAbove=0;
         this.valueBelow=0;
+        this.variant = '';
+        this.showOwned = '';
   },
 
 
@@ -465,6 +474,9 @@ export default {
     }
   },
   computed: {
+    dirtyFilters() {
+      return this.showOwned != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
+    },
     ...mapState(['userLevel','user','authenticated']),
       filteredItems: function(){
 
