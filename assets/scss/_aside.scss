@@ -34,12 +34,14 @@ aside.aside {
     }
 
     .menu-list {
+
       li {
         ul {
           background-color: $aside-secondary-dropdown-background-color;
         }
       }
       a {
+
         &.is-active {
           background-color: $aside-secondary-item-active-background-color;
         }
@@ -90,6 +92,8 @@ aside.aside {
   }
 
   .menu {
+    font-size: .75rem !important;
+
     &.is-menu-bottom {
       flex-grow: 0;
       flex-shrink: 1;
@@ -98,6 +102,18 @@ aside.aside {
   }
 
   .menu-list {
+    .menu-label{
+      margin-top: .5em !important;
+      margin-bottom: .3em !important;
+      padding-left: .5rem;
+    }
+    .icon {
+        width: 1.8rem !important;
+    }
+    a {
+      padding: 0px 0 !important;
+    }
+
     li {
       &.is-active {
 

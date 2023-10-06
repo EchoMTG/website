@@ -51,22 +51,6 @@
     </div>
   </aside>
 </template>
-<style lang="scss">
-.menu-list a {
-  padding: 0px 0 !important;
-}
-.aside.aside .menu-label{
-  margin-top: .5em !important;
-  margin-bottom: .3em !important;
-  padding-left: .5rem;
-}
-.menu {
-  font-size: .75rem !important;
-}
-.has-aside-expanded .menu-list .icon {
-    width: 1.8rem !important;
-}
-</style>
 <script>
 import { mapState } from 'vuex'
 import PerfectScrollbar from 'perfect-scrollbar'
