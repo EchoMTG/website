@@ -187,7 +187,7 @@
                     class="mr-2 is-pulled-left"
                     width="200"
                     height="120"
-                    quality="90"
+                    quality="100"
                     placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                     />
             </a>
@@ -218,7 +218,7 @@
             </div>
 
           </b-table-column>
-           <b-table-column v-if="authenticated" width="60" label="Watch" v-slot="props">
+           <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
            <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
