@@ -113,7 +113,7 @@ export default {
   async fetch() {
     this.loading=true
     // get sets, filter by release date > current date
-    this.sets = await this.$echomtg.getMarketData(0,36,1,this.search,this.year);
+    this.sets = await this.$echomtg.getMarketData(0,30,1,this.search,this.year);
     this.loading=false
 
   },
@@ -151,13 +151,13 @@ export default {
   },
   head () {
       return {
-          title: `MTG Stock Market Financial data for the Magic:the Gathering Trading Game`,
+          title: `MTG Stock Market `,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Track cards in each expansion and individually watch and manage your inventory alongside financial data.`
+              content:  `Track up and down price movement of top cards in each expansion.`
             }
           ]
 
