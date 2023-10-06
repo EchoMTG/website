@@ -1143,6 +1143,27 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
 
+  echomtg.itemURL = (item) => {
+
+    let url = '';
+    if(item.echo_url) {
+        // single item variation
+        url = item.echo_url
+    } else {
+        // full item variation
+        url = item.card_url
+    }
+    url = url.replace('https://www.echomtg.com','')
+    let split = url.split('/')
+    let game = item?.game && item.game == 71 ? 'lorcana' : 'mtg'
+    if(split.length > 4){
+      url = `/${game}/items/${split[3]}/${item.emid}/`
+    } else {
+      url = `/${game}/${split[2]}/`
+    }
+
+    return url;
+  }
 
   echomtg.replaceSymbols = (str) => {
 

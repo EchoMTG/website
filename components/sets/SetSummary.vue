@@ -1,9 +1,11 @@
 <template>
   <div class="setSummary">
     <div class="imageBox">
-      <img
+      <NuxtImg
         :src="topcardImage"
+        width="400"
         class="setTopImage"
+        quality="100"
         :alt="setName"
       />
     </div>

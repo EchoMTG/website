@@ -105,7 +105,7 @@ aside.aside {
     .menu-label{
       margin-top: .5em !important;
       margin-bottom: .3em !important;
-      padding-left: .5rem;
+    padding-left: .5rem;
     }
     .icon {
         width: 1.8rem !important;
@@ -299,6 +299,7 @@ aside.aside {
       }
     }
     &.has-aside-left {
+
       &.has-aside-expanded {
         nav.navbar, body {
           padding-left: $aside-width;
@@ -306,14 +307,15 @@ aside.aside {
         aside.aside.is-secondary {
           left: $aside-width;
         }
+        .menu .icon {
+          width: 1.8rem !important;
+        }
       }
       nav.navbar, body {
         padding-left: $aside-collapsed-width;
       }
 
-      .icon {
-        width: 2.8rem !important;
-      }
+
       /*aside.is-placed-left {
         display: flex;
         flex-direction: column;
@@ -366,6 +368,11 @@ aside.aside {
     }
 
     &:not(.is-expanded) {
+      .menu .icon {
+        width: 3.7rem !important;
+        font-size: 22px !important;
+        margin-bottom: 11px !important;
+      }
       .menu-list li a.has-submenu-icon {
         padding-right: 0;
         .submenu-icon {
