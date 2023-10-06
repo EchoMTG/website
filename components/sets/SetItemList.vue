@@ -188,10 +188,10 @@
            <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" :label="`Regular ${cs}`" sortable v-slot="props">
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" :label="`Price`" sortable v-slot="props">
 
               <b-button
-                :aria-label="`Add ${props.row.name} Regular Version to Inventory`"
+                :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
                 v-if="props.row.tcg_mid"
                 icon-right="plus-circle"
                 size="is-small"
@@ -203,9 +203,9 @@
               </b-button>
 
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" :label="`Foil ${cs}`" sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" :label="`Foil Price`" sortable v-slot="props">
             <b-button
-              :aria-label="`Add ${props.row.name} Foil Version to Inventory`"
+              :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
               v-if="props.row.foil_price"
               icon-right="plus-circle"
               size="is-small"
