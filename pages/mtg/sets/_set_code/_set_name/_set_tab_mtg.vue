@@ -224,7 +224,7 @@ export default {
   },
   head () {
     return {
-        title: `${this.set.name} Price List and Card Data`,
+        title: `${this.set.name} Prices`,
 
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.set.set_symbol },

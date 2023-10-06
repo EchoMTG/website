@@ -53,7 +53,7 @@
 </template>
 <style lang="scss">
 .menu-list a {
-  padding: .2em 0 !important;
+  padding: 3px 0 !important;
 }
 .aside.aside .menu-label{
   margin-top: .5em !important;
