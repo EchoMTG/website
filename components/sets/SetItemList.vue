@@ -1,6 +1,6 @@
  <template>
       <div class="set-item-list-container">
-        <div v-if="items.length > 0" class="is-flex padded filterBar">
+        <div v-if="items.length > 0" class="is-flex padded filterBar has-background-white">
           <div class="control has-icons-left">
             <input
               v-model="search"
@@ -146,7 +146,11 @@
           striped
           :data="filteredItems"
           :debounce-search="0"
-
+          paginated
+          pagination-size="is-small"
+          pagination-position="bottom"
+          per-page="50"
+          pagination-order="is-centered"
           custom-detail-row
           :mobile-cards="false"
           :detailed="$device.isDesktop ? true : false"
@@ -157,7 +161,7 @@
           >
           <b-table-column v-slot="props" width="30">
 
-            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
+            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" class="has-background-grey"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
             <br>
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
