@@ -30,9 +30,14 @@
         default-sort="total"
          striped
          :mobile-cards="false"
+         :paginated="true"
+      pagination-size="is-small"
+      pagination-position="bottom"
+      pagination-order="is-centered"
+      :per-page="50"
         >
         <b-table-column sortable :label="`Magic Type (${total} total types)`" v-slot="props" searchable field="type">
-          <nuxt-link :to="props.row.url" :prefetch="false">{{props.row.type}}</nuxt-link>
+          <echo-link :url="props.row.url">{{props.row.type}}</echo-link>
         </b-table-column>
         <b-table-column v-slot="props" :numeric="true" label="Total Printing in Each Type" sortable field="total">
           {{props.row.total}}
@@ -48,12 +53,14 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import EchoLink from '~/components/EchoLink.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 
 export default {
   name: 'Types',
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    EchoLink
   },
   data () {
     return {

@@ -43,7 +43,7 @@
 
       <b-table-column v-slot="props" label="Name" field="name" sortable>
         <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
-        <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
+        <echo-link :url="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</echo-link>
       </b-table-column>
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
@@ -95,10 +95,11 @@
 <script>
 import ModalBox from '@/components/ModalBox'
 import { mapState } from 'vuex'
+import EchoLink from './EchoLink.vue'
 
 export default {
   name: 'Sets',
-  components: { ModalBox },
+  components: { ModalBox, EchoLink },
   props: {
 
     checkable: {
