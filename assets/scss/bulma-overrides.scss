@@ -1,15 +1,5 @@
 // Overrides
 
-html {
-  font-size: 12px;
-  @include tablet {
-    font-size: 14px;
-  }
-  @include desktop {
-    font-size: 14px;
-  }
-}
-
 @mixin btn-shadow($color) {
     background-image: linear-gradient(
                     180deg,
