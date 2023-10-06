@@ -101,7 +101,7 @@ $nav-background: $mage-dark;
 }
 // make these transpacrent
 .rainbow-background, .foil-background{
-
+  text-shadow: 0px 0px 15px #b71ec4, 0px 0px 5px #256588;
   background: linear-gradient(to right,#e254dd 0%,#30ffff 100%)
 
 }

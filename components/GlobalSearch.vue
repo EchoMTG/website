@@ -172,15 +172,13 @@
                 </div>
                <footer class="card-footer">
                     <p class="card-footer-item has-text-white">
-
+                        <span class="mr-4">Shortcut Keys</span>
                         <button class="button is-small ">
                             <b-icon icon="menu-down" size="is-small" />
                         </button>
-                        &nbsp;
                        <button class="button is-small ">
                             <b-icon icon="menu-up" size="is-small" />
                         </button>
-                        &nbsp; results &nbsp;
                         <button class="button is-small ">
                             <b-icon icon="menu-left" size="is-small" />
                         </button>
@@ -188,15 +186,14 @@
                        <button class="button is-small ">
                             <b-icon icon="menu-right" size="is-small" />
                         </button>
-                         &nbsp; toggle preview &nbsp;
                         <button class="button is-small">
                             <span class="icon">↵</span>
                             <span>Return</span>
                         </button>&nbsp;
-                        to {{callbackname.replace(/<[^>]*>?/gm, '')}}  &nbsp;
+                        <!-- to {{callbackname.replace(/<[^>]*>?/gm, '')}}  &nbsp; -->
 
                         <button @click="closeFocus()" class="button is-small">ESC</button>
-                        &nbsp; to exit.
+                        <!-- &nbsp; to exit. -->
                     </p>
 
                 </footer>

@@ -135,7 +135,8 @@ export default {
   computed: {
 
     ...mapState([
-      'user', 'authenticated'
+      'user',
+      'authenticated'
     ])
 
   },
