@@ -113,6 +113,15 @@ export default {
       '/admin/**',
       '/wiki/**'
     ],
+    routes: [
+      '/mtg/groups/magic-reserve-list/',
+      '/mtg/groups/trending-up/',
+      '/mtg/groups/power-9-magic-the-gathering/',
+      '/mtg/groups/commanders/',
+      '/mtg/types/land/',
+      '/mtg/sets/woe/wilds-of-eldraine/'
+
+    ]
   },
   gtm: {
     id: 'GTM-5S54B96'

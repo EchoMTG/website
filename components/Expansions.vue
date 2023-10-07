@@ -3,18 +3,16 @@
      <div class="columns m-2" ref="searchBox">
 
       <div class="column">
-         <div slot="right" class="control has-icons-left">
-            <input
+
+          <b-input
+
+              placeholder="Search by name..."
+              type="search"
               v-model="search"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Search by Name..."
-            />
-            <span class="icon is-small is-left">
-              <b-icon size="is-small" icon="magnify"/>
-            </span>
-          </div>
+              size="is-small"
+              class="mr-1"
+              icon="magnify" />
+
       </div>
       <div class="column is-hidden-touch">
         <div class="content">
