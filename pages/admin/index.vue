@@ -64,7 +64,7 @@
         {{props.row.card_count}}
       </b-table-column>
       <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
-        {{props.row.referrer_url}}
+        {{props.row.referrer_url}} / {{props.row.device_type}} / {{props.row.platform}}
       </b-table-column>
       <b-table-column :key="username" label="Username" v-slot="props">
         {{props.row.username}}
