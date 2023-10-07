@@ -32,7 +32,7 @@
                       <div>
                         <p class="heading">Default Inventory Sort</p>
                         <b-field >
-                           <b-select @change="this.updateValue('default_sort',this.default_sort)" v-model="default_sort" placeholder="Select a default Sort Option">
+                           <b-select @input="update('default_sort')" v-model="default_sort" placeholder="Select a default Sort Option">
                               <option
                                   v-for="option in sortOptions"
                                   :value="option.value"
@@ -60,7 +60,7 @@
                               v-model="use_market"
                               true-value="1"
                               false-value="0"
-                              @input="this.updateValue('use_market',this.use_market)"
+                              @input="update('use_market')"
                               >
                               {{offOn(use_market)}}
                             </b-switch>
@@ -75,16 +75,16 @@
                               type="number"
                               min="0"
                               v-model="setting_report_threshhold"
-                              @change=" this.updateValue('setting_report_threshhold',this.setting_report_threshhold)"
+                              @input="update('setting_report_threshhold')"
                               />
                         </b-field>
                       </div>
                     </div>
                     <div class="level-item ml-5">
                       <div>
-                        <p class="heading">Current Preference</p>
+                        <p class="heading">Currency Preference</p>
                         <b-field >
-                           <b-select @change="this.updateValue('currency_code',this.currency_code)" v-model="currency_code" placeholder="Select a default Sort Option">
+                           <b-select @input="update('currency_code')" v-model="currency_code" placeholder="Select a default Sort Option">
                               <option
                                   v-for="option in currencyOptions"
                                   :value="option.value"
@@ -195,18 +195,28 @@ export default {
 
       this.updateValue('dark_mode',this.dark_mode);
     },
+    async update(key){
+      console.log(key, this[key])
+      await this.updateValue(key, this[key]);
+
+    },
     trueFalse: function (subscriptionValue) {
       return subscriptionValue == "1" ? true : false;
     },
     offOn: function (subscriptionValue) {
       return parseInt(subscriptionValue) == 1 ? "On" : "Off";
     },
-    updateValue: async function (name, value){
+    async updateValue(name, value){
       let body = {};
       body[name] = value;
 
        // need to update user in store
-      await this.$echomtg.updateUser(body);
+      const res = await this.$echomtg.updateUser(body);
+
+      this.$buefy.toast.open({
+          message: `${res.message}: ${name} updated to ${value} `,
+          type: 'is-info'
+        })
 
       // update user
       await this.$fetch();

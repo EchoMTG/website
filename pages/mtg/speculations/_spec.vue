@@ -77,7 +77,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       custompage: {},
       items: [{
         image_cropped: ''
@@ -170,6 +169,9 @@ export default {
     },
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol
+    },
     nameCleaned (){
       return
     },

@@ -29,6 +29,7 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ItemCard',
   props: {
@@ -37,10 +38,14 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      cs: '$',
+  computed: {
+    ...mapState([
+      'quickstats'
+    ]),
+    cs() {
+      return this.quickstats.currency_symbol
     }
+
   },
   methods: {
     getSetIconClass(set_code){

@@ -148,7 +148,7 @@
 
 
          <div v-if="authenticated" class="navbar-item mr-0 pr-0">
-          <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{quickstats.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
+          <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{user.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
         </div>
         <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
           <b-taglist  attached>

@@ -100,6 +100,7 @@ export default {
     }
   },
   computed: {
+
     priceColor() {
       return this.type == 'regular' ? '' : 'has-text-warning-dark';
     },

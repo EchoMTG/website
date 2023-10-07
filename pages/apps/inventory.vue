@@ -434,7 +434,6 @@ export default {
           defaultSortOrder: 'desc',
           page: 1,
           perPage: 100,
-           cs: '$',
           tableHeight: 400,
           windowHeight: 1000,
           debounce: null,
@@ -647,7 +646,9 @@ export default {
     })
   },
   computed: {
-
+    cs() {
+      return this.user.currency_symbol
+    },
     crumbs() {
       return [
         {

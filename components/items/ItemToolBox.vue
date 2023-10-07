@@ -78,6 +78,8 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
+
 export default {
     name: 'ItemToolBox',
     props: {
@@ -94,7 +96,6 @@ export default {
             items: [],
             actions: 0,
             isOpen: true,
-            cs: '$',
             acquiredAddPrice: 0.01,
             acquiredAddFoilPrice: 0.01
 
@@ -196,6 +197,12 @@ export default {
 
     },
     computed: {
+        ...mapState([
+          'user'
+        ]),
+        cs() {
+          return this.user.currency_symbol
+        },
         paginated() {
             return this.items.length > 6 ? true : false;
         },

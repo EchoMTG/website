@@ -100,6 +100,7 @@
 <script>
 import ItemCard from '~/components/items/ItemCard.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
+import {mapState} from 'vuex';
 
 export default {
   name: 'ItemVariations',
@@ -109,7 +110,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       variations: {},
       original: {},
       sortField: 'price',
@@ -175,6 +175,12 @@ export default {
 
   },
   computed: {
+    ...mapState([
+      'user'
+    ]),
+    cs() {
+      return this.user.currency_symbol
+    },
     variationsSorted(){
       return this.variations
     },

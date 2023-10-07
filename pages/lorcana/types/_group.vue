@@ -59,7 +59,7 @@ import ItemCard from '~/components/items/ItemCard.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import SetSummary from '@/components/sets/SetSummary';
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
-
+import { mapState } from 'vuex'
 export default {
   name: 'GroupTypes',
   components: {
@@ -70,7 +70,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       items: [{
         image_cropped: ''
       }],
@@ -162,6 +161,12 @@ export default {
 
   },
   computed: {
+    ...mapState([
+        'user'
+      ]),
+      cs() {
+        return this.user.currency_symbol
+      },
     nameCleaned (){
       return
     },

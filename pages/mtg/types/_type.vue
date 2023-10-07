@@ -71,7 +71,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       items: [{
         image_cropped: ''
       }],
@@ -175,6 +174,9 @@ export default {
   },
   computed: {
     ...mapState(['user','authenticated']),
+    cs() {
+      return this.user.currency_symbol
+    },
     nameCleaned (){
       return
     },

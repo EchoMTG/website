@@ -322,7 +322,6 @@ export default {
   data: function data() {
     return {
       title: 'Set Items List',
-      cs: '$',
       setCode: '',
       search: '',
       rarity: '',
@@ -474,6 +473,9 @@ export default {
     }
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol;
+    },
     dirtyFilters() {
       return this.showOwned != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
     },

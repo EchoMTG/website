@@ -167,14 +167,14 @@
             animation="slide"
             v-model="isPriceAnalysisOpen">
             <div v-if="this.prices.regular !== undefined && this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null">
-              <item-price-analysis  :prices="this.prices"  />
+              <item-price-analysis :cs="quickstats.currency_symbol"  :prices="this.prices"  />
             </div>
             <div v-if="!this.authenticated" class="has-text-centered pb-4">
               <p><a href="/login/">Login</a> or Create an Account to see more Price Details</p><create-account-modal size="is-small" />
             </div>
             <div v-if="this.authenticated && (this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null)">
               <h3 class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
-              <item-price-analysis :prices="this.prices" type="foil" />
+              <item-price-analysis :cs="quickstats.currency_symbol" :prices="this.prices" type="foil" />
             </div>
           </b-collapse>
         </div>
@@ -264,7 +264,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       isPriceAnalysisOpen: true,
       item: {
         name: '',
@@ -366,6 +365,9 @@ export default {
 
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol
+    },
     changeVerb(){
       return this.item.change > 0 ? 'gone up' : 'dropped'
     },
@@ -463,7 +465,8 @@ export default {
     },
     ...mapState([
       'user',
-      'authenticated'
+      'authenticated',
+      'quickstats'
     ])
   },
   head () {
