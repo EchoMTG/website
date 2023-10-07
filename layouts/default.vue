@@ -269,6 +269,10 @@ export default {
       console.log('offine')
     }
 
+    // store referrer to for capturing if they register
+    if(document.referrer && !this.$cookies.get('referrerURL')){
+      this.$cookies.set('referrerURL',document.referrer)
+    }
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
