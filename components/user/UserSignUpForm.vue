@@ -165,7 +165,6 @@ export default {
           type: 'is-danger'
         })
       }
-      console.log(res)
     }
   }
 }
