@@ -5,42 +5,42 @@
     <section class="hero is-dark has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">EchoMTG Applications Stats</h1>
+              <h1 class="title  is-size-6-touch">EchoMTG Applications Stats</h1>
 
           </div>
       </div>
     </section>
 
     <div class="container">
-      <div class="level">
+      <div class="level is-mobile">
          <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Users</p>
-            <p class="title">{{data_totals.users}}</p>
+            <p class="heading is-size-7-touch">Users</p>
+            <p class="title is-size-6-touch">{{data_totals.users}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Inventory</p>
-            <p class="title">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Inventory</p>
+            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Earnings</p>
-            <p class="title">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Earnings</p>
+            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Notes</p>
-            <p class="title">{{data_totals.notes}}</p>
+            <p class="heading is-size-7-touch">Notes</p>
+            <p class="title is-size-6-touch">{{data_totals.notes}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Comments</p>
-            <p class="title">{{data_totals.comments}}</p>
+            <p class="heading is-size-7-touch">Comments</p>
+            <p class="title is-size-6-touch">{{data_totals.comments}}</p>
           </div>
         </div>
       </div>
