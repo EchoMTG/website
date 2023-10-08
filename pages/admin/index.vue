@@ -59,16 +59,19 @@
       :data="latestUsers.results"
       :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
       >
-
+      <b-table-column :key="username" label="Username" v-slot="props">
+        {{props.row.username}} [{{props.row.id}}]
+      </b-table-column>
       <b-table-column :key="card_count" label="Items" v-slot="props">
         {{props.row.card_count}}
       </b-table-column>
       <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
-        {{props.row.referrer_url}} / {{props.row.device_type}} / {{props.row.platform}}
+        {{props.row.referrer_url}} {{props.row.device_type}} {{props.row.platform}}
       </b-table-column>
-      <b-table-column :key="username" label="Username" v-slot="props">
-        {{props.row.username}}
+      <b-table-column :key="capture_url" label="Entry/Capture" v-slot="props">
+        <code>{{props.row.entry_url}}</code> <code>{{props.row.capture_url}}</code>
       </b-table-column>
+
       <b-table-column :key="email" label="Email" v-slot="props">
         {{props.row.email}}
       </b-table-column>

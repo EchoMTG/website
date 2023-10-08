@@ -122,12 +122,17 @@ export default {
     async registerUser(){
       const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
       const referrer_url = this.$cookies.get('referrerURL') ? this.$cookies.get('referrerURL') : 'direct';
+      const entry_url = this.$cookies.get('entryURL') ? this.$cookies.get('entryURL') : 'n/a';
+      const capture_url = window.location.href;
+
       const res = await this.$echomtg.registerUser(
         this.email,
         this.username,
         this.password,
         referrer,
-        referrer_url
+        referrer_url,
+        entry_url,
+        capture_url
       )
       if(res.status == "success"){
         // let them know

@@ -442,23 +442,19 @@ echomtg.getSets = async (game=1) => {
 
   // USER
 
-  echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com') => {
-    let url = `${context.app.$config.API_DOMAIN}user/register/`;
+  echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com',entry_url='n/a',capture_url='n/a') => {
+
     const payload = {
       'email' : email,
       'username' : username,
       'password' : password,
       'referrer' : referrer,
-      'referrer_url' : referrer_url
+      'referrer_url' : referrer_url,
+      'entry_url' : entry_url,
+      'capture_url' : capture_url
     }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-    return await res.json();
+    return await echomtg.postReq('user/register/', payload);
+
   }
 
   echomtg.updateUser = async (payload) => {
