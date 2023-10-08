@@ -122,7 +122,6 @@ export default {
     }
   },
 
-
   async fetch(){
       if(!this.authenticated) return;
       this.loading    = true;
@@ -140,7 +139,10 @@ export default {
   },
 
   methods: {
+    async sendUpdate(){
+      let url = '/api/updates/add/';
 
+    },
     async getLatestUsers(days=1){
       let url = `${this.$config.API_DOMAIN}super/latest_signups/?days=${days}`;
       const res = await fetch(url, {

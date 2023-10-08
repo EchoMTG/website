@@ -44,12 +44,13 @@
                     </b-table-column>
 
                     <b-table-column v-slot="props">
-                        <a class="button is-small"  @click="soldItem(props.row.acquiredPrice,props.row.inventoryID,props.row.foil)">
-                            <b-icon icon="currency-usd" size="is-small" />
-                        </a>
-                        <a class="button is-small" @click="deleteItem(props.row.inventoryID)">
-                            <b-icon icon="trash" size="is-small" />
-                        </a>
+
+                        <note-button :inventory_item="props.row" :callback="getItems" />
+
+                        <move-to-earnings-button :inventory_item="props.row" :currency_symbol="user.currency_symbol" :callback="getItems"/>
+
+                        <b-button icon-left="delete" aria-label="Remove Item from Inventory" size="is-small" type="is-danger" @click="deleteItem(props.row.inventoryID)"/>
+
                     </b-table-column>
                 </b-table>
             </div>
@@ -78,8 +79,16 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
+import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
+import NoteButton from '../inventory/NoteButton.vue'
+
 export default {
     name: 'ItemToolBox',
+    components: {
+      MoveToEarningsButton,
+      NoteButton
+    },
     props: {
         item: {
             type: Object,
@@ -94,7 +103,6 @@ export default {
             items: [],
             actions: 0,
             isOpen: true,
-            cs: '$',
             acquiredAddPrice: 0.01,
             acquiredAddFoilPrice: 0.01
 
@@ -180,7 +188,7 @@ export default {
                 })
             });
         },
-        getItems: async function(){
+        async getItems(){
             try {
                 const res = await fetch(this.getAPIURL,{
                     headers: {
@@ -196,6 +204,12 @@ export default {
 
     },
     computed: {
+        ...mapState([
+          'user'
+        ]),
+        cs() {
+          return this.user.currency_symbol
+        },
         paginated() {
             return this.items.length > 6 ? true : false;
         },

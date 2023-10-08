@@ -266,7 +266,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       isPriceAnalysisOpen: true,
       item: {
         name: '',
@@ -362,6 +361,9 @@ export default {
 
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol
+    },
     changeVerb(){
       return this.item.change > 0 ? 'gone up' : 'dropped'
     },
