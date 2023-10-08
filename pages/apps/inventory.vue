@@ -47,7 +47,7 @@
               <div class="is-flex is-flex-direction-row-reverse">
 
                 <export-dropdown class="is-align-items-end"  />
-                <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small"/> Import CSV</nuxt-link>
+                <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> Import CSV</nuxt-link>
               </div>
             </div>
         </div>
