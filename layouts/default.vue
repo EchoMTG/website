@@ -262,17 +262,24 @@ export default {
     try {
       if(this.$cookies.get('token')){
         await this.authenticatedUser()
+      } else {
+        // capture info for later
+        if(!this.$cookies.get('entryURL')){
+          this.$cookies.set('entryURL',window.location.href)
+        }
+        // store referrer to for capturing if they register
+        if(document.referrer && !this.$cookies.get('referrerURL')){
+          let referer = document.referrer == window.location.href ? 'direct': document.referrer;
+          this.$cookies.set('referrerURL',referer)
+        }
       }
       // get sets
-      await this.getSets()
+      this.getSets()
+
     } catch (err) {
       console.log('offine')
     }
 
-    // store referrer to for capturing if they register
-    if(document.referrer && !this.$cookies.get('referrerURL')){
-      this.$cookies.set('referrerURL',document.referrer)
-    }
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
