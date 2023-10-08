@@ -77,10 +77,11 @@
 
 
           </div>
+          <b-loading :is-full-page="true" v-model="disabledButton" ></b-loading>
           <div class="card-footer">
             <a href="#" class="card-footer-item" @click="isOpen = false" ><b-icon icon="close" /> Cancel</a>
 
-            <a @click="bulkEdit()" :class="`card-footer-item has-text-white has-background-${actionColor[actiontype]}`" ><b-icon :icon="actionIcons[actiontype]" /> {{actionButton[actiontype]}}</a>
+            <a @click="bulkEdit()" v-if="!disabledButton" :class="`card-footer-item has-text-white has-background-${actionColor[actiontype]}`" ><b-icon :icon="actionIcons[actiontype]" /> {{actionButton[actiontype]}}</a>
           </div>
       </div>
   </b-modal>
@@ -125,6 +126,7 @@ export default {
  },
  data: () => {
   return {
+    disabledButton: false,
     availablelists: [],
     currentList:{'name' : 'No Lists'},
     acquired_date: new Date(),
@@ -189,18 +191,22 @@ export default {
     this.currentList = this.availablelists.length > 0 ? this.availablelists[0] : {'name' : 'No Lists'};
   },
   async bulkEdit() {
+    this.disabledButton = true;
+    let res = null;
+
     if(this.actiontype == 'delete'){
       for(let i = 0; i< this.selecteditems.length; i++){
-        await this.$echomtg.inventoryDeleteItem(this.selecteditems[i].inventory_id);
-
+        res = await this.$echomtg.inventoryDeleteItem(this.selecteditems[i].inventory_id);
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
     if(this.actiontype == 'togglefoil'){
       for(let i = 0; i< this.selecteditems.length; i++){
-        await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
+        res = await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
           foil: this.selecteditems[i].foil == 1 ? 0 : 1
         });
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
@@ -210,35 +216,40 @@ export default {
       let mm = datevalue.getMonth() + 1; // Months start at 0!
       let dd = datevalue.getDate();
 
+
       if (dd < 10) dd = '0' + dd;
       if (mm < 10) mm = '0' + mm;
 
       for(let i = 0; i< this.selecteditems.length; i++){
-        await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
+        res = await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
           acquired_date: yyyy + '-' + mm + '-' + dd
         });
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
     if(this.actiontype == 'changeprice'){
       for(let i = 0; i< this.selecteditems.length; i++){
-        await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
+        res = await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
           acquired_price: this.price_acquired
         })
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
     if(this.actiontype == 'addtolist'){
       for(let i = 0; i< this.selecteditems.length; i++){
-        await this.$echomtg.addToList(this.selecteditems[i].emid, this.currentList.id, this.selecteditems[i].foil);
+        res = await this.$echomtg.addToList(this.selecteditems[i].emid, this.currentList.id, this.selecteditems[i].foil);
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
      if(this.actiontype == 'toggletradable'){
       for(let i = 0; i< this.selecteditems.length; i++){
-         await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
+        res = await this.$echomtg.inventoryUpdate(this.selecteditems[i].inventory_id,{
           tradable: !this.selecteditems[i].tradable
         })
+        this.$buefy.toast.open({message: res.message})
       }
     }
 
@@ -247,7 +258,10 @@ export default {
       queue: false
     })
 
+    this.disabledButton = false;
+
     if(this.callback){
+
       this.isOpen = false
       this.removeChecked()
       this.callback()
