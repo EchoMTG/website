@@ -312,8 +312,16 @@ echomtg.getSets = async (game=1) => {
 
   }
 
-  echomtg.postReq = async (url,body) => {
-    const res = await fetch(url, {
+  echomtg.getReq = async (endpoint) => {
+    const res = await fetch(`${context.app.$config.API_DOMAIN}${endpoint.replace(/^\//, '')}`, {
+      method: 'GET',
+      headers: echomtg.getUserHeaders()
+    });
+    return await res.json();
+  }
+
+  echomtg.postReq = async (endpoint,body) => {
+    const res = await fetch(`${context.app.$config.API_DOMAIN}${endpoint.replace(/^\//, '')}`, {
       method: 'POST',
       headers: echomtg.getUserHeaders(),
       body: JSON.stringify(body)
@@ -1005,18 +1013,11 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
   echomtg.earningChangeSoldPrice = async (earnings_id, price) => {
-
-    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_sold/`;
     let body = {
       id: earnings_id,
       value: price
     }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
-    });
-    return await res.json();
+    return await echomtg.postReq('earnings/adjust_sold/',body)
   }
 
   echomtg.earningChangeAcquiredPrice = async (earnings_id, price) => {

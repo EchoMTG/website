@@ -193,11 +193,11 @@
               <b-button
                 :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
                 v-if="props.row.tcg_mid"
-                icon-right="plus-circle"
+                icon-left="plus-box"
                 size="is-small"
                 variant="contained"
                 type="is-dark"
-                class="has-text-weight-bold is-fullwidth"
+                class="price-add-button has-text-weight-bold is-fullwidth"
                 @click="addItem(props.row.emid, 0)">
                 {{cs}}{{props.row.tcg_mid}}
               </b-button>
@@ -207,10 +207,10 @@
             <b-button
               :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
               v-if="props.row.foil_price"
-              icon-right="plus-circle"
+              icon-left="plus-box"
               size="is-small"
               variant="contained"
-              class="rainbow-background has-text-white has-text-weight-bold is-fullwidth"
+              class="price-add-button rainbow-background has-text-white has-text-weight-bold is-fullwidth"
               @click="addItem(props.row.emid,1)">
               {{cs}}{{props.row.foil_price}}
             </b-button>
@@ -219,7 +219,7 @@
 
           <template slot="detail" slot-scope="props">
             <tr>
-              <td colspan="9" style="max-height: 300px">
+              <td colspan="10" style="max-height: 300px">
                 <section >
                   <div class="columns">
                      <div class="column is-3">
