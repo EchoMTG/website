@@ -473,7 +473,7 @@ export default {
         {
           label: 'Trades',
           url: '/apps/trades/',
-          icon: 'briefcase-arrow-left-right'
+          icon: 'swap-horizontal-bold'
         },
         {
           label: `${this.tradeUser.username}'s Trade List`,

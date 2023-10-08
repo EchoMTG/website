@@ -24,7 +24,7 @@ export default {
     },
     icon: {
       type: String,
-      default: 'briefcase-arrow-left-right-outline'
+      default: 'swap-horizontal-bold'
     }
   },
 
