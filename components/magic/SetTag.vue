@@ -4,7 +4,7 @@
         <a class="has-text-white" :href="url ? url.replace('https://www.echomtg.com','') : ''">
           <i class="is-hidden-desktop" :class="getSetIcon(code)"></i>
           <i style="margin-top:-11px; margin-right: 2px" class="is-hidden-touch" :class="getSetIcon(code)"></i>
-          <span class="ellipsis mt-1 is-hidden-touch" style="max-width: 120px; display: inline-block">{{name}}</span>
+          <span class="ellipsis mt-1 is-hidden-touch" style="max-width: 85px; display: inline-block">{{name}}</span>
         </a>
       </b-tag>
       <b-tag class="mb-0"><i style="margin-top:-3px" :class="getSetIcon('mtg')"></i></b-tag>

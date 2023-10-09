@@ -78,7 +78,7 @@
        <b-table-column :key="plan" label="Plan" v-slot="props">
         <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
       </b-table-column>
-       <b-table-column :key="plan" label="Created/LastLogin" v-slot="props">
+       <b-table-column :key="date_created" label="Created/LastLogin" v-slot="props">
         <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
       </b-table-column>
 

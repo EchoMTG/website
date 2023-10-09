@@ -67,15 +67,12 @@ export default{
       // Shuffle array
       const shuffled = this.popularItems.sort(() => 0.5 - Math.random());
 
-      console.log(shuffled);
-
       // Get sub-array of first n elements after shuffled
       return shuffled.slice(0, n);
     },
     async fetchPopularItems(){
 
       this.popularItems = await this.$echomtg.getPopularItems()
-      console.log(this.popularItems )
 
     },
     addItem: async function (emid,foil=0){
