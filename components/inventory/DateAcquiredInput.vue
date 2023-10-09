@@ -6,15 +6,9 @@
         size="is-small"
         @input="update"
         :value="new Date(Date.parse(date))"
-        style="max-width: 74px;"
+        style="max-width: 105px;"
         placeholder="Select a date">
     </b-datepicker>
-    <b-button
-        @click="$refs.datepicker.toggle()"
-        icon-left="calendar-today"
-        size="is-small"
-        type="is-light"
-         />
   </b-field>
 </template>
 <script>

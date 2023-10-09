@@ -216,13 +216,13 @@
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
           </b-table-column>
-          <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
-            <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
+          <b-table-column width="175" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set" label="Expansion" sortable v-slot="props">
+            <set-tag :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
 
           </b-table-column>
 
           <!-- Mobile Version Combined Price Data -->
-          <b-table-column cell-class="is-hidden-desktop" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
+          <b-table-column cell-class="is-hidden-desktop" width="120" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
 
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row.foil_price.toFixed(2)}}
@@ -230,12 +230,18 @@
             <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
             {{cs}}{{props.row.tcg_market.toFixed(2)}}
             </span>
-            <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
-              {{ props.row.price_change }} %
+            <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)" style="padding: 2px 4px; font-size: 9px;">
+              {{ props.row.price_change }}%
             </span>
           </b-table-column>
-
-          <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_market" label="Today" numeric sortable v-slot="props">
+          <b-table-column width="70" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" sortable v-slot="props">
+            <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
+              <b-icon icon="triangle-small-up" size="is-small" v-if="props.row.price_change > 0" />
+                <b-icon icon="triangle-small-down" size="is-small" v-if="props.row.price_change < 0" />
+                   {{ props.row.price_change }}%
+            </span>
+          </b-table-column>
+          <b-table-column width="70" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_market" label="Price" sortable v-slot="props">
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row.foil_price.toFixed(2)}}
             </span>
@@ -243,38 +249,24 @@
             {{cs}}{{props.row.tcg_market.toFixed(2)}}
             </span>
           </b-table-column>
-          <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="price_change" label="7-Day" numeric sortable v-slot="props">
-            <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)">
-              {{ props.row.price_change }} %
-            </span>
-          </b-table-column>
-          <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="personal_gain" label="Gain/Loss" numeric sortable centered v-slot="props">
+
+          <b-table-column width="80" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="personal_gain" label="Gain/Loss"  sortable centered v-slot="props">
             <span v-if="props.row.gain" class="tag" :class="type(props.row.gain)">
               {{ props.row.gain }}%
             </span>
           </b-table-column>
 
-          <b-table-column field="price_acquired" cell-class="is-hidden-touch" header-class="is-hidden-touch" :label="`Acquired Price`" numeric sortable centered>
+          <b-table-column width="110" field="price_acquired" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" :label="`Acquired Price`"  sortable centered>
             <template v-slot:header="{ column }">
-              <div class="is-hidden-desktop-only">
-                {{column.label}}
-              </div>
-              <div class="is-hidden-widescreen	">
-                Acq. <b-icon size="is-small" icon="currency-usd"/>
-              </div>
+                Acq. Price
             </template>
             <template v-slot="props">
               <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
             </template>
           </b-table-column>
-          <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="date_acquired" label="Acquired Date" date sortable centered>
+          <b-table-column width="115" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" field="date_acquired" label="Acquired Date"  sortable centered>
             <template v-slot:header="{ column }">
-              <div class="is-hidden-touch" >
-                {{column.label}}
-              </div>
-              <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen">
-                <span class="is-hidden-mobile">Acquired</span> <b-icon size="is-small" icon="calendar"/>
-              </div>
+                <span>Acq.</span> Date
             </template>
             <template v-slot="props">
               <date-acquired-input :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
@@ -289,15 +281,27 @@
 
               <touch-flyout>
                 <div class="is-flex	is-justify-content-space-between ">
-                  <condition-select classes="is-hidden-touch" :inventory_id="props.row.inventory_id" :current_condition="props.row.condition"  />
-                  <language-select classes="is-hidden-touch" :inventory_id="props.row.inventory_id" :current_language="props.row.lang"  />
-                  <note-button :inventory_item="props.row" :callback="$fetch"/>
-                  <move-to-earnings-button :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
-                  <toggle-foil-button :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
-
-                  <toggle-tradable-button :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
-                  <duplicate-button :copy="props.row" :callback="$fetch" />
-                  <delete-inventory-button :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+                  <NuxtImg width="170" class="is-hidden-fullhd mr-2" :src="props.row.image" :alt="`${props.row.name} image`" />
+                  <div class="touch-flyout-container is-flex-grow-2 is-flex">
+                    <div class="is-hidden-fullhd">
+                      <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
+                      <date-acquired-input class="mb-2-touch" :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
+                    </div>
+                    <div class="is-flex mb-2-touch">
+                      <condition-select class="mr-1" :inventory_id="props.row.inventory_id" :current_condition="props.row.condition"  />
+                      <language-select class="mr-1" :inventory_id="props.row.inventory_id" :current_language="props.row.lang"  />
+                    </div>
+                    <div class="is-flex mb-2-touch">
+                      <note-button class="mr-1" :inventory_item="props.row" :callback="$fetch"/>
+                      <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
+                      <toggle-foil-button class="mr-1" :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
+                    </div>
+                    <div class="is-flex mb-2-touch">
+                      <toggle-tradable-button class="mr-1" :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
+                      <duplicate-button class="mr-1" :copy="props.row" :callback="$fetch" />
+                      <delete-inventory-button class="mr-1 ml-auto" :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+                    </div>
+                  </div>
                 </div>
               </touch-flyout>
 

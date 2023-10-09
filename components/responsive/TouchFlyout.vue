@@ -1,6 +1,6 @@
 <template>
 <div class="touch-flyout-ux">
-  <b-button size="is-small" class="is-hidden-desktop" icon-left="dots-vertical" @click="this.open = !this.open" />
+  <b-button size="is-small" class="is-hidden-fullhd" icon-left="dots-vertical" @click="open = !open" />
   <div :class="`touch-flyout ${flyoutClass}`">
     <slot></slot>
   </div>
@@ -10,6 +10,12 @@
 
 export default {
   name: 'TouchFlyout',
+  props: {
+    compact: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => {
     return {
       open: false
@@ -17,7 +23,8 @@ export default {
   },
   computed: {
     flyoutClass() {
-      return this.open ? 'flyout-open' : 'flyout-closed'
+      const compact = this.compact ? ' compact' : ''
+      return this.open ? 'touch-flyout-open'+compact : ''
     }
   }
 }

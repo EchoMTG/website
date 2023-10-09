@@ -1,3 +1,44 @@
+@media all and (max-width: $fullhd){
+  .touch-flyout-ux{
+    position: relative;
+
+    .touch-flyout {
+      display: none;
+      background: black;
+      padding: 10px;
+      border-radius: 5px;
+      width: 95vw;
+      max-width: 600px;
+
+      position: absolute;
+      z-index: 3;
+      right: 0px;
+      flex-direction: column;
+
+      &.compact {
+        top: 0px;
+        right: 65px;
+        max-width: 250px;
+        padding: 5px;
+      }
+      &.touch-flyout-open{
+        display: block !important;
+      }
+
+      .touch-flyout-container {
+        flex-direction: column;
+        display: flex;
+      }
+
+      .mb-2-touch{
+        margin-bottom: 8px;
+      }
+
+    }
+  }
+}
+
+
 
 .hide-mobile{
 	@media all and (max-width: calc($break-width / 2)){
@@ -244,7 +285,8 @@ $fa-cc-visa: #0157a2;
   display: inline-block;
   max-width: 250px;
   @media all and (max-width: $break-width){
-    font-size: 70% !important;
+    max-width: 190px;
+    font-size: 85% !important;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <b-select size="is-small" :class="classes" :value="current_language" @input="updateLanguage" class="is-pulled-right is-hidden-touch">
+  <b-select size="is-small" :class="classes" :value="current_language" @input="updateLanguage">
     <option value="EN">EN</option>
     <option value="ES">ES</option>
     <option value="JP">JP</option><option value="DE">DE</option><option value="RU">RU</option><option value="IT">IT</option><option value="CT">CT</option><option value="CS">CS</option><option value="KP">KP</option><option value="FR">FR</option><option value="PT">PT</option>
