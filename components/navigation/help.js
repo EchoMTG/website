@@ -35,6 +35,12 @@ function helpMenu() {
       icon: 'lock-question',
       label: 'Forgot Password?',
       description: 'Recovery a forgotten password.'
+    },
+    {
+      to: '/help/report-missing-item/',
+      icon: 'help-network-outline',
+      label: 'Report Missing Item',
+      description: 'Send a report the WIKI team of a missing item in the database'
     }
 
 

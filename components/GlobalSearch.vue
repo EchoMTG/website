@@ -314,7 +314,7 @@ export default {
             }
             var $this = this
 
-            let url = `${this.$config.API_DOMAIN}/search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
+            let url = `${this.$config.API_DOMAIN}search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
                 url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
 
             fetch(encodeURI(url)).then(response => response.json()).then(response => {

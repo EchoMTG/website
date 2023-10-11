@@ -1,6 +1,15 @@
 <template>
 
-<b-input size="is-small" @input="update" icon="currency-usd"  :value="price" />
+<b-input
+  size="is-small"
+  type="number"
+  min="0.1"
+  autocomplete="off"
+  pattern="[^-][\d]+(\.[0-9]{0,2}])?"
+  step="0.01"
+  @input="update"
+  icon="currency-usd"
+  :value="price" />
 </template>
 <script>
 
