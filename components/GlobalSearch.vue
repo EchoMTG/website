@@ -164,9 +164,13 @@
 
 
                     <!-- no results message -->
-                    <div v-if="results.length == 0 && search != ''">
-                        No results found for "{{search}}".
-                        <button class="button small" @click="clearSearch()">Clear Search</button>
+                    <div v-if="results.length == 0 && search != ''" class="has-text-centered p-5">
+
+                        <p class="mb-3">No results found for "{{search}}". Report a missing card or item?</p>
+                        <b-button @click="missingItemReport">File Missing Item Report</b-button>
+                        <hr />
+
+                        <b-button size="is-small" @click="clearSearch">Clear Search</b-button>
                     </div>
 
                 </div>
@@ -305,6 +309,10 @@ export default {
     },
 
     methods: {
+      missingItemReport(){
+        this.$router.push('/help/report-missing-item/')
+        this.closeFocus()
+      },
         searchCatalog: function() {
             this.position = 0
 
