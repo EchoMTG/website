@@ -131,9 +131,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   endpoint += `&limit=${limit}&textsearch=${oracle}&type=${types}`;
   // pricing
   const res = await fetch(endpoint, {
-  headers: {
-      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY,
-      },
+    headers: echomtg.getS2SHeadersNoJSON()
   });
   if (res.status !== 200){
     return [];

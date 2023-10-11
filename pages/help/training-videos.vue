@@ -21,9 +21,7 @@
         </div>
 
         <div class="column is-four-fifths">
-
-            Coming soon
-
+            coming soon
         </div>
       </div>
     </div>
