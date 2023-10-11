@@ -20,12 +20,29 @@ export default {
     required: true
   },
  },
+data: () => {
+  return {
+    timer: null,
+  }
+ },
  methods: {
   update(value) {
-    this.$echomtg.earningChangeSoldPrice(this.earnings_id,value )
-    if(this.callback){
-      this.callback()
+     if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
     }
+    this.timer = setTimeout(async () => {
+      const res = await this.$echomtg.earningChangeSoldPrice(this.earnings_id,value )
+
+      this.$buefy.snackbar.open({
+          message: res.message,
+          queue: false
+        })
+      if(this.callback){
+        this.callback()
+      }
+    }, 800);
+
   }
  }
 }

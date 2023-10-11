@@ -32,19 +32,29 @@ export default {
     }
   },
 
+ data: () => {
+  return {
+    timer: null,
+  }
+ },
   methods: {
     async update(value) {
-
-      await this.$echomtg.inventoryUpdate(this.inventory_id, {
-        acquired_price: value
-      })
-      this.$buefy.snackbar.open({
-        message: `Purchase Price updated to: ${this.currency_symbol}${value}`,
-        queue: false
-      })
-      if(this.callback){
-        this.callback()
+      if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
       }
+      this.timer = setTimeout(async () => {
+        await this.$echomtg.inventoryUpdate(this.inventory_id, {
+          acquired_price: value
+        })
+        this.$buefy.snackbar.open({
+          message: `Purchase Price updated to: ${this.currency_symbol}${value}`,
+          queue: false
+        })
+        if(this.callback){
+          this.callback()
+        }
+      },800);
     }
   }
 }

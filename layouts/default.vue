@@ -138,28 +138,29 @@ export default {
 
 
       if (this.user && parseInt(this.user.user_level) > 2){
-       navList.push('Wiki Tools');
+        navList.push('Wiki Tools');
         navList.push([
            {
-              to: '/wiki/dashboard',
+              to: '/wiki/',
               label: 'Wiki Home',
               icon: 'wizard-hat'
             },
             {
-              to: '/wiki/import-set',
-              label: 'Import Set',
-              icon: 'download'
-            },
-            {
-              to: '/wiki/import-single',
-              label: 'Fetch Single',
-              icon: 'bone'
-            },
-            {
-              to: '/wiki/manage-sets',
+              to: '/wiki/manage-sets/',
               label: 'Manage Sets',
               icon: 'movie-open-edit'
             },
+            {
+              to: '/wiki/import-set/',
+              label: 'Set Import',
+              icon: 'briefcase-download'
+            },
+            {
+              to: '/wiki/single-import/',
+              label: 'Single Import',
+              icon: 'download-box'
+            },
+
           ])
       }
 

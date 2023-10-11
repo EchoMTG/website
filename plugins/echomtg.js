@@ -101,6 +101,10 @@ export default (context, inject) => {
 
   }
 
+  echomtg.getGames = async () => {
+    return await echomtg.getReq('data/games/')
+  }
+
   echomtg.getGroup = async (name,limit=150,type=false,unique=false) => {
     let params = [
       `limit=${limit}`,
@@ -1283,7 +1287,6 @@ echomtg.getSets = async (game=1) => {
     const toreplace = /[,_'\\\\/:.&()! ]/ig;
     return set.replace('--','-').toLowerCase().replace(toreplace,'-');
   }
-
 
   echomtg.md5 = (string) => {
     function RotateLeft(lValue, iShiftBits) {

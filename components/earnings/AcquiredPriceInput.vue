@@ -20,12 +20,29 @@ export default {
     required: true
   },
  },
+
+ data: () => {
+  return {
+    timer: null,
+  }
+ },
  methods: {
   update(value) {
-    this.$echomtg.earningChangeAcquiredPrice(this.earnings_id,value )
-    if(this.callback){
-      this.callback()
+    if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
     }
+    this.timer = setTimeout(() => {
+      this.$echomtg.earningChangeAcquiredPrice(this.earnings_id,value )
+      this.$buefy.snackbar.open({
+          message: `Acquired Price updated to: ${value}`,
+          queue: false
+        })
+      if(this.callback){
+        this.callback()
+      }
+    }, 800);
+
   }
  }
 }
