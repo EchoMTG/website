@@ -44,11 +44,11 @@ export default {
           this.timer = null;
       }
       this.timer = setTimeout(async () => {
-        await this.$echomtg.inventoryUpdate(this.inventory_id, {
+        const res = await this.$echomtg.inventoryUpdate(this.inventory_id, {
           acquired_price: value
         })
         this.$buefy.snackbar.open({
-          message: `Purchase Price updated to: ${this.currency_symbol}${value}`,
+          message: res.message,
           queue: false
         })
         if(this.callback){
