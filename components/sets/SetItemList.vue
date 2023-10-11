@@ -117,12 +117,15 @@
         </div>
         <div
           v-if="items.length > 0 && filteredItems.length == 0"
-          class="box has-text-centered"
+          class="has-text-centered p-5"
         >
-          <h4 class="title">No Results Found</h4>
+          <h4 class="title is-size-4">No Results Found</h4>
           <button class="button" @click="clearFilters()">
             Clear Search and Filters
           </button>
+          <hr/>
+          <h4 class="title is-size-4">Submit missing item report</h4>
+          <b-button @click="missingItemReport">File Missing Item Report</b-button>
         </div>
 
         <b-table
@@ -343,6 +346,9 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    missingItemReport(){
+      this.$router.push('/help/report-missing-item/')
+    },
     itemURL(item){
       return this.$echomtg.itemURL(item)
     },

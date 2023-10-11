@@ -121,6 +121,11 @@ export default {
           icon: 'pillar'
         },
         {
+          to: '/about/discord/',
+          label: 'Discord Server',
+          icon: 'forum'
+        },
+        {
           to: '/help/',
           label: 'Support',
           icon: 'lifebuoy'
