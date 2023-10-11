@@ -1,12 +1,12 @@
 <template>
   <div class="card ">
-    <div class="card-content pt-1 px-3">
-        <b-table :data="this.popularItems.slice(0,4)">
-          <b-table-column field="name" label="Do you own these Popular Items?" sortable v-slot="props">
+    <div class="card-content pt-0 px-0 pb-0 mb-0" style="overflow: hidden">
+        <b-table :mobile-cards="false" :data="this.popularItems.slice(0,5)">
+          <b-table-column field="name" label="Do you own these Popular Items?"  v-slot="props">
             <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
             <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
           </b-table-column>
-          <b-table-column field="tcg_mid"  width="130" :label="`Regular`" sortable v-slot="props">
+          <b-table-column field="tcg_mid"  width="130" :label="`Regular`"  v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
               <p class="control">
@@ -22,7 +22,7 @@
             </b-field>
 
           </b-table-column>
-          <b-table-column field="foil_price"   width="130" :label="`Foil`" sortable v-slot="props">
+          <b-table-column field="foil_price"   width="130" :label="`Foil`"  v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
               <p class="control">
@@ -67,8 +67,6 @@ export default{
       // Shuffle array
       const shuffled = this.popularItems.sort(() => 0.5 - Math.random());
 
-      console.log(shuffled);
-
       // Get sub-array of first n elements after shuffled
       return shuffled.slice(0, n);
     },
@@ -80,7 +78,6 @@ export default{
     addItem: async function (emid,foil=0){
       try {
         const json = await this.$echomtg.inventoryQuickAdd(emid,foil);
-        console.log(json);
         this.$buefy.snackbar.open({
             message: json.message,
             type: 'is-warning',
@@ -116,7 +113,6 @@ export default{
   },
   async fetch() {
     await this.fetchPopularItems();
-    console.log(this.popularItems)
   },
 
 }

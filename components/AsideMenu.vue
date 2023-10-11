@@ -12,7 +12,6 @@
         <span v-if="!isSecondary">
             <NuxtPicture quality="100" width="125" height="34" class="expanded-logo" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" alt="EchoMTG Logo" />
             <NuxtPicture quality="100" width="43" height="43" class="closed-logo" src="https://assets.echomtg.com/interface/echo-mage-logo-icon.png" alt="EchoMTG Mobile Logo" />
-
         </span>
         <span v-else-if="label">{{ label }}</span>
       </nuxt-link>
@@ -52,22 +51,6 @@
     </div>
   </aside>
 </template>
-<style lang="scss">
-.menu-list a {
-  padding: .2em 0 !important;
-}
-.aside.aside .menu-label{
-  margin-top: .5em !important;
-  margin-bottom: .3em !important;
-  padding-left: .5rem;
-}
-.menu {
-  font-size: .85rem !important;
-}
-.has-aside-expanded .menu-list .icon {
-    width: 1.8rem !important;
-}
-</style>
 <script>
 import { mapState } from 'vuex'
 import PerfectScrollbar from 'perfect-scrollbar'

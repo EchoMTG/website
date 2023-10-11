@@ -3,20 +3,18 @@
      <div class="columns m-2" ref="searchBox">
 
       <div class="column">
-         <div slot="right" class="control has-icons-left">
-            <input
+
+          <b-input
+
+              placeholder="Search by name..."
+              type="search"
               v-model="search"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Search by Name..."
-            />
-            <span class="icon is-small is-left">
-              <b-icon size="is-small" icon="magnify"/>
-            </span>
-          </div>
+              size="is-small"
+              class="mr-1"
+              icon="magnify" />
+
       </div>
-      <div class="column">
+      <div class="column is-hidden-touch">
         <div class="content">
         <p>Search a list of all {{game}} Expansions, Promos, and Sets.</p>
         </div>
@@ -28,31 +26,46 @@
     <b-table
       :checked-rows.sync="checkedRows"
       :checkable="false"
-      :sticky-header="true"
       :loading="isLoading"
       :paginated="paginated"
+      pagination-size="is-small"
+      pagination-position="bottom"
+      pagination-order="is-centered"
       :per-page="perPage"
       :striped="true"
-      :hoverable="true"
+      :mobile-cards="false"
       default-sort-direction="DESC"
       default-sort="release_date"
       :data="filteredExpansionsList"
-      :height="tableHeight"
     >
 
       <b-table-column v-slot="props" label="Name" field="name" sortable>
         <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
-        <a :href="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</a>
+        <echo-link :url="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</echo-link>
       </b-table-column>
-      <b-table-column v-slot="props" label="Set Code" field="set_code" sortable>
+      <b-table-column
+        :visible="$device.isMobileOrTablet ? false : true"
+        column-class="is-hidden-touch"
+        header-class="is-hidden-touch"
+        v-slot="props"
+        label="Set Code"
+        field="set_code"
+        sortable>
         {{ props.row.set_code }}
       </b-table-column>
 
 
-      <b-table-column v-slot="props" label="Type" field="type" sortable>
+      <b-table-column
+        :visible="$device.isMobileOrTablet ? false : true"
+        column-class="is-hidden-touch"
+        header-class="is-hidden-touch"
+        v-slot="props"
+        label="Type"
+        field="type"
+        sortable>
         {{ props.row.type }}
       </b-table-column>
-      <b-table-column v-slot="props" label="Release Date" field="release_date" sortable>
+      <b-table-column v-slot="props" label="Release" field="release_date" sortable>
         {{ props.row.release_date }}
       </b-table-column>
 
@@ -80,10 +93,11 @@
 <script>
 import ModalBox from '@/components/ModalBox'
 import { mapState } from 'vuex'
+import EchoLink from './EchoLink.vue'
 
 export default {
   name: 'Sets',
-  components: { ModalBox },
+  components: { ModalBox, EchoLink },
   props: {
 
     checkable: {
@@ -99,11 +113,10 @@ export default {
     return {
       isModalActive: false,
       isLoading: false,
-      paginated: false,
-      perPage: 20,
+      paginated: true,
+      perPage: 50,
       checkedRows: [],
-      search: '',
-      tableHeight: '700px'
+      search: ''
     }
   },
   computed: {
@@ -115,17 +128,6 @@ export default {
     ])
 
   },
-  created () {
-
-    //console.log("expansions componenet", this.expansions)
-    if (this.expansions) {
-
-
-    }
-  },
-  mounted() {
-    this.updateTableHeight()
-  },
   methods: {
 
     makeSetPath(code, path_part){
@@ -134,12 +136,6 @@ export default {
     getSetIconClass(set_code){
       return this.$echomtg.setIconClass(set_code) + ' is-size-4 mr-1'
     },
-    updateTableHeight() {
-      let searchBoxRects = this.$refs.searchBox.getBoundingClientRect();
-
-      let height = window.innerHeight - searchBoxRects.bottom - 50
-      this.tableHeight = height + 'px'
-    }
 
   },
   computed: {

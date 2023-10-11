@@ -32,11 +32,11 @@ export default {
   },
   computed: {
 
-    ...mapState(['authenticated'])
+    ...mapState(['authenticated','user'])
   },
   head () {
       return {
-          title: `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
+          title: this.authenticated ? `${this.user.username}'s dashboard` : `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {

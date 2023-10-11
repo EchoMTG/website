@@ -22,6 +22,7 @@
     <b-table
       striped
       narrowed
+      :mobile-cards="false"
       :data="users"
       default-sort="last_login"
       default-sort-direction="desc"
@@ -149,13 +150,13 @@ export default {
   },
   head () {
       return {
-          title: `Statistics: Gain Insight into your Your Collection`,
+          title: `Admin: Users`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Graphs and charts breaking down your trading card collections statistics.`
+              content:  ``
             }
           ]
       }

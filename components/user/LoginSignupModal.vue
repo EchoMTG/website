@@ -58,10 +58,6 @@
             'loginSignupModalShow'
           ])
         },
-        mounted() {
-          console.log('you are mounted',this.loginSignupModalShow)
-
-        },
         watch: {
           loginSignupModalShow() {
             console.log('you are here')

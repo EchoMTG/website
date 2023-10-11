@@ -1,12 +1,19 @@
 /* We'll need some initial vars to use here */
 @import "~bulma/sass/utilities/initial-variables";
 
+$cyan: #0366DD;
+$red: #a00202;
+$green: #088a20;
+
+
 /* Base: Size  */
 $size-base: .85rem;
 $default-padding: $size-base * 1.4;
+$body-font-size: .92em;
 
 /* Default font */
-$family-sans-serif: 'Roboto Condensed','arial', sans-serif;
+// $family-sans-serif: 'Roboto Condensed','arial', sans-serif;
+$family-sans-serif: 'Arial', sans-serif;
 
 /* Base color */
 $base-color: #2e323a;
@@ -46,7 +53,7 @@ $navbar-avatar-size: 1.75rem;
 /* Aside: Bulma override */
 $menu-item-radius: 0;
 $menu-list-link-padding: $size-base * .5 0;
-$menu-label-color: lighten($base-color, 25%);
+$menu-label-color: lighten($base-color, 55%);
 $menu-item-color: $black;
 $menu-item-hover-color: $blue;
 $menu-item-hover-background-color: rgba(0,0,0,.03);

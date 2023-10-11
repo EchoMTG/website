@@ -323,18 +323,16 @@
         updateStatus: function (){
             this.status++;
         },
-        removeCard: function (itemid){
+        async removeCard(itemid){
 
-            var $this = this;
+            const res = await this.$echomtg.removeFromList(itemid,this.list.id)
 
-            var apiURL = api_url + 'lists/remove/list='+ this.list.id+'&id=' + itemid;
+            this.$buefy.toast.open({
+              message: `${res.message}`,
+              type: 'is-success'
+            })
 
-            axios.get(apiURL).then(function (response) {
-                $this.updateStatus();
-                createGrowl('1 '+ listEntry.name + ' removed.');
-            }).catch(function (error) {
-                console.log(error);
-            });
+            this.updateStatus();
 
         },
         removeCardByMID: function (cardMid,sb){

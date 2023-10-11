@@ -46,12 +46,12 @@
                                 <div class="column">
                                     <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <button class="button is-static is-small has-text-grey">
                                                 <span class="icon">
                                                     <b-icon icon="text" size="is-small" />
                                                 </span>
                                                 <span>Card Text</span>
-                                            </a>
+                                            </button>
                                         </p>
                                         <p class="control">
                                             <input
@@ -69,11 +69,11 @@
                                 <div class="column">
                                       <div class="field has-addons">
                                         <p class="control">
-                                            <a class="button is-static is-small has-text-grey">
+                                            <button class="button is-static is-small has-text-grey">
 
                                                 <b-icon icon="human-male-height" size="is-small" />
                                                 <span>Types</span>
-                                            </a>
+                                            </button>
                                         </p>
                                         <p class="control">
                                            <input
@@ -90,12 +90,12 @@
                                  <div class="column" v-if="showinventorybuttons">
                                      <div class="field has-addons">
                                             <p class="control">
-                                                <a class="button is-static is-small has-text-grey">
+                                                <button class="button is-static is-small has-text-grey">
                                                     <span class="icon">
                                                         <b-icon icon="currency-usd" size="is-small" />
                                                     </span>
                                                     <span>Acquired Price</span>
-                                                </a>
+                                                </button>
                                             </p>
                                             <p class="control">
                                                 <input
@@ -172,31 +172,28 @@
                 </div>
                <footer class="card-footer">
                     <p class="card-footer-item has-text-white">
-
-                        <a @click="this.movePositionUp()" class="button is-small ">
+                        <span class="mr-4">Shortcut Keys</span>
+                        <button class="button is-small ">
                             <b-icon icon="menu-down" size="is-small" />
-                        </a>
-                        &nbsp;
-                       <a @click="this.movePositionDown()" class="button is-small ">
+                        </button>
+                       <button class="button is-small ">
                             <b-icon icon="menu-up" size="is-small" />
-                        </a>
-                        &nbsp; results &nbsp;
-                        <a @click="this.closeCardPreview()" class="button is-small ">
+                        </button>
+                        <button class="button is-small ">
                             <b-icon icon="menu-left" size="is-small" />
-                        </a>
+                        </button>
                         &nbsp;
-                       <a @click="this.displayCardPreview()" class="button is-small ">
+                       <button class="button is-small ">
                             <b-icon icon="menu-right" size="is-small" />
-                        </a>
-                         &nbsp; toggle preview &nbsp;
-                        <a @click="enterAction()" class="button is-small">
+                        </button>
+                        <button class="button is-small">
                             <span class="icon">↵</span>
                             <span>Return</span>
-                        </a>&nbsp;
-                        to {{callbackname.replace(/<[^>]*>?/gm, '')}}  &nbsp;
+                        </button>&nbsp;
+                        <!-- to {{callbackname.replace(/<[^>]*>?/gm, '')}}  &nbsp; -->
 
-                        <a @click="closeFocus()" class="button is-small">ESC</a>
-                        &nbsp; to exit.
+                        <button @click="closeFocus()" class="button is-small">ESC</button>
+                        <!-- &nbsp; to exit. -->
                     </p>
 
                 </footer>
@@ -317,7 +314,7 @@ export default {
             }
             var $this = this
 
-            let url = `${this.$config.API_DOMAIN}/search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
+            let url = `${this.$config.API_DOMAIN}search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
                 url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
 
             fetch(encodeURI(url)).then(response => response.json()).then(response => {

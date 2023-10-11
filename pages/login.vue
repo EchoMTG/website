@@ -3,12 +3,12 @@
 
     <div class="columns login-overlay">
       <div class="column is-two-fifths login-background">
-        <img class="ml-6 mr-6 mt-6 p-4" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" />
+        <NuxtImg alt="EchoMTG Logo" class="ml-6 mr-6 mt-6 p-4" src="https://assets.echomtg.com/interface/echomtg-logo-white-color.svg" />
         <user-login-card classes=" m-6 has-background-black" redirect-path="/" />
 
       </div>
     </div>
-    <img class="bg-image" src="https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg"/>
+    <NuxtPicture quality="70" class="bg-image" src="https://assets.echomtg.com/images/fanart/fico-ossio-echomtg-magic-the-gathering-fanart-final.jpg"/>
   </div>
 </template>
 <style scoped>

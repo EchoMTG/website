@@ -1,33 +1,17 @@
  <template>
       <div class="set-item-list-container">
-        <div v-if="items.length > 0" class="is-flex padded filterBar">
-          <div class="control has-icons-left">
-            <input
+        <div v-if="items.length > 0" class="is-flex padded filterBar has-background-white">
+          <b-input
+
+              placeholder="Search by name..."
+              type="search"
               v-model="search"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Name or Type.."
-            />
-            <b-icon icon="magnify" class="is-left" size="is-small" />
-          </div>
-          <!-- ORACLE TEXT SEARCH HIDDEN, TO REDUCE PAYLOAD in HALF, oracle search needs api call to work -->
-<!--
-          <div class="control has-icons-left is-hidden-mobile">
-            <input
-              v-model="textSearch"
-              class="input is-small is-rounded"
-              type="text"
-              @input="$event.target.composing = false"
-              placeholder="Card/Oracle Text.."
-            />
+              size="is-small"
+              class="mr-1"
+              icon="magnify" />
 
-              <b-icon icon="magnify" class="is-left" size="is-small" />
 
-          </div> -->
-
-          <div class="select is-small is-rounded has-text-grey">
-            <select v-model="rarity" class="has-text-grey">
+            <b-select size="is-small" v-model="rarity" class="mr-1">
               <option value="" selected>Any Rarity</option>
               <option disabled>---</option>
               <option value="common">Common</option>
@@ -39,14 +23,13 @@
               <option value="special">Special</option>
               <option v-if="game == 1" value="basic land">Basic Land</option>
               <option value="token">Token</option>
-            </select>
-          </div>
+            </b-select>
 
-          <div
-            class="select is-small is-rounded has-text-grey"
-            v-if="this.variants.length > 0"
-          >
-            <select v-model="variant" class="has-text-grey">
+            <b-select
+              size="is-small"
+              v-if="this.variants.length > 0"
+              v-model="variant"
+              class="mr-1">
               <option value="" selected>Any Variant</option>
               <option disabled>---</option>
               <option value="none">No Variants</option>
@@ -54,34 +37,35 @@
                  {{ v.replace(') (', ' ') }}
 
               </option>
-            </select>
-          </div>
+            </b-select>
 
-          <div
-            class="select is-small is-rounded has-text-grey is-hidden-mobile"
-            v-if="Object.keys(cardsowned).length > 0"
-          >
-            <select v-model="showOwned" class="has-text-grey">
+
+            <b-select
+              size="is-small"
+              class="mr-1 is-hidden-mobile"
+              v-if="Object.keys(cardsowned).length > 0"
+              v-model="showOwned"
+              >
               <option value="" selected>All</option>
               <option disabled>---</option>
               <option value="true reg">Owned Regular</option>
               <option value="true foil">Owned Foil</option>
               <option value="false reg">Not Owned Regular</option>
               <option value="false foil">Not Owned Foil</option>
-            </select>
-          </div>
+            </b-select>
+
 
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static"
+                class="button is-small is-static"
               >
                 $ &gt;
               </a>
             </p>
             <p class="control">
               <input
-                class="input is-small is-rounded valueAboveInput"
+                class="input is-small valueAboveInput"
                 v-model="valueAbove"
                 type="text"
                 placeholder="00.00"
@@ -92,14 +76,14 @@
           <div class="field has-addons is-hidden-mobile">
             <p class="control">
               <a
-                class="button is-small is-rounded is-static"
+                class="button is-small is-static"
               >
                 $ &lt;
               </a>
             </p>
             <p class="control">
               <input
-                class="input is-small is-rounded valueAboveInput"
+                class="input is-small valueAboveInput"
                 v-model="valueBelow"
                 type="text"
                 placeholder="00.00"
@@ -107,30 +91,29 @@
             </p>
           </div>
 
-          <div class="field is-hidden-mobile">
-            <p class="control">
-              <a class="button is-small is-rounded" @click="toggleFullView()">
-                <b-icon icon="image"  size="is-small" />
-              </a>
-            </p>
-          </div>
-          <div class="field" style="margin-left: auto" >
+
+
+
+          <b-button
+            type="is-danger"
+            outlined
+            size="is-small"
+            v-if="dirtyFilters"
+            @click="clearFilters()"
+            icon-left="close"
+          >
+            <span>Clear <span class="is-hidden-mobile">Filters</span></span>
+          </b-button>
+
             <vue-json-to-csv
+                class="ml-auto"
+                v-if="dirtyFilters"
                 :json-data="filteredItems">
-                <b-button size="is-small" icon-left="download">Download Filtered List</b-button>
+                <b-button size="is-small"  type="is-info" icon-left="download">Download Filtered List</b-button>
             </vue-json-to-csv>
-          </div>
 
 
-          <div class="field" style="margin-left: auto">
-            <button
-              class="button is-small is-dark has-text-danger is-outlined"
-              @click="clearFilters()"
-            >
-              <b-icon icon="times" class="is-left" size="is-small" />
-              <span>Clear <span class="is-hidden-mobile">Filters</span></span>
-            </button>
-          </div>
+
         </div>
         <div
           v-if="items.length > 0 && filteredItems.length == 0"
@@ -146,60 +129,49 @@
           striped
           :data="filteredItems"
           :debounce-search="0"
-
-          custom-detail-row
+          paginated
+          pagination-size="is-small"
+          pagination-position="bottom"
+          :per-page="authenticated ? 50 : 25"
+          pagination-order="is-centered"
+          :custom-detail-row="authenticated ? true : false"
           :mobile-cards="false"
-          :detailed="$device.isDesktop ? true : false"
+          :detailed="$device.isDesktop && authenticated ? true : false"
           @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
-          :show-detail-icon="$device.isDesktop ? true : false"
+          :show-detail-icon="$device.isDesktop && authenticated ? true : false"
           ref="table"
           detail-key="emid"
           >
-          <b-table-column v-slot="props" width="30">
-
-            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" type="is-dark"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
+          <b-table-column :visible="authenticated ? true : false"  v-slot="props" width="30">
+            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" class="has-background-grey"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
             <br>
             <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
           </b-table-column>
           <b-table-column field="name" label="Name" sortable v-slot="props">
-            <a :href="props.row.echo_url.replace('https://www.echomtg.com','')" :title="`Open ${props.row.name} Page`">
+            <a :href="itemURL(props.row)" :title="`Open ${props.row.name} Page`">
 
-                <NuxtPicture
-                     loading="lazy"
-                    v-if="fullView == false"
+                <NuxtImg
+                    :loading="props.index > 10 ? 'lazy' : 'eager'"
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
+                    :alt="`${props.row.name} Cropped Item Image Thumbnail`"
                     width="70"
                     height="50"
                     quality="80"
-                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                      />
 
-                <NuxtPicture
-                    loading="lazy"
-                    v-if="fullView == true"
-                    :src="props.row.image"
-                    class="mr-2 is-pulled-left"
-                    width="200"
-                    height="120"
-                    quality="90"
-                    placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
-                    />
             </a>
 
-            <b-tag class="rainbow-background has-text-white is-pulled-left mr-2" v-if="props.row.foil == 1">foil</b-tag>
             <item-inspector-wrapper :item="props.row" />
-            {{props.row.types}}
+            <div class="is-flex"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
 
 
           </b-table-column>
-          <b-table-column :visible="parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
+          <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
             <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit {{props.row.name}}</b-button>
           </b-table-column>
           <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
-            <span class="is-mobile">[{{props.row.collectors_number}}]</span>
-            <em v-html="replaceSymbols(props.row.mc)"></em>
-            <span class="">{{props.row.rarity}}</span>
+            {{props.row.rarity}}
           </b-table-column>
           <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
             {{props.row.collectors_number}}
@@ -213,46 +185,41 @@
             </div>
 
           </b-table-column>
-           <b-table-column v-if="authenticated" width="60" label="Watch" v-slot="props">
+           <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="130" :label="`Regular ${cs}`" sortable v-slot="props">
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" :label="`Price`" sortable v-slot="props">
 
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
-              <p class="control">
-                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
-              </p>
-              <b-input
-               :value="`${cs} ${props.row.tcg_mid}`"
+              <b-button
+                :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
+                v-if="props.row.tcg_mid"
+                icon-left="plus-box"
                 size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
-            </b-field>
+                variant="contained"
+                type="is-dark"
+                class="price-add-button has-text-weight-bold is-fullwidth"
+                @click="addItem(props.row.emid, 0)">
+                {{cs}}{{props.row.tcg_mid}}
+              </b-button>
 
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="130" :label="`Foil ${cs}`" sortable v-slot="props">
-
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
-              <p class="control">
-                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
-              </p>
-              <b-input
-               :value="`${cs} ${props.row.foil_price}`"
-                size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
-            </b-field>
-
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" :label="`Foil Price`" sortable v-slot="props">
+            <b-button
+              :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
+              v-if="props.row.foil_price"
+              icon-left="plus-box"
+              size="is-small"
+              variant="contained"
+              class="price-add-button rainbow-background has-text-white has-text-weight-bold is-fullwidth"
+              @click="addItem(props.row.emid,1)">
+              {{cs}}{{props.row.foil_price}}
+            </b-button>
           </b-table-column>
 
 
           <template slot="detail" slot-scope="props">
             <tr>
-              <td colspan="9" style="max-height: 300px">
+              <td colspan="10" style="max-height: 300px">
                 <section >
                   <div class="columns">
                      <div class="column is-3">
@@ -355,7 +322,6 @@ export default {
   data: function data() {
     return {
       title: 'Set Items List',
-      cs: '$',
       setCode: '',
       search: '',
       rarity: '',
@@ -368,7 +334,6 @@ export default {
       isWikiModalActive: false,
       variant: '',
       variants: [],
-      fullView: false,
       actions: 0
     };
 
@@ -378,6 +343,9 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    itemURL(item){
+      return this.$echomtg.itemURL(item)
+    },
     wikiControl(bool){
       this.isWikiModalActive = bool
     },
@@ -460,9 +428,6 @@ export default {
         }
 
     },
-    toggleFullView: function(){
-        this.fullView = this.fullView == false ? true : false;
-    },
     openWiki: function(item){
         this.wikiItem = item
         this.wikiItemOriginal = {...item}
@@ -483,7 +448,9 @@ export default {
         this.textSearch='';
         this.valueAbove=0;
         this.valueBelow=0;
-    },
+        this.variant = '';
+        this.showOwned = '';
+  },
 
 
   },
@@ -506,6 +473,12 @@ export default {
     }
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol;
+    },
+    dirtyFilters() {
+      return this.showOwned != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
+    },
     ...mapState(['userLevel','user','authenticated']),
       filteredItems: function(){
 

@@ -5,7 +5,7 @@
         <div class="level-left">
           <div class="level-item is-hero-avatar-item">
             <div class="image is-user-avatar">
-              <img :src="getAvatar()">
+              <img alt="User Avatar" :src="getAvatar()">
             </div>
           </div>
           <div class="level-item is-hero-content-item">

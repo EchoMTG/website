@@ -38,6 +38,7 @@
         :debounce-search="0"
         :sticky-header="true"
         :sticky="true"
+        :mobile-cards="false"
         :row-class="(row, index) => (row.price_change >= row.threshold) && 'has-background-success-light'"
         >
         <b-table-column
@@ -122,7 +123,6 @@ export default {
       watchlist: [{
         name: 'loading'
       }],
-      cs: '$',
       tableHeight: 400,
       windowHeight: 1000,
       start: 0,
@@ -199,7 +199,9 @@ export default {
   },
 
   computed: {
-
+    cs() {
+      return this.user.currency_symbol
+    },
     crumbs() {
       return [
         {

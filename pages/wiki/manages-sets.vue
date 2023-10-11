@@ -69,7 +69,21 @@ export default {
     //console.log('async from index',req)
   },
   methods: {
+      insert: function() {
 
+                        fetch('/api/wiki/insert/', {
+                            method: 'post',
+                            body: JSON.stringify(this.item)
+                        }).then(function(response) {
+                            return response.json();
+                        }).then(function(data) {
+
+                            createGrowl(data.message);
+                        }).catch(function(err){
+                            createGrowl("Insert Failed");
+                        });
+
+                    }
   },
   head () {
       return {

@@ -1,7 +1,7 @@
 <template>
     <section :class="`userSignupForm p-5 `+classes">
       <div v-if="!authenticated">
-        <h3 class="is-size-4 has-text-white has-text-weight-bold">Join now with a Free Account</h3>
+        <h2 class="is-size-4 has-text-white has-text-weight-bold">Start a Free Account</h2>
         <b-field>
           <div class="control">
               <label class="label has-text-grey">User handle</label>
@@ -122,12 +122,17 @@ export default {
     async registerUser(){
       const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
       const referrer_url = this.$cookies.get('referrerURL') ? this.$cookies.get('referrerURL') : 'direct';
+      const entry_url = this.$cookies.get('entryURL') ? this.$cookies.get('entryURL') : 'n/a';
+      const capture_url = window.location.href;
+
       const res = await this.$echomtg.registerUser(
         this.email,
         this.username,
         this.password,
         referrer,
-        referrer_url
+        referrer_url,
+        entry_url,
+        capture_url
       )
       if(res.status == "success"){
         // let them know
@@ -165,7 +170,6 @@ export default {
           type: 'is-danger'
         })
       }
-      console.log(res)
     }
   }
 }

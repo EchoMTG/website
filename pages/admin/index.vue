@@ -5,42 +5,42 @@
     <section class="hero is-dark has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">EchoMTG Applications Stats</h1>
+              <h1 class="title  is-size-6-touch">EchoMTG Applications Stats</h1>
 
           </div>
       </div>
     </section>
 
     <div class="container">
-      <div class="level">
+      <div class="level is-mobile">
          <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Users</p>
-            <p class="title">{{data_totals.users}}</p>
+            <p class="heading is-size-7-touch">Users</p>
+            <p class="title is-size-6-touch">{{data_totals.users}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Inventory</p>
-            <p class="title">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Inventory</p>
+            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Earnings</p>
-            <p class="title">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Earnings</p>
+            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Notes</p>
-            <p class="title">{{data_totals.notes}}</p>
+            <p class="heading is-size-7-touch">Notes</p>
+            <p class="title is-size-6-touch">{{data_totals.notes}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Comments</p>
-            <p class="title">{{data_totals.comments}}</p>
+            <p class="heading is-size-7-touch">Comments</p>
+            <p class="title is-size-6-touch">{{data_totals.comments}}</p>
           </div>
         </div>
       </div>
@@ -55,26 +55,30 @@
     <b-table
       striped
       narrowed
+      :mobile-cards="false"
       :data="latestUsers.results"
       :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
       >
-
+      <b-table-column :key="username" label="Username" v-slot="props">
+        {{props.row.username}} [{{props.row.id}}]
+      </b-table-column>
       <b-table-column :key="card_count" label="Items" v-slot="props">
         {{props.row.card_count}}
       </b-table-column>
       <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
-        {{props.row.referrer_url}}
+        {{props.row.referrer_url}} {{props.row.device_type}} {{props.row.platform}}
       </b-table-column>
-      <b-table-column :key="username" label="Username" v-slot="props">
-        {{props.row.username}}
+      <b-table-column :key="capture_url" label="Entry/Capture" v-slot="props">
+        <code>{{props.row.entry_url}}</code> <code>{{props.row.capture_url}}</code>
       </b-table-column>
+
       <b-table-column :key="email" label="Email" v-slot="props">
         {{props.row.email}}
       </b-table-column>
        <b-table-column :key="plan" label="Plan" v-slot="props">
         <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
       </b-table-column>
-       <b-table-column :key="plan" label="Created/LastLogin" v-slot="props">
+       <b-table-column :key="date_created" label="Created/LastLogin" v-slot="props">
         <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
       </b-table-column>
 
@@ -121,7 +125,6 @@ export default {
     }
   },
 
-
   async fetch(){
       if(!this.authenticated) return;
       this.loading    = true;
@@ -139,7 +142,10 @@ export default {
   },
 
   methods: {
+    async sendUpdate(){
+      let url = '/api/updates/add/';
 
+    },
     async getLatestUsers(days=1){
       let url = `${this.$config.API_DOMAIN}super/latest_signups/?days=${days}`;
       const res = await fetch(url, {
@@ -199,13 +205,13 @@ export default {
   },
   head () {
       return {
-          title: `Statistics: Gain Insight into your Your Collection`,
+          title: `Admin: Dashboard`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Graphs and charts breaking down your trading card collections statistics.`
+              content:  ``
             }
           ]
       }

@@ -4,7 +4,7 @@
     <!-- Left side -->
     <div class="level-left">
       <b-breadcrumb size="level-item is-small mb-0">
-          <b-breadcrumb-item  tag='router-link' to="/"><b-icon  size="is-small" class="mr-0 pr-0" icon="home"/></b-breadcrumb-item>
+          <b-breadcrumb-item title="EchoMTG Homepage" tag='router-link' to="/"><b-icon  size="is-small" class="mr-0 pr-0" icon="home"/></b-breadcrumb-item>
           <b-breadcrumb-item
             v-for="(item, index) in data"
             tag='router-link'

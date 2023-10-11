@@ -1,3 +1,8 @@
+// this is to prevent CLI warning on pagespeed tests
+html {
+  padding-top: 3.25rem;
+}
+
 aside.aside {
   display: flex;
   flex-direction: column;
@@ -17,24 +22,26 @@ aside.aside {
     left: auto;
     right: $aside-right-width * -1;
     background: $white;
-    box-shadow: $aside-right-box-shadow;
+    // box-shadow: $aside-right-box-shadow;
   }
 
   &.is-secondary {
     background-color: $aside-secondary-background-color;
 
     .aside-tools {
-      box-shadow: $aside-tools-box-shadow;
+      // box-shadow: $aside-tools-box-shadow;
       background-color: $aside-secondary-tools-background-color;
     }
 
     .menu-list {
+
       li {
         ul {
           background-color: $aside-secondary-dropdown-background-color;
         }
       }
       a {
+
         &.is-active {
           background-color: $aside-secondary-item-active-background-color;
         }
@@ -85,6 +92,8 @@ aside.aside {
   }
 
   .menu {
+    font-size: .75rem !important;
+
     &.is-menu-bottom {
       flex-grow: 0;
       flex-shrink: 1;
@@ -93,6 +102,18 @@ aside.aside {
   }
 
   .menu-list {
+    .menu-label{
+      margin-top: .5em !important;
+      margin-bottom: .3em !important;
+    padding-left: .5rem;
+    }
+    .icon {
+        width: 1.8rem !important;
+    }
+    a {
+      padding: 0px 0 !important;
+    }
+
     li {
       &.is-active {
 
@@ -180,10 +201,10 @@ aside.aside {
 
 @include touch {
   #app, nav.navbar {
-    @include transition(margin-left);
+    // @include transition(100ms margin-left ease-in);
   }
   aside.aside {
-    @include transition(left);
+    // @include transition(100ms left ease-in);
     height: 100vh;
 
     .menu-label {
@@ -264,13 +285,21 @@ aside.aside {
 }
 
 @include desktop {
+
+  // this is to prevent CLI warning on pagespeed tests
+  html body, html nav.navbar {
+    padding-left: $aside-width;
+  }
+
   html {
     &.has-aside-left, &.has-aside-right {
+
       nav.navbar, body {
-        @include transition(padding);
+        // @include transition(100ms padding ease-in);
       }
     }
     &.has-aside-left {
+
       &.has-aside-expanded {
         nav.navbar, body {
           padding-left: $aside-width;
@@ -278,10 +307,15 @@ aside.aside {
         aside.aside.is-secondary {
           left: $aside-width;
         }
+        .menu .icon {
+          width: 1.8rem !important;
+        }
       }
       nav.navbar, body {
         padding-left: $aside-collapsed-width;
       }
+
+
       /*aside.is-placed-left {
         display: flex;
         flex-direction: column;
@@ -334,6 +368,11 @@ aside.aside {
     }
 
     &:not(.is-expanded) {
+      .menu .icon {
+        width: 3.7rem !important;
+        font-size: 22px !important;
+        margin-bottom: 11px !important;
+      }
       .menu-list li a.has-submenu-icon {
         padding-right: 0;
         .submenu-icon {

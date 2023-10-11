@@ -1,5 +1,6 @@
 export default {
   target: 'server',
+  mode: 'universal',
   ssr: true,
   head: {
     title: 'EchoMTG',
@@ -10,8 +11,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'apple-itunes-app', content: 'app-id=864697496' },
-      { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" }
-
+      { 'http-equiv' :"Permissions-Policy",  content: "interest-cohort=()" },
+      // { 'http-equiv' :"Content-Security-Policy",  content: "default-src 'self' echomtg.com *.echomtg.com cdn.jsdelivr.net script-src www.googletagmanager.com" }
     ],
     link: [
       {
@@ -25,12 +26,12 @@ export default {
       },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
-      { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
-      {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
-      }
+      // { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
+      // {
+      //   rel: 'stylesheet',
+      //   type: 'text/css',
+      //   href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap'
+      // }
     ]
   },
   css: ['@/assets/scss/style-light-dark.scss'],
@@ -61,7 +62,7 @@ export default {
         name: 'imgproxy',
         provider: '~/providers/imgproxy.js',
         options: {
-          baseURL: 'https://imgproxy-jnfdvl5ydq-uc.a.run.app',
+          baseURL: 'https://image.echomtg.com',
           key: 'xxxxxxxxxxxxxx',
           salt: 'xxxxxxxxxxxxxx',
         }
@@ -113,6 +114,15 @@ export default {
       '/admin/**',
       '/wiki/**'
     ],
+    routes: [
+      '/mtg/groups/magic-reserve-list/',
+      '/mtg/groups/trending-up/',
+      '/mtg/groups/power-9-magic-the-gathering/',
+      '/mtg/groups/commanders/',
+      '/mtg/types/land/',
+      '/mtg/sets/woe/wilds-of-eldraine/'
+
+    ]
   },
   gtm: {
     id: 'GTM-5S54B96'

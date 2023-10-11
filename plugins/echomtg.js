@@ -101,6 +101,10 @@ export default (context, inject) => {
 
   }
 
+  echomtg.getGames = async () => {
+    return await echomtg.getReq('data/games/')
+  }
+
   echomtg.getGroup = async (name,limit=150,type=false,unique=false) => {
     let params = [
       `limit=${limit}`,
@@ -127,9 +131,7 @@ echomtg.search = async (query,expansion = '',types = '',oracle = '',limit = 50) 
   endpoint += `&limit=${limit}&textsearch=${oracle}&type=${types}`;
   // pricing
   const res = await fetch(endpoint, {
-  headers: {
-      'Authorization' : 'Bearer ' + context.app.$config.S2S_KEY,
-      },
+    headers: echomtg.getS2SHeadersNoJSON()
   });
   if (res.status !== 200){
     return [];
@@ -312,6 +314,31 @@ echomtg.getSets = async (game=1) => {
 
   }
 
+  echomtg.getReq = async (endpoint) => {
+    const res = await fetch(`${context.app.$config.API_DOMAIN}${endpoint.replace(/^\//, '')}`, {
+      method: 'GET',
+      headers: echomtg.getUserHeaders()
+    });
+    return await res.json();
+  }
+
+  echomtg.postReq = async (endpoint,body) => {
+    const res = await fetch(`${context.app.$config.API_DOMAIN}${endpoint.replace(/^\//, '')}`, {
+      method: 'POST',
+      headers: echomtg.getUserHeaders(),
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }
+
+  echomtg.deleteList = async (list_item_id) => {
+    let url = `${context.app.$config.API_DOMAIN}lists/delete/`;
+    let body = {
+      id: list_item_id
+    }
+    return await echomtg.postReq(url,body);
+  }
+
   echomtg.toggleListItemSideboard = async (list_item_id,list_id,sb) => {
     let url = `${context.app.$config.API_DOMAIN}lists/toggle_sideboard/`;
     let body = {
@@ -417,23 +444,19 @@ echomtg.getSets = async (game=1) => {
 
   // USER
 
-  echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com') => {
-    let url = `http://localhost/api/user/register/`;
+  echomtg.registerUser = async (email, username, password, referrer='',referrer_url='www.echomtg.com',entry_url='n/a',capture_url='n/a') => {
+
     const payload = {
       'email' : email,
       'username' : username,
       'password' : password,
       'referrer' : referrer,
-      'referrer_url' : referrer_url
+      'referrer_url' : referrer_url,
+      'entry_url' : entry_url,
+      'capture_url' : capture_url
     }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-    return await res.json();
+    return await echomtg.postReq('user/register/', payload);
+
   }
 
   echomtg.updateUser = async (payload) => {
@@ -988,18 +1011,11 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
   echomtg.earningChangeSoldPrice = async (earnings_id, price) => {
-
-    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_sold/`;
     let body = {
       id: earnings_id,
       value: price
     }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
-    });
-    return await res.json();
+    return await echomtg.postReq('earnings/adjust_sold/',body)
   }
 
   echomtg.earningChangeAcquiredPrice = async (earnings_id, price) => {
@@ -1126,6 +1142,27 @@ echomtg.getSets = async (game=1) => {
     return await res.json();
   }
 
+  echomtg.itemURL = (item) => {
+
+    let url = '';
+    if(item.echo_url) {
+        // single item variation
+        url = item.echo_url
+    } else {
+        // full item variation
+        url = item.card_url
+    }
+    url = url.replace('https://www.echomtg.com','')
+    let split = url.split('/')
+    let game = item?.game && item.game == 71 ? 'lorcana' : 'mtg'
+    if(split.length > 4){
+      url = `/${game}/items/${split[3]}/${item.emid}/`
+    } else {
+      url = `/${game}/${split[2]}/`
+    }
+
+    return url;
+  }
 
   echomtg.replaceSymbols = (str) => {
 
@@ -1248,7 +1285,6 @@ echomtg.getSets = async (game=1) => {
     const toreplace = /[,_'\\\\/:.&()! ]/ig;
     return set.replace('--','-').toLowerCase().replace(toreplace,'-');
   }
-
 
   echomtg.md5 = (string) => {
     function RotateLeft(lValue, iShiftBits) {

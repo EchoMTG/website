@@ -31,6 +31,7 @@
                     :striped="true"
                     :paginated="paginated"
                     :per-page="6"
+                    :mobile-cards="false"
                     default-sort="acquiredOn"
                     default-sort-direction="ASC">
                     <b-table-column field="acquiredOn" label="Acq. Date" sortable date v-slot="props">
@@ -43,13 +44,15 @@
                         {{cs}}{{ props.row.acquiredPrice.toLocaleString("en-US") }}
                     </b-table-column>
 
-                    <b-table-column v-slot="props">
-                        <a class="button is-small"  @click="soldItem(props.row.acquiredPrice,props.row.inventoryID,props.row.foil)">
-                            <b-icon icon="currency-usd" size="is-small" />
-                        </a>
-                        <a class="button is-small" @click="deleteItem(props.row.inventoryID)">
-                            <b-icon icon="trash" size="is-small" />
-                        </a>
+                    <b-table-column  v-slot="props">
+                      <touch-flyout :compact="true">
+                          <div class="touch-flyout-container is-flex is-flex-direction-row" >
+                            <NuxtImg height="22" width="40" class="mr-auto" :src="props.row.image_cropped" />
+                            <note-button class="mr-1" :inventory_item="props.row" :callback="getItems" />
+                            <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="user.currency_symbol" :callback="getItems"/>
+                            <b-button class="mr-1" icon-left="delete" aria-label="Remove Item from Inventory" size="is-small" type="is-danger" @click="deleteItem(props.row.inventoryID)"/>
+                          </div>
+                      </touch-flyout>
                     </b-table-column>
                 </b-table>
             </div>
@@ -78,8 +81,18 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
+import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
+import NoteButton from '../inventory/NoteButton.vue'
+import TouchFlyout from '../responsive/TouchFlyout.vue'
+
 export default {
     name: 'ItemToolBox',
+    components: {
+      MoveToEarningsButton,
+      NoteButton,
+      TouchFlyout
+    },
     props: {
         item: {
             type: Object,
@@ -94,7 +107,6 @@ export default {
             items: [],
             actions: 0,
             isOpen: true,
-            cs: '$',
             acquiredAddPrice: 0.01,
             acquiredAddFoilPrice: 0.01
 
@@ -180,7 +192,7 @@ export default {
                 })
             });
         },
-        getItems: async function(){
+        async getItems(){
             try {
                 const res = await fetch(this.getAPIURL,{
                     headers: {
@@ -196,6 +208,12 @@ export default {
 
     },
     computed: {
+        ...mapState([
+          'user'
+        ]),
+        cs() {
+          return this.user.currency_symbol
+        },
         paginated() {
             return this.items.length > 6 ? true : false;
         },

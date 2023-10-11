@@ -1,8 +1,8 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad 
-      title="You Must be Logged in to Use the Earning App" 
+    <full-ad
+      title="You Must be Logged in to Use the Earning App"
       image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
       v-if="!authenticated" />
     <span v-if="authenticated">
@@ -45,6 +45,7 @@
         aria-page-label="Page"
         aria-current-label="Current page"
         :page-input="true"
+        :mobile-cards="false"
         backend-sorting
         :default-sort-direction="defaultSortOrder"
         :default-sort="[sortField, sortOrder]"
@@ -90,7 +91,8 @@
           <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
         <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
-          <acquired-price-input v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
+          <acquired-price-input
+            v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
         <b-table-column v-slot="props">
           <b-button class="is-small" @click="deleteItem(props.row.earnings_id)" icon-left="delete">
@@ -127,7 +129,6 @@ export default {
       earnings: [{
         name: 'loading'
       }],
-      cs: '$',
       tableHeight: 400,
       windowHeight: 1000,
       search: '',
@@ -147,8 +148,7 @@ export default {
     }
   },
   async fetch(){
-      if(!this.authenticated) return;
-      
+
       this.loading = true;
       await this.getEarningsStats()
       await this.getEarnings();
@@ -243,7 +243,9 @@ export default {
   },
 
   computed: {
-
+    cs() {
+      return this.user.currency_symbol
+    },
     crumbs() {
       return [
         {

@@ -3,7 +3,7 @@
 
       <echo-bread-crumbs :data="crumbs" />
       <hero-bar-main />
-      <div class="has-background-light">
+      <div class="has-background-black">
         <section class="mx-5 my-2">
           <div class="columns">
             <div class="column">

@@ -60,11 +60,13 @@ export default {
           [
             {
               to: '/mtg/sets/',
+              href: '/mtg/sets/',
               label: 'Sets / Expansions',
               icon: 'cards'
             },
             {
               to: '/mtg/market/',
+              href: '/mtg/market/',
               label: 'MTG Stock Market',
               icon: 'chart-line-stacked'
             },
@@ -136,28 +138,29 @@ export default {
 
 
       if (this.user && parseInt(this.user.user_level) > 2){
-       navList.push('Wiki Tools');
+        navList.push('Wiki Tools');
         navList.push([
            {
-              to: '/wiki/dashboard',
+              to: '/wiki/',
               label: 'Wiki Home',
               icon: 'wizard-hat'
             },
             {
-              to: '/wiki/import-set',
-              label: 'Import Set',
-              icon: 'download'
-            },
-            {
-              to: '/wiki/import-single',
-              label: 'Fetch Single',
-              icon: 'bone'
-            },
-            {
-              to: '/wiki/manage-sets',
+              to: '/wiki/manage-sets/',
               label: 'Manage Sets',
               icon: 'movie-open-edit'
             },
+            {
+              to: '/wiki/import-set/',
+              label: 'Set Import',
+              icon: 'briefcase-download'
+            },
+            {
+              to: '/wiki/single-import/',
+              label: 'Single Import',
+              icon: 'download-box'
+            },
+
           ])
       }
 
@@ -201,7 +204,7 @@ export default {
             {
               to: '/',
               icon: 'plus',
-              label: 'Join Now'
+              label: 'Free Account'
             },
           ])
       }
@@ -249,7 +252,7 @@ export default {
     document.documentElement.classList['add']('has-navbar-fixed-top');
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
-    document.documentElement.classList['add']('is-dark-mode-active');
+    // document.documentElement.classList['add']('is-dark-mode-active');
 
   },
 
@@ -260,9 +263,20 @@ export default {
     try {
       if(this.$cookies.get('token')){
         await this.authenticatedUser()
+      } else {
+        // capture info for later
+        if(!this.$cookies.get('entryURL')){
+          this.$cookies.set('entryURL',window.location.href)
+        }
+        // store referrer to for capturing if they register
+        if(document.referrer && !this.$cookies.get('referrerURL')){
+          let referer = document.referrer == window.location.href ? 'direct': document.referrer;
+          this.$cookies.set('referrerURL',referer)
+        }
       }
       // get sets
-      await this.getSets()
+      this.getSets()
+
     } catch (err) {
       console.log('offine')
     }

@@ -6,7 +6,7 @@
       :topcardImage="items[0].image_cropped"
       :setTotalItems="items.length"
     />
-    <b-table :data="items">
+    <b-table :data="items"  striped :mobile-cards="false">
       <b-table-column field="name" label="Card Name" v-slot="props" sortable searchable>
 
         <nuxt-link :to="props.row.url" no-prefetch>
@@ -71,7 +71,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       items: [{
         image_cropped: ''
       }],
@@ -86,7 +85,6 @@ export default {
     } catch(err){
       console.log(err)
     }
-    console.log("transition",params,data.custompage)
 
     // return it
     if (data.items.length > 0) {
@@ -176,6 +174,9 @@ export default {
   },
   computed: {
     ...mapState(['user','authenticated']),
+    cs() {
+      return this.user.currency_symbol
+    },
     nameCleaned (){
       return
     },

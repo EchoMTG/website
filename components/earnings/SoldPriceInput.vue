@@ -1,6 +1,16 @@
 <template>
 
-<b-input size="is-small" @input="update" icon="currency-usd"  :value="price" />
+<b-input
+  size="is-small"
+  @input="update"
+  type="number"
+  min="0.1"
+  autocomplete="off"
+  pattern="[^-][\d]+(\.[0-9]{0,2}])?"
+  step="0.01"
+  :has-counter="false"
+  icon="currency-usd"
+  :value="price" />
 </template>
 <script>
 
@@ -8,8 +18,7 @@ export default {
  name: 'SoldPriceInput',
  props: {
   callback: {
-    type: Function,
-    required: true
+    type: Function
   },
   earnings_id: {
     type: Number,
@@ -20,12 +29,29 @@ export default {
     required: true
   },
  },
+data: () => {
+  return {
+    timer: null,
+  }
+ },
  methods: {
   update(value) {
-    this.$echomtg.earningChangeSoldPrice(this.earnings_id,value )
-    if(this.callback){
-      this.callback()
+     if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
     }
+    this.timer = setTimeout(async () => {
+      const res = await this.$echomtg.earningChangeSoldPrice(this.earnings_id,value )
+
+      this.$buefy.snackbar.open({
+          message: res.message,
+          queue: false
+        })
+      if(this.callback){
+        this.callback()
+      }
+    }, 800);
+
   }
  }
 }

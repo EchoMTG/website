@@ -78,6 +78,8 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'ItemListBox',
     props: {
@@ -95,8 +97,7 @@ export default {
             isOpen: true,
             availablelists: [],
             currentList: {},
-            foil: false,
-            cs: '$',
+            foil: false
 
         };
 
@@ -154,6 +155,12 @@ export default {
         emid: function(){
             return this.item.emid;
         },
+        ...mapState([
+          'quickstats'
+        ]),
+        cs() {
+          return this.quickstats.currency_symbol
+        }
 
     },
     created () {

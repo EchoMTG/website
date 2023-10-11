@@ -2,6 +2,9 @@ html {
   &.is-dark-mode-active {
     background-color: $dark-mode-background-color;
 
+    .itemLinkWithInspector{
+      color: lighten($blue,50%);
+    }
     .navbar {
       // background: $dark-mode-background-color !important;
 
@@ -228,15 +231,15 @@ html {
       }
 
       &.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
-        background-color: $dark-mode-light-border-color;
+        background-color: darken($dark-mode-light-border-color,8%);
 
         &:nth-child(even) {
-          background-color: $grey-dark;
+          background-color: darken($grey-dark,8%);
         }
       }
 
       &.is-striped tbody tr:not(.is-selected):nth-child(even) {
-        background-color: $dark-mode-light-border-color;
+        background-color: darken($dark-mode-light-border-color,8%);
       }
     }
 
@@ -333,7 +336,8 @@ html {
 
       .aside-tools {
         color: $dark-mode-color;
-        box-shadow: 0 1px $dark-mode-light-border-color;
+        box-shadow: none !important;
+        // box-shadow: 0 1px $dark-mode-light-border-color;
 
         .aside-close {
           color: $dark-mode-color;

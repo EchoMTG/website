@@ -67,7 +67,6 @@
               height="442"
               :src="item.image"
               :alt="`${item.name} magic card front`"
-              placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
           />
 
         </div>
@@ -266,7 +265,6 @@ export default {
   },
   data () {
     return {
-      cs: '$',
       isPriceAnalysisOpen: true,
       item: {
         name: '',
@@ -305,7 +303,7 @@ export default {
       );
       item = await res.json();
 
-      dataRes = await fetch( dataEndpoint, 
+      dataRes = await fetch( dataEndpoint,
         {
           headers: $echomtg.getS2SGetHeaders()
         }
@@ -362,6 +360,9 @@ export default {
 
   },
   computed: {
+    cs() {
+      return this.user.currency_symbol
+    },
     changeVerb(){
       return this.item.change > 0 ? 'gone up' : 'dropped'
     },

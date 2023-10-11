@@ -1,17 +1,17 @@
 <template>
-  <footer v-show="!authenticated" class="footer has-background-black">
+  <footer v-show="!authenticated" class="footer has-background-black mt-6 py-3">
     <div class="container-fluid">
       <div class="level">
         <div class="level-left">
-          <div class="level-item">
-            &copy; {{ year }}, EchoMTG, ThoughtBomb Studios, LLC.&nbsp;<nuxt-link class="has-text-grey" to="/legal/privacy-policy/">Privacy Policy</nuxt-link>&nbsp;and&nbsp;<nuxt-link class="has-text-grey"  to="/legal/terms-and-conditions/">Terms and Conditions</nuxt-link>
+          <div class="level-item has-text-grey is-size-7">
+            <p>EchoMTG &copy;{{ year }}, ThoughtBomb Studios, LLC.&nbsp;<echo-link class="has-text-grey-light is-underlined" url="/legal/privacy-policy/">Privacy Policy</echo-link>&nbsp;and&nbsp;<echo-link class="has-text-grey-light  is-underlined"  url="/legal/terms-and-conditions/">Terms and Conditions</echo-link>. Magic: the Gathering™ references are property of Wizards of the Coast. Lorcana references are property of Disney.</p>
           </div>
         </div>
         <div class="level-right">
           <div class="level-item">
             <div class="logo">
-              <a href="https://www.echomtg.com">
-                <NuxtImg width="100" height="27"  src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg" />
+              <a title="EchoMTG Homepage Dashboard" href="https://www.echomtg.com">
+                <NuxtImg alt="EchoMTG logo" width="100" height="27"  src="https://assets.echomtg.com/interface/echomtg-logo-white-24.svg" />
               </a>
             </div>
           </div>
@@ -24,8 +24,10 @@
 <script>
 import dayjs from 'dayjs'
 import { mapState } from 'vuex'
+import EchoLink from './EchoLink.vue'
 
 export default {
+  components: { EchoLink },
   name: 'FooterBar',
   computed: {
     year () {

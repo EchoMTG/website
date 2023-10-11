@@ -193,7 +193,6 @@ export default {
   data: function data() {
     return {
       title: 'Set Items List',
-      cs: '$',
       setCode: '',
       search: '',
       rarity: '',
@@ -294,6 +293,9 @@ export default {
   },
   computed: {
     ...mapState(['userLevel','user','authenticated','quickstats']),
+    cs() {
+      return user.currency_symbol
+    },
     filteredItems: function(){
 
             if(this.items.length == 0) return
