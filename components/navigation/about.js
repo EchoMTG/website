@@ -8,7 +8,7 @@ function aboutMenu() {
     },
     {
       to: '/about/discord/',
-      icon: 'discord',
+      icon: 'forum',
       label: 'Community Chat',
       description: 'Talk amongst other EchoMTG Users.'
     },
@@ -18,7 +18,7 @@ function aboutMenu() {
       label: 'Product Roadmap',
       description: 'See where the product is going.'
     },
-   
+
 
   ]
 }
