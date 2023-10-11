@@ -40,7 +40,7 @@ function helpMenu() {
       to: '/help/report-missing-item/',
       icon: 'help-network-outline',
       label: 'Report Missing Item',
-      description: 'Fill out a form to alert the wiki team of a missing item in the database'
+      description: 'Send a report the WIKI team of a missing item in the database'
     }
 
 

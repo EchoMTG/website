@@ -24,54 +24,68 @@
 
             <div class="columns">
               <div class="column">
+                <h3 class="title is-size-5 mb-2">Complete this form to Submit a Report</h3>
                 <div v-if="!authenticated" class="message is-danger p-5 mb-4 is-flex">
                   <b-icon icon="alert" type="is-danger" />
                   <span class="ml-3">Please <nuxt-link to="/login/">login</nuxt-link> to submit a missing item report.</span>
                 </div>
-                <div class="message p-5">
-                  <b-field label="Game or Brand" message="" >
+                <div class="message is-success p-5" v-if="submitted == true">
+                  <p class="mb-2">Thank you, your report was submitted to the Wiki team on <nuxt-link :to="`/about/discord/`">discord</nuxt-link>. </p>
+                  
+<code style="white-space: pre;" class="is-block p-5 has-background-black has-text-green mb-3">Game: {{ game }}
+Name: {{ name }}
+Expansion: {{ expansion }}
+Reference URL: {{ referenceUrl }}
+Image URL: {{ referenceUrl }}</code>
+                  <b-button type="is-success" @click="resetForm" :disabled="isDisabled" icon-left="restart">Create Another Report</b-button>
+                  <nuxt-link class="button is-info ml-2" :to="`/about/discord/`">Join Discord</nuxt-link>
+                </div>
+                <div class="message p-5" v-if="submitted == false">
+                  <b-field custom-class="is-small" label="Game or Brand" message="" >
                     <b-select size="is-small" v-model="game">
-                      <option :value="1">Magic: the Gathering</option>
-                      <option :value="71">Disney Lorcana</option>
+                      <option >Magic: the Gathering</option>
+                      <option >Disney Lorcana</option>
                     </b-select>
                   </b-field>
                   <b-field
+                    custom-class="is-small" 
                     label="Card or Item"
                     message="Name of the missing product. A search will be conducted on right." >
                     <b-input size="is-small" required icon="text"  v-model="name" />
                   </b-field>
-                  <b-field label="Set or Expansion" required message="Name of the product its included in. Ex. Innistrad or Commander Doctor Who" >
+                  <b-field custom-class="is-small" label="Set or Expansion" required message="Name of the product its included in. Ex. Innistrad or Commander Doctor Who" >
                     <b-input size="is-small" v-model="expansion" icon="text" />
                   </b-field>
 
-                  <b-field label="Reference URL" required message="Paste Full URL from TCGplayer, eBay, Scryfall, or any reference with product data." >
-                    <b-input size="is-small" v-model="referenceUrl" icon="text" />
+                  <b-field custom-class="is-small" label="Reference URL" required message="Paste Full URL from TCGplayer, eBay, Scryfall, or any reference with product data." >
+                    <b-input type="url" pattern="https://.*" size="is-small" v-model="referenceUrl" icon="link" />
                   </b-field>
-                  <b-field label="Image URL" message="Full image URL" >
-                    <b-input size="is-small" v-model="imageUrl" icon="text" />
+                  <b-field custom-class="is-small" label="Image URL (optional)" message="Paste the full image URL" >
+                    <b-input type="url" pattern="https://.*" size="is-small" v-model="imageUrl" icon="link" />
                   </b-field>
-                  <b-button type="is-primary" :disabled="isDisabled" icon-left="receipt-text-arrow-right-outline">Submit Missing item Report</b-button>
+                  <b-button type="is-primary" @click="submit" :disabled="isDisabled" icon-left="receipt-text-arrow-right-outline">Submit Missing item Report</b-button>
 
 
                 </div>
               </div>
-              <div class="column">
-                <h3 v-if="searchResults.length > 0" class="title is-size-4">Is it one of these?</h3>
+              <div class="column is-relative">
+                <h3 v-if="searchResults.length > 0" class="title is-size-5 mb-2">Is it one of these?</h3>
                 <div class="columns is-multiline is-gapless">
-                  <div v-for="item in searchResults" v-bind:key="item.emid" class="column is-flex is-one-third is-flex-direction-column	has-text-centered mb-2">
-                    <nuxt-link class="message is-dark has-text-white is-full-width is-block" :to="item.url">
-                      <p>{{item.name}}</p>
-                      <NuxtImg width="100" :src="item.image" :alt="item.name" />
-                      <div>
-                        <p>
-                        <span class="is-size-7">{{item.set}}</span>
-                        </p>
-                      </div>
-                    </nuxt-link>
+                  <div v-for="item in searchResults" v-bind:key="item.emid" class="column  is-one-third ">
+                    <div class="message is-dark has-text-white is-fullwidth p-2	 mb-2 mr-2">
+
+                      <nuxt-link class="is-block is-flex is-flex-direction-column has-text-centered" :to="item.url">
+                        <p class="is-size-7 ">{{item.name}}</p>
+                        <NuxtImg width="100" :src="item.image" :alt="item.name" />
+                        
+                        <p class="is-size-7">{{item.set}}</p>
+                       
+                      </nuxt-link>
+                    </div>
                   </div>
                 </div>
 
-            <b-loading :active="loading" />
+                <b-loading  v-model="loading" :is-full-page="false" ></b-loading>
 
               </div>
             </div>
@@ -103,21 +117,48 @@ export default {
       expansion: '',
       additionDetails: '',
       referenceUrl: '',
-      game: 1,
+      game: 'Magic: the Gathering',
       imageUrl: '',
       searchResults: [],
       loading: false,
       disabled: true,
+      timer: null,
+      submitted: false,
     }
   },
   watch: {
     name() {
-      this.search();
+      if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+      }
+      this.timer = setTimeout(async () => {
+        this.search();
+      },800);
     }
   },
   methods: {
     async submit(){
-
+      
+      const res = await this.$echomtg.wikiReportMissingItem({
+        name: this.name,
+        expansion: this.expansion,
+        reference_url: this.referenceUrl,
+        game: this.game,
+        image: this.imageUrl,
+        additional_details: this.additionDetails
+      })
+      
+      this.$buefy.toast.open({message: res.message})
+      this.submitted = true
+    },
+    resetForm(){
+      this.name = '' 
+      this.referenceUrl = '' 
+      this.expansion = ''
+      this.imageUrl = ''
+      this.submitted = false
+      this.searchResults = []
     },
     async search(){
       this.loading = true;
@@ -128,7 +169,7 @@ export default {
   },
   computed: {
     isDisabled() {
-      if(this.name !== '' && this.referenceUrl != '') return false;
+      if(this.name !== '' && this.referenceUrl != '' && this.expansion !== '') return false;
       return true;
     },
     crumbs() {
