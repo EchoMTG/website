@@ -4,6 +4,12 @@
         <b-button aria-disabled="true" disabled size="is-small">{{currency_symbol}}</b-button>
     </p>
     <b-input
+      :has-counter="false"
+      type="number"
+      min="0.1"
+      autocomplete="off"
+      pattern="[^-][\d]+(\.[0-9]{0,2}])?"
+      step="0.01"
       :value="price_acquired"
       size="is-small"
       style="max-width: 57px"
