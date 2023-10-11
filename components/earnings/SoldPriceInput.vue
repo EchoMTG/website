@@ -8,8 +8,7 @@ export default {
  name: 'SoldPriceInput',
  props: {
   callback: {
-    type: Function,
-    required: true
+    type: Function
   },
   earnings_id: {
     type: Number,

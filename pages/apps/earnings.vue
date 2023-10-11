@@ -91,7 +91,8 @@
           <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
         <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
-          <acquired-price-input v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
+          <acquired-price-input
+            v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
         <b-table-column v-slot="props">
           <b-button class="is-small" @click="deleteItem(props.row.earnings_id)" icon-left="delete">
@@ -147,7 +148,6 @@ export default {
     }
   },
   async fetch(){
-      if(!this.authenticated) return;
 
       this.loading = true;
       await this.getEarningsStats()

@@ -8,8 +8,7 @@ export default {
  name: 'AcquiredPriceInput',
  props: {
   callback: {
-    type: Function,
-    required: true
+    type: Function
   },
   earnings_id: {
     type: Number,
@@ -33,9 +32,9 @@ export default {
         this.timer = null;
     }
     this.timer = setTimeout(() => {
-      this.$echomtg.earningChangeAcquiredPrice(this.earnings_id,value )
+      const res = this.$echomtg.earningChangeAcquiredPrice(this.earnings_id,value )
       this.$buefy.snackbar.open({
-          message: `Acquired Price updated to: ${value}`,
+          message: res.message,
           queue: false
         })
       if(this.callback){
