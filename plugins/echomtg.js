@@ -1068,6 +1068,10 @@ echomtg.getSets = async (game=1) => {
       echomtg.log(error);
     }
   }
+  
+  echomtg.wikiReportMissingItem = async (body) => {
+    return await echomtg.postReq(`wiki/missing_item_discord/`, body);
+  }
 
   echomtg.wikiItemPatch = async (body) => {
 

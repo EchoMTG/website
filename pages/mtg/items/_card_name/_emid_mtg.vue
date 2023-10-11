@@ -62,7 +62,6 @@
       <div class="column is-one-quarter">
         <div class="cardImageContainer m-3">
           <NuxtPicture
-              loading="lazy"
               quality="30"
               width="318"
               height="442"

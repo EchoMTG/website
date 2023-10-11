@@ -10,8 +10,9 @@
         </div>
         <div class="px-3 py-2"><small class="has-text-centered pt-3 pr-2 has-text-white is-size-6">{{description}}</small></div>
         <div class="has-background-black">
-
-            <img
+            <NuxtImg
+              width="340"
+              height="165"
               :src="image"
               :alt="applicationText"
               class=" is-fullwidth" />
