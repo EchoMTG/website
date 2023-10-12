@@ -33,7 +33,21 @@
           </div>
 
           <div class="column" v-if="this.scannerApp == true">
-              Scanner app
+
+              <div class="container">
+
+              <b-field label="Paste from TCGplayer App or DelverLens">
+                <b-input type="textarea" v-model="pasteResults" placeholder="1 March from the Tomb [BFZ]
+  1 Shrine of the Forsaken Gods [BFZ]
+  1 Blight Herder [BFZ]
+  1 Sifter of Skulls [OGW]
+  1 Stone Haven Outfitter [OGW]
+  1 Prophet of Distortion [OGW]
+  1 Hissing Quagmire [OGW]
+  1 The Great Aurora [ORI]..."/>
+                </b-field>
+              </div>
+
           </div>
           <!-- CSV starter info area -->
           <div class="column" v-if="this.csvApp == true">
@@ -284,6 +298,7 @@ export default {
       fileBody: '',
       bulkValue: 0,
       bulkAVGValue: 0,
+      pasteResults: '',
       file: null,
       cards: [],
       errorCards: [],
