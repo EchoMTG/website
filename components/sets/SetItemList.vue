@@ -139,17 +139,29 @@
           pagination-order="is-centered"
           :custom-detail-row="authenticated ? true : false"
           :mobile-cards="false"
-          :detailed="$device.isDesktop && authenticated ? true : false"
+          :detailed="true"
           @details-open="(row, index) => $buefy.toast.open(`Expanded ${row.name}`)"
           :show-detail-icon="$device.isDesktop && authenticated ? true : false"
           ref="table"
           detail-key="emid"
           >
-          <b-table-column :visible="authenticated ? true : false"  v-slot="props" width="30">
-            <b-tag v-if="isCardOwned(props.row.emid, 'regular')" class="has-background-grey"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong></b-tag>
-            <br>
-            <b-tag v-if="isCardOwned(props.row.emid, 'foiled')" class="rainbow-background"><strong class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong></b-tag>
+          <b-table-column label="Owned" class="is-flex is-flex-direction-row" :visible="authenticated ? true : false"  v-slot="props" width="30">
+            <b-tag
+              :class="isCardOwned(props.row.emid, 'regular') ? 'has-background-grey mb-1' : 'has-background-black mb-1'"
+              >
+              <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-black" icon="minus" size="is-small" /> </a>
+              <strong style="margin: 0px 5px" class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong>
+              <a v-on:click="addItem(props.row.emid, 0)"><b-icon class="has-text-black" icon="plus" size="is-small" /></a>
+              </b-tag>
+
+
+            <b-tag :class="isCardOwned(props.row.emid, 'foiled') ? 'rainbow-background' : 'has-background-black'">
+              <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-white" icon="minus" size="is-small" /></a>
+              <strong style="margin: 0px 5px" class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong>
+              <a v-on:click="addItem(props.row.emid, 1)"><b-icon class="has-text-white" icon="plus" size="is-small" /></a>
+              </b-tag>
           </b-table-column>
+
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="itemURL(props.row)" :title="`Open ${props.row.name} Page`">
 
@@ -166,18 +178,9 @@
             </a>
 
             <item-inspector-wrapper :item="props.row" />
-            <div class="is-flex"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
+            <div class="is-flex has-text-grey"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
 
 
-          </b-table-column>
-          <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="200" numeric v-slot="props">
-            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit {{props.row.name}}</b-button>
-          </b-table-column>
-          <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
-            {{props.row.rarity}}
-          </b-table-column>
-          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
-            {{props.row.collectors_number}}
           </b-table-column>
           <b-table-column field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
             <div class="level">
@@ -188,35 +191,46 @@
             </div>
 
           </b-table-column>
-           <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
-              <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
-           </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" width="100" :label="`Price`" sortable v-slot="props">
+            <b-table-column field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
 
+              <strong class="is-size-6">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
               <b-button
                 :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
                 v-if="props.row.tcg_mid"
-                icon-left="plus-box"
+                icon-left="plus"
                 size="is-small"
-                variant="contained"
-                type="is-dark"
-                class="price-add-button has-text-weight-bold is-fullwidth"
+                class="price-add-button has-text-weight-bold ml-2"
                 @click="addItem(props.row.emid, 0)">
-                {{cs}}{{props.row.tcg_mid}}
               </b-button>
 
+
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  width="100" :label="`Foil Price`" sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
+            <strong class="is-size-6">{{cs}}{{props.row.foil_price?.toFixed(2)}}</strong>
             <b-button
               :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
               v-if="props.row.foil_price"
-              icon-left="plus-box"
+              icon-left="plus"
               size="is-small"
               variant="contained"
-              class="price-add-button rainbow-background has-text-white has-text-weight-bold is-fullwidth"
+              class="ml-2 price-add-button rainbow-text has-text-white has-text-weight-bold"
               @click="addItem(props.row.emid,1)">
-              {{cs}}{{props.row.foil_price}}
+
             </b-button>
+          </b-table-column>
+
+          <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
+            {{props.row.rarity}}
+          </b-table-column>
+          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
+            {{props.row.collectors_number}}
+          </b-table-column>
+
+           <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
+              <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
+           </b-table-column>
+            <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="50" v-slot="props">
+            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit</b-button>
           </b-table-column>
 
 
@@ -286,7 +300,7 @@ import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddBut
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow, ItemWikiEdit,WatchlistQuickAddButton, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
+  components: { SetItemRow, ItemWikiEdit, WatchlistQuickAddButton, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
   props: {
     items: {
       type: Array,
@@ -346,6 +360,11 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    openDetailRow(obj) {
+      console.log(obj)
+        this.$emit('details-open', obj)
+        // obj.toggleDetails()
+    },
     missingItemReport(){
       this.$router.push('/help/report-missing-item/')
     },
