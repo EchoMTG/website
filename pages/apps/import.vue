@@ -1,175 +1,201 @@
 <template>
   <div>
     <echo-bread-crumbs :data="crumbs" />
+     <section v-if="this.ready != true" class="hero is-small is-info mb-5">
+        <div class="hero-body">
+            <h1 class="title is-size-4">
+              <span v-if="this.scannerApp == true">Mobile Scanner</span>
+              <span v-if="this.csvApp == true">CSV</span>
+              Importer
+              <b-button  icon-left="arrow-left" v-if="this.scannerApp == true || this.csvApp == true" @click="resetSelection" size="is-small" >
+                Back to Import Selection
+              </b-button>
+            </h1>
+            <p class="subtitle is-size-6">Upload a Custom CSV, Deckbox Export, Delver Lens, TCGplayer scanner app, or others Export File. After importing, you can change languages, conditions, and set a bulk acquired price. Do this before clicking start import.</p>
+        </div>
+    </section>
     <full-ad title="You Must be Logged in to Use the Import App"
       image="https://assets.echomtg.com/images/product/collection-app-2023.png"
     v-if="!authenticated"/>
     <span v-if="authenticated">
-        <!-- info area -->
+
         <div class="columns">
-                <div class="column">
+          <div class="column has-text-centered" v-if="this.scannerApp == false && this.csvApp == false">
+            <div class="container">
+              <b-button type="is-primary" icon-left="cellphone-arrow-down" class="mb-3" @click="scannerApp = true" size="is-large">Import Mobile Scanner</b-button>
+               <p>Scanner apps make inputting cards into your inventory a breeze by using your camera to read your cards. Some app support importing by copying an pasting an export.
+                Two popular apps are <a href="https://play.google.com/store/apps/details?id=com.tcgplayer.tcgplayer&hl=en" target="_blank"> TCGplayer App Android</a>, <a href="https://itunes.apple.com/us/app/tcgplayer/id1247645833?mt=8" target="_blank"> TCGplayer App iOS</a>, and <a target="_blank" href="https://play.google.com/store/apps/details?id=delverslab.delverlens">Delver Lens Android</a>.</p>
 
-            <div class="uploader" v-if="this.ready != true">
-                <section class="hero is-info mb-5">
-                    <div class="hero-body">
-                        <h1 class="title is-size-4">EchoMTG CSV Importer</h1>
-                        <p class="subtitle">Upload a CSV, XLS, or TCGplayer scanner app Export File. After uploading your CSV, you have the ability to change languages, conditions,  and set a bulk acquired price. Do this before clicking start import.</p>
-                    </div>
-                </section>
-                <div class="mx-5">
-                <div class="message has-background-light has-text-black p-3">
-                    <b-field class="file is-primary" :class="{'has-name': !!file}">
-                        <b-upload type="is-success" v-model="file" class="file-label" accept=".csv" required validationMessage="Please select a file">
-                            <span class="file-cta">
-                                <b-icon class="file-icon" icon="upload"></b-icon>
-                                <span class="file-label">Click to upload (Only .csv)</span>
-                            </span>
-                            <span class="file-name" v-if="file">
-                                {{ file.name }}
-                            </span>
-                        </b-upload>
-                    </b-field>
-                    <p class="m-2"><b-icon icon="alert" size="is-small" /> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
-                </div>
-                <div class="errorBox" v-if="this.parsingErrors.length > 0">
-                    <h2>Errors were detected with your CSV File</h2>
-                    <ol>
-                        <li v-for="(error, index) in parsingErrors" :key="index">
-                            {{error}}
-                        </li>
-                    </ol>
-
-                </div>
-                <div class="columns">
-                    <div class="column">
-                        <div class="container content">
-                            <h3>Supported Exports Out of the Box</h3>
-                            <ul>
-                                <li>TCGplayer App CSV Export</li>
-                                <li>Delver Lens (pick EchoMTG CSV export)</li>
-                                <li>Deckbox.org CSV Export</li>
-                                <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
-                            </ul>
-                            <h3>Working with Custom CSVs</h3>
-                            <p>Common columns headers are card, card name, name, expansion, set, set code, tcgplayer_id, price acquired, bought price, date, date acquired, language, lang, condition</p>
-
-                            </div>
-                    </div>
-
-
-                    <div class="column">
-                        <div class="container content">
-                            <h4>Required Columns</h4>
-                            <ul>
-                                <li>Name (Card Name)</li>
-                                <li>Set Code (Three Letter Code)</li>
-                                <li style="list-style:none"><strong>or</strong></li>
-                                <li>TCGplayer ID (tcg player id)</li>
-                                <li style="list-style:none"><strong>or</strong></li>
-                                <li>Collector Number (Card Name)</li>
-                                <li>Set Code (Three Letter Code)</li>
-                            </ul>
-                            <h4>Optional Columns</h4>
-                            <ul>
-                                    <li>Foil - True (1) or False (0)</li>
-                                <li>Language </li>
-                                <li>Acquired Price (What you paid for the item)</li>
-                                <li>Quantity (Number to import) default to (1)</li>
-                                <li>Acquired Date (When did you acquire?)</li>
-                                <li>Condition (Visit <a href="/api/" target="_blank">API docs</a> for options)</li>
-                            </ul>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="container content">
-                            <h3>Default Values</h3>
-                            <ul>
-                                <li><strong>Language:</strong> EN (english)</li>
-                                <li><strong>Acquired Price:</strong> TCG MID (USD)</li>
-                                <li><strong>Acquired Date:</strong> Today</li>
-                                <li><strong>Condition:</strong> NM (Near Mint)</li>
-                                <li><strong>Foil:</strong> False (Normal)</li>
-                                <li><strong>Quantity:</strong> 1</li>
-                            </ul>
-                            <h3>Bulk Price</h3>
-                            <p>Enter a bulk price and EchoMTG will divide the total cards to import by this price and use that for the default acquired price. If a card has a custom acquired price, the custom price will be used.</p>
-
-                            <h3>Handling Errors</h3>
-                            <p>The importer will put your list into two sets, ready to import and errors. A summary will explain how many are in each category.</p>
-                            <p>Cards that are errors can be fixed by searching for their </p>
-                            <p>Note EchoMTG uses the TCGplayer naming convention for cards. That means the name and set code needs to match what it is listed on TCGplayer as in order for EchoMTG to find a match.</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                </div>
+              <hr />
+              <b-button type="is-primary" class="mb-3" icon-left="table-arrow-down" @click="csvApp = true" size="is-large">Import CSV Export</b-button>
+              <p>Import an exported CSV from other popular apps, or upload your own import CSV file.</p>
             </div>
-            <article class="message" v-if="this.ready == true">
-                <div class="message-header has-background-dark">
-                    <h2 class="is-size-5 has-text-white has-text-weight-semibold">Import Summary</h2>
+          </div>
 
-                    <p class="pull-right">
-                        <button class="import is-dark button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
+          <div class="column" v-if="this.scannerApp == true">
+              Scanner app
+          </div>
+          <!-- CSV starter info area -->
+          <div class="column" v-if="this.csvApp == true">
+              <div class="uploader" v-if="this.ready != true">
+
+                  <div class="mx-5">
+                  <div class="message has-background-light has-text-black p-3">
+                      <b-field class="file is-primary" :class="{'has-name': !!file}">
+                          <b-upload type="is-success" v-model="file" class="file-label" accept=".csv" required validationMessage="Please select a file">
+                              <span class="file-cta">
+                                  <b-icon class="file-icon" icon="upload"></b-icon>
+                                  <span class="file-label">Click to upload (Only .csv)</span>
+                              </span>
+                              <span class="file-name" v-if="file">
+                                  {{ file.name }}
+                              </span>
+                          </b-upload>
+                      </b-field>
+                      <p class="m-2"><b-icon icon="alert" size="is-small" /> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
+                  </div>
+                  <div class="errorBox" v-if="this.parsingErrors.length > 0">
+                      <h2>Errors were detected with your CSV File</h2>
+                      <ol>
+                          <li v-for="(error, index) in parsingErrors" :key="index">
+                              {{error}}
+                          </li>
+                      </ol>
+
+                  </div>
+                  <div class="columns">
+                      <div class="column">
+                          <div class="container content">
+                              <h3>Supported Exports Out of the Box</h3>
+                              <ul>
+                                  <li>TCGplayer App CSV Export</li>
+                                  <li>Delver Lens (pick EchoMTG CSV export)</li>
+                                  <li>Deckbox.org CSV Export</li>
+                                  <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
+                              </ul>
+                              <h3>Working with Custom CSVs</h3>
+                              <p>Common columns headers are card, card name, name, expansion, set, set code, tcgplayer_id, price acquired, bought price, date, date acquired, language, lang, condition</p>
+
+                              </div>
+                      </div>
 
 
-                            <b-icon icon="step-backward" size="is-small" />
+                      <div class="column">
+                          <div class="container content">
+                              <h4>Required Columns</h4>
+                              <ul>
+                                  <li>Name (Card Name)</li>
+                                  <li>Set Code (Three Letter Code)</li>
+                                  <li style="list-style:none"><strong>or</strong></li>
+                                  <li>TCGplayer ID (tcg player id)</li>
+                                  <li style="list-style:none"><strong>or</strong></li>
+                                  <li>Collector Number (Card Name)</li>
+                                  <li>Set Code (Three Letter Code)</li>
+                              </ul>
+                              <h4>Optional Columns</h4>
+                              <ul>
+                                      <li>Foil - True (1) or False (0)</li>
+                                  <li>Language </li>
+                                  <li>Acquired Price (What you paid for the item)</li>
+                                  <li>Quantity (Number to import) default to (1)</li>
+                                  <li>Acquired Date (When did you acquire?)</li>
+                                  <li>Condition (Visit <a href="/api/" target="_blank">API docs</a> for options)</li>
+                              </ul>
 
-                            <span>Start Over</span>
-                        </button>
-                        <button class="import is-success button has-icons-left" @click="startImport()" aria-label="start import">
-                            <b-icon icon="upload" size="is-small" />
-                            <span>Start Importing Matched Cards</span>
-                        </button>
-                    </p>
-                </div>
-                <div class="message-body">
-                    <nav  class="level importPanel is-mobile" >
-                        <div class="level-item has-text-centered">
-                            <div>
-                                <p class="heading">Optional Bulk Value</p>
-                                <p class="title"><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
-                            </div>
-                        </div>
-                        <div class="level-item has-text-centered">
-                            <div>
-                                <p class="heading">Avg. Acquired Value</p>
-                                <p class="title">{{bulkAVGValue}}</p>
-                            </div>
-                        </div>
-                        <div class="level-item has-text-centered">
-                            <div>
-                                <p class="heading">Ready to Import</p>
-                                <p class="title">{{totalQueued}} <small class="has-text-grey-light is-size-4">({{totalCardsWithQTY}} QTY)</small></p>
-                            </div>
-                        </div>
-                        <div class="level-item has-text-centered">
-                            <div>
-                                <p class="heading">Need to Be Fixed</p>
-                                <p class="title">{{totalNeedsFixing}} <small class="has-text-grey-light is-size-4">({{totalErrorCardsWithQTY}} QTY)</small></p>
-                            </div>
-                        </div>
-                        <div class="level-item has-text-centered">
-                            <div>
-                                <p class="heading">Minutes to Import</p>
-                                <p class="title">{{estimatedTime}}</p>
-                            </div>
-                        </div>
+                          </div>
+                      </div>
+                      <div class="column">
+                          <div class="container content">
+                              <h3>Default Values</h3>
+                              <ul>
+                                  <li><strong>Language:</strong> EN (english)</li>
+                                  <li><strong>Acquired Price:</strong> TCG MID (USD)</li>
+                                  <li><strong>Acquired Date:</strong> Today</li>
+                                  <li><strong>Condition:</strong> NM (Near Mint)</li>
+                                  <li><strong>Foil:</strong> False (Normal)</li>
+                                  <li><strong>Quantity:</strong> 1</li>
+                              </ul>
+                              <h3>Bulk Price</h3>
+                              <p>Enter a bulk price and EchoMTG will divide the total cards to import by this price and use that for the default acquired price. If a card has a custom acquired price, the custom price will be used.</p>
 
-                    </nav>
-                </div>
-            </article>
-            </div>
+                              <h3>Handling Errors</h3>
+                              <p>The importer will put your list into two sets, ready to import and errors. A summary will explain how many are in each category.</p>
+                              <p>Cards that are errors can be fixed by searching for their </p>
+                              <p>Note EchoMTG uses the TCGplayer naming convention for cards. That means the name and set code needs to match what it is listed on TCGplayer as in order for EchoMTG to find a match.</p>
+
+                          </div>
+                      </div>
+                  </div>
+
+                  </div>
+              </div>
+              <article class="message " v-if="this.ready == true">
+                  <div class="message-header has-background-info">
+                      <h2 class="is-size-5 has-text-white has-text-weight-semibold">
+                        Import Summary:
+                        {{cards.length}} Items Correctly Matched <em class="has-text-dark">- Click the Green Start Import Button</em>
+
+
+                      </h2>
+
+                      <p class="pull-right">
+                          <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
+
+
+                              <b-icon icon="step-backward" size="is-small" />
+
+                              <span>Start Over</span>
+                          </button>
+                          <b-button icon-left="upload" class="has-background-success has-text-white" variant="contained" @click="startImport()" aria-label="start import" >
+                            Start Importing Matched Cards
+                          </b-button>
+                      </p>
+                  </div>
+                  <nav  class="message-body has-background-info level is-mobile" >
+                          <div class="level-item has-text-centered">
+                              <div>
+                                  <p class="heading">Optional Bulk Value</p>
+                                  <p class="title"><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
+                              </div>
+                          </div>
+                          <div class="level-item has-text-centered">
+                              <div>
+                                  <p class="heading">Avg. Acquired Value</p>
+                                  <p class="title">{{bulkAVGValue}}</p>
+                              </div>
+                          </div>
+                          <div class="level-item has-text-centered">
+                              <div>
+                                  <p class="heading">Ready to Import</p>
+                                  <p class="title">{{totalQueued}} <small class="is-size-4">({{totalCardsWithQTY}} QTY)</small></p>
+                              </div>
+                          </div>
+                          <div class="level-item has-text-centered">
+                              <div>
+                                  <p class="heading">Need to Be Fixed</p>
+                                  <p class="title">{{totalNeedsFixing}} <small class="is-size-4">({{totalErrorCardsWithQTY}} QTY)</small></p>
+                              </div>
+                          </div>
+                          <div class="level-item has-text-centered">
+                              <div>
+                                  <p class="heading">Minutes to Import</p>
+                                  <p class="title">{{estimatedTime}}</p>
+                              </div>
+                          </div>
+
+                      </nav>
+              </article>
+          </div>
+          <!-- CSV starter info area -->
         </div>
-        <!-- end info area -->
+
         <!-- Start good cards -->
         <div v-if="cards.length > 0">
-            <h2 class="title is-size-3">{{cards.length}} Items Correctly Matched <em class="has-text-grey-dark">- Click the Green Start Import Button</em></h2>
+
             <div class="cardsToInput table-container">
                 <table class="table is-striped is-fullwidth">
                     <thead >
-                        <tr class="has-background-black" style="border: none;">
+                        <tr style="border: none;">
     <!--                                    <th style="border: none;">EchoID</th>-->
                             <th style="border: none;"><abbr title="Quantity">QTY</abbr></th>
                             <th style="border: none;">Name</th>
@@ -253,6 +279,8 @@ export default {
   data () {
     return {
       title: 'Import Card via CSV, XLS, or TCGplayer Scanner App',
+      scannerApp: false,
+      csvApp: false,
       fileBody: '',
       bulkValue: 0,
       bulkAVGValue: 0,
@@ -299,6 +327,10 @@ export default {
       }
   },
   methods: {
+    resetSelection() {
+      this.scannerApp = false;
+      this.csvApp = false;
+    },
     cancelRestart: function() {
 
       this.cards = []
@@ -461,13 +493,13 @@ export default {
   },
   head () {
       return {
-          title: `Earnings: Track items sold or traded`,
+          title: `Magic the Gathering App Importer`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `Track items sold or traded`
+              content:  `Upload a Custom CSV, Deckbox Export, Delver Lens, TCGplayer scanner app, or others Export File. After importing, you can change languages, conditions, and set a bulk acquired price. Do this before clicking start import.`
             }
           ]
       }
