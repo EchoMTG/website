@@ -6,15 +6,7 @@
     <td v-if="listtype !== 'error'">{{card.expansion}}</td>
     <td v-if="listtype !== 'error'">{{card.set_code}}</td>
     <td colspan="2" v-if="listtype == 'error'">
-      <typeahead-bulma-dropdown
-        v-bind:opts="this.$parent.sets"
-        v-bind:callback="setExpansion"
-        label-key="name"
-        value-key="set_code"
-        v-bind:small="true"
-        v-bind:input-placeholder="card.expansion"
-        v-bind:passthroughObject="{index:ckey,listtype: listtype}"
-        v-bind:value-selected="card.set_code"></typeahead-bulma-dropdown>
+      <set-selector :callback="setExpansion" />
     </td>
     <td>
     <b-select
@@ -45,7 +37,7 @@
           <!--<span>Remove</span>-->
       </a>
       <a @click="removeCard(listtype,ckey)" class="button is-small is-danger has-icon has-text-white">
-        <b-icon icon="delete" size="is-small"/> 
+        <b-icon icon="delete" size="is-small"/>
           <!--<span>Remove</span>-->
       </a>
     </td>
@@ -53,9 +45,13 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import SetSelector from '@/components/magic/SetSelector.vue'
 
 export default {
   name: 'ImportItemRow',
+  components: {
+    SetSelector
+  },
   data () {
     return {
       sets: [],
@@ -170,13 +166,13 @@ export default {
         }
 
     },
-    setExpansion: function(value, obj){
+    setExpansion: function(obj){
 
-        let arrName = obj.listtype == 'error' ? 'errorCards' : 'cards'
-        let item = this.$parent[arrName][obj.index]
-        item.set_code = value.value;
-        item.expansion = value.label;
-        this.$set(this.$parent[arrName], obj.index, item)
+        let arrName = this.listtype == 'error' ? 'errorCards' : 'cards'
+        let item = this.$parent[arrName][this.ckey]
+        item.set_code = obj.set_code;
+        item.expansion = obj.name;
+        this.$set(this.$parent[arrName], this.ckey, item)
     },
     setFoil: function(value, obj){
         let arrName = obj.listtype == 'error' ? 'errorCards' : 'cards'

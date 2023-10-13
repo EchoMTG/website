@@ -14,6 +14,7 @@
             <p class="subtitle is-size-6">Upload a Custom CSV, Deckbox Export, Delver Lens, TCGplayer scanner app, or others Export File. After importing, you can change languages, conditions, and set a bulk acquired price. Do this before clicking start import.</p>
         </div>
     </section>
+    <b-loading v-model="loading" />
     <full-ad title="You Must be Logged in to Use the Import App"
       image="https://assets.echomtg.com/images/product/collection-app-2023.png"
     v-if="!authenticated"/>
@@ -32,7 +33,7 @@
             </div>
           </div>
 
-          <div class="column" v-if="this.scannerApp == true">
+          <div class="column" v-if="this.scannerApp == true &&  this.ready == false">
 
               <div class="container">
 
@@ -143,69 +144,69 @@
 
                   </div>
               </div>
-              <article class="message " v-if="this.ready == true">
-                  <div class="message-header has-background-info">
-                      <h2 class="is-size-5 has-text-white has-text-weight-semibold">
-                        Import Summary:
-                        {{cards.length}} Items Correctly Matched <em class="has-text-dark">- Click the Green Start Import Button</em>
 
-
-                      </h2>
-
-                      <p class="pull-right">
-                          <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
-
-
-                              <b-icon icon="step-backward" size="is-small" />
-
-                              <span>Start Over</span>
-                          </button>
-                          <b-button icon-left="upload" class="has-background-success has-text-white" variant="contained" @click="startImport()" aria-label="start import" >
-                            Start Importing Matched Cards
-                          </b-button>
-                      </p>
-                  </div>
-                  <nav  class="message-body has-background-info level is-mobile" >
-                          <div class="level-item has-text-centered">
-                              <div>
-                                  <p class="heading">Optional Bulk Value</p>
-                                  <p class="title"><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
-                              </div>
-                          </div>
-                          <div class="level-item has-text-centered">
-                              <div>
-                                  <p class="heading">Avg. Acquired Value</p>
-                                  <p class="title">{{bulkAVGValue}}</p>
-                              </div>
-                          </div>
-                          <div class="level-item has-text-centered">
-                              <div>
-                                  <p class="heading">Ready to Import</p>
-                                  <p class="title">{{totalQueued}} <small class="is-size-4">({{totalCardsWithQTY}} QTY)</small></p>
-                              </div>
-                          </div>
-                          <div class="level-item has-text-centered">
-                              <div>
-                                  <p class="heading">Need to Be Fixed</p>
-                                  <p class="title">{{totalNeedsFixing}} <small class="is-size-4">({{totalErrorCardsWithQTY}} QTY)</small></p>
-                              </div>
-                          </div>
-                          <div class="level-item has-text-centered">
-                              <div>
-                                  <p class="heading">Minutes to Import</p>
-                                  <p class="title">{{estimatedTime}}</p>
-                              </div>
-                          </div>
-
-                      </nav>
-              </article>
           </div>
           <!-- CSV starter info area -->
         </div>
 
         <!-- Start good cards -->
         <div v-if="cards.length > 0">
+            <article class="message " v-if="this.ready == true">
+              <div class="message-header has-background-info">
+                  <h2 class="is-size-5 has-text-white has-text-weight-semibold">
+                    Import Summary:
+                    {{cards.length}} Items Correctly Matched <em class="has-text-dark">- Click the Green Start Import Button</em>
 
+
+                  </h2>
+
+                  <p class="pull-right">
+                      <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
+
+
+                          <b-icon icon="step-backward" size="is-small" />
+
+                          <span>Start Over</span>
+                      </button>
+                      <b-button icon-left="upload" class="has-background-success has-text-white" variant="contained" @click="startImport()" aria-label="start import" >
+                        Start Importing Matched Cards
+                      </b-button>
+                  </p>
+              </div>
+              <nav  class="message-body has-background-info level is-mobile" >
+                      <div class="level-item has-text-centered">
+                          <div>
+                              <p class="heading">Optional Bulk Value</p>
+                              <p class="title"><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
+                          </div>
+                      </div>
+                      <div class="level-item has-text-centered">
+                          <div>
+                              <p class="heading">Avg. Acquired Value</p>
+                              <p class="title">{{bulkAVGValue}}</p>
+                          </div>
+                      </div>
+                      <div class="level-item has-text-centered">
+                          <div>
+                              <p class="heading">Ready to Import</p>
+                              <p class="title">{{totalQueued}} <small class="is-size-4">({{totalCardsWithQTY}} QTY)</small></p>
+                          </div>
+                      </div>
+                      <div class="level-item has-text-centered">
+                          <div>
+                              <p class="heading">Need to Be Fixed</p>
+                              <p class="title">{{totalNeedsFixing}} <small class="is-size-4">({{totalErrorCardsWithQTY}} QTY)</small></p>
+                          </div>
+                      </div>
+                      <div class="level-item has-text-centered">
+                          <div>
+                              <p class="heading">Minutes to Import</p>
+                              <p class="title">{{estimatedTime}}</p>
+                          </div>
+                      </div>
+
+              </nav>
+            </article>
             <div class="cardsToInput table-container">
                 <table class="table is-striped is-fullwidth">
                     <thead >
@@ -241,9 +242,9 @@
             <br>
             <h2 class="title is-size-3">{{errorCards.length}} Items Failed to Match <em class="has-text-grey-dark"> - Fix or Remove</em></h2>
             <div class="cardsThatFailedToLoad">
-                <table class="table is-striped">
+                <table class="table  is-striped is-fullwidth">
                     <thead>
-                        <tr class="has-background-black" style="border: none;">
+                        <tr style="border: none;">
                             <th style="border: none;"><abbr title="Quantity">QTY</abbr></th>
                             <th style="border: none;">Name</th>
                             <th colspan="2" style="border: none;">Expansion / Set Code</th>
@@ -300,6 +301,7 @@ export default {
       bulkAVGValue: 0,
       pasteResults: '',
       file: null,
+      loading: false,
       cards: [],
       errorCards: [],
       parsingErrors: [],
@@ -338,8 +340,11 @@ export default {
           this.bulkAVGValue = this.avgAcquiredValue
       },
       async file(){
-        await this.sendToCloudFunction()
-      }
+        await this.uploadToCloudFunction()
+      },
+      async pasteResults(){
+        await this.postToCloudFunction()
+      },
   },
   methods: {
     resetSelection() {
@@ -359,7 +364,7 @@ export default {
     readFile: async function(event) {
         const input = event.target
         this.file = input.files[0]
-        await this.sendToCloudFunction()
+        await this.uploadToCloudFunction()
     },
     readFileContent:  function (file) {
         this.ready = false
@@ -422,12 +427,37 @@ export default {
       this.masterLookup = json;
 
     },
-    async sendToCloudFunction(){
+     async postToCloudFunction(){
+        this.loading = true;
+        this.$buefy.toast.open({
+          message: `Posting Scanner Text`,
+          type: 'is-success'
+        })
+        let endpoint = 'https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload';
+
+        const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: this.$echomtg.getUserHeaders(),
+            body: JSON.stringify({body: this.pasteResults})
+        });
+        const json = await res.json();
+
+        this.cards = []
+        this.errorCards = []
+        this.parsingErrors = []
+        this.cards = json.cards
+        this.errorCards = json.errors
+        this.parsingErrors = json.parsingErrors
+        this.ready = true
+        this.loading = false;
+    },
+    async uploadToCloudFunction(){
 
         this.$buefy.toast.open({
           message: `Uploading CSV File`,
           type: 'is-success'
         })
+        this.loading = true;
         let endpoint = 'https://us-central1-echo-csv.cloudfunctions.net/echo-csv/upload';
         var formData  = new FormData();
         formData.append('csvFile', this.file);
@@ -446,6 +476,7 @@ export default {
         this.errorCards = json.errors
         this.parsingErrors = json.parsingErrors
         this.ready = true
+        this.loading = false;
     }
   },
   computed: {
