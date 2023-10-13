@@ -20,8 +20,7 @@
     v-if="!authenticated"/>
     <span v-if="authenticated">
 
-        <div class="columns">
-          <div class="column has-text-centered" v-if="this.scannerApp == false && this.csvApp == false">
+          <div class="has-text-centered" v-if="this.scannerApp == false && this.csvApp == false">
             <div class="container">
               <b-button type="is-primary" icon-left="cellphone-arrow-down" class="mb-3" @click="scannerApp = true" size="is-large">Import Mobile Scanner</b-button>
                <p>Scanner apps make inputting cards into your inventory a breeze by using your camera to read your cards. Some app support importing by copying an pasting an export.
@@ -33,7 +32,7 @@
             </div>
           </div>
 
-          <div class="column" v-if="this.scannerApp == true &&  this.ready == false">
+          <div v-if="this.scannerApp == true &&  this.ready == false">
 
               <div class="container">
 
@@ -50,109 +49,112 @@
               </div>
 
           </div>
+
           <!-- CSV starter info area -->
-          <div class="column" v-if="this.csvApp == true">
-              <div class="uploader" v-if="this.ready != true">
+          <div v-if="this.csvApp == true">
+            <div class="uploader" v-if="this.ready != true">
 
-                  <div class="mx-5">
-                  <div class="message has-background-light has-text-black p-3">
-                      <b-field class="file is-primary" :class="{'has-name': !!file}">
-                          <b-upload type="is-success" v-model="file" class="file-label" accept=".csv" required validationMessage="Please select a file">
-                              <span class="file-cta">
-                                  <b-icon class="file-icon" icon="upload"></b-icon>
-                                  <span class="file-label">Click to upload (Only .csv)</span>
-                              </span>
-                              <span class="file-name" v-if="file">
-                                  {{ file.name }}
-                              </span>
-                          </b-upload>
-                      </b-field>
-                      <p class="m-2"><b-icon icon="alert" size="is-small" /> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
-                  </div>
-                  <div class="errorBox" v-if="this.parsingErrors.length > 0">
-                      <h2>Errors were detected with your CSV File</h2>
-                      <ol>
-                          <li v-for="(error, index) in parsingErrors" :key="index">
-                              {{error}}
-                          </li>
-                      </ol>
+                <div class="mx-5">
+                <div class="message has-background-light has-text-black p-3">
+                  <b-field label="CSV Upload">
+                    <b-field class="file is-primary" :class="{'has-name': !!file}">
+                        <b-upload type="is-success" v-model="file" class="file-label" accept=".csv" required validationMessage="Please select a file">
+                            <span class="file-cta">
+                                <b-icon class="file-icon" icon="upload"></b-icon>
+                                <span class="file-label">Click to upload (Only .csv)</span>
+                            </span>
+                            <span class="file-name" v-if="file">
+                                {{ file.name }}
+                            </span>
+                        </b-upload>
+                    </b-field>
+                  </b-field>
+                    <p class="m-2"><b-icon icon="alert" size="is-small" /> Note if your CSV row count is greater than your account threshold, you will only be able to import to your cap. Upgrade your account <a href="/plans/">here</a>.</p>
+                </div>
+                <div class="errorBox" v-if="this.parsingErrors.length > 0">
+                    <h2>Errors were detected with your CSV File</h2>
+                    <ol>
+                        <li v-for="(error, index) in parsingErrors" :key="index">
+                            {{error}}
+                        </li>
+                    </ol>
 
-                  </div>
-                  <div class="columns">
-                      <div class="column">
-                          <div class="container content">
-                              <h3>Supported Exports Out of the Box</h3>
-                              <ul>
-                                  <li>TCGplayer App CSV Export</li>
-                                  <li>Delver Lens (pick EchoMTG CSV export)</li>
-                                  <li>Deckbox.org CSV Export</li>
-                                  <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
-                              </ul>
-                              <h3>Working with Custom CSVs</h3>
-                              <p>Common columns headers are card, card name, name, expansion, set, set code, tcgplayer_id, price acquired, bought price, date, date acquired, language, lang, condition</p>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="container content">
+                            <h3>Supported Exports Out of the Box</h3>
+                            <ul>
+                                <li>TCGplayer App CSV Export</li>
+                                <li>Delver Lens (pick EchoMTG CSV export)</li>
+                                <li>Deckbox.org CSV Export</li>
+                                <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
+                            </ul>
+                            <h3>Working with Custom CSVs</h3>
+                            <p>Common columns headers are card, card name, name, expansion, set, set code, tcgplayer_id, price acquired, bought price, date, date acquired, language, lang, condition</p>
 
-                              </div>
-                      </div>
+                            </div>
+                    </div>
 
 
-                      <div class="column">
-                          <div class="container content">
-                              <h4>Required Columns</h4>
-                              <ul>
-                                  <li>Name (Card Name)</li>
-                                  <li>Set Code (Three Letter Code)</li>
-                                  <li style="list-style:none"><strong>or</strong></li>
-                                  <li>TCGplayer ID (tcg player id)</li>
-                                  <li style="list-style:none"><strong>or</strong></li>
-                                  <li>Collector Number (Card Name)</li>
-                                  <li>Set Code (Three Letter Code)</li>
-                              </ul>
-                              <h4>Optional Columns</h4>
-                              <ul>
-                                      <li>Foil - True (1) or False (0)</li>
-                                  <li>Language </li>
-                                  <li>Acquired Price (What you paid for the item)</li>
-                                  <li>Quantity (Number to import) default to (1)</li>
-                                  <li>Acquired Date (When did you acquire?)</li>
-                                  <li>Condition (Visit <a href="/api/" target="_blank">API docs</a> for options)</li>
-                              </ul>
+                    <div class="column">
+                        <div class="container content">
+                            <h4>Required Columns</h4>
+                            <ul>
+                                <li>Name (Card Name)</li>
+                                <li>Set Code (Three Letter Code)</li>
+                                <li style="list-style:none"><strong>or</strong></li>
+                                <li>TCGplayer ID (tcg player id)</li>
+                                <li style="list-style:none"><strong>or</strong></li>
+                                <li>Collector Number (Card Name)</li>
+                                <li>Set Code (Three Letter Code)</li>
+                            </ul>
+                            <h4>Optional Columns</h4>
+                            <ul>
+                                    <li>Foil - True (1) or False (0)</li>
+                                <li>Language </li>
+                                <li>Acquired Price (What you paid for the item)</li>
+                                <li>Quantity (Number to import) default to (1)</li>
+                                <li>Acquired Date (When did you acquire?)</li>
+                                <li>Condition (Visit <a href="/api/" target="_blank">API docs</a> for options)</li>
+                            </ul>
 
-                          </div>
-                      </div>
-                      <div class="column">
-                          <div class="container content">
-                              <h3>Default Values</h3>
-                              <ul>
-                                  <li><strong>Language:</strong> EN (english)</li>
-                                  <li><strong>Acquired Price:</strong> TCG MID (USD)</li>
-                                  <li><strong>Acquired Date:</strong> Today</li>
-                                  <li><strong>Condition:</strong> NM (Near Mint)</li>
-                                  <li><strong>Foil:</strong> False (Normal)</li>
-                                  <li><strong>Quantity:</strong> 1</li>
-                              </ul>
-                              <h3>Bulk Price</h3>
-                              <p>Enter a bulk price and EchoMTG will divide the total cards to import by this price and use that for the default acquired price. If a card has a custom acquired price, the custom price will be used.</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="container content">
+                            <h3>Default Values</h3>
+                            <ul>
+                                <li><strong>Language:</strong> EN (english)</li>
+                                <li><strong>Acquired Price:</strong> TCG MID (USD)</li>
+                                <li><strong>Acquired Date:</strong> Today</li>
+                                <li><strong>Condition:</strong> NM (Near Mint)</li>
+                                <li><strong>Foil:</strong> False (Normal)</li>
+                                <li><strong>Quantity:</strong> 1</li>
+                            </ul>
+                            <h3>Bulk Price</h3>
+                            <p>Enter a bulk price and EchoMTG will divide the total cards to import by this price and use that for the default acquired price. If a card has a custom acquired price, the custom price will be used.</p>
 
-                              <h3>Handling Errors</h3>
-                              <p>The importer will put your list into two sets, ready to import and errors. A summary will explain how many are in each category.</p>
-                              <p>Cards that are errors can be fixed by searching for their </p>
-                              <p>Note EchoMTG uses the TCGplayer naming convention for cards. That means the name and set code needs to match what it is listed on TCGplayer as in order for EchoMTG to find a match.</p>
+                            <h3>Handling Errors</h3>
+                            <p>The importer will put your list into two sets, ready to import and errors. A summary will explain how many are in each category.</p>
+                            <p>Cards that are errors can be fixed by searching for their </p>
+                            <p>Note EchoMTG uses the TCGplayer naming convention for cards. That means the name and set code needs to match what it is listed on TCGplayer as in order for EchoMTG to find a match.</p>
 
-                          </div>
-                      </div>
-                  </div>
+                        </div>
+                    </div>
+                </div>
 
-                  </div>
-              </div>
+                </div>
+            </div>
 
           </div>
           <!-- CSV starter info area -->
-        </div>
+
 
         <!-- Start good cards -->
         <div v-if="cards.length > 0">
-            <article class="message mb-0" v-if="this.ready == true">
-              <div class="message-header has-background-info">
+            <article class="message my-0" v-if="this.ready == true">
+              <div class="message-header has-background-info mt-0">
                   <div class="is-flex" style="width:100%">
                     <div>
                       <h2 class="title is-size-5 has-text-white has-text-weight-semibold">
