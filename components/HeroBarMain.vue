@@ -3,6 +3,20 @@
     <div class="hero-body">
       <div class="level">
         <div class="level-left">
+          <div class="level-item is-flex">
+              <nuxt-link to="/apps/inventory/" class="is-block button is-dark is-small" title="Profile">
+                <b-icon icon="book-open-page-variant-outline"  custom-size="default" />
+                <span>Manage Inventory</span>
+              </nuxt-link>
+              <nuxt-link :to="`/apps/trades/${this.$echomtg.tradesUserHash(user.id)}/`" class="is-block button is-light is-small" title="Profile">
+                <b-icon icon="briefcase-arrow-left-right"  custom-size="default" />
+                <span>View Trades</span>
+              </nuxt-link>
+               <nuxt-link to="/apps/import/" class="is-block button is-info is-small" title="Profile">
+                <b-icon icon="download"  custom-size="default" />
+                <span>Import Inventory</span>
+              </nuxt-link>
+          </div>
           <div class="level-item is-hero-avatar-item">
             <div class="image is-user-avatar">
               <img alt="User Avatar" :src="getAvatar()">
@@ -10,6 +24,7 @@
           </div>
           <div class="level-item is-hero-content-item">
             <div>
+
               <h1 class="title is-spaced">
                 Greetings <b class="is-capitalized">{{ user.username }}!</b>
               </h1>
@@ -18,20 +33,7 @@
               </h3>
               <p>It's <b>{{this.$moment().format('MMMM Do YYYY')}}</b> and your <b>{{quickstats.total_items}} items</b> <br/>
               are estimated to be worth <b>{{quickstats.currency_symbol}}{{quickstats.current_value}}</b> </p>
-              <div class="level-item mt-2">
-              <nuxt-link to="/apps/inventory/" class="level-item button is-light is-small" title="Profile">
-                <b-icon icon="book-open-page-variant-outline"  custom-size="default" />
-                <span>Manage Inventory</span>
-              </nuxt-link>
-              <nuxt-link :to="`/apps/trades/${this.$echomtg.tradesUserHash(user.id)}/`" class="level-item button is-light is-small" title="Profile">
-                <b-icon icon="briefcase-arrow-left-right"  custom-size="default" />
-                <span>View Trades</span>
-              </nuxt-link>
-               <nuxt-link to="/user/profile" class="level-item button is-light is-small" title="Profile">
-                <b-icon icon="account"  custom-size="default" />
-                <span>Edit Profile</span>
-              </nuxt-link>
-              </div>
+
             </div>
           </div>
         </div>
