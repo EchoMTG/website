@@ -151,59 +151,66 @@
 
         <!-- Start good cards -->
         <div v-if="cards.length > 0">
-            <article class="message " v-if="this.ready == true">
+            <article class="message mb-0" v-if="this.ready == true">
               <div class="message-header has-background-info">
-                  <h2 class="is-size-5 has-text-white has-text-weight-semibold">
-                    Import Summary:
-                    {{cards.length}} Items Correctly Matched <em class="has-text-dark">- Click the Green Start Import Button</em>
+                  <div class="is-flex" style="width:100%">
+                    <div>
+                      <h2 class="title is-size-5 has-text-white has-text-weight-semibold">
+                        Import Summary:
+
+                      </h2>
+                      <p class="subtitle is-size-7  mb-0"> {{cards.length}} Items Correctly Matched. Click the Green Start Import Button to begin.</p>
+
+                    </div>
+
+                    <p class="is-flex ml-auto">
+                        <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
 
 
-                  </h2>
+                            <b-icon icon="restart" size="is-small" />
 
-                  <p class="pull-right">
-                      <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
-
-
-                          <b-icon icon="step-backward" size="is-small" />
-
-                          <span>Start Over</span>
-                      </button>
-                      <b-button icon-left="upload" class="has-background-success has-text-white" variant="contained" @click="startImport()" aria-label="start import" >
-                        Start Importing Matched Cards
-                      </b-button>
-                  </p>
+                            <span>Start Over</span>
+                        </button>
+                        <b-button icon-left="upload" class="has-background-success has-text-white is-align-content-flex-end	" variant="contained" @click="startImport()" aria-label="start import" >
+                          Start Importing
+                        </b-button>
+                    </p>
+                  </div>
               </div>
-              <nav  class="message-body has-background-info level is-mobile" >
+              <nav  class="message-body has-background-info level is-mobile pt-0" >
                       <div class="level-item has-text-centered">
                           <div>
-                              <p class="heading">Optional Bulk Value</p>
-                              <p class="title"><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
+                              <p class="heading is-size-7 has-text-light">Ready to Import</p>
+                              <p class="title is-size-5-touch">{{totalQueued}} <span class="has-text-info-light">({{totalCardsWithQTY}} QTY)</span></p>
                           </div>
                       </div>
                       <div class="level-item has-text-centered">
                           <div>
-                              <p class="heading">Avg. Acquired Value</p>
-                              <p class="title">{{bulkAVGValue}}</p>
+                              <p class="heading is-size-7 has-text-light">Need to Be Fixed</p>
+                              <p class="title is-size-5-touch">{{totalNeedsFixing}} <span class="has-text-info-light">({{totalErrorCardsWithQTY}} QTY)</span></p>
                           </div>
                       </div>
+
+
                       <div class="level-item has-text-centered">
                           <div>
-                              <p class="heading">Ready to Import</p>
-                              <p class="title">{{totalQueued}} <small class="is-size-4">({{totalCardsWithQTY}} QTY)</small></p>
+                              <p class="heading is-size-7 has-text-light">Minutes to Import</p>
+                              <p class="title is-size-5-touch">{{estimatedTime}}</p>
                           </div>
                       </div>
-                      <div class="level-item has-text-centered">
+                       <div class="level-item has-text-centered">
                           <div>
-                              <p class="heading">Need to Be Fixed</p>
-                              <p class="title">{{totalNeedsFixing}} <small class="is-size-4">({{totalErrorCardsWithQTY}} QTY)</small></p>
+                              <p class="heading is-size-7 has-text-light">Avg. Acquired Value</p>
+                              <p class="title is-size-5-touch">{{bulkAVGValue}}</p>
                           </div>
                       </div>
-                      <div class="level-item has-text-centered">
+                       <div class="level-item has-text-centered">
                           <div>
-                              <p class="heading">Minutes to Import</p>
-                              <p class="title">{{estimatedTime}}</p>
+                              <p class="heading is-size-7 has-text-light">Optional Bulk Value</p>
+                              <p><b-input size="is-small" type="number" min=".01" v-model="bulkValue" placeholder="50.80" /></p>
                           </div>
                       </div>
+
 
               </nav>
             </article>
@@ -242,21 +249,27 @@
               <div class="message is-success mx-6 py-6">
               <h3>Nothing to Import</h3>
               <p>You either completed importing everything or your import document failed.</p>
-
-              <b-button @click="restart" icon-left="restart">Start Over</b-button>
-              <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> to ask for help.</p>
+              <div class="is-flex is-justify-content-center	">
+                <b-button @click="restart"  class="mr-2" icon-left="restart">Start Over</b-button>
+                <nuxt-link class="is-block button is-info" to="/apps/inventory"><b-icon icon="book-open-page-variant-outline" class="mr-1" size="is-small" /> Open Inventory</nuxt-link>
+              </div>
+              <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> and ask for help.</p>
             </div>
           </div>
           </div>
         <!-- start errors -->
         <div v-if="errorCards.length > 0">
-            <br>
-            <h2 class="title is-size-3">{{errorCards.length}} Items Failed to Match <em class="has-text-grey-dark"> - Fix or Remove</em></h2>
+            <div class="message is-dark p-5 m-0 is-flex">
+              <h2 class="title is-size-5">{{errorCards.length}} Items Failed to Match<br/><em class="has-text-grey-dark">Fix, Remove, Restart, or goto Inventory</em></h2>
+              <div class="ml-auto is-flex">
+                <b-button @click="restart" class="mr-2" icon-left="restart">Start Over</b-button>
+                <nuxt-link class="button is-info is-block" to="/apps/inventory"><b-icon icon="book-open-page-variant-outline" class="mr-1" size="is-small" /> Open Inventory</nuxt-link>
+              </div>
+            </div>
             <div class="cardsThatFailedToLoad">
                 <b-table
                   :data="errorCards"
                   detailed
-
 
                 >
                   <b-table-column v-slot="props" field="quantity" label="QTY">
@@ -309,13 +322,9 @@
                   </b-table-column>
 
                    <template slot="detail" slot-scope="props">
-                    <tr>
-                      <td colspan="10" style="max-height: 300px">
-                        <section >
-                          {{props.row.name}}
-                        </section>
-                      </td>
-                    </tr>
+                     {{props.row.name}}
+
+
                   </template>
                 </b-table>
 
@@ -347,8 +356,8 @@ export default {
       scannerApp: false,
       csvApp: false,
       fileBody: '',
-      bulkValue: 0,
-      bulkAVGValue: 0,
+      bulkValue: null,
+      bulkAVGValue: 'Market',
       pasteResults: '',
       file: null,
       loading: false,
@@ -415,8 +424,8 @@ export default {
       this.cards = []
       this.errorCards = []
       this.parsingErrors = []
-      this.bulkAVGValue = 0
-      this.bulkValue = 0
+      this.bulkAVGValue = 'Market'
+      this.bulkValue = null
       this.ready = false
 
     },
