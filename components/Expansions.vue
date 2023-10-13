@@ -16,7 +16,7 @@
       </div>
       <div class="column is-hidden-touch">
         <div class="content">
-        <p>Search a list of all {{game}} Expansions, Promos, and Sets.</p>
+        <p>Search a list of all {{game}} Expansions, Promos, and Sets. Ordered by newest set first. </p>
         </div>
       </div>
     </div>

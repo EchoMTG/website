@@ -83,7 +83,7 @@ export default {
   head () {
       return {
           title: `Disney Lorcana Sets and Expansions`,
-          description: `Explore every Disney Lorcana set since 1st edition, organized by date with search function.`
+          description: `Disney Lorcana sets and releaes since 1st edition, organized by date with search and prices.`
       }
     }
 }
