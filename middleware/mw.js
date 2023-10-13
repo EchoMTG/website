@@ -18,8 +18,10 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
     if(route.path == '/inventory/stats/') return redirect(`/apps/statistics/`);
     if(route.path == '/inventory/import/') return redirect(`/apps/import/`);
+    if(route.path == '/inventory/import-scryglass/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
     if(route.path == '/plans-yearly/') return redirect(`/plans/`);
+
 
 
     // original groups to types
