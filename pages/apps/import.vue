@@ -249,10 +249,11 @@
               <div class="message is-success mx-6 py-6">
               <h3>Nothing to Import</h3>
               <p>You either completed importing everything or your import document failed.</p>
-              <div>
-                <b-button @click="restart" icon-left="restart">Start Over</b-button> <nuxt-link class="is-block button is-info" to="/apps/inventory">Open Inventory</nuxt-link>
+              <div class="is-flex is-justify-content-center	">
+                <b-button @click="restart"  class="mr-2" icon-left="restart">Start Over</b-button>
+                <nuxt-link class="is-block button is-info" to="/apps/inventory"><b-icon icon="book-open-page-variant-outline" class="mr-1" size="is-small" /> Open Inventory</nuxt-link>
               </div>
-              <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> to ask for help.</p>
+              <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> and ask for help.</p>
             </div>
           </div>
           </div>
@@ -260,9 +261,9 @@
         <div v-if="errorCards.length > 0">
             <div class="message is-dark p-5 m-0 is-flex">
               <h2 class="title is-size-5">{{errorCards.length}} Items Failed to Match<br/><em class="has-text-grey-dark">Fix, Remove, Restart, or goto Inventory</em></h2>
-              <div class="ml-auto">
-                <b-button @click="restart" icon-left="restart">Start Over</b-button>
-                <nuxt-link class="button is-info is-block" to="/apps/inventory">Open Inventory</nuxt-link>
+              <div class="ml-auto is-flex">
+                <b-button @click="restart" class="mr-2" icon-left="restart">Start Over</b-button>
+                <nuxt-link class="button is-info is-block" to="/apps/inventory"><b-icon icon="book-open-page-variant-outline" class="mr-1" size="is-small" /> Open Inventory</nuxt-link>
               </div>
             </div>
             <div class="cardsThatFailedToLoad">
