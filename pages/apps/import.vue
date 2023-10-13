@@ -249,8 +249,9 @@
               <div class="message is-success mx-6 py-6">
               <h3>Nothing to Import</h3>
               <p>You either completed importing everything or your import document failed.</p>
-
-              <b-button @click="restart" icon-left="restart">Start Over</b-button>
+              <div>
+                <b-button @click="restart" icon-left="restart">Start Over</b-button> <nuxt-link class="is-block button is-info" to="/apps/inventory">Open Inventory</nuxt-link>
+              </div>
               <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> to ask for help.</p>
             </div>
           </div>
@@ -261,7 +262,7 @@
               <h2 class="title is-size-5">{{errorCards.length}} Items Failed to Match<br/><em class="has-text-grey-dark">Fix, Remove, Restart, or goto Inventory</em></h2>
               <div class="ml-auto">
                 <b-button @click="restart" icon-left="restart">Start Over</b-button>
-                <nuxt-link class="button is-info" to="/apps/inventory">Open Inventory</nuxt-link>
+                <nuxt-link class="button is-info is-block" to="/apps/inventory">Open Inventory</nuxt-link>
               </div>
             </div>
             <div class="cardsThatFailedToLoad">
@@ -354,7 +355,7 @@ export default {
       scannerApp: false,
       csvApp: false,
       fileBody: '',
-      bulkValue: 0,
+      bulkValue: null,
       bulkAVGValue: 'Market',
       pasteResults: '',
       file: null,
@@ -423,7 +424,7 @@ export default {
       this.errorCards = []
       this.parsingErrors = []
       this.bulkAVGValue = 'Market'
-      this.bulkValue = 0
+      this.bulkValue = null
       this.ready = false
 
     },
