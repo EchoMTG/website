@@ -242,7 +242,9 @@
               <div class="message is-success mx-6 py-6">
               <h3>Nothing to Import</h3>
               <p>You either completed importing everything or your import document failed.</p>
+
               <b-button @click="restart" icon-left="restart">Start Over</b-button>
+              <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> to ask for help.</p>
             </div>
           </div>
           </div>
