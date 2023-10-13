@@ -10,6 +10,10 @@ html {
 
       // box-shadow: 0 1px #000 !important;
     }
+
+    .b-table .table tr.detail {
+      background: black;
+    }
     &.has-boxed-layout {
       //background-color: $dark-mode-html-boxed-background-color;
     }
