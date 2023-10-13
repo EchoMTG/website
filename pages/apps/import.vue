@@ -207,7 +207,7 @@
                        <div class="level-item has-text-centered">
                           <div>
                               <p class="heading is-size-7 has-text-light">Optional Bulk Value</p>
-                              <p><input class="input is-small" type="text" v-model="bulkValue" placeholder="50.80" /></p>
+                              <p><b-input size="is-small" type="number" min=".01" v-model="bulkValue" placeholder="50.80" /></p>
                           </div>
                       </div>
 
@@ -257,8 +257,13 @@
           </div>
         <!-- start errors -->
         <div v-if="errorCards.length > 0">
-            <br>
-            <h2 class="title is-size-3">{{errorCards.length}} Items Failed to Match <em class="has-text-grey-dark"> - Fix or Remove</em></h2>
+            <div class="message is-dark p-5 m-0 is-flex">
+              <h2 class="title is-size-5">{{errorCards.length}} Items Failed to Match<br/><em class="has-text-grey-dark">Fix, Remove, Restart, or goto Inventory</em></h2>
+              <div class="ml-auto">
+                <b-button @click="restart" icon-left="restart">Start Over</b-button>
+                <nuxt-link class="button is-info" to="/apps/inventory">Open Inventory</nuxt-link>
+              </div>
+            </div>
             <div class="cardsThatFailedToLoad">
                 <b-table
                   :data="errorCards"
@@ -350,7 +355,7 @@ export default {
       csvApp: false,
       fileBody: '',
       bulkValue: 0,
-      bulkAVGValue: 0,
+      bulkAVGValue: 'Market',
       pasteResults: '',
       file: null,
       loading: false,
@@ -417,7 +422,7 @@ export default {
       this.cards = []
       this.errorCards = []
       this.parsingErrors = []
-      this.bulkAVGValue = 0
+      this.bulkAVGValue = 'Market'
       this.bulkValue = 0
       this.ready = false
 
