@@ -229,7 +229,7 @@
            <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
-            <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="50" v-slot="props">
+          <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="50" v-slot="props">
             <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit</b-button>
           </b-table-column>
 
@@ -360,6 +360,7 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+
     openDetailRow(obj) {
       console.log(obj)
         this.$emit('details-open', obj)
