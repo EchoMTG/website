@@ -147,6 +147,7 @@
           >
           <b-table-column label="Owned" class="is-flex is-flex-direction-row" :visible="authenticated ? true : false"  v-slot="props" width="30">
             <b-tag
+              v-if="props.row.tcg_mid > 0"
               :class="isCardOwned(props.row.emid, 'regular') ? 'has-background-grey mb-1' : 'has-background-black mb-1'"
               >
               <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-black" icon="minus" size="is-small" /> </a>
@@ -155,7 +156,9 @@
               </b-tag>
 
 
-            <b-tag :class="isCardOwned(props.row.emid, 'foiled') ? 'rainbow-background' : 'has-background-black'">
+            <b-tag
+              v-if="props.row.foil_price > 0"
+              :class="isCardOwned(props.row.emid, 'foiled') ? 'rainbow-background' : 'has-background-light'">
               <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-white" icon="minus" size="is-small" /></a>
               <strong style="margin: 0px 5px" class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong>
               <a v-on:click="addItem(props.row.emid, 1)"><b-icon class="has-text-white" icon="plus" size="is-small" /></a>
@@ -364,7 +367,6 @@ export default {
     openDetailRow(obj) {
       console.log(obj)
         this.$emit('details-open', obj)
-        // obj.toggleDetails()
     },
     missingItemReport(){
       this.$router.push('/help/report-missing-item/')
@@ -389,9 +391,8 @@ export default {
         }
     },
     addAPIURL: function(emid,foil=0){
-
-            return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${emid}&foil=${foil}`;
-        },
+      return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${emid}&foil=${foil}`;
+    },
     addItem: async function (emid,foil=0){
       try {
         const json = await this.$echomtg.inventoryQuickAdd(emid,foil);
