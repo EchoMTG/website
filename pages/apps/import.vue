@@ -237,37 +237,85 @@
 
             </div>
         </div>
+        <div v-if="errorCards.length == 0 && cards.length == 0 && ready == true">
+          <div class="container content has-text-centered my-6">
+              <div class="message is-success mx-6 py-6">
+              <h3>Nothing to Import</h3>
+              <p>You either completed importing everything or your import document failed.</p>
+              <b-button @click="restart" icon-left="restart">Start Over</b-button>
+            </div>
+          </div>
+          </div>
         <!-- start errors -->
         <div v-if="errorCards.length > 0">
             <br>
             <h2 class="title is-size-3">{{errorCards.length}} Items Failed to Match <em class="has-text-grey-dark"> - Fix or Remove</em></h2>
             <div class="cardsThatFailedToLoad">
-                <table class="table  is-striped is-fullwidth">
-                    <thead>
-                        <tr style="border: none;">
-                            <th style="border: none;"><abbr title="Quantity">QTY</abbr></th>
-                            <th style="border: none;">Name</th>
-                            <th colspan="2" style="border: none;">Expansion / Set Code</th>
+                <b-table
+                  :data="errorCards"
+                  detailed
 
-                            <th style="border: none;"><abbr title="Language">Lang</abbr></th>
-                            <th style="border: none;">Foil</th>
-                            <th style="border: none;"><abbr title="Condition">Cond.</abbr></th>
-                            <th style="border: none;"><abbr title="Acquired Price">Acq. Price</abbr></th>
-                            <th style="border: none;"><abbr title="Acquired Date">Acq. Date</abbr></th>
-                            <th style="border: none;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                <import-item-row
-                        v-for="(card, index) in errorCards"
-                        :card="card"
-                        :listtype="`error`"
-                        :key="`errorCard${index}`"
-                        :ckey="index"
-                        ></import-item-row>
-                    </tbody>
 
-                </table>
+                >
+                  <b-table-column v-slot="props" field="quantity" label="QTY">
+                    {{props.row.quantity}}
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="name" label="Name">
+                    {{props.row.name}}
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="expansion" label="Set">
+                    {{props.row.expansion}} [{{props.row.set_code}}]
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="language" label="Language">
+                    <b-select
+                      size="is-small"
+                      v-model="props.row.language">
+                      <option
+                        v-for="opt in languages"
+                        v-bind:key="opt.lang"
+                        :value="opt.lang">{{opt.name}}</option>
+                    </b-select>
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="condition" label="Condition">
+                    <b-select
+                      size="is-small"
+                      v-model="props.row.condition">
+                      <option
+                        v-for="opt in conditions"
+                        v-bind:key="opt.value"
+                        :value="opt.value">{{opt.name}}</option>
+                    </b-select>
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="foil" label="Foil">
+                    <b-select
+                      size="is-small"
+                      v-model="props.row.foil">
+                      <option
+                        v-for="opt in foils"
+                        v-bind:key="opt.value"
+                        :value="opt.value">{{opt.name}}</option>
+                    </b-select>
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="acquire_date" label="Acq. Date">
+                    {{props.row.acquire_date}}
+                  </b-table-column>
+                  <b-table-column v-slot="props" sortable field="acquire_price" label="Acq. Price">
+                    {{props.row.acquire_price}}
+                  </b-table-column>
+                  <b-table-column v-slot="props" >
+                    <b-button size="is-small" type="is-danger" icon-left="delete" @click="removeCardFromList('error',props.index)" />
+                  </b-table-column>
+
+                   <template slot="detail" slot-scope="props">
+                    <tr>
+                      <td colspan="10" style="max-height: 300px">
+                        <section >
+                          {{props.row.name}}
+                        </section>
+                      </td>
+                    </tr>
+                  </template>
+                </b-table>
 
             </div>
         </div>
@@ -347,11 +395,20 @@ export default {
       },
   },
   methods: {
+    removeCardFromList: function(listtype,index) {
+        let arrName = listtype == 'error' ? 'errorCards' : 'cards'
+        this.$delete(this[arrName],index)
+    },
     resetSelection() {
       this.scannerApp = false;
       this.csvApp = false;
     },
-    cancelRestart: function() {
+    restart() {
+      this.ready = false;
+      this.cancelRestart()
+
+    },
+    cancelRestart() {
 
       this.cards = []
       this.errorCards = []
@@ -535,7 +592,86 @@ export default {
       'sets',
       'user',
       'authenticated'
-    ])
+    ]),
+    languages: () => [{
+              lang: 'en',
+              name: 'English'
+          },{
+              lang: 'de',
+              name: 'German'
+          },{
+              lang: 'fr',
+              name: 'French'
+          },{
+              lang: 'ru',
+              name: 'Russian'
+          },{
+              lang: 'it',
+              name: 'Italian'
+          },{
+              lang: 'es',
+              name: 'Spanish'
+          },{
+              lang: 'pt',
+              name: 'Portuguese'
+          },{
+              lang: 'CT',
+              name: 'Chinese Traditional'
+          },{
+              lang: 'CS',
+              name: 'Chinese Simplified'
+          },{
+              lang: 'jp',
+              name: 'Japanese'
+          },{
+              lang: 'kr',
+              name: 'Korean'
+          }
+      ],
+      foils: () =>  [
+          {
+              name: 'Normal',
+              value: false
+          },{
+              name: 'Foil',
+              value: true
+          }
+      ],
+
+      conditions: () =>  [
+          {
+              name: 'Near Mint',
+              value: 'nm'
+          },{
+              name: 'Lightly Played',
+              value: 'lp'
+          },{
+              name: 'Moderately Played',
+              value: 'mp'
+          },{
+              name: 'Heavily Played',
+              value: 'hp'
+          },{
+              name: 'Damaged',
+              value: 'D'
+          },{
+              name: 'Altered',
+              value: 'alt'
+          },{
+              name: 'Artist Proof',
+              value: 'art'
+          },{
+              name: 'Signed',
+              value: 'sgn'
+          },{
+              name: 'BGS Graded',
+              value: 'bgs'
+          },{
+              name: 'PSA Graded',
+              value: 'psa'
+          }
+      ]
+
   },
   head () {
       return {
