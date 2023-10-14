@@ -328,12 +328,13 @@
 
                    <template slot="detail" slot-scope="props">
                         <div class="is-flex">
-                          <b-input class="mr-2" ref="nameMatch" size="is-small" :value="props.row.name" /> <b-input ref="setMatch" size="is-small" class="mr-2" :value="props.row.set_code" />
+                          <b-input class="mr-2" ref="nameMatch" size="is-small" :value="props.row.name" />
+                          <b-input ref="setMatch" size="is-small" class="mr-2" :value="props.row.set_code" />
                           <b-button type="is-primary" size="is-small" @click="searchForMatch" icon-left="magnify">Search for Match</b-button>
                         </div>
                         <strong v-if="matchSearchData.length > 0">Select the Match</strong>
                         <div class="columns">
-                          <a class="is-block column is-one-sixth" v-for="match in matchSearchData" v-bind:key="match.emid">
+                          <a @click="selectMatch(props,match)" class="is-hoverable is-block column is-one-sixth" v-for="match in matchSearchData" v-bind:key="match.emid">
                             <NuxtImg :src="match.image" width="160" /><br /><span>{{match.name}}</span>
                           </a>
                         </div>
@@ -420,6 +421,11 @@ export default {
       },
   },
   methods: {
+    selectMatch(currentitem,newmatch) {
+
+      console.log('itemrow',currentitem)
+      console.log('newmatch',newmatch)
+    },
     async searchForMatch(){
       const name = this.$refs['nameMatch'].value;
       const set = this.$refs['setMatch'].value;
