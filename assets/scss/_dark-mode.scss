@@ -68,23 +68,24 @@ html {
     }
 
     .button {
-      background-color: transparent;
-      border-color: $dark-mode-button-color!important;
-      color: $dark-mode-button-color!important;
+      background-color: $dark-mode-button-color !important;
+      border-color: $dark-mode-button-color !important;
+      color: $black!important;
 
       &:hover:not([disabled]) {
-        background-color: $dark-mode-button-color;
+        background-color: $dark-mode-button-color !important;
         color: $dark-mode-button-hover-color!important;
       }
 
       @each $state-class, $state-color, $state-text in $state-colors {
         &.is-#{$state-class} {
           border-color: $state-color!important;
-          color: $state-color!important;
+          background-color: $state-color!important;
+          color: $state-text!important;
 
           &:hover {
-            background-color: $state-color;
-            color: $state-text;
+            background-color: darken($state-color,10%) !important;
+            color: $state-text !important;
           }
         }
       }
@@ -213,7 +214,7 @@ html {
       border: none;
       color: $white;
     }
-    .has-background-light,  .message{
+    .has-background-light,  .message.has-background-light{
       background-color: rgba($black, 0.25) !important;
     }
     .table {
