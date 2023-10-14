@@ -152,7 +152,7 @@
 
 
         <!-- Start good cards -->
-        <div v-if="cards.length > 0">
+        <div v-if="cards.length > 0 || errorCards.length > 0">
             <article class="message my-0" v-if="this.ready == true">
               <div class="message-header has-background-info mt-0">
                   <div class="is-flex" style="width:100%">
@@ -166,14 +166,10 @@
                     </div>
 
                     <p class="is-flex ml-auto">
-                        <button class="import is-dark is-outlined button has-icons-left" @click="cancelRestart()" aria-label="cancel import">
-
-
-                            <b-icon icon="restart" size="is-small" />
-
-                            <span>Start Over</span>
-                        </button>
-                        <b-button icon-left="upload" class="has-background-success has-text-white is-align-content-flex-end	" variant="contained" @click="startImport()" aria-label="start import" >
+                        <b-button type="is-info" icon-left="restart" class="mr-2" @click="restart" aria-label="cancel import">
+                          Start Over
+                        </b-button>
+                        <b-button icon-left="upload" type="is-success" variant="contained" @click="startImport()" aria-label="start import" >
                           Start Importing
                         </b-button>
                     </p>
@@ -249,7 +245,7 @@
         <!-- finished or  error -->
         <div v-if="errorCards.length == 0 && cards.length == 0 && ready == true">
           <div class="container content has-text-centered my-6">
-              <div class="message is-success mx-6 py-6">
+              <div class="message is-dark mx-6 py-6">
               <h3>Nothing to Import</h3>
               <p>You either completed importing everything or your import document failed.</p>
               <div class="is-flex is-justify-content-center	">
@@ -264,24 +260,39 @@
 
         <!-- start errors -->
         <div v-if="errorCards.length > 0">
-            <div class="message is-dark p-5 m-0 is-flex">
-              <h2 class="title is-size-5">{{errorCards.length}} Items Failed to Match<br/><em class="has-text-grey-dark">Fix, Remove, Restart, or goto Inventory</em></h2>
+            <div class="message has-background-danger p-5 m-0 is-flex">
+              <h2 class="title is-size-5 mb-0">{{errorCards.length}} Items Failed to Match</h2>
               <div class="ml-auto is-flex">
-                <b-button @click="restart" class="mr-2" icon-left="restart">Start Over</b-button>
-                <nuxt-link class="button is-info is-block" to="/apps/inventory"><b-icon icon="book-open-page-variant-outline" class="mr-1" size="is-small" /> Open Inventory</nuxt-link>
+                <em class="has-text-light">Fix or Remove</em>
               </div>
             </div>
             <div class="cardsThatFailedToLoad">
                 <b-table
                   :data="errorCards"
                   detailed
+                  striped
+                  paginated
+                  pagination-size="is-small"
+                  pagination-position="bottom"
+                  :per-page="20"
+                  pagination-order="is-centered"
+                  :mobile-cards="false"
+                  :show-detail-icon="false"
+                  ref="errortable"
 
                 >
+
+                  <b-table-column v-slot="props">
+
+                    <b-button v-if="props.index == 0" class="mr-2" type="is-success" size="is-small" icon-left="find-replace" @click="customOpenDetailRow(props.row)">Find &amp; Fix</b-button>
+                    <b-button  v-if="props.index == 0" size="is-small" type="is-danger" icon-left="delete" @click="removeCardFromList('error',props.index)">Remove</b-button>
+                  </b-table-column>
                   <b-table-column v-slot="props" field="quantity" label="QTY">
                     {{props.row.quantity}}
                   </b-table-column>
                   <b-table-column v-slot="props" sortable field="name" label="Name">
                     {{props.row.name}}
+
                   </b-table-column>
                   <b-table-column v-slot="props" sortable field="expansion" label="Set">
                     {{props.row.expansion}} [{{props.row.set_code}}]
@@ -316,29 +327,34 @@
                         :value="opt.value">{{opt.name}}</option>
                     </b-select>
                   </b-table-column>
-                  <b-table-column v-slot="props" sortable field="acquire_date" label="Acq. Date">
+                  <!-- <b-table-column v-slot="props" sortable field="acquire_date" label="Acq. Date">
                     {{props.row.acquire_date}}
                   </b-table-column>
                   <b-table-column v-slot="props" sortable field="acquire_price" label="Acq. Price">
                     {{props.row.acquire_price}}
-                  </b-table-column>
-                  <b-table-column v-slot="props" >
-                    <b-button size="is-small" type="is-danger" icon-left="delete" @click="removeCardFromList('error',props.index)" />
-                  </b-table-column>
+                  </b-table-column> -->
 
                    <template slot="detail" slot-scope="props">
-                        <div class="is-flex">
-                          <b-input class="mr-2" ref="nameMatch" size="is-small" :value="props.row.name" />
-                          <b-input ref="setMatch" size="is-small" class="mr-2" :value="props.row.set_code" />
+                      <div class="is-relative" >
+                        <div class="is-flex is-justify-content-center	">
+                          <b-loading v-model="matchSearchLoading" :is-full-page="false" />
+
+                            <b-input type="search" icon-left="magnify" class="mr-2" ref="nameMatch" size="is-small" v-model="matchNameSearch"  />
+
+                            <b-input ref="setMatch" size="is-small" class="mr-2"  v-model="matchSetSearch" />
+
                           <b-button type="is-primary" size="is-small" @click="searchForMatch" icon-left="magnify">Search for Match</b-button>
                         </div>
                         <strong v-if="matchSearchData.length > 0">Select the Match</strong>
-                        <div class="columns">
-                          <a @click="selectMatch(props,match)" class="is-hoverable is-block column is-one-sixth" v-for="match in matchSearchData" v-bind:key="match.emid">
-                            <NuxtImg :src="match.image" width="160" /><br /><span>{{match.name}}</span>
+                        <div class="message is-dark p-5 m-5 has-text-centered" v-if="matchSearchData.length == 0">
+                          <strong class="has-text-danger">No match found for "{{matchNameSearch}}" with set "{{matchSetSearch}}".</strong> Try changing the set or name and search again for a match.
+                        </div>
+                        <div class="columns is-multiline" v-if="matchSearchData.length > 0">
+                          <a @click="selectMatch(props,match)" class="is-hoverable is-clickable is-block column is-one-fifth" v-for="match in matchSearchData" v-bind:key="match.emid">
+                            <NuxtImg :src="match.image" width="160" /><br /><span>{{match.name}} - {{match.setcode}}</span>
                           </a>
                         </div>
-
+                      </div>
                   </template>
                 </b-table>
 
@@ -368,7 +384,10 @@ export default {
     return {
       title: 'Import Card via CSV, XLS, or TCGplayer Scanner App',
       scannerApp: false,
+      matchSearchLoading: false,
       matchSearchData: [],
+      matchNameSearch: '',
+      matchSetSearch: '',
       csvApp: false,
       fileBody: '',
       bulkValue: null,
@@ -380,6 +399,7 @@ export default {
       errorCards: [],
       parsingErrors: [],
       ready: false,
+
       totals: {
           imported: 0,
           queued: 0,
@@ -421,10 +441,14 @@ export default {
       },
   },
   methods: {
+    async customOpenDetailRow(obj){
+      this.$refs.errortable.openDetailRow(obj)
+      this.matchNameSearch = obj.name;
+      this.matchSetSearch = obj.set_code;
+      await this.searchForMatch();
+    },
     selectMatch(currentitem,newmatch) {
 
-      console.log('itemrow',currentitem)
-      console.log('newmatch',newmatch)
       // add to the selected cards
       currentitem.row.extra_details.echo_id= newmatch.emid
       currentitem.row.name = newmatch.name
@@ -437,10 +461,12 @@ export default {
       this.$delete(this.errorCards,currentitem.index)
     },
     async searchForMatch(){
-      const name = this.$refs['nameMatch'].value;
-      const set = this.$refs['setMatch'].value;
+      this.matchSearchLoading = true;
+      const name = this.matchNameSearch;
+      const set = this.matchSetSearch;
       const data = await this.$echomtg.search(name,set);
       this.matchSearchData = data;
+      this.matchSearchLoading = false;
 
     },
     removeCardFromList: function(listtype,index) {
@@ -453,7 +479,8 @@ export default {
     },
     restart() {
       this.ready = false;
-      this.cancelRestart()
+      this.resetSelection();
+      this.cancelRestart();
 
     },
     cancelRestart() {
