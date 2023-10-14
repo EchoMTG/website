@@ -425,6 +425,16 @@ export default {
 
       console.log('itemrow',currentitem)
       console.log('newmatch',newmatch)
+      // add to the selected cards
+      currentitem.row.extra_details.echo_id= newmatch.emid
+      currentitem.row.name = newmatch.name
+      currentitem.row.set_code = newmatch.setcode
+      currentitem.row.collectors_number = newmatch.setcode
+      currentitem.row.expansion = newmatch.set
+      currentitem.row.tcgid = newmatch.set
+      this.cards.push(currentitem.row)
+      // delete from error cards
+      this.$delete(this.errorCards,currentitem.index)
     },
     async searchForMatch(){
       const name = this.$refs['nameMatch'].value;
