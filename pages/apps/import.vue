@@ -246,6 +246,7 @@
 
             </div>
         </div>
+        <!-- finished or  error -->
         <div v-if="errorCards.length == 0 && cards.length == 0 && ready == true">
           <div class="container content has-text-centered my-6">
               <div class="message is-success mx-6 py-6">
@@ -258,7 +259,9 @@
               <p class="mt-3 is-size-7">If something went wrong <nuxt-link to="/about/discord">Join Discord</nuxt-link> and ask for help.</p>
             </div>
           </div>
-          </div>
+        </div>
+        <!-- end finished or  error -->
+
         <!-- start errors -->
         <div v-if="errorCards.length > 0">
             <div class="message is-dark p-5 m-0 is-flex">
@@ -324,8 +327,17 @@
                   </b-table-column>
 
                    <template slot="detail" slot-scope="props">
-                     {{props.row.name}}
-
+                        <div class="is-flex">
+                          <b-input class="mr-2" ref="nameMatch" size="is-small" :value="props.row.name" />
+                          <b-input ref="setMatch" size="is-small" class="mr-2" :value="props.row.set_code" />
+                          <b-button type="is-primary" size="is-small" @click="searchForMatch" icon-left="magnify">Search for Match</b-button>
+                        </div>
+                        <strong v-if="matchSearchData.length > 0">Select the Match</strong>
+                        <div class="columns">
+                          <a @click="selectMatch(props,match)" class="is-hoverable is-block column is-one-sixth" v-for="match in matchSearchData" v-bind:key="match.emid">
+                            <NuxtImg :src="match.image" width="160" /><br /><span>{{match.name}}</span>
+                          </a>
+                        </div>
 
                   </template>
                 </b-table>
@@ -356,6 +368,7 @@ export default {
     return {
       title: 'Import Card via CSV, XLS, or TCGplayer Scanner App',
       scannerApp: false,
+      matchSearchData: [],
       csvApp: false,
       fileBody: '',
       bulkValue: null,
@@ -408,6 +421,28 @@ export default {
       },
   },
   methods: {
+    selectMatch(currentitem,newmatch) {
+
+      console.log('itemrow',currentitem)
+      console.log('newmatch',newmatch)
+      // add to the selected cards
+      currentitem.row.extra_details.echo_id= newmatch.emid
+      currentitem.row.name = newmatch.name
+      currentitem.row.set_code = newmatch.setcode
+      currentitem.row.collectors_number = newmatch.setcode
+      currentitem.row.expansion = newmatch.set
+      currentitem.row.tcgid = newmatch.set
+      this.cards.push(currentitem.row)
+      // delete from error cards
+      this.$delete(this.errorCards,currentitem.index)
+    },
+    async searchForMatch(){
+      const name = this.$refs['nameMatch'].value;
+      const set = this.$refs['setMatch'].value;
+      const data = await this.$echomtg.search(name,set);
+      this.matchSearchData = data;
+
+    },
     removeCardFromList: function(listtype,index) {
         let arrName = listtype == 'error' ? 'errorCards' : 'cards'
         this.$delete(this[arrName],index)
