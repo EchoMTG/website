@@ -49,7 +49,7 @@
                           <div class="touch-flyout-container is-flex is-flex-direction-row" >
                             <NuxtImg height="22" width="40" class="mr-auto" :src="props.row.image_cropped" />
                             <note-button class="mr-1" :inventory_item="props.row" :callback="getItems" />
-                            <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="user.currency_symbol" :callback="getItems"/>
+                            <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="user.currency_symbol" :callback="moveCallback"/>
                             <b-button class="mr-1" icon-left="delete" aria-label="Remove Item from Inventory" size="is-small" type="is-danger" @click="deleteItem(props.row.inventoryID)"/>
                           </div>
                       </touch-flyout>
@@ -100,6 +100,9 @@ export default {
                 name: ''
             },
         },
+        callback: {
+          type: Function
+        }
     },
     data: function data() {
 
@@ -115,7 +118,12 @@ export default {
     },
 
     methods: {
-
+        async moveCallback(){
+          await this.getItems()
+          if(this.callback){
+            this.callback()
+          }
+        },
         soldItem: function (acquiredPrice,inventoryID){
 
             fetch(this.addEarningsURL(acquiredPrice,inventoryID),{
@@ -134,6 +142,10 @@ export default {
                 })
                 this.actions++;
                 this.deleteItem(inventoryID);
+                if(this.callback){
+                  this.callback()
+                }
+
             }).catch(function (error) {
                 this.$buefy.snackbar.open({
                     message: error,
@@ -158,6 +170,9 @@ export default {
                     position: 'is-top',
                 })
                 this.actions++;
+                if(this.callback){
+                  this.callback()
+                }
             }).catch(function (error) {
                 this.$echomtg.log(error);
             });

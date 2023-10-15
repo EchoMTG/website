@@ -243,7 +243,7 @@
                 <section >
                   <div class="columns">
                      <div class="column is-3">
-                      <item-tool-box :item="props.row" />
+                      <item-tool-box :item="props.row" :callback="callback || null" />
                     </div>
                     <div class="column is-2">
                       <b-image
@@ -414,7 +414,10 @@ export default {
                   });
               }
           })
-          this.callback()
+          if(this.callback){
+            this.callback()
+          }
+
         } else {
           this.$store.commit('loginSignupModalShow',true);
           this.$echomtg.log('failed to add')
