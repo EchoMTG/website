@@ -6,7 +6,7 @@
       image="https://assets.echomtg.com/images/product/earnings-app-2023.png"
       v-if="!authenticated" />
     <span v-if="authenticated">
-      <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-0">
+      <section class="hero is-small has-background-black is-hidden-mobile pl-4 pt-4 pr-4 pb-4">
         <div class="columns">
           <div class="column  is-two-thirds">
             <h1 class="title has-text-white">
@@ -23,7 +23,52 @@
             <b-button v-if="authenticated" class="is-pulled-right" @click="downloadCSV()" icon-left="download">Download Earnings CSV</b-button>
           </div>
         </div>
+         <nav class="level is-mobile p-0">
+          <div class="level-left">
+            <b-input
+                placeholder="Search Inventory..."
+                type="is-info"
+                v-model="search"
+                icon="magnify"
+
+                size="is-small"
+                class="level-item mr-2"
+                />
+
+            <set-selector class="level-item"  :callback="setExpansion" />
+
+
+          </div>
+          <div class="level-right">
+
+            <b-taglist class="level-item" attached>
+              <b-tag class="mythic-background">Mythic</b-tag>
+              <b-tag type="is-dark">{{stats.mythics}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rare-background has-text-white">Rares</b-tag>
+              <b-tag type="is-dark">{{stats.rares}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="uncommon-background">Uncommons</b-tag>
+              <b-tag type="is-dark">{{stats.uncommons}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="common-background ">Commons</b-tag>
+              <b-tag type="is-dark">{{stats.commons}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rainbow-background has-text-white">Foils</b-tag>
+              <b-tag type="is-dark">{{stats.foils}}</b-tag>
+            </b-taglist>
+             <div class="level-item" >
+             </div>
+          </div>
+       </nav>
+
       </section>
+
+
 
       <b-table
         v-if="authenticated"
@@ -50,7 +95,6 @@
         :default-sort-direction="defaultSortOrder"
         :default-sort="[sortField, sortOrder]"
         @sort="onSort"
-        hoverable
 
         >
 
@@ -60,7 +104,7 @@
           field="name"
           label="Name"
           sortable
-          searchable>
+          >
           <div style="display: flex; flexDirection: row;">
 
             <div style="width:50px; height: 20px; ">
@@ -73,8 +117,8 @@
           </div>
 
         </b-table-column>
-        <b-table-column v-slot="props" field="expansion" label="Expansion" sortable searchable>
-          {{props.row.expansion}}
+        <b-table-column v-slot="props" field="expansion" label="Expansion" sortable >
+            <set-tag :code="props.row.set_code" :name="props.row.expansion" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
         </b-table-column>
 
         <b-table-column v-slot="props" width="140" field="date_sold" label="Date Sold" sortable>
@@ -87,10 +131,10 @@
             <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">{{props.row.gain}}%</b-tag>
           </span>
         </b-table-column>
-        <b-table-column v-slot="props" field="price" label="Sold For" width="110" sortable :numeric="true">
+        <b-table-column v-slot="props" field="price" label="Sold" width="110" sortable :numeric="true">
           <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
-        <b-table-column  v-slot="props"  field="price_acquired" label="Acquired For"  width="110" :numeric="true" sortable>
+        <b-table-column  v-slot="props"  field="price_acquired" label="Acquired"  width="110" :numeric="true" sortable>
           <acquired-price-input
             v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
@@ -113,6 +157,8 @@ import DateInput from '~/components/earnings/DateInput.vue'
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 import FullAd from '~/components/cta/FullAd.vue'
+import SetTag from '~/components/magic/SetTag.vue'
+import SetSelector from '~/components/magic/SetSelector.vue'
 
 export default {
   name: 'Earnings',
@@ -122,7 +168,9 @@ export default {
     DateInput,
     SoldPriceInput,
     AcquiredPriceInput,
-    FullAd
+    FullAd,
+    SetTag,
+    SetSelector
   },
   data () {
     return {
@@ -132,6 +180,7 @@ export default {
       tableHeight: 400,
       windowHeight: 1000,
       search: '',
+      set_code: '',
       defaultSortOrder: 'DESC',
       page: 1,
       total: 0,
@@ -161,10 +210,23 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
   },
+  watch: {
+    search(){
+      this.getEarnings()
+    },
+    set_code(){
+      this.getEarnings()
+    }
+  },
   methods: {
-     /*
-      * Handle page-change event
-    */
+    setExpansion(set){
+
+      if(set?.set_code){
+        this.set_code = set.set_code
+      } else {
+        this.set_code = ''
+      }
+    },
     onPageChange(page) {
         this.page = page
         this.getEarnings()
@@ -183,7 +245,8 @@ export default {
     async getEarnings() {
 
       let start = (this.page - 1) * this.perPage;
-      let data = await this.$echomtg.getEarnings(start,this.perPage,this.sortOrder,this.sortField ,this.search);
+      let data = await this.$echomtg.getEarnings(start,this.perPage,this.sortOrder,this.sortField ,this.search, this.set_code);
+
       this.earnings = data.earnings;
 
 
@@ -191,6 +254,7 @@ export default {
     async getEarningsStats(){
       let data = await this.$echomtg.getEarningsStats();
       this.stats = data.stats;
+      console.log(data)
       this.total = data.stats.total_cards;
     },
     async deleteItem(earnings_id) {
@@ -228,7 +292,7 @@ export default {
       let height = 400;
       if(this.$refs.table){
         let rects = this.$refs.table.$el.getBoundingClientRect();
-        height = this.windowHeight - rects.top - 140   // 98 is the table header and table search bar
+        height = this.windowHeight - rects.top - 98    // 98 is the table header and table search bar
       }
       this.tableHeight = height
     },

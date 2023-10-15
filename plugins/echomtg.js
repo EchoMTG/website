@@ -959,7 +959,8 @@ echomtg.getSets = async (game=1) => {
     limit=50,
     direction='DESC',
     sort='e.date_sold',
-    search='') => {
+    search='',
+    set_code='') => {
 
     const params = [
       `start=${start}`,
@@ -967,6 +968,7 @@ echomtg.getSets = async (game=1) => {
       `direction=${direction}`,
       `sort=${sort}`,
       `search=${search}`,
+      `set_code=${set_code}`,
     ].join('&')
 
     let url = `${context.app.$config.API_DOMAIN}earnings/view/?${params}`;
@@ -1068,7 +1070,7 @@ echomtg.getSets = async (game=1) => {
       echomtg.log(error);
     }
   }
-  
+
   echomtg.wikiReportMissingItem = async (body) => {
     return await echomtg.postReq(`wiki/missing_item_discord/`, body);
   }
