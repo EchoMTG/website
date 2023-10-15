@@ -1,10 +1,10 @@
 <template>
   <div>
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
-    <section class="hero is-info">
+    <section class="hero is-small is-info">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
+              <h1 class="title is-size-4">
                 Reset Password
               </h1>
               <h3 class="subtitle">

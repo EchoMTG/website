@@ -4,7 +4,7 @@
     <section class="hero is-small is-info">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
+              <h1 class="title is-size-4">
                 Training Videos
               </h1>
               <h3 class="subtitle">
