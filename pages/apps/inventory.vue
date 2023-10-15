@@ -51,9 +51,15 @@
               </div>
             </div>
         </div>
-        <div class="level p-0">
-         <div class="level-right">
+        <div class="level p-0 mb-1">
+          <div class="level-left">
+            <global-search
 
+              showimage
+              showinventorybuttons
+              :callbackname="authenticated ? 'Add to Inventory' : 'Open Page'" />
+          </div>
+          <div class="level-right" v-if="user.plan != 'common'">
             <b-taglist class="level-item" attached>
               <b-tag class="mythic-background">Mythic</b-tag>
               <b-tag type="is-dark">{{quickstats.total_mythic}}</b-tag>
@@ -76,6 +82,11 @@
             </b-taglist>
              <div class="level-item" >
              </div>
+          </div>
+          <div class="level-right" v-else>
+            <p class="level-item mr-4">
+            Help support the site by upgrading. Plans start at $20/year 🙏
+            </p>
           </div>
         </div>
         <nav class="level is-mobile p-2">
@@ -189,7 +200,7 @@
                 <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
               </b-select>
             </feature-gate>
-            <feature-gate adText="Upgrade Plan to Access More Filters" :gateLevel="1" classes="level-item is-hidden-mobile">
+            <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
               <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
                   <option selected disabled value="">Reserve List</option>
                   <option disabled>---</option>
@@ -415,6 +426,7 @@ import LanguageSelect from '~/components/inventory/LanguageSelect.vue'
 import FullAd from '~/components/cta/FullAd.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
 import TouchFlyout from '~/components/responsive/TouchFlyout.vue'
+import GlobalSearch from '@/components/GlobalSearch'
 
 export default {
   fetchOnServer: true,
@@ -440,7 +452,8 @@ export default {
     LanguageSelect,
     FullAd,
     FeatureGate,
-    TouchFlyout
+    TouchFlyout,
+    GlobalSearch
   },
   data() {
       return {
