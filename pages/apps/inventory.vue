@@ -61,7 +61,7 @@
               <div class="is-flex is-flex-direction-row-reverse">
 
                 <export-dropdown class="is-align-items-end mr-2"  />
-                <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2">
+                <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2 has-text-white">
                   <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user.currency_code}}
                 </nuxt-link>
               </div>
@@ -76,30 +76,30 @@
               showinventorybuttons
 
               :callbackname="'Add to Inventory'" />
-              <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> Import CSV or Scanner</nuxt-link>
+              <nuxt-link class="button is-small mr-2 is-dark is-outlined has-text-white"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> CSV/Scanner Import</nuxt-link>
           </div>
-          <div class="level-right" v-if="user.plan != 'common'">
-            <b-taglist class="level-item" attached>
-              <b-tag class="mythic-background">Mythic</b-tag>
-              <b-tag type="is-dark">{{quickstats.total_mythic}}</b-tag>
+          <div class="level-right is-align-content-stretch	is-align-items-center	" v-if="user.plan != 'common'">
+            <b-taglist class="mb-0 level-item" attached>
+              <b-tag class="mb-0 mythic-background">Mythic</b-tag>
+              <b-tag type="mb-0 is-dark">{{quickstats.total_mythic}}</b-tag>
             </b-taglist>
-            <b-taglist class="level-item" attached>
-              <b-tag class="rare-background has-text-white">Rares</b-tag>
-              <b-tag type="is-dark">{{quickstats.total_rare}}</b-tag>
+            <b-taglist class="mb-0 level-item" attached>
+              <b-tag class="mb-0 rare-background has-text-white">Rares</b-tag>
+              <b-tag type="mb-0 is-dark">{{quickstats.total_rare}}</b-tag>
             </b-taglist>
-             <b-taglist class="level-item" attached>
-              <b-tag class="uncommon-background">Uncommons</b-tag>
-              <b-tag type="is-dark">{{quickstats.total_uncommon}}</b-tag>
+             <b-taglist class="mb-0 level-item" attached>
+              <b-tag class="mb-0 uncommon-background">Uncommons</b-tag>
+              <b-tag type="mb-0 is-dark">{{quickstats.total_uncommon}}</b-tag>
             </b-taglist>
-             <b-taglist class="level-item" attached>
-              <b-tag class="common-background ">Commons</b-tag>
-              <b-tag type="is-dark">{{quickstats.total_common}}</b-tag>
+             <b-taglist class="mb-0 level-item" attached>
+              <b-tag class="mb-0 common-background ">Commons</b-tag>
+              <b-tag type="mb-0 is-dark">{{quickstats.total_common}}</b-tag>
             </b-taglist>
-            <b-taglist class="level-item" attached>
-              <b-tag class="rainbow-background has-text-white">Foils</b-tag>
-              <b-tag type="is-dark">{{quickstats.total_foils}}</b-tag>
+            <b-taglist class="mb-0 level-item" attached>
+              <b-tag class="mb-0 rainbow-background has-text-white">Foils</b-tag>
+              <b-tag type="mb-0 is-dark">{{quickstats.total_foils}}</b-tag>
             </b-taglist>
-             <div class="level-item" >
+             <div class="mb-0 level-item" >
              </div>
           </div>
           <div class="level-right" v-else>
