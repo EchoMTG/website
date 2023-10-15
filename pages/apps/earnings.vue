@@ -254,7 +254,6 @@ export default {
     async getEarningsStats(){
       let data = await this.$echomtg.getEarningsStats();
       this.stats = data.stats;
-      console.log(data)
       this.total = data.stats.total_cards;
     },
     async deleteItem(earnings_id) {

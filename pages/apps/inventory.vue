@@ -51,6 +51,33 @@
               </div>
             </div>
         </div>
+        <div class="level p-0">
+         <div class="level-right">
+
+            <b-taglist class="level-item" attached>
+              <b-tag class="mythic-background">Mythic</b-tag>
+              <b-tag type="is-dark">{{quickstats.total_mythic}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rare-background has-text-white">Rares</b-tag>
+              <b-tag type="is-dark">{{quickstats.total_rare}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="uncommon-background">Uncommons</b-tag>
+              <b-tag type="is-dark">{{quickstats.total_uncommon}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="common-background ">Commons</b-tag>
+              <b-tag type="is-dark">{{quickstats.total_common}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rainbow-background has-text-white">Foils</b-tag>
+              <b-tag type="is-dark">{{quickstats.total_foils}}</b-tag>
+            </b-taglist>
+             <div class="level-item" >
+             </div>
+          </div>
+        </div>
         <nav class="level is-mobile p-2">
           <div class="level-left">
             <b-input
@@ -570,7 +597,7 @@ export default {
 
     async refreshPriceMeta(){
       const data = await this.$echomtg.inventoryQuickStats();
-
+      console.log(data.stats);
       this.$store.commit('quickstats',data.stats);
     },
     /*
