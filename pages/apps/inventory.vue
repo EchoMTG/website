@@ -261,7 +261,7 @@
                 Acq. Price
             </template>
             <template v-slot="props">
-              <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
+              <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="$fetch"  />
             </template>
           </b-table-column>
           <b-table-column width="115" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" field="date_acquired" label="Acquired Date"  sortable centered>

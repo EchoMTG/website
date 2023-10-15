@@ -58,7 +58,7 @@ export default {
           queue: false
         })
         if(this.callback){
-          this.callback(this.price_acquired)
+          this.callback()
         }
       },800);
     }
