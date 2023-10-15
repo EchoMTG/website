@@ -159,9 +159,11 @@ export default {
             }
 
            let inventory = [...this.currentInventoryPage]
+           console.log({...res.card,...options})
+
            inventory.unshift({...res.card,...options})
 
-            this.$store.commit('currentInventoryPage',inventory);
+          this.$store.commit('currentInventoryPage',inventory);
 
         }
     },
