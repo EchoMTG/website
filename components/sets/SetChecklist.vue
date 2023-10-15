@@ -1,8 +1,11 @@
  <template>
   <div class="set-item-list-container">
     <div class="container set-summary-printable py-5">
+      <div class="is-flex is-align-content-stretch	is-align-items-center	">
+        <i style="font-size: 60px !important;" :class="`mr-2 ` + getSetIcon(set.set_code)"></i>
 
-      <h1 class="title is-size-4"><span class="is-capitalized">{{user.username}}'s</span> {{set.name}} Collection Checklist</h1>
+        <h1 class="title is-size-4">{{set.name}} Collection Checklist for <span class="is-capitalized">{{user.username}}</span></h1>
+      </div>
 
       <nav class="level">
         <div class="has-text-weight-bold">Regular Set Value {{quickstats.currency_symbol}}{{sumRegulars.toFixed(2)}}</div> <div>{{set.set_code}} released on {{set.release_date}}</div> <div>Total Cards {{set.items.length}}</div>    <div class="has-text-weight-bold">Foil Set Value {{quickstats.currency_symbol}}{{sumFoils.toFixed(2)}}</div>
@@ -10,7 +13,7 @@
       <nav class="level">
       <div>You've collected {{ownedRegular}} of {{totalRegular}} regular cards: {{percentOwnedRegular}}%</div>
       <div>You've collected {{ownedFoil}} of {{totalFoiled}} foil cards: {{percentOwnedFoil}}%</div>
-      <div>In total, you owned {{quickstats.currency_symbol}}{{ownedValue}} worth of {{set.set_code}}</div>
+      <div>In total, you owned {{quickstats.currency_symbol}}{{ownedValue.toFixed(2)}} worth of {{set.set_code}}</div>
       </nav>
     </div>
 
@@ -218,6 +221,9 @@ export default {
     console.log(this.user)
   },
   methods: {
+    getSetIcon(set_code){
+      return this.$echomtg.setIconClass(set_code)
+    },
     print() {
       window.print()
     },
