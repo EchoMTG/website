@@ -232,6 +232,10 @@ export default {
             type: Boolean,
             default: false
         },
+        inventoryAddCallbackOn: {
+            type: Boolean,
+            default: false
+        },
         showtext: {
             type: Boolean,
             default: false
@@ -243,7 +247,7 @@ export default {
         callback: {
             type: Function,
             default: async function(emid){
-              if(this.authenticated){
+              if(this.authenticated && this.inventoryAddCallbackOn){
                 const res = await this.$echomtg.inventoryQuickAdd(this.results[this.position].emid)
                 this.$buefy.snackbar.open({
                   message: res.message,
