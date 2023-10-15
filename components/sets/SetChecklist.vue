@@ -123,10 +123,10 @@
           <b-table-column field="collectors_number_sort" width="60" label="C#" sortable v-slot="props">
             {{props.row.collectors_number}}
           </b-table-column>
-           <b-table-column field="tcg_mid" v-if="totalRegular > 0" :label="`Regular ${cs}`" sortable v-slot="props">
+           <b-table-column field="tcg_mid" v-if="totalRegular > 0" :label="`Reg.`" sortable v-slot="props">
 
             <span v-if="props.row.tcg_mid > 0">
-             {{cs}}{{props.row.tcg_mid}}
+             {{cs}}{{props.row.tcg_mid.toFixed(2)}}
             </span>
 
           </b-table-column>
@@ -135,9 +135,9 @@
               {{ props.row.price_change }} %
             </span>
           </b-table-column> -->
-          <b-table-column field="foil_price" v-if="totalFoiled > 0"  :label="`Foil ${cs}`" sortable v-slot="props">
+          <b-table-column field="foil_price" v-if="totalFoiled > 0"  :label="`Foil`" sortable v-slot="props">
             <span v-if="props.row.foil_price > 0">
-             {{cs}}{{props.row.foil_price}}
+             {{cs}}{{props.row.foil_price.toFixed(2)}}
             </span>
           </b-table-column>
 
