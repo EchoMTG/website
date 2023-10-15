@@ -248,7 +248,9 @@ export default {
             type: Function,
             default: async function(emid){
               if(this.authenticated && this.inventoryAddCallbackOn){
-                const res = await this.$echomtg.inventoryQuickAdd(this.results[this.position].emid)
+
+                const res = await this.$echomtg.inventoryAdd(this.results[this.position].emid, {})
+
                 this.$buefy.snackbar.open({
                   message: res.message,
                   type: 'is-warning',
@@ -267,15 +269,16 @@ export default {
                   }
                 })
 
-                const quickstats = await this.$echomtg.inventoryQuickStats();
+                 const quickstats = await this.$echomtg.inventoryQuickStats();
                 if(quickstats.status == 'success'){
                   this.$store.commit('quickstats',quickstats.stats);
                 }
 
                 let inventory = [...this.currentInventoryPage]
-                inventory.unshift({...res.card,...options})
+                inventory.unshift({...res.card})
 
                 this.$store.commit('currentInventoryPage',inventory);
+                console.log('finsihed quick add')
 
               } else {
                 window.location = this.results[this.position].url
