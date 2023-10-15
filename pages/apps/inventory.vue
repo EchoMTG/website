@@ -14,31 +14,31 @@
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
-                    <p class="title has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
-                    <p class="title has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
-                    <p class="title has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
-                    <p class="title has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered is-hidden-touch">
                   <div>
-                    <p class="heading">Profit/Loss</p>
-                    <p class="title has-text-light"><span>{{cs}}{{quickstats.total_profit}}</span></p>
+                    <p class="heading is-size-7-touch">Profit/Loss</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch"><span>{{cs}}{{quickstats.total_profit}}</span></p>
                   </div>
                 </div>
               </nav>
