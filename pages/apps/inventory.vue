@@ -74,6 +74,7 @@
               showimage
               inventoryAddCallbackOn
               showinventorybuttons
+
               :callbackname="'Add to Inventory'" />
               <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> Import CSV or Scanner</nuxt-link>
           </div>
@@ -281,10 +282,13 @@
           <b-table-column cell-class="is-hidden-desktop" width="120" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
 
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-            {{cs}}{{props.row.foil_price.toFixed(2)}}
+            {{cs}}{{props.row?.foil_price.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-            {{cs}}{{props.row.tcg_market.toFixed(2)}}
+            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && parseInt(user.use_market) == 1">
+            {{cs}}{{props.row?.tcg_market.toFixed(2)}}
+            </span>
+            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && parseInt(user.use_market) == 0">
+            {{cs}}{{props.row?.tcg_mid.toFixed(2)}}
             </span>
             <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)" style="padding: 2px 4px; font-size: 9px;">
               {{ props.row.price_change }}%
@@ -299,10 +303,13 @@
           </b-table-column>
           <b-table-column width="70" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="tcg_market" label="Price" sortable v-slot="props">
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-            {{cs}}{{props.row.foil_price.toFixed(2)}}
+            {{cs}}{{props.row?.foil_price.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-            {{cs}}{{props.row.tcg_market.toFixed(2)}}
+            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && parseInt(user.use_market) == 1">
+            {{cs}}{{props.row?.tcg_market.toFixed(2)}}
+            </span>
+            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && parseInt(user.use_market) == 0">
+            {{cs}}{{props.row?.tcg_mid.toFixed(2)}}
             </span>
           </b-table-column>
 
