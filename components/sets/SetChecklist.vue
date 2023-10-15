@@ -294,7 +294,7 @@ export default {
   computed: {
     ...mapState(['userLevel','user','authenticated','quickstats']),
     cs() {
-      return user.currency_symbol
+      return this.user.currency_symbol
     },
     filteredItems: function(){
 

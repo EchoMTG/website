@@ -1,10 +1,10 @@
 <template>
   <div>
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
-    <section class="hero is-info">
+    <section class="hero is-small is-info">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
+              <h1 class="title is-size-4">
                 {{this.helpNav[this.helpNavPosition].label}}
               </h1>
               <h3 class="subtitle">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="message is-success p-5" v-if="submitted == true">
                   <p class="mb-2">Thank you, your report was submitted to the Wiki team on <nuxt-link :to="`/about/discord/`">discord</nuxt-link>. </p>
-                  
+
 <code style="white-space: pre;" class="is-block p-5 has-background-black has-text-green mb-3">Game: {{ game }}
 Name: {{ name }}
 Expansion: {{ expansion }}
@@ -48,7 +48,7 @@ Image URL: {{ referenceUrl }}</code>
                     </b-select>
                   </b-field>
                   <b-field
-                    custom-class="is-small" 
+                    custom-class="is-small"
                     label="Card or Item"
                     message="Name of the missing product. A search will be conducted on right." >
                     <b-input size="is-small" required icon="text"  v-model="name" />
@@ -77,9 +77,9 @@ Image URL: {{ referenceUrl }}</code>
                       <nuxt-link class="is-block is-flex is-flex-direction-column has-text-centered" :to="item.url">
                         <p class="is-size-7 ">{{item.name}}</p>
                         <NuxtImg width="100" :src="item.image" :alt="item.name" />
-                        
+
                         <p class="is-size-7">{{item.set}}</p>
-                       
+
                       </nuxt-link>
                     </div>
                   </div>
@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     async submit(){
-      
+
       const res = await this.$echomtg.wikiReportMissingItem({
         name: this.name,
         expansion: this.expansion,
@@ -148,13 +148,13 @@ export default {
         image: this.imageUrl,
         additional_details: this.additionDetails
       })
-      
+
       this.$buefy.toast.open({message: res.message})
       this.submitted = true
     },
     resetForm(){
-      this.name = '' 
-      this.referenceUrl = '' 
+      this.name = ''
+      this.referenceUrl = ''
       this.expansion = ''
       this.imageUrl = ''
       this.submitted = false

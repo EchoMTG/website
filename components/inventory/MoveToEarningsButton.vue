@@ -84,9 +84,16 @@ export default {
       isCardModalActive: false
     }
   },
-  mounted() {
-    this.acquired_price = this.inventory_item.price_acquired
-    this.sold_price = (this.inventory_item.foil == 0) ? this.inventory_item.tcg_mid : this.inventory_item.foil_price
+  // mounted() {
+  //   console.log(this.inventory_item)
+  //   this.acquired_price = this.inventory_item.price_acquired
+  //   this.sold_price = (this.inventory_item.foil == 0) ? this.inventory_item.tcg_mid : this.inventory_item.foil_price
+  // },
+  watch: {
+    isCardModalActive(){
+      this.acquired_price = this.inventory_item.price_acquired
+      this.sold_price = (this.inventory_item.foil == 0) ? this.inventory_item.tcg_mid : this.inventory_item.foil_price
+    }
   },
   methods: {
     async markSold() {

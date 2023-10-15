@@ -1,10 +1,10 @@
 <template>
   <div>
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
-    <section class="hero is-info">
+    <section class="hero is-small is-info">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
+              <h1 class="title is-size-4">
                 Training Videos
               </h1>
               <h3 class="subtitle">
@@ -21,7 +21,18 @@
         </div>
 
         <div class="column is-four-fifths">
-            coming soon
+            <div class="content">
+              <h3>Import App</h3>
+              <p>Walthrough of the Import App tool</p>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/EKv8I92Toyg?si=2ndgTwi4PbSb1vna"
+                title="EchoMTG Import Walkthrough"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
         </div>
       </div>
     </div>

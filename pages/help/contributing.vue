@@ -1,11 +1,11 @@
 <template>
   <div>
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
-    
-    <section class="hero is-info">
+
+    <section class="hero is-small is-info">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
+              <h1 class="title is-size-4">
                 Contributing to EchoMTG
               </h1>
               <h3 class="subtitle">
@@ -22,11 +22,11 @@
         </div>
 
         <div class="column is-four-fifths">
-        
+
               <p class="pr-6">EchoMTG is a community driven application built on top of a <nuxt-link to="/api/">publically documented, but proprietary, API</nuxt-link>.
                 This page explains whats available to participate from code developement to database management. There is a public roadmap on <a target="_blank" href="https://github.com/orgs/EchoMTG/projects/4">Github</a> and bugs can be submitted <a target="_blank" href="https://github.com/EchoMTG/website/issues/new?assignees=&labels=UI+BUG&projects=&template=bug_report.md&title=%5BBUG%5D+">here</a>.</p>
               <hr />
-        
+
         <div class="columns">
           <div class="column is-half">
             <h2 class="title is-size-4 mb-1">Wiki-Team</h2>
