@@ -11,34 +11,48 @@
           <div class="columns mt-1 mb-0">
             <div class="column  is-three-quarters">
               <nav class="level is-mobile">
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
-                    <p class="title has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
-                  </div>
-                </div>
+
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
-                    <p class="title has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
                   </div>
                 </div>
+                <div class="level-item has-text-centered is-hidden-touch">
+                  <div>
+                    <p class="heading is-size-7-touch">Low Value</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.current_value_low}}</p>
+                  </div>
+                </div>
+
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
-                    <p class="title has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading is-size-7-touch"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
-                    <p class="title has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered is-hidden-touch">
                   <div>
-                    <p class="heading">Profit/Loss</p>
-                    <p class="title has-text-light"><span>{{cs}}{{quickstats.total_profit}}</span></p>
+                    <p class="heading is-size-7-touch">Profit/Loss</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch"><span>{{cs}}{{quickstats.total_profit}}</span></p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
+                  </div>
+                </div>
+                 <div class="level-item has-text-centered is-hidden-touch">
+                  <div>
+                    <p class="heading is-size-7-touch">Sealed Items</p>
+                    <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
                   </div>
                 </div>
               </nav>
@@ -47,13 +61,23 @@
               <div class="is-flex is-flex-direction-row-reverse">
 
                 <export-dropdown class="is-align-items-end mr-2"  />
-                <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> Import</nuxt-link>
+                <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2">
+                  <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user.currency_code}}
+                </nuxt-link>
               </div>
             </div>
         </div>
-        <div class="level p-0">
-         <div class="level-right">
-
+        <div class="level p-0 mb-1">
+          <div class="level-left is-flex-grow-3	">
+            <p style="min-width: 90px" class="ml-2 has-text-weight-bold is-size-6">Quick Add:</p>
+            <global-search
+              showimage
+              inventoryAddCallbackOn
+              showinventorybuttons
+              :callbackname="'Add to Inventory'" />
+              <nuxt-link class="button is-small is-primary mr-2"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> Import CSV or Scanner</nuxt-link>
+          </div>
+          <div class="level-right" v-if="user.plan != 'common'">
             <b-taglist class="level-item" attached>
               <b-tag class="mythic-background">Mythic</b-tag>
               <b-tag type="is-dark">{{quickstats.total_mythic}}</b-tag>
@@ -76,6 +100,11 @@
             </b-taglist>
              <div class="level-item" >
              </div>
+          </div>
+          <div class="level-right" v-else>
+            <p class="level-item mr-4">
+            Help support the site by upgrading. Plans start at $20/year 🙏
+            </p>
           </div>
         </div>
         <nav class="level is-mobile p-2">
@@ -189,7 +218,7 @@
                 <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
               </b-select>
             </feature-gate>
-            <feature-gate adText="Upgrade Plan to Access More Filters" :gateLevel="1" classes="level-item is-hidden-mobile">
+            <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
               <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
                   <option selected disabled value="">Reserve List</option>
                   <option disabled>---</option>
@@ -415,6 +444,7 @@ import LanguageSelect from '~/components/inventory/LanguageSelect.vue'
 import FullAd from '~/components/cta/FullAd.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
 import TouchFlyout from '~/components/responsive/TouchFlyout.vue'
+import GlobalSearch from '@/components/GlobalSearch.vue'
 
 export default {
   fetchOnServer: true,
@@ -440,7 +470,8 @@ export default {
     LanguageSelect,
     FullAd,
     FeatureGate,
-    TouchFlyout
+    TouchFlyout,
+    GlobalSearch
   },
   data() {
       return {

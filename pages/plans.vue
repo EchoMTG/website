@@ -9,8 +9,8 @@
         </div>
 
         <div class="level-item">
-          <div class="message is-success px-4 py-2 is-rounded is-flex" style="border: 1px solid green">
-            <b-switch type="is-success" class="" v-model="showAnnual" /> <span class="has-text-weight-bold has-text-green is-size-5"><span v-if="!showAnnual">Turn on Annual Pricing, Save 16%</span> <span v-if="showAnnual">Turn off Annual Pricing</span></span>
+          <div class="message is-success px-4 py-2 is-rounded is-flex has-background-success" style="border: 1px solid green">
+            <b-switch type="is-white" class="" v-model="showAnnual" /> <span class="has-text-weight-bold has-text-white is-size-5"><span v-if="!showAnnual">Turn on Annual Pricing, Save 16%</span> <span v-if="showAnnual">Turn off Annual Pricing</span></span>
           </div>
         </div>
         <div v-if="customer" class="ml-3 level-item">
@@ -23,7 +23,7 @@
     <section class="section is-main-section">
       <div class="columns">
         <div v-for="plan in getPlans()" :key="plan.name" class="column pt-0 pl-0 pr-2">
-          <div class="panel">
+          <div class="panel has-background-white">
             <div :class="`panel-heading`" :style="`background: ${plan.color}; color: ${plan.text}`">
                 <span v-if="plan.prices.monthly > 0 && showAnnual == false" class="is-pulled-right">${{plan.prices.monthly}}<small>/mo</small></span>
                 <span v-if="plan.prices.monthly > 0 && showAnnual == true" class="is-pulled-right">${{plan.prices.yearly}}<small>/year</small></span>
