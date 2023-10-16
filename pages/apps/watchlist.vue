@@ -27,19 +27,63 @@
           </div>
         </div>
       </section>
+      <section>
+        <nav class="level is-mobile p-0">
+          <div class="level-left">
+            <b-input
+                placeholder="Search Inventory..."
+                type="is-info"
+                v-model="search"
+                icon="magnify"
 
+                size="is-small"
+                class="level-item mr-2"
+                />
+
+            <set-selector class="level-item"  :callback="setExpansion" />
+
+
+          </div>
+          <div class="level-right">
+
+            <b-taglist class="level-item" attached>
+              <b-tag class="mythic-background">Mythic</b-tag>
+              <b-tag type="is-dark">{{stats.mythics}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rare-background has-text-white">Rares</b-tag>
+              <b-tag type="is-dark">{{stats.rares}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="uncommon-background">Uncommons</b-tag>
+              <b-tag type="is-dark">{{stats.uncommons}}</b-tag>
+            </b-taglist>
+             <b-taglist class="level-item" attached>
+              <b-tag class="common-background ">Commons</b-tag>
+              <b-tag type="is-dark">{{stats.commons}}</b-tag>
+            </b-taglist>
+            <b-taglist class="level-item" attached>
+              <b-tag class="rainbow-background has-text-white">Foils</b-tag>
+              <b-tag type="is-dark">{{stats.foils}}</b-tag>
+            </b-taglist>
+             <div class="level-item" >
+             </div>
+          </div>
+       </nav>
+      </section>
       <b-table
         :striped="true"
         default-sort="price_change"
         default-sort-direction="DESC"
         :data="watchlist"
         ref="table"
+        paginated
         :height="tableHeight"
         :debounce-search="0"
         :sticky-header="true"
         :sticky="true"
         :mobile-cards="false"
-        :row-class="(row, index) => (row.price_change >= row.threshold) && 'has-background-success-light'"
+        :row-class="(row, index) => (row.price_change >= row.threshold) && 'has-background-black'"
         >
         <b-table-column
 
@@ -130,6 +174,7 @@ export default {
     }
   },
   async fetch(){
+    this.limit = this.user.planObject.access_level >= 2 ? 100 : 3
     await this.getWatchlist();
   },
   watch: {
@@ -137,15 +182,27 @@ export default {
       // common users stuck at 3
       this.limit = this.user.planObject.access_level >= 2 ? 100 : 3
       this.getWatchlist();
-    }
+    },
+    search(){
+      this.getWatchlist()
+    },
   },
   mounted() {
     this.updateTableHeight()
+    console.log(this.user.planObject)
+    
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
   },
   methods: {
+    setExpansion(set){
+      if(set?.set_code){
+        this.set_code = set.set_code
+      } else {
+        this.set_code = ''
+      }
+    },
     async getWatchlist() {
       if(!this.authenticated) return;
       let data = await this.$echomtg.getWatchlist(this.start, this.limit)
