@@ -8,67 +8,61 @@
       <section class="has-background-black has-text-white ">
 
 
-          <div class="columns mt-1 mb-0">
-            <div class="column  is-three-quarters">
-              <nav class="level is-mobile">
+        <nav class="level is-mobile pt-2">
 
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading is-size-7-touch"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered is-hidden-touch">
-                  <div>
-                    <p class="heading is-size-7-touch">Low Value</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.current_value_low}}</p>
-                  </div>
-                </div>
-
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading is-size-7-touch"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading is-size-7-touch"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered is-hidden-touch">
-                  <div>
-                    <p class="heading is-size-7-touch">Profit/Loss</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch"><span>{{cs}}{{quickstats.total_profit}}</span></p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
-                  </div>
-                </div>
-                 <div class="level-item has-text-centered is-hidden-touch">
-                  <div>
-                    <p class="heading is-size-7-touch">Sealed Items</p>
-                    <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
-                  </div>
-                </div>
-              </nav>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading is-size-7-touch"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
             </div>
-            <div class="column is-one-quarter is-hidden-mobile">
-              <div class="is-flex is-flex-direction-row-reverse">
-
-                <export-dropdown class="is-align-items-end mr-2"  />
-                <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2 has-text-white">
-                  <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user.currency_code}}
-                </nuxt-link>
-              </div>
+          </div>
+          <div class="level-item has-text-centered is-hidden-touch">
+            <div>
+              <p class="heading is-size-7-touch">Low Value</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.current_value_low}}</p>
             </div>
-        </div>
-        <div class="level p-0 mb-1">
-          <div class="level-left is-flex-grow-3	">
+          </div>
+
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading is-size-7-touch"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading is-size-7-touch"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered is-hidden-touch">
+            <div>
+              <p class="heading is-size-7-touch">Profit/Loss</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch"><span>{{cs}}{{quickstats.total_profit}}</span></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
+              <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered is-hidden-touch">
+            <div>
+              <p class="heading is-size-7-touch">Sealed Items</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
+            </div>
+          </div>
+          <div class="level-item is-flex is-flex-direction-row-reverse is-hidden-touch">
+            <export-dropdown class="is-align-items-end mr-2"  />
+            <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2 has-text-white">
+              <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user.currency_code}}
+            </nuxt-link>
+          </div>
+        </nav>
+
+        <div class="level p-0 mb-1 is-mobile is-hidden-mobile">
+          <div class="level-left is-flex-grow-3	is-hidden-touch">
             <p style="min-width: 90px" class="ml-2 has-text-weight-bold is-size-6">Quick Add:</p>
             <global-search
               showimage
@@ -78,7 +72,7 @@
               :callbackname="'Add to Inventory'" />
               <nuxt-link class="button is-small mr-2 is-dark is-outlined has-text-white"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> CSV/Scanner Import</nuxt-link>
           </div>
-          <div class="level-right is-align-content-stretch	is-align-items-center	" v-if="user.plan != 'common'">
+          <div class="level-right is-align-content-stretch	is-align-items-center	ml-2" v-if="user.plan != 'common'">
             <b-taglist class="mb-0 level-item" attached>
               <b-tag class="mb-0 mythic-background">Mythic</b-tag>
               <b-tag type="mb-0 is-dark">{{quickstats.total_mythic}}</b-tag>
@@ -119,6 +113,7 @@
                 size="is-small"
                 class="level-item mr-2"
                 />
+
             <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
               <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
             </feature-gate>
@@ -140,93 +135,95 @@
             </b-dropdown>
           </div>
           <div class="level-right">
-            <b-field class="level-item is-hidden-mobile" style="margin-bottom: 0 !important;">
-              <p class="control">
-                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
-                    <strong>{{cs}} &gt;</strong>
-                  </b-button>
-              </p>
-              <b-input
-                v-model="priceOver"
-                size="is-small"
-                style="max-width: 50px;"
-                placeholder="2.10"
-                />
-            </b-field>
-
-            <b-field class="level-item is-hidden-mobile" style="margin-bottom: 0 !important;">
-              <p class="control">
-                  <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
-                    <strong>{{cs}} &lt;</strong>
-                  </b-button>
-              </p>
-              <b-input
-                style="max-width: 50px;"
-                v-model="priceUnder"
-                size="is-small"
-                placeholder="9.20"
-                />
-            </b-field>
-            <b-select class="level-item"  placeholder="Show Tradable" size="is-small" v-model="tradable">
-                <option selected value="">By Tradable</option>
-                <option disabled>---</option>
-                <option value="">Show All</option>
-                <option value="0">Not for Trade</option>
-                <option value="1">Only Tradable</option>
-            </b-select>
-
-            <b-select class="level-item is-hidden-mobile"  placeholder="Color" size="is-small" v-model="color">
-              <option selected="selected" value="">By Color</option>
-              <option disabled="disabled">----</option>
-              <option data-color="All" value="">All</option>
-              <option data-color="Land" value="land">Land</option>
-              <option data-color="Colorless" value="colorless">Colorless</option>
-              <option data-color="Blue" value="blue">Blue</option>
-              <option data-color="Black" value="black">Black</option>
-              <option data-color="White" value="white">White</option>
-              <option data-color="Red" value="red">Red</option>
-              <option data-color="Green" value="green">Green</option>
-              <option data-color="Multicolor" value="multicolor">Multicolor</option>
-            </b-select>
-
-            <b-select class="level-item  is-hidden-mobile"  placeholder="Rarity" size="is-small" v-model="rarity">
-                <option selected="selected" value="" disabled="disabled">By Rarity</option>
-                <option value="false">All</option>
-                <option value="sealed">Sealed</option>
-                <option disabled="disabled">----</option>
-                <option value="Mythic Rare">Mythic</option>
-                <option value="Rare">Rare</option>
-                <option value="Uncommon">Uncommon</option>
-                <option value="Common">Common</option>
-                <option value="Basic Land">Basic Land</option>
-                <option value="Special">Special</option>
-                <option value="Token">Token</option>
-            </b-select>
-            <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
-              <b-select placeholder="Foil" size="is-small" v-model="foil">
-                <option selected="selected" value="">By Foil</option>
-                <option disabled="disabled">----</option>
-                <option data-color="All" value="">All</option>
-                <option data-color="Only Foils" value="1">Only Foils</option>
-                <option data-color="Non Foils" value="0">Non-foils</option>
-              </b-select>
-            </feature-gate>
-            <feature-gate :showAd="false" :gate-level="1" classes="level-item is-hidden-mobile">
-              <b-select placeholder="CMC" size="is-small" v-model="cmc">
-                <option selected="selected" value="">By CMC</option>
-                <option disabled="disabled">----</option>
-                <option value="">Any</option>
-                <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
-              </b-select>
-            </feature-gate>
-            <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
-              <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
-                  <option selected disabled value="">Reserve List</option>
-                  <option disabled>---</option>
-                  <option value="false">Show All</option>
-                  <option value="true">Only Reserve</option>
-              </b-select>
-            </feature-gate>
+            <touch-flyout buttonText="Filters" classes="inventory-flyout">
+              <div class="level-item touch-flyout-container  is-flex is-flex-direction-row" >
+                <b-field class="" style="margin-bottom: 0 !important;">
+                  <p class="control">
+                      <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                        <strong>{{cs}} &gt;</strong>
+                      </b-button>
+                  </p>
+                  <b-input
+                    v-model="priceOver"
+                    size="is-small"
+                    style="max-width: 50px;"
+                    placeholder="2.10"
+                    />
+                </b-field>
+                <b-field class="" style="margin-bottom: 0 !important;">
+                  <p class="control">
+                      <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
+                        <strong>{{cs}} &lt;</strong>
+                      </b-button>
+                  </p>
+                  <b-input
+                    style="max-width: 50px;"
+                    v-model="priceUnder"
+                    size="is-small"
+                    placeholder="9.20"
+                    />
+                </b-field>
+                <b-select class=""  placeholder="Show Tradable" size="is-small" v-model="tradable">
+                    <option selected value="">By Tradable</option>
+                    <option disabled>---</option>
+                    <option value="">Show All</option>
+                    <option value="0">Not for Trade</option>
+                    <option value="1">Only Tradable</option>
+                </b-select>
+                <b-select class=""  placeholder="Color" size="is-small" v-model="color">
+                  <option selected="selected" value="">By Color</option>
+                  <option disabled="disabled">----</option>
+                  <option data-color="All" value="">All</option>
+                  <option data-color="Land" value="land">Land</option>
+                  <option data-color="Colorless" value="colorless">Colorless</option>
+                  <option data-color="Blue" value="blue">Blue</option>
+                  <option data-color="Black" value="black">Black</option>
+                  <option data-color="White" value="white">White</option>
+                  <option data-color="Red" value="red">Red</option>
+                  <option data-color="Green" value="green">Green</option>
+                  <option data-color="Multicolor" value="multicolor">Multicolor</option>
+                </b-select>
+                <b-select class=" "  placeholder="Rarity" size="is-small" v-model="rarity">
+                    <option selected="selected" value="" disabled="disabled">By Rarity</option>
+                    <option value="false">All</option>
+                    <option value="sealed">Sealed</option>
+                    <option disabled="disabled">----</option>
+                    <option value="Mythic Rare">Mythic</option>
+                    <option value="Rare">Rare</option>
+                    <option value="Uncommon">Uncommon</option>
+                    <option value="Common">Common</option>
+                    <option value="Basic Land">Basic Land</option>
+                    <option value="Special">Special</option>
+                    <option value="Token">Token</option>
+                </b-select>
+                <feature-gate :showAd="false" :gate-level="1" classes="">
+                  <b-select placeholder="Foil" size="is-small" v-model="foil">
+                    <option selected="selected" value="">By Foil</option>
+                    <option disabled="disabled">----</option>
+                    <option data-color="All" value="">All</option>
+                    <option data-color="Only Foils" value="1">Only Foils</option>
+                    <option data-color="Non Foils" value="0">Non-foils</option>
+                  </b-select>
+                </feature-gate>
+                <feature-gate :showAd="false" :gate-level="1" classes="">
+                  <b-select placeholder="CMC" size="is-small" v-model="cmc">
+                    <option selected="selected" value="">By CMC</option>
+                    <option disabled="disabled">----</option>
+                    <option value="">Any</option>
+                    <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
+                  </b-select>
+                </feature-gate>
+                <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
+                  <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
+                      <option selected disabled value="">Reserve List</option>
+                      <option disabled>---</option>
+                      <option value="false">Show All</option>
+                      <option value="true">Only Reserve</option>
+                  </b-select>
+                </feature-gate>
+                <div class="is-clearfix" />
+              </div>
+            </touch-flyout>
 
           </div>
         </nav>
