@@ -1,8 +1,9 @@
 <template>
 <div class="touch-flyout-ux">
-  <b-button size="is-small" class="is-hidden-fullhd" icon-left="dots-vertical" @click="open = !open" />
-  <div :class="`touch-flyout ${flyoutClass}`">
+  <b-button size="is-small" class="is-hidden-fullhd" icon-right="dots-vertical" :label="buttonText" @click="open = !open" />
+  <div :class="`touch-flyout ${classes} ${flyoutClass}`">
     <slot></slot>
+
   </div>
 </div>
 </template>
@@ -14,7 +15,15 @@ export default {
     compact: {
       type: Boolean,
       default: false
-    }
+    },
+    buttonText: {
+      type: String,
+      default: ''
+    },
+    classes: {
+      type: String,
+      default: ''
+    },
   },
   data: () => {
     return {
@@ -24,7 +33,7 @@ export default {
   computed: {
     flyoutClass() {
       const compact = this.compact ? ' compact' : ''
-      return this.open ? 'touch-flyout-open'+compact : ''
+      return this.open ? 'touch-flyout-open '+compact : ''
     }
   }
 }

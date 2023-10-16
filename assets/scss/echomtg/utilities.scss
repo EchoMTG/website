@@ -29,6 +29,19 @@
         flex-direction: column;
         display: flex;
       }
+      &.inventory-flyout{
+        max-width: none !important;
+
+
+
+        .touch-flyout-container {
+          flex-direction: column !important;
+          max-width: none !important;
+          width: 95vw !important;
+        }
+
+      }
+
 
       .mb-2-touch{
         margin-bottom: 8px;
