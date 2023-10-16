@@ -118,25 +118,25 @@
               <span>Add Full Set</span>
             </a>
             <h5 class="title is-size-6">
-              You own 0 (0%) of {{set.items.length}} Regular Cards*
+              You own {{totalRegularOwned}} ({{set.percentage_owned}}%) of {{set.total_regular_cards}} Regular Cards*
             </h5>
             <progress
               class="progress is-medium is-info"
-              value="0"
-              max="415"
+              :value="totalRegularOwned"
+              :max="set.total_regular_cards"
             >
-              0
+              {{totalRegularOwned}}
             </progress>
 
             <h5 class="title is-size-6">
-              You own 0 (0%) of {{set.total_foil_cards}} Foiled Cards*
+              You own {{totalFoiledOwned}} ({{set.foil_percentage_owned}}%) of {{set.total_foil_cards}} Foiled Cards*
             </h5>
             <progress
               class="progress is-medium is-warning"
-              value="0"
-              max="508"
+              :value="totalFoiledOwned"
+              :max="set.total_foil_cards"
             >
-              0
+              {{totalFoiledOwned}}
             </progress>
 
             <small
@@ -162,7 +162,15 @@ export default {
       }
   },
   created() {
-    // this.$echomtg.log(this.set)
+    this.$echomtg.log(this.set)
+  },
+  computed:{
+    totalFoiledOwned(){
+        return Object.keys(this.set.foil_cards_owned || {}).length
+    },
+    totalRegularOwned(){
+      return Object.keys(this.set.cards_owned || {}).length
+    }
   }
 
 }
