@@ -111,7 +111,7 @@
                               type="tel"
                               v-model="phone"
                               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                              @change="update('phone')"
+                              @input="update('phone')"
                               />
                         </b-field>
                       </div>
@@ -145,6 +145,7 @@ export default {
         dark_mode: 1,
         currency_code: null,
         default_sort: null,
+        timer: null,
         image_pref: "0",
         phone: null,
         setting_report_threshhold: null,
@@ -229,19 +230,25 @@ export default {
       return parseInt(subscriptionValue) == 1 ? "On" : "Off";
     },
     async updateValue(name, value){
-      let body = {};
-      body[name] = value;
+       if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+      }
+      this.timer = setTimeout(async () => {
+        let body = {};
+        body[name] = value;
 
-       // need to update user in store
-      const res = await this.$echomtg.updateUser(body);
+        // need to update user in store
+        const res = await this.$echomtg.updateUser(body);
 
-      this.$buefy.toast.open({
-          message: `${res.message}: ${name} updated to ${value} `,
-          type: 'is-info'
-        })
+        this.$buefy.toast.open({
+            message: `${res.message}: ${name} updated to ${value} `,
+            type: 'is-info'
+          })
 
-      // update user
-      await this.$fetch();
+        // update user
+        await this.$fetch();
+      },2000);
 
     }
   },
