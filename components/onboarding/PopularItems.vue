@@ -3,7 +3,6 @@
     <div class="card-content pt-0 px-0 pb-0 mb-0" style="overflow: hidden">
         <b-table :mobile-cards="false" :data="this.popularItems.slice(0,5)">
           <b-table-column field="name" label="Do you own these Popular Items?"  v-slot="props">
-            <set-tag class="is-hidden-desktop is-pulled-left mr-1" :code="props.row.set_code" :name="props.row.set" :url="props.row?.echo_set_url ? props.row.echo_set_url :''"/>
             <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
           </b-table-column>
           <b-table-column field="tcg_mid"  width="130" :label="`Regular`"  v-slot="props">
