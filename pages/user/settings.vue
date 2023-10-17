@@ -110,7 +110,7 @@
                             <b-input
                               type="tel"
                               v-model="phone"
-                              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+
                               @input="update('phone')"
                               />
                         </b-field>
