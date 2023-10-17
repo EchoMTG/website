@@ -13,7 +13,7 @@
             <h1 class="title has-text-white">
                 Watchlist
             </h1>
-            <h3 class="subtitle has-text-light">
+            <h3 class="subtitle has-text-light is-size-6">
                 Track items prices as they increase or decrease over 1 to 7 day periods. Weekly email with updates sent on Tuesdays. SMS Text updates availables for Mythic+ users.
             </h3>
           </div>
@@ -88,14 +88,15 @@
 
         </b-table-column>
         <b-table-column v-slot="props" field="expansion" label="Expansion" sortable >
-          {{props.row.expansion}}
+
+          <set-tag :code="props.row.set_code || ''" :name="props.row.expansion" :url="props.row?.echo_set_url ? props.row.echo_set_url :''" />
         </b-table-column>
         <b-table-column v-slot="props" field="price" label="Price" width="100" sortable :numeric="true">
           <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-          {{cs}}{{props.row.foil_price}}
+          {{cs}}{{props.row.foil_price.toFixed(2)}}
           </span>
           <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-          {{cs}}{{props.row.tcg_market}}
+          {{cs}}{{props.row.tcg_market.toFixed(2)}}
           </span>
 
         </b-table-column>
@@ -135,6 +136,7 @@ import FullAd from '~/components/cta/FullAd.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
 import FeatureLockedFull from '~/components/cta/FeatureLockedFull.vue'
 import SetSelector from '~/components/magic/SetSelector.vue'
+import SetTag from '~/components/magic/SetTag.vue'
 
 export default {
   name: 'Watchlist',
@@ -145,7 +147,8 @@ export default {
     FullAd,
     FeatureGate,
     FeatureLockedFull,
-    SetSelector
+    SetSelector,
+    SetTag
   },
   data () {
     return {
