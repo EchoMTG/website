@@ -170,42 +170,20 @@ echomtg.getSets = async (game=1) => {
     return data.data;
   }
 
-  echomtg.getSet = async (set_code,game=1) => {
-    // fetch the set
-    let endpoint = `${context.app.$config.API_DOMAIN}data/set/?set_code=${set_code}&minified=true&game=${game}`;
-
-    // try to get the json
-     try {
-      const res = await fetch(
-        endpoint, {
-        headers: echomtg.getS2SHeadersNoJSON()
-        }
-      );
-      return await res.json();
-
-    } catch(err){
-      echomtg.log(err)
-    }
+  echomtg.getSet = async (set_code,game=1,minified='true') => {
+    let url = `data/set/?set_code=${set_code}&minified=${minified}&game=${game}`;
+    return await echomtg.getReq(url)
   }
 
   echomtg.getSealed = async (set_code,game=1) => {
-    let url = `${context.app.$config.API_DOMAIN}sets/sealed/?set_code=${set_code}&game=${game}`;
-
-    let res = await fetch(url, {
-      headers: echomtg.getUserHeaders()
-    })
-    let data = await res.json();
-    echomtg.log('getting sealed from echo api', data.data)
+    let url = `sets/sealed/?set_code=${set_code}&game=${game}`;
+    const data = echomtg.getReq(url)
     return data.data;
   }
 
-  echomtg.getWatchlist = async (start=0,limit=100) => {
-    let url = `${context.app.$config.API_DOMAIN}watchlist/view/?start=${start}&limit=${limit}`;
-
-    let res = await fetch(url, {
-      headers: echomtg.getUserHeaders()
-    })
-    return await res.json();
+  echomtg.getWatchlist = async (start=0,limit=100, search='',set_code='') => {
+    let url = `watchlist/view/?start=${start}&limit=${limit}&search=${search}&set_code=${set_code}`;
+    return await echomtg.getReq(url);
   }
 
   echomtg.addToWatchlist = async (emid, foil = 0, threshold=20 ) => {
@@ -317,7 +295,7 @@ echomtg.getSets = async (game=1) => {
   echomtg.getReq = async (endpoint) => {
     const res = await fetch(`${context.app.$config.API_DOMAIN}${endpoint.replace(/^\//, '')}`, {
       method: 'GET',
-      headers: echomtg.getUserHeaders()
+      headers: echomtg.getS2SHeadersNoJSON()
     });
     return await res.json();
   }

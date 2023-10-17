@@ -22,16 +22,14 @@
 
               <h3 class="title is-size-6">Notifications</h3>
               <p>You must have a mythic account and a verified phone number to get daily notifications</p>
-              <h4 class="title is-size-6">Verify your mobile number</h4>
+              <nuxt-link to="/user/settings/">Verify your mobile number</nuxt-link>
             </feature-gate>
           </div>
         </div>
-      </section>
-      <section>
-        <nav class="level is-mobile p-0">
+         <nav class="level is-mobile p-0">
           <div class="level-left">
             <b-input
-                placeholder="Search Inventory..."
+                placeholder="Search Watchlist..."
                 type="is-info"
                 v-model="search"
                 icon="magnify"
@@ -46,25 +44,10 @@
           </div>
           <div class="level-right">
 
+
             <b-taglist class="level-item" attached>
-              <b-tag class="mythic-background">Mythic</b-tag>
-              <b-tag type="is-dark">{{stats.mythics}}</b-tag>
-            </b-taglist>
-            <b-taglist class="level-item" attached>
-              <b-tag class="rare-background has-text-white">Rares</b-tag>
-              <b-tag type="is-dark">{{stats.rares}}</b-tag>
-            </b-taglist>
-             <b-taglist class="level-item" attached>
-              <b-tag class="uncommon-background">Uncommons</b-tag>
-              <b-tag type="is-dark">{{stats.uncommons}}</b-tag>
-            </b-taglist>
-             <b-taglist class="level-item" attached>
-              <b-tag class="common-background ">Commons</b-tag>
-              <b-tag type="is-dark">{{stats.commons}}</b-tag>
-            </b-taglist>
-            <b-taglist class="level-item" attached>
-              <b-tag class="rainbow-background has-text-white">Foils</b-tag>
-              <b-tag type="is-dark">{{stats.foils}}</b-tag>
+              <b-tag class="">Total Tracked</b-tag>
+              <b-tag type="is-dark">{{watchlist.length}} </b-tag>
             </b-taglist>
              <div class="level-item" >
              </div>
@@ -91,7 +74,7 @@
           field="name"
           label="Name"
           sortable
-          searchable>
+          >
           <div style="display: flex; flexDirection: row;">
 
             <div style="width:70px; height: 30px; ">
@@ -104,7 +87,7 @@
           </div>
 
         </b-table-column>
-        <b-table-column v-slot="props" field="expansion" label="Expansion" sortable searchable>
+        <b-table-column v-slot="props" field="expansion" label="Expansion" sortable >
           {{props.row.expansion}}
         </b-table-column>
         <b-table-column v-slot="props" field="price" label="Price" width="100" sortable :numeric="true">
@@ -151,6 +134,7 @@ import ThresholdInput from '~/components/watchlist/ThresholdInput.vue'
 import FullAd from '~/components/cta/FullAd.vue'
 import FeatureGate from '~/components/user/FeatureGate.vue'
 import FeatureLockedFull from '~/components/cta/FeatureLockedFull.vue'
+import SetSelector from '~/components/magic/SetSelector.vue'
 
 export default {
   name: 'Watchlist',
@@ -160,13 +144,16 @@ export default {
     ThresholdInput,
     FullAd,
     FeatureGate,
-    FeatureLockedFull
+    FeatureLockedFull,
+    SetSelector
   },
   data () {
     return {
       watchlist: [{
         name: 'loading'
       }],
+      search: '',
+      set_code: '',
       tableHeight: 400,
       windowHeight: 1000,
       start: 0,
@@ -186,11 +173,15 @@ export default {
     search(){
       this.getWatchlist()
     },
+    set_code(){
+      this.getWatchlist()
+    },
+
   },
   mounted() {
     this.updateTableHeight()
-    console.log(this.user.planObject)
-    
+
+
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
@@ -205,7 +196,7 @@ export default {
     },
     async getWatchlist() {
       if(!this.authenticated) return;
-      let data = await this.$echomtg.getWatchlist(this.start, this.limit)
+      let data = await this.$echomtg.getWatchlist(this.start, this.limit, this.search, this.set_code)
       this.watchlist = data.items;
     },
     async deleteItem(watchlist_id) {
