@@ -131,22 +131,6 @@
         </nav-bar-menu>
 
 
-        <!-- <a
-          class="navbar-item has-divider is-desktop-icon-only"
-          :class="{ 'is-active': isAsideRightActive }"
-          title="Updates"
-          @click.prevent="updatesToggle"
-        >
-          <b-icon
-            icon="bell"
-            custom-size="default"
-            :class="{ 'has-update-mark': hasUpdates }"
-          />
-          <span>Updates</span>
-        </a> -->
-
-
-
          <div v-if="authenticated" class="navbar-item mr-0 pr-0">
           <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{user.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
         </div>
