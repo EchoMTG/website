@@ -30,7 +30,7 @@
         <!-- CTA -->
       </div>
     </div>
-    <img
+    <NuxtImg
       alt="Disney Lorcana Logo"
       width="200"
       src="https://assets.echomtg.com/lorcana/lorcana-logo-darkblue-background.png"

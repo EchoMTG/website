@@ -110,13 +110,23 @@
                             <b-input
                               type="tel"
                               v-model="phone"
-                              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                              @change="update('phone')"
+
+                              @input="update('phone')"
                               />
                         </b-field>
                       </div>
                     </div>
                   </div>
+                   <div class="level-item ml-5" v-if="user.verify != null">
+                      <div>
+                        <p class="heading">Verify Phone Number</p>
+                        <b-field v-if="user.verify.verified == '0'">
+                           <b-input  v-model="verifyCode" placeholder="Enter 4 digit verify code" />
+                           <b-button @click="verify">Verify</b-button>
+                        </b-field>
+                        <b-message v-if="user.verify.verified == '1'" type="is-success">{{user.phone}} is Verified</b-message>
+                      </div>
+                    </div>
                 </nav>
               </card-component>
           </tiles>
@@ -145,6 +155,7 @@ export default {
         dark_mode: 1,
         currency_code: null,
         default_sort: null,
+        timer: null,
         image_pref: "0",
         phone: null,
         setting_report_threshhold: null,
@@ -229,19 +240,25 @@ export default {
       return parseInt(subscriptionValue) == 1 ? "On" : "Off";
     },
     async updateValue(name, value){
-      let body = {};
-      body[name] = value;
+       if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+      }
+      this.timer = setTimeout(async () => {
+        let body = {};
+        body[name] = value;
 
-       // need to update user in store
-      const res = await this.$echomtg.updateUser(body);
+        // need to update user in store
+        const res = await this.$echomtg.updateUser(body);
 
-      this.$buefy.toast.open({
-          message: `${res.message}: ${name} updated to ${value} `,
-          type: 'is-info'
-        })
+        this.$buefy.toast.open({
+            message: `${res.message}: ${name} updated to ${value} `,
+            type: 'is-info'
+          })
 
-      // update user
-      await this.$fetch();
+        // update user
+        await this.$fetch();
+      },2000);
 
     }
   },

@@ -9,10 +9,11 @@
                       <p class="has-text-centered pb-3 has-text-light is-size-5">{{description}}</p>
                   </div>
 
-                  <img
+                  <NuxtImg
                       :src="image"
                       alt="Trading Card collection tools screenshot"
                       style="border-radius: 10px;"
+                      width="1000"
                       class="mx-3 is-fullwidth" />
 
                   <div class="px-4 pt-3">

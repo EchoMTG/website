@@ -17,7 +17,7 @@
           <br />
           <a v-if="setCode !== ''" class="is-size-3" :href="setURL">{{setName}}</a> {{dynamicTitle}}
         </h1>
-        <p class="has-text-weight-normal has-text-white is-size-7" v-html="dynamicDescription" />
+        <p class="has-text-weight-normal has-text-white is-size-7" v-html="dynamicDescription"></p>
       </div>
       <div class="column">
         <!-- CTA -->
