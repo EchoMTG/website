@@ -117,6 +117,16 @@
                       </div>
                     </div>
                   </div>
+                   <div class="level-item ml-5" v-if="user.verify != null">
+                      <div>
+                        <p class="heading">Verify Phone Number</p>
+                        <b-field v-if="user.verify.verified == '0'">
+                           <b-input  v-model="verifyCode" placeholder="Enter 4 digit verify code" />
+                           <b-button @click="verify">Verify</b-button>
+                        </b-field>
+                        <b-message v-if="user.verify.verified == '1'" type="is-success">{{user.phone}} is Verified</b-message>
+                      </div>
+                    </div>
                 </nav>
               </card-component>
           </tiles>
