@@ -8,32 +8,18 @@
           <b-table-column field="tcg_mid"  width="130" :label="`Regular`"  v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
-              <p class="control">
-                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)"></b-button>
-              </p>
-              <b-input
-               :value="`${quickstats.currency_symbol} ${props.row.tcg_mid}`"
-                size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
+
+                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)">Add</b-button>
+
             </b-field>
 
           </b-table-column>
           <b-table-column field="foil_price"   width="130" :label="`Foil`"  v-slot="props">
 
             <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
-              <p class="control">
-                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"></b-button>
-              </p>
-              <b-input
-               :value="`${quickstats.currency_symbol} ${props.row.foil_price}`"
-                size="is-small"
-                style="max-width: 90px;"
-                disabled
-                aria-disabled=""
-                 />
+
+                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"> Add</b-button>
+
             </b-field>
 
           </b-table-column>
