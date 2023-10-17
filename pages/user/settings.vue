@@ -98,6 +98,26 @@
                     </div>
                   </div>
                 </nav>
+                 <div class="content">
+                  <p>Phone Contact - For Watchlist SMS Alerts</p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <div class="level-item ">
+                      <div>
+                        <p class="heading">Phone Number</p>
+                        <b-field message="Format: 123-456-7890">
+                            <b-input
+                              type="tel"
+                              v-model="phone"
+                              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                              @change="update('phone')"
+                              />
+                        </b-field>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
               </card-component>
           </tiles>
       </div>
@@ -126,6 +146,7 @@ export default {
         currency_code: null,
         default_sort: null,
         image_pref: "0",
+        phone: null,
         setting_report_threshhold: null,
         show_real_name: "0",
         use_market: null,
@@ -182,6 +203,7 @@ export default {
     this.setting_report_threshhold = userdata.user.setting_report_threshhold;
     this.default_sort = userdata.user.default_sort;
     this.currency_code = userdata.user.currency_code;
+    this.phone = userdata.user.phone;
 
 
   },
