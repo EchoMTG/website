@@ -3,41 +3,45 @@
     <div class="hero-body">
       <div class="level">
         <div class="level-left">
-          <div class="level-item is-flex">
-              <nuxt-link to="/apps/inventory/" class="is-block button is-dark is-small" title="Profile">
-                <b-icon icon="book-open-page-variant-outline"  custom-size="default" />
-                <span>Manage Inventory</span>
-              </nuxt-link>
-              <nuxt-link :to="`/apps/trades/${this.$echomtg.tradesUserHash(user.id)}/`" class="is-block button is-light is-small" title="Profile">
-                <b-icon icon="briefcase-arrow-left-right"  custom-size="default" />
-                <span>View Trades</span>
-              </nuxt-link>
-               <nuxt-link to="/apps/import/" class="is-block button is-info is-small" title="Profile">
-                <b-icon icon="download"  custom-size="default" />
-                <span>Import Inventory</span>
-              </nuxt-link>
-          </div>
+
           <div class="level-item is-hero-avatar-item">
-            <div class="image is-user-avatar">
+
+
+            <div class="image is-user-avatar" style="max-width:200px">
               <img alt="User Avatar" :src="getAvatar()">
             </div>
           </div>
           <div class="level-item is-hero-content-item">
             <div>
-
-              <h1 class="title is-spaced">
+              <h1 class="title is-spaced mb-2 is-size-5-touch">
                 Greetings <b class="is-capitalized">{{ user.username }}!</b>
               </h1>
+              <div class="is-flex mb-3">
+                <nuxt-link to="/apps/inventory/" class="is-block button is-dark is-small mr-1" title="Profile">
+                  <b-icon icon="book-open-page-variant-outline"  custom-size="default" />
+                  <span>Manage Inventory</span>
+                </nuxt-link>
+                <nuxt-link :to="`/apps/trades/${this.$echomtg.tradesUserHash(user.id)}/`" class="is-block button is-light is-small mr-1" title="Profile">
+                  <b-icon icon="briefcase-arrow-left-right"  custom-size="default" />
+                  <span>View Trades</span>
+                </nuxt-link>
+                <nuxt-link to="/apps/import/" class="is-block button is-info is-small" title="Profile">
+                  <b-icon icon="download"  custom-size="default" />
+                  <span>Import Inventory</span>
+                </nuxt-link>
+            </div>
+
               <h3 class="subtitle mt-1 is-size-7 has-text-grey	">
-                Last login: <b>{{ user.last_login }}</b>
+                It's <b>{{this.$moment().format('MMMM Do YYYY')}}</b> and your <b>{{quickstats.total_items}} items</b> <br/>
+              are estimated to be worth <b>{{quickstats.currency_symbol}}{{quickstats.current_value}}</b>.
+                <!-- Last login: <b>{{ user.last_login }}</b> -->
               </h3>
-              <p>It's <b>{{this.$moment().format('MMMM Do YYYY')}}</b> and your <b>{{quickstats.total_items}} items</b> <br/>
-              are estimated to be worth <b>{{quickstats.currency_symbol}}{{quickstats.current_value}}</b> </p>
+
 
             </div>
           </div>
         </div>
-        <div class="level-right">
+        <div class="level-right is-hidden-touch">
           <div class="level-item">
             <div v-if="quickstats.total_items > 5" class="tile">
               <div class="tile is-child pr-3">
