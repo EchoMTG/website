@@ -4,7 +4,58 @@
 
     <echo-bread-crumbs :data="crumbs" />
 
-    <nav class="level is-mobile pt-2 pb-2 todaysprices">
+   
+    <h1 class="title mb-3 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">prices from</span> {{this.item.expansion}}</h1>
+        
+    <div class="columns mr-2">
+      <div class="column is-one-quarter">
+        <div class="cardImageContainer m-3">
+          <NuxtPicture
+              quality="30"
+              width="318"
+              height="442"
+              :src="item.image"
+              :alt="`${item.name} magic card front`"
+          />
+
+        </div>
+        <div class="has-text-centered">
+          <social-buttons
+              :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+              :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
+              :twitter="`echomtg`"
+              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
+            />
+        </div>
+        <div class="message m-3 p-4 is-overflowhidden">
+          <nav class="level is-mobile">
+            <div class="level-left">
+              <div class="level-item">
+                <div>
+                  <h2 class="title is-size-5 ellispis">{{item.card_name}}</h2>
+                  <h3 class=" is-size-6 is-italic">{{item.types}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <div>
+                  <div class="is-size-3" v-html="this.$echomtg.replaceSymbols(item.mana_cost)"></div>
+                  <div v-if="item.main_colors" class=" is-size-6 is-italic">{{item.main_colors}}</div>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          <div class="content">
+            <div class="mb-3" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
+            <p class="is-italic">{{item.flavor_text}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="column is-half">
+        <!-- prices -->
+        <nav class="level is-mobile pt-2 pb-2 todaysprices">
       <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
         <div>
           <p class="heading is-size-8">Market</p>
@@ -56,56 +107,7 @@
           <p class="title is-4 is-5-mobile">{{lastUpdateDate}}</p>
         </div>
       </div>
-    </nav>
-
-    <div class="columns mr-2">
-      <div class="column is-one-quarter">
-        <div class="cardImageContainer m-3">
-          <NuxtPicture
-              quality="30"
-              width="318"
-              height="442"
-              :src="item.image"
-              :alt="`${item.name} magic card front`"
-          />
-
-        </div>
-        <div class="has-text-centered">
-          <social-buttons
-              :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
-              :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
-              :twitter="`echomtg`"
-              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
-            />
-        </div>
-        <div class="message m-3 p-4 is-overflowhidden">
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <div class="level-item">
-                <div>
-                  <h2 class="title is-size-5 ellispis">{{item.card_name}}</h2>
-                  <h3 class=" is-size-6 is-italic">{{item.types}}</h3>
-                </div>
-              </div>
-            </div>
-            <div class="level-right">
-              <div class="level-item">
-                <div>
-                  <div class="is-size-3" v-html="this.$echomtg.replaceSymbols(item.mana_cost)"></div>
-                  <div v-if="item.main_colors" class=" is-size-6 is-italic">{{item.main_colors}}</div>
-                </div>
-              </div>
-            </div>
-          </nav>
-
-          <div class="content">
-            <div class="mb-3" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
-            <p class="is-italic">{{item.flavor_text}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-half">
-        <h1 class="title mb-3">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">from</span> {{this.item.expansion}}</h1>
+       </nav>
         <b-field class="pb-3" grouped group-multiline>
           <div class="control" v-if="this.item.reserve_list == 1">
             <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
