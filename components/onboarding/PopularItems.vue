@@ -3,25 +3,13 @@
     <div class="card-content pt-0 px-0 pb-0 mb-0" style="overflow: hidden">
         <b-table :mobile-cards="false" :data="this.popularItems.slice(0,5)">
           <b-table-column field="name" label="Do you own these Popular Items?"  v-slot="props">
-            <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
-          </b-table-column>
-          <b-table-column field="tcg_mid"  width="130" :label="`Regular`"  v-slot="props">
-
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.tcg_mid > 0">
-
-                  <b-button v-if="props.row.tcg_mid" icon-left="plus" size="is-small" variant="contained" type="is-dark" @click="addItem(props.row.emid, 0)">Add</b-button>
-
-            </b-field>
-
-          </b-table-column>
-          <b-table-column field="foil_price"   width="130" :label="`Foil`"  v-slot="props">
-
-            <b-field class="level-item" style="margin-bottom: 0 !important;" v-if="props.row.foil_price > 0">
-
-                  <b-button v-if="props.row.foil_price" icon-left="plus" size="is-small" variant="contained" class="rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"> Add</b-button>
-
-            </b-field>
-
+             <div class="is-flex">
+              <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
+            
+              <b-button v-if="props.row.tcg_mid > 0"  size="is-small" variant="contained" type="is-dark" class="ml-auto mr-2" @click="addItem(props.row.emid, 0)">Have</b-button>
+              <b-button v-if="props.row.foil_price > 0"  size="is-small" variant="contained" class="mr-2 rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"> Have</b-button>
+              <b-button icon-left="close" size="is-small" variant="contained" type="is-black"  @click="getRandomItems(5)">Don't</b-button>
+            </div>
           </b-table-column>
         </b-table>
     </div>
