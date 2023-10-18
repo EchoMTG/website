@@ -8,7 +8,16 @@
       :topcardImage="items[0].image_cropped"
       :setTotalItems="items.length"
     />
-    <b-table v-if="items.length > 1" :data="items" striped :mobile-cards="false">
+    <b-table
+      v-if="items.length > 1"
+      :data="items"
+      striped
+      :mobile-cards="false"
+      paginated
+       pagination-size="is-small"
+          pagination-position="bottom"
+          :per-page="50"
+      >
       <b-table-column field="name" label="Card Name" v-slot="props" sortable searchable>
 
         <nuxt-link :to="props.row.url" no-prefetch>
@@ -34,7 +43,8 @@
               {{ props.row.types }}
           </b-table-column>
           <b-table-column field="expansion" label="Expansion" searchable sortable v-slot="props">
-              {{ props.row.expansion }}
+
+              <set-tag :code="props.row.set_code" :name="props.row.expansion" :url="props.row?.set_url ? props.row.set_url :''" />
           </b-table-column>
           <b-table-column field="collectors_number" label="#" numeric sortable v-slot="props">
             {{props.row.collectors_number}}
@@ -55,7 +65,7 @@
           </b-table-column>
     </b-table>
     <hr />
-    <div class="content message container py-5 px-5 mb-5" v-if="custompage.content">
+    <div class="content message is-dark container py-5 px-5 mb-5" v-if="custompage.content">
       <div v-html="custompage.content" />
     </div>
   </div>
@@ -66,6 +76,7 @@ import ItemCard from '~/components/items/ItemCard.vue';
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue';
 import SetSummary from '@/components/sets/SetSummary';
 import ItemInspectorWrapper from '~/components/items/ItemInspectorWrapper.vue'
+import SetTag from '~/components/magic/SetTag.vue';
 
 export default {
   name: 'GroupTypes',
@@ -73,7 +84,8 @@ export default {
     EchoBreadCrumbs,
     ItemInspectorWrapper,
     SetSummary,
-    ItemCard
+    ItemCard,
+    SetTag
   },
   data () {
     return {
