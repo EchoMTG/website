@@ -949,83 +949,48 @@ echomtg.getSets = async (game=1) => {
       `set_code=${set_code}`,
     ].join('&')
 
-    let url = `${context.app.$config.API_DOMAIN}earnings/view/?${params}`;
+    let url = `earnings/view/?${params}`;
 
-    const res = await fetch(url, {
-      headers: echomtg.getUserHeaders()
-    });
-
-    return await res.json();
+    return await echomtg.getReq(url);
   }
 
   echomtg.earningsAdd = async (emid,acquired_price,sold_price,foil=0 ) => {
 
-    let url = `${context.app.$config.API_DOMAIN}earnings/add/`;
-    let body =  {
+    return await echomtg.postReq(`earnings/add/`,{
       "emid": emid,
       "acquired_price": acquired_price,
       "sold_price": sold_price,
       "foil": foil
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
-    });
-    return await res.json();
+    })
   }
-
-
 
   echomtg.earningsDeleteItem = async (earnings_id) => {
-
-    let url = `${context.app.$config.API_DOMAIN}earnings/remove/`;
-    let body = {
+    return await echomtg.postReq(`earnings/remove/`,{
       id: earnings_id
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
   }
+
   echomtg.earningChangeSoldPrice = async (earnings_id, price) => {
-    let body = {
+    return await echomtg.postReq('earnings/adjust_sold/',{
       id: earnings_id,
       value: price
-    }
-    return await echomtg.postReq('earnings/adjust_sold/',body)
+    })
   }
 
   echomtg.earningChangeAcquiredPrice = async (earnings_id, price) => {
-
-    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_acquired/`;
-    let body = {
+    return await echomtg.postReq(`earnings/adjust_acquired/`,{
       id: earnings_id,
       value: price
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
-    });
-    return await res.json();
+    })
   }
 
   echomtg.earningChangeSoldDate = async (earnings_id, date) => {
 
-    let url = `${context.app.$config.API_DOMAIN}earnings/adjust_date/`;
-    let body = {
+    return await echomtg.postReq(`earnings/adjust_date/`, {
       id: earnings_id,
       value: date
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
+    
   }
 
 

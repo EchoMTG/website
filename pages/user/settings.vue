@@ -122,7 +122,7 @@
                         <p class="heading">Verify Phone Number</p>
                         <b-field v-if="user.verify.verified == '0'">
                            <b-input  v-model="verifyCode" placeholder="Enter 4 digit verify code" />
-                           <b-button @click="verify">Verify</b-button>
+                           <b-button @click="verifyCall">Verify</b-button>
                         </b-field>
                         <b-message v-if="user.verify.verified == '1'" type="is-success">{{user.phone}} is Verified</b-message>
                       </div>
@@ -133,7 +133,6 @@
       </div>
     </div>
 
-      <!-- <password-update-form /> -->
     </section>
   </div>
 </template>
@@ -158,6 +157,7 @@ export default {
         timer: null,
         image_pref: "0",
         phone: null,
+        verifyCode: null,
         setting_report_threshhold: null,
         show_real_name: "0",
         use_market: null,
@@ -229,7 +229,6 @@ export default {
       this.updateValue('dark_mode',this.dark_mode);
     },
     async update(key){
-      console.log(key, this[key])
       await this.updateValue(key, this[key]);
 
     },
@@ -238,6 +237,18 @@ export default {
     },
     offOn: function (subscriptionValue) {
       return parseInt(subscriptionValue) == 1 ? "On" : "Off";
+    },
+    async verifyCall(){
+      const res = await this.$echomtg.postReq(`user/verify_phone/`,{
+        'verify_number': this.verifyCode
+      });
+      const type = res.status == 'error' ? 'is-danger' : 'is-success'; 
+      this.$buefy.toast.open({
+        message: `${res.message}`,
+        type: type
+      })
+       // update user
+       await this.$fetch();
     },
     async updateValue(name, value){
        if (this.timer) {
