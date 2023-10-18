@@ -1,5 +1,7 @@
 const shellUser = require ('/store/shellUser');
 
+function parseCookies(req) { const { headers: {cookie} } = req; return cookie.split(';').reduce((res,item) => { const data = item.trim().split('='); return { ...res, [data[0]] : data[1] }; }, {}); }
+
 const shellquickstats = {
   acquired_value: 0,
   current_value: 0,
@@ -87,8 +89,9 @@ export const mutations = {
       state.authenticated = true
 
       state.isDarkModeActive = parseInt(payload.dark_mode) == 1 ? true : false;
-      document.documentElement.classList[parseInt(payload.dark_mode) == 1 ? 'add' : 'remove']('is-dark-mode-active');
-
+      if(typeof document !== 'undefined'){
+        document.documentElement.classList[parseInt(payload.dark_mode) == 1 ? 'add' : 'remove']('is-dark-mode-active');
+      }
 
     }
 
@@ -230,6 +233,24 @@ export const getters = {
 }
 
 export const actions = {
+
+  async nuxtServerInit ({ commit }, { req }) {
+    // check the request for cookies and attemp to auth the user
+    const cookies = parseCookies(req);
+    if(cookies?.token){
+      const res = await fetch('https://www.echomtg.com/api/user/meta/',{
+        headers: {
+          'Authorization' : 'Bearer ' + cookies.token
+        }
+      })
+
+      const data = await res.json();
+      if (data.user) {
+        commit('user', data.user)
+      }
+    }
+
+  },
 
   asideCloseAll ({ commit, state }) {
     commit('asideVisibilityToggle', false)
