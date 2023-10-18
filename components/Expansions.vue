@@ -122,7 +122,6 @@ export default {
   computed: {
 
     ...mapState([
-      'authenticated',
       'user',
       'sets'
     ])

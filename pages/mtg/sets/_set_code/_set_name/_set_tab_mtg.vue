@@ -39,7 +39,7 @@
             >
           </a>
         </li>
-        <li v-if="authenticated" :class="tabClass('trending')">
+        <li v-if="this.authenticated" :class="tabClass('trending')">
           <a
             class="navbar-item has-icon"
             ref="trendingTab"
@@ -95,7 +95,7 @@
 
       <SetSealed v-if="this.tab == 'sealed'" :set="this.set" />
 
-      <SetTrendingView v-if="authenticated && this.tab == 'trending'" :setName="this.set.name" :items="this.set.items" />
+      <SetTrendingView v-if="this.authenticated && this.tab == 'trending'" :setName="this.set.name" :items="this.set.items" />
       <SetCalculationsView v-if="this.tab == 'calculations'" :set="this.set" @add-full-set="addFullSet()" />
     </div>
   </div>
