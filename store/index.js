@@ -236,17 +236,19 @@ export const actions = {
 
   async nuxtServerInit ({ commit }, { req }) {
     // check the request for cookies and attemp to auth the user
-    const cookies = parseCookies(req);
-    if(cookies?.token){
-      const res = await fetch('https://www.echomtg.com/api/user/meta/',{
-        headers: {
-          'Authorization' : 'Bearer ' + cookies.token
-        }
-      })
+    if(req.headers?.cookie && req.headers.cookie.includes(';')){
+      const cookies = parseCookies(req);
+      if(cookies?.token){
+        const res = await fetch('https://www.echomtg.com/api/user/meta/',{
+          headers: {
+            'Authorization' : 'Bearer ' + cookies.token
+          }
+        })
 
-      const data = await res.json();
-      if (data.user) {
-        commit('user', data.user)
+        const data = await res.json();
+        if (data.status == 'success') {
+          commit('user', data.user)
+        }
       }
     }
 
