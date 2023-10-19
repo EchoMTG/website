@@ -6,7 +6,7 @@
     <b-input
       :has-counter="false"
       type="number"
-      min="0.01"
+      min="0.00"
       autocomplete="off"
       pattern="[^-][\d]+(\.[0-9]{0,2}])?"
       step="0.01"
