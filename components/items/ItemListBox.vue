@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              <a @click="isOpen = !isOpen">{{availablelists.length}} {{title}}</a>
+              <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{availablelists.length}}</a>
           </p>
           <button
             class="card-header-icon"
@@ -96,7 +96,7 @@ export default {
         },
         title: {
           type: String,
-          default: 'In Decks/Lists'
+          default: 'My Decks/Lists: '
         }
     },
     data: function data() {
