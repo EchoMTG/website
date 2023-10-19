@@ -4,7 +4,7 @@
 
 
             <p class="card-header-title">
-                <a @click="isOpen = !isOpen"><span class="">{{this.items.length}}</span> {{title}}</a>
+                <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{this.items.length}}</a>
             </p>
             <button
                 class="card-header-icon"
@@ -111,7 +111,7 @@ export default {
         },
         title: {
           type: String,
-          default: 'In Inventory'
+          default: 'My Inventory: '
         }
     },
     data: function data() {

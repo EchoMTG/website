@@ -268,8 +268,8 @@
                 </b-collapse>
              </div>
             <client-only>
-                <item-tool-box :open="false" :title="`${item.name}'s in Inventory`" v-if="authenticated" :item="this.item"></item-tool-box>
-                <item-list-box :open="false" :title="`${item.name}'s in Decks/Lists`" v-if="authenticated" :item="this.item"></item-list-box>
+                <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
+                <item-list-box :open="false" :title="`My Decks/Lists: `" v-if="authenticated" :item="this.item"></item-list-box>
               </client-only>
               <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
 
