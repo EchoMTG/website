@@ -5,9 +5,9 @@
     <section class="hero is-dark has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">App Stats</h1>
+              <h1 class="title">Financials</h1>
               <h3 class="subtitle">
-                Echo Application Statistics
+                Information on paid users
               </h3>
           </div>
       </div>
@@ -17,75 +17,51 @@
       <div class="level">
          <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Users</p>
-            <p class="title">{{data_totals.users}}</p>
+            <p class="heading">Total Paid last {{paidMeta.days_between}} Days</p>
+            <p class="title">{{paidMeta.total}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Inventory</p>
-            <p class="title">{{data_totals.earnings}}</p>
+            <p class="heading">Avg. Paid Per Month</p>
+            <p class="title">{{paidMeta.average_per_month}}</p>
           </div>
         </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Earnings</p>
-            <p class="title">{{data_totals.earnings}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Notes</p>
-            <p class="title">{{data_totals.notes}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Comments</p>
-            <p class="title">{{data_totals.comments}}</p>
-          </div>
-        </div>
+
       </div>
       <hr />
       <div class="columns">
         <div class="column" style="height: 200px">
           <h2 class="title is-size-4 has-text-centered" >User Plan Distribution</h2>
-          <!-- <pie-chart  :chart-data="distributionData" :chart-options="chartOptionsBar" /> -->
+          <client-only>
+            <pie-chart  :chart-data="plansData" :chart-options="chartOptions" />
+          </client-only>
         </div>
 
       </div>
 
     </div>
 
-    <h2 class="title is-size-4">{{latestUsers.meta.total}} new users in the last {{latestUsers.meta.days}} days</h2>
+    <h2 class="title is-size-4">{{paidMeta.total}} new users in the last {{paidMeta.days_between}} days</h2>
     <b-table
+    v-if="paidUsers.length > 0"
       striped
       narrowed
-      :data="latestUsers.results"
-      :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
+      :data="paidUsers"
       >
-
-      <b-table-column :key="card_count" label="Items" v-slot="props">
-        {{props.row.card_count}}
+      <b-table-column :key="plan" label="Plan" v-slot="props">
+        <b-tag :class="`${props.row?.plan ? props.row.plan : '' }-background`">{{props.row.plan}}</b-tag>
       </b-table-column>
       <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
         {{props.row.referrer_url}}
       </b-table-column>
-      <b-table-column :key="username" label="Username" v-slot="props">
-        {{props.row.username}}
-      </b-table-column>
-      <b-table-column :key="email" label="Email" v-slot="props">
-        {{props.row.email}}
-      </b-table-column>
-       <b-table-column :key="plan" label="Plan" v-slot="props">
-        {{props.row.plan}}
-      </b-table-column>
-       <b-table-column :key="plan" label="Created/LastLogin" v-slot="props">
-        <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
+      <b-table-column :key="username" label="User" v-slot="props">
+        <strong>{{props.row.username}}</strong> <span>{{props.row.email}}</span>
       </b-table-column>
 
-
-
+       <b-table-column :key="month_created" label="Month Created" v-slot="props">
+        <b-tag>{{props.row.month_created}}</b-tag>
+      </b-table-column>
     </b-table>
   </div>
 </template>
@@ -103,33 +79,19 @@ export default {
   data () {
     return {
       loading: false,
-      data_totals: {
-        "inventory": 29465932,
-        "items": 80500,
-        "earnings": 364549,
-        "tweet_queue": 5,
-        "price_update_queue": 1,
-        "users": 45629,
-        "comments": 1021,
-        "notes": 126978
-      },
-      latestUsers: {
-        results: [],
-        meta: {
-          total: 0,
-          days: 2
-        }
-      },
+      paidMeta: {},
+      paidUsers:[],
       stats: null,
 
       colorDataset: [{
         'data' : [],
         'backgroundColor' : []
       }],
-      distributionDataset: [{
+      plansDataset: [{
         'data' : [],
         'backgroundColor' : []
       }],
+      plansLabels: [],
       distributionValueDataset: [{
         'label': 'Financial Value',
         'data' : [],
@@ -142,12 +104,16 @@ export default {
 
 
   async fetch(){
-      if(!this.authenticated) return;
       this.loading    = true;
+      const data = await this.getLatestPaidUsers();
 
 
-      this.latestUsers = await this.getLatestUsers(2)
-      this.data_totals = await this.getDataTotals()
+      this.paidUsers = data.results
+      this.paidMeta = data.meta
+      this.plansDataset[0].data = Object.values(data.plan);
+      this.plansLabels = Object.keys(data.plan);
+
+
 
       this.loading    = false;
   },
@@ -159,26 +125,19 @@ export default {
 
   methods: {
 
-    async getLatestUsers(days=1){
-      let url = `${this.$config.API_DOMAIN}super/latest_signups/?days=${days}`;
-      const res = await fetch(url, {
-        headers: this.$echomtg.getUserHeaders(),
-      });
-      return await res.json();
+    async getLatestPaidUsers(date_start=false, date_end=false){
+      return await this.$echomtg.getReq(`super/paid_users/`);
     },
-     async getDataTotals(){
-      let url = `${this.$config.API_DOMAIN}super/data_totals/`;
-      const res = await fetch(url, {
-        headers: this.$echomtg.getUserHeaders(),
-      });
-      return await res.json();
-    }
 
   },
 
   computed: {
-    distributionData(){
-      return { datasets: this.distributionDataset, labels:this.distributionLabels }
+    plansData(){
+      console.log('data',this.plansDataset)
+      return {
+        datasets: this.plansDataset,
+        labels: this.plansLabels
+      }
     },
     distributionValueData(){
       return { datasets: this.distributionValueDataset, labels:this.distributionLabels }
@@ -188,21 +147,6 @@ export default {
     },
     chartOptions(){
       return chartConfig.chartOptionsMain
-    },
-    chartOptionsBar(){
-      return chartConfig.chartOptionsBar
-    },
-    chartOptionsRarity(){
-      return {
-        ...chartConfig.chartOptionsBar,
-
-        legend: {
-          label: {
-            color: '#000000'
-          }
-        }
-
-      }
     },
 
     crumbs() {
