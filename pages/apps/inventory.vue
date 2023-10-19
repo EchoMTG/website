@@ -735,7 +735,7 @@ export default {
   },
   head () {
     return {
-        title: this.authenticated ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tools`,
+        title: this.authenticated ? `${this.user.username}'s EchoMTG Inventory Binder` : `Magic the Gathering Inventory Collection Tracker`,
         meta: [
           {
             hid: 'og:image',
