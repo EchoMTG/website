@@ -225,14 +225,14 @@ export default {
   },
   head () {
     return {
-        title: `${this.set.name} Prices`,
+        title: `${this.set.name} Price List`,
 
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.set.set_symbol },
            {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Magic the Gathering set ${this.set.name}, ${this.set.set_code}`
+            content:  `MTG ${this.set.set_code} price list and Card list ${this.set.name} from the Magic the Gathering`
           }
         ],
         link: [

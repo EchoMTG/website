@@ -224,14 +224,14 @@ export default {
   },
   head () {
     return {
-        title: `${this.set.name} Price List and Card Data`,
+        title: `${this.set.name} Price List and Card List - Lorcana`,
 
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.set.set_symbol },
            {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Disney Lorana set ${this.set.name}, ${this.set.set_code}`
+            content:  `Lorcana ${this.set.set_code} price list and Card list ${this.set.name} from the Lorcana`
           }
         ],
         link: [
