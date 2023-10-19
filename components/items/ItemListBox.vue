@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              <a href="/apps/lists/">{{title}}</a>
+              <a @click="isOpen = !isOpen">{{availablelists.length}} {{title}}</a>
           </p>
           <button
             class="card-header-icon"
@@ -17,11 +17,7 @@
             </span>
           </button>
       </header>
-      <b-collapse
-            aria-id="listToolBox"
-            animation="slide"
-            v-model="isOpen">
-      <div class="card-content py-0 px-3">
+      <div class="card-content py-0 px-3 pb-3">
         <div v-if="this.availablelists.length > 0">
           <b-dropdown
               :min="50" :max="250"
@@ -54,7 +50,12 @@
           </b-switch>
         </div>
       </div>
-      <hr class="mt-3 mb-0" />
+      <b-collapse
+            aria-id="listToolBox"
+            animation="slide"
+            v-model="isOpen">
+
+      <hr class="m-0" />
 
         <b-table
           :paginated="paginated"
@@ -62,7 +63,7 @@
           v-if="lists.length > 0"
           :data="lists"
           :striped="true">
-          <b-table-column field="name" :label="`Lists with ${this.item.name}`" sortable v-slot="props">
+          <b-table-column field="name" :label="`Decks & Lists with ${this.item.name}`" sortable v-slot="props">
             <a :href="`/apps/lists/${props.row.id}`" class="ellipsis">{{ props.row.name}}</a>
             <b-tag v-if="props.row.list_item_foil == '1'" class="is-rounded rainbow-background has-text-white">Foil</b-tag>
           </b-table-column>
