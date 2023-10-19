@@ -42,7 +42,7 @@ export default {
             {
               hid: 'description',
               name: 'description',
-              content:  `A suite of mtg collection tracking tools focused on pricing for MTG Players and Store Owners. Weekly reports, live updates, and more.`
+              content:  `Magic: the Gathering collection tracking tools focused on pricing for MTG Players and Store Owners. Weekly reports, live updates, and more.`
             },
 
           ]
