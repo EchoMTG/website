@@ -36,13 +36,13 @@ export default {
   },
   head () {
       return {
-          title: this.authenticated ? `${this.user.username}'s dashboard` : `Magic:the Gathering Collection Tools &amp; Card Pricing Application`,
+          title: this.authenticated ? `${this.user.username}'s dashboard` : `MTG Collection Tracker with Email Reports, Decks, Watchlists and more`,
           meta: [
             { hid: 'og:image', property: 'og:image', content: `https://assets.echomtg.com/images/echomtg-og-default.png` },
             {
               hid: 'description',
               name: 'description',
-              content:  `A suite of Financial oriented Collection tools and Pricing information for Magic:the Gathering Players and Store Owners`
+              content:  `A suite of mtg collection tracking tools focused on pricing for MTG Players and Store Owners. Weekly reports, live updates, and more.`
             },
 
           ]
