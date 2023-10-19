@@ -71,6 +71,7 @@
 
               :callbackname="'Add to Inventory'" />
               <nuxt-link class="button is-small mr-2 is-dark is-outlined has-text-white"  to="/apps/import/"><b-icon icon="tray-arrow-down" size="is-small" class="mr-1"/> CSV/Scanner Import</nuxt-link>
+              <a href="https://www.youtube.com/watch?v=LG1EVm-cEqk" target="_blank">How to Video</a>
           </div>
           <div class="level-right is-align-content-stretch	is-align-items-center	ml-2" v-if="user.plan != 'common'">
             <b-taglist class="mb-0 level-item" attached>
