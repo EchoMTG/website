@@ -2,7 +2,7 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
-                <a href="/apps/inventory/">Your Inventory</a>
+                ({{this.items.length}}) <nuxt-link to="/apps/inventory/">{{title}}</nuxt-link>
             </p>
             <button
                 class="card-header-icon"
@@ -102,6 +102,14 @@ export default {
         },
         callback: {
           type: Function
+        },
+        open: {
+          type: Boolean,
+          default: true
+        },
+        title: {
+          type: String,
+          default: 'In Inventory'
         }
     },
     data: function data() {
@@ -109,7 +117,7 @@ export default {
         return {
             items: [],
             actions: 0,
-            isOpen: true,
+            isOpen: this.open,
             acquiredAddPrice: 0.01,
             acquiredAddFoilPrice: 0.01
 

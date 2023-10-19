@@ -48,6 +48,9 @@ export const baseChartOptions = {
     display: true,
     position: 'chartArea'
   },
+  interaction: {
+    intersect: false,
+  },
   responsive: true
 }
 export const chartOptionsBar = {
@@ -68,16 +71,16 @@ export const chartOptionsBar = {
 export const chartOptionsMain = {
   ...baseChartOptions,
   animations: {
-    // tension: {
-    //   duration: 1000,
-    //   easing: 'linear',
-    //   from: 1,
-    //   to: 0,
-    //   loop: true
-    // }
+    tension: {
+      duration: 1000,
+      easing: 'linear',
+      from: 1,
+      to: 0,
+      loop: false
+    }
   },
   tooltips: {
-    backgroundColor: '#333',
+    backgroundColor: '#000',
     titleFontColor: '#FFF',
     bodyFontColor: '#CCC',
     bodySpacing: 4,

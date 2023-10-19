@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              <a href="/apps/lists/">Your Lists</a>
+              <a href="/apps/lists/">{{title}}</a>
           </p>
           <button
             class="card-header-icon"
@@ -89,12 +89,20 @@ export default {
                 name: ''
             },
         },
+        open: {
+          type: Boolean,
+          default: true
+        },
+        title: {
+          type: String,
+          default: 'In Decks/Lists'
+        }
     },
     data: function data() {
 
         return {
             lists: [],
-            isOpen: true,
+            isOpen: this.open,
             availablelists: [],
             currentList: {},
             foil: false
