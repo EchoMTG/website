@@ -165,7 +165,7 @@ th.header{
 $price-height: 60px;
 .todaysprices{
 
-	border-bottom: 1px $grey-lighter solid;
+	// border-bottom: 1px $grey-lighter solid;
 	height: $price-height + 1;
 	font-size: 24px;
 	display: flex;
@@ -346,6 +346,10 @@ $set-name-height: 50px;
 .cardImageContainer{
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
+  background: black;
+  z-index: 2;
+  box-shadow: 10px 15px 10px rgba(0, 0, 0, 0.44);
 }
 
 .card-page {

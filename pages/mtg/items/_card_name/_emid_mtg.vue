@@ -4,30 +4,21 @@
 
     <echo-bread-crumbs :data="crumbs" />
 
-   
-    <h1 class="title mb-3 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">prices from</span> {{this.item.expansion}}</h1>
-        
-    <div class="columns mr-2">
+
+    <div class="columns is-gapless">
       <div class="column is-one-quarter">
-        <div class="cardImageContainer m-3">
+        <div class="cardImageContainer mt-5 ml-3">
           <NuxtPicture
               quality="30"
-              width="318"
+              width="390"
               height="442"
+              style="width:100%"
               :src="item.image"
               :alt="`${item.name} magic card front`"
           />
 
         </div>
-        <div class="has-text-centered">
-          <social-buttons
-              :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
-              :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
-              :twitter="`echomtg`"
-              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
-            />
-        </div>
-        <div class="message m-3 p-4 is-overflowhidden">
+        <div class="box has-background-black has-text-light m-3 p-4 is-overflowhidden is-hidden-touch" >
           <nav class="level is-mobile">
             <div class="level-left">
               <div class="level-item">
@@ -53,181 +44,202 @@
           </div>
         </div>
       </div>
-      <div class="column is-half">
-        <!-- prices -->
-        <nav class="level is-mobile pt-2 pb-2 todaysprices">
-      <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
-        <div>
-          <p class="heading is-size-8">Market</p>
-          <p class="title is-size-4 is-size-5-mobile">
-            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" v-if="this.item.tcg_low > 0">
-        <div>
-          <p class="heading is-size-8">TCG Low</p>
-          <p class="title is-size-4 is-size-5-mobile">
-            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularLowPrice}}</a>
 
-            </p>
+      <div class="column is-three-fourths">
+
+         <div class="is-flex ml-3 mt-3 py-3 is-hidden-touch">
+          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">prices from</span> <nuxt-link :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></h1>
+          <social-buttons
+              classes="ml-auto mr-5 "
+              :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+              :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
+              :twitter="`echomtg`"
+              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
+            />
         </div>
-      </div>
-      <div class="level-item has-text-centered is-hidden-mobile" v-if="this.item.tcg_mid > 0">
-        <div>
-          <p class="heading is-size-8">TCG Mid</p>
-          <p class="title is-size-4 is-size-5-mobile">
-            <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">
-              {{cs}}{{regularMidPrice}}
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
-        <div>
-          <p class="heading is-size-8">7-Day Change</p>
-          <p class="title is-size-4 is-size-5-mobile">{{priceChange}}%</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
-        <div>
-          <p class="heading is-size-8">Foil Price</p>
-          <p class="title is-size-4 is-size-5-mobile  has-text-warning-dark">{{cs}}{{foilPrice}}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" v-if="this.item.foil_price > 0 && this.item.tcg_mid > 0">
-        <div>
-          <p class="heading is-size-8">Foil Multiplier</p>
-          <p class="title is-size-4 is-size-5-mobile has-text-warning-dark">{{foilMultipler}}X</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered is-hidden-mobile">
-        <div>
-          <p class="heading is-size-8">Last Price Update</p>
-          <p class="title is-4 is-5-mobile">{{lastUpdateDate}}</p>
-        </div>
-      </div>
-       </nav>
-        <b-field class="pb-3" grouped group-multiline>
-          <div class="control" v-if="this.item.reserve_list == 1">
-            <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
-          </div>
-          <div class="control">
-            <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
-          </div>
-          <div class="control">
-            <b-tag :class="`${this.item.rarity.replace(' ','-').toLowerCase()}-background has-text-weight-bold`">{{this.item.rarity}}</b-tag>
-          </div>
-          <div class="control">
-            <b-tag type="is-black">{{this.item.main_type}}</b-tag>
-          </div>
-          <div class="control">
-            <b-taglist attached>
-                <b-tag>Echo ID</b-tag>
-                <b-tag type="is-dark">{{this.item.emid}}</b-tag>
-            </b-taglist>
-          </div>
-          <div class="control">
-            <b-taglist attached>
-                <b-tag>TCG ID</b-tag>
-                <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
-            </b-taglist>
-          </div>
-          <div class="control">
-            <b-taglist attached>
-                <b-tag>Multiverse ID</b-tag>
-                <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
-            </b-taglist>
-          </div>
-        </b-field>
-        <client-only>
-          <line-chart
-            :chart-data="chartData"
-            :chart-options="extraOptions"
-            chart-id="cardLineChart"
-          />
-        </client-only>
-        <div class="card mt-3">
-          <header class="card-header">
-            <p class="card-header-title ">
-              {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
-            </p>
-            <button
-                class="card-header-icon"
-                aria-label="collapse price analysis"
-                @click="isPriceAnalysisOpen = !isPriceAnalysisOpen"
-                :aria-expanded="isPriceAnalysisOpen"
-                aria-controls="priceAnalysis"
+              <b-field class="pb-0 ml-3 is-hidden-touch" grouped group-multiline>
+                <div class="control" v-if="this.item.reserve_list == 1">
+                  <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
+                </div>
+                <div class="control">
+                  <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
+                </div>
+                <div class="control">
+                  <b-tag :class="`${this.item.rarity.replace(' ','-').toLowerCase()}-background has-text-weight-bold`">{{this.item.rarity}}</b-tag>
+                </div>
+                <div class="control">
+                  <b-tag type="is-black">{{this.item.main_type}}</b-tag>
+                </div>
+                <div class="control">
+                  <b-taglist attached>
+                      <b-tag>Echo ID</b-tag>
+                      <b-tag type="is-dark">{{this.item.emid}}</b-tag>
+                  </b-taglist>
+                </div>
+                <div class="control">
+                  <b-taglist attached>
+                      <b-tag>TCG ID</b-tag>
+                      <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+                  </b-taglist>
+                </div>
+                <div class="control">
+                  <b-taglist attached>
+                      <b-tag>Multiverse ID</b-tag>
+                      <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
+                  </b-taglist>
+                </div>
+              </b-field>
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <div class="box has-background-black has-text-white">
+              <!-- prices -->
+              <nav class="level is-mobile pt-2 pb-2 todaysprices">
+                <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
+                  <div>
+                    <p class="heading is-size-8">Market</p>
+                    <p class="title is-size-5 is-size-6-mobile">
+                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered" v-if="this.item.tcg_low > 0">
+                  <div>
+                    <p class="heading is-size-8">TCG Low</p>
+                    <p class="title is-size-5 is-size-6-mobile">
+                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularLowPrice}}</a>
+
+                      </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered is-hidden-mobile" v-if="this.item.tcg_mid > 0">
+                  <div>
+                    <p class="heading is-size-8">TCG Mid</p>
+                    <p class="title is-size-5 is-size-6-mobile">
+                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">
+                        {{cs}}{{regularMidPrice}}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
+                  <div>
+                    <p class="heading is-size-8">7-Day</p>
+                    <p class="title is-size-5 is-size-6-mobile">{{priceChange}}%</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
+                  <div>
+                    <p class="heading is-size-8">Foil Price</p>
+                    <p class="title is-size-5 is-size-6-mobile  has-text-warning-dark">{{cs}}{{foilPrice}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered" v-if="this.item.foil_price > 0 && this.item.tcg_mid > 0">
+                  <div>
+                    <p class="heading is-size-8">Foil Multiplier</p>
+                    <p class="title is-size-5 is-size-6-mobile has-text-warning-dark">{{foilMultipler}}X</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered is-hidden-mobile">
+                  <div>
+                    <p class="heading is-size-8">Last Price Update</p>
+                    <p class="title is-size-5 is-size-6-mobile">{{lastUpdateDate}}</p>
+                  </div>
+                </div>
+              </nav>
+
+              <client-only>
+                <line-chart
+                  :chart-data="chartData"
+                  :chart-options="customChartConfig"
+                  chart-id="cardLineChart"
+                  ref="chart"
+                />
+              </client-only>
+              <div class="card mt-3">
+                <header class="card-header">
+                  <p class="card-header-title ">
+                    {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
+                  </p>
+                  <button
+                      class="card-header-icon"
+                      aria-label="collapse price analysis"
+                      @click="isPriceAnalysisOpen = !isPriceAnalysisOpen"
+                      :aria-expanded="isPriceAnalysisOpen"
+                      aria-controls="priceAnalysis"
+                      >
+                      <span class="icon">
+                          <b-icon v-if="isPriceAnalysisOpen" icon="menu-down" aria-hidden="true"></b-icon>
+                          <b-icon v-if="!isPriceAnalysisOpen" icon="menu-left" aria-hidden="true"></b-icon>
+                      </span>
+                  </button>
+                </header>
+                <b-collapse
+                  aria-id="priceAnalysis"
+                  animation="slide"
+                  v-model="isPriceAnalysisOpen">
+                  <div v-if="this.prices.regular !== undefined && this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null">
+                    <item-price-analysis  :prices="this.prices"  />
+                  </div>
+                  <div v-if="!this.authenticated" class="has-text-centered pb-4">
+                    <p><a href="/login/">Login</a> or Create an Account to see more Price Details</p><create-account-modal size="is-small" />
+                  </div>
+                  <div v-if="this.authenticated && (this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null)">
+                    <h3 class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
+                    <item-price-analysis :prices="this.prices" type="foil" />
+                  </div>
+                </b-collapse>
+              </div>
+
+            </div>
+            <!-- variations and history -->
+            <div v-if="variations.length > 1">
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    {{variations.length}} Total Variations/Printings of {{this.item.name}}
+                  </p>
+                  <a :href="this.item.card_url" class="button card-header-icon" aria-label="more options">
+
+                    See All Variations
+                  </a>
+                </header>
+                <b-table
+                  :data="variations"
+                  default-sort="tcg_mid"
+                  default-sort-direction="DESC"
+                  :bordered="true"
+                  :striped="true"
+                  :mobile-cards="false"
+
                 >
-                <span class="icon">
-                    <b-icon v-if="isPriceAnalysisOpen" icon="menu-down" aria-hidden="true"></b-icon>
-                    <b-icon v-if="!isPriceAnalysisOpen" icon="menu-left" aria-hidden="true"></b-icon>
-                </span>
-            </button>
-          </header>
-          <b-collapse
-            aria-id="priceAnalysis"
-            animation="slide"
-            v-model="isPriceAnalysisOpen">
-            <div v-if="this.prices.regular !== undefined && this.prices.regular[0] != null || this.prices.regular[this.prices.regular.length - 1] != null">
-              <item-price-analysis  :prices="this.prices"  />
+                    <b-table-column v-slot="props">
+                      <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
+                    </b-table-column>
+                    <b-table-column field="set" label="Expansion" sortable v-slot="props">
+                      <item-inspector-wrapper :name="variationName(props.row.set, props.row.name)" :item="props.row" />
+                    </b-table-column>
+
+                    <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
+                        <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
+                    </b-table-column>
+                    <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
+                        <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
+                    </b-table-column>
+                </b-table>
+              </div>
             </div>
-            <div v-if="!this.authenticated" class="has-text-centered pb-4">
-              <p><a href="/login/">Login</a> or Create an Account to see more Price Details</p><create-account-modal size="is-small" />
-            </div>
-            <div v-if="this.authenticated && (this.prices.foil !== undefined && this.prices.foil[0] != null || this.prices.foil[this.prices.foil.length - 1] != null)">
-              <h3 class="title is-size-6 has-text-warning-dark ml-3 mb-2 mt-1">Foil Price Analysis </h3>
-              <item-price-analysis :prices="this.prices" type="foil" />
-            </div>
-          </b-collapse>
-        </div>
+          </div>
+          <div class="column is-one-third">
+            <client-only>
+                <item-tool-box :open="false" :title="`${item.name}'s in Inventory`" v-if="authenticated" :item="this.item"></item-tool-box>
+                <item-list-box :open="false" :title="`${item.name}'s in Decks/Lists`" v-if="authenticated" :item="this.item"></item-list-box>
+              </client-only>
+              <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
 
-        <!-- variations and history -->
-        <div v-if="variations.length > 1">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                {{variations.length}} Total Variations/Printings of {{this.item.name}}
-              </p>
-              <a :href="this.item.card_url" class="button card-header-icon" aria-label="more options">
-
-                See All Variations
-              </a>
-            </header>
-            <b-table
-              :data="variations"
-              default-sort="tcg_mid"
-              default-sort-direction="DESC"
-              :bordered="true"
-              :striped="true"
-              :mobile-cards="false"
-
-            >
-                <b-table-column v-slot="props">
-                  <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
-                </b-table-column>
-                <b-table-column field="set" label="Expansion" sortable v-slot="props">
-                  <item-inspector-wrapper :name="variationName(props.row.set, props.row.name)" :item="props.row" />
-                </b-table-column>
-
-                <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
-                    <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
-                </b-table-column>
-                <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
-                    <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
-                </b-table-column>
-            </b-table>
           </div>
         </div>
+      </div>
 
-      </div>
-      <div class="column is-one-quarter ">
-        <client-only>
-          <item-tool-box v-if="authenticated" :item="this.item"></item-tool-box>
-          <item-list-box v-if="authenticated" :item="this.item"></item-list-box>
-        </client-only>
-        <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
-      </div>
     </div>
 
 
@@ -277,7 +289,6 @@ export default {
         regular: [],
         date: []
       },
-      extraOptions: chartConfig.chartOptionsMain
 
     }
   },
@@ -294,7 +305,7 @@ export default {
     // fetch the item
     let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
     // pricing
-    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}`;
+    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&days=1000`;
 
     // try to get the json
     try {
@@ -304,7 +315,6 @@ export default {
         }
       );
       item = await res.json();
-
       dataRes = await fetch( dataEndpoint,
         {
           headers: $echomtg.getS2SGetHeaders()
@@ -345,7 +355,6 @@ export default {
     }
   },
   methods: {
-
     makeSetPath(code, path_part){
       return `/mtg/sets/${code}/${path_part}/`
     },
@@ -358,10 +367,29 @@ export default {
         name += ' (' + itemname.split('(')[1].replace(')','')+')'
       }
       return name;
-    }
+    },
 
   },
   computed: {
+    customChartConfig(){
+      let customChart = chartConfig.chartOptionsMain
+
+      customChart.scales.x.grid = {
+          color: '#333',
+
+      }
+      customChart.scales.x.ticks = {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 45
+      }
+      customChart.scales.y = {}
+       customChart.scales.y.grid = {
+          display: true ,
+          color: '#222',
+      }
+      return customChart;
+    },
     cs() {
       return this.user.currency_symbol
     },
@@ -418,6 +446,8 @@ export default {
       ]
     },
     chartData() {
+
+
       return {
         labels: this.prices.date,
         datasets: [
