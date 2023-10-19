@@ -230,6 +230,43 @@
             </div>
           </div>
           <div class="column is-one-third">
+             <div class="card has-background-black">
+                <header class="card-header">
+                  <a class="card-header-title "  @click="isBuylistOpen = !isBuylistOpen">
+                    EchoMTG Buylist Metrics and Tools
+                  </a>
+                  <button
+                      class="card-header-icon"
+                      aria-label="collapse Metrics and Tools"
+                      @click="isBuylistOpen = !isBuylistOpen"
+                      :aria-expanded="isBuylistOpen"
+                      aria-controls="buylist"
+                      >
+                      <span class="icon">
+                          <b-icon v-if="isBuylistOpen" icon="menu-down" aria-hidden="true"></b-icon>
+                          <b-icon v-if="!isBuylistOpen" icon="menu-left" aria-hidden="true"></b-icon>
+                      </span>
+                  </button>
+                </header>
+                <b-collapse
+                  aria-id="buylist"
+                  animation="slide"
+                  v-model="isBuylistOpen">
+                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3 mb-2" type="is-dark" size="is-small">Buy on TCGplayer {{cs}}{{item.tcg_low}}</b-button>
+                    <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" type="is-dark" size="is-small">Open on Wizard's Gatherer</b-button>
+                    <br class="is-clearfix" />
+                    <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
+                    <hr class="mx-0 my-1"/>
+                  <div v-if="authenticated && user.planObject.access_level >= 3" class="pb-2">
+
+                    <div class="is-flex px-4 has-text-warning"><span>Paper Foil</span> <span class="ml-auto">{{cs}}{{item.foil_buylist_assumption}}</span></div>
+                    <div class="is-flex px-4"><span>Paper Regular</span> <span class="ml-auto">{{cs}}{{item.buylist_assumption}}</span></div>
+                  </div>
+                  <div class="px-3 pb-2" v-else>
+                    <nuxt-link class="is-size-7" to="/plans">Upgrade to Mythic for EchoMTG Buylist Metrics</nuxt-link>
+                  </div>
+                </b-collapse>
+             </div>
             <client-only>
                 <item-tool-box :open="false" :title="`${item.name}'s in Inventory`" v-if="authenticated" :item="this.item"></item-tool-box>
                 <item-list-box :open="false" :title="`${item.name}'s in Decks/Lists`" v-if="authenticated" :item="this.item"></item-list-box>
@@ -280,6 +317,7 @@ export default {
   data () {
     return {
       isPriceAnalysisOpen: true,
+      isBuylistOpen: true,
       item: {
         name: '',
       },
@@ -311,13 +349,14 @@ export default {
     try {
       res = await fetch(
         endpoint, {
-          headers: $echomtg.getS2SGetHeaders()
+          headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
       item = await res.json();
+
       dataRes = await fetch( dataEndpoint,
         {
-          headers: $echomtg.getS2SGetHeaders()
+          headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
       let priceData = await dataRes.json();
@@ -333,7 +372,7 @@ export default {
 
       const vRes = await fetch(
         variationsEndpoint, {
-          headers: $echomtg.getS2SGetHeaders()
+          headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
       let vData = await vRes.json();
@@ -368,6 +407,9 @@ export default {
       }
       return name;
     },
+    openExternalLink(url){
+      window.open(url,'_blank')
+    }
 
   },
   computed: {

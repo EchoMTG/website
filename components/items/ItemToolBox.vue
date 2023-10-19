@@ -1,8 +1,10 @@
 <template>
     <div class="card">
         <header class="card-header">
+
+
             <p class="card-header-title">
-                ({{this.items.length}}) <nuxt-link to="/apps/inventory/">{{title}}</nuxt-link>
+                <a @click="isOpen = !isOpen"><span class="">{{this.items.length}}</span> {{title}}</a>
             </p>
             <button
                 class="card-header-icon"
@@ -16,7 +18,28 @@
                     <b-icon v-if="!isOpen" icon="menu-left" aria-hidden="true"></b-icon>
                 </span>
             </button>
+
         </header>
+         <div class="is-flex">
+              <a style="border-right: none;" v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)" class="card-footer-item has-text-black" @click="addItem(0)">
+                    <b-icon class="mr-2" icon="plus-box-outline"></b-icon> Add Regular</a>
+                  <!-- <input
+                    v-if="priceMid > 0"
+                    class="input card-footer-item is-shadowless m-0"
+                    style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto"
+                    v-model="acquiredAddPrice"
+                /> -->
+                <a style="border-right: none;" v-if="priceFoil > 0" class="card-footer-item has-text-warning-dark" @click="addItem(1)">
+                    <b-icon  class="mr-2" icon="plus-box-outline"></b-icon>  Add Foil
+                </a>
+                <!-- <input
+                    v-if="priceFoil > 0"
+                    class="input card-footer-item is-shadowless m-0"
+                    style="border: none; border-radius: 0; height: auto"
+                    v-model="acquiredAddFoilPrice"
+                /> -->
+
+          </div>
         <b-collapse
             aria-id="inventoryToolBox"
             animation="slide"
@@ -56,27 +79,6 @@
                     </b-table-column>
                 </b-table>
             </div>
-            <footer class="card-footer has-background-light">
-
-                <a style="border-right: none;" v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)" class="card-footer-item has-text-black" @click="addItem(0)">
-                    <b-icon class="mr-2" icon="plus-box-outline"></b-icon> Regular</a>
-                    <input
-                    v-if="priceMid > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddPrice"
-                />
-                <a style="border-right: none;" v-if="priceFoil > 0" class="card-footer-item has-text-warning-dark" @click="addItem(1)">
-                    <b-icon  class="mr-2" icon="plus-box-outline"></b-icon>  Foil
-                </a>
-                <input
-                    v-if="priceFoil > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddFoilPrice"
-                />
-
-            </footer>
         </b-collapse>
     </div>
 </template>
