@@ -242,7 +242,7 @@ export default {
       const res = await this.$echomtg.postReq(`user/verify_phone/`,{
         'verify_number': this.verifyCode
       });
-      const type = res.status == 'error' ? 'is-danger' : 'is-success'; 
+      const type = res.status == 'error' ? 'is-danger' : 'is-success';
       this.$buefy.toast.open({
         message: `${res.message}`,
         type: type
@@ -266,6 +266,13 @@ export default {
             message: `${res.message}: ${name} updated to ${value} `,
             type: 'is-info'
           })
+
+        if(name == 'currency_code'){
+          const quickstats = await this.$echomtg.inventoryQuickStats();
+          if(quickstats.status == 'success'){
+             this.$store.commit('quickstats',quickstats.stats);
+          }
+        }
 
         // update user
         await this.$fetch();

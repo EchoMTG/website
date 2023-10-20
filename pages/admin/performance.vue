@@ -17,13 +17,13 @@
       <div class="level">
          <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Total Paid last {{paidMeta.days_between}} Days</p>
+            <p class="heading">Total Paid</p>
             <p class="title">{{paidMeta.total}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Avg. Paid Per Month</p>
+            <p class="heading">Avg. Paid Each Month</p>
             <p class="title">{{paidMeta?.average_per_month ? paidMeta?.average_per_month.toFixed(2) : 0}}</p>
           </div>
         </div>
@@ -34,7 +34,7 @@
                 expanded
                 range
                 icon="calendar-today"
-                month
+                type="month"
 
                 v-model="dates">
             </b-datepicker>
@@ -75,17 +75,17 @@
             :loading="loading"
             :data="paidUsers"
             >
-            <b-table-column :key="plan" label="Plan" v-slot="props">
+            <b-table-column field="plan" label="Plan" v-slot="props">
               <b-tag :class="`${props.row?.plan ? props.row.plan : '' }-background`">{{props.row.plan}}</b-tag>
             </b-table-column>
-            <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
+            <b-table-column field="referrer_url" label="Referrer" v-slot="props">
               {{props.row.referrer_url}}
             </b-table-column>
-            <b-table-column :key="username" label="User" v-slot="props">
+            <b-table-column field="username" label="User" v-slot="props">
               <strong>{{props.row.username}}</strong> <span>{{props.row.email}}</span>
             </b-table-column>
 
-            <b-table-column :key="month_created" label="Month Created" v-slot="props">
+            <b-table-column field="month_created" label="Month Created" v-slot="props">
               <b-tag>{{props.row.month_created}}</b-tag>
             </b-table-column>
           </b-table>
@@ -151,10 +151,9 @@ export default {
 
   async fetch(){
       this.loading    = true;
-      console.log('start',this.date_start)
-      console.log('end',this.date_end)
       if(this.date_start == this.date_end){
         this.date_start = this.$moment().subtract(12, 'months').format('Y-MM-DD');
+        //this.dates = [this.$moment().toISOString(),this.$moment().subtract(12, 'months').toISOString()]
       }
       console.log('start',this.date_start)
       const data = await this.getLatestPaidUsers();

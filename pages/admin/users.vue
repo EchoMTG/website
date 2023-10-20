@@ -82,7 +82,7 @@ export default {
 
 
       this.users = (await this.getUsers()).results
-      console.log(this.users)
+
 
       this.loading    = false;
   },
