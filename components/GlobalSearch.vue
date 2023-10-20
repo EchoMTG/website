@@ -274,10 +274,6 @@ export default {
         callbackname: {
             type: String,
             default: '<span class="icon is-small"><i class="mdi mdi-share"></i></span><span>Open Card Page</span>'
-        },
-        currencysymbol: {
-            type: String,
-            default: '$'
         }
     },
     data () {
@@ -317,7 +313,9 @@ export default {
             let url = `${this.$config.API_DOMAIN}search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
                 url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
 
-            fetch(encodeURI(url)).then(response => response.json()).then(response => {
+            fetch(encodeURI(url),{
+              headers: this.$echomtg.getS2SHeadersNoJSON()
+            }).then(response => response.json()).then(response => {
 
                 if(response.data == undefined){
                     $this.results = []
@@ -424,8 +422,12 @@ export default {
         ...mapState([
           'currentInventoryPage',
           'user',
-          'authenticated'
-        ])
+          'authenticated',
+          'quickstats'
+        ]),
+        currencysymbol() {
+          return this.quickstats?.currency_symbol ? this.quickstats.currency_symbol : '$'
+        }
     },
     mounted(){
         this.$refs.globalSearchBox.addEventListener('click', function (e) {
