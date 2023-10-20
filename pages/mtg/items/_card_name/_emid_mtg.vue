@@ -18,6 +18,7 @@
           />
 
         </div>
+
         <div class="box has-background-black has-text-light m-3 p-4 is-overflowhidden is-hidden-touch" >
           <nav class="level is-mobile">
             <div class="level-left">
@@ -48,7 +49,7 @@
       <div class="column is-three-fourths">
 
          <div class="is-flex ml-3 mt-3 py-3 is-hidden-touch">
-          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-light has-text-weight-light">prices from</span> <nuxt-link :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></h1>
+          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-dark has-text-weight-light">prices from <nuxt-link class="has-text-grey-dark" :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></span> </h1>
           <social-buttons
               classes="ml-auto mr-5 "
               :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
@@ -62,32 +63,24 @@
                   <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
                 </div>
                 <div class="control">
-                  <set-tag :code="this.item.set_code" :name="this.item.expansion" :url="this.item.set_url" />
-                </div>
-                <div class="control">
-                  <b-tag :class="`${this.item.rarity.replace(' ','-').toLowerCase()}-background has-text-weight-bold`">{{this.item.rarity}}</b-tag>
-                </div>
-                <div class="control">
-                  <b-tag type="is-black">{{this.item.main_type}}</b-tag>
-                </div>
-                <div class="control">
                   <b-taglist attached>
-                      <b-tag>Echo ID</b-tag>
-                      <b-tag type="is-dark">{{this.item.emid}}</b-tag>
+                    <b-tag class="has-background-black has-text-white">Rarity</b-tag>
+                    <b-tag class="has-background-grey-dark has-text-white"><i :class="`${getSetIconClass(this.item.set_code)} ${this.item.rarity.replace(' ','-').toLowerCase()}-symbol`"></i> {{this.item.rarity}}</b-tag>
                   </b-taglist>
                 </div>
                 <div class="control">
                   <b-taglist attached>
-                      <b-tag>TCG ID</b-tag>
-                      <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+                    <b-tag class="has-background-black has-text-white">Types</b-tag>
+                    <b-tag class="has-background-grey-dark has-text-white">{{this.item.main_type}}</b-tag>
                   </b-taglist>
                 </div>
-                <div class="control">
+                 <div class="control">
                   <b-taglist attached>
-                      <b-tag>Multiverse ID</b-tag>
-                      <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
+                    <b-tag class="has-background-black has-text-white">Reprints</b-tag>
+                    <b-tag class="has-background-grey-dark has-text-white">{{this.variations.length}}</b-tag>
                   </b-taglist>
                 </div>
+
               </b-field>
         <div class="columns">
           <div class="column is-two-thirds">
@@ -267,6 +260,27 @@
                   </div>
                 </b-collapse>
              </div>
+
+          <b-field grouped group-multiline v-if="user.planObject.access_level >= 3">
+            <div class="control">
+              <b-taglist attached>
+                  <b-tag type="is-black">ECHO</b-tag>
+                  <b-tag type="is-dark">{{this.item.emid}}</b-tag>
+              </b-taglist>
+            </div>
+            <div class="control">
+              <b-taglist attached>
+                  <b-tag type="is-black">TCG</b-tag>
+                  <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+              </b-taglist>
+            </div>
+            <div class="control">
+              <b-taglist attached>
+                  <b-tag type="is-black">WOTC</b-tag>
+                  <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
+              </b-taglist>
+            </div>
+          </b-field>
             <client-only>
                 <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
                 <item-list-box :open="false" :title="`My Decks/Lists`" v-if="authenticated" :item="this.item"></item-list-box>
@@ -529,8 +543,8 @@ export default {
       return this.item.change
     },
     lastUpdateDate() {
-      if(undefined == this.prices.date) return 'N/A';
-      return this.prices.date[this.prices.date.length - 1];
+      if(undefined == this.item.last_updated) return 'N/A';
+      return this.$moment(this.item.last_updated).format('l');
     },
     ...mapState([
       'user',
