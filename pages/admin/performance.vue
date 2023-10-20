@@ -5,7 +5,7 @@
     <section class="hero is-dark is-small has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">Financials</h1>
+              <h1 class="title">App Performance</h1>
               <h3 class="subtitle">
                 Information on paid users
               </h3>
@@ -24,25 +24,33 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Avg. Paid Per Month</p>
-            <p class="title">{{paidMeta.average_per_month}}</p>
+            <p class="title">{{paidMeta?.average_per_month ? paidMeta?.average_per_month.toFixed(2) : 0}}</p>
           </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <b-field label="Select a date range">
+            <b-datepicker
+                ref="datepicker"
+                expanded
+                range
+                icon="calendar-today"
+                month
+
+                v-model="dates">
+            </b-datepicker>
+          </b-field>
         </div>
 
       </div>
       <hr />
       <div class="columns">
-        <div class="column is-one-quarter">
+        <div class="column is-half">
           <h2 class="title is-size-4 has-text-centered" >Referrer Distribution</h2>
           <client-only>
-            <pie-chart  :chart-data="referrerData" :chart-options="chartOptions" />
+            <bar-chart  :chart-data="referrerData" :chart-options="chartOptions" />
           </client-only>
         </div>
-        <div class="column is-one-quarter">
-          <h2 class="title is-size-4 has-text-centered" >User Plan Distribution</h2>
-          <client-only>
-            <pie-chart  :chart-data="plansData" :chart-options="chartOptions" />
-          </client-only>
-        </div>
+
         <div class="column is-half">
           <h2 class="title is-size-4 has-text-centered" >Monthly Users / Revenue</h2>
           <client-only>
@@ -54,27 +62,44 @@
 
     </div>
 
-    <h2 class="title is-size-4">{{paidMeta.total}} new users in the last {{paidMeta.days_between}} days</h2>
-    <b-table
-    v-if="paidUsers.length > 0"
-      striped
-      narrowed
-      :data="paidUsers"
-      >
-      <b-table-column :key="plan" label="Plan" v-slot="props">
-        <b-tag :class="`${props.row?.plan ? props.row.plan : '' }-background`">{{props.row.plan}}</b-tag>
-      </b-table-column>
-      <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
-        {{props.row.referrer_url}}
-      </b-table-column>
-      <b-table-column :key="username" label="User" v-slot="props">
-        <strong>{{props.row.username}}</strong> <span>{{props.row.email}}</span>
-      </b-table-column>
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <div class="box has-background-black m-4 mr-0">
+          <h2 class="title is-size-4">{{paidMeta.total}} new users between {{this.$moment(date_start).format('l')}}-{{this.$moment(date_end).format('l')}} ({{paidMeta.days_between}} days)</h2>
+          <b-table
+          v-if="paidUsers.length > 0"
+            striped
+            :mobile-cards="false"
+            narrowed
+            paginated
+            :loading="loading"
+            :data="paidUsers"
+            >
+            <b-table-column :key="plan" label="Plan" v-slot="props">
+              <b-tag :class="`${props.row?.plan ? props.row.plan : '' }-background`">{{props.row.plan}}</b-tag>
+            </b-table-column>
+            <b-table-column :key="referrer_url" label="Referrer" v-slot="props">
+              {{props.row.referrer_url}}
+            </b-table-column>
+            <b-table-column :key="username" label="User" v-slot="props">
+              <strong>{{props.row.username}}</strong> <span>{{props.row.email}}</span>
+            </b-table-column>
 
-       <b-table-column :key="month_created" label="Month Created" v-slot="props">
-        <b-tag>{{props.row.month_created}}</b-tag>
-      </b-table-column>
-    </b-table>
+            <b-table-column :key="month_created" label="Month Created" v-slot="props">
+              <b-tag>{{props.row.month_created}}</b-tag>
+            </b-table-column>
+          </b-table>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="box has-background-black m-4 ml-0">
+          <h2 class="title is-size-4 has-text-centered" >User Plan Distribution</h2>
+          <client-only>
+            <pie-chart  :chart-data="plansData" :chart-options="chartOptions" />
+          </client-only>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -90,12 +115,15 @@ export default {
   },
   data () {
     return {
-      loading: false,
+      loading: true,
       paidMeta: {},
       paidUsers:[],
       stats: null,
-
+      dates: [],
+      date_start: this.$moment().subtract(12, 'months').format('Y-MM-DD'),
+      date_end: this.$moment().format('Y-MM-DD'),
       referrerDataset: [{
+        'label': 'Referral Sources',
         'data' : [],
         'backgroundColor' : Object.values(chartConfig.allChartColors).reverse()
       }],
@@ -106,11 +134,11 @@ export default {
       }],
       plansLabels: [],
       monthlyDataset: [{
-        'label': 'Monthly Users',
+        'label': 'New Paid Users',
         'data' : [],
         'backgroundColor' : chartConfig.allChartColors.blue
       },{
-        'label': 'Monthly Revenue',
+        'label': 'New Revenue',
         'data' : [],
         'backgroundColor' : chartConfig.allChartColors.green
       }],
@@ -123,6 +151,12 @@ export default {
 
   async fetch(){
       this.loading    = true;
+      console.log('start',this.date_start)
+      console.log('end',this.date_end)
+      if(this.date_start == this.date_end){
+        this.date_start = this.$moment().subtract(12, 'months').format('Y-MM-DD');
+      }
+      console.log('start',this.date_start)
       const data = await this.getLatestPaidUsers();
 
 
@@ -142,13 +176,19 @@ export default {
   watch: {
     authenticated() {
       this.$fetch();
+    },
+    async dates(){
+
+      this.date_start = this.$moment(this.dates[0]).format('Y-MM-DD');
+      this.date_end = this.$moment(this.dates[1]).format('Y-MM-DD');
+      await this.$fetch()
     }
   },
 
   methods: {
 
-    async getLatestPaidUsers(date_start=false, date_end=false){
-      return await this.$echomtg.getReq(`super/paid_users/`);
+    async getLatestPaidUsers(){
+      return await this.$echomtg.getReq(`super/paid_users/?date_start=${this.date_start}&date_end=${this.date_end}`);
     },
 
   },
@@ -169,7 +209,7 @@ export default {
     },
     monthlyData(){
 
-      console.log(this.monthlyDataset,this.monthlyLabels)
+
       return {
         datasets: this.monthlyDataset,
         labels: this.monthlyLabels

@@ -2,17 +2,17 @@ function adminMenu() {
   return [{
     to: '/admin/',
     icon: 'chart-box-outline',
-    label: 'Admin Dashboard'
+    label: 'Admin'
   },
   {
     to: '/admin/users/',
     icon: 'account-group',
-    label: 'App Users'
+    label: 'User Management'
   },
   {
-    to: '/admin/financials/',
+    to: '/admin/performance/',
     icon: 'finance',
-    label: 'App Financials'
+    label: 'Performance'
   }]
 }
 

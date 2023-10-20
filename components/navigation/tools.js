@@ -7,12 +7,17 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
 {
   to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
-  label: 'Inventory / Binder'
+  label: 'Collection Inventory'
 },
 {
   to: '/apps/lists/',
   icon: 'clipboard-list',
   label: 'Lists/Decks'
+},
+{
+  to: '/apps/earnings/',
+  icon: 'cash-multiple',
+  label: 'Earnings'
 },
 {
   to: '/apps/watchlist/',
@@ -28,13 +33,6 @@ function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
   to: '/apps/sealed/',
   icon: 'gift',
   label: 'Sealed'
-},
-
-
-{
-  to: '/apps/earnings/',
-  icon: 'cash-multiple',
-  label: 'Earnings'
 },
 {
   to: '/apps/statistics/',
