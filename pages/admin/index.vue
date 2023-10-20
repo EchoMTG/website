@@ -2,7 +2,7 @@
   <div>
     <echo-bread-crumbs :data="crumbs" />
 
-    <section class="hero is-dark has-background-grey-dark mb-5">
+    <section class="hero is-dark is-small has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
               <h1 class="title  is-size-6-touch">EchoMTG Applications Stats</h1>

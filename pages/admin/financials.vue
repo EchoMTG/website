@@ -2,7 +2,7 @@
   <div>
     <echo-bread-crumbs :data="crumbs" />
 
-    <section class="hero is-dark has-background-grey-dark mb-5">
+    <section class="hero is-dark is-small has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
               <h1 class="title">Financials</h1>
@@ -13,7 +13,7 @@
       </div>
     </section>
 
-    <div class="container">
+    <div class="px-5">
       <div class="level">
          <div class="level-item has-text-centered">
           <div>
@@ -31,10 +31,22 @@
       </div>
       <hr />
       <div class="columns">
-        <div class="column" style="height: 200px">
+        <div class="column is-one-quarter">
+          <h2 class="title is-size-4 has-text-centered" >Referrer Distribution</h2>
+          <client-only>
+            <pie-chart  :chart-data="referrerData" :chart-options="chartOptions" />
+          </client-only>
+        </div>
+        <div class="column is-one-quarter">
           <h2 class="title is-size-4 has-text-centered" >User Plan Distribution</h2>
           <client-only>
             <pie-chart  :chart-data="plansData" :chart-options="chartOptions" />
+          </client-only>
+        </div>
+        <div class="column is-half">
+          <h2 class="title is-size-4 has-text-centered" >Monthly Users / Revenue</h2>
+          <client-only>
+            <bar-chart  :chart-data="monthlyData" :chart-options="chartOptions" />
           </client-only>
         </div>
 
@@ -83,20 +95,26 @@ export default {
       paidUsers:[],
       stats: null,
 
-      colorDataset: [{
+      referrerDataset: [{
         'data' : [],
-        'backgroundColor' : []
+        'backgroundColor' : Object.values(chartConfig.allChartColors).reverse()
       }],
+      referrerLabels: [],
       plansDataset: [{
         'data' : [],
-        'backgroundColor' : []
+        'backgroundColor' : Object.values(chartConfig.allChartColors)
       }],
       plansLabels: [],
-      distributionValueDataset: [{
-        'label': 'Financial Value',
+      monthlyDataset: [{
+        'label': 'Monthly Users',
         'data' : [],
-        'backgroundColor' : []
-      }]
+        'backgroundColor' : chartConfig.allChartColors.blue
+      },{
+        'label': 'Monthly Revenue',
+        'data' : [],
+        'backgroundColor' : chartConfig.allChartColors.green
+      }],
+      monthlyLabels: []
 
 
     }
@@ -112,7 +130,11 @@ export default {
       this.paidMeta = data.meta
       this.plansDataset[0].data = Object.values(data.plan);
       this.plansLabels = Object.keys(data.plan);
-
+      this.referrerDataset[0].data = Object.values(data.referrer);
+      this.referrerLabels = Object.keys(data.referrer);
+      this.monthlyDataset[0].data = Object.values(data.months);
+      this.monthlyDataset[1].data = Object.values(data.monthsRevenue);
+      this.monthlyLabels = Object.keys(data.months);
 
 
       this.loading    = false;
@@ -133,10 +155,24 @@ export default {
 
   computed: {
     plansData(){
-      console.log('data',this.plansDataset)
       return {
         datasets: this.plansDataset,
         labels: this.plansLabels
+      }
+    },
+    referrerData(){
+
+      return {
+        datasets: this.referrerDataset,
+        labels: this.referrerLabels
+      }
+    },
+    monthlyData(){
+
+      console.log(this.monthlyDataset,this.monthlyLabels)
+      return {
+        datasets: this.monthlyDataset,
+        labels: this.monthlyLabels
       }
     },
     distributionValueData(){
@@ -146,7 +182,7 @@ export default {
       return { datasets: this.rarityDistributionDataset, labels:this.rarityLabels }
     },
     chartOptions(){
-      return chartConfig.chartOptionsMain
+      return chartConfig.baseChartOptions
     },
 
     crumbs() {
