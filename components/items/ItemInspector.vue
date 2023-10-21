@@ -40,8 +40,8 @@
         </div>
 
         <footer class="card-footer" v-if="toggleShowFull">
-            <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular ${{item.tcg_mid}}</a>
-            <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil ${{item.foil_price}}</a>
+            <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular {{currency_symbol}}{{item.tcg_mid}}</a>
+            <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil {{currency_symbol}}{{item.foil_price}}</a>
 
             <a v-if="item.card_url" :href="item.variation_url" class="card-footer-item">All Variations</a>
             <a :href="itemURL" class="card-footer-item">Open Item Page</a>
@@ -55,7 +55,7 @@
 </style>
 <script>
 import WatchlistQuickAddButton from '../watchlist/WatchlistQuickAddButton.vue'
-
+import { mapState } from 'vuex'
 
 export default {
     name: 'ItemInspector',
@@ -93,6 +93,12 @@ export default {
         }
     },
     computed: {
+      ...mapState([
+        'quickstats'
+      ]),
+      currency_symbol() {
+        return this.quickstats.currency_symbol ? this.quickstats.currency_symbol  : '$';
+      },
       placeholder() {
         return 'https://assets.echomtg.com/magic/cards/magic-card-back.jpg'
       },
