@@ -59,13 +59,14 @@
           </div>
 
           <b-table
-            class="my-3"
+
             :data="sealedItems"
             :striped="true"
             :mobile-cards="false"
             :narrowed="true"
             :focusable="true"
-            default-sort="tcg_mid"
+            paginated
+            default-sort="date_acquired"
             default-sort-direction="desc"
             >
               <b-table-column field="name" label="Item Name" v-slot="props" sortable>
@@ -86,7 +87,7 @@
               <b-table-column field="price_acquired" label="Acquired For" v-slot="props" sortable number>
                 {{symbol}} <input class="adjust-box" data-call="inventory/adjust/" @change="updatePrice($event, props.row)" :value="props.row.price_acquired"/>
               </b-table-column>
-              <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" sortable date>
+              <b-table-column field="date_acquired" label="Date Acquired" v-slot="props" :custom-sort="dateSort" sortable date>
                 <input class="adjust-box input acquired-date-input" type="date"  data-call="inventory/adjust_date/" @change="updateDate($event, props.row)" :value="props.row.date_acquired_html"/>
               </b-table-column>
               <b-table-column field="gain" label="Profit" v-slot="props" sortable>
@@ -133,6 +134,14 @@ export default {
     await this.fetchSealedData();
   },
   methods: {
+    dateSort(a,b,order){
+
+      if(order){
+        return this.$moment(a.date_acquired).unix() - this.$moment(b.date_acquired).unix()
+      } else {
+        return this.$moment(b.date_acquired).unix() - this.$moment(a.date_acquired).unix()
+      }
+    },
     async fetchSealedData(){
       if(!this.authenticated) return;
 
@@ -158,23 +167,13 @@ export default {
         }
       )
     },
-    addSealed(itemid) {
-      let token = this.$cookies.get('token');
-      var postBody = {
-        emid: itemid,
-        quantity: 1,
-        language: 'EN',
-      }
-      var apiURL = `${this.$config.API_DOMAIN}/inventory/add/?auth=${token}`
-      fetch(apiURL, {
-        method: 'POST',
-        body: JSON.stringify(postBody),
+    async addSealed(itemid) {
+      const res = await this.$echomtg.inventoryQuickAdd(itemid)
+      this.$buefy.toast.open({
+        message: `${res.message}`,
+        type: 'is-success'
       })
-        .then((res) => res.json())
-        .then((res) => {
-          createGrowl(res.message)
-          this.updateStatus()
-        })
+      await this.fetchSealedData()
     },
     updateStatus: function updateStatus() {
       this.status++
