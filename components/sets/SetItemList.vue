@@ -225,7 +225,7 @@
           <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
             {{props.row.rarity}}
           </b-table-column>
-          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props">
+          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props" :custom-sort="sortCollectorNumber">
             {{props.row.collectors_number}}
           </b-table-column>
 
@@ -363,7 +363,18 @@ export default {
     window.scrollTo(0, 1); // account for lazy load
   },
   methods: {
+    sortCollectorNumber(a,b,sort){
 
+      a = Number.isInteger(a.collectors_number) ? a.collectors_number : parseInt(a.collectors_number.replace(/[A-Za-z]/g, ''));
+      b = Number.isInteger(b.collectors_number) ? b.collectors_number : parseInt(b.collectors_number.replace(/[A-Za-z]/g, ''));
+
+      if(sort){
+        return  a - b
+      } else {
+        return b - a
+      }
+
+    },
     openDetailRow(obj) {
       console.log(obj)
         this.$emit('details-open', obj)
