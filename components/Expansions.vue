@@ -53,10 +53,19 @@
           <div class="is-flex is-justify-content-center	is-align-content-center	is-align-items-center">
             <progress class="progress is-success mb-0" :value="parseInt(props.row.user_collected)" :max="parseInt(props.row.unique_items)">{{props.row.percent_collected}}%</progress>
             <b-tooltip
-              :label="`${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) `"
+              multilined
+              :label="`Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) `"
               position="is-bottom"
             >
+            <echo-link class="is-link has-text-grey" :url="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/'">
               <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey-dark ml-1" />
+            </echo-link>
+            </b-tooltip>
+            <b-tooltip
+              :label="`Open printable checklist for ${props.row.name}`"
+              position="is-bottom"
+            >
+            <a class="is-link has-text-grey" :href="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'printable-check-list/'" target="_blank"><b-icon icon="printer" size="is-small" /></a>
             </b-tooltip>
           </div>
       </b-table-column>

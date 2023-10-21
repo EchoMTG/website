@@ -372,7 +372,6 @@ echomtg.getSets = async (game=1) => {
       ...options
     }
 
-    echomtg.log(endpoint, 'updating inventory', body);
 
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -998,7 +997,6 @@ echomtg.getSets = async (game=1) => {
     let d = encodeURIComponent(description)
 
     let url = `${context.app.$config.API_DOMAIN}lists/edit/list=${list_id}&name=${n}&description=${d}`;
-    echomtg.log(url, 'editing list name and description', context.app.$cookies.get('token'));
     try {
       const res = await fetch(url, {
         method: 'GET',
