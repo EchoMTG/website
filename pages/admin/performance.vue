@@ -153,9 +153,11 @@ export default {
       this.loading    = true;
       if(this.date_start == this.date_end){
         this.date_start = this.$moment().subtract(12, 'months').format('Y-MM-DD');
-        //this.dates = [this.$moment().toISOString(),this.$moment().subtract(12, 'months').toISOString()]
+         this.dates = [
+          new Date(this.$moment().subtract(12, 'months').toISOString()),
+          new Date
+        ]
       }
-      console.log('start',this.date_start)
       const data = await this.getLatestPaidUsers();
 
 
