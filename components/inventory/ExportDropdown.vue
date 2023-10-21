@@ -30,7 +30,7 @@ export default {
     downloadCSVURL() {
 
 
-      if(this.user.plan !== 'common' && this.user.plan !== 'uncommon' && this.user.plan !== 'uncommonY' && this.user.plan !== 'rareY' &&  this.user.plan !== 'rare'){
+      if(this.user.planObject.access_level >= 3){
         return this.$echomtg.getAPIURL() + 'stores/export/?auth=' + this.$echomtg.getToken();
       } else {
         return this.$echomtg.getAPIURL() + 'inventory/export/?auth=' + this.$echomtg.getToken();

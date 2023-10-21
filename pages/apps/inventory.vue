@@ -277,15 +277,15 @@
           </b-table-column>
 
           <!-- Mobile Version Combined Price Data -->
-          <b-table-column cell-class="is-hidden-desktop" width="120" header-class="is-hidden-desktop"  field="tcg_market" label="Price" sortable v-slot="props">
-
+          <b-table-column cell-class="is-hidden-desktop" width="120" header-class="is-hidden-desktop"  :field="user.use_market == 1 ? 'tcg_market' : 'tcg_mid'" label="Price" sortable v-slot="props">
+            {{user.use_market}}
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row?.foil_price.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && parseInt(user.use_market) == 1">
+            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && user.use_market == 1">
             {{cs}}{{props.row?.tcg_market.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && parseInt(user.use_market) == 0">
+            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && user.use_market == 0">
             {{cs}}{{props.row?.tcg_mid.toFixed(2)}}
             </span>
             <span v-if="props.row.price_change !== 0" :class="type(props.row.price_change)" style="padding: 2px 4px; font-size: 9px;">
@@ -303,10 +303,10 @@
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row?.foil_price.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && parseInt(user.use_market) == 1">
+            <span v-if="props.row.foil == 0 && props.row.tcg_market > 0 && user.use_market == 1">
             {{cs}}{{props.row?.tcg_market.toFixed(2)}}
             </span>
-            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && parseInt(user.use_market) == 0">
+            <span v-if="props.row.foil == 0 && props.row.tcg_mid > 0 && user.use_market == 0">
             {{cs}}{{props.row?.tcg_mid.toFixed(2)}}
             </span>
           </b-table-column>
@@ -558,6 +558,7 @@ export default {
   async fetch() {
       if(!this.authenticated) return;
 
+      console.log(this.user)
       await this.refreshPriceMeta()
       this.loading = true
       try {
@@ -633,7 +634,6 @@ export default {
 
     async refreshPriceMeta(){
       const data = await this.$echomtg.inventoryQuickStats();
-      console.log(data.stats);
       this.$store.commit('quickstats',data.stats);
     },
     /*

@@ -40,8 +40,25 @@
     >
 
       <b-table-column v-slot="props" label="Name" field="name" sortable>
+
         <i v-if="game == 'mtg'" :class="getSetIconClass(props.row.set_code)"></i>
         <echo-link :url="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</echo-link>
+      </b-table-column>
+      <b-table-column
+        :visible="authenticated ? true : false"
+        v-slot="props"
+        label="Percent Collected"
+        field="percent_collected"
+        sortable>
+          <div class="is-flex is-justify-content-center	is-align-content-center	is-align-items-center">
+            <progress class="progress is-success mb-0" :value="parseInt(props.row.user_collected)" :max="parseInt(props.row.unique_items)">{{props.row.percent_collected}}%</progress>
+            <b-tooltip
+              :label="`${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) `"
+              position="is-bottom"
+            >
+              <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey-dark ml-1" />
+            </b-tooltip>
+          </div>
       </b-table-column>
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
@@ -53,6 +70,9 @@
         sortable>
         {{ props.row.set_code }}
       </b-table-column>
+
+
+
 
 
       <b-table-column
@@ -119,14 +139,6 @@ export default {
       search: ''
     }
   },
-  computed: {
-
-    ...mapState([
-      'user',
-      'sets'
-    ])
-
-  },
   methods: {
 
     makeSetPath(code, path_part){
@@ -138,6 +150,11 @@ export default {
 
   },
   computed: {
+     ...mapState([
+      'user',
+      'sets',
+      'authenticated'
+    ]),
     game() {
       if(this.$nuxt){
         const split = this.$nuxt.$route.path.split('/')
