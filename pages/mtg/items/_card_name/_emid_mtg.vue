@@ -364,7 +364,7 @@ export default {
     // fetch the item
     let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
     // pricing
-    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&days=1000`;
+    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&days=2000`;
 
     // try to get the json
     try {
