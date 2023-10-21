@@ -125,16 +125,16 @@
 
           <date-input v-if="props.row.date_sold" :date="props.row.date_sold" :callback="dataRefresh" :earnings_id="props.row.earnings_id" />
         </b-table-column>
-        <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" :numeric="true">
+        <b-table-column v-slot="props" field="gain" label="Profit/Loss" sortable width="50" >
           <span v-if="props.row.price_change != 0">
             <b-tag type="is-success" v-if="props.row.gain > 0" icon="chevron-up">{{props.row.gain}}%</b-tag>
             <b-tag type="is-danger" v-if="props.row.gain < 0" icon="chevron-down">{{props.row.gain}}%</b-tag>
           </span>
         </b-table-column>
-        <b-table-column v-slot="props" field="price" label="Sold" width="110" sortable :numeric="true">
+        <b-table-column v-slot="props" field="price" label="Sold" width="110" sortable >
           <sold-price-input v-if="props.row.price" :price="parseFloat(props.row.price)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
-        <b-table-column  v-slot="props"  field="price_acquired" label="Acquired"  width="110" :numeric="true" sortable>
+        <b-table-column  v-slot="props"  field="price_acquired" label="Acquired"  width="110"  sortable>
           <acquired-price-input
             v-if="props.row.price_acquired" :price="parseFloat(props.row.price_acquired)"  :earnings_id="props.row.earnings_id" />
         </b-table-column>
@@ -239,6 +239,7 @@ export default {
         this.sortOrder = order
         this.getEarnings()
     },
+
     async dataRefresh(){
      this.$fetch();
     },
