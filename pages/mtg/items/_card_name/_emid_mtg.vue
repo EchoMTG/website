@@ -60,7 +60,7 @@
         </div>
               <b-field class="pb-0 ml-3 is-hidden-touch" grouped group-multiline>
                 <div class="control" v-if="this.item.reserve_list == 1">
-                  <b-tag icon="scale-balance" type="is-info">Reserved List</b-tag>
+                  <b-tag icon="gold" class="has-background-grey-dark has-text-white">Reserved List</b-tag>
                 </div>
                 <div class="control">
                   <b-taglist attached>
@@ -86,12 +86,12 @@
           <div class="column is-two-thirds">
             <div class="box has-background-black has-text-white">
               <!-- prices -->
-              <nav class="level is-mobile pt-2 pb-2 todaysprices">
+              <nav class="level is-mobile pt-0 mt-0 pb-0 mb-0 todaysprices">
                 <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
                   <div>
                     <p class="heading is-size-8">Market</p>
                     <p class="title is-size-5 is-size-6-mobile">
-                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
+                      <a target="_blank" class="has-text-white" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
                     </p>
                   </div>
                 </div>
@@ -99,7 +99,7 @@
                   <div>
                     <p class="heading is-size-8">TCG Low</p>
                     <p class="title is-size-5 is-size-6-mobile">
-                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularLowPrice}}</a>
+                      <a target="_blank" class="has-text-grey" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularLowPrice}}</a>
 
                       </p>
                   </div>
@@ -108,7 +108,7 @@
                   <div>
                     <p class="heading is-size-8">TCG Mid</p>
                     <p class="title is-size-5 is-size-6-mobile">
-                      <a target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">
+                      <a class="has-text-grey" target="_blank" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">
                         {{cs}}{{regularMidPrice}}
                       </a>
                     </p>
@@ -117,7 +117,14 @@
                 <div class="level-item has-text-centered" v-if="this.item.tcg_mid > 0">
                   <div>
                     <p class="heading is-size-8">7-Day</p>
-                    <p class="title is-size-5 is-size-6-mobile">{{priceChange}}%</p>
+                    <p class="title is-size-5 is-size-6-mobile" v-if="priceChange != 0">
+                      <span :class="priceChange > 0 ? `has-text-success` : `has-text-danger`">
+                      <b-icon v-if="priceChange > 0" icon="triangle" size="is-small" />
+                        <b-icon v-if="priceChange < 0" icon="triangle-down" size="is-small" />
+                      {{priceChange}}%
+                      </span>
+                    </p>
+                    <p class="title is-size-5 is-size-6-mobile" v-else>-</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered" v-if="this.item.foil_price > 0">
@@ -128,7 +135,7 @@
                 </div>
                 <div class="level-item has-text-centered" v-if="this.item.foil_price > 0 && this.item.tcg_mid > 0">
                   <div>
-                    <p class="heading is-size-8">Foil Multiplier</p>
+                    <p class="heading is-size-8">Foil Multiple</p>
                     <p class="title is-size-5 is-size-6-mobile has-text-warning-dark">{{foilMultipler}}X</p>
                   </div>
                 </div>
@@ -444,6 +451,13 @@ export default {
           display: true ,
           color: '#222',
       }
+
+      customChart.plugins = {
+        legend: {
+          position: 'chartArea'
+        }
+      }
+
       return customChart;
     },
     cs() {

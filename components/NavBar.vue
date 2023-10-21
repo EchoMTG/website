@@ -71,6 +71,7 @@
           </div>
         </nav-bar-menu>
           <echo-link
+            v-if="!authenticated"
               url="/blog/"
               class="navbar-item pl-0 ml-0 "
               exact-active-class="is-active"
@@ -85,6 +86,7 @@
             rel="nofollow"
             class="button is-small has-background-black is-rounded has-text-white is-contained"
             aria-label="Old Website"
+            v-if="authenticated"
           >
           <b-icon icon="share" size="is-small"/>Old Website
         </a>
