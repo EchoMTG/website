@@ -45,19 +45,19 @@
         <echo-link :url="makeSetPath(props.row.set_code,props.row.set_code_path_part)">{{ props.row.name }}</echo-link>
       </b-table-column>
       <b-table-column
-        :visible="authenticated ? true : false"
+
         v-slot="props"
         label="Percent Collected"
         field="percent_collected"
         sortable>
           <div class="is-flex is-justify-content-center	is-align-content-center	is-align-items-center">
-            <progress class="progress is-success mb-0" :value="parseInt(props.row.user_collected)" :max="parseInt(props.row.unique_items)">{{props.row.percent_collected}}%</progress>
+            <progress class="progress is-success mb-0" :value="props.row.user_collected ? parseInt(props.row.user_collected) : 0" :max="props.row.unique_items ? parseInt(props.row.unique_items) : 0">{{props.row.percent_collected}}%</progress>
             <b-tooltip
               multilined
-              :label="`Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) `"
+              :label="authenticated ? `Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) ` : 'Create an Account to Track your Collection'"
               position="is-bottom"
             >
-            <echo-link class="is-link has-text-grey" :url="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/'">
+            <echo-link class="is-link has-text-grey" :url="authenticated ? wakeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/' : '/'">
               <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey-dark ml-1" />
             </echo-link>
             </b-tooltip>
