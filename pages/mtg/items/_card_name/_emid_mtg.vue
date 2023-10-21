@@ -80,6 +80,38 @@
                     <b-tag class="has-background-grey-dark has-text-white">{{this.variations.length}}</b-tag>
                   </b-taglist>
                 </div>
+                <div class="control">
+
+                  <b-datepicker
+                      ref="datepicker"
+                      size="is-small"
+                      range
+                      icon="calendar-today"
+                      v-if="user.planObject.access_level >= 3 && dateEdit==true"
+                      v-model="dates">
+                  </b-datepicker>
+                   <b-taglist v-else-if="user.planObject.access_level < 3 && dateEdit==true" attached>
+                    <b-tag class="has-background-black has-text-white">Mythic Feature</b-tag>
+                    <b-tag class="has-background-success has-text-white">
+                      <nuxt-link class="has-text-white" to="/plans/">
+                        Upgrade to Access
+                      </nuxt-link>
+                    </b-tag>
+                  </b-taglist>
+                   <b-taglist v-else attached>
+                    <b-tag class="has-background-black has-text-white">Date Range</b-tag>
+                    <b-tag class="has-background-grey-dark has-text-white">
+                      <a @click="dateEdit=true" class="mr-1">
+                        <b-icon icon="pencil" size="is-small" class="has-text-success" />
+                      </a>
+                      {{this.date_start}} - {{this.date_end}}
+
+
+                    </b-tag>
+                  </b-taglist>
+
+                </div>
+
 
               </b-field>
         <div class="columns">
@@ -342,7 +374,11 @@ export default {
       item: {
         name: '',
       },
+      dates: [],
+      date_start: this.$moment().subtract(12, 'months').format('Y-MM-DD'),
+      date_end: this.$moment().format('Y-MM-DD'),
       variations: [],
+      dateEdit: false,
       prices: {
         foil: [],
         regular: [],
@@ -351,7 +387,16 @@ export default {
 
     }
   },
-  async asyncData({ params, redirect, $echomtg, $config }) {
+  watch: {
+     async dates(){
+
+      this.date_start = this.$moment(this.dates[0]).format('Y-MM-DD');
+      this.date_end = this.$moment(this.dates[1]).format('Y-MM-DD');
+      await this.updateHistory()
+      this.dateEdit = false;
+    }
+  },
+  async asyncData({ params, redirect, $echomtg, $config, $moment }) {
 
     let emid = params.emid_mtg;
     let item, res, dataRes, variations;
@@ -361,10 +406,20 @@ export default {
       'foil' : []
     }
 
+    let dates = [
+      new Date($moment().subtract(24, 'months').toISOString()),
+      new Date
+    ]
+
+    console.log(dates)
+
+    const date_start = $moment().subtract(24, 'months').format('Y-MM-DD');
+    const date_end = $moment().format('Y-MM-DD');
+
     // fetch the item
     let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
     // pricing
-    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&days=2000`;
+    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&date_start=${date_start}&date_end=${date_end}`;
 
     // try to get the json
     try {
@@ -408,7 +463,7 @@ export default {
     // return it
     if (item) {
       return {
-        item, prices, variations
+        item, prices, variations, dates
       }
     } else {
       //redirect('/sets/')
@@ -430,6 +485,12 @@ export default {
     },
     openExternalLink(url){
       window.open(url,'_blank')
+    },
+    async updateHistory() {
+       let dataEndpoint = `data/item_history/?emid=${this.item.emid}&date_start=${this.date_start}&date_end=${this.date_end}`;
+       const data = await this.$echomtg.getReq(dataEndpoint)
+       this.prices = data.data
+
     }
 
   },
