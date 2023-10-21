@@ -57,7 +57,7 @@
               :label="authenticated ? `Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) ` : 'Create an Account to Track your Collection'"
               position="is-bottom"
             >
-            <echo-link class="is-link has-text-grey" :url="authenticated ? wakeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/' : '/'">
+            <echo-link class="is-link has-text-grey" :url="authenticated ? makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/' : '/'">
               <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey-dark ml-1" />
             </echo-link>
             </b-tooltip>
