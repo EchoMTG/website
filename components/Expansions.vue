@@ -54,7 +54,7 @@
             <progress class="progress is-success mb-0" :value="props.row.user_collected ? parseInt(props.row.user_collected) : 0" :max="props.row.unique_items ? parseInt(props.row.unique_items) : 0">{{props.row.percent_collected}}%</progress>
             <b-tooltip
               multilined
-              :label="authenticated ? `Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.unique_items}%) ` : 'Create an Account to Track your Collection'"
+              :label="authenticated ? `Click for more details: ${props.row.user_collected} of ${props.row.unique_items} collected (${props.row.percent_collected}%) ` : 'Create an Account to Track your Collection'"
               position="is-bottom"
             >
             <echo-link class="is-link has-text-grey" :url="authenticated ? makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/' : '/'">
