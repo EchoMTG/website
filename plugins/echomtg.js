@@ -399,8 +399,6 @@ echomtg.getSets = async (game=1) => {
       body.acquired_date = options.acquired_date
     }
 
-    echomtg.log(endpoint, 'adding inventory', body);
-
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: echomtg.getUserHeaders(),
@@ -413,7 +411,6 @@ echomtg.getSets = async (game=1) => {
   echomtg.inventoryQuickAdd = async (emid,foil=0) => {
 
     let url = `${context.app.$config.API_DOMAIN}inventory/add/?emid=${emid}&foil=${foil}`;
-    echomtg.log(url, 'adding inventory', context.app.$cookies.get('token'));
     const res = await fetch(url, {
       headers: echomtg.getUserHeaders(),
     });
@@ -990,7 +987,7 @@ echomtg.getSets = async (game=1) => {
       id: earnings_id,
       value: date
     });
-    
+
   }
 
 

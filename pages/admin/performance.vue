@@ -23,8 +23,14 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Avg. Paid Each Month</p>
+            <p class="heading">Avg. New Paid Users/Month</p>
             <p class="title">{{paidMeta?.average_per_month ? paidMeta?.average_per_month.toFixed(2) : 0}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Recent Month</p>
+            <p class="title">{{recentMonth}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
@@ -120,6 +126,7 @@ export default {
       paidUsers:[],
       stats: null,
       dates: [],
+      recentMonth:0,
       date_start: this.$moment().subtract(12, 'months').format('Y-MM-DD'),
       date_end: this.$moment().format('Y-MM-DD'),
       referrerDataset: [{
@@ -160,7 +167,7 @@ export default {
       }
       const data = await this.getLatestPaidUsers();
 
-
+      this.recentMonth = Object.values(data.months).reverse()[0]
       this.paidUsers = data.results
       this.paidMeta = data.meta
       this.plansDataset[0].data = Object.values(data.plan);
