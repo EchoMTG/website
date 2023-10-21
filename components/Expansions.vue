@@ -58,7 +58,7 @@
               position="is-bottom"
             >
             <echo-link class="is-link has-text-grey" :url="authenticated ? makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/' : '/'">
-              <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey-dark ml-1" />
+              <b-icon icon="percent-box" size="is-small" class="is-clickable has-text-grey ml-1" />
             </echo-link>
             </b-tooltip>
             <b-tooltip
@@ -68,6 +68,9 @@
             <a class="is-link has-text-grey" :href="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'printable-check-list/'" target="_blank"><b-icon icon="printer" size="is-small" /></a>
             </b-tooltip>
           </div>
+      </b-table-column>
+      <b-table-column v-slot="props" label="Set Value" field="total_value" numeric sortable>
+        {{quickstats.currency_symbol}}{{ props.row.total_value.toLocaleString() }}
       </b-table-column>
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
@@ -94,6 +97,7 @@
         sortable>
         {{ props.row.type }}
       </b-table-column>
+
       <b-table-column v-slot="props" label="Release" field="release_date" sortable>
         {{ props.row.release_date }}
       </b-table-column>
@@ -162,7 +166,8 @@ export default {
      ...mapState([
       'user',
       'sets',
-      'authenticated'
+      'authenticated',
+      'quickstats'
     ]),
     game() {
       if(this.$nuxt){
