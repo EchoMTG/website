@@ -77,34 +77,47 @@
           >
           <div style="display: flex; flexDirection: row;">
 
-            <div style="width:70px; height: 30px; ">
-              <b-image :src="props.row.image_cropped" class="is-pulled-left mr-3" :responsive="true"  />
+            <div style="width:72px; height: 40px; " class="mr-2">
+              <NuxtImg :src="props.row.image_cropped" width="72" class="is-pulled-left mr-3" :responsive="true"  />
             </div>
+            <div>
+              <item-inspector-wrapper  :item="props.row" />
+              <span v-html="getManaSymbols(props.row.mc)"></span> {{props.row.rarity}}
+            </div>
+            <div style="flex: 1" class="is-flex">
 
-            <item-inspector-wrapper style="flex: 3" :item="props.row" /><br/>
-            <b-tag style="flex: 1" class="rainbow-background has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+
+              <b-tag class="rainbow-background has-text-white is-pulled-right" v-if="props.row.foil == 1">foil</b-tag>
+            </div>
 
           </div>
 
         </b-table-column>
+
+
         <b-table-column v-slot="props" field="expansion" label="Expansion" sortable >
 
           <set-tag :code="props.row.set_code || ''" :name="props.row.expansion" :url="props.row?.echo_set_url ? props.row.echo_set_url :''" />
         </b-table-column>
-        <b-table-column v-slot="props" field="price" label="Price" width="100" sortable :numeric="true">
-          <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
-          {{cs}}{{props.row.foil_price.toFixed(2)}}
-          </span>
-          <span v-if="props.row.foil == 0 && props.row.tcg_market > 0">
-          {{cs}}{{props.row.tcg_market.toFixed(2)}}
-          </span>
-
-        </b-table-column>
-        <b-table-column v-slot="props" field="price_change" label="Change" sortable width="40" :numeric="true">
+        <b-table-column v-slot="props" field="price_change" label="Change" sortable width="100" :numeric="true">
           <span v-if="props.row.price_change != 0">
-            <strong class="has-text-success" v-if="props.row.price_change > 0"><b-icon icon="chevron-up"></b-icon> {{props.row.price_change}}%</strong>
-            <strong class="has-text-danger" v-if="props.row.price_change < 0"><b-icon icon="chevron-down"></b-icon> {{props.row.price_change}}%</strong>
-
+            <strong class="has-text-success" v-if="props.row.price_change > 0"><b-icon size="is-small" icon="triangle"></b-icon> {{props.row.price_change}}%</strong>
+            <strong class="has-text-danger" v-if="props.row.price_change < 0"><b-icon size="is-small" icon="triangle-down"></b-icon> {{props.row.price_change}}%</strong>
+          </span>
+        </b-table-column>
+        <b-table-column v-slot="props" field="tcg_mid" label="Mid" width="100" sortable :numeric="true">
+          <span v-if="props.row.tcg_mid > 0">
+          {{cs}}{{props.row.tcg_mid.toFixed(2)}}
+          </span>
+        </b-table-column>
+        <b-table-column v-slot="props" field="tcg_low" label="Low" width="100" sortable :numeric="true">
+          <span v-if="props.row.tcg_low > 0">
+          {{cs}}{{props.row.tcg_low.toFixed(2)}}
+          </span>
+        </b-table-column>
+        <b-table-column v-slot="props" field="foil_price" label="Foil" width="100" sortable :numeric="true">
+          <span class="has-text-warning-dark" v-if="props.row.foil_price > 1">
+          {{cs}}{{props.row.foil_price.toFixed(2)}}
           </span>
         </b-table-column>
 
@@ -190,6 +203,10 @@ export default {
     })
   },
   methods: {
+    getManaSymbols(str){
+      return str ? this.$echomtg.replaceSymbols(str) : ''
+
+    },
     setExpansion(set){
       if(set?.set_code){
         this.set_code = set.set_code

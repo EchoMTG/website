@@ -558,7 +558,6 @@ export default {
   async fetch() {
       if(!this.authenticated) return;
 
-      console.log(this.user)
       await this.refreshPriceMeta()
       this.loading = true
       try {
