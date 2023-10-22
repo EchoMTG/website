@@ -62,6 +62,17 @@
             <span>Sealed <span class="hide-mobile">Product</span></span>
           </a>
         </li>
+         <li :class="tabClass('serialized')" v-if="serialized.length > 0">
+          <a
+            class="navbar-item has-icon"
+            ref="sealedTab"
+            href="javascript:void(0)"
+            @click="setTab('serialized')"
+          >
+            <b-icon icon="numeric" size="is-small" />
+            <span>Serialized</span>
+          </a>
+        </li>
       </ul>
 
       <a
@@ -85,7 +96,17 @@
     <div class="setViews">
       <SetItemList
         v-if="this.tab == 'list' || this.tab == ''"
-        :items="this.set.items"
+        :items="notseralized"
+        :cardsowned="this.set.owned"
+        :totalFoiled="this.set.total_foil_cards"
+        :totalRegular="this.set.total_regular_cards"
+        :callback="refreshData"
+        :game="1"
+        />
+
+         <SetItemList
+        v-if="this.tab == 'serialized' && serialized.length > 0"
+        :items="serialized"
         :cardsowned="this.set.owned"
         :totalFoiled="this.set.total_foil_cards"
         :totalRegular="this.set.total_regular_cards"
@@ -131,14 +152,6 @@ export default {
       checkedRows: [],
       tab: 'list'
     }
-  },
-  computed: {
-
-    ...mapState([
-      'user',
-      'authenticated'
-    ])
-
   },
   async asyncData({ params, redirect, $echomtg }) {
 
@@ -202,6 +215,16 @@ export default {
 
   },
   computed: {
+     ...mapState([
+      'user',
+      'authenticated'
+    ]),
+    serialized(){
+      return this.set.items.filter((item) => item.name.toLowerCase().includes('serial'))
+    },
+    notseralized(){
+      return this.set.items.filter((item) => !item.name.toLowerCase().includes('serial'))
+    },
     crumbs () {
       return [
         {
