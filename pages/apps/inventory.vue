@@ -49,6 +49,12 @@
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
             <div>
+              <p class="heading is-size-7-touch"><b-icon icon="mirror-rectangle" size="is-small" class="foil-symbol" /> Foils</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_foils}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered is-hidden-touch">
+            <div>
               <p class="heading is-size-7-touch">Sealed Items</p>
               <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
             </div>
@@ -74,26 +80,30 @@
               <a class="button is-small is-danger has-icon-left" href="https://www.youtube.com/watch?v=LG1EVm-cEqk" target="_blank"><b-icon icon="youtube" size="is-small" /><span>How to Video</span></a>
           </div>
           <div class="level-right is-align-content-stretch	is-align-items-center	ml-2" v-if="user.plan != 'common'">
-            <b-taglist class="mb-0 level-item" attached>
-              <b-tag class="mb-0 mythic-background">Mythic</b-tag>
-              <b-tag type="mb-0 is-dark">{{quickstats.total_mythic}}</b-tag>
+            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.mythics_value.toFixed(2) : 0">
+              <b-taglist class="mb-0 level-item is-clickable" attached>
+                <b-tag type="is-black" class="mb-0"><i class="ss ss-magic mythic-symbol mr-1"></i> Mythics</b-tag>
+                <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_mythic}}</b-tag>
+              </b-taglist>
+            </b-tooltip>
+            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.rares_value.toFixed(2)  : 0">
+              <b-taglist class="mb-0 level-item is-clickable" attached>
+                <b-tag type="is-black" class="mb-0"><i class="ss ss-magic rare-symbol mr-1"></i>Rares</b-tag>
+                <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_rare}}</b-tag>
+              </b-taglist>
+            </b-tooltip>
+            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.uncommons_value.toFixed(2) : 0">
+             <b-taglist class="mb-0 level-item is-clickable" attached>
+              <b-tag type="is-black" class="mb-0"><i class="ss ss-magic uncommon-symbol mr-1"></i>Uncommons</b-tag>
+              <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_uncommon}}</b-tag>
             </b-taglist>
-            <b-taglist class="mb-0 level-item" attached>
-              <b-tag class="mb-0 rare-background has-text-white">Rares</b-tag>
-              <b-tag type="mb-0 is-dark">{{quickstats.total_rare}}</b-tag>
+            </b-tooltip>
+            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.commons_value.toFixed(2) : 0">
+            <b-taglist class="mb-0 level-item is-clickable" attached>
+              <b-tag type="is-black" class="mb-0"><i class="ss ss-magic common-symbol mr-1"></i>Commons</b-tag>
+              <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_common}}</b-tag>
             </b-taglist>
-             <b-taglist class="mb-0 level-item" attached>
-              <b-tag class="mb-0 uncommon-background">Uncommons</b-tag>
-              <b-tag type="mb-0 is-dark">{{quickstats.total_uncommon}}</b-tag>
-            </b-taglist>
-             <b-taglist class="mb-0 level-item" attached>
-              <b-tag class="mb-0 common-background ">Commons</b-tag>
-              <b-tag type="mb-0 is-dark">{{quickstats.total_common}}</b-tag>
-            </b-taglist>
-            <b-taglist class="mb-0 level-item" attached>
-              <b-tag class="mb-0 rainbow-background has-text-white">Foils</b-tag>
-              <b-tag type="mb-0 is-dark">{{quickstats.total_foils}}</b-tag>
-            </b-taglist>
+            </b-tooltip>
              <div class="mb-0 level-item" >
              </div>
           </div>
@@ -107,7 +117,6 @@
           <div class="level-left">
             <b-input
                 placeholder="Search Inventory..."
-                type="is-info"
                 v-model="search"
                 icon="magnify"
 
@@ -138,7 +147,7 @@
           <div class="level-right">
             <touch-flyout buttonText="Filters" classes="inventory-flyout">
               <div class="level-item touch-flyout-container  is-flex is-flex-direction-row" >
-                <b-field class="" style="margin-bottom: 0 !important;">
+                <b-field class="mr-1" style="margin-bottom: 0 !important;">
                   <p class="control">
                       <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
                         <strong>{{cs}} &gt;</strong>
@@ -151,7 +160,7 @@
                     placeholder="2.10"
                     />
                 </b-field>
-                <b-field class="" style="margin-bottom: 0 !important;">
+                <b-field class="mr-1" style="margin-bottom: 0 !important;">
                   <p class="control">
                       <b-button aria-disabled="true" type="is-dark" class="has-background-dark has-text-white" disabled size="is-small">
                         <strong>{{cs}} &lt;</strong>
@@ -164,14 +173,14 @@
                     placeholder="9.20"
                     />
                 </b-field>
-                <b-select class=""  placeholder="Show Tradable" size="is-small" v-model="tradable">
+                <b-select class="mr-1"  placeholder="Show Tradable" size="is-small" v-model="tradable">
                     <option selected value="">By Tradable</option>
                     <option disabled>---</option>
                     <option value="">Show All</option>
                     <option value="0">Not for Trade</option>
                     <option value="1">Only Tradable</option>
                 </b-select>
-                <b-select class=""  placeholder="Color" size="is-small" v-model="color">
+                <b-select class="mr-1"  placeholder="Color" size="is-small" v-model="color">
                   <option selected="selected" value="">By Color</option>
                   <option disabled="disabled">----</option>
                   <option data-color="All" value="">All</option>
@@ -184,7 +193,7 @@
                   <option data-color="Green" value="green">Green</option>
                   <option data-color="Multicolor" value="multicolor">Multicolor</option>
                 </b-select>
-                <b-select class=" "  placeholder="Rarity" size="is-small" v-model="rarity">
+                <b-select class="mr-1"  placeholder="Rarity" size="is-small" v-model="rarity">
                     <option selected="selected" value="" disabled="disabled">By Rarity</option>
                     <option value="false">All</option>
                     <option value="sealed">Sealed</option>
@@ -198,7 +207,7 @@
                     <option value="Token">Token</option>
                 </b-select>
                 <feature-gate :showAd="false" :gate-level="1" classes="">
-                  <b-select placeholder="Foil" size="is-small" v-model="foil">
+                  <b-select placeholder="Foil" size="is-small" class="mr-1" v-model="foil">
                     <option selected="selected" value="">By Foil</option>
                     <option disabled="disabled">----</option>
                     <option data-color="All" value="">All</option>
@@ -207,7 +216,7 @@
                   </b-select>
                 </feature-gate>
                 <feature-gate :showAd="false" :gate-level="1" classes="">
-                  <b-select placeholder="CMC" size="is-small" v-model="cmc">
+                  <b-select placeholder="CMC" size="is-small" class="mr-1" v-model="cmc">
                     <option selected="selected" value="">By CMC</option>
                     <option disabled="disabled">----</option>
                     <option value="">Any</option>
@@ -215,7 +224,7 @@
                   </b-select>
                 </feature-gate>
                 <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
-                  <b-select placeholder="Reserve List" size="is-small" v-model="reserve_list">
+                  <b-select placeholder="Reserve List" size="is-small" class="mr-1" v-model="reserve_list">
                       <option selected disabled value="">Reserve List</option>
                       <option disabled>---</option>
                       <option value="false">Show All</option>
@@ -503,7 +512,8 @@ export default {
           set_code: '',
           checkedRows: [],
           showBulkActionModal: false,
-          bulkActionType: 'Delete'
+          bulkActionType: 'Delete',
+          inventoryStats: {}
       }
   },
   watch: {
@@ -588,10 +598,6 @@ export default {
         this.total = currentTotal
 
 
-        // data.items.forEach((item) => {
-        //     //item.release_date = item.release_date ? item.release_date.replace(/-/g, '/') : null
-        //     this.data.push(item)
-        // })
 
         this.item_data = data.items
         this.clearChecked()
@@ -635,9 +641,12 @@ export default {
       const data = await this.$echomtg.inventoryQuickStats();
       this.$store.commit('quickstats',data.stats);
     },
-    /*
-      * Handle page-change event
-    */
+
+    async getInventoryStats(){
+
+      this.inventoryStats = await this.$echomtg.inventoryStats();
+    },
+
     onPageChange(page) {
         this.page = page
         this.$fetch()
@@ -706,6 +715,7 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
     })
+    this.getInventoryStats()
   },
   computed: {
     cs() {
