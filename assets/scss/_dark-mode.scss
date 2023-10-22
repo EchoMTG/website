@@ -118,6 +118,7 @@ html {
 
     .input, .textarea, .select select {
       color: $dark-mode-color;
+      border: $dark-mode-border;
       background-color: transparent;
 
       &::placeholder {

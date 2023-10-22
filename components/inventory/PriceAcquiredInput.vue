@@ -1,7 +1,7 @@
 <template>
   <b-field>
     <p class="control">
-        <b-button aria-disabled="true" disabled size="is-small">{{currency_symbol}}</b-button>
+        <b-button aria-disabled="true" type="is-dark" disabled size="is-small">{{currency_symbol}}</b-button>
     </p>
     <b-input
       :has-counter="false"
