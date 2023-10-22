@@ -711,29 +711,11 @@ echomtg.getSets = async (game=1) => {
   }
 
   echomtg.inventoryQuickStats = async () => {
-    let url = `${context.app.$config.API_DOMAIN}inventory/quickstats/`;
-
-    const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
-    });
-
-    return await res.json();
-
+    return await echomtg.getReq(`inventory/quickstats/`);
   }
 
   echomtg.inventoryStats = async () => {
-    let url = `${context.app.$config.API_DOMAIN}inventory/stats/`;
-
-    const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
-    });
-
-    return await res.json();
-
+    return await echomtg.getReq(`inventory/stats/`);
   }
 
   echomtg.inventoryView = async (
