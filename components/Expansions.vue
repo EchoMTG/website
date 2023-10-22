@@ -72,6 +72,9 @@
       <b-table-column v-slot="props" label="Set Value" field="total_value" numeric sortable>
         {{quickstats.currency_symbol}}{{ props.row.total_value.toLocaleString() }}
       </b-table-column>
+      <b-table-column :visible="authenticated" v-slot="props" label="Collected Value" field="total_value_owned" numeric sortable>
+        <nuxt-link :to="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/'" v-if="props.row?.total_value_owned > 0">{{quickstats.currency_symbol}}{{ props.row.total_value_owned.toLocaleString() }}</nuxt-link>
+      </b-table-column>
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
         column-class="is-hidden-touch"
