@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline">
-    <b-button title="Add to Earnings Ledger" icon-left="cash-multiple" size="is-small" @click="isCardModalActive = true" />
+    <b-button title="Add to Earnings Ledger" :type="isDarkModeActive ? 'is-dark' : ''" icon-left="cash-multiple" size="is-small" @click="isCardModalActive = true" />
     <b-modal v-model="isCardModalActive"  :width="640" scroll="keep">
         <div class="card" style="box-shadow: 0px 0 10px rgba(0,0,0,.4); margin: 10px">
             <header class="modal-card-head">
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'MoveToEarningsButton',
@@ -89,6 +90,11 @@ export default {
   //   this.acquired_price = this.inventory_item.price_acquired
   //   this.sold_price = (this.inventory_item.foil == 0) ? this.inventory_item.tcg_mid : this.inventory_item.foil_price
   // },
+  computed: {
+    ...mapState([
+      'isDarkModeActive'
+    ]),
+  },
   watch: {
     isCardModalActive(){
       this.acquired_price = this.inventory_item.price_acquired

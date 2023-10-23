@@ -12,50 +12,50 @@
 
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading is-size-7-touch"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
+              <p class="heading is-size-7-touch has-text-grey"><span class="is-hidden-touch">{{getDate()}}</span> Value</p>
               <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.current_value}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
             <div>
-              <p class="heading is-size-7-touch">Low Value</p>
+              <p class="heading is-size-7-touch has-text-grey">Low Value</p>
               <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.current_value_low}}</p>
             </div>
           </div>
 
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading is-size-7-touch"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
+              <p class="heading is-size-7-touch has-text-grey"><span class="is-hidden-touch">Acquired</span><span class="is-hidden-desktop">Acq.</span> Cost</p>
               <p class="title is-size-5 has-text-light is-size-6-touch">{{cs}}{{quickstats.acquired_value}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading is-size-7-touch"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
+              <p class="heading is-size-7-touch has-text-grey"><span class="is-hidden-touch">All-time</span> Gain/Loss</p>
               <p class="title is-size-5 has-text-light is-size-6-touch"><span :class="quickstats.change_value >= 0 ? `has-text-success` : `has-text-danger`">{{quickstats.change_value}}%</span></p>
             </div>
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
             <div>
-              <p class="heading is-size-7-touch">Profit/Loss</p>
+              <p class="heading is-size-7-touch has-text-grey">Profit/Loss</p>
               <p class="title is-size-5 has-text-light is-size-6-touch"><span>{{cs}}{{quickstats.total_profit}}</span></p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading is-size-7-touch">Items <span class="is-hidden-touch">Tracked</span></p>
+              <p class="heading is-size-7-touch has-text-grey">Items <span class="is-hidden-touch">Tracked</span></p>
               <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
             <div>
-              <p class="heading is-size-7-touch"><b-icon icon="mirror-rectangle" size="is-small" class="foil-symbol" /> Foils</p>
+              <p class="heading is-size-7-touch has-text-grey"><b-icon icon="mirror-rectangle" size="is-small" class="foil-symbol" /> Foils</p>
               <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_foils}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
             <div>
-              <p class="heading is-size-7-touch">Sealed Items</p>
+              <p class="heading is-size-7-touch has-text-grey">Sealed Items</p>
               <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
             </div>
           </div>
@@ -261,6 +261,8 @@
         aria-current-label="Current page"
         :page-input="false"
         backend-sorting
+        sort-icon-size="is-small"
+        sort-icon="arrow-up"
         :default-sort-direction="defaultSortOrder"
         :default-sort="[sortField, sortOrder]"
         @sort="onSort"
@@ -287,7 +289,6 @@
 
           <!-- Mobile Version Combined Price Data -->
           <b-table-column cell-class="is-hidden-desktop" width="120" header-class="is-hidden-desktop"  :field="user.use_market == 1 ? 'tcg_market' : 'tcg_mid'" label="Price" sortable v-slot="props">
-            {{user.use_market}}
             <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
             {{cs}}{{props.row?.foil_price.toFixed(2)}}
             </span>
@@ -326,21 +327,13 @@
             </span>
           </b-table-column>
 
-          <b-table-column width="110" field="price_acquired" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" :label="`Acquired Price`"  sortable centered>
-            <template v-slot:header="{ column }">
-                Acq. Price
-            </template>
-            <template v-slot="props">
+          <b-table-column width="110" field="price_acquired" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" :label="`Acq. Price`" v-slot="props" sortable centered>
               <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="$fetch"  />
-            </template>
           </b-table-column>
-          <b-table-column width="115" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" field="date_acquired" label="Acquired Date"  sortable centered>
-            <template v-slot:header="{ column }">
-                <span>Acq.</span> Date
-            </template>
-            <template v-slot="props">
+          <b-table-column width="115" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" field="date_acquired" label="Acq. Date" v-slot="props" sortable centered>
+
               <date-acquired-input :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
-            </template>
+
           </b-table-column>
 
           <b-table-column  label="Bulk Action">
@@ -366,10 +359,10 @@
                       <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="cs" :callback="$fetch"/>
                       <toggle-foil-button class="mr-1" :disabled="!props.row.foil_price > 0" :inventory_id="props.row.inventory_id" :foil="props.row.foil" :callback="$fetch" />
                     </div>
-                    <div class="is-flex mb-2-touch">
+                    <div class="is-flex is-flex-grow-2 mb-2-touch">
                       <toggle-tradable-button class="mr-1" :inventory_id="props.row.inventory_id" :tradable="props.row.tradable" :callback="$fetch" />
                       <duplicate-button class="mr-1" :copy="props.row" :callback="$fetch" />
-                      <delete-inventory-button class="mr-1 ml-auto" :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
+                      <delete-inventory-button class="ml-auto mr-1" :inventory_id="props.row.inventory_id" :callback="() => removeFromList(props.index)" />
                     </div>
                   </div>
                 </div>

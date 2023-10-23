@@ -2,11 +2,13 @@
   <b-button
     :title="tradable ? `Remove from Trade Binder` : `Add to Trade Binder`"
     :icon-left="icon"
+    :type="isDarkModeActive && tradable == 0 ? 'is-dark' : ''"
     :class="classType(tradable)"
     size="is-small"
     @click="toggleTradeable()" />
 </template>
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'ToggleTradableButton',
@@ -27,11 +29,15 @@ export default {
       default: 'swap-horizontal-bold'
     }
   },
-
+  computed: {
+      ...mapState([
+        'isDarkModeActive'
+      ])
+  },
   methods: {
     classType(tradable) {
-      if(this.icon == 'delete') return 'is-danger is-light'
-      return tradable == 1 ? 'is-success is-light' : ''
+      if(this.icon == 'delete') return 'is-danger'
+      return tradable == 1 ? 'is-success has-text-white' : ''
     },
     async toggleTradeable() {
 

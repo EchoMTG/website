@@ -1,8 +1,8 @@
 <template>
-  <b-button title="Duplicate Item" icon-left="content-copy" size="is-small" @click="duplicate()" />
+  <b-button title="Duplicate Item" :type="isDarkModeActive ? 'is-dark' : ''" icon-left="content-copy" size="is-small" @click="duplicate()" />
 </template>
 <script>
-
+import { mapState } from 'vuex'
 export default {
   name: 'DuplicateButton',
   props: {
@@ -14,7 +14,11 @@ export default {
       required: true
     }
   },
-
+  computed: {
+      ...mapState([
+        'isDarkModeActive'
+      ])
+  },
   methods: {
     async duplicate() {
 
