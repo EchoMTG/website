@@ -380,9 +380,9 @@ export default {
       variations: [],
       dateEdit: false,
       prices: {
-        foil: [],
-        regular: [],
-        date: []
+        foil: [2,2,2],
+        regular: [1,1,1],
+        date: ['2020-10-10','2021-10-10','2022-10-10']
       },
 
     }
