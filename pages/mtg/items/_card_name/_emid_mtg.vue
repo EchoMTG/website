@@ -49,7 +49,7 @@
       <div class="column is-three-fourths">
 
          <div class="is-flex ml-3 mt-3 py-3 is-hidden-touch">
-          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span class="has-text-grey-dark has-text-weight-light">prices from <nuxt-link class="has-text-grey-dark" :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></span> </h1>
+          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span :class="`has-text-weight-light ` + (isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter') ">prices from <nuxt-link :class="isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter'" :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></span> </h1>
           <social-buttons
               classes="ml-auto mr-5 "
               :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
@@ -173,8 +173,11 @@
                 </div>
                 <div class="level-item has-text-centered is-hidden-mobile">
                   <div>
-                    <p class="heading is-size-8">Last Price Update</p>
-                    <p class="title is-size-5 is-size-6-mobile">{{lastUpdateDate}}</p>
+                    <p class="heading is-size-8">Last Updated</p>
+                    <div class="title is-size-5 is-size-6-mobile is-flex is-flex-content-center is-justify-content-center	">
+                      <div>{{lastUpdateDate}}</div>
+                      <b-button v-if="user.user_level > 2" class="ml-2" outlined size="is-small" style="height: 2em; padding: 10px;" icon-left="database-refresh" @click="priceUpdate" type="is-success" />
+                    </div>
                   </div>
                 </div>
               </nav>
@@ -469,6 +472,12 @@ export default {
     }
   },
   methods: {
+    async priceUpdate(){
+      const res = await this.$echomtg.getReq(`data/price_update/?card=${encodeURIComponent(this.item.name)}&set=${encodeURIComponent(this.item.expansion)}&tcgplayer_id=${this.item.tcgplayer_id}`);
+       this.$buefy.toast.open({
+        message: `${res.message}`
+      })
+    },
     makeSetPath(code, path_part){
       return `/mtg/sets/${code}/${path_part}/`
     },
