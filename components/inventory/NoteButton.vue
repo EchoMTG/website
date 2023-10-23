@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   name: 'MoveToEarningsButton',
@@ -54,11 +55,15 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'isDarkModeActive'
+    ]),
     icon() {
       return this.inventory_item.note_id > 0 ? 'file-document' : 'file-document-outline'
     },
     styleType() {
-      return this.inventory_item.note_id > 0 ? 'is-warning' : ''
+      const defaultStyle = this.isDarkModeActive ? 'is-dark' : '';
+      return this.inventory_item.note_id > 0 ? 'is-warning' : defaultStyle
     }
   },
   methods: {

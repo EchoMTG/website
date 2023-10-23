@@ -1,9 +1,11 @@
 <template>
-  <b-button :title="disabled ? `Foil Not Available` : `Toggle Foil Status`" :disabled="disabled" :class="classType(foil) + `   `" style="overflow:hidden; width: 30px; position: relative;" size="is-small" @click="toggleFoil()">
+  <b-button :type="isDarkModeActive ? 'is-dark' : ''" :title="disabled ? `Foil Not Available` : `Toggle Foil Status`" :disabled="disabled" :class="classType(foil) + `   `" style="overflow:hidden; width: 30px; position: relative;" size="is-small" @click="toggleFoil()">
     <i :class="`ss ss-htr ss-3x ` + testClass(foil) " style="font-size: 28px; position: absolute; left: 5px; top: 0px;"></i>
   </b-button>
 </template>
 <script>
+
+import { mapState } from 'vuex';
 
 export default {
   name: 'ToggleFoilButton',
@@ -24,13 +26,17 @@ export default {
       default: false
     }
   },
-
+  computed: {
+      ...mapState([
+        'isDarkModeActive'
+      ])
+  },
   methods: {
     classType(foil) {
-      return foil == 1 ? 'is-info is-light' : 'is-secondary'
+      return foil == 1 ? 'rainbow-background' : ''
     },
     testClass(foil) {
-      return foil == 1 ? 'rainbow-text font-weight-bold' : ''
+      return foil == 1 ? 'has-text-white font-weight-bold' : ''
     },
     async toggleFoil() {
 
