@@ -262,7 +262,7 @@
             </div>
           </div>
           <div class="column is-one-third">
-             <div :class="'card ' + (isDarkModeActive == 1 ? 'has-background-black' : 'has-background-white')">
+             <div :class="'card '">
                 <header class="card-header">
                   <a class="card-header-title "  @click="isBuylistOpen = !isBuylistOpen">
                     EchoMTG Buylist Metrics and Tools
