@@ -19,7 +19,7 @@
 
         </div>
 
-        <div class="box has-background-black has-text-light m-3 p-4 is-overflowhidden is-hidden-touch" >
+        <div :class="`box m-3 p-4 is-overflowhidden is-hidden-touch ` + (isDarkModeActive == 1 ? 'has-background-black has-text-light' : 'has-background-light')" >
           <nav class="level is-mobile">
             <div class="level-left">
               <div class="level-item">
@@ -116,14 +116,14 @@
               </b-field>
         <div class="columns">
           <div class="column is-two-thirds">
-            <div class="box has-background-black has-text-white">
+            <div :class="`box ` + (isDarkModeActive == 1 ? 'has-background-black has-text-light' : 'has-background-light')">
               <!-- prices -->
               <nav class="level is-mobile pt-0 mt-0 pb-0 mb-0 todaysprices">
                 <div class="level-item has-text-centered" v-if="this.item.tcg_market > 0">
                   <div>
                     <p class="heading is-size-8">Market</p>
                     <p class="title is-size-5 is-size-6-mobile">
-                      <a target="_blank" class="has-text-white" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
+                      <a target="_blank"  :class="isDarkModeActive == 1 ? 'has-text-white' : 'has-text-black'" title="Buy on TCGPlayer" rel="nofollow" :href="this.item.purchase_link_tcg">{{cs}}{{regularMarketPrice}}</a>
                     </p>
                   </div>
                 </div>
@@ -262,7 +262,7 @@
             </div>
           </div>
           <div class="column is-one-third">
-             <div class="card has-background-black">
+             <div :class="'card ' + (isDarkModeActive == 1 ? 'has-background-black' : 'has-background-white')">
                 <header class="card-header">
                   <a class="card-header-title "  @click="isBuylistOpen = !isBuylistOpen">
                     EchoMTG Buylist Metrics and Tools
@@ -284,8 +284,8 @@
                   aria-id="buylist"
                   animation="slide"
                   v-model="isBuylistOpen">
-                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3 mb-2" type="is-dark" size="is-small">Buy on TCGplayer {{cs}}{{item.tcg_low}}</b-button>
-                    <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" type="is-dark" size="is-small">Open on Wizard's Gatherer</b-button>
+                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item.tcg_low}}</b-button>
+                    <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
                     <br class="is-clearfix" />
                     <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
                     <hr class="mx-0 my-1"/>
@@ -322,7 +322,7 @@
           </b-field>
             <client-only>
                 <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
-                <item-list-box :open="false" :title="`My Decks/Lists`" v-if="authenticated" :item="this.item"></item-list-box>
+                <item-list-box :open="false" :title="`My Decks/Lists: `" v-if="authenticated" :item="this.item"></item-list-box>
               </client-only>
               <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
 
@@ -411,7 +411,6 @@ export default {
       new Date
     ]
 
-    console.log(dates)
 
     const date_start = $moment().subtract(24, 'months').format('Y-MM-DD');
     const date_end = $moment().format('Y-MM-DD');
@@ -499,7 +498,7 @@ export default {
       let customChart = chartConfig.chartOptionsMain
 
       customChart.scales.x.grid = {
-          color: '#333',
+          color: this.isDarkModeActive == 1 ? '#333' : '#ccc',
 
       }
       customChart.scales.x.ticks = {
@@ -510,7 +509,7 @@ export default {
       customChart.scales.y = {}
        customChart.scales.y.grid = {
           display: true ,
-          color: '#222',
+          color: this.isDarkModeActive == 1 ? '#333' : '#999',
       }
 
       customChart.plugins = {
@@ -623,7 +622,8 @@ export default {
     },
     ...mapState([
       'user',
-      'authenticated'
+      'authenticated',
+      'isDarkModeActive'
     ])
   },
   head () {

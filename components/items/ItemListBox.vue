@@ -2,7 +2,7 @@
     <div class="card">
       <header class="card-header">
           <p class="card-header-title">
-              <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{availablelists.length}}</a>
+              <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{lists.length}}</a>
           </p>
           <button
             class="card-header-icon"
@@ -18,36 +18,33 @@
           </button>
       </header>
       <div class="card-content py-0 px-3 pb-3">
-        <div v-if="this.availablelists.length > 0">
-          <b-dropdown
-              :min="50" :max="250"
-              :scrollable="true"
+      <div v-if="this.availablelists.length > 0" >
+          <b-select
               :max-height="200"
               v-model="currentList"
-              aria-role="list"
+              icon="clipboard-list"
+              size="is-small"
+              expanded
+
           >
-              <template #trigger>
-                  <b-button
-                      :label="currentList.name"
-                      icon-left="format-list-checkbox"
-                      icon-right="menu-down" />
-              </template>
 
-
-              <b-dropdown-item
+              <option
                   v-for="(menu, index) in this.availablelists"
                   :key="index"
-                  :value="menu" aria-role="listitem">
 
-                  <h3>{{menu.name}}</h3>
-              </b-dropdown-item>
-          </b-dropdown>
-          <b-button icon-left="plus" @click="addToList()">
-            Add
+                  :value="menu">
+
+                  {{menu.name}}
+              </option >
+          </b-select>
+          <div class="is-flex mt-2">
+          <b-button size="is-small" icon-left="plus" :type="isDarkModeActive == 1 ? 'is-dark' : ''" @click="addToList()">
+            Add to List
           </b-button>
-          <b-switch class="pt-2 pl-1"  v-model="foil" type="is-warning" >
+          <b-switch  size="is-small" class="pt-2 pl-1 ml-auto"  v-model="foil" type="is-warning" >
             Foil
           </b-switch>
+          </div>
         </div>
       </div>
       <b-collapse
@@ -165,7 +162,8 @@ export default {
             return this.item.emid;
         },
         ...mapState([
-          'quickstats'
+          'quickstats',
+          'isDarkModeActive'
         ]),
         cs() {
           return this.quickstats.currency_symbol
