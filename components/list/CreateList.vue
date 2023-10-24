@@ -1,5 +1,6 @@
 <template>
-<div>
+<div class="is-relative">
+    <b-loading v-model="loading" :is-full-page="false" />
     <h2 class="title is-size-5">Start a New Deck/List </h2>
         <div :class="`box ` + (isDarkModeActive == 1 ? 'has-background-black' : '')">
             <div class="field">
@@ -7,7 +8,7 @@
                 <b-icon icon="text-short" size="is-small" /> List/Deck Name
               </label>
               <div class="control">
-                <input class="input is-small" v-model="newDeck.name" type="text" id="newDeckName" placeholder="Deck or List Name">
+                <input class="input is-small" v-model="name" type="text" id="newDeckName" placeholder="Deck or List Name">
               </div>
             </div>
             <div class="field ">
@@ -53,7 +54,7 @@
                     <span>Get More Lists, Upgrade Plan</span>
                 </a>
 
-                <button v-if="this.$parent.lists.length <= this.$parent.user.planObject.list_cap" class="button is-success" @click="createList">
+                <button :disabled="!isReady" v-if="this.$parent.lists.length <= this.$parent.user.planObject.list_cap" class="button is-success" @click="createList">
                     <b-icon icon="plus" size="is-small" />
                     <span>Create New List</span>
                 </button>
@@ -64,16 +65,19 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 import { mapState } from 'vuex'
 
 export default {
     data () {
         return {
+            name: '',
             newDeck: {
                 name: '',
                 description: ''
-            }
+            },
+            isReady: false,
+            loading: false
         }
     },
     computed: {
@@ -81,39 +85,49 @@ export default {
         'isDarkModeActive'
       ])
     },
+    watch:{
+
+      name() {
+        this.newDeck.name = this.name
+        if(this.name != ''){
+          this.isReady = true;
+        }
+      }
+    },
     methods: {
-        createList: function (event) {
-            let token = this.$cookies.get('token');
+        async createList(event) {
+
             let bodyFormData = new FormData();
             bodyFormData.set('name', this.newDeck.name);
             bodyFormData.set('description', this.newDeck.description);
-            let endpoint = `${this.$config.API_DOMAIN}lists/create/?&auth=${token}`;
-            let $this = this;
+            let endpoint = `${this.$config.API_DOMAIN}lists/create/`;
 
-            axios({
-                method: 'post',
-                url: endpoint,
-                data: bodyFormData,
-                config: { headers: {'Content-Type': 'multipart/form-data',...$this.$echomtg.getUserHeadersNoJSON() }}
-            }).then(function(response) {
-                let newList = response.data.data;
-                $this.$parent.lists.push(newList);
-                $this.$parent.sortList();
-                $this.newDeck.name = ''
-                $this.newDeck.description = ''
-                $this.$buefy.toast.open({
-                      message: $this.newDeck.name + ' created.',
-                })
 
-                if($this.newDeck.hasOwnProperty("cards")){
-                    $this.addImportedCards(newList.id);
-                }
-            });
+            const res = await fetch(endpoint,{
+              method: 'post',
+              headers:this.$echomtg.getUserHeadersNoJSON(),
+              body: bodyFormData
+            })
+            const data = await res.json();
+            this.$buefy.toast.open({
+              message: data.message
+            })
+
+            let newList = data.data;
+            this.$parent.lists.push(newList);
+            this.$parent.sortList();
+            this.newDeck.name = ''
+            this.newDeck.description = ''
+
+
+            if(this.newDeck.hasOwnProperty("cards")){
+                this.addImportedCards(newList.id);
+            }
         },
-        addImportedCards(listID){
-            let token = this.$cookies.get('token');
-            var add_endpoint = `${this.$config.API_DOMAIN}lists/add/?&auth=${token}`;
-            let $this = this;
+        async addImportedCards(listID){
+
+            var add_endpoint = `${this.$config.API_DOMAIN}lists/add/`;
+            let res, data;
 
             for (let index in this.newDeck.cards.main) {
                 let card = this.newDeck.cards.main[index];
@@ -122,16 +136,15 @@ export default {
                 bodyFormData.set('echomtg_id', card.echoid);
                 bodyFormData.set('quantity', card.quantity);
 
-                axios({
-                    method: 'post',
-                    url: add_endpoint,
-                    data: bodyFormData,
-                    config: { headers: {'Content-Type': 'multipart/form-data',  ...$this.$echomtg.getUserHeadersNoJSON() }}
-                }).then(function(response){
-                   $this.$buefy.toast.open({
-                      message: response.message,
-                  })
-                });
+                res = await fetch(add_endpoint,{
+                  method: 'post',
+                  headers:this.$echomtg.getUserHeadersNoJSON(),
+                  body: bodyFormData
+                })
+                data = await res.json();
+                this.$buefy.toast.open({
+                  message: data.message
+                })
             }
 
             for (let index in this.newDeck.cards.side) {
@@ -142,25 +155,15 @@ export default {
                 bodyFormData.set('quantity', card.quantity);
                 bodyFormData.set('sb', 1);
 
-
-                axios({
-                    method: 'post',
-                    url: add_endpoint,
-                    data: bodyFormData,
-                    config: {
-                      headers:
-                        {
-                          'Content-Type': 'multipart/form-data',
-                          ...$this.$echomtg.getUserHeadersNoJSON()
-                        }
-                    }
-                }).then(function(response){
-                  $this.$buefy.toast.open({
-                    message: response.message,
-                  })
-
-
-                });
+                res = await fetch(add_endpoint,{
+                  method: 'post',
+                  headers:this.$echomtg.getUserHeadersNoJSON(),
+                  body: bodyFormData
+                })
+                data = await res.json();
+                this.$buefy.toast.open({
+                  message: data.message
+                })
 
             }
         },
@@ -172,11 +175,14 @@ export default {
             });
         },
         async importList(event){
+
             let f = event.target.files[0];
             if (f) {
+
                 let r = new FileReader();
                 r.onload = async function(e) {
-                  console.log('jasdad')
+                    this.isReady = false;
+                    this.loading = true;
                     this.newDeck = {};
                     this.newDeck.importFilename = f.name;
                     this.newDeck.importContents = e.target.result;
@@ -200,7 +206,8 @@ export default {
                     })
                     this.newDeck.cards = data.deck;
                     this.newDeck.message = data.message;
-
+                    this.loading = false;
+                    this.isReady = true
 
                 }.bind(this);
 
@@ -212,6 +219,7 @@ export default {
                 })
 
             }
+
         }
     }
 }
