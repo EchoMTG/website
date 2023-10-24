@@ -4,17 +4,17 @@
       <span class="tag is-size-7 is-bold"  v-if="sideboard == 1">{{cardInfo.side}}</span>
       <span class="tag is-size-7 is-bold" v-else>{{cardInfo.main}}</span>
       <item-inspector-wrapper :classes="(isDarkModeActive == 1 ? 'is-dark' : '') + ` tag color-strip ${card.colors.toLowerCase().replace(',','')}` " :item="card" />
-
-      <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand == 0">
-
-          <b-icon icon="alert" type="is-danger" size="is-small" />
-      </a>
-      <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand != 0 && cardInfo.missing != 0">
-          <b-icon icon="alert" type="is-warning" size="is-small" />
-      </a>
-      <a class="tag is-size-7 is-dark" @click="openMissingInventory"  v-if="cardInfo.missing == 0">
-          <b-icon icon="check" type="is-success" size="is-small" />
-      </a>
+      <b-tooltip position="is-bottom" :label="cardInfo.missing == 0 ? `${cardInfo.on_hand} on hand` : `${cardInfo.on_hand} on hand, ${cardInfo.missing} missing`">
+        <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand == 0">
+            <b-icon icon="alert" type="is-danger" size="is-small" />
+        </a>
+        <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand != 0 && cardInfo.missing != 0">
+            <b-icon icon="alert" type="is-warning" size="is-small" />
+        </a>
+        <a class="tag is-size-7 is-dark" @click="openMissingInventory"  v-if="cardInfo.missing == 0">
+            <b-icon icon="check" type="is-success" size="is-small" />
+        </a>
+      </b-tooltip>
       <span class="tag is-size-7 ">
           <a v-on:click.stop="addToList(card.emid,card.foil)">
 
@@ -30,7 +30,6 @@
           </a>
       </span>
   </div>
-
 </template>
 
 <script>
@@ -59,6 +58,10 @@ export default {
       callback: {
         type: Function,
         required: true
+      },
+      iindex: {
+        type: Number,
+        default: 0
       }
     },
     computed: {
