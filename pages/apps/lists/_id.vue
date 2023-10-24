@@ -11,21 +11,16 @@
                      <div class="is-pulled-right">
                         <div class="columns">
                             <div class="column">
-                                <button v-if="list.public == 0" class="button is-primary is-small"  @click="makePublic($vnode.key)">Make Sharable</button>
-                                <button v-if="list.public == 1" class="button is-info is-small"  @click="openPublicLink">Open Public View</button>
+                                <b-button v-if="list.public == 0" class=" is-primary" size="is-small"  @click="makePublic($vnode.key)">Make Sharable</b-button>
+                                <b-button v-if="list.public == 1" class=" is-info" size="is-small"  @click="openPublicLink">Open Public View</b-button>
                             </div>
-                            <div class="column">
-                                <div class="control has-icons-left">
-                                  <div class="select is-small">
-                                    <select @change="openExport">
-                                      <option selected>Export Options</option>
-                                      <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
-                                    </select>
-                                  </div>
-                                  <span class="is-left" style="margin-left: -1px; margin-top: -2px;">
-                                      <b-icon icon="download" size="is-small" />
-                                  </span>
-                                </div>
+                            <div class="column pr-5">
+
+                              <b-select placeholder="Export Options" size="is-small" icon="download" type="is-dark" @change="openExport">
+
+                                <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
+                              </b-select>
+
                             </div>
                         </div>
                     </div>
@@ -45,10 +40,16 @@
 
                     <div class="tabs has-background-black">
                       <ul>
+                        <li :class="currentTabComponent == 'visual-deck-mode' ? ' is-active ml-2 ' : 'ml-2'" v-on:click.stop="setCurrentTab('visual-deck-mode')">
+                          <a >
+                            <b-icon icon="cards" size="is-small" />
+                            <span>Visual Mode</span>
+                          </a>
+                        </li>
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-view'}" v-on:click.stop="setCurrentTab('deck-view')">
                           <a >
                             <b-icon icon="archive" size="is-small" />
-                            <span>Deck Mode</span>
+                            <span>Classic Mode</span>
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-table-view'}" v-on:click.stop="setCurrentTab('list-table-view')"  >
@@ -133,6 +134,7 @@
 <script>
   import GlobalSearch from "@/components/GlobalSearch.vue";
   import DeckView from '@/components/single/DeckView.vue'
+  import VisualDeckMode from '@/components/decks/VisualDeckMode.vue'
   import DeckStatisticsView from '@/components/single/DeckStatisticsView.vue'
   import ListInventoryView from '@/components/single/ListInventoryView.vue'
   import ListProbabilitiesView from '@/components/single/ListProbabilitiesView.vue'
@@ -156,7 +158,8 @@
       ListTableView,
       MetaView,
       ListSummary,
-      EchoBreadCrumbs
+      EchoBreadCrumbs,
+      VisualDeckMode
     },
     async fetch() {
 
@@ -167,7 +170,6 @@
         this.calculateGraphData();
         this.cardArray = this.list.card_list;
         this.items = this.list.items;
-        this.$echomtg.log('fetched list', res)
       } catch (error) {
         this.$echomtg.log('error fetching list SSR', error)
       }
@@ -185,7 +187,7 @@
             public: false,
             sortMetric: 'name',
             sortOrder: 'ASC',
-            currentTabComponent: 'deck-view',
+            currentTabComponent: 'visual-deck-mode',
             curveLabels: [],
             curveDataset:[{
                 'label': 'CMC',

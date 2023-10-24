@@ -177,12 +177,12 @@
                <footer class="card-footer">
                     <div class="card-footer-item has-text-white">
                         <span class="mr-4">Shortcut Keys</span>
-                        <b-button size="is-small" icon="menu-down" />
-                        <b-button size="is-small" icon="menu-up" />
-                        <b-button size="is-small" icon="menu-left" />
-                        <b-button size="is-small" icon="menu-right" />
-                        <b-button size="is-small" icon="keyboard-return"> Return</b-button>
-                        <b-button @click="closeFocus()" size="is-small" icon="keyboard-esc"> Return</b-button>
+                        <b-button size="is-small" icon-left="menu-down" />
+                        <b-button size="is-small" icon-left="menu-up" />
+                        <b-button size="is-small" icon-left="menu-left" />
+                        <b-button size="is-small" icon-left="menu-right" />
+                        <b-button size="is-small" icon-left="keyboard-return"> Return</b-button>
+                        <b-button @click="closeFocus()" size="is-small" icon-left="keyboard-esc"></b-button>
                     </div>
 
                 </footer>

@@ -2,6 +2,19 @@ html {
   &.is-dark-mode-active {
     background-color: $dark-mode-background-color;
 
+    .lists2 {
+      .tabs {
+        a {
+          color: $grey;
+        }
+        .is-active {
+          background-color: $dark-mode-background-color;
+          a {
+            color: white;
+          }
+        }
+      }
+    }
     .itemLinkWithInspector{
       color: lighten($blue,50%);
     }
