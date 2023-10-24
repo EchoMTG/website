@@ -100,7 +100,7 @@ export default {
         async createList(event) {
 
             let bodyFormData = new FormData();
-            bodyFormData.set('name', this.newDeck.name);
+            bodyFormData.set('name', this.name);
             bodyFormData.set('description', this.newDeck.description);
             let endpoint = `${this.$config.API_DOMAIN}lists/create/`;
 
