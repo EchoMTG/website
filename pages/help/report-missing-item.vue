@@ -29,7 +29,7 @@
                   <b-icon icon="alert" type="is-danger" />
                   <span class="ml-3">Please <nuxt-link to="/login/">login</nuxt-link> to submit a missing item report.</span>
                 </div>
-                <div class="message is-success p-5" v-if="submitted == true">
+                <div :class="`box is-success p-5 `+ (isDarkModeActive == 1 ? 'has-background-black' : '')" v-if="submitted == true">
                   <p class="mb-2">Thank you, your report was submitted to the Wiki team on <nuxt-link :to="`/about/discord/`">discord</nuxt-link>. </p>
 
 <code style="white-space: pre;" class="is-block p-5 has-background-black has-text-green mb-3">Game: {{ game }}
@@ -40,7 +40,7 @@ Image URL: {{ referenceUrl }}</code>
                   <b-button type="is-success" @click="resetForm" :disabled="isDisabled" icon-left="restart">Create Another Report</b-button>
                   <nuxt-link class="button is-info ml-2" :to="`/about/discord/`">Join Discord</nuxt-link>
                 </div>
-                <div class="message p-5" v-if="submitted == false">
+                <div :class="`message p-5 `+ (isDarkModeActive == 1 ? 'has-background-black' : '')" v-if="submitted == false">
                   <b-field custom-class="is-small" label="Game or Brand" message="" >
                     <b-select size="is-small" v-model="game">
                       <option >Magic: the Gathering</option>
@@ -190,7 +190,8 @@ export default {
     },
     ...mapState([
       'user',
-      'authenticated'
+      'authenticated',
+      'isDarkModeActive'
     ]),
     helpNav() {
       return helpMenu();
