@@ -209,7 +209,9 @@ export default {
                     this.newDeck.cards = data.deck;
                     this.newDeck.message = data.message;
                     this.loading = false;
-                    this.isReady = true
+                    if(this.name != ''){
+                      this.isReady = true
+                    }
 
                 }.bind(this);
 

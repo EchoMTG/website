@@ -113,6 +113,8 @@
 <script>
 import DeckListItem from './DeckListItem.vue';
 import DeckListTypeTitle from './DeckListTypeTitle.vue';
+import { mapState } from 'vuex';
+
 export default {
   name: 'deck-view',
   components: { DeckListItem, DeckListTypeTitle },
@@ -126,6 +128,11 @@ export default {
       required: true
     }
 
+  },
+  computed: {
+    ...mapState([
+      'isDarkModeActive'
+    ])
   },
   data: function data() {
     return {
