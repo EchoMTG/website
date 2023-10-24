@@ -1,6 +1,6 @@
 <template>
   <div class="card visual-deck-card is-relative" :style="`top:-` + (iindex * 240) + `px` " v-if="(sideboard == 1 && cardInfo.side > 0) || (sideboard == 0 && cardInfo.main > 0) ">
-    <NuxtImg class="visual-deck-card-image" :src="card.image" width="100%" />
+    <NuxtImg loading="lazy"  placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg" class="visual-deck-card-image" :src="card.image" width="100%" />
 
       <div class="deck-tag-count">
         <div class="field is-grouped is-grouped-multiline">

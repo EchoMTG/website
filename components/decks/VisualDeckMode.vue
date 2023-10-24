@@ -104,14 +104,22 @@ export default {
       return count;
     },
     sideboardCards(){
-      return Object.values(this.list.sideboard.grouped_list)
+      if(this.list?.sideboard?.grouped_list){
+        return Object.values(this.list.sideboard.grouped_list)
+      } else {
+        return []
+      }
     },
     mainFiltersItems(){
-      let mainItems = Object.values(this.list.main.grouped_list)
-      for(let i = 0; i < mainItems.length; i++){
-        mainItems[i].item = this.list.card_list[mainItems[i].reference_id];
+      if(this.list?.main?.grouped_list){
+        let mainItems = Object.values(this.list.main.grouped_list)
+        for(let i = 0; i < mainItems.length; i++){
+          mainItems[i].item = this.list.card_list[mainItems[i].reference_id];
+        }
+        return mainItems;
+      } else {
+        return [];
       }
-      return mainItems;
     },
     mainFiltersItemsNonLands(){
 

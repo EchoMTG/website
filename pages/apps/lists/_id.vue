@@ -40,7 +40,7 @@
 
                     <div class="tabs has-background-black">
                       <ul>
-                        <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'visual-deck-mode'}" v-on:click.stop="setCurrentTab('visual-deck-mode')">
+                        <li :class="currentTabComponent == 'visual-deck-mode' ? ' is-active ml-2 ' : 'ml-2'" v-on:click.stop="setCurrentTab('visual-deck-mode')">
                           <a >
                             <b-icon icon="cards" size="is-small" />
                             <span>Visual Mode</span>
@@ -49,7 +49,7 @@
                         <li  v-bind:class="{ 'is-active': this.currentTabComponent == 'deck-view'}" v-on:click.stop="setCurrentTab('deck-view')">
                           <a >
                             <b-icon icon="archive" size="is-small" />
-                            <span>Deck Mode</span>
+                            <span>Classic Mode</span>
                           </a>
                         </li>
                         <li  v-bind:class="{ 'is-active': currentTabComponent == 'list-table-view'}" v-on:click.stop="setCurrentTab('list-table-view')"  >

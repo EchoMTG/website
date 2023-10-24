@@ -58,6 +58,12 @@
 .errorBox h2 {
   font-size: 14px; font-weight: bold;
 }
+.lists2 {
+  .tabs .is-active {
+    margin-bottom: -1px;
+    border-radius: 5px 5px 0px 0px;
+  }
+}
 
 .lists2 .table {
   background: transparent;
