@@ -1,3 +1,52 @@
+.visual-deck-view {
+  overflow: hidden;
+}
+.visual-deck-card{
+  position: relative;
+
+  width: 100%;
+  max-width: 220px  ;
+  z-index: 2;
+  background: transparent !important;
+  .visual-deck-card-image{
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .deck-tag-count{
+    position: absolute;
+    top: 11%;
+    right: 8%;
+    .tag {
+      background: rgba(255,255,255,.7)
+    }
+  }
+  .controlButtons{
+    visibility: hidden;
+    position: absolute;
+    top: 11%;
+    left: 8%;
+    button {
+      opacity: .8;
+      height: 1.94em  !important;
+      padding: 0px 10px !important;
+      .icon i {
+        font-size: 1.4em !important;
+      }
+      &:hover{
+        opacity: 1;
+        box-shadow: 0px 0px 4px rgba(0,0,0,.7);
+      }
+    }
+  }
+
+  &:hover{
+    z-index: 3;
+    .controlButtons{
+      visibility: visible;
+    }
+  }
+}
+
 .errorBox {
   background: #fff;
   border-radius: 5px;
