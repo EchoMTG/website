@@ -3,7 +3,7 @@
 
       <span class="tag is-size-7 is-bold"  v-if="sideboard == 1">{{cardInfo.side}}</span>
       <span class="tag is-size-7 is-bold" v-else>{{cardInfo.main}}</span>
-      <item-inspector-wrapper :classes="`tag color-strip ${card.colors.toLowerCase().replace(',','')}` " :item="card" />
+      <item-inspector-wrapper :classes="(isDarkModeActive == 1 ? 'is-dark' : '') + ` tag color-strip ${card.colors.toLowerCase().replace(',','')}` " :item="card" />
 
       <a class="tag is-size-7 is-dark" @click="openMissingInventory" v-if="cardInfo.on_hand == 0">
 
@@ -35,6 +35,8 @@
 
 <script>
 import ItemInspectorWrapper from '../items/ItemInspectorWrapper.vue';
+import { mapState } from 'vuex';
+
 export default {
   components: { ItemInspectorWrapper },
 
@@ -58,6 +60,9 @@ export default {
         type: Function,
         required: true
       }
+    },
+    computed: {
+      ...mapState(['isDarkModeActive'])
     },
     methods: {
       async removeItemFromList(itemid) {

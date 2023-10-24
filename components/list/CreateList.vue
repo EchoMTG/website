@@ -33,8 +33,8 @@
                 <span class="file-icon">
                     <b-icon icon="upload" size="is-small" />
                 </span>
-                <span class="file-label">
-                  Select File
+                <span class="file-label" v-html="this.newDeck?.importFilename ? this.newDeck.importFilename : 'Select File'">
+
                 </span>
               </span>
               <span class="file-name">
@@ -91,6 +91,8 @@ export default {
         this.newDeck.name = this.name
         if(this.name != ''){
           this.isReady = true;
+        } else {
+          this.isReady = false;
         }
       }
     },
@@ -207,7 +209,9 @@ export default {
                     this.newDeck.cards = data.deck;
                     this.newDeck.message = data.message;
                     this.loading = false;
-                    this.isReady = true
+                    if(this.name != ''){
+                      this.isReady = true
+                    }
 
                 }.bind(this);
 
