@@ -1,18 +1,21 @@
 <template>
   <div class="card">
-    <div class="is-flex">
-      <div style="max-width: 40%; border-radius: 15px; overflow:hidden;">
+    <div class="columns">
+      <div class="is-one-third column" style="border-radius: 15px; overflow:hidden;">
         <b-image
+          style="width: 100%;"
+          class="inspectorLargeImage"
           placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
           width="600"
           :src="item?.image"
           :alt="`${item?.name} card image`" />
       </div>
-      <div class="inspector-text is-flex-grow-2" style="max-width: 60%">
+      <div class="inspector-text column is-two-thirds" >
           <div class="p-5">
             <!-- controls -->
-            <div class="is-flex mb-5">
-              <b-button type="is-dark" icon-left="arrow-left" outlined v-if="priorInspectorItem != null" @click="priorInspectorItem">Previous Item</b-button>
+            <div class="is-flex is-align-content-center	 is-align-items-center	 mb-5">
+              <b-button class="mr-auto" type="is-dark" icon-left="arrow-left" outlined v-if="priorInspectorItem != null" @click="priorInspectorItem">Previous Item</b-button>
+              <a target="_blank" class="is-block" :href="item.echo_url" ><b-icon icon="open-in-new" size="is-small" class="mr-1"/> Explore Item Page</a>
               <b-button class="ml-auto" icon-right="arrow-right"  type="is-dark" outlined v-if="nextInspectorItem != null" @click="nextInspectorItem">Next Item</b-button>
             </div>
             <!-- meta -->
@@ -137,6 +140,7 @@ export default {
     }
   },
   async mounted(){
+    console.log(this.item,'item')
     await this.fetchVariations()
 
   },

@@ -210,11 +210,27 @@ export default {
       this.inspectorModal = true;
     },
     nextInspectorItem(){
-      console.log(this.inspectorItem)
-      const current = this.inspectorItem
+      const findPosition = (element) => element.id == this.inspectorItem.id;
+      let position = this.list.items.findIndex(findPosition);
+      if((position + 1) == this.list.items.length){
+        position = 0
+      } else {
+        position = position + 1
+      }
+      this.inspectorItem = this.list.items[position]
+
+
     },
     priorInspectorItem(){
-      alert('hell')
+       const findPosition = (element) => element.id == this.inspectorItem.id;
+      let position = this.list.items.findIndex(findPosition);
+      if(position == 0){
+        position = this.list.items.length - 1
+      } else {
+        position = position - 1
+      }
+      this.inspectorItem = this.list.items[position]
+
     },
     getCardsByManaCost(cmc=0,logic='equals'){
       if(logic == 'greaterthan'){
