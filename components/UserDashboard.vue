@@ -46,10 +46,8 @@ import TitleBar from '@/components/TitleBar'
 import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
-import ClientsTableSample from '@/components/ClientsTableSample'
 import HeroBarMain from '@/components/HeroBarMain'
 import CardToolbar from '@/components/CardToolbar'
-import CardScrollable from '@/components/CardScrollable'
 import RefreshButton from '@/components/RefreshButton'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs.vue'
 import PopularItems from '@/components/onboarding/PopularItems.vue'
@@ -59,10 +57,8 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
     name: 'UserDashboard',
     components: {
       RefreshButton,
-      CardScrollable,
       CardToolbar,
       HeroBarMain,
-      ClientsTableSample,
       CardComponent,
       CardWidget,
       Tiles,

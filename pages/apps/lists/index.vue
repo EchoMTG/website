@@ -55,7 +55,6 @@
 <script>
 
 import { mapState } from 'vuex'
-import axios from 'axios'
 import CreateList from "@/components/list/CreateList.vue";
 import ListItem from "@/components/list/ListItem.vue";
 import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
@@ -118,7 +117,7 @@ import FullAd from '~/components/cta/FullAd.vue'
         }
     },
     methods: {
-        deleteList(event) {
+        async deleteList(event) {
             let token = this.$cookies.get('token');
             let listKey = event.target.getAttribute('data-list-key');
 
@@ -127,16 +126,19 @@ import FullAd from '~/components/cta/FullAd.vue'
             bodyFormData.set('list', this.lists[listKey].id);
             bodyFormData.set('status', 0);
             let endpoint = `${this.$config.API_DOMAIN}lists/toggle_status/?&auth=${token}`;
-            let $this = this
-            axios({
-                method: 'post',
-                url: endpoint,
-                data: bodyFormData,
-                config: { headers: {'Content-Type': 'multipart/form-data' }}
-            }).then(function(){
-                $this.lists.splice(listKey, 1);
-                document.querySelector('#delete-modal').classList.remove("is-active");
-            });
+
+
+            const res = await fetch(endpoint,{
+              method: 'post',
+              headers: this.$echomtg.getS2SHeadersNoJSON(),
+              body: bodyFormData
+
+            })
+
+            const data = await res.json()
+            this.lists.splice(listKey, 1);
+            document.querySelector('#delete-modal').classList.remove("is-active");
+
         },
         sortList(){
             this.lists.sort((obj1, obj2) => obj2.id - obj1.id);

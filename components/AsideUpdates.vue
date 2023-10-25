@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import AsideUpdatesItem from '@/components/AsideUpdatesItem'
 
 export default {
@@ -29,23 +28,8 @@ export default {
   },
   methods: {
     getData () {
-      axios
-        .get('/data-sources/updates.json')
-        .then((r) => {
-          this.items = r.data.data
-          this.$emit('data-updated')
+      return []
 
-          this.$store.commit('basic', {
-            key: 'hasUpdates',
-            value: true
-          })
-        })
-        .catch((err) => {
-          this.$buefy.toast.open({
-            message: `Error: ${err.message}`,
-            type: 'is-danger'
-          })
-        })
     }
   }
 }
