@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="columns">
+  <div class="card" style="overflow:hidden;">
+    <div class="columns is-gapless">
       <div class="is-one-third column" style="border-radius: 15px; overflow:hidden;">
         <b-image
           style="width: 100%;"
