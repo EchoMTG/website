@@ -1,7 +1,7 @@
 <template>
   <div class="card" style="overflow:hidden;">
     <div class="columns is-gapless">
-      <div class="is-one-third column" style="border-radius: 15px; overflow:hidden;">
+      <div class="is-one-third column" style="border-radius: 20px; overflow:hidden;">
         <b-image
           style="width: 100%;"
           class="inspectorLargeImage"
