@@ -1,19 +1,21 @@
 <template>
   <div class="container m-6">
       <list-summary :list="list">
+
         <div class="is-pulled-right is-flex">
+           <b-select v-model="deckdownload" class="ml-1 mr-2" placeholder="Download Options" size="is-small" icon="download" type="is-dark" @input="openExport">
+            <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
+          </b-select>
           <social-buttons
             :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
             :title="list.name"
             :twitter="`echomtg`"
             :hashtags="`magic the gathering`"
           />
-          <b-select class="ml-1 mr-5" placeholder="Download Options" size="is-small" icon="download" type="is-dark" @change="openExport">
-            <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
-          </b-select>
+
         </div>
       </list-summary>
-      <visual-deck-mode  :list="list"/>
+      <visual-deck-mode :callback="$fetch" :list="list"/>
   </div>
 </template>
 
@@ -21,33 +23,39 @@
 import SocialButtons from '@/components/cta/SocialButtons.vue'
 import VisualDeckMode from '@/components/decks/VisualDeckMode.vue'
 import ListSummary from '@/components/single/ListSummary.vue'
-const api_url = process.env.API_DOMAIN;
+
 export default {
   data: () => {
     return {
-       exportOptions: [
-                {'label':'Magic Online (modo)','url':'/api/lists/modo_deck/list='},
-                {'label':'Command Seperated (csv)','url':'/api/lists/csv_deck/list='},
-                {'label':'Decklist (dek)','url':'/api/lists/dek_deck/list='},
-                {'label':'Plain Text (txt)','url':'/api/lists/text_deck/list='},
-                {'label':'Plain Text with Prices','url':'/api/lists/text/show_prices=true&list='},
-                {'label':'Cockatrice (cok)','url':'/api/lists/cock_deck/list='},
-                {'label':'XMage (dck)','url':'/api/lists/xmage_deck/list='},
-            ]
+        deckdownload: null,
+        exportOptions: [
+                {'label':'Magic Online (modo)','url':'lists/modo_deck/?list='},
+                {'label':'Command Seperated (csv)','url':'lists/csv_deck/?list='},
+                {'label':'Decklist (dek)','url':'lists/dek_deck/?list='},
+                {'label':'Plain Text (txt)','url':'lists/text_deck/?list='},
+                {'label':'Plain Text with Prices','url':'lists/text/?show_prices=true&list='},
+                {'label':'Cockatrice (cok)','url':'lists/cock_deck/?list='},
+                {'label':'XMage (dck)','url':'lists/xmage_deck/?list='},
+            ],
+        list: {}
     }
   },
-    async asyncData({ params, $http }) {
-      const id = params.id
-      // let token = this.$cookies.get('token');
-      const url = `${api_url}lists/get/?list=${id}`;
+  async fetch() {
+    const id = this.$route.params['id']
+    const url = `lists/get/?list=${id}`;
 
-      const { list } = await fetch(url).then(res => res.json());
-      return { id, list }
+    this.list = (await this.$echomtg.getReq(url)).list;
+    console.log(this.list);
+
+  },
+  methods: {
+    openExport(){
+
+      let url = this.$echomtg.getAPIURL() + this.deckdownload + this.list.id;
+      window.location.href = url
+
     },
-    components: { VisualDeckMode, ListSummary,SocialButtons }
+  },
+  components: { VisualDeckMode, ListSummary,SocialButtons }
 }
 </script>
-
-<style>
-
-</style>
