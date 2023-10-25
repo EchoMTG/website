@@ -90,12 +90,6 @@ export default {
     }
 
   },
-  watch:{
-    inspectorItem() {
-      console.log(this.inspectorItem)
-    }
-
-  },
   computed: {
     ...mapState([
       'isDarkModeActive'
