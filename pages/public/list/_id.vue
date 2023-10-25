@@ -59,7 +59,7 @@ export default {
   components: { VisualDeckMode, ListSummary,SocialButtons },
    head () {
     return {
-        title: `${this.list.name} MTG`,
+        title: `${this.list.name} MTG Deck List`,
 
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
