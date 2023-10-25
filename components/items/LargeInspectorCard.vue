@@ -140,9 +140,11 @@ export default {
     }
   },
   async mounted(){
-    console.log(this.item,'item')
     await this.fetchVariations()
-
+    document.addEventListener("keydown", this.keybinds);
+  },
+  destroyed(){
+    document.removeEventListener("keydown", this.keybinds)
   },
   watch: {
     item: {
@@ -170,6 +172,21 @@ export default {
 
   },
   methods: {
+    keybinds(event){
+      // left
+      if (event.isComposing || event.keyCode === 37) {
+          this.previousItem();
+
+          return true;
+      }
+
+      // right
+      if (event.isComposing || event.keyCode === 39) {
+
+          this.nextItem();
+          return true;
+      }
+    },
     async fetchVariations(){
       const res = await this.$echomtg.getVariations(this.item.name.replace(/ \((.*?)$/,''))
 
@@ -196,7 +213,8 @@ export default {
       }
 
 
-    }
+    },
+
   }
 }
 </script>
