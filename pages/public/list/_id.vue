@@ -1,27 +1,16 @@
 <template>
   <div class="container m-6">
       <list-summary :list="list">
-        <div class="is-pulled-right">
-          <div class="columns">
-              <div class="column">
-                 <div class="share-buttons">
-                 <social-buttons
-                    :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
-                    :title="list.name"
-                    :twitter="`echomtg`"
-                    :hashtags="`magic the gathering`"
-                  />
-              </div>
-                 </div>
-              <div class="column pr-5">
-
-                <b-select placeholder="Download Options" size="is-small" icon="download" type="is-dark" @change="openExport">
-
-                  <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
-                </b-select>
-
-              </div>
-          </div>
+        <div class="is-pulled-right is-flex">
+          <social-buttons
+            :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
+            :title="list.name"
+            :twitter="`echomtg`"
+            :hashtags="`magic the gathering`"
+          />
+          <b-select class="ml-1 mr-5" placeholder="Download Options" size="is-small" icon="download" type="is-dark" @change="openExport">
+            <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
+          </b-select>
         </div>
       </list-summary>
       <visual-deck-mode  :list="list"/>
