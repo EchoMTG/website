@@ -146,7 +146,7 @@ import FullAd from '~/components/cta/FullAd.vue'
     },
     head () {
       return {
-        title: `Lists/Decks`,
+        title: `${this.user.username}'s lists/decks manager`,
 
         meta: [
           // { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
