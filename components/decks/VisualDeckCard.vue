@@ -11,7 +11,7 @@
                 {{cardInfo.main}}X
               </span>
 
-                <a class="tag has-text-weight-bold has-background-black" @click="openMissingInventory" >
+                <a v-if="authenticated" class="tag has-text-weight-bold has-background-black" @click="openMissingInventory" >
                   <b-tooltip position="is-left" :label="cardInfo.missing == 0 ? `${cardInfo.on_hand} on hand` : `${cardInfo.on_hand} on hand, ${cardInfo.missing} missing`">
                     <b-icon v-if="cardInfo.on_hand == 0" icon="alert" type="is-danger" size="is-small" />
                     <b-icon v-if="cardInfo.on_hand != 0 && cardInfo.missing != 0" icon="alert" type="is-warning" size="is-small" />
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <span class="controlButtons">
+      <span v-if="authenticated" class="controlButtons">
           <b-button size="is-small" type="is-success" icon-left="plus" v-on:click.stop="addToList(card.emid,card.foil)" />
           <b-button size="is-small" type="is-danger" icon-left="minus" v-on:click.stop="removeItemFromList(card.id)" />
           <b-button size="is-small" type="is-dark" icon-left="swap-horizontal" v-on:click.stop="moveToSideboard(card.id,sideboard)" />
@@ -68,7 +68,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isDarkModeActive'])
+    ...mapState(['isDarkModeActive','authenticated'])
   },
   methods: {
     async removeItemFromList(itemid) {
