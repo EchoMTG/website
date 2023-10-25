@@ -14,9 +14,9 @@
           <div class="p-5">
             <!-- controls -->
             <div class="is-flex is-align-content-center	 is-align-items-center	 mb-5">
-              <b-button class="mr-auto" type="is-dark" icon-left="arrow-left" outlined v-if="priorInspectorItem != null" @click="priorInspectorItem">Previous Item</b-button>
+              <b-button class="mr-auto" type="is-dark" icon-left="arrow-left" outlined v-if="priorInspectorItem != null" @click="previousItem">Previous Item</b-button>
               <a target="_blank" class="is-block" :href="item.echo_url" ><b-icon icon="open-in-new" size="is-small" class="mr-1"/> Explore Item Page</a>
-              <b-button class="ml-auto" icon-right="arrow-right"  type="is-dark" outlined v-if="nextInspectorItem != null" @click="nextInspectorItem">Next Item</b-button>
+              <b-button class="ml-auto" icon-right="arrow-right"  type="is-dark" outlined v-if="nextInspectorItem != null" @click="nextItem">Next Item</b-button>
             </div>
             <!-- meta -->
             <p class="title is-4 mb-5">{{item?.name}} <span style="opacity: .4">{{item?.set}}</span></p>
@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     async fetchVariations(){
-      const res = await this.$echomtg.getVariations(this.item.name.replace(/\((.*?)\)/,''))
+      const res = await this.$echomtg.getVariations(this.item.name.replace(/ \((.*?)$/,''))
 
       this.variations = res.data?.variations ? res.data.variations : [];
       if(this.variations.length < 5) {
@@ -179,6 +179,24 @@ export default {
       }
 
     },
+    previousItem(){
+      this.variations = []
+      this.variationLimit = 5
+      this.variationStart = 0
+      if(this.priorInspectorItem){
+        this.priorInspectorItem()
+      }
+    },
+    nextItem(){
+      this.variations = []
+      this.variationLimit = 5
+      this.variationStart = 0
+      if(this.nextInspectorItem){
+        this.nextInspectorItem()
+      }
+
+
+    }
   }
 }
 </script>
