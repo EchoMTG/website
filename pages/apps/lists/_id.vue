@@ -8,21 +8,24 @@
             <div class="columns mb-0">
                 <div class="column is-one-half mb-0">
                    <list-summary :list="list">
-                     <div class="is-pulled-right">
-                        <div class="columns">
-                            <div class="column">
-                                <b-button v-if="list.public == 0" class=" is-primary" size="is-small"  @click="makePublic($vnode.key)">Make Sharable</b-button>
-                                <b-button v-if="list.public == 1" class=" is-info" size="is-small"  @click="openPublicLink">Open Public View</b-button>
-                            </div>
-                            <div class="column pr-5">
+                     <div class="is-pulled-right is-flex">
 
-                              <b-select placeholder="Export Options" size="is-small" icon="download" type="is-dark" @change="openExport">
+                        <b-button v-if="list.public == 0" class=" is-primary" size="is-small"  @click="makePublic($vnode.key)">Make Sharable</b-button>
+                        <b-button v-if="list.public == 1" type="is-warning" class="mr-1 has-background-black" size="is-small"  @click="openPublicLink">Open Public Link</b-button>
+                        <social-buttons
+                          v-if="list.public == 1"
+                          :url="getPublicLink()"
+                          :title="list.name"
+                          :twitter="`echomtg`"
+                          :hashtags="`magic the gathering`"
+                          classes="mr-1"
+                        />
 
-                                <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
-                              </b-select>
+                      <b-select v-model="deckdownload" classes="ml-1 mr-5" placeholder="Download Options" size="is-small" icon="download" type="is-dark" @input="openExport">
 
-                            </div>
-                        </div>
+                        <option v-for="(link, index) in exportOptions" :value="link.url" :key="`option-item-${index}`">{{link.label}}</option>
+                      </b-select>
+
                     </div>
                    </list-summary>
                 </div>
@@ -143,7 +146,7 @@
   import MetaView from '@/components/single/MetaView.vue'
   import ListSummary from '@/components/single/ListSummary.vue'
   import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
-
+import SocialButtons from '@/components/cta/SocialButtons.vue'
 
   import axios from 'axios'
   const api_url = process.env.API_DOMAIN;
@@ -159,7 +162,8 @@
       MetaView,
       ListSummary,
       EchoBreadCrumbs,
-      VisualDeckMode
+      VisualDeckMode,
+      SocialButtons
     },
     async fetch() {
 
@@ -181,6 +185,7 @@
             list: {
               name: ''
             },
+            deckdownload:'',
             cardArray: {},
             items: [],
             status: 1,
@@ -222,13 +227,13 @@
                 'backgroundColor' : []
             }],
             exportOptions: [
-                {'label':'Magic Online (modo)','url':'/api/lists/modo_deck/list='},
-                {'label':'Command Seperated (csv)','url':'/api/lists/csv_deck/list='},
-                {'label':'Decklist (dek)','url':'/api/lists/dek_deck/list='},
-                {'label':'Plain Text (txt)','url':'/api/lists/text_deck/list='},
-                {'label':'Plain Text with Prices','url':'/api/lists/text/show_prices=true&list='},
-                {'label':'Cockatrice (cok)','url':'/api/lists/cock_deck/list='},
-                {'label':'XMage (dck)','url':'/api/lists/xmage_deck/list='},
+                {'label':'Magic Online (modo)','url':'lists/modo_deck/?list='},
+                {'label':'Command Seperated (csv)','url':'lists/csv_deck/?list='},
+                {'label':'Decklist (dek)','url':'lists/dek_deck/?list='},
+                {'label':'Plain Text (txt)','url':'lists/text_deck/?list='},
+                {'label':'Plain Text with Prices','url':'lists/text/?show_prices=true&list='},
+                {'label':'Cockatrice (cok)','url':'lists/cock_deck/?list='},
+                {'label':'XMage (dck)','url':'lists/xmage_deck/?list='},
             ]
         };
 
@@ -422,12 +427,10 @@
                 }
             }
         },
-        openExport(e){
-            if(e.target.options.selectedIndex > -1) {
-                let selected = e.target.options[e.target.options.selectedIndex];
-                let url = selected.value + this.list.id;
+        openExport(){
+
+                let url = this.$echomtg.getAPIURL() + this.deckdownload + this.list.id;
                 window.location.href = url
-            }
 
         },
         sortListASC: function (){
@@ -472,8 +475,11 @@
                 });
             }
         },
+        getPublicLink(){
+          return 'https://www.echomtg.com/public/list/'+this.list.hash+'/';
+        },
         openPublicLink: function (event) {
-            window.location.href = '/public/list/'+this.list.hash+'/';
+            window.location.href = this.getPublicLink()
 
         },
         makePublic: function(){

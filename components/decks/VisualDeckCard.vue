@@ -28,6 +28,7 @@
           <b-button size="is-small" type="is-danger" icon-left="minus" v-on:click.stop="removeItemFromList(card.id)" />
           <b-button size="is-small" type="is-dark" icon-left="swap-horizontal" v-on:click.stop="moveToSideboard(card.id,sideboard)" />
       </span>
+      <b-button type="is-dark" icon-left="select-search" rounded class="openInspectButton" @click="openInspector(card)">Inspect Item</b-button>
   </div>
 </template>
 
@@ -61,6 +62,9 @@ export default {
     iindex: {
       type: Number,
       default: 0
+    },
+    openInspector:{
+      type: Function
     }
   },
   computed: {
