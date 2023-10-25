@@ -146,9 +146,9 @@
   import MetaView from '@/components/single/MetaView.vue'
   import ListSummary from '@/components/single/ListSummary.vue'
   import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
-import SocialButtons from '@/components/cta/SocialButtons.vue'
+  import SocialButtons from '@/components/cta/SocialButtons.vue'
 
-  import axios from 'axios'
+
   const api_url = process.env.API_DOMAIN;
   export default {
     components: {
@@ -185,7 +185,7 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
             list: {
               name: ''
             },
-            deckdownload:'',
+            deckdownload: null,
             cardArray: {},
             items: [],
             status: 1,
@@ -342,37 +342,31 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
             this.updateStatus();
 
         },
-        removeCardByMID: function (cardMid,sb){
+        async removeCardByMID(cardMid,sb){
 
-            for (var objectKey in this.list.card_list) {
+          for (var objectKey in this.list.card_list) {
 
-                var listEntry = this.list.card_list[objectKey];
-                var $this = this;
+            var listEntry = this.list.card_list[objectKey];
+            let data = null
 
-                if (cardMid == listEntry.mid && listEntry.sideboard == sb) {
-                    var apiURL = api_url + 'lists/remove/list='+ this.list.id+'&id=' + objectKey;
-
-                    axios.get(apiURL).then(function (response) {
-                        $this.updateStatus();
-                        createGrowl('1 '+ listEntry.name + ' removed.');
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-
-                    break;
-                }
-
+            if (cardMid == listEntry.mid && listEntry.sideboard == sb) {
+                data = this.$echomtg.removeFromList(objectKey,this.list.id)
+                this.$buefy.toast.open({
+                  message: `${data.message}`,
+                  type: 'is-danger'
+                })
+                break;
             }
+
+          }
         },
-        toggleFoil: function (iid,foil){
-            let apiURL = api_url + `lists/toggle_foil/id=${iid}&list_id=${this.list.id}&foil=${foil}`;
-            let $this = this;
-            axios.get(apiURL).then(function (response) {
-                $this.updateStatus();
-                createGrowl('Foil Toggled');
-            }).catch(function (error) {
-                console.log(error);
-            });
+        async toggleFoil(iid,foil){
+
+            data = this.$echomtg.removeFromList(iid,this.list.id,foil)
+            this.$buefy.toast.open({
+              message: `${data.message}`,
+              type: 'is-success'
+            })
 
         },
         async addCardByEMID(emid,sideboard=0){
@@ -386,52 +380,45 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
 
 
         },
-        addCard: function (cardMid,sideboard=0){
+        async addCard(cardMid,sideboard=0){
 
             for (var objectKey in this.list.card_list) {
 
-                var listEntry = this.list.card_list[objectKey];
+              var listEntry = this.list.card_list[objectKey];
 
-                var $this = this;
+              let data = null;
 
-                if (cardMid == listEntry.mid) {
-                    var apiURL = api_url + 'lists/add/list='+ this.list.id+'&echomtg_id=' + listEntry.emid + '&sb=' + sideboard;
+              if (cardMid == listEntry.mid) {
 
-                    axios.get(apiURL).then(function (response) {
-                        $this.updateStatus();
-                        createGrowl('An additional '+ listEntry.name + ' was added.');
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
+                data = await this.$echomtg.addToList (listEntry.emid,this.list.id,0,sideboard)
+                this.$buefy.toast.open({
+                  message: `${data.message}`,
+                  type: 'is-success'
+                })
 
-                    break;
-                }
+                break;
+              }
 
             }
         },
-        moveToSideboard: function (cardMid,sb=2){
-            for (var objectKey in this.list.card_list) {
-                var listEntry = this.list.card_list[objectKey];
-                if (cardMid == listEntry.mid && listEntry.sideboard != sb) {
-                    var side = (sb !== 2) ? '&sb='+sb : '';
-                    var apiURL = api_url + 'lists/toggle_sideboard/list_id='+ this.list.id+'&id=' + objectKey + side;
-                    var $this = this;
-
-                    axios.get(apiURL).then(function (response) {
-                        $this.updateStatus();
-                        createGrowl('1 '+ listEntry.name + ' sideboard toggled.');
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                    break;
-                }
-            }
+        async moveToSideboard(cardMid,sb=2){
+          let data = null;
+          for (var objectKey in this.list.card_list) {
+              var listEntry = this.list.card_list[objectKey];
+              if (cardMid == listEntry.mid && listEntry.sideboard != sb) {
+                  var side = (sb !== 2) ? '&sb='+sb : '';
+                  data = await this.$echomtg.toggleListItemSideboard(objectKey,this.list.id,side)
+                  this.$buefy.toast.open({
+                    message: `${data.message}`,
+                    type: 'is-success'
+                  })
+                  break;
+              }
+          }
         },
         openExport(){
-
-                let url = this.$echomtg.getAPIURL() + this.deckdownload + this.list.id;
-                window.location.href = url
-
+          let url = this.$echomtg.getAPIURL() + this.deckdownload + this.list.id;
+          window.location.href = url
         },
         sortListASC: function (){
             let metric = this.sortMetric;
@@ -478,30 +465,28 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
         getPublicLink(){
           return 'https://www.echomtg.com/public/list/'+this.list.hash+'/';
         },
-        openPublicLink: function (event) {
+        openPublicLink(event) {
             window.location.href = this.getPublicLink()
-
         },
-        makePublic: function(){
-            let token = this.$cookies.get('token');
-            let $this = this;
+        async makePublic(){
 
-            let endpoint = `${this.$config.API_DOMAIN}lists/toggle_public/?&auth=${token}`;
-            let bodyFormData = new FormData();
-            bodyFormData.set('list', this.list.id);
-            bodyFormData.set('public', 1);
+          let endpoint = `${this.$config.API_DOMAIN}lists/toggle_public/`;
+          let bodyFormData = new FormData();
+          bodyFormData.set('list', this.list.id);
+          bodyFormData.set('public', 1);
 
-            axios({
-                method: 'post',
-                url: endpoint,
-                data: bodyFormData,
-                config: { headers: {'Content-Type': 'multipart/form-data' }}
-            }).then(function(response){
+          const res = await fetch(endpoint,{
+            headers: this.$echomtg.getUserHeadersNoJSON(),
+            method: 'post',
+            body: bodyFormData
+          })
 
-                $this.updateStatus();
-                createGrowl(' made public ');
+          const data = await res.json();
 
-            });
+          this.$buefy.toast.open({
+            message: `${data.message}`,
+            type: 'is-success'
+          })
 
         },
         setCurrentTab(tabname){
@@ -558,7 +543,7 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
     },
     head () {
       return {
-        title: `Lists/Decks`,
+        title: `List/Deck Editor`,
 
         meta: [
           // { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },

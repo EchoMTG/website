@@ -27,7 +27,7 @@
                     </b-field>
                     <table v-if="lists.length > 0" class="table is-striped is-bordered is-fullwidth">
                         <tbody>
-                            <tr is="list-item" v-for="(list, index) in filteredLists" :item="list" :index="index" :key="index" />
+                            <tr is="list-item" v-for="(list, index) in filteredLists" :item="list" :index="index" :callback="$fetch" :key="index" />
                         </tbody>
                     </table>
                 </div>
@@ -103,6 +103,8 @@ import FullAd from '~/components/cta/FullAd.vue'
     async fetch(){
 
         try{
+            this.lists = [];
+
             const res = await this.$echomtg.getAllLists();
 
             const mapped = Object.entries(res.lists).map(([k,v]) => v);
