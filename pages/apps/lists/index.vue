@@ -142,5 +142,25 @@ import FullAd from '~/components/cta/FullAd.vue'
             this.lists.sort((obj1, obj2) => obj2.id - obj1.id);
         },
     },
+    head () {
+      return {
+        title: `Lists/Decks`,
+
+        meta: [
+          // { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
+           {
+            hid: 'description',
+            name: 'description',
+            content:  `List and Deck Management on EchoMTG`
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
+        ]
+      }
+    }
   }
 </script>
