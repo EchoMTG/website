@@ -37,8 +37,8 @@
                         <td v-else> N/A</td>
                         <td>
                           <a v-bind:href="card.purchase_link" target="_blank" class="button has-icons-left is-small is-success">Buy</a>
-                          <a v-if="card.tcg_mid > 0" @click="addToInventory(card.mid)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /><span>Add Regular</span></a>
-                          <a v-if="card.foil_price > 0" @click="addToInventory(card.mid,1)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /></i><span>Add Foil</span></a>
+                          <a v-if="card.tcg_mid > 0" @click="addToInventory(card.id)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /><span>Add Regular</span></a>
+                          <a v-if="card.foil_price > 0" @click="addToInventory(card.id,1)" class="button has-icons-left is-small is-primary"><b-icon icon="plus" size="is-small" /></i><span>Add Foil</span></a>
                         </td>
                     </tr>
                   </template>
@@ -62,26 +62,12 @@ export default {
     }
   },
   methods: {
-    addToInventory: function (mid, foil = 0) {
-      let $this = this
-      let token = this.$cookies.get('token');
-      let endpoint = `${this.$config.API_DOMAIN}inventory/add/?auth=${token}`
-      let bodyFormData = new FormData()
-      bodyFormData.set('mid', mid)
-      if (foil != 0) {
-        bodyFormData.set('foil', 1)
-      }
-
-      axios({
-        method: 'post',
-        url: endpoint,
-        data: bodyFormData,
-        config: { headers: { 'Content-Type': 'multipart/form-data' } },
-      }).then(function (response) {
-        console.log(response)
-        $this.$parent.updateStatus()
-        createGrowl(' Added to Inventory')
-      })
+    async addToInventory(emid, foil = 0) {
+     const res = await this.$echomtg.inventoryQuickAdd(emid,foil)
+     this.$buefy.toast.open({
+      message: `${res.message}`,
+      type: 'is-success'
+    })
     },
 
     getUniqueObjArr: function () {
