@@ -177,8 +177,12 @@ echomtg.getSets = async (game=1) => {
 
   echomtg.getSealed = async (set_code,game=1) => {
     let url = `sets/sealed/?set_code=${set_code}&game=${game}`;
-    const data = echomtg.getReq(url)
+    const data = await echomtg.getReq(url)
     return data.data;
+  }
+
+  echomtg.getVariations = async (name) => {
+    return await echomtg.getReq(`data/item_variations/?name=${name}`)
   }
 
   echomtg.getWatchlist = async (start=0,limit=100, search='',set_code='') => {

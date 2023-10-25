@@ -1,12 +1,18 @@
 <template>
   <div class="visual-deck-view is-relative">
-
+    <b-modal v-model="inspectorModal" :width="`85%`" scroll="keep">
+      <large-inspector-card
+        :item="inspectorItem"
+        :nextInspectorItem="nextInspectorItem"
+        :priorInspectorItem="priorInspectorItem"
+        />
+    </b-modal>
     <div class="columns is-multiline ">
       <div class="column is-three-quarters pl-5">
         <h3 class="title is-size-6 mt-2 mb-2 has-text-weight-light">Main Deck ({{mainCount}})</h3>
         <div class="columns is-multiline is-gapless">
           <template v-for="row in cmcs">
-            <div class="column" v-bind:key="`row-${row.cmc}`" v-if="getCardsByManaCost(row.cmc,row.type).length > 0">
+            <div class="column" v-bind:key="`row-${row.cmc}${row.type}`" v-if="getCardsByManaCost(row.cmc,row.type).length > 0">
                 <div
                   is="visual-deck-card"
                   v-on:moveToSideboard="moveToSideboard"
@@ -17,9 +23,10 @@
                   v-bind:cardInfo="item"
                   v-bind:listid="list.id"
                   v-bind:callback="callback"
+                  :openInspector="openInspector"
                   v-bind:sideboard="0"
                   :iindex="index"
-                  :key="`visual-deck-card-main-${index}`"
+                  :key="`visual-deck-card-main-${row.cmc}${index}`"
                 ></div>
             </div>
           </template>
@@ -34,6 +41,7 @@
                 v-bind:cardInfo="item"
                 v-bind:listid="list.id"
                 v-bind:callback="callback"
+                :openInspector="openInspector"
                 v-bind:sideboard="0"
                 :iindex="index"
                 :key="`visual-deck-card-main-${index}`"
@@ -53,6 +61,7 @@
             v-bind:cardInfo="item"
             v-bind:listid="list.id"
             v-bind:callback="callback"
+            :openInspector="openInspector"
             :iindex="index"
             :key="`visual-deck-card-side-${index}`"
             v-bind:sideboard="1" ></div>
@@ -64,11 +73,11 @@
 <script>
 import VisualDeckCard from './VisualDeckCard.vue';
 import { mapState } from 'vuex';
-import Discord from '~/pages/about/discord.vue';
+import LargeInspectorCard from '../items/LargeInspectorCard.vue';
 
 export default {
   name: 'visual-deck-mode',
-  components: { VisualDeckCard },
+  components: { VisualDeckCard, LargeInspectorCard },
   props: {
 
     list: {
@@ -81,7 +90,10 @@ export default {
     }
 
   },
-  mounted(){
+  watch:{
+    inspectorItem() {
+      console.log(this.inspectorItem)
+    }
 
   },
   computed: {
@@ -152,6 +164,8 @@ export default {
         }
 
       ],
+      inspectorModal: false,
+      inspectorItem: {},
       orderByOptions: ['type', 'cmc', 'color'],
       orderByOptionsLabels: {
         type: 'Spell Type',
@@ -191,6 +205,33 @@ export default {
     }
   },
   methods: {
+    openInspector(item){
+      this.inspectorItem = item;
+      this.inspectorModal = true;
+    },
+    nextInspectorItem(){
+      const findPosition = (element) => element.id == this.inspectorItem.id;
+      let position = this.list.items.findIndex(findPosition);
+      if((position + 1) == this.list.items.length){
+        position = 0
+      } else {
+        position = position + 1
+      }
+      this.inspectorItem = this.list.items[position]
+
+
+    },
+    priorInspectorItem(){
+       const findPosition = (element) => element.id == this.inspectorItem.id;
+      let position = this.list.items.findIndex(findPosition);
+      if(position == 0){
+        position = this.list.items.length - 1
+      } else {
+        position = position - 1
+      }
+      this.inspectorItem = this.list.items[position]
+
+    },
     getCardsByManaCost(cmc=0,logic='equals'){
       if(logic == 'greaterthan'){
         return this.mainFiltersItemsNonLands.filter((item) => parseInt(item.item.cmc) > cmc)

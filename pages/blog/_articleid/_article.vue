@@ -87,6 +87,7 @@ import CardAd from '@/components/cta/CardAd.vue'
 import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 
+
 export default {
   name: 'Article',
   components: {

@@ -1,3 +1,8 @@
+.inspectorLargeImage{
+  img {
+    width: 100%;
+  }
+}
 .visual-deck-view {
   overflow: hidden;
 }
@@ -18,6 +23,16 @@
     right: 8%;
     .tag {
       background: rgba(255,255,255,.7)
+    }
+  }
+  .openInspectButton{
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    visibility: hidden;
+    opacity: .7;
+    &:hover{
+      opacity: 1;
     }
   }
   .controlButtons{
@@ -42,6 +57,10 @@
   &:hover{
     z-index: 3;
     .controlButtons{
+      visibility: visible;
+    }
+    .openInspectButton{
+
       visibility: visible;
     }
   }
