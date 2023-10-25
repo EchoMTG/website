@@ -45,7 +45,7 @@ export default {
     const url = `lists/get/?list=${id}`;
 
     this.list = (await this.$echomtg.getReq(url)).list;
-    console.log(this.list);
+
 
   },
   methods: {
@@ -56,6 +56,27 @@ export default {
 
     },
   },
-  components: { VisualDeckMode, ListSummary,SocialButtons }
+  components: { VisualDeckMode, ListSummary,SocialButtons },
+   head () {
+    return {
+        title: `${this.list.name} MTG Deck List`,
+
+        meta: [
+          { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
+           {
+            hid: 'description',
+            name: 'description',
+            content:  `${this.list.name} Magic deck with ${this.list.items.length} cards`
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
+        ]
+    }
+  }
+
 }
 </script>
