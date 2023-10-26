@@ -1,27 +1,27 @@
 <template>
   <div>
-    <div class="columns">
+    <div class="columns p-5">
         <div class="column is-half content">
           <h2 class="title">Completion Info</h2>
-          <p><strong class="tag">{{percentageComplete}}% complete</strong> compared to your inventory which shows you have <strong>{{list.total_cards_on_hand}}</strong> of <strong>{{list.total_cards}}</strong> in you inventory.</p>
-          <p><strong class="tag">{{cardsToComplete}}</strong> cards need to be collected to complete this list.</p>
+          <p><b-tag>{{percentageComplete}}% complete</b-tag> compared to your inventory which shows you have <b-tag>{{list.total_cards_on_hand}}</b-tag> of <b-tag>{{list.total_cards}}</b-tag> in you inventory.</p>
+          <p><b-tag>{{cardsToComplete}}</b-tag> cards need to be collected to complete this list.</p>
         </div>
         <div class="column is-half content">
             <h2>Cost to Complete</h2>
-            <p><strong class="tag">{{list.currency_symbol}}{{list.cost_to_finish_low}}-{{list.currency_symbol}}{{list.cost_to_finish}}</strong> is the estimated cost to complete this list.</p>
+            <p><b-tag>{{list.currency_symbol}}{{list.cost_to_finish_low}}-{{list.currency_symbol}}{{list.cost_to_finish}}</b-tag> is the estimated cost to complete this list.</p>
             <a :href="buyAllFromTCGplayer" target="_blank" class="button is-success">Buy Missing From TCGPlayer</a>
             <a :href="buyAllFromCardKingdom" target="_blank" class="button is-info">Buy Missing From CardKingdom</a>
 
         </div>
     </div>
-    <div class="card" style="margin-top: 20px;">
-      <header class="card-header">
-        <p class="card-header-title">
+    <div class="card">
+
+        <p class="has-text-centered ">
           Cards Missing in your Inventory. Use + buttons to add to your inventory.
         </p>
-      </header>
+
       <div class="card-content" style="padding:0;">
-            <table class="table is-striped">
+            <table class="table is-striped is-fullwidth">
                 <thead>
                     <tr>
                         <td v-for="(title, index) in tableHeaders" :key="`title-item-index-${index}`"><span>{{title}}</span></td>
@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                   <template v-for="(card, index) in list.card_list">
-                    <tr :key="`card-item-${index}`">
+                    <tr :key="`card-item-${index}`" v-if="!card.on_hand">
                         <td><a :href="card.echo_url.replace('https://www.echomtg.com','')">{{card.name}}</a>[<a :href="card.echo_set_url">{{card.set_code}}</a>]</td>
                         <td v-if="card.tcg_low > 0">{{list.currency_symbol}}{{card.tcg_low}}-{{list.currency_symbol}}{{card.tcg_mid}}</td>
                         <td v-else class="is-size-7 is-light">N/A</td>
@@ -55,7 +55,7 @@
 <script>
 
 export default {
-  props: ['list'],
+  props: ['list','callback'],
   data: function () {
     return {
       tableHeaders: ['Card Name', 'Price Range', 'Foil Cost', 'Actions'],
@@ -63,11 +63,14 @@ export default {
   },
   methods: {
     async addToInventory(emid, foil = 0) {
-     const res = await this.$echomtg.inventoryQuickAdd(emid,foil)
-     this.$buefy.toast.open({
-      message: `${res.message}`,
-      type: 'is-success'
-    })
+      const res = await this.$echomtg.inventoryQuickAdd(emid,foil)
+      this.$buefy.toast.open({
+        message: `${res.message}`,
+        type: 'is-success'
+      })
+      if(this.callback){
+        this.callback()
+      }
     },
 
     getUniqueObjArr: function () {
