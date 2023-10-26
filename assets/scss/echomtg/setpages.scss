@@ -41,13 +41,21 @@
 	}
 
   @media all and (max-width: $break-width){
-		margin-top: 0px;
+		margin-top: -30px;
     &.tabs{
       li{
         a {
-          color: black !important;
-          text-shadow: none !important;
+          color: white !important;
+          text-shadow: 0 0 5px black !important;
           font-size: 70%;
+        }
+        &.is-active{
+          a {
+            color: black !important;
+            text-shadow: none !important;
+            font-size: 70%;
+          }
+
         }
       }
     }
@@ -208,7 +216,7 @@ $imageHeight: 180px;
   }
 
   @media all and (max-width: $break-width){
-		height: $imageHeight * .7;
+		height: $imageHeight * .85;
     .largeSetIcon{
       font-size: 60px !important;
     }
