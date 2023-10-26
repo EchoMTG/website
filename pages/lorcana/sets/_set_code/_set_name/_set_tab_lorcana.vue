@@ -4,6 +4,7 @@
     <echo-bread-crumbs :data="crumbs" />
     <SetSummaryLorcana
       :setName="set.name"
+      :setURL="this.$route.path"
       :setCode="set.set_code"
       :topcardImage="set.items[0].image_cropped"
       :setReleaseDate="set.release_date"

@@ -5,6 +5,7 @@
     <SetSummary
       :setName="set.name"
       :setCode="set.set_code"
+      :setURL="this.$route.path"
       :topcardImage="set?.items[0]?.image_cropped"
       :setReleaseDate="set.release_date"
       :setTotalItems="set.items.length"
