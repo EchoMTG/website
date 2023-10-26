@@ -92,7 +92,11 @@ export default {
   },
   methods: {
       async updateList() {
-        this.$echomtg.editListMeta(this.list.id, this.name, this.description);
+        const data = await this.$echomtg.editListMeta(this.list.id, this.name, this.description);
+        this.$buefy.toast.open({
+          message: `${data.message}`,
+          type: 'is-success'
+        })
       }
   }
 }

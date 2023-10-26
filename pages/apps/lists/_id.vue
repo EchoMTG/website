@@ -487,7 +487,7 @@
             message: `${data.message}`,
             type: 'is-success'
           })
-
+          await this.$fetch()
         },
         setCurrentTab(tabname){
             this.currentTabComponent = tabname;
