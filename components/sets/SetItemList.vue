@@ -181,11 +181,11 @@
             </a>
 
             <item-inspector-wrapper :item="props.row" />
-            <div class="is-flex has-text-grey"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
+            <div class="is-flex has-text-grey is-size-7"><em class="mr-1" v-html="replaceSymbols(props.row.mc)"></em> - {{props.row.types}}</div>
 
 
           </b-table-column>
-          <b-table-column field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
+          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
             <div class="level">
               <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
                 {{ props.row.price_change }} %
@@ -194,7 +194,7 @@
             </div>
 
           </b-table-column>
-            <b-table-column field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
+            <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
 
               <strong class="is-size-6">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
               <b-button
@@ -208,8 +208,13 @@
 
 
           </b-table-column>
-          <b-table-column field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
-            <strong class="is-size-6">{{cs}}{{props.row.foil_price?.toFixed(2)}}</strong>
+          <b-table-column :visible="$device.isMobileOrTablet ? true : false" field="price" v-if="totalRegular > 0" numeric :label="`Price`" sortable v-slot="props">
+            <b-tag size="is-small" v-if="props.row.tcg_mid > 0" >{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</b-tag>
+            <b-tag  v-if="props.row.foil_price > 0" class="has-background-warning">{{cs}}{{props.row.foil_price?.toFixed(2)}}</b-tag>
+          </b-table-column>
+
+          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
+            <strong v-if="props.row.foil_price > 0" class="is-size-6">{{cs}}{{props.row.foil_price?.toFixed(2)}}</strong>
             <b-button
               :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
               v-if="props.row.foil_price"
@@ -222,10 +227,10 @@
             </b-button>
           </b-table-column>
 
-          <b-table-column field="rarity" label="Rarity" sortable width="120" v-slot="props">
+          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="rarity" label="Rarity" sortable width="120" v-slot="props">
             {{props.row.rarity}}
           </b-table-column>
-          <b-table-column field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props" :custom-sort="sortCollectorNumber">
+          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props" :custom-sort="sortCollectorNumber">
             {{props.row.collectors_number}}
           </b-table-column>
 
@@ -515,7 +520,7 @@ export default {
   },
   computed: {
     cs() {
-      return this.user.currency_symbol;
+      return this.user?.currency_symbol ?  this.user.currency_symbol : '$';
     },
     dirtyFilters() {
       return this.showOwned != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
