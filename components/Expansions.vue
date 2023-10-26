@@ -69,16 +69,17 @@
             </b-tooltip>
           </div>
       </b-table-column>
-      <b-table-column v-slot="props" label="Set Value" field="total_value" numeric sortable>
+      <b-table-column :visible="$device.isMobileOrTablet ? false : true" v-slot="props" label="Set Value" field="total_value" numeric sortable>
+        <span v-if="props.row.total_value">
         {{quickstats.currency_symbol}}{{ props.row.total_value.toLocaleString() }}
+        </span>
+        <nuxt-link :to="/login/" v-else>Login for Value</nuxt-link>
       </b-table-column>
       <b-table-column :visible="authenticated" v-slot="props" label="Collected Value" field="total_value_owned" numeric sortable>
         <nuxt-link class="has-text-success" :to="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/'" v-if="props.row?.total_value_owned > 0">{{quickstats.currency_symbol}}{{ props.row.total_value_owned.toLocaleString() }}</nuxt-link>
       </b-table-column>
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
-        column-class="is-hidden-touch"
-        header-class="is-hidden-touch"
         v-slot="props"
         label="Set Code"
         field="set_code"
@@ -92,8 +93,6 @@
 
       <b-table-column
         :visible="$device.isMobileOrTablet ? false : true"
-        column-class="is-hidden-touch"
-        header-class="is-hidden-touch"
         v-slot="props"
         label="Type"
         field="type"
@@ -101,7 +100,7 @@
         {{ props.row.type }}
       </b-table-column>
 
-      <b-table-column v-slot="props" label="Release" field="release_date" sortable>
+      <b-table-column :visible="$device.isMobileOrTablet ? false : true" v-slot="props" label="Release" field="release_date" sortable>
         {{ props.row.release_date }}
       </b-table-column>
 

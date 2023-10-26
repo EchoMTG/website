@@ -35,7 +35,7 @@
           </div>
           <div class="column is-half">
             <h2 class="title is-size-4 mb-1">Missing Items</h2>
-            <p>Report missing items by <nuxt-link to="/about/discord/">joining discord</nuxt-link> and reporting to the @wiki-team</p>
+            <p>Report missing items by <nuxt-link to="/help/report-missing-item/">filling out a missing item form</nuxt-link> or by reporting to the @wiki-team on discord</p>
               <hr />
             <h2 class="title is-size-4 mb-1">Data Error</h2>
               <p>Report database errors by <nuxt-link to="/about/discord/">joining discord</nuxt-link> and reporting to the @wiki-team</p>
