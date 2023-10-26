@@ -62,7 +62,7 @@ export default {
         title: `${this.list.name} MTG Deck List`,
 
         meta: [
-          { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
+          { hid: 'og:image', property: 'og:image', content: this.list.items[0]?.image ? this.list.items[0].image_cropped : '' },
            {
             hid: 'description',
             name: 'description',

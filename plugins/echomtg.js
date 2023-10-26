@@ -982,17 +982,13 @@ echomtg.getSets = async (game=1) => {
     let n = encodeURIComponent(name)
     let d = encodeURIComponent(description)
 
-    let url = `${context.app.$config.API_DOMAIN}lists/edit/list=${list_id}&name=${n}&description=${d}`;
-    try {
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: echomtg.getUserHeaders()
-      });
-      let data = await res.json();
-      this.createGrowl(data.message);
-    } catch (error){
-      echomtg.log(error);
-    }
+    let url = `${context.app.$config.API_DOMAIN}lists/edit/?list=${list_id}&name=${n}&description=${d}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: echomtg.getUserHeaders()
+    });
+    return await res.json();
   }
 
   echomtg.wikiReportMissingItem = async (body) => {

@@ -73,8 +73,6 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     'nuxt-buefy',
-     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/gtm',
     '@nuxtjs/device',
     // https://www.npmjs.com/package/cookie-universal-nuxt
@@ -101,7 +99,6 @@ export default {
     '/api/*/**': process.env.NUXT_ENV_API_DOMAIN.replace('api/',''),
     '/robots.txt': process.env.NUXT_ENV_API_DOMAIN.replace('api/','')
   },
-  axios: {},
   markdownit: {
     runtime: true
   },

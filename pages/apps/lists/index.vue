@@ -27,7 +27,7 @@
                     </b-field>
                     <table v-if="lists.length > 0" class="table is-striped is-bordered is-fullwidth">
                         <tbody>
-                            <tr is="list-item" v-for="(list, index) in filteredLists" :item="list" :index="index" :key="index" />
+                            <tr is="list-item" v-for="(list, index) in filteredLists" :item="list" :index="index" :callback="$fetch" :key="index" />
                         </tbody>
                     </table>
                 </div>
@@ -55,7 +55,6 @@
 <script>
 
 import { mapState } from 'vuex'
-import axios from 'axios'
 import CreateList from "@/components/list/CreateList.vue";
 import ListItem from "@/components/list/ListItem.vue";
 import EchoBreadCrumbs from "@/components/navigation/EchoBreadCrumbs.vue";
@@ -104,6 +103,8 @@ import FullAd from '~/components/cta/FullAd.vue'
     async fetch(){
 
         try{
+            this.lists = [];
+
             const res = await this.$echomtg.getAllLists();
 
             const mapped = Object.entries(res.lists).map(([k,v]) => v);
@@ -118,7 +119,7 @@ import FullAd from '~/components/cta/FullAd.vue'
         }
     },
     methods: {
-        deleteList(event) {
+        async deleteList(event) {
             let token = this.$cookies.get('token');
             let listKey = event.target.getAttribute('data-list-key');
 
@@ -127,16 +128,19 @@ import FullAd from '~/components/cta/FullAd.vue'
             bodyFormData.set('list', this.lists[listKey].id);
             bodyFormData.set('status', 0);
             let endpoint = `${this.$config.API_DOMAIN}lists/toggle_status/?&auth=${token}`;
-            let $this = this
-            axios({
-                method: 'post',
-                url: endpoint,
-                data: bodyFormData,
-                config: { headers: {'Content-Type': 'multipart/form-data' }}
-            }).then(function(){
-                $this.lists.splice(listKey, 1);
-                document.querySelector('#delete-modal').classList.remove("is-active");
-            });
+
+
+            const res = await fetch(endpoint,{
+              method: 'post',
+              headers: this.$echomtg.getS2SHeadersNoJSON(),
+              body: bodyFormData
+
+            })
+
+            const data = await res.json()
+            this.lists.splice(listKey, 1);
+            document.querySelector('#delete-modal').classList.remove("is-active");
+
         },
         sortList(){
             this.lists.sort((obj1, obj2) => obj2.id - obj1.id);
@@ -144,7 +148,7 @@ import FullAd from '~/components/cta/FullAd.vue'
     },
     head () {
       return {
-        title: `Lists/Decks`,
+        title: `${this.user.username}'s lists/decks manager`,
 
         meta: [
           // { hid: 'og:image', property: 'og:image', content: this.list.items[0].image_cropped },
