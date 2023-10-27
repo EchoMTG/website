@@ -1009,30 +1009,17 @@ echomtg.getSets = async (game=1) => {
 
   echomtg.getFAQs = async (start=0,limit=0,category=false) => {
 
-    let url = `${context.app.$config.API_DOMAIN}faqs/view/?start=${start}&limit=${limit}&category=${category}`;
-
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: echomtg.getUserHeaders()
-    });
-    return await res.json();
+    return await echomtg.getReq(`faqs/view/?start=${start}&limit=${limit}&category=${category}`);
   }
 
   echomtg.faqCreate = async (question,answer,category) => {
 
-    let url = `${context.app.$config.API_DOMAIN}faqs/create/`;
     let body = {
       question: question,
       answer: answer,
       category: category
     }
-
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
-    });
-    return await res.json();
+    return await echomtg.postReq(`faqs/create/`,body)
   }
 
   echomtg.faqEdit = async (id,question,answer,category) => {
@@ -1066,6 +1053,10 @@ echomtg.getSets = async (game=1) => {
       body: JSON.stringify(body)
     });
     return await res.json();
+  }
+
+  echomtg.getComments = async (resource_id,resource='item') => {
+    return echomtg.getReq(`comments/get/?resource_id=${resource_id}&resource=${resource}`)
   }
 
   echomtg.itemURL = (item) => {
