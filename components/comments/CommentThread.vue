@@ -1,18 +1,21 @@
 <template>
   <div class="commentThread">
-    <h4 class="title is-size-5"><span v-if="comments.length > 1">{{comments.length}}</span> Comments for {{for_what}}</h4>
+    <h4 v-if="comments.length > 0" class="title is-size-5"><span v-if="comments.length > 1">{{comments.length}}</span> Comments for {{for_what}}</h4>
     <template v-for="comment in commentsOrderedByVotes">
       <comment :comment="comment" :key="comment.id" :callback="fetchComments" />
     </template>
+
+    <write-comment v-if="authenticated" :resource_id="resource_id" :resource="resource" :title="`Comment on ${for_what}`" :callback="fetchComments" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import Comment from './Comment.vue'
+import WriteComment from './WriteComment.vue'
 
 export default {
-  components: { Comment },
+  components: { Comment, WriteComment },
   data: () => {
     return {
       comments: []

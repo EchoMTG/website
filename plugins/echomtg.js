@@ -1065,6 +1065,17 @@ echomtg.getSets = async (game=1) => {
   echomtg.voteOnComment = async (comment_id,vote) => {
     return echomtg.postReq(`comments/vote/`,{comment: comment_id,vote})
   }
+  echomtg.createComment = async (comment,resource_id,resource='item',thread_parent_id=false) => {
+    let body = {
+      resource: resource,
+      resource_id: resource_id,
+      comment: comment
+    }
+    if(thread_parent_id){
+      body.thread_parent_id = thread_parent_id
+    }
+    return await echomtg.postReq(`comments/create/`,body)
+  }
 
   echomtg.itemURL = (item) => {
 

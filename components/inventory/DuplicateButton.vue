@@ -25,13 +25,12 @@ export default {
       await this.$echomtg.inventoryAdd(this.copy.emid,{
         acquired_price: this.copy.price_acquired,
         foil: this.copy.foil,
-        acquired_date: this.copy.date_acquired,
         condition: this.copy.condition,
         language: this.copy.language
       })
 
       this.$buefy.snackbar.open({
-        message: `${this.copy.name} duplicated`,
+        message: `${this.copy.name} duplicated with today's acquired date.`,
         queue: false
       })
       if(this.callback){

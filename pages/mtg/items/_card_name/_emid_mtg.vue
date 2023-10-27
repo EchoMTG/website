@@ -263,7 +263,7 @@
                 </b-table>
 
               </div>
-              <comment-thread :resource_id="this.item.emid" :resource="'item'" :for_what="item.name" />
+              <comment-thread :resource_id="this.item.emid" :resource="'item'" :for_what="`${item.name} from ${item.expansion}`" />
             </div>
           </div>
           <div class="column is-one-third">
