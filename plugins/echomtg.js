@@ -1062,6 +1062,9 @@ echomtg.getSets = async (game=1) => {
   echomtg.deleteComment = async (id) => {
     return echomtg.postReq(`comments/delete/`,{id: id})
   }
+  echomtg.voteOnComment = async (comment_id,vote) => {
+    return echomtg.postReq(`comments/vote/`,{comment: comment_id,vote})
+  }
 
   echomtg.itemURL = (item) => {
 

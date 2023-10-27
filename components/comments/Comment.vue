@@ -18,11 +18,13 @@
             </div>
             <nav class="level is-mobile">
               <div class="level-left" v-if="authenticated">
-                <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="arrow-up" />
-                <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="arrow-down" />
+                <b-tag :type="isDarkModeActive == 1 ? 'is-dark' : ''">{{comment.votes}}</b-tag>
+                <b-button size="is-small" @click="voteOnComment(1)" outlined type="is-dark" class="level-item" icon-left="arrow-up" />
+                <b-button size="is-small" @click="voteOnComment(-1)" outlined type="is-dark" class="level-item" icon-left="arrow-down" />
                 <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="reply" />
               </div>
               <div class="level-left" v-else>
+                <b-tag>{{comment.votes}}</b-tag>
                 <nuxt-link to="/login/">Login to Vote and Comment</nuxt-link>
               </div>
               <div class="level-left">
@@ -31,7 +33,7 @@
             </nav>
 
             <template v-if="comment.children.length > 0">
-              <Comment v-for="subcomment in comment.children" :comment="subcomment" :key="subcomment.id" />
+              <Comment v-for="subcomment in comment.children" :callback="callback" :comment="subcomment" :key="subcomment.id" />
             </template>
 
           </div>
@@ -67,7 +69,19 @@ export default {
       if(this.callback){
         this.callback();
       }
+    },
+    async voteOnComment(vote){
+      const res = await this.$echomtg.voteOnComment(this.comment.id,vote);
+      this.$buefy.toast.open({
+        message: res.message,
+        type: res.status == 'success' ? 'is-success' :'is-danger'
+      })
+      if(res.status == 'success' && this.callback){
+        this.callback();
+      }
     }
+
+
   },
   computed: {
     ...mapState([
