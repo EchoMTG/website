@@ -21,7 +21,7 @@
                 <b-tag :type="isDarkModeActive == 1 ? 'is-dark' : ''">{{comment.votes}}</b-tag>
                 <b-button size="is-small" @click="voteOnComment(1)" outlined type="is-dark" class="level-item" icon-left="arrow-up" />
                 <b-button size="is-small" @click="voteOnComment(-1)" outlined type="is-dark" class="level-item" icon-left="arrow-down" />
-                <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="reply" />
+                <b-button size="is-small" @click="toggleWrite=!toggleWrite" type="is-dark" class="level-item" icon-left="reply" />
               </div>
               <div class="level-left" v-else>
                 <b-tag>{{comment.votes}}</b-tag>
@@ -31,6 +31,16 @@
                 <b-button v-if="user.id == comment.author.id || user.user_level >= 2" size="is-small" @click="deleteComment" outlined type="is-danger" class="level-item" icon-left="delete" />
               </div>
             </nav>
+            <template v-if="toggleWrite">
+              <write-comment
+                v-if="authenticated"
+                :resource_id="comment.resource_id"
+                :thread_parent_id="comment.id"
+                :resource="resource"
+                :title="`Reply to ${comment.author.username}`"
+                :callback="callback" />
+                <nuxt-link v-else to="/login/">Login to Respond</nuxt-link>
+            </template>
 
             <template v-if="comment.children.length > 0">
               <Comment v-for="subcomment in comment.children" :callback="callback" :comment="subcomment" :key="subcomment.id" />
@@ -49,11 +59,12 @@
 import { mapState } from 'vuex'
 
 import Comment from './Comment.vue'
+import WriteComment from './WriteComment.vue'
 
 export default {
   name: 'Comment',
-  components: { Comment },
-  props: ['comment','callback'],
+  components: { Comment, WriteComment },
+  props: ['comment','resource','callback'],
   data: () => {
     return {
       toggleWrite: false
