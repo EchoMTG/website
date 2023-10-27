@@ -73,7 +73,7 @@
         <span v-if="props.row.total_value">
         {{quickstats.currency_symbol}}{{ props.row.total_value.toLocaleString() }}
         </span>
-        <nuxt-link :to="/login/" v-else>Login for Value</nuxt-link>
+        <nuxt-link :to="/login/" v-else-if="!authenticated">Login for Value</nuxt-link>
       </b-table-column>
       <b-table-column :visible="authenticated" v-slot="props" label="Collected Value" field="total_value_owned" numeric sortable>
         <nuxt-link class="has-text-success" :to="makeSetPath(props.row.set_code,props.row.set_code_path_part) + 'calculations/'" v-if="props.row?.total_value_owned > 0">{{quickstats.currency_symbol}}{{ props.row.total_value_owned.toLocaleString() }}</nuxt-link>

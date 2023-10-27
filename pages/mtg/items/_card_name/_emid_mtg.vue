@@ -261,7 +261,9 @@
                         <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
                     </b-table-column>
                 </b-table>
+
               </div>
+              <comment-thread :resource_id="this.item.emid" :resource="'item'" :for_what="item.name" />
             </div>
           </div>
           <div class="column is-one-third">
@@ -337,6 +339,7 @@
 
 
 
+
   </div>
 
 </template>
@@ -355,6 +358,7 @@ import SetTag from '~/components/magic/SetTag.vue'
 import CardAd from '@/components/cta/CardAd.vue'
 import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
+import CommentThread from '@/components/comments/CommentThread.vue'
 
 export default {
   name: 'Expansion',
@@ -368,7 +372,8 @@ export default {
     ItemListBox,
     CardAd,
     CreateAccountModal,
-    SocialButtons
+    SocialButtons,
+    CommentThread
   },
   data () {
     return {
