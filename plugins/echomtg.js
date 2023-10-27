@@ -1059,6 +1059,10 @@ echomtg.getSets = async (game=1) => {
     return echomtg.getReq(`comments/get/?resource_id=${resource_id}&resource=${resource}`)
   }
 
+  echomtg.deleteComment = async (id) => {
+    return echomtg.postReq(`comments/delete/`,{id: id})
+  }
+
   echomtg.itemURL = (item) => {
 
     let url = '';

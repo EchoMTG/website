@@ -17,14 +17,16 @@
                 <div v-html="comment.comment" />
             </div>
             <nav class="level is-mobile">
-              <div class="level-left">
+              <div class="level-left" v-if="authenticated">
                 <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="arrow-up" />
                 <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="arrow-down" />
                 <b-button size="is-small" outlined type="is-dark" class="level-item" icon-left="reply" />
-
+              </div>
+              <div class="level-left" v-else>
+                <nuxt-link to="/login/">Login to Vote and Comment</nuxt-link>
               </div>
               <div class="level-left">
-                <b-button v-if="user.id == comment.author.id || user.user_level >= 2" size="is-small" outlined type="is-danger" class="level-item" icon-left="delete" />
+                <b-button v-if="user.id == comment.author.id || user.user_level >= 2" size="is-small" @click="deleteComment" outlined type="is-danger" class="level-item" icon-left="delete" />
               </div>
             </nav>
 
@@ -49,10 +51,22 @@ import Comment from './Comment.vue'
 export default {
   name: 'Comment',
   components: { Comment },
-  props: ['comment'],
+  props: ['comment','callback'],
   data: () => {
     return {
       toggleWrite: false
+    }
+  },
+  methods: {
+    async deleteComment(){
+      const res = await this.$echomtg.deleteComment(this.comment.id);
+      this.$buefy.toast.open({
+        message: res.message,
+        type: 'is-danger'
+      })
+      if(this.callback){
+        this.callback();
+      }
     }
   },
   computed: {

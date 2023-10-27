@@ -2,7 +2,7 @@
   <div class="commentThread">
     <h4 class="title is-size-5"><span v-if="comments.length > 1">{{comments.length}}</span> Comments for {{for_what}}</h4>
     <template v-for="comment in commentsOrderedByVotes">
-      <comment :comment="comment" :key="comment.id" />
+      <comment :comment="comment" :key="comment.id" :callback="fetchComments" />
     </template>
   </div>
 </template>
