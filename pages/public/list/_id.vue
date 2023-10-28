@@ -16,6 +16,9 @@
         </div>
       </list-summary>
       <visual-deck-mode :callback="$fetch" :list="list"/>
+
+      <comment-thread class="mt-5" resource="list" :resource_id="list.id" :for_what="list.name"></comment-thread>
+
   </div>
 </template>
 
@@ -23,6 +26,7 @@
 import SocialButtons from '@/components/cta/SocialButtons.vue'
 import VisualDeckMode from '@/components/decks/VisualDeckMode.vue'
 import ListSummary from '@/components/single/ListSummary.vue'
+import CommentThread from '@/components/comments/CommentThread.vue'
 
 export default {
   data: () => {
@@ -56,7 +60,7 @@ export default {
 
     },
   },
-  components: { VisualDeckMode, ListSummary,SocialButtons },
+  components: { VisualDeckMode, ListSummary,SocialButtons, CommentThread },
    head () {
     return {
         title: `${this.list.name} MTG Deck List`,

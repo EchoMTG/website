@@ -7,12 +7,12 @@
         :priorInspectorItem="priorInspectorItem"
         />
     </b-modal>
-    <div class="columns is-multiline ">
+    <div class="columns is-multiline mt-5">
       <div class="column is-three-quarters pl-5">
         <h3 class="title is-size-6 mt-2 mb-2 has-text-weight-light">Main Deck ({{mainCount}})</h3>
-        <div class="columns is-multiline is-gapless">
+        <div class="columns is-multiline">
           <template v-for="row in cmcs">
-            <div class="column" v-bind:key="`row-${row.cmc}${row.type}`" v-if="getCardsByManaCost(row.cmc,row.type).length > 0">
+            <div class="column" v-bind:key="`row-${row.cmc}${row.type}`" :style="`height:` + (200 + (getCardsByManaCost(row.cmc,row.type).length * 100)) +`px`" v-if="getCardsByManaCost(row.cmc,row.type).length > 0">
                 <div
                   is="visual-deck-card"
                   v-on:moveToSideboard="moveToSideboard"

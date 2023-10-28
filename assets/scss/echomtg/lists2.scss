@@ -7,10 +7,10 @@
   overflow: hidden;
 }
 .visual-deck-card{
-  position: relative;
+  position: absolute;
 
   width: 100%;
-  max-width: 220px  ;
+  max-width: 200px  ;
   z-index: 2;
   background: transparent !important;
   .visual-deck-card-image{
