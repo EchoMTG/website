@@ -58,7 +58,13 @@ export default {
     async writeComment(){
       this.disabled = true
       let thread_parent_id = this.thread_parent_id ? this.thread_parent_id : false;
-      const res = await this.$echomtg.createComment(this.comment,this.resource_id,this.resource,thread_parent_id);
+      const res = await this.$echomtg.createComment(
+        this.comment,
+        this.resource_id,
+        this.resource,
+        thread_parent_id,
+        window.location.href.split('#')[0]
+      );
       this.$buefy.toast.open({
         message: res.message,
         type: res.status == 'success' ? 'is-success' :'is-danger'

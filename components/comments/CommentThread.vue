@@ -31,8 +31,11 @@ export default {
     }
   },
   props: ['resource_id','resource','for_what'],
-  mounted(){
-    this.fetchComments()
+  async mounted(){
+    await this.fetchComments()
+    if(window.location.hash.includes('comment')){
+      document.getElementById(window.location.hash.substring(1)).scrollIntoView();
+    }
   },
   methods: {
     async fetchComments(){
