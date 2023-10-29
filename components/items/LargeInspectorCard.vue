@@ -20,7 +20,7 @@
             </div>
             <!-- meta -->
             <p class="title is-4 mb-5">{{item?.name}} <span style="opacity: .4">{{item?.set}}</span></p>
-            <p class="subtitle is-6">{{item?.types}} - {{item?.rarity}}</p>
+            <p class="subtitle is-6">{{item?.types}} - {{item?.rarity}} - Unique List ID: {{listItemId}} </p>
             <!-- prices -->
 
             <div :class="'level is-rounded py-3 ' + (isDarkModeActive == 1 ? 'has-background-black' : 'has-background-light')" style="border-radius:10px;">
@@ -67,9 +67,9 @@
             <div class="inspectorVariations" v-if="totalVariations > 0">
               <div class="is-flex is-align-content-center	is-align-items-center inspectorControls mb-3" v-if="totalVariations > 5">
 
-                <b-button :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small" class="mr-auto" :disabled="variationStart == 0" @click="variationStart -= 5">Previous 5</b-button>
+                <b-button icon-left="arrow-down" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small" class="mr-auto" :disabled="variationStart == 0" @click="variationPrevious">Previous 5</b-button>
                <p class="has-text-grey is-size-7">Total Variations {{variationStart}}-{{(variationStart+variationLimit)}} of {{totalVariations}}</p>
-                <b-button :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small" class="ml-auto" :disabled="(variationStart+variationLimit) >= totalVariations" @click="variationStart += 5">Next 5</b-button>
+                <b-button icon-right="arrow-up" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small" class="ml-auto" :disabled="(variationStart+variationLimit) >= totalVariations" @click="variationNext">Next 5</b-button>
               </div>
               <div class="columns">
                 <template v-for="(variation, index) in variations">
@@ -196,14 +196,21 @@ export default {
       // left
       if (event.isComposing || event.keyCode === 37) {
           this.previousItem();
-
           return true;
       }
-
       // right
       if (event.isComposing || event.keyCode === 39) {
-
           this.nextItem();
+          return true;
+      }
+      // up
+      if (event.isComposing || event.keyCode === 40) {
+          this.variationPrevious();
+          return true;
+      }
+      // down
+      if (event.isComposing || event.keyCode === 38) {
+          this.variationNext();
           return true;
       }
     },
@@ -215,6 +222,17 @@ export default {
         this.variationLimit = this.variations.length;
       }
 
+    },
+    variationPrevious(){
+      if(this.variationStart >= this.variationLimit){
+        this.variationStart -= 5
+      }
+    },
+    variationNext(){
+
+      if((this.variationStart + this.variationLimit) <= this.totalVariations ){
+        this.variationStart += 5
+      }
     },
     previousItem(){
       this.variations = []
