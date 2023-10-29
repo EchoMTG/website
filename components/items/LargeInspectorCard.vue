@@ -7,7 +7,7 @@
           class="inspectorLargeImage"
           placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg"
           width="600"
-          :src="item?.image"
+          :src="getImage"
           :alt="`${item?.name} card image`" />
       </div>
       <div class="inspector-text column is-two-thirds" >
@@ -74,7 +74,8 @@
               <div class="columns">
                 <template v-for="(variation, index) in variations">
 
-                  <div class="column is-one-fifth" :key="variation.id" v-if="variationStart <= index && (variationStart+variationLimit) > index " >
+                  <div class="column is-one-fifth is-relative inspectorVariations" :key="variation.id" v-if="variationStart <= index && (variationStart+variationLimit) > index " >
+
                     <a target="_blank" :href="variation.card_url">
 
                       <b-image
@@ -91,6 +92,14 @@
                       </div>
                       <p class="has-text-white is-size-7 has-text-centered">{{variation.set}}</p>
                     </a>
+                    <b-button
+                        v-if="listItemId != null"
+                        @click="swap(listItemId,variation.emid  )"
+                        icon-left="swap-vertical"
+                        class="is-dark swapButton"
+
+
+                        >Swap</b-button>
                   </div>
                 </template>
               </div>
@@ -121,6 +130,14 @@ export default {
           name: 'snap'
         }
       }
+    },
+    swap: {
+      type: Function,
+      default: null
+    },
+    listItemId: {
+      type: Number,
+      default: null
     },
     nextInspectorItem: {
       type: Function,
@@ -164,7 +181,10 @@ export default {
     cs() {
       return '$'
     },
-
+    getImage(){
+      let image = this.item.image ? this.item.image : this.item.image_url;
+      return image ? image : ''
+    },
     totalVariations(){
       return this.variations ? this.variations.length : 0
     },

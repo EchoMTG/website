@@ -3935,6 +3935,46 @@ export default {
 					"response": []
 				},
 				{
+					"name": "Lists:Swap",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n    \"emid\": 46\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/lists/swap/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"lists",
+								"swap",
+								""
+							]
+						},
+						"description": "Delete a list.\n\n| **Param** | **Description** |\n| --- | --- |\n| **list** | (int) list id, see lists/all/ |\n| status | (int) 0=delete, 1=undelete |"
+					},
+					"response": []
+				},
+				{
 					"name": "Lists: Toggle Foil Copy",
 					"request": {
 						"auth": {

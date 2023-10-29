@@ -59,46 +59,26 @@ export default (context, inject) => {
     return context.app.$cookies.get('token');
   }
 
-
-
-  echomtg.createGrowl = (message,icon,color="grey") => {
-    //alert(message + icon + color)
+  echomtg.createGrowl = (message,messageType="is-info") => {
     if(context.app.$buefy){
       context.app.$buefy.snackbar.open({
         message: message,
+        type: messageType,
         queue: false
       })
     }
   }
 
   echomtg.getItem = async (emid) => {
-    let endpoint = `${context.app.$config.API_DOMAIN}data/item/?emid=${emid}`;
-
-    const res = await fetch(endpoint, {
-      headers: echomtg.getS2SGetHeaders()
-    })
-    return await res.json();
-
+    return await echomtg.getReq(`data/item/?emid=${emid}`);
   }
 
   echomtg.getTypes = async () => {
-    let endpoint = `${context.app.$config.API_DOMAIN}magic/types/`;
-
-    const res = await fetch(endpoint, {
-      headers: echomtg.getS2SGetHeaders()
-    })
-    return await res.json();
-
+    return await echomtg.getReq(`magic/types/`);
   }
 
   echomtg.getGroups = async (game=1,type="group") => {
-
-    let endpoint = `${context.app.$config.API_DOMAIN}groups/all/?game=${game}&type=${type}`;
-    const res = await fetch(endpoint, {
-      headers:  echomtg.getUserHeaders()
-    })
-    return await res.json();
-
+    return await echomtg.getReq(`groups/all/?game=${game}&type=${type}`)
   }
 
   echomtg.getGames = async () => {
@@ -191,108 +171,58 @@ echomtg.getSets = async (game=1) => {
   }
 
   echomtg.addToWatchlist = async (emid, foil = 0, threshold=20 ) => {
-    let url = `${context.app.$config.API_DOMAIN}watchlist/add/`;
-    let body =  {
+    return await echomtg.postReq(`watchlist/add/`,{
       "emid": emid,
       "foil": foil,
       "threshold": threshold
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
   }
-
-
-
 
   echomtg.deleteFromWatchlist = async (watchlist_id) => {
-    let url = `${context.app.$config.API_DOMAIN}watchlist/remove/`;
-    let body = {
+    return await echomtg.postReq(`watchlist/remove/`,{
       id: watchlist_id,
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
   }
   echomtg.updateWatchlist = async (watchlist_id, threshold) => {
-    let url = `${context.app.$config.API_DOMAIN}watchlist/update/`;
-    let body = {
+    return await echomtg.postReq(`watchlist/update/`,{
       id: watchlist_id,
       threshold: threshold
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
   }
 
   echomtg.findInList = async (emid) => {
-    let url = `${context.app.$config.API_DOMAIN}lists/find_in_list/?emid=${emid}`;
-
-    const res = await fetch(url, {
-      headers: {
-        'Authorization' : 'Bearer ' + context.app.$cookies.get('token')
-      }
-    });
-    let data = await res.json();
-
-    return data;
+   return await echomtg.getReq(`lists/find_in_list/?emid=${emid}`)
   }
 
   echomtg.addToList = async (emid,list_id,foil=0,sb=0) => {
-    let url = `${context.app.$config.API_DOMAIN}lists/add/`;
-    let body = {
+    return await echomtg.postReq(`lists/add/`,{
       emid: emid,
       list: list_id,
       quantity: 1,
       foil: foil,
       sb: sb
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    let data = await res.json();
-    return data;
+  }
+  echomtg.swapInList = async (list_item_id,emid) => {
+    return await echomtg.postReq(`lists/swap/`,{
+      emid: emid,
+      id: list_item_id
+    });
   }
 
   echomtg.removeFromList = async (list_item_id,list_id) => {
-    let url = `${context.app.$config.API_DOMAIN}lists/remove/`;
-    let body = {
+    return await echomtg.postReq(`lists/remove/`,{
       id: list_item_id,
       list: list_id
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
-
   }
 
   echomtg.toggleListItemFoil = async (list_item_id,list_id,foil) => {
-    let url = `${context.app.$config.API_DOMAIN}lists/toggle_foil/`;
-    let body = {
+    return await echomtg.postReq(`lists/toggle_foil/`,{
       id: list_item_id,
       list_id: list_id,
       foil: foil
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: echomtg.getUserHeaders(),
-      body: JSON.stringify(body)
     });
-    return await res.json();
 
   }
 
