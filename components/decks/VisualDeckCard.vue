@@ -67,9 +67,6 @@ export default {
       type: Function
     }
   },
-  mounted() {
-    console.log(this.cardInfo,'cardinfo')
-  },
   computed: {
     ...mapState(['isDarkModeActive','authenticated'])
   },
