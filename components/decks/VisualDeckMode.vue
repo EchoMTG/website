@@ -3,8 +3,10 @@
     <b-modal v-model="inspectorModal" :width="`85%`" scroll="keep">
       <large-inspector-card
         :item="inspectorItem"
+        :listItemId="inspectorListItemId"
         :nextInspectorItem="nextInspectorItem"
         :priorInspectorItem="priorInspectorItem"
+        :swap="swap"
         />
     </b-modal>
     <div class="columns is-multiline mt-5">
@@ -160,6 +162,7 @@ export default {
       ],
       inspectorModal: false,
       inspectorItem: {},
+      inspectorListItemId: null,
       orderByOptions: ['type', 'cmc', 'color'],
       orderByOptionsLabels: {
         type: 'Spell Type',
@@ -199,8 +202,9 @@ export default {
     }
   },
   methods: {
-    openInspector(item){
+    openInspector(item,list_item_id){
       this.inspectorItem = item;
+      this.inspectorListItemId = list_item_id;
       this.inspectorModal = true;
     },
     nextInspectorItem(){
@@ -225,6 +229,22 @@ export default {
       }
       this.inspectorItem = this.list.items[position]
 
+    },
+    async swap(list_item_id,emid){
+      const res = await this.$echomtg.swapInList(list_item_id,emid)
+      let messagetype = 'is-danger';
+      if(res.status == 'success'){
+        this.inspectorItem = res.item;
+        messagetype = 'is-success';
+      }
+      this.$buefy.toast.open({
+        message: res.message,
+        type: messagetype
+      })
+
+      if(this.callback){
+        this.callback()
+      }
     },
     getCardsByManaCost(cmc=0,logic='equals'){
       if(logic == 'greaterthan'){

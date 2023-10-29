@@ -3,6 +3,20 @@
     width: 100%;
   }
 }
+
+.inspectorVariations {
+  .swapButton{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    visibility: hidden;
+  }
+  &:hover{
+    .swapButton{
+      visibility: visible;
+    }
+  }
+}
 .visual-deck-view {
   overflow: hidden;
 }
