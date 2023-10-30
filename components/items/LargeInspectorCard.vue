@@ -103,14 +103,21 @@
                         icon-left="swap-vertical"
                         class="is-dark swapButton"
                         >Swap</b-button>
-                      <b-button
-                          @click="addToInventory(variation.emid,variation.foil)"
-                          icon-right="plus"
-                          style="position: absolute; top: 60%; right: 12%"
-                          size="is-small"
-                          icon-left="book-open-page-variant-outline"
-                          class="is-success inspectAddToInventoryButton"
-                        ></b-button>
+
+                      <quick-add-button
+                        v-if="variation.tcg_mid > 0"
+                        classes="inspectAddToInventoryButton"
+                        style="position: absolute; top: 60%; left: 12%"
+                        :callback="fetchVariations"
+                        :foil="0"
+                        :emid="variation.emid" />
+                        <quick-add-button
+                        v-if="variation.foil_price > 0"
+                        classes="inspectAddToInventoryButton"
+                        style="position: absolute; top: 60%; right: 12%"
+                        :callback="fetchVariations"
+                        :foil="1"
+                        :emid="variation.emid" />
                       <b-button
                         v-if="listItemId != null"
                         @click="swap(listItemId,variation.emid  )"
@@ -144,10 +151,14 @@
   </div>
 </template>
 <script>
-
 import { mapState } from 'vuex'
+import QuickAddButton from '@/components/inventory/QuickAddButton.vue'
+
 export default {
   name: 'LargeInspectorCard',
+  components: {
+    QuickAddButton
+  },
   props: {
     item: {
       type: Object,
@@ -240,13 +251,6 @@ export default {
           this.variationNext();
           return true;
       }
-    },
-    async addToInventory(emid,foil=0){
-      const res = await this.$echomtg.inventoryQuickAdd(emid,foil)
-       this.$buefy.toast.open({
-        message: res.message
-      })
-      await this.fetchVariations()
     },
     async fetchVariations(){
       const res = await this.$echomtg.getVariations(this.item.name.replace(/ \((.*?)$/,''))
