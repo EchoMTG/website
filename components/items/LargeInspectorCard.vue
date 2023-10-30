@@ -90,14 +90,28 @@
                         <div v-if="variation.tcg_mid > 0" :class="isDarkModeActive == 1 ? 'has-text-white' : 'has-text-black'">{{cs}}{{variation.tcg_mid}}</div>
                         <div v-if="variation.foil_price > 0" class="ml-auto has-text-warning-dark">{{cs}}{{variation.foil_price}}</div>
                       </div>
-                      <p class="has-text-white is-size-7 has-text-centered">{{variation.set}}</p>
+                      <p class="is-size-7 has-text-centered">{{variation.set}}</p>
                     </a>
                     <b-tag
                       v-if="parseInt(variation.onhand) > 0"
-                      style="position: absolute; top: 12%; right: 12%"
-                      class="has-background-success has-text-white is-size-7"
-                      type="is-success">{{variation.onhand}} Owned</b-tag>
+                      style="position: absolute; top: 14%; right: 29%; opacity: .85"
+                      class="is-size-7"
+                      >{{variation.onhand}} Owned</b-tag>
                     <b-button
+                        v-if="listItemId != null"
+                        @click="swap(listItemId,variation.emid  )"
+                        icon-left="swap-vertical"
+                        class="is-dark swapButton"
+                        >Swap</b-button>
+                      <b-button
+                          @click="addToInventory(variation.emid,variation.foil)"
+                          icon-right="plus"
+                          style="position: absolute; top: 60%; right: 12%"
+                          size="is-small"
+                          icon-left="book-open-page-variant-outline"
+                          class="is-success inspectAddToInventoryButton"
+                        ></b-button>
+                      <b-button
                         v-if="listItemId != null"
                         @click="swap(listItemId,variation.emid  )"
                         icon-left="swap-vertical"
@@ -226,6 +240,13 @@ export default {
           this.variationNext();
           return true;
       }
+    },
+    async addToInventory(emid,foil=0){
+      const res = await this.$echomtg.inventoryQuickAdd(emid,foil)
+       this.$buefy.toast.open({
+        message: res.message
+      })
+      await this.fetchVariations()
     },
     async fetchVariations(){
       const res = await this.$echomtg.getVariations(this.item.name.replace(/ \((.*?)$/,''))
