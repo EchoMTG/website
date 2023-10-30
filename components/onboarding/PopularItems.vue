@@ -7,7 +7,7 @@
               <item-inspector-wrapper :deactivateHover="false" :showsetsymbol="true" :item="props.row" />
             
               <b-button v-if="props.row.tcg_mid > 0"  size="is-small" variant="contained" type="is-dark" class="ml-auto mr-2" @click="addItem(props.row.emid, 0)">Have</b-button>
-              <b-button v-if="props.row.foil_price > 0"  size="is-small" variant="contained" class="mr-2 rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"> Have</b-button>
+              <b-button v-if="props.row.foil_price > 0"  size="is-small" variant="contained" type="is-dark" class="mr-2 rainbow-background has-text-white has-text-weight-bold" @click="addItem(props.row.emid,1)"> Have</b-button>
               <b-button icon-left="close" size="is-small" variant="contained" type="is-black"  @click="getRandomItems(5)">Don't</b-button>
             </div>
           </b-table-column>

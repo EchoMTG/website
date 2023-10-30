@@ -1,11 +1,11 @@
 <template>
 
-  <div class="columns message is-info ml-3">
+  <div :class="`columns message is-info ml-3 ` + (isDarkModeActive == 1 ? 'has-background-black' : '')">
     <div class="column is-half content pl-3">
       <h3>Getting Started on Echo</h3>
-			<p>Echo tracks your <nuxt-link to="/apps/inventory/">card collections</nuxt-link> and sends weekly financial reports.
+			<p>Echo tracks your <nuxt-link to="/apps/inventory/">collection</nuxt-link> and sends weekly financial reports.
       </p>
-      <p>You can also build <nuxt-link to="/apps/lists/">lists</nuxt-link>, setup <nuxt-link to="/apps/trades/">trades</nuxt-link>, and create <nuxt-link to="/apps/watchlist/">watchlists</nuxt-link>.</p>
+      <p>Collections integrate to <nuxt-link to="/apps/lists/">deck lists</nuxt-link>, <nuxt-link to="/apps/trades/">trades</nuxt-link>, and <nuxt-link to="/apps/watchlist/">watchlists</nuxt-link>.</p>
 
 
     </div>
@@ -27,8 +27,14 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default{
   name: 'GettingStarted',
+  computed: {
+    ...mapState([
+      'isDarkModeActive'
+    ])
+  },
   methods: {
     goto(url) {
       this.$router.push({ path: url });
