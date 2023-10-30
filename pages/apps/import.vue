@@ -3,6 +3,10 @@
     <echo-bread-crumbs :data="crumbs" />
      <section v-if="this.ready != true" class="hero is-small is-info mb-5">
         <div class="hero-body">
+          <a class="is-danger button is-pulled-right" href="https://www.youtube.com/watch?v=EKv8I92Toyg" target="_blank">
+            <b-icon icon="youtube" class="mr-1" />
+            <span>YouTube Import How-to</span>
+          </a>
             <h1 class="title is-size-4">
               <span v-if="this.scannerApp == true">Mobile Scanner</span>
               <span v-if="this.csvApp == true">CSV</span>
@@ -11,7 +15,10 @@
                 Back to Import Selection
               </b-button>
             </h1>
-            <p class="subtitle is-size-6">Upload a Custom CSV, Deckbox Export, Delver Lens, TCGplayer scanner app, or others Export File. After importing, you can change languages, conditions, and set a bulk acquired price. Do this before clicking start import.</p>
+            <p class="subtitle is-size-6">Upload a Custom CSV, Deckbox Export, Delver Lens, TCGplayer scanner app, or others Export File.
+              <br/>After importing, you can change languages, conditions, and set a bulk acquired price. Do this before clicking start import.
+
+              </p>
         </div>
     </section>
     <b-loading v-model="loading" />
@@ -87,7 +94,7 @@
                             <ul>
                                 <li>TCGplayer App CSV Export</li>
                                 <li>Delver Lens (pick EchoMTG CSV export)</li>
-                                <li>Deckbox.org CSV Export</li>
+                                <li>Deckbox.org CSV Export (<a href="https://www.youtube.com/watch?v=BjsfAaDEiY8" target="_blank">How to Video</a>)</li>
                                 <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
                             </ul>
                             <h3>Working with Custom CSVs</h3>
@@ -101,13 +108,14 @@
                         <div class="container content">
                             <h4>Required Columns</h4>
                             <ul>
-                                <li>Name (Card Name)</li>
-                                <li>Set Code (Three Letter Code)</li>
-                                <li style="list-style:none"><strong>or</strong></li>
+
                                 <li>TCGplayer ID (tcg player id)</li>
                                 <li style="list-style:none"><strong>or</strong></li>
                                 <li>Collector Number (Card Name)</li>
                                 <li>Set Code (Three Letter Code)</li>
+                                <li style="list-style:none"><strong>or</strong></li>
+                                <li>Name (Card Name)</li>
+                                <li>Set Code (3/4 Letter Code)</li>
                             </ul>
                             <h4>Optional Columns</h4>
                             <ul>

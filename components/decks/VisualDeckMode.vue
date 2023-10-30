@@ -215,6 +215,7 @@ export default {
       } else {
         position = position + 1
       }
+      this.inspectorListItemId = this.list.items[position].id
       this.inspectorItem = this.list.items[position]
 
 
@@ -227,6 +228,7 @@ export default {
       } else {
         position = position - 1
       }
+      this.inspectorListItemId = this.list.items[position].id
       this.inspectorItem = this.list.items[position]
 
     },
