@@ -44,7 +44,7 @@ export default {
   computed: {
     getClasses(){
       let foilClass = parseInt(this.foil) == 1 ? 'rainbow-background has-text-white' : 'has-background-dark has-text-light';
-      return foilClass + ' ' + this.classes
+      return foilClass + ' inventoryQuickAddButton ' + this.classes
     }
   }
 }

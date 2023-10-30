@@ -197,13 +197,14 @@
             <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
 
               <strong class="is-size-6" v-if="props.row.tcg_mid > 0">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
-              <b-button
-                :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
-                v-if="props.row.tcg_mid"
-                icon-left="plus"
-                size="is-small"
-                class="price-add-button has-text-weight-bold ml-2"
-                @click="addItem(props.row.emid, 0)">
+
+               <quick-add-button
+                  v-if="props.row.tcg_mid > 0"
+                  :callback="callback"
+                  :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
+                  :foil="0"
+                  :emid="props.row.emid" />
+
               </b-button>
 
 
@@ -215,16 +216,13 @@
 
           <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
             <strong v-if="props.row.foil_price > 0" class="is-size-6">{{cs}}{{props.row.foil_price?.toFixed(2)}}</strong>
-            <b-button
-              :aria-label="`Add ${props.row.name} Foil Version at ${cs}${props.row.foil_price} to Inventory`"
-              v-if="props.row.foil_price"
-              icon-left="plus"
-              size="is-small"
-              variant="contained"
-              class="ml-2 price-add-button rainbow-text has-text-white has-text-weight-bold"
-              @click="addItem(props.row.emid,1)">
+            <quick-add-button
+                v-if="props.row.foil_price > 0"
+                :callback="callback"
+                :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
+                :foil="1"
+                :emid="props.row.emid" />
 
-            </b-button>
           </b-table-column>
 
           <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="rarity" label="Rarity" sortable width="120" v-slot="props">
@@ -305,10 +303,11 @@ import QuickGraph from '@/components/inventory/QuickGraph.vue'
 import ItemListBox from '@/components/items/ItemListBox.vue'
 import ItemToolBox from '@/components/items/ItemToolBox.vue';
 import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
+import QuickAddButton from '@/components/inventory/QuickAddButton.vue'
 
 export default {
   name: 'SetItemList',
-  components: { SetItemRow, ItemWikiEdit, WatchlistQuickAddButton, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
+  components: { QuickAddButton, SetItemRow, ItemWikiEdit, WatchlistQuickAddButton, ItemInspectorWrapper,QuickGraph, ItemListBox, ItemToolBox },
   props: {
     items: {
       type: Array,
