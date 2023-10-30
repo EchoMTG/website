@@ -7,9 +7,9 @@
           <div class="level-item is-hero-avatar-item">
 
 
-            <div class="image is-user-avatar" style="max-width:200px">
+            <nuxt-link to="/user/profile/" class="image is-user-avatar" style="max-width:200px">
               <img alt="User Avatar" :src="getAvatar()">
-            </div>
+            </nuxt-link>
           </div>
           <div class="level-item is-hero-content-item">
             <div>

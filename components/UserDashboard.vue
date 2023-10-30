@@ -18,7 +18,7 @@
         <section v-if="$fetchState.pending">
           Loading Dashboard
         </section>
-        <section v-else class="mx-5 my-2">
+        <section v-else-if="quickstats.total_items > 5" class="mx-5 my-2">
           <card-component
             title="Collection Performance History"
             icon="finance"
@@ -52,6 +52,7 @@ import RefreshButton from '@/components/RefreshButton'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs.vue'
 import PopularItems from '@/components/onboarding/PopularItems.vue'
 import InviteFriend from '@/components/cta/InviteFriend.vue'
+
 
   export default {
     name: 'UserDashboard',
