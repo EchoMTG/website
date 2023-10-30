@@ -92,13 +92,16 @@
                       </div>
                       <p class="has-text-white is-size-7 has-text-centered">{{variation.set}}</p>
                     </a>
+                    <b-tag
+                      v-if="parseInt(variation.onhand) > 0"
+                      style="position: absolute; top: 12%; right: 12%"
+                      class="has-background-success has-text-white is-size-7"
+                      type="is-success">{{variation.onhand}} Owned</b-tag>
                     <b-button
                         v-if="listItemId != null"
                         @click="swap(listItemId,variation.emid  )"
                         icon-left="swap-vertical"
                         class="is-dark swapButton"
-
-
                         >Swap</b-button>
                   </div>
                 </template>
