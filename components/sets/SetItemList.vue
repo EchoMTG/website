@@ -196,7 +196,7 @@
           </b-table-column>
             <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
 
-              <strong class="is-size-6">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
+              <strong class="is-size-6" v-if="props.row.tcg_mid > 0">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
               <b-button
                 :aria-label="`Add ${props.row.name} Regular Version at ${cs}${props.row.tcg_mid} to Inventory`"
                 v-if="props.row.tcg_mid"
