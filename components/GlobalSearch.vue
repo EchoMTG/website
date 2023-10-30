@@ -38,7 +38,7 @@
                         </button>
                     </div>
                 </header>
-                <div  class="card-content">
+                <div  class="card-content is-relative">
                     <!-- how to message -->
                     <div class="advancedSearchOptions is-hidden-mobile"  ref="advancedSearchOptions">
                         <div class="container">
@@ -162,9 +162,9 @@
                         </div>
                     </div>
 
-
+                    <b-loading v-model="loading" :is-full-page="false" />
                     <!-- no results message -->
-                    <div v-if="results.length == 0 && search != ''" class="has-text-centered p-5">
+                    <div v-if="results.length == 0 && search != '' && loading == false" class="has-text-centered p-5">
 
                         <p class="mb-3">No results found for "{{search}}". Report a missing card or item?</p>
                         <b-button @click="missingItemReport">File Missing Item Report</b-button>
@@ -279,6 +279,7 @@ export default {
     data () {
       return {
         debounceTimer: null,
+        loading: false,
         limit: 30,
         start: 0,
         revealmore: 10,
@@ -308,10 +309,12 @@ export default {
             this.debounceTimer = null;
         }
         this.debounceTimer = setTimeout(async () => {
+          this.loading = true;
           this.position = 0
 
           if(this.search == '' && this.expansion=='' && this.textsearch=='' && this.types==''){
               this.results = []
+              this.loading = false;
               return true;
           }
 
@@ -324,6 +327,7 @@ export default {
             } else {
                 this.results = res.data
             }
+            this.loading = false;
         }, 250);
       },
       enterAction: function(){
@@ -345,8 +349,10 @@ export default {
           this.textsearch = ''
           this.types = ''
           this.position = 0
+
           this.$refs.searchInput.focus()
           this.openFocus()
+          this.loading = false
       },
       openAdvancedOptions: function(){
           this.textsearch = ''
