@@ -9,7 +9,7 @@
         :swap="swap"
         />
     </b-modal>
-    <div class="columns is-multiline mt-5">
+    <div class="columns is-multiline ">
       <div class="column is-three-quarters pl-5">
         <h3 class="title is-size-6 mt-2 mb-2 has-text-weight-light">Main Deck ({{mainCount}})</h3>
         <div class="columns is-multiline">

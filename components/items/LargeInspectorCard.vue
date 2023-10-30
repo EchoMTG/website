@@ -104,6 +104,16 @@
                 </template>
               </div>
             </div>
+            <div class="pt-5 has-text-centered">
+                <span class="mr-4">Shortcut Keys</span>
+                <b-button size="is-small" icon-left="arrow-down" />
+                <b-button size="is-small" icon-left="arrow-up" />
+                <b-button size="is-small" icon-left="arrow-left" />
+                <b-button size="is-small" icon-left="arrow-right" />
+                <b-button size="is-small" icon-left="keyboard-return"> Return</b-button>
+                <b-button @click="closeFocus()" size="is-small" icon-left="keyboard-esc"></b-button>
+            </div>
+
 
 
 
@@ -230,7 +240,7 @@ export default {
     },
     variationNext(){
 
-      if((this.variationStart + this.variationLimit) <= this.totalVariations ){
+      if((this.variationStart + this.variationLimit) < this.totalVariations ){
         this.variationStart += 5
       }
     },
