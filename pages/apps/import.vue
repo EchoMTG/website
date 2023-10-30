@@ -87,7 +87,7 @@
                             <ul>
                                 <li>TCGplayer App CSV Export</li>
                                 <li>Delver Lens (pick EchoMTG CSV export)</li>
-                                <li>Deckbox.org CSV Export</li>
+                                <li>Deckbox.org CSV Export (<a href="https://www.youtube.com/watch?v=BjsfAaDEiY8" target="_blank">How to Video</a>)</li>
                                 <li>Custom CSV (<a href="https://assets.echomtg.com/examples/EchoMTG-Upload-Template.csv" target="_blank">download example</a>)</li>
                             </ul>
                             <h3>Working with Custom CSVs</h3>
@@ -101,13 +101,14 @@
                         <div class="container content">
                             <h4>Required Columns</h4>
                             <ul>
-                                <li>Name (Card Name)</li>
-                                <li>Set Code (Three Letter Code)</li>
-                                <li style="list-style:none"><strong>or</strong></li>
+
                                 <li>TCGplayer ID (tcg player id)</li>
                                 <li style="list-style:none"><strong>or</strong></li>
                                 <li>Collector Number (Card Name)</li>
                                 <li>Set Code (Three Letter Code)</li>
+                                <li style="list-style:none"><strong>or</strong></li>
+                                <li>Name (Card Name)</li>
+                                <li>Set Code (3/4 Letter Code)</li>
                             </ul>
                             <h4>Optional Columns</h4>
                             <ul>

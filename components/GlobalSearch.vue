@@ -447,14 +447,14 @@ export default {
         }.bind(this));
 
         this.$refs.globalSearchBox.addEventListener("keydown", event => {
-            // down
+            // up
             if (event.isComposing || event.keyCode === 38) {
                 this.movePositionUp();
                 this.openFocus();
                 event.preventDefault();
                 return true;
             }
-            // up
+            // down
             if (event.isComposing || event.keyCode === 40) {
                 this.movePositionDown();
                 this.openFocus();
