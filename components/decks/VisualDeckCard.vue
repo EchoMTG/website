@@ -1,5 +1,5 @@
 <template>
-  <div class="card visual-deck-card" :style="`top:` + (iindex * 100) + `px` " v-if="(sideboard == 1 && cardInfo.side > 0) || (sideboard == 0 && cardInfo.main > 0) ">
+  <div class="card visual-deck-card" :style="`top:` + (iindex * 80) + `px` " v-if="(sideboard == 1 && cardInfo.side > 0) || (sideboard == 0 && cardInfo.main > 0) ">
     <NuxtImg loading="lazy"  placeholder="https://assets.echomtg.com/magic/cards/magic-card-back.jpg" class="visual-deck-card-image" :src="card.image" width="220" height="306" />
 
       <div class="deck-tag-count">

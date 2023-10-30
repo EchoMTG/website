@@ -38,7 +38,7 @@
                         </button>
                     </div>
                 </header>
-                <div  class="card-content">
+                <div  class="card-content is-relative">
                     <!-- how to message -->
                     <div class="advancedSearchOptions is-hidden-mobile"  ref="advancedSearchOptions">
                         <div class="container">
@@ -162,9 +162,9 @@
                         </div>
                     </div>
 
-
+                    <b-loading v-model="loading" :is-full-page="false" />
                     <!-- no results message -->
-                    <div v-if="results.length == 0 && search != ''" class="has-text-centered p-5">
+                    <div v-if="results.length == 0 && search != '' && loading == false" class="has-text-centered p-5">
 
                         <p class="mb-3">No results found for "{{search}}". Report a missing card or item?</p>
                         <b-button @click="missingItemReport">File Missing Item Report</b-button>
@@ -175,12 +175,12 @@
 
                 </div>
                <footer class="card-footer">
-                    <div class="card-footer-item has-text-white">
+                    <div class="has-text-white p-2 has-text-centered">
                         <span class="mr-4">Shortcut Keys</span>
-                        <b-button size="is-small" icon-left="menu-down" />
-                        <b-button size="is-small" icon-left="menu-up" />
-                        <b-button size="is-small" icon-left="menu-left" />
-                        <b-button size="is-small" icon-left="menu-right" />
+                        <b-button size="is-small" icon-left="arrow-down" />
+                        <b-button size="is-small" icon-left="arrow-up" />
+                        <b-button size="is-small" icon-left="arrow-left" />
+                        <b-button size="is-small" icon-left="arrow-right" />
                         <b-button size="is-small" icon-left="keyboard-return"> Return</b-button>
                         <b-button @click="closeFocus()" size="is-small" icon-left="keyboard-esc"></b-button>
                     </div>
@@ -277,22 +277,24 @@ export default {
         }
     },
     data () {
-        return {
-            limit: 30,
-            start: 0,
-            revealmore: 10,
-            status: 0,
-            results: [],
-            expansion: '',
-            position: 0,
-            previewopen: false,
-            search: this.firstSearch,
-            acquiredOverridePrice: 0,
-            acquiredOverrideItemCount: 15,
-            staticAcquiredPrice: 0,
-            textsearch: '',
-            types: '',
-        };
+      return {
+        debounceTimer: null,
+        loading: false,
+        limit: 30,
+        start: 0,
+        revealmore: 10,
+        status: 0,
+        results: [],
+        expansion: '',
+        position: 0,
+        previewopen: false,
+        search: this.firstSearch,
+        acquiredOverridePrice: 0,
+        acquiredOverrideItemCount: 15,
+        staticAcquiredPrice: 0,
+        textsearch: '',
+        types: '',
+      };
 
     },
 
@@ -301,83 +303,88 @@ export default {
         this.$router.push('/help/report-missing-item/')
         this.closeFocus()
       },
-        searchCatalog: function() {
-            this.position = 0
-
-            if(this.search == '' && this.expansion=='' && this.textsearch=='' && this.types==''){
-                this.results = []
-                return true;
-            }
-            var $this = this
-
-            let url = `${this.$config.API_DOMAIN}search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
-                url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
-
-            fetch(encodeURI(url),{
-              headers: this.$echomtg.getS2SHeadersNoJSON()
-            }).then(response => response.json()).then(response => {
-
-                if(response.data == undefined){
-                    $this.results = []
-                } else {
-                    $this.results = response.data
-                }
-
-            })
-        },
-        enterAction: function(){
-            this.closeFocus()
-            this.callback(this.results[this.position].emid)
-        },
-        rightArrowAction: function(){
-
-        },
-
-        isTouchEnabled() {
-            return ( 'ontouchstart' in window ) ||
-                ( navigator.maxTouchPoints > 0 ) ||
-                ( navigator.msMaxTouchPoints > 0 );
-        },
-        clearSearch: function(){
-            this.search = ''
-            this.expansion = ''
-            this.textsearch = ''
-            this.types = ''
-            this.position = 0
-            this.$refs.searchInput.focus()
-            this.openFocus()
-        },
-        openAdvancedOptions: function(){
-            this.textsearch = ''
-            this.types = ''
-            this.$refs.advancedSearchOptions.classList.toggle('open')
-        },
-        closeFocus() {
-            this.$refs.globalSearchBox.classList.add('closed');
-        },
-        getCardURL(name){
-            return name.replace(/ |,|_|'|\\|\/\/|\/|:|\.|&|\(|\)/gi,'-').toLowerCase().replace('--','-');
-        },
-        openFocus() {
-            this.$refs.globalSearchBox.classList.remove('closed');
-        },
-        movePositionDown() {
-
-            if((this.results.length - 1) > this.position){
-                this.position = this.position + 1;
-            }
-        },
-        displayCardPreview() {
-          this.previewopen = true;
-        },
-        closeCardPreview() {
-            this.previewopen = false;
-        },
-        movePositionUp() {
-            if(this.position > 0){
-                this.position = this.position - 1;
-            }
+      async searchCatalog() {
+        if (this.debounceTimer) {
+            clearTimeout(this.debounceTimer);
+            this.debounceTimer = null;
         }
+        this.debounceTimer = setTimeout(async () => {
+          this.loading = true;
+          this.position = 0
+
+          if(this.search == '' && this.expansion=='' && this.textsearch=='' && this.types==''){
+              this.results = []
+              this.loading = false;
+              return true;
+          }
+
+          let url = `search/mass/?search=${this.search}&wcExpansion=${this.expansion}`
+              url += `&limit=${this.limit}&textsearch=${this.textsearch}&type=${this.types}`
+
+            const res = await this.$echomtg.getReq(url);
+            if(res.data == undefined){
+                this.results = []
+            } else {
+                this.results = res.data
+            }
+            this.loading = false;
+        }, 250);
+      },
+      enterAction: function(){
+          this.closeFocus()
+          this.callback(this.results[this.position].emid)
+      },
+      rightArrowAction: function(){
+
+      },
+
+      isTouchEnabled() {
+          return ( 'ontouchstart' in window ) ||
+              ( navigator.maxTouchPoints > 0 ) ||
+              ( navigator.msMaxTouchPoints > 0 );
+      },
+      clearSearch: function(){
+          this.search = ''
+          this.expansion = ''
+          this.textsearch = ''
+          this.types = ''
+          this.position = 0
+
+          this.$refs.searchInput.focus()
+          this.openFocus()
+          this.loading = false
+      },
+      openAdvancedOptions: function(){
+          this.textsearch = ''
+          this.types = ''
+          this.$refs.advancedSearchOptions.classList.toggle('open')
+      },
+      closeFocus() {
+          this.$refs.globalSearchBox.classList.add('closed');
+      },
+      getCardURL(name){
+          return name.replace(/ |,|_|'|\\|\/\/|\/|:|\.|&|\(|\)/gi,'-').toLowerCase().replace('--','-');
+      },
+      openFocus() {
+          this.$refs.globalSearchBox.classList.remove('closed');
+      },
+      movePositionDown() {
+
+          if((this.results.length - 1) > this.position){
+              this.position = this.position + 1;
+          }
+      },
+      displayCardPreview() {
+        this.previewopen = true;
+      },
+      closeCardPreview() {
+          this.previewopen = false;
+      },
+      movePositionUp() {
+          if(this.position > 0){
+              this.position = this.position - 1;
+          }
+      }
 
     },
     watch: {
