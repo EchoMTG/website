@@ -17,6 +17,15 @@ input[type=number] {
 	}
 }
 
+.inventoryQuickAddButton{
+  .icon:last-child:not(:first-child){
+    margin-left: 0px !important;
+  }
+  .icon:first-child:not(:last-child){
+    margin-right: 0px !important;
+  }
+}
+
 .fa.hidden{
 	display:none;
 }
