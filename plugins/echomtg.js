@@ -1010,6 +1010,11 @@ echomtg.getSets = async (game=1) => {
     return await echomtg.postReq(`comments/create/`,body)
   }
 
+  echomtg.getPublicUserProfile = async (username) => {
+    let url = `user/public_profile/?username=${username}`;
+    return await echomtg.getReq(url);
+  }
+
   echomtg.itemURL = (item) => {
 
     let url = '';
