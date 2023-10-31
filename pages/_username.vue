@@ -1,10 +1,9 @@
 <template>
   <div>
-    Custom user Profile
 
-    <h1>{{username}}</h1>
-    <p v-html="profile.user.about"></p>
-    {{profile?.message}}
+    <h1 class="title">{{username}}</h1>
+    <div v-html="profile.user.about"></div>
+
   </div>
 </template>
 <script>
