@@ -17,28 +17,35 @@
                     {{username}}'s Profile
                   </h1>
                   <h3 class="subtitle mt-1 is-size-6 has-text-grey-light	mb-5">
-                    Last seen {{profile?.user?.last_seen || ''}}.
+                    Last seen {{profile?.user?.last_seen || ''}}. Joined {{profile.user.user_for}} ago.
                   </h3>
                   <div class="is-flex">
                     <div class="box badges py-2 mr-3">
                       <p class="has-text-centered">
                         <small class="has-text-grey">Member Since</small>
-                        <br/><strong>{{profile.user.user_since}}</strong><br/>
-                        <small>{{profile.user.user_for}}</small>
+                        <br/><strong class="is-size-4">{{profile.user.user_since.split(" ")[1]}}</strong>
+
                       </p>
                     </div>
-                    <div class="box badges py-2 ">
+                    <div class="box badges py-2 mr-3">
                       <p class="has-text-centered">
                         <small class="has-text-grey">Deck Lists</small>
-                        <br/><strong>{{profile.lists.length}}</strong>
+                        <br/><strong class="is-size-4">{{profile.lists.length}}</strong>
                       </p>
                     </div>
-                    <div class="box badges py-2 ">
+                    <div class="box badges py-2 mr-3">
                       <p class="has-text-centered">
                         <small class="has-text-grey">Articles</small>
-                        <br/><strong>{{profile.articles.length}}</strong>
+                        <br/><strong class="is-size-4">{{profile.articles.length}}</strong>
                       </p>
                     </div>
+                    <div class="box badges py-2 mr-3">
+                      <p class="has-text-centered">
+                        <small class="has-text-grey">Trades</small>
+                        <br/><strong class="is-size-4">{{profile.trades}}</strong>
+                      </p>
+                    </div>
+                    <div> </div>
                   </div>
                 </div>
 
