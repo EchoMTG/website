@@ -10,9 +10,9 @@
       </figure>
       <div class="media-content">
         <div class="field">
-          <p class="control">
+          <div class="control">
             <b-input type="textarea"  placeholder="Add a comment..." v-model="comment" />
-          </p>
+          </div>
         </div>
         <nav class="level">
           <div class="level-left">

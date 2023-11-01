@@ -7,7 +7,7 @@
                        <div class="columns">
                           <div class="column searchColumn">
                             <div class="field has-addons">
-                                <p class="control grow has-icons-left m-0">
+                                <div class="control grow has-icons-left m-0">
                                     <input
                                         class="input is-small is-rounded has-background-white has-text-black item-search-input"
                                         v-model="search"
@@ -16,12 +16,12 @@
                                         type="text"
                                         :placeholder="placeholderText">
                                     <b-icon icon="magnify" class="is-left" size="is-small" />
-                                </p>
-                                <p class="control m-0" v-if="search.length > 0">
+                                </div>
+                                <div class="control m-0" v-if="search.length > 0">
                                      <button tabindex="-1" class="button is-small is-outlined clear-button" @click="clearSearch()">
-                                          <b-icon icon="times" size="is-small" />
+                                          <b-icon icon="close" size="is-small" />
                                      </button>
-                                </p>
+                                </div>
                             </div>
                           </div>
                           <div class="column is-one-third expansionColumn">
