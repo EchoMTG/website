@@ -12,7 +12,7 @@
 
               <div class="card-header">
                  <p class="card-header-title">
-                  <b-icon icon="account" custom-size="default" />
+                  <b-icon icon="card-account-details-outline" custom-size="default" />
 
                   <span>Public Profile</span>
                 </p>

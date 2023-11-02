@@ -90,7 +90,7 @@ export default {
         );
     },
      async checkEmail(){
-      if(!this.validateEmail(this.email)){
+      if(!this.validateEmail(this.email) || this.email == this.user.email){
         this.emailStatus = false;
         return;
       }

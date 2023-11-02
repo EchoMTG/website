@@ -150,6 +150,14 @@
 
           <div slot="dropdown" class="navbar-dropdown is-right">
             <nuxt-link
+              :to="`/user/${user.username.toLowerCase()}/`"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="card-account-details-outline" custom-size="default" />
+              <span>Public Profile</span>
+            </nuxt-link>
+            <nuxt-link
               to="/user/profile/"
               class="navbar-item"
               exact-active-class="is-active"
