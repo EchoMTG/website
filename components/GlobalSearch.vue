@@ -24,13 +24,13 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="column is-one-third expansionColumn">
+                          <div v-if="!hidesetcode" class="column is-one-third expansionColumn">
                               <input class="input is-small  has-background-white has-text-black  expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
                           </div>
                        </div>
 
                     </div>
-                    <div class="control inside-button">
+                    <div v-if="!hideadvanced" class="control inside-button">
                         <button class="button is-hidden-mobile  is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
@@ -146,6 +146,7 @@
                             :previewopen="index == position && previewopen"
                             :manacost="result.mana_cost"
                             :showimage="showimage"
+                            :showprice="showprice"
                             :callbackname="callbackname"
                             @primaryCallback="callback(result.emid)"
                             ></GlobalSearchRow>
@@ -206,6 +207,14 @@ export default {
             default: ''
         },
         showimage: {
+            type: Boolean,
+            default: false
+        },
+         hidesetcode: {
+            type: Boolean,
+            default: false
+        },
+        hideadvanced: {
             type: Boolean,
             default: false
         },

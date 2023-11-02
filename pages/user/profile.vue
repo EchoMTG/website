@@ -8,25 +8,50 @@
       <div class="column">
         <tiles>
 
-            <card-component title="Public Profile" icon="account" class="tile is-child">
+            <div class="card tile is-child">
+
+              <div class="card-header">
+                 <p class="card-header-title">
+                  <b-icon icon="account" custom-size="default" />
+
+                  <span>Public Profile</span>
+                </p>
+              </div>
                <hr>
-               <div class="is-flex is-align-items-center">
-                  <user-avatar class="has-max-width is-aligned-center" />
-                  <b-field horizontal class="is-flex-grow-2" label="Avatar">
+               <div class="is-flex is-align-items-center px-5">
+
+                  <b-field class="is-flex-grow-2" label="Avatar">
                     <avatar-file-picker :callback="$fetch" />
                   </b-field>
-
+                  <user-avatar class="has-max-width is-aligned-center" />
                 </div>
 
               <hr>
-              <b-field label="Username" message="Must be unique, no special characters">
-                <b-input :value="user.username" v-model="username" type="text" />
-              </b-field>
+              <div class="px-5">
+               <b-field class="is-flex-grow-2 mb-3" label="Profile Background Image">
+                <global-search  :hidesetcode="true" :hideadvanced="true" :showprice="false" :showimage="true" callbackname="Select Profile Background Image" :callback="setAvatar" ></global-search>
+
+               </b-field>
+              </div>
+              <div style="overflow: hidden">
+                <div class="bg-image" :style="` background-image: url('https://assets.echomtg.com/magic/cards/cropped/${this.user.profile_background}.hq.jpg');`" ></div>
+              </div>
+
               <hr>
-              <b-field label="About" message="Markdown ok https://www.markdownguide.org/basic-syntax/">
-                <b-input :value="user.about" v-model="about" type="textarea" />
+
+                <b-field label="Username" class="px-5" message="Must be unique, no special characters">
+                  <div class="is-flex">
+                    <b-input class="mr-2" :value="user.username" v-model="username" @input="checkUserName" type="text" />
+                    <b-button type="is-success" :disabled="!usernameStatus"  @click="update('username')">change</b-button>
+                  </div>
+                </b-field>
+
+
+              <hr>
+              <b-field  class="px-5" label="About" message="Markdown ok https://www.markdownguide.org/basic-syntax/">
+                <b-input :value="user.about" v-model="about" type="textarea" @input="update('about')" />
               </b-field>
-            </card-component>
+            </div>
 
             <profile-update-form class="tile is-child" />
           </tiles>
@@ -49,6 +74,7 @@ import PasswordUpdateForm from '@/components/PasswordUpdateForm'
 import Tiles from '@/components/Tiles'
 import UserAvatar from '@/components/UserAvatar'
 import AvatarFilePicker from '@/components/user/AvatarFilePicker'
+import GlobalSearch from '@/components/GlobalSearch'
 
 export default {
   name: 'Profile',
@@ -61,7 +87,8 @@ export default {
     TitleBar,
     CardComponent,
     UserSubNav,
-    AvatarFilePicker
+    AvatarFilePicker,
+    GlobalSearch
   },
   async fetch() {
 
@@ -76,20 +103,62 @@ export default {
     this.about = userdata.user.about;
     this.username = userdata.user.username;
 
-
-
   },
   data: () => {
     return {
       about: '',
-      username: ''
+      username: '',
+      timer: null,
+      usernameStatus: false
     }
   },
   computed: {
     titleStack () {
       return ['My Account', 'Profile']
     },
-    ...mapState(['user'])
+    ...mapState(['user']),
+
+  },
+  methods: {
+    async setAvatar(emid){
+      await this.updateValue('profile_background',emid)
+    },
+    async checkUserName(){
+      const res = await this.$echomtg.getReq(`user/unique_check/?value=${this.username}&type=username`)
+       this.$buefy.toast.open({
+            message: `${res.message}`,
+        })
+      this.usernameStatus = res.status == 'success' ?  true : false;
+    },
+    async update(key){
+      if(key == 'username'){
+        this.usernameStatus = false
+      }
+      await this.updateValue(key, this[key]);
+
+    },
+    async updateValue(name, value){
+       if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+      }
+      this.timer = setTimeout(async () => {
+        let body = {};
+        body[name] = value;
+
+        // need to update user in store
+        const res = await this.$echomtg.updateUser(body);
+
+        this.$buefy.toast.open({
+            message: `${res.message}`,
+            type: 'is-info'
+        })
+
+        // update user
+        await this.$fetch();
+      },1000);
+
+    }
   },
   head () {
     return {
@@ -117,3 +186,21 @@ export default {
 
 }
 </script>
+<style scoped>
+
+.bg-image {
+  /* The image used */
+  background-image: url("https://assets.echomtg.com/magic/cards/cropped/104522.hq.jpg");
+
+  /* Center and scale the image nicely */
+  background-position: 20%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Add the blur effect */
+  filter: blur(7px);
+  -webkit-filter: blur(7px);
+
+   width: 100%;
+   height: 150px;
+}
+</style>

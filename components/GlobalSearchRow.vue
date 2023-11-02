@@ -23,7 +23,7 @@
             <p>{{setName}}</p>
         </div>
     </div>
-    <div class="is-flex is-flex-direction-column searchRowPrices">
+    <div v-if="showprice" class="is-flex is-flex-direction-column searchRowPrices">
         <div>
             <span v-if="regularPrice > 0" class="has-text-info">{{currencysymbol}}{{regularPrice}}</span>
         </div>
@@ -99,6 +99,7 @@ export default {
         'manacost',
         'url',
         'showimage',
+        'showprice',
         'selected',
         'previewopen',
         'acquiredprice'

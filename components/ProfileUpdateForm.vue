@@ -20,7 +20,7 @@
             class="button is-primary"
             :class="{ 'is-loading': isLoading }"
           >
-            Submit
+            Save Private Profile
           </button>
         </div>
       </b-field>
