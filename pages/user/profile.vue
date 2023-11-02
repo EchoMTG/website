@@ -50,7 +50,11 @@
               <hr>
               <b-field  class="px-5" label="About" message="Markdown ok https://www.markdownguide.org/basic-syntax/">
                 <b-input :value="user.about" v-model="about" type="textarea" @input="update('about')" />
+
               </b-field>
+              <b-button class="mx-5 mb-5" type="is-success" @click="update('about')">Update About</b-button>
+
+
             </div>
 
             <profile-update-form class="tile is-child" />
