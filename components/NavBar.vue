@@ -88,7 +88,7 @@
             aria-label="Old Website"
             v-if="authenticated"
           >
-          <b-icon icon="share" size="is-small"/>Old Website
+          <b-icon icon="share" size="is-small"/>Legacy
         </a>
         </div>
 

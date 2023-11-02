@@ -126,7 +126,12 @@ export default {
   },
 
   async fetch(){
-      if(!this.authenticated) return;
+      if(!this.authenticated && this.user_level > 3){
+        this.$nuxt.context.error({
+          statusCode: 404,
+          message: 'Page Not Found'
+        });
+      };
       this.loading    = true;
 
 

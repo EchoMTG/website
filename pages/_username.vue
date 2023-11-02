@@ -23,7 +23,7 @@
                     <div class="box badges py-2 mr-3">
                       <p class="has-text-centered">
                         <small class="has-text-grey">Member Since</small>
-                        <br/><strong class="is-size-4">{{profile.user.user_since.split(" ")[1]}}</strong>
+                        <br/><strong class="is-size-4">{{profile.user?.user_since.split(" ")[1]}}</strong>
 
                       </p>
                     </div>
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-image"></div>
+    <div class="bg-image" :style="`background-image: url('https://assets.echomtg.com/magic/cards/cropped/${profile.user.profile_background}.hq.jpg')`"></div>
   </section>
 
   <div class="container">
@@ -101,7 +101,7 @@
 
 .bg-image {
   /* The image used */
-  background-image: url("https://assets.echomtg.com/magic/cards/cropped/104517.hq.jpg");
+  background-image: url("https://assets.echomtg.com/magic/cards/cropped/104522.hq.jpg");
 
   /* Add the blur effect */
   filter: blur(7px);
@@ -166,7 +166,30 @@ export default {
       if (this.profile?.user?.avatar) {
         return this.profile.user.avatar
       }
-      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
+      return `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`
+    }
+  },
+  head () {
+    return {
+        title: `${this.profile.user.username}'s EchoMTG Profile`,
+        meta: [
+          { hid: 'og:image', property: 'og:image', content: this.profile?.user?.avatar || '' },
+          {
+            hid: 'description',
+            name: 'description',
+            content:  `${this.profile?.user?.about.substring(0,100)}...`
+          },
+          {
+            hid:'',
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
+          }
+        ]
+
     }
   }
 }

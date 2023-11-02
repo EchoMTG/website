@@ -1,10 +1,8 @@
 <template>
-  <card-component title="Edit Profile" icon="account-circle">
+  <card-component title="Private Profile" icon="account-circle">
     <form @submit.prevent="submit">
-      <b-field horizontal label="Avatar">
-        <file-picker />
-      </b-field>
-      <hr>
+
+
       <b-field horizontal label="First Name" message="First name">
         <b-input v-model="form.first_name" name="first_name" required />
       </b-field>
@@ -32,14 +30,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import FilePicker from '@/components/FilePicker'
 import CardComponent from '@/components/CardComponent'
 
 export default {
   name: 'ProfileUpdateForm',
   components: {
-    CardComponent,
-    FilePicker
+    CardComponent
   },
   data () {
     return {
@@ -76,10 +72,9 @@ export default {
         last_name: this.form.last_name,
 
       }
-      await this.$echomtg.updateUser(payload)
+      const res = await this.$echomtg.updateUser(payload)
       this.$buefy.snackbar.open({
-        message: 'Updated',
-        queue: false
+        message: res.message
       })
       let userdata = await this.$echomtg.getUserMeta();
       this.$store.commit('user', userdata.user)
