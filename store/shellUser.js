@@ -5,6 +5,7 @@ export default {
   username: '',
   email: '',
   last_login: '',
+  user_level: 0,
   dark_mode: 0,
   plan: 'common',
   planObject: {

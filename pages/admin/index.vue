@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authenticated">
     <echo-bread-crumbs :data="crumbs" />
 
     <section class="hero is-dark is-small has-background-grey-dark mb-5">
@@ -126,24 +126,20 @@ export default {
   },
 
   async fetch(){
-      if(!this.authenticated && this.user_level > 3){
+
+      if(this.user.user_level < 3){
         this.$nuxt.context.error({
           statusCode: 404,
           message: 'Page Not Found'
         });
-      };
-      this.loading    = true;
+      } else {
 
+        this.loading    = true;
+        this.latestUsers = await this.getLatestUsers(2)
+        this.data_totals = (await this.getDataTotals()).totals
 
-      this.latestUsers = await this.getLatestUsers(2)
-      this.data_totals = (await this.getDataTotals()).totals
-
-      this.loading    = false;
-  },
-  watch: {
-    authenticated() {
-      this.$fetch();
-    }
+        this.loading    = false;
+      }
   },
 
   methods: {
