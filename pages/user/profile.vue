@@ -105,6 +105,11 @@ export default {
   },
   async fetch() {
 
+    // redirect out if bad request
+    if(!this.authenticated){
+      this.$router.push('/')
+    }
+
     const userdata = await this.$echomtg.getUserMeta();
 
     // redirect out if bad request
@@ -129,7 +134,7 @@ export default {
     titleStack () {
       return ['My Account', 'Profile']
     },
-    ...mapState(['user']),
+    ...mapState(['user','authenticated']),
 
   },
   methods: {
