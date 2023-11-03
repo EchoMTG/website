@@ -157,6 +157,13 @@ export default {
 
 
   async fetch(){
+    if(!this.authenticated && this.user_level > 3){
+      this.$nuxt.context.error({
+        statusCode: 404,
+        message: 'Page Not Found'
+      });
+    };
+
       this.loading    = true;
       if(this.date_start == this.date_end){
         this.date_start = this.$moment().subtract(12, 'months').format('Y-MM-DD');

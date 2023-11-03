@@ -77,14 +77,15 @@ export default {
 
 
   async fetch(){
-      if(!this.authenticated) return;
-      this.loading    = true;
-
-
-      this.users = (await this.getUsers()).results
-
-
-      this.loading    = false;
+    if(!this.authenticated && this.user_level > 3){
+      this.$nuxt.context.error({
+        statusCode: 404,
+        message: 'Page Not Found'
+      });
+    };
+    this.loading    = true;
+    this.users = (await this.getUsers()).results
+    this.loading    = false;
   },
   watch: {
     authenticated() {

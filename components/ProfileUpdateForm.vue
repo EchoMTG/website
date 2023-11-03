@@ -1,18 +1,16 @@
 <template>
-  <card-component title="Edit Profile" icon="account-circle">
+  <card-component title="Private Information" icon="account-lock">
     <form @submit.prevent="submit">
-      <b-field horizontal label="Avatar">
-        <file-picker />
-      </b-field>
-      <hr>
+
+
       <b-field horizontal label="First Name" message="First name">
-        <b-input v-model="form.first_name" name="first_name" required />
+        <b-input v-model="first_name" name="first_name" required />
       </b-field>
       <b-field horizontal label="Last Name" message="Last name">
-        <b-input v-model="form.last_name" name="last_name" required />
+        <b-input v-model="last_name" name="last_name" required />
       </b-field>
       <b-field horizontal label="E-mail" message="Required. Your e-mail">
-        <b-input v-model="form.email" name="email" type="email" required />
+        <b-input v-model="email" name="email" type="email" required />
       </b-field>
       <hr>
       <b-field horizontal>
@@ -21,8 +19,9 @@
             type="submit"
             class="button is-primary"
             :class="{ 'is-loading': isLoading }"
+            :disabled="!dirty"
           >
-            Submit
+            Save Private Profile
           </button>
         </div>
       </b-field>
@@ -32,54 +31,92 @@
 
 <script>
 import { mapState } from 'vuex'
-import FilePicker from '@/components/FilePicker'
 import CardComponent from '@/components/CardComponent'
 
 export default {
   name: 'ProfileUpdateForm',
   components: {
-    CardComponent,
-    FilePicker
+    CardComponent
   },
   data () {
     return {
       isFileUploaded: false,
       isLoading: false,
-      form: {
-        first_name: null,
-        last_name: null,
-        email: null
-      }
+      emailStatus: false,
+      first_name: null,
+      last_name: null,
+      email: null
+
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    dirty(){
+       if(this.first_name != this.user.first_name){
+        return true
+      }
+      if(this.last_name != this.user.last_name){
+        return true
+      }
+      if(this.email != this.user.email && this.emailStatus == true){
+        return true
+      }
+      return false
+    }
   },
   mounted () {
 
-    this.form.first_name = this.user.first_name;
-    this.form.last_name = this.user.last_name;
-    this.form.email = this.user.email;
+    this.first_name = this.user.first_name;
+    this.last_name = this.user.last_name;
+    this.email = this.user.email;
   },
+
   watch: {
     user() {
-      this.form.first_name = this.user.first_name;
-      this.form.last_name = this.user.last_name;
-      this.form.email = this.user.email;
+      this.first_name = this.user.first_name;
+      this.last_name = this.user.last_name;
+      this.email = this.user.email;
+    },
+     async email(){
+      await this.checkEmail()
     }
   },
   methods: {
+    validateEmail(email){
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    },
+     async checkEmail(){
+      if(!this.validateEmail(this.email) || this.email == this.user.email){
+        this.emailStatus = false;
+        return;
+      }
+      const res = await this.$echomtg.getReq(`user/unique_check/?value=${this.email}&type=email`)
+       this.$buefy.toast.open({
+            message: `${res.message}`,
+            type: res.status == 'success' ?  'is-success' : 'is-danger'
+        })
+      this.emailStatus = res.status == 'success' ?  true : false;
+    },
     async submit () {
       this.isLoading = true
-      let payload = {
-        first_name: this.form.first_name,
-        last_name: this.form.last_name,
-
+      let payload = {}
+      if(this.first_name != this.user.first_name){
+        payload.first_name = this.first_name
       }
-      await this.$echomtg.updateUser(payload)
+      if(this.last_name != this.user.last_name){
+        payload.last_name = this.last_name
+      }
+      if(this.email != this.user.email && this.emailStatus == true){
+        payload.email = this.email
+      }
+
+      const res = await this.$echomtg.updateUser(payload)
       this.$buefy.snackbar.open({
-        message: 'Updated',
-        queue: false
+        message: res.message
       })
       let userdata = await this.$echomtg.getUserMeta();
       this.$store.commit('user', userdata.user)

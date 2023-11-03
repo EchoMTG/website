@@ -17,10 +17,10 @@ export default {
   computed: {
     getAvatar () {
       if (this.user.avatar) {
-        return this.user.avatar
+        return this.user.avatar + '?t=' + new Date()
       }
 
-      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
+      return `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`
     },
     ...mapState(['user'])
   }

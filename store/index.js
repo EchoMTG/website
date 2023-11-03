@@ -34,7 +34,7 @@ export const state = () => ({
   userName: null,
   userEmail: null,
   userLevel: null,
-  userAvatar: 'https://assets.echomtg.com/interface/echomtg-mage-avatar.png',
+  userAvatar: 'https://assets.echomtg.com/interface/echomtg-default-avatar.jpg',
   user: shellUser.default,
   authenticated: false,
   quickstats: shellquickstats,

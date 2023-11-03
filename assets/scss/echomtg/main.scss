@@ -338,7 +338,7 @@ div.header{
 			.avatar{
 				height: $header-size;
 				width: $header-size;
-				background-image: url('https://assets.echomtg.com/interface/echomtg-mage-avatar.png');
+				background-image: url('https://assets.echomtg.com/interface/echomtg-default-avatar.jpg');
 				background-size: cover;
 				background-repeat: no-repeat;
 				background-position: center center;
@@ -1082,7 +1082,7 @@ ol.slats,ul.slats{
 	background-size: cover;
 	height: 80vh;
 	background-image: url('https://assets.echomtg.com/images/echo-mtg-pile-cards.jpg');
-	
+
 	@media all and (max-width: 640px){
 
 		height: auto;

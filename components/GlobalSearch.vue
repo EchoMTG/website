@@ -7,7 +7,7 @@
                        <div class="columns">
                           <div class="column searchColumn">
                             <div class="field has-addons">
-                                <p class="control grow has-icons-left m-0">
+                                <div class="control grow has-icons-left m-0">
                                     <input
                                         class="input is-small is-rounded has-background-white has-text-black item-search-input"
                                         v-model="search"
@@ -16,21 +16,21 @@
                                         type="text"
                                         :placeholder="placeholderText">
                                     <b-icon icon="magnify" class="is-left" size="is-small" />
-                                </p>
-                                <p class="control m-0" v-if="search.length > 0">
+                                </div>
+                                <div class="control m-0" v-if="search.length > 0">
                                      <button tabindex="-1" class="button is-small is-outlined clear-button" @click="clearSearch()">
-                                          <b-icon icon="times" size="is-small" />
+                                          <b-icon icon="close" size="is-small" />
                                      </button>
-                                </p>
+                                </div>
                             </div>
                           </div>
-                          <div class="column is-one-third expansionColumn">
+                          <div v-if="!hidesetcode" class="column is-one-third expansionColumn">
                               <input class="input is-small  has-background-white has-text-black  expansion-search-input"  v-model="expansion" ref="expansionInput" type="text" placeholder="Set Name/Code...">
                           </div>
                        </div>
 
                     </div>
-                    <div class="control inside-button">
+                    <div v-if="!hideadvanced" class="control inside-button">
                         <button class="button is-hidden-mobile  is-small is-outlined is-rounded has-background-grey has-text-white advanced-options-button" @click="openAdvancedOptions()">
 
                             <span class="buttonName">Advanced</span>
@@ -146,6 +146,7 @@
                             :previewopen="index == position && previewopen"
                             :manacost="result.mana_cost"
                             :showimage="showimage"
+                            :showprice="showprice"
                             :callbackname="callbackname"
                             @primaryCallback="callback(result.emid)"
                             ></GlobalSearchRow>
@@ -206,6 +207,14 @@ export default {
             default: ''
         },
         showimage: {
+            type: Boolean,
+            default: false
+        },
+         hidesetcode: {
+            type: Boolean,
+            default: false
+        },
+        hideadvanced: {
             type: Boolean,
             default: false
         },

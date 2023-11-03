@@ -88,7 +88,7 @@
             aria-label="Old Website"
             v-if="authenticated"
           >
-          <b-icon icon="share" size="is-small"/>Old Website
+          <b-icon icon="share" size="is-small"/>Legacy
         </a>
         </div>
 
@@ -149,6 +149,14 @@
           </div>
 
           <div slot="dropdown" class="navbar-dropdown is-right">
+            <nuxt-link
+              :to="`/${user.username.toLowerCase()}/`"
+              class="navbar-item"
+              exact-active-class="is-active"
+            >
+              <b-icon icon="card-account-details-outline" custom-size="default" />
+              <span>Public Profile</span>
+            </nuxt-link>
             <nuxt-link
               to="/user/profile/"
               class="navbar-item"

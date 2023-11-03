@@ -71,7 +71,9 @@
                 <div class="control">
                   <b-taglist attached>
                     <b-tag class="has-background-black has-text-white">Types</b-tag>
-                    <b-tag class="has-background-grey-dark has-text-white">{{this.item.main_type}}</b-tag>
+                    <b-tag class="has-background-grey-dark has-text-white">
+                      <echo-link class="has-text-white" :url="`/${games[this.item.game]}/types/${this.item.main_type.toLowerCase().replace(' ','-').trim()}/`">{{this.item.main_type}}</echo-link>
+                    </b-tag>
                   </b-taglist>
                 </div>
                  <div class="control">
@@ -291,6 +293,7 @@
                   v-model="isBuylistOpen">
                     <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item.tcg_low}}</b-button>
                     <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
+                    <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
                     <br class="is-clearfix" />
                     <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
                     <hr class="mx-0 my-1"/>
@@ -359,6 +362,7 @@ import CardAd from '@/components/cta/CardAd.vue'
 import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 import CommentThread from '@/components/comments/CommentThread.vue'
+import EchoLink from '@/components/EchoLink.vue'
 
 export default {
   name: 'Expansion',
@@ -373,7 +377,8 @@ export default {
     CardAd,
     CreateAccountModal,
     SocialButtons,
-    CommentThread
+    CommentThread,
+    EchoLink
   },
   data () {
     return {
@@ -387,6 +392,10 @@ export default {
       date_end: this.$moment().format('Y-MM-DD'),
       variations: [],
       dateEdit: false,
+      games: {
+        '1' : 'mtg',
+        '71' : 'lorcana'
+      },
       prices: {
         foil: [2,2,2],
         regular: [1,1,1],
@@ -477,6 +486,13 @@ export default {
     }
   },
   methods: {
+    async addToWatchlist(){
+      const res = await this.$echomtg.addToWatchlist(this.item.emid);
+       this.$buefy.snackbar.open({
+          message: res.message,
+          type: 'is-success',
+       })
+    },
     async priceUpdate(){
       const res = await this.$echomtg.getReq(`data/price_update/?card=${encodeURIComponent(this.item.name)}&set=${encodeURIComponent(this.item.expansion)}&tcgplayer_id=${this.item.tcgplayer_id}`);
        this.$buefy.toast.open({

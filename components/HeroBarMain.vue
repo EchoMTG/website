@@ -106,7 +106,7 @@ export default {
         return this.user.avatar
       }
 
-      return `https://assets.echomtg.com/interface/echomtg-mage-avatar.png`
+      return `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`
     }
   },
   computed: {
