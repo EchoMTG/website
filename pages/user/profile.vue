@@ -11,11 +11,20 @@
             <div class="card tile is-child">
 
               <div class="card-header">
-                 <p class="card-header-title">
+                 <div class="card-header-title is-flex">
                   <b-icon icon="card-account-details-outline" custom-size="default" />
 
                   <span>Public Profile</span>
-                </p>
+
+                  <nuxt-link
+                      :to="`/${user.username.toLowerCase()}/`"
+                      class="ml-auto button is-small is-outlined is-dark"
+
+                    >
+                      <b-icon icon="open-in-new" custom-size="default" />
+                      <span>Open Profile</span>
+                    </nuxt-link>
+                </div>
               </div>
                <hr>
                <div class="is-flex is-align-items-center px-5">

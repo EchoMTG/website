@@ -150,7 +150,7 @@
 
           <div slot="dropdown" class="navbar-dropdown is-right">
             <nuxt-link
-              :to="`/user/${user.username.toLowerCase()}/`"
+              :to="`/${user.username.toLowerCase()}/`"
               class="navbar-item"
               exact-active-class="is-active"
             >

@@ -1,24 +1,28 @@
 <template>
-    <section :class="`userSignupForm p-5 `+classes">
+    <section :class="`userSignupForm p-5 is-relative `+classes">
+
       <div v-if="!authenticated">
         <h2 class="is-size-4 has-text-white has-text-weight-bold">Start a Free Account</h2>
-        <b-field>
-          <div class="control">
-              <label class="label has-text-grey">User handle</label>
-            <b-input custom-class="has-background-white has-text-black" placeholder="User handle "
-              type="text"
-              required
-               icon="account"
-               v-model="username"
 
-              >
-            </b-input>
-            </div>
+        <b-field
+          label="User handle"
+          :type="userType"
+          :message="usernameMessage"
+          >
+          <b-input
+            custom-class="has-background-white has-text-black"
+            placeholder="User handle "
+            required
+            type="text"
+            @blur="checkUserName"
+            icon="account"
+            v-model="username"
+          />
         </b-field>
 
-        <b-field>
-           <div class="control has-icons-left">
-              <label class="label has-text-grey">Email Address</label>
+        <b-field
+          label="Email Address"
+          >
               <b-input
                 v-model="email"
                 placeholder="your@email.com"
@@ -27,14 +31,12 @@
                 custom-class="has-background-white has-text-black"
                 validation-message="Valid email required."
                 pattern="(.*?)@[a-zA-Z0-9-]*\.[a-zA-Z0-9-]{2,9}"
-              ></b-input>
-            </div>
+              />
         </b-field>
 
 
           <b-field
-              label=" Password"
-              icon="lock"
+              label="Password"
               :type="passwordType"
               message="Minimum 6 characters. 1 number, 1 lowercase or uppercase."
               >
@@ -47,7 +49,6 @@
             </b-field>
 
         <b-field>
-            <div class="control">
             <b-button
               :disabled="!active"
               @click="registerUser"
@@ -55,13 +56,15 @@
               class="button mythic-background">
               Create Account
             </b-button>
-        </div>
+
         </b-field>
+        <b-loading v-model="loading" :is-full-page="false" />
       </div>
       <div v-if="authenticated" class="content">
         <h2>You are Logged in</h2>
         <p>If you are trying to make a new account, log out and return back to this form.</p>
       </div>
+
     </section>
 </template>
 <style scoped>
@@ -72,6 +75,9 @@
 }
 div.control input {
   color: black !important;
+}
+label.label {
+  color: #999 !important;
 }
 </style>
 <script>
@@ -85,7 +91,9 @@ export default {
       email: '',
       username: '',
       password: '',
-      active: false
+      usernameStatus: false,
+      usernameMessage: '',
+      loading: false
     }
   },
   computed: {
@@ -95,16 +103,22 @@ export default {
     ]),
     passwordType(){
       if(this.password == '') return ''
-      return this.passwordCheck(this.password) ? 'is-success' : 'is-danger'
+      return this.passwordStatus ? 'is-success' : 'is-danger'
     },
+    userType(){
+      if(this.username == '') return ''
+      return this.usernameStatus ? 'is-success' : 'is-danger'
+    },
+    active(){
+
+      if(this.usernameStatus && this.passwordStatus && this.loading == false) return true;
+      return false;
+    },
+    passwordStatus() {
+      return this.passwordCheck(this.password) ? true : false;
+    }
   },
   watch: {
-    password() {
-      this.active = this.passwordCheck(this.password) ? true : false;
-    },
-    username() {
-      return this.username.length > 2
-    }
   },
   props: {
     classes: {
@@ -119,56 +133,77 @@ export default {
     passwordCheck(password){
       return (/\d/.test(password) && /[a-zA-Z]/.test(password) && password.length >= 6) ? true : false
     },
+    emailCheck(){
+
+    },
+    async checkUserName(){
+      if(this.username.length <= 2){
+        this.usernameStatus = false;
+        return false;
+      }
+      const res = await this.$echomtg.getReq(`user/unique_check/?value=${this.username}&type=username`)
+      this.usernameMessage = res.message;
+      this.usernameStatus = res.status == 'success' ?  true : false;
+      return res.status == 'success' ?  true : false;
+    },
     async registerUser(){
-      const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
-      const referrer_url = this.$cookies.get('referrerURL') ? this.$cookies.get('referrerURL') : 'direct';
-      const entry_url = this.$cookies.get('entryURL') ? this.$cookies.get('entryURL') : 'n/a';
-      const capture_url = window.location.href;
+      await this.checkUserName();
 
-      const res = await this.$echomtg.registerUser(
-        this.email,
-        this.username,
-        this.password,
-        referrer,
-        referrer_url,
-        entry_url,
-        capture_url
-      )
-      if(res.status == "success"){
-        // let them know
-        this.$buefy.toast.open({
-          message: res.message,
-          type: 'is-success'
-        })
 
-        let days = 30;
+      if(this.usernameStatus == true){
+        this.loading = true;
+        const referrer = this.$cookies.get('referrerCode') ? this.$cookies.get('referrerCode') : '';
+        const referrer_url = this.$cookies.get('referrerURL') ? this.$cookies.get('referrerURL') : 'direct';
+        const entry_url = this.$cookies.get('entryURL') ? this.$cookies.get('entryURL') : 'n/a';
+        const capture_url = window.location.href;
 
-        // store a cookie
-        this.$cookies.set('token', res.token,{
-          path: '/',
-          maxAge: 1000 * 60 * 60 * 24 * days,
-          domain: '.echomtg.com'
-        })
+        // !TEST they canoot create a user without a uniqye username and email
+        const res = await this.$echomtg.registerUser(
+          this.email,
+          this.username,
+          this.password,
+          referrer,
+          referrer_url,
+          entry_url,
+          capture_url
+        )
+        if(res.status == "success"){
+          // let them know
+          this.$buefy.toast.open({
+            message: res.message,
+            type: 'is-success'
+          })
 
-        // fetch user into the state
-        this.$store.commit('user',res.user)
-        this.$store.commit('authenticated',true)
+          let days = 30;
 
-        // fetch quickstats into state
-        const quickstats = await this.$echomtg.inventoryQuickStats();
-        if(quickstats.status == 'success'){
-          this.$store.commit('quickstats',quickstats.stats);
+          // store a cookie
+          this.$cookies.set('token', res.token,{
+            path: '/',
+            maxAge: 1000 * 60 * 60 * 24 * days,
+            domain: '.echomtg.com'
+          })
+
+          // fetch user into the state
+          this.$store.commit('user',res.user)
+          this.$store.commit('authenticated',true)
+
+          // fetch quickstats into state
+          const quickstats = await this.$echomtg.inventoryQuickStats();
+          if(quickstats.status == 'success'){
+            this.$store.commit('quickstats',quickstats.stats);
+          }
+
+          if(this.callback){
+            this.callback()
+          }
+
+        } else {
+          this.$buefy.toast.open({
+            message: `Error: ${res.message}`,
+            type: 'is-danger'
+          })
+          this.loading = false;
         }
-
-        if(this.callback){
-          this.callback()
-        }
-
-      } else {
-        this.$buefy.toast.open({
-          message: `Error: ${res.message}`,
-          type: 'is-danger'
-        })
       }
     }
   }
