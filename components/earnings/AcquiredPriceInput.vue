@@ -1,15 +1,20 @@
 <template>
 
-<b-input
-  size="is-small"
-  type="number"
-  min="0.01"
-  autocomplete="off"
-  pattern="[^-][\d]+(\.[0-9]{0,2}])?"
-  step="0.01"
-  @input="update"
-  icon="currency-usd"
-  :value="price" />
+   <b-field>
+    <p class="control">
+        <b-button aria-disabled="true" type="is-dark" disabled size="is-small">{{currency_symbol}}</b-button>
+    </p>
+    <b-input
+      size="is-small"
+      type="number"
+      min="0.00"
+      autocomplete="off"
+      pattern="[^-][\d]+(\.[0-9]{0,2}])?"
+      step="0.00"
+      @input="update"
+      :value="price" />
+
+  </b-field>
 </template>
 <script>
 
@@ -27,6 +32,10 @@ export default {
     type: Number,
     required: true
   },
+  currency_symbol: {
+    type: String,
+    default: '$'
+  }
  },
 
  data: () => {
