@@ -110,6 +110,11 @@ export default {
           label: 'Blog',
           icon: 'newspaper-variant-multiple'
         },
+         {
+          to: '/plans/',
+          label: 'Membership Plans',
+          icon: 'script-text'
+        },
         {
           to: '/api/',
           label: 'API Docs',
