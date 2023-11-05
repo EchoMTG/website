@@ -13,6 +13,25 @@
           </div>
       </div>
     </section>
+    <section class="container">
+      <nav class="level">
+        <div class="level-left">
+        <b-input type="text" v-model="set_code" />
+        <b-select v-model="game">
+          <option value="1">MTG</option>
+          <option value="71">Lorcana</option>
+
+        </b-select>
+        <b-button @click="extract" >Extract</b-button>
+        </div>
+      </nav>
+      <b-table :data="itemsToImpor                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  t">
+        <b-table-column key="name" label="Name" v-slot="props">
+          {{props.row.name}}
+          <img :src="props.row.image" alt="card image" width="100" />
+        </b-table-column>
+      </b-table>
+    </section>
 
   </div>
 </template>
@@ -30,17 +49,10 @@ export default {
   },
   data () {
     return {
+      set_code: '',
       search: '',
-      docs: [],
-      api_token: ''
-    }
-  },
-  props: {
-    apidocs: {
-      type: Array,
-      default: function() {
-        return APIDocs.item
-      }
+      game: 1,
+      itemsToImport: []
     }
   },
   computed: {
@@ -69,7 +81,10 @@ export default {
     //console.log('async from index',req)
   },
   methods: {
-
+    async extract(){
+      const res = await this.$echomtg.getReq(`wiki/fetch_set_tcgplayer/?set_code=${this.set_code}&game=${this.game}`)
+      this.itemsToImport = res.data
+    }
   },
   head () {
       return {
