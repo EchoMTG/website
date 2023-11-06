@@ -9,6 +9,8 @@ export default {
   dark_mode: 0,
   plan: 'common',
   planObject: {
-    access_level: 0
+    access_level: 0,
+    card_cap: 360,
+    list_cap: 25
   }
 }

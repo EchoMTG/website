@@ -22,7 +22,7 @@ export default {
   methods: {
     async duplicate() {
 
-      await this.$echomtg.inventoryAdd(this.copy.emid,{
+      const res = await this.$echomtg.inventoryAdd(this.copy.emid,{
         acquired_price: this.copy.price_acquired,
         foil: this.copy.foil,
         condition: this.copy.condition,
@@ -30,7 +30,7 @@ export default {
       })
 
       this.$buefy.snackbar.open({
-        message: `${this.copy.name} duplicated with today's acquired date.`,
+        message: res.message,
         queue: false
       })
       if(this.callback){
