@@ -44,7 +44,7 @@
           <div class="level-item has-text-centered">
             <div>
               <p class="heading is-size-7-touch has-text-grey">Items <span class="is-hidden-touch">Tracked</span></p>
-              <p class="title is-size-5 has-text-light is-size-6-touch">{{quickstats.total_items}}</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch"><b-icon size="is-small" type="is-danger" v-if="overCardCap" icon="alert-circle" /> {{quickstats.total_items}}</p>
             </div>
           </div>
           <div class="level-item has-text-centered is-hidden-touch">
@@ -80,25 +80,25 @@
               <a class="button is-small is-danger has-icon-left" href="https://www.youtube.com/watch?v=LG1EVm-cEqk" target="_blank"><b-icon icon="youtube" size="is-small" /><span>How to Video</span></a>
           </div>
           <div class="level-right is-align-content-stretch	is-align-items-center	ml-2" v-if="user.plan != 'common'">
-            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.mythics_value.toFixed(2) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.mythics_value.toFixed(2)) : 0">
               <b-taglist class="mb-0 level-item is-clickable" attached>
                 <b-tag type="is-black" class="mb-0"><i class="ss ss-magic mythic-symbol mr-1"></i> Mythics</b-tag>
                 <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_mythic}}</b-tag>
               </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.rares_value.toFixed(2)  : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.rares_value.toFixed(2))  : 0">
               <b-taglist class="mb-0 level-item is-clickable" attached>
                 <b-tag type="is-black" class="mb-0"><i class="ss ss-magic rare-symbol mr-1"></i>Rares</b-tag>
                 <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_rare}}</b-tag>
               </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.uncommons_value.toFixed(2) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.uncommons_value.toFixed(2)) : 0">
              <b-taglist class="mb-0 level-item is-clickable" attached>
               <b-tag type="is-black" class="mb-0"><i class="ss ss-magic uncommon-symbol mr-1"></i>Uncommons</b-tag>
               <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_uncommon}}</b-tag>
             </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+inventoryStats?.stats.all.commons_value.toFixed(2) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.commons_value.toFixed(2)) : 0">
             <b-taglist class="mb-0 level-item is-clickable" attached>
               <b-tag type="is-black" class="mb-0"><i class="ss ss-magic common-symbol mr-1"></i>Commons</b-tag>
               <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_common}}</b-tag>
@@ -108,8 +108,8 @@
              </div>
           </div>
           <div class="level-right" v-else>
-            <p class="level-item mr-4">
-            Help support the site by upgrading. Plans start at $20/year 🙏
+            <p class="level-item mr-4 ml-2">
+            Support EchoMTG development. <nuxt-link class="ml-1" to="/plans/">Plans start at $2/mo or $20/year</nuxt-link>
             </p>
           </div>
         </div>
@@ -713,6 +713,10 @@ export default {
   computed: {
     cs() {
       return this.user.currency_symbol
+    },
+    overCardCap(){
+
+      return this.user.planObject.card_cap <= parseInt(this.quickstats.total_items)
     },
     crumbs() {
       return [
