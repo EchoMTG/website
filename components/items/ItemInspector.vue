@@ -1,7 +1,9 @@
 <template>
     <div :class="cardClass">
 
-        <b-image v-if="!toggleShowFull" :alt="`${item.name} magic image`" @click="imageTrigger()"  width="200" quality="70" class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder"  />
+        <nuxt-link v-if="!toggleShowFull" :to="itemURL">
+          <b-image  :alt="`${item.name} magic image`" @click="imageTrigger()"  width="200" quality="70" class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder"  />
+        </nuxt-link>
         <div v-if="toggleShowFull">
             <div class="columns">
                 <div class="column is-one-third">
