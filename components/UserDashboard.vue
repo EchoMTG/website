@@ -88,7 +88,6 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
         message: 'Welcome back',
         queue: false
       })
-      console.log(this.user)
     },
     head () {
       return {

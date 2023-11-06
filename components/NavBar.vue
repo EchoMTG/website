@@ -137,9 +137,11 @@
           <a href="/apps/inventory/" class="has-text-success has-text-weight-bold">{{user.currency_symbol}}{{ quickstats.current_value.toLocaleString("en-US", {maximumFractionDigits: 2, minimumFractionDigits: 2}) }}</a>
         </div>
         <div v-if="authenticated" class="navbar-item is-flex is-align-items-center">
-          <b-taglist  attached>
-              <b-tag @click="openPlan()" style="cursor: pointer" type="is-dark">{{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}</b-tag>
-              <b-tag @click="openPlan()" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
+          <b-taglist attached>
+            <b-tag @click="openPlan" style="cursor: pointer" :type="overCardCap ? '' : 'is-dark'" :class="overCardCap ? 'has-background-danger has-text-white' : ''">
+                {{quickstats.total_items}}/{{ user?.planObject?.card_cap ? user.planObject.card_cap : '?' }}
+            </b-tag>
+            <b-tag @click="openPlan" type="is-info" :style="`cursor: pointer;`" :class="`${user.plan}-background`">{{ user.plan }}</b-tag>
           </b-taglist>
         </div>
         <nav-bar-menu v-if="authenticated" class="has-divider has-user-avatar">
@@ -278,6 +280,10 @@ export default {
       return toolsMenu({
         tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
       })
+    },
+    overCardCap(){
+      if(!this?.quickstats?.total_items) return false;
+      return this.user.planObject.card_cap <= parseInt(this.quickstats.total_items)
     },
     recentSets(){
       return [...this.sets.slice(0,5)];

@@ -341,7 +341,7 @@ export default {
           extra_export_data: false,
           limits: {
             trade: 50,
-            lists: 5,
+            lists: 25,
             inventory: 360,
             watchlist: 3,
           }
@@ -378,7 +378,7 @@ export default {
           extra_export_data: false,
           limits: {
             trade: 50,
-            lists: 25,
+            lists: 75,
             inventory: 5400,
             watchlist: 100,
           }
@@ -415,7 +415,7 @@ export default {
           extra_export_data: false,
           limits: {
             trade: 1000,
-            lists: 50,
+            lists: 125,
             inventory: 11520,
             watchlist: 500,
           }
@@ -452,7 +452,7 @@ export default {
           extra_export_data: true,
           limits: {
             trade: 3000,
-            lists: 200,
+            lists: 300,
             inventory: 36000,
             watchlist: 500,
           }
