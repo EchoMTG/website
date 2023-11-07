@@ -61,7 +61,6 @@
             <p>Echo's Reddit bot works on these sub reddits:</p>
             <ul class="slats">
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/magictcg/">/r/magictcg/</a></li>
-              <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgmarketwatch/">/r/mtgmarketwatch/</a></li>
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgcube/">/r/mtgcube/</a></li>
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtglegacy/">/r/mtglegacy/</a></li>
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgfinance/">/r/mtgfinance/</a></li>
