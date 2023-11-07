@@ -18,6 +18,12 @@ function aboutMenu() {
       label: 'Product Roadmap',
       description: 'See where the product is going.'
     },
+    {
+      to: '/about/magic-reddit-bot/',
+      icon: 'reddit',
+      label: 'Reddit Bot',
+      description: 'Get up-to-date pricing in reddit comments.'
+    },
 
 
   ]
