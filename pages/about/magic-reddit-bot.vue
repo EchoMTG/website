@@ -65,7 +65,7 @@
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgcube/">/r/mtgcube/</a></li>
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtglegacy/">/r/mtglegacy/</a></li>
               <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgfinance/">/r/mtgfinance/</a></li>
-              <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/mtgfinance/">/r/mtgfinance/</a></li>
+              <li><a rel="nofollow" target="_blank" href="http://www.reddit.com/r/ModernMagic/">/r/ModernMagic/</a></li>
             </ul>
             <br/>
 
