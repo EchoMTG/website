@@ -175,7 +175,7 @@ export default {
           {
             hid: 'description',
             name: 'description',
-            content:  ``
+            content:  this.article.short
           }
         ]
     }
