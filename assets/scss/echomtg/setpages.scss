@@ -116,7 +116,7 @@
 	.filterBar{
 		position: sticky;
 		top: 50px;
-		z-index: 10;
+		z-index: 3;
 	}
 	@media all and (max-width: $break-width){
 		$smallOverride: .69rem;
