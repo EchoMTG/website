@@ -1,4 +1,4 @@
-{
+export default {
 	"info": {
 		"_postman_id": "6410086a-5469-44aa-aed5-7a5c9f5c96b5",
 		"name": "EchoMTG Public Magic:the Gathering API",
