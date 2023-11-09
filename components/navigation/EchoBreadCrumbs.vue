@@ -18,7 +18,7 @@
     <div class="level-right mr-4 is-hidden-mobile">
       <small class="level-item is-small has-text-right has-text-grey">
         <b-tooltip position="is-bottom" multilined="true" label="Clicking links to various merchants on this site and making a purchase can result in this site earning a commission. Affiliate programs include, but are not limited to, the eBay Partner Network, TCGplayer.com, CardKingdom.com.">
-          <strong class="has-text-grey mr-1">Affliate link Disclaimer.</strong>
+          <strong class="has-text-grey mr-1">Affliate link disclaimer.</strong>
         </b-tooltip>
         Magic: the Gathering™ references are property of Wizards of the Coast. Prices update daily from TCGplayer.com.
 
