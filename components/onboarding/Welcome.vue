@@ -116,6 +116,7 @@
 import { mapState } from 'vuex';
 import QuickAddButton from '@/components/inventory/QuickAddButton.vue'
 
+
 export default {
   name: 'Welcome',
   components: {
@@ -124,17 +125,100 @@ export default {
   computed: {
     ...mapState(['user','isDarkModeActive','quickstats'])
   },
+  mounted(){
+    document.addEventListener("keydown", this.keybinds);
+    document.addEventListener('touchstart', this.handleTouchStart, false);
+    document.addEventListener('touchmove', this.handleTouchMove, false);
+  },
+  destroyed(){
+    document.removeEventListener("keydown", this.keybinds)
+    document.removeEventListener('touchstart', this.handleTouchStart);
+    document.removeEventListener('touchmove', this.handleTouchMove);
+  },
   methods: {
     goto(url) {
       this.$router.push({ path: url });
     },
     updateQuickStats() {
       alert('yay')
+    },
+    nextItem(){
+      if(this.activeStep < this.totalSteps){
+        this.activeStep = this.activeStep + 1;
+      }
+    },
+    previousItem(){
+       if(this.activeStep > 0){
+        this.activeStep = this.activeStep - 1;
+      }
+
+    },
+    keybinds(event){
+      // left
+      if (event.isComposing || event.keyCode === 37) {
+          this.previousItem();
+          return true;
+      }
+      // right
+      if (event.isComposing || event.keyCode === 39) {
+          this.nextItem();
+          return true;
+      }
+      // up
+      if (event.isComposing || event.keyCode === 40) {
+          this.variationPrevious();
+          return true;
+      }
+      // down
+      if (event.isComposing || event.keyCode === 38) {
+          this.variationNext();
+          return true;
+      }
+    },
+    handleTouchMove(evt) {
+      if ( ! this.xDown || ! this.yDown ) {
+          return;
+      }
+
+      var xUp = evt.touches[0].clientX;
+      var yUp = evt.touches[0].clientY;
+
+      var xDiff = this.xDown - xUp;
+      var yDiff = this.yDown - yUp;
+
+      if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+          if ( xDiff > 0 ) {
+              this.nextItem();
+          } else {
+             this.previousItem();
+          }
+      } else {
+          if ( yDiff > 0 ) {
+              this.nextItem();
+          } else {
+             this.previousItem();
+          }
+      }
+      /* reset values */
+      this.xDown = null;
+      this.yDown = null;
+    },
+    getTouches(evt) {
+      return evt.touches ||             // browser API
+            evt.originalEvent.touches; // jQuery
+    },
+    handleTouchStart(evt) {
+        const firstTouch = this.getTouches(evt)[0];
+        this.xDown = firstTouch.clientX;
+        this.yDown = firstTouch.clientY;
     }
   },
   data: () => {
     return {
+      xDown: null,
+      yDown: null,
       activeStep: 1,
+      totalSteps: 5,
       isStepsClickable: true
     }
   }

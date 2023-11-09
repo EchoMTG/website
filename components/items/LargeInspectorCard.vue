@@ -197,9 +197,13 @@ export default {
   async mounted(){
     await this.fetchVariations()
     document.addEventListener("keydown", this.keybinds);
+    document.addEventListener('touchstart', this.handleTouchStart, false);
+    document.addEventListener('touchmove', this.handleTouchMove, false);
   },
   destroyed(){
     document.removeEventListener("keydown", this.keybinds)
+    document.removeEventListener('touchstart', this.handleTouchStart);
+    document.removeEventListener('touchmove', this.handleTouchMove);
   },
   watch: {
     item: {
@@ -287,9 +291,44 @@ export default {
       if(this.nextInspectorItem){
         this.nextInspectorItem()
       }
-
-
     },
+    handleTouchMove(evt) {
+      if ( ! this.xDown || ! this.yDown ) {
+          return;
+      }
+
+      var xUp = evt.touches[0].clientX;
+      var yUp = evt.touches[0].clientY;
+
+      var xDiff = this.xDown - xUp;
+      var yDiff = this.yDown - yUp;
+
+      if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+          if ( xDiff > 0 ) {
+              this.nextItem();
+          } else {
+             this.previousItem();
+          }
+      } else {
+          if ( yDiff > 0 ) {
+              this.nextItem();
+          } else {
+             this.previousItem();
+          }
+      }
+      /* reset values */
+      this.xDown = null;
+      this.yDown = null;
+    },
+    getTouches(evt) {
+      return evt.touches ||             // browser API
+            evt.originalEvent.touches; // jQuery
+    },
+    handleTouchStart(evt) {
+        const firstTouch = this.getTouches(evt)[0];
+        this.xDown = firstTouch.clientX;
+        this.yDown = firstTouch.clientY;
+    }
 
   }
 }
