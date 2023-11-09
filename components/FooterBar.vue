@@ -17,6 +17,7 @@
           </div>
         </div>
       </div>
+      <p class="is-size-7 has-text-grey pb-5">Clicking links to various merchants on this site and making a purchase can result in this site earning a commission. Affiliate programs include, but are not limited to, the eBay Partner Network, TCGplayer.com, CardKingdom.com.</p>
     </div>
   </footer>
 </template>
