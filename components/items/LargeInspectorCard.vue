@@ -297,23 +297,25 @@ export default {
           return;
       }
 
+      const swipeLength = 10;
+
       var xUp = evt.touches[0].clientX;
       var yUp = evt.touches[0].clientY;
 
       var xDiff = this.xDown - xUp;
       var yDiff = this.yDown - yUp;
 
-      if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-          if ( xDiff > 0 ) {
-              this.nextItem();
-          } else {
-             this.previousItem();
+     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+          if ( xDiff > swipeLength ) {
+              this.nextItem(); // left
+          } else if (xDiff < (swipeLength * -1) ) {
+             this.previousItem(); // right
           }
       } else {
-          if ( yDiff > 0 ) {
-              this.nextItem();
-          } else {
-             this.previousItem();
+          if ( yDiff > swipeLength ) {
+             // this.nextItem(); // up
+          } else if (yDiff < (swipeLength * -1) ) {
+              //this.previousItem(); // down
           }
       }
       /* reset values */
