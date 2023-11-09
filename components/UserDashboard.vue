@@ -14,7 +14,7 @@
             </div>
           </div>
         </section>
-
+        <welcome v-if="user.id == 1"></welcome>
         <section v-if="$fetchState.pending">
           Loading Dashboard
         </section>
@@ -51,6 +51,7 @@ import CardToolbar from '@/components/CardToolbar'
 import RefreshButton from '@/components/RefreshButton'
 import EchoBreadCrumbs from '@/components/navigation/EchoBreadCrumbs.vue'
 import PopularItems from '@/components/onboarding/PopularItems.vue'
+import Welcome from '@/components/onboarding/Welcome.vue'
 import InviteFriend from '@/components/cta/InviteFriend.vue'
 
 
@@ -66,7 +67,8 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
       TitleBar,
       EchoBreadCrumbs,
       PopularItems,
-      InviteFriend
+      InviteFriend,
+      Welcome
     },
     data() {
       return {
