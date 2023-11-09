@@ -63,7 +63,7 @@
                 <div class="content">
                   <h1 class="title has-text-centered">Public Profile</h1>
                   <p>Every EchoMTG user has a public profile where decks, trades, articles, and alters can be shared. You can upload your avatar and change your backgroud image under edit profile</p>
-                  <p>We have an awesome discord channel too <a target="_blank" href="https://discord.gg/f6VFybb">Click to Join</a>
+                  <p>We have a discord channel too <a target="_blank" href="https://discord.gg/f6VFybb">Click to Join</a></p>
                 </div>
             </b-step-item>
 
