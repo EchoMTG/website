@@ -323,7 +323,7 @@
           </b-table-column>
 
           <b-table-column width="80" cell-class="is-hidden-touch" header-class="is-hidden-touch" field="personal_gain" label="Gain/Loss"  sortable centered v-slot="props">
-            <span v-if="props.row.gain && props.row.price_acquired !== 0" class="tag" :class="type(props.row.gain)">
+            <span v-if="props.row.price_acquired !== 0" class="tag" :class="type(props.row.gain)">
               {{ props.row.gain }}%
             </span>
             <b-tooltip label="When acquired price is set to 0 there is infinite value. To the moon!" type="is-success" v-else>
