@@ -23,12 +23,9 @@
                         <div class="columns" v-if="this.$echomtg.isLoggedIn()">
                           <div class="column">
                             <h2 class="subtitle is-size-5">Inventory</h2>
-                             <b-button v-if="hasRegular"  type="is-dark is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid)">
-                              Add Regular
-                            </b-button>
-                           <b-button v-if="hasFoil" type="is-warning is-small" icon-left="plus" @click="inventoryQuickAdd(item.emid,1)">
-                              Add Foil
-                            </b-button>
+                            <quick-add-button v-if="hasRegular" :emid="item.emid" :foil="0" />
+                            <quick-add-button v-if="hasFoil" :emid="item.emid" :foil="1" />
+
                           </div>
                           <div class="column">
                             <watchlist-quick-add-button :emid="item.emid" />
@@ -45,7 +42,7 @@
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular {{currency_symbol}}{{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil {{currency_symbol}}{{item.foil_price}}</a>
 
-            <a v-if="item.card_url" :href="item.variation_url" class="card-footer-item">All Variations</a>
+            <a v-if="variationURL !== ''" :href="variationURL" class="card-footer-item">All Variations</a>
             <a :href="itemURL" class="card-footer-item">Open Item Page</a>
         </footer>
     </div>
@@ -58,11 +55,13 @@
 <script>
 import WatchlistQuickAddButton from '../watchlist/WatchlistQuickAddButton.vue'
 import { mapState } from 'vuex'
+import QuickAddButton from '../inventory/QuickAddButton.vue'
 
 export default {
     name: 'ItemInspector',
     components: {
-      WatchlistQuickAddButton
+      WatchlistQuickAddButton,
+        QuickAddButton
     },
     data: function data() {
         return {
@@ -115,8 +114,23 @@ export default {
           let ctb = this.closeToBottom ? 'closeToBottom' : '';
           return `card itemInspectorCard ${ctb} ${full}`;
       },
+      variationURL(){
+        if(this.item.variation_url){
+          return this.item.variation_url;
+        }
+        if(this.item.card_url){
+          return this.item.card_url
+        }
+        return ''
+      },
       itemURL(){
-        return this.$echomtg.itemURL(this.item)
+        if(this.item.echo_url){
+          return this.item.echo_url;
+        }
+        if(this.item.url){
+          return this.item.url
+        }
+        return ''
       }
 
 
