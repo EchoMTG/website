@@ -112,8 +112,6 @@
                 <b-button size="is-small"  type="is-info" icon-left="download">Download Filtered List</b-button>
             </vue-json-to-csv>
 
-
-
         </div>
         <div
           v-if="items.length > 0 && filteredItems.length == 0"
@@ -153,7 +151,7 @@
               <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-black" icon="minus" size="is-small" /> </a>
               <strong style="margin: 0px 5px" class="has-text-white">{{isCardOwned(props.row.emid, 'regular')}}</strong>
               <a v-on:click="addItem(props.row.emid, 0)"><b-icon class="has-text-black" icon="plus" size="is-small" /></a>
-              </b-tag>
+            </b-tag>
 
 
             <b-tag
@@ -522,7 +520,7 @@ export default {
       return this.user?.currency_symbol ?  this.user.currency_symbol : '$';
     },
     dirtyFilters() {
-      return this.showOwned != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
+      return this.showOwned != '' || this.rarity != '' || this.variant != '' || this.valueBelow != 0 || this.valueAbove != 0 || this.showOwned != '' || this.search != ''
     },
     ...mapState(['userLevel','user','authenticated']),
       filteredItems: function(){

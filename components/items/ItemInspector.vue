@@ -8,7 +8,7 @@
             <div class="columns">
                 <div class="column is-one-third">
                     <nuxt-link :to="itemURL">
-                        <b-image   width="200" quality="70"  class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder" :alt="`${item.name} magic image`"  />
+                        <b-image width="200" quality="70"  class="popoverImage" custom-class="expandedImage"	 :src="item.image ? item.image : placeholder" :alt="`${item.name} magic image`"  />
                     </nuxt-link>
                 </div>
                 <div class="column is-two-thirds ">
