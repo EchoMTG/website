@@ -45,7 +45,7 @@
             <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular {{currency_symbol}}{{item.tcg_mid}}</a>
             <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil {{currency_symbol}}{{item.foil_price}}</a>
 
-            <a v-if="item.card_url" :href="item.variation_url" class="card-footer-item">All Variations</a>
+            <a v-if="variationURL !== ''" :href="variationURL" class="card-footer-item">All Variations</a>
             <a :href="itemURL" class="card-footer-item">Open Item Page</a>
         </footer>
     </div>
@@ -115,8 +115,23 @@ export default {
           let ctb = this.closeToBottom ? 'closeToBottom' : '';
           return `card itemInspectorCard ${ctb} ${full}`;
       },
+      variationURL(){
+        if(this.item.variation_url){
+          return this.variation_url;
+        }
+        if(this.item.card_url){
+          return this.card_url
+        }
+        return ''
+      },
       itemURL(){
-        return this.$echomtg.itemURL(this.item)
+        if(this.item.echo_url){
+          return this.echo_url;
+        }
+        if(this.item.url){
+          return this.url
+        }
+        return ''
       }
 
 

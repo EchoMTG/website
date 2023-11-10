@@ -166,7 +166,7 @@
           </b-table-column>
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
-            <a :href="itemURL(props.row)" :title="`Open ${props.row.name} Page`">
+            <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
 
                 <NuxtImg
                     :loading="props.index > 10 ? 'lazy' : 'eager'"
