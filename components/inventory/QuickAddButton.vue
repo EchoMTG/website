@@ -6,6 +6,7 @@
       type="is-dark"
       icon-left="book-open-page-variant-outline"
       :class="getClasses"
+      :label="buttonText"
     ></b-button>
 </template>
 
@@ -16,6 +17,10 @@ export default {
     emid: {
       type: Number,
       required: true
+    },
+    buttonText: {
+      type: String,
+      default: ''
     },
     foil: {
       type: Number,
