@@ -147,6 +147,7 @@
                             :manacost="result.mana_cost"
                             :showimage="showimage"
                             :showprice="showprice"
+                            :gotopage="gotopage"
                             :callbackname="callbackname"
                             @primaryCallback="callback(result.emid)"
                             ></GlobalSearchRow>
@@ -275,7 +276,7 @@ export default {
                 console.log('finsihed quick add')
 
               } else {
-                window.location = this.results[this.position].url
+               this.gotopage(this.results[this.position].url)
               }
 
             }
@@ -367,6 +368,12 @@ export default {
           this.textsearch = ''
           this.types = ''
           this.$refs.advancedSearchOptions.classList.toggle('open')
+      },
+      gotopage(url){
+        console.log(url)
+        this.$router.push(url);
+        this.closeFocus()
+
       },
       closeFocus() {
           this.$refs.globalSearchBox.classList.add('closed');

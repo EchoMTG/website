@@ -9,7 +9,7 @@
 
     <div class="itemName is-flex is-flex-direction-column">
         <div>
-            <h4><a :href="url">{{name}}</a></h4>
+            <h4><a @click="gotopage(url)">{{name}}</a></h4>
             <div :class="this.previewOpenClass" >
                 <div class="icon" @click="togglePreview">
                    <b-icon icon="image" class="is-left" size="is-small" />
@@ -102,7 +102,8 @@ export default {
         'showprice',
         'selected',
         'previewopen',
-        'acquiredprice'
+        'acquiredprice',
+        'gotopage'
     ],
     data: function data() {
         return {
@@ -188,6 +189,7 @@ export default {
             // https://assets.echomtg.com/magic/cards/cropped/61502.hq.jpg
             return `https://assets.echomtg.com/magic/cards/cropped/${this.emid}.hq.jpg`
         },
+
         cardImage: function(){
             //
             return `https://assets.echomtg.com/magic/cards/original/${this.emid}.jpg`
