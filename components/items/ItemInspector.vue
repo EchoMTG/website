@@ -13,55 +13,71 @@
                 </div>
                 <div class="column is-two-thirds ">
                     <div class="mr-3 ml-2">
-                        <p class="subtitle is-size-5 mt-3 mb-0">
+                        <p class="subtitle is-size-4 mt-3 mb-0">
                             {{item.name}}
                         </p>
-                        <p class="subtitle is-size-6 mb-1">{{item.types}}</p>
+                        <p class="subtitle has-text-grey is-size-7 mb-1">{{item.types}}</p>
 
                         <div class="content is-small" v-html="this.$echomtg.replaceSymbols(item.card_text)"></div>
 
-                        <div class="columns" v-if="this.$echomtg.isLoggedIn()">
-                          <div class="column">
-                            <h2 class="subtitle is-size-5">Inventory</h2>
-                            <quick-add-button v-if="hasRegular" :emid="item.emid" :foil="0" />
-                            <quick-add-button v-if="hasFoil" :emid="item.emid" :foil="1" />
-
-                          </div>
-                          <div class="column">
-                            <watchlist-quick-add-button :emid="item.emid" />
-                          </div>
-
+                        <div v-if="this.$echomtg.isLoggedIn()">
+                          <hr class="mb-3" />
+                          <quick-add-button class="mr-2" buttonText="Add Regular" v-if="hasRegular" :emid="item.emid" :foil="0" />
+                          <quick-add-button class="mr-2" buttonText="Add Foil" v-if="hasFoil" :emid="item.emid" :foil="1" />
+                          <watchlist-quick-add-button :emid="item.emid" />
                         </div>
+                        <hr class="mt-3 mb-3" />
+                        <a v-if="hasRegular"
+                          :href="item.purchase_link"
+                          class="button is-small is-success mr-2">
+                          <b-icon icon="cart" size="is-small" class="mr-1" />
+                          Buy Regular {{currency_symbol}}{{item.tcg_mid}}
+                        </a>
+                        <a
+                          v-if="hasFoil"
+                          :href="item.purchase_link"
+                          class="button is-small is-success">
+                          <b-icon icon="cart" size="is-small" class="mr-1" />
+                          Buy Foil {{currency_symbol}}{{item.foil_price}}</a>
+                          <br class="is-clearfix" />
+                          <small>
+                          <affiliate-overlay-disclaimer/>
+                          </small>
+                          <hr class="mt-1 mb-3" />
+                          <a :href="itemURL" class="button is-small">
+                            <b-icon icon="magnify-plus-outline" size="is-small" class="mr-2" />Open Item Details
+                          </a>
+                          <a v-if="variationURL !== ''" :href="variationURL" class="button is-small mr-2">
+                            <b-icon icon="shape" size="is-small" class="mr-1" />
+                            See All Variations
+                          </a>
+
 
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="card-footer" v-if="toggleShowFull">
-            <a v-if="hasRegular" :href="item.purchase_link" class="card-footer-item">Buy Regular {{currency_symbol}}{{item.tcg_mid}}</a>
-            <a v-if="hasFoil" :href="item.purchase_link" class="card-footer-item">Buy Foil {{currency_symbol}}{{item.foil_price}}</a>
-
-            <a v-if="variationURL !== ''" :href="variationURL" class="card-footer-item">All Variations</a>
-            <a :href="itemURL" class="card-footer-item">Open Item Page</a>
-        </footer>
     </div>
 </template>
 <style lang="scss" scoped>
     .expandedImage {
         margin-bottom: -7px;
+        border-radius: 20px;
     }
 </style>
 <script>
 import WatchlistQuickAddButton from '../watchlist/WatchlistQuickAddButton.vue'
 import { mapState } from 'vuex'
 import QuickAddButton from '../inventory/QuickAddButton.vue'
+import AffiliateOverlayDisclaimer from '../legal/AffiliateOverlayDisclaimer.vue'
 
 export default {
     name: 'ItemInspector',
     components: {
       WatchlistQuickAddButton,
-        QuickAddButton
+        QuickAddButton,
+        AffiliateOverlayDisclaimer
     },
     data: function data() {
         return {
