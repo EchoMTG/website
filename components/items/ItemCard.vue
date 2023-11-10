@@ -13,7 +13,7 @@
       <div class="card-image p-2">
         <figure class="image">
           <a :href="item.card_url">
-            <img :src="item.image" :alt="`${item.name} from ${item.expansion}`">
+            <img :src="item.image" :alt="`${item.name} from ${item.set}`">
           </a>
         </figure>
       </div>

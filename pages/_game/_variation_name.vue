@@ -72,8 +72,8 @@
 
         </b-field>
 
-        <div class="message p-4 pt-2 mb-4">
-          <div class="content">
+        <div class="message has-background-black p-4 pt-2 mb-4">
+          <div class="content has-text-white">
             <div class="mb-3" v-html="this.$echomtg.replaceSymbols(this.original.card_text)"></div>
             <p class="is-italic">{{this.original.flavor_text}}</p>
           </div>
@@ -113,13 +113,25 @@ export default {
       variations: {},
       original: {},
       sortField: 'price',
-      sortDirection: 'DESC'
+      sortDirection: 'DESC',
+      game: 'mtg',
+      games: {
+        mtg : {
+          id: 1,
+          name: 'Magic: the Gathering',
+        },
+        lorcana : {
+          id: 71,
+          name: 'Disney Lorcana',
+        }
+      },
     }
   },
   async asyncData({ params, redirect, $config }) {
 
     // fetch the set
-    let endpoint = `${$config.API_DOMAIN}data/item_variations/?name=${params.variation_name}`;
+    const game = params.game;
+    let endpoint = `${$config.API_DOMAIN}data/item_variations/?name=${params.variation_name}&game=${game}`;
     let variations, original, res, data = []
     // try to get the json
     try {
@@ -143,10 +155,10 @@ export default {
     // return it
     if (variations.length > 0) {
       return {
-        variations, original
+        variations, original, game
       }
     } else {
-      redirect('/mtg/sets/')
+      redirect(`/${game}/sets/`)
     }
   },
   methods: {
@@ -216,8 +228,8 @@ export default {
     crumbs () {
       return [
         {
-          label: 'Sets',
-          url: '/mtg/sets/',
+          label: this.games[this.game].name,
+          url: `/${this.game}}/`,
           icon: ''
         },
          {
@@ -231,13 +243,19 @@ export default {
   },
   head () {
     return {
-        title: `${this.original.name} Printings, Prices, and Variations`,
+        title: `${this.original.name} Printings, Prices, and Variations - ${this.game}`,
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.original.image_cropped },
           {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Magic the Gathering card ${this.original.name}`
+            content:  `Card Images and Prices for the ${this.games[this.game].name} card ${this.original.name}`
+          }
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: 'https://www.echomtg.com' + this.$route.path
           }
         ]
 
