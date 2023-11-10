@@ -49,13 +49,21 @@
       <div class="column is-three-fourths">
 
          <div class="is-flex ml-3 mt-3 py-3 is-hidden-touch">
-          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">{{this.item.name}} <span :class="`has-text-weight-light ` + (isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter') ">prices from <nuxt-link :class="isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter'" :to="item.set_url"><i :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}</nuxt-link></span> </h1>
+          <h1 class="title is-size-4 p-0 m-0 is-size-6-touch">
+            {{this.item.name}}
+            <span :class="`has-text-weight-light ` + (isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter') ">
+              prices from
+              <nuxt-link :class="isDarkModeActive == 1 ? 'has-text-grey-dark' :'has-text-grey-lighter'" :to="item.set_url">
+                <i v-if="game == 'mtg'" :class="getSetIconClass(this.item.set_code)" /> {{this.item.expansion}}
+              </nuxt-link>
+            </span>
+          </h1>
           <social-buttons
               classes="ml-auto mr-5 "
               :url="`https://www.echomtg.com${this.$nuxt.$route.path}`"
               :title="`${item.name} price has ${changeVerb} ${item.change}% to $${item.tcg_mid}`"
               :twitter="`echomtg`"
-              :hashtags="`${item.set_code},${item.expansion},mtg,echomtg`"
+              :hashtags="`${item.set_code},${item.expansion},${this.game},echomtg`"
             />
         </div>
               <b-field class="pb-0 ml-3 is-hidden-touch" grouped group-multiline>
@@ -72,7 +80,7 @@
                   <b-taglist attached>
                     <b-tag class="has-background-black has-text-white">Types</b-tag>
                     <b-tag class="has-background-grey-dark has-text-white">
-                      <echo-link class="has-text-white" :url="`/${games[this.item.game]}/types/${this.item.main_type.toLowerCase().replace(' ','-').trim()}/`">{{this.item.main_type}}</echo-link>
+                      <echo-link class="has-text-white" :url="`/${this.game}/types/${this.item.main_type.toLowerCase().replace(' ','-').trim()}/`">{{this.item.main_type}}</echo-link>
                     </b-tag>
                   </b-taglist>
                 </div>
@@ -249,7 +257,7 @@
                   :mobile-cards="false"
 
                 >
-                    <b-table-column v-slot="props">
+                    <b-table-column :visible="game == 'mtg'" v-slot="props">
                       <b-icon :class="getSetIconClass(props.row.set_code)"></b-icon>
                     </b-table-column>
                     <b-table-column field="set" label="Expansion" sortable v-slot="props">
@@ -291,10 +299,14 @@
                   aria-id="buylist"
                   animation="slide"
                   v-model="isBuylistOpen">
-                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item.tcg_low}}</b-button>
+                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item?.tcg_low ? item.tcg_low : item.foil_price}}</b-button>
                     <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
-                    <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
+                    <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
+                     <small>
+                    <affiliate-overlay-disclaimer class="ml-3" />
+                    </small>
                     <br class="is-clearfix" />
+
                     <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
                     <hr class="mx-0 my-1"/>
                   <div v-if="authenticated && user.planObject.access_level >= 3" class="pb-2">
@@ -363,6 +375,7 @@ import SocialButtons from '@/components/cta/SocialButtons.vue'
 import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 import CommentThread from '@/components/comments/CommentThread.vue'
 import EchoLink from '@/components/EchoLink.vue'
+import AffiliateOverlayDisclaimer from '@/components/legal/AffiliateOverlayDisclaimer.vue'
 
 export default {
   name: 'Expansion',
@@ -378,7 +391,8 @@ export default {
     CreateAccountModal,
     SocialButtons,
     CommentThread,
-    EchoLink
+    EchoLink,
+    AffiliateOverlayDisclaimer
   },
   data () {
     return {
@@ -387,14 +401,22 @@ export default {
       item: {
         name: '',
       },
+
       dates: [],
       date_start: this.$moment().subtract(12, 'months').format('Y-MM-DD'),
       date_end: this.$moment().format('Y-MM-DD'),
       variations: [],
       dateEdit: false,
+      game: 'mtg',
       games: {
-        '1' : 'mtg',
-        '71' : 'lorcana'
+        mtg : {
+          id: 1,
+          name: 'Magic: the Gathering',
+        },
+        lorcana : {
+          id: 71,
+          name: 'Disney Lorcana',
+        }
       },
       prices: {
         foil: [2,2,2],
@@ -415,7 +437,8 @@ export default {
   },
   async asyncData({ params, redirect, $echomtg, $config, $moment }) {
 
-    let emid = params.emid_mtg;
+    let emid = params.item_emid;
+    let game = params.game;
     let item, res, dataRes, variations;
     let prices = {
       'date' : [],
@@ -479,7 +502,7 @@ export default {
     // return it
     if (item) {
       return {
-        item, prices, variations, dates
+        item, prices, variations, dates, game
       }
     } else {
       //redirect('/sets/')
@@ -578,14 +601,14 @@ export default {
     crumbs () {
       return [
          {
-          label: 'Magic: the Gathering',
-          url: '/mtg/',
+          label: `${this.games[this.game].name}`,
+          url: `/${this.game}/`,
           icon: ''
 
         },
         {
           label: 'Sets',
-          url: '/mtg/sets/',
+          url: `/${this.game}/sets/`,
           icon: ''
         },
         {
@@ -658,13 +681,13 @@ export default {
   },
   head () {
     return {
-        title: `${this.item.card_name } Price ${this.item.expansion} MTG`,
+        title: `${this.item.card_name} Price from ${this.game} ${this.item.expansion}`,
         meta: [
           { hid: 'og:image', property: 'og:image', content: this.item.image_cropped },
           {
             hid: 'description',
             name: 'description',
-            content:  `Card Images and Prices for the Magic the Gathering set ${this.item.card_name}, ${this.item.expansion}`
+            content:  `Card Images, Info and Price History for ${this.item.card_name} from the ${this.game} set ${this.item.expansion}`
           },
           {
             hid:'',
