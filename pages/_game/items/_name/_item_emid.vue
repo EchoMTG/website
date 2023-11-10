@@ -265,7 +265,7 @@
                     </b-table-column>
 
                     <b-table-column field="tcg_mid" label="Price" sortable number v-slot="props">
-                        <span v-if="props.row.tcg_mid">{{cs}}{{ props.row.tcg_mid.toLocaleString("en-US") }}</span>
+                        <span v-if="props.row.tcg_mid">{{cs}}{{ props.row?.tcg_mid.toLocaleString("en-US") }}</span>
                     </b-table-column>
                     <b-table-column  field="foil_price" label="Foil" sortable number v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil_price">{{cs}}{{ props.row.foil_price.toLocaleString("en-US") }}</span>
@@ -400,6 +400,7 @@ export default {
       isBuylistOpen: true,
       item: {
         name: '',
+        set_code: ''
       },
 
       dates: [],
@@ -652,16 +653,16 @@ export default {
       }
     },
     regularLowPrice(){
-      return this.item.tcg_low > 0 ? this.item.tcg_low.toLocaleString("en-US") : 'N/A'
+      return this.item.tcg_low > 0 ? this.item?.tcg_low.toLocaleString("en-US") : 'N/A'
     },
     regularMidPrice(){
-      return this.item.tcg_mid > 0 ? this.item.tcg_mid.toLocaleString("en-US") : 'N/A'
+      return this.item.tcg_mid > 0 ? this.item?.tcg_mid.toLocaleString("en-US") : 'N/A'
     },
     regularMarketPrice(){
-      return this.item.tcg_market > 0 ? this.item.tcg_market.toLocaleString("en-US") : 'N/A'
+      return this.item.tcg_market > 0 ? this.item?.tcg_market.toLocaleString("en-US") : 'N/A'
     },
     foilPrice(){
-      return this.item.foil_price > 0 ? this.item.foil_price.toLocaleString("en-US") : 'N/A'
+      return this.item.foil_price > 0 ? this.item?.foil_price.toLocaleString("en-US") : 'N/A'
     },
     foilMultipler() {
       return (this.item.foil_price / this.item.tcg_mid).toFixed(2)
