@@ -128,7 +128,8 @@ export default {
         return date > yearAgo
       });
       if(prices.length == 0) return 'N/A';
-      return prices.reduce((prev,curr)=>  Math.max(prev,curr) ).toLocaleString("en-US")
+      let returnPrice = prices.reduce((prev,curr)=>  Math.max(prev,curr) );
+      return returnPrice ? returnPrice.toLocaleString("en-US") : 'N/A';
     },
     get7DayLow(){
 
@@ -142,7 +143,8 @@ export default {
         return date > yearAgo
       });
       if(prices.length == 0) return 'N/A';
-      return prices.reduce((prev,curr)=>  Math.min(prev,curr) ).toLocaleString("en-US")
+      let returnPrice = prices.reduce((prev,curr)=>  Math.min(prev,curr) );
+      return returnPrice ? returnPrice.toLocaleString("en-US") : 'N/A';
     },
     get52WeekLow(){
 
@@ -156,7 +158,8 @@ export default {
         return date > yearAgo
       });
       if(prices.length == 0) return 'N/A';
-      return prices.reduce((prev,curr)=>  Math.min(prev,curr) ).toLocaleString("en-US")
+      let returnPrice = prices.reduce((prev,curr)=>  Math.min(prev,curr) );
+      return returnPrice ? returnPrice.toLocaleString("en-US") : 'N/A';
     },
     get52WeekHigh(){
 
@@ -170,7 +173,8 @@ export default {
         return date > yearAgo
       });
       if(prices.length == 0) return 'N/A';
-      return prices.reduce((prev,curr)=>  Math.max(prev,curr) ).toLocaleString("en-US")
+      let returnPrice = prices.reduce((prev,curr)=>  Math.max(prev,curr) )
+      return returnPrice ? returnPrice.toLocaleString("en-US") : 'N/A';
     },
     todayPrice(){
       return this.prices[this.type][this.prices[this.type].length - 1]
