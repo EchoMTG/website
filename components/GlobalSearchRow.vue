@@ -99,6 +99,8 @@ export default {
         'manacost',
         'url',
         'showimage',
+        'image',
+        'image_cropped',
         'showprice',
         'selected',
         'previewopen',
@@ -186,13 +188,11 @@ export default {
           return (this.previewopen) ? 'previewIcon open' : 'previewIcon'
         },
         croppedImage: function(){
-            // https://assets.echomtg.com/magic/cards/cropped/61502.hq.jpg
-            return `https://assets.echomtg.com/magic/cards/cropped/${this.emid}.hq.jpg`
+            return this.image_cropped
         },
 
         cardImage: function(){
-            //
-            return `https://assets.echomtg.com/magic/cards/original/${this.emid}.jpg`
+            return this.image
         },
         regularPrice: function(){
             let price = (this.item.tcg_market > 0) ? this.item.tcg_market : this.item.tcg_mid;
