@@ -8,14 +8,24 @@
         close-button-aria-label="Close"
         custom-class="is-clipped"
         scroll="clip"
+
         :on-cancel="() => this.$store.commit('upgradeModalShow',false)"
         aria-modal>
-        <div class="columns">
-          <div class="column">
-            You hit your limit
+        <div class="card">
+          <div class="card-header">
+            <p class="card-header-title is-size-5">
+              <b-icon icon="alert" type="is-warning" class="mr-3" /> Account Limit Hit: {{user.planObject.card_cap}}
+            </p>
+
           </div>
-          <div class="column">
-            Upgrade now, plans start at X
+          <div class="columns">
+            <div class="column">
+
+
+            </div>
+            <div class="column">
+              Upgrade now, plans start at X
+            </div>
           </div>
         </div>
     </b-modal>
@@ -51,7 +61,8 @@
         },
         computed: {
           ...mapState([
-            'upgradeModalShow'
+            'upgradeModalShow',
+            'user'
           ])
         },
         watch: {

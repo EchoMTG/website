@@ -1,7 +1,7 @@
 <template>
   <b-button
     :size="size"
-    icon-left="eye"
+    icon-left="table-headers-eye"
     @click="add"
     :label="showLabel ? 'Add To Watchlist' : ''"
     :type="isDarkModeActive == 1 ? 'is-dark' : ''"
