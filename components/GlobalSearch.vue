@@ -135,6 +135,8 @@
                             :name="result.name"
                             :setCode="result.setcode"
                             :setName="result.set"
+                            :image="result.image"
+                            :image_cropped="result.image_cropped"
                             :emid="result.emid"
                             :url="result.url"
                             :item="result"
