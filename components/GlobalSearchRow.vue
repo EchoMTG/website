@@ -100,7 +100,7 @@ export default {
         'url',
         'showimage',
         'image',
-        'cropped_image',
+        'image_cropped',
         'showprice',
         'selected',
         'previewopen',
