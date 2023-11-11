@@ -18,13 +18,21 @@
             </p>
 
           </div>
-          <div class="columns">
+          <div class="columns px-4">
             <div class="column">
+              <div class="content pb-4">
+                <p>Your <strong>{{user.plan}}</strong> EchoMTG plan limit has been hit, upgrade your subscription to continue.</p>
+                <p>Since we do not sell your data or run ads website developement, infrastructure, and maintenance is purely supported by user subs.</p>
+                <p>Thank you for consideration!<br/>Teeg and Iona</p>
+              </div>
 
 
             </div>
             <div class="column">
-              Upgrade now, plans start at X
+              <p class="mb-4">Access more storage and specalized apps.</p>
+              <nuxt-link to="/plans/" class="button is-success is-large">
+                <b-icon icon="arrow-up" class="mr-2" /> Upgrade Now
+              </nuxt-link>
             </div>
           </div>
         </div>
