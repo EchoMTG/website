@@ -21,23 +21,24 @@
 
         </header>
          <div class="is-flex">
-              <a style="border-right: none;" v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)" class="card-footer-item has-text-black" @click="addItem(0)">
-                    <b-icon class="mr-2" icon="plus-box-outline"></b-icon> Add Regular</a>
-                  <!-- <input
-                    v-if="priceMid > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddPrice"
-                /> -->
-                <a style="border-right: none;" v-if="priceFoil > 0" class="card-footer-item has-text-warning-dark" @click="addItem(1)">
-                    <b-icon  class="mr-2" icon="plus-box-outline"></b-icon>  Add Foil
-                </a>
-                <!-- <input
-                    v-if="priceFoil > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddFoilPrice"
-                /> -->
+            <quick-add-button
+              v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)"
+              :emid="item.emid"
+              :foil="0"
+              :buttonText="`Add Regular`"
+              size=""
+              classes="m-2"
+              />
+            <quick-add-button
+              v-if="priceFoil > 0"
+              :emid="item.emid"
+              :foil="1"
+              :buttonText="`Add Foil`"
+              size=""
+              classes="m-2"
+              />
+
+
 
           </div>
         <b-collapse
@@ -86,6 +87,7 @@
 import {mapState} from 'vuex'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 import NoteButton from '../inventory/NoteButton.vue'
+import QuickAddButton from '../inventory/QuickAddButton.vue'
 import TouchFlyout from '../responsive/TouchFlyout.vue'
 
 export default {
@@ -93,7 +95,8 @@ export default {
     components: {
       MoveToEarningsButton,
       NoteButton,
-      TouchFlyout
+      TouchFlyout,
+        QuickAddButton
     },
     props: {
         item: {
@@ -134,37 +137,7 @@ export default {
             this.callback()
           }
         },
-        soldItem: function (acquiredPrice,inventoryID){
 
-            fetch(this.addEarningsURL(acquiredPrice,inventoryID),{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then( (response) => {
-                return response.json();
-            }).then((json) => {
-
-                this.$buefy.snackbar.open({
-                    message: json.message,
-                    type: 'is-success',
-                    queue: true,
-                    position: 'is-top',
-                })
-                this.actions++;
-                this.deleteItem(inventoryID);
-                if(this.callback){
-                  this.callback()
-                }
-
-            }).catch(function (error) {
-                this.$buefy.snackbar.open({
-                    message: error,
-                    type: 'is-error',
-                    position: 'is-top',
-                })
-
-            });
-        },
         deleteItem: function (inventoryID){
             fetch(this.removeAPIURL+inventoryID,{
                 headers: {

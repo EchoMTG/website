@@ -2,7 +2,7 @@
    <b-button
       @click="addToInventory"
       icon-right="plus"
-      size="is-small"
+      :size="size"
       type="is-dark"
       icon-left="book-open-page-variant-outline"
       :class="getClasses"
@@ -17,6 +17,10 @@ export default {
     emid: {
       type: Number,
       required: true
+    },
+    size: {
+      type: String,
+      default: 'is-small'
     },
     buttonText: {
       type: String,

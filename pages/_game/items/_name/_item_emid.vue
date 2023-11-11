@@ -277,74 +277,75 @@
             </div>
           </div>
           <div class="column is-one-third">
-             <div :class="'card '">
-                <header class="card-header">
-                  <a class="card-header-title "  @click="isBuylistOpen = !isBuylistOpen">
-                    EchoMTG Buylist Metrics and Tools
-                  </a>
-                  <button
-                      class="card-header-icon"
-                      aria-label="collapse Metrics and Tools"
-                      @click="isBuylistOpen = !isBuylistOpen"
-                      :aria-expanded="isBuylistOpen"
-                      aria-controls="buylist"
-                      >
-                      <span class="icon">
-                          <b-icon v-if="isBuylistOpen" icon="menu-down" aria-hidden="true"></b-icon>
-                          <b-icon v-if="!isBuylistOpen" icon="menu-left" aria-hidden="true"></b-icon>
-                      </span>
-                  </button>
-                </header>
-                <b-collapse
-                  aria-id="buylist"
-                  animation="slide"
-                  v-model="isBuylistOpen">
-                    <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item?.tcg_low ? item.tcg_low : item.foil_price}}</b-button>
-                    <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
-                    <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
-                     <small>
-                    <affiliate-overlay-disclaimer class="ml-3" />
-                    </small>
-                    <br class="is-clearfix" />
+             <client-only>
+              <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
+              <item-list-box :open="false" :title="`My Decks/Lists: `" v-if="authenticated" :item="this.item"></item-list-box>
+            </client-only>
+            <div :class="'card '">
+              <header class="card-header">
+                <a class="card-header-title "  @click="isBuylistOpen = !isBuylistOpen">
+                  EchoMTG Buylist Metrics and Tools
+                </a>
+                <button
+                    class="card-header-icon"
+                    aria-label="collapse Metrics and Tools"
+                    @click="isBuylistOpen = !isBuylistOpen"
+                    :aria-expanded="isBuylistOpen"
+                    aria-controls="buylist"
+                    >
+                    <span class="icon">
+                        <b-icon v-if="isBuylistOpen" icon="menu-down" aria-hidden="true"></b-icon>
+                        <b-icon v-if="!isBuylistOpen" icon="menu-left" aria-hidden="true"></b-icon>
+                    </span>
+                </button>
+              </header>
+              <b-collapse
+                aria-id="buylist"
+                animation="slide"
+                v-model="isBuylistOpen">
+                  <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item?.tcg_low ? item.tcg_low : item.foil_price}}</b-button>
+                  <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
+                  <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
+                    <small>
+                  <affiliate-overlay-disclaimer class="ml-3" />
+                  </small>
+                  <br class="is-clearfix" />
 
-                    <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
-                    <hr class="mx-0 my-1"/>
-                  <div v-if="authenticated && user.planObject.access_level >= 3" class="pb-2">
+                  <small class="ml-4 is-size-7 has-text-grey">Buylist Metrics</small>
+                  <hr class="mx-0 my-1"/>
+                <div v-if="authenticated && user.planObject.access_level >= 3" class="pb-2">
 
-                    <div class="is-flex px-4 has-text-warning"><span>Paper Foil</span> <span class="ml-auto">{{cs}}{{item.foil_buylist_assumption}}</span></div>
-                    <div class="is-flex px-4"><span>Paper Regular</span> <span class="ml-auto">{{cs}}{{item.buylist_assumption}}</span></div>
-                  </div>
-                  <div class="px-3 pb-2" v-else>
-                    <nuxt-link class="is-size-7" to="/plans">Upgrade to Mythic for EchoMTG Buylist Metrics</nuxt-link>
-                  </div>
-                </b-collapse>
-             </div>
+                  <div class="is-flex px-4 has-text-warning"><span>Paper Foil</span> <span class="ml-auto">{{cs}}{{item.foil_buylist_assumption}}</span></div>
+                  <div class="is-flex px-4"><span>Paper Regular</span> <span class="ml-auto">{{cs}}{{item.buylist_assumption}}</span></div>
+                </div>
+                <div class="px-3 pb-2" v-else>
+                  <nuxt-link class="is-size-7" to="/plans">Upgrade to Mythic for EchoMTG Buylist Metrics</nuxt-link>
+                </div>
+              </b-collapse>
+            </div>
 
-          <b-field grouped group-multiline v-if="user.planObject.access_level >= 3">
-            <div class="control">
-              <b-taglist attached>
-                  <b-tag type="is-black">ECHO</b-tag>
-                  <b-tag type="is-dark">{{this.item.emid}}</b-tag>
-              </b-taglist>
-            </div>
-            <div class="control">
-              <b-taglist attached>
-                  <b-tag type="is-black">TCG</b-tag>
-                  <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
-              </b-taglist>
-            </div>
-            <div class="control">
-              <b-taglist attached>
-                  <b-tag type="is-black">WOTC</b-tag>
-                  <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
-              </b-taglist>
-            </div>
-          </b-field>
-            <client-only>
-                <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
-                <item-list-box :open="false" :title="`My Decks/Lists: `" v-if="authenticated" :item="this.item"></item-list-box>
-              </client-only>
-              <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
+            <b-field grouped group-multiline v-if="user.planObject.access_level >= 3">
+              <div class="control">
+                <b-taglist attached>
+                    <b-tag type="is-black">ECHO</b-tag>
+                    <b-tag type="is-dark">{{this.item.emid}}</b-tag>
+                </b-taglist>
+              </div>
+              <div class="control">
+                <b-taglist attached>
+                    <b-tag type="is-black">TCG</b-tag>
+                    <b-tag type="is-dark">{{this.item.tcgplayer_id}}</b-tag>
+                </b-taglist>
+              </div>
+              <div class="control">
+                <b-taglist attached>
+                    <b-tag type="is-black">WOTC</b-tag>
+                    <b-tag type="is-dark">{{this.item.multiverseid}}</b-tag>
+                </b-taglist>
+              </div>
+            </b-field>
+
+            <card-ad image="https://assets.echomtg.com/images/product/collection-app-2023.png" v-if="!authenticated" />
 
           </div>
         </div>
