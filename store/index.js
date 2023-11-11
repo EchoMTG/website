@@ -70,6 +70,9 @@ export const state = () => ({
   /* Dark mode (available with style-light-dark.scss only) */
   isDarkModeActive: true,
 
+  /* Upgrade Modal */
+  upgradeModalShow: false,
+
 
   /*  data */
   sets: []
@@ -99,8 +102,6 @@ export const mutations = {
 
   authenticated(state, payload){
       state.authenticated = payload
-
-
   },
 
   currentInventoryPage (state, payload) {
@@ -176,6 +177,9 @@ export const mutations = {
 
   loginSignupModalShow (state, payload = null){
     state.loginSignupModalShow = payload;
+  },
+  upgradeModalShow (state, payload = null){
+    state.upgradeModalShow = payload;
   },
 
 

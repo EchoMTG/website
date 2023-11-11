@@ -1,7 +1,15 @@
 <template>
-  <b-button :size="size" icon-left="eye" @click="add" :label="showLabel ? 'Add To Watchlist' : ''" />
+  <b-button
+    :size="size"
+    icon-left="table-headers-eye"
+    @click="add"
+    :label="showLabel ? 'Add To Watchlist' : ''"
+    :type="isDarkModeActive == 1 ? 'is-dark' : ''"
+    />
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'WatchlistQuickAddButton',
   props: {
@@ -17,16 +25,24 @@ export default {
       default: 'is-small'
     }
   },
+  computed:{
+    ...mapState(['isDarkModeActive'])
+  },
   methods: {
     async add(){
       const res = await this.$echomtg.addToWatchlist(this.emid);
-       this.$buefy.snackbar.open({
-          message: res.message,
-          type: 'is-success',
-          queue: false,
-          duration: 10000,
-          position: 'is-bottom-right'
-       })
+      let type = 'is-success'
+
+       // trigger login
+      if(res.message.includes('authorized')){
+        this.$store.commit('loginSignupModalShow',true);
+        type = 'is-warning'
+      }
+
+      this.$buefy.toast.open({
+        message: res.message,
+        type: type
+      })
     }
   }
 }

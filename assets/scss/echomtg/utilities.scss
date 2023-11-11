@@ -309,6 +309,12 @@ $fa-cc-visa: #0157a2;
   }
 }
 
+.is-clipped {
+  .modal-content {
+    overflow: hidden !important;
+  }
+}
+
 .itemInspectorCard {
 	position: absolute;
 	width: 200px;

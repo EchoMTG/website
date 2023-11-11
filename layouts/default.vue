@@ -11,7 +11,8 @@
     <!-- <aside-right /> -->
     <footer-bar />
     <overlay @overlay-click="overlayClick" />
-    <login-signup-modal />
+    <login-signup-modal  v-if="!authenticated" />
+    <upgrade-modal v-if="authenticated" />
   </div>
 </template>
 
@@ -20,6 +21,7 @@
 import { mapState } from 'vuex'
 import NavBar from '@/components/NavBar'
 import LoginSignupModal from '@/components/user/LoginSignupModal'
+import UpgradeModal from '@/components/user/UpgradeModal'
 import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 import Overlay from '@/components/Overlay'
@@ -37,7 +39,8 @@ export default {
     FooterBar,
     AsideMenu,
     NavBar,
-    LoginSignupModal
+    LoginSignupModal,
+    UpgradeModal
   },
   data () {
     return {

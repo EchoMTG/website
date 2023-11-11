@@ -1,10 +1,8 @@
 <template>
     <div class="card">
         <header class="card-header">
-
-
             <p class="card-header-title">
-                <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{this.items.length}}</a>
+              <a @click="isOpen = !isOpen" class="has-text-grey">{{title}} {{this.items.length}}</a>
             </p>
             <button
                 class="card-header-icon"
@@ -21,24 +19,22 @@
 
         </header>
          <div class="is-flex">
-              <a style="border-right: none;" v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)" class="card-footer-item has-text-black" @click="addItem(0)">
-                    <b-icon class="mr-2" icon="plus-box-outline"></b-icon> Add Regular</a>
-                  <!-- <input
-                    v-if="priceMid > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border-bottom: none;border-left: none;border-top: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddPrice"
-                /> -->
-                <a style="border-right: none;" v-if="priceFoil > 0" class="card-footer-item has-text-warning-dark" @click="addItem(1)">
-                    <b-icon  class="mr-2" icon="plus-box-outline"></b-icon>  Add Foil
-                </a>
-                <!-- <input
-                    v-if="priceFoil > 0"
-                    class="input card-footer-item is-shadowless m-0"
-                    style="border: none; border-radius: 0; height: auto"
-                    v-model="acquiredAddFoilPrice"
-                /> -->
-
+            <quick-add-button
+              v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)"
+              :emid="item.emid"
+              :foil="0"
+              :buttonText="`Add Regular`"
+              size=""
+              classes="m-2"
+              />
+            <quick-add-button
+              v-if="priceFoil > 0"
+              :emid="item.emid"
+              :foil="1"
+              :buttonText="`Add Foil`"
+              size=""
+              classes="m-2 ml-auto"
+              />
           </div>
         <b-collapse
             aria-id="inventoryToolBox"
@@ -73,7 +69,12 @@
                             <NuxtImg height="22" width="40" class="mr-auto" :src="props.row.image_cropped" />
                             <note-button class="mr-1" :inventory_item="props.row" :callback="getItems" />
                             <move-to-earnings-button class="mr-1" :inventory_item="props.row" :currency_symbol="user.currency_symbol" :callback="moveCallback"/>
-                            <b-button class="mr-1" icon-left="delete" aria-label="Remove Item from Inventory" size="is-small" type="is-danger" @click="deleteItem(props.row.inventoryID)"/>
+
+                            <delete-inventory-button
+                              class="ml-auto mr-1"
+                              :inventory_id="props.row.inventoryID"
+                              :callback="moveCallback" />
+
                           </div>
                       </touch-flyout>
                     </b-table-column>
@@ -85,7 +86,9 @@
 <script>
 import {mapState} from 'vuex'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
+import DeleteInventoryButton from '../inventory/DeleteInventoryButton.vue'
 import NoteButton from '../inventory/NoteButton.vue'
+import QuickAddButton from '../inventory/QuickAddButton.vue'
 import TouchFlyout from '../responsive/TouchFlyout.vue'
 
 export default {
@@ -93,7 +96,9 @@ export default {
     components: {
       MoveToEarningsButton,
       NoteButton,
-      TouchFlyout
+      TouchFlyout,
+      QuickAddButton,
+      DeleteInventoryButton
     },
     props: {
         item: {
@@ -134,89 +139,8 @@ export default {
             this.callback()
           }
         },
-        soldItem: function (acquiredPrice,inventoryID){
 
-            fetch(this.addEarningsURL(acquiredPrice,inventoryID),{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then( (response) => {
-                return response.json();
-            }).then((json) => {
 
-                this.$buefy.snackbar.open({
-                    message: json.message,
-                    type: 'is-success',
-                    queue: true,
-                    position: 'is-top',
-                })
-                this.actions++;
-                this.deleteItem(inventoryID);
-                if(this.callback){
-                  this.callback()
-                }
-
-            }).catch(function (error) {
-                this.$buefy.snackbar.open({
-                    message: error,
-                    type: 'is-error',
-                    position: 'is-top',
-                })
-
-            });
-        },
-        deleteItem: function (inventoryID){
-            fetch(this.removeAPIURL+inventoryID,{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then((response) => {
-                return response.json();
-            }).then((json) => {
-                this.$buefy.snackbar.open({
-                    message: json.message,
-                    type: 'is-warning',
-                    queue: true,
-                    position: 'is-top',
-                })
-                this.actions++;
-                if(this.callback){
-                  this.callback()
-                }
-            }).catch(function (error) {
-                this.$echomtg.log(error);
-            });
-        },
-        addAPIURL: function(foil=0){
-            let acqPrice = (foil == 1) ? this.acquiredAddFoilPrice : this.acquiredAddPrice;
-            return `${this.$config.API_DOMAIN}inventory/add/?quantity=1&emid=${this.emid}&foil=${foil}&acquired_price=${acqPrice}`;
-        },
-        addEarningsURL: function(acquiredPrice,foil=0){
-            return `${this.$config.API_DOMAIN}earnings/add/emid=${this.emid}&acquired_price=${acquiredPrice}&foil=${foil}`;
-        },
-        addItem: function (foil=0){
-            fetch(this.addAPIURL(foil),{
-                headers: {
-                    'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                }
-            }).then((response) => {
-                return response.json();
-            }).then((json) => {
-                this.$buefy.snackbar.open({
-                    message: json.message,
-                    type: 'is-success',
-                    queue: true,
-                    position: 'is-top',
-                })
-                this.actions++;
-            }).catch(function (error) {
-                this.$buefy.snackbar.open({
-                    message: error,
-                    type: 'is-error',
-                    position: 'is-top',
-                })
-            });
-        },
         async getItems(){
             try {
                 const res = await fetch(this.getAPIURL,{

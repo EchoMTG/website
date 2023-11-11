@@ -3,7 +3,7 @@
     <i v-if="!showimage" :class="this.iconClassName"></i>
     <div v-if="showimage" class="searchImage">
         <div class="mana" v-html="manacost"></div>
-        <i :class="this.iconClassName"></i>
+        <i v-if="game == 1" :class="this.iconClassName"></i>
         <NuxtImg :src="croppedImage" width="140" :alt="name" />
     </div>
 
@@ -33,7 +33,7 @@
     </div>
 
     <div v-if="!showimage" v-html="manacost"></div>
-    <div v-if="showinventorybuttons" class="is-flex is-flex-direction-column inventoryButtons">
+    <div v-if="showinventorybuttons" class="is-flex is-flex-direction-column is-hidden-mobile inventoryButtons">
         <div  v-if="regularPrice > 0 || foilPrice == 0" class="field has-addons">
             <p class="control">
                 <button @click="addRowToInventory(0)" class="button is-small is-outlined is-info">
@@ -92,6 +92,7 @@ export default {
         'name',
         'emid',
         'setCode',
+        'game',
         'item',
         'setName',
         'callbackname',
