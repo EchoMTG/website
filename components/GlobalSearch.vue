@@ -136,6 +136,7 @@
                             :setCode="result.setcode"
                             :setName="result.set"
                             :image="result.image"
+                            :game="result.game"
                             :image_cropped="result.image_cropped"
                             :emid="result.emid"
                             :url="result.url"
