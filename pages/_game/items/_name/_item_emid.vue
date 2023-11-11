@@ -278,7 +278,7 @@
           </div>
           <div class="column is-one-third">
              <client-only>
-              <item-tool-box :open="false" :title="`My Inventory: `" v-if="authenticated" :item="this.item"></item-tool-box>
+              <item-tool-box :open="false" :title="`My Inventory: `" :item="this.item"></item-tool-box>
               <item-list-box :open="false" :title="`My Decks/Lists: `" v-if="authenticated" :item="this.item"></item-list-box>
             </client-only>
             <div :class="'card '">
@@ -305,6 +305,7 @@
                 v-model="isBuylistOpen">
                   <b-button @click="openExternalLink(item.purchase_link_tcg)" icon-left="cart-arrow-right" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Buy on TCGplayer {{cs}}{{item?.tcg_low ? item.tcg_low : item.foil_price}}</b-button>
                   <b-button v-if="item.multiverseid < 10000000" @click="openExternalLink(item.crawlurl)" icon-left="share" class="mx-3 mb-2" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Open on Wizard's Gatherer</b-button>
+                  <watchlist-quick-add-button :emid="item.emid" :showLabel="true" />
                   <b-button @click="addToWatchlist" icon-left="table-headers-eye" class="mx-3" :type="isDarkModeActive == 1 ? 'is-dark' : ''" size="is-small">Add to Watchlist</b-button>
                     <small>
                   <affiliate-overlay-disclaimer class="ml-3" />
@@ -377,6 +378,7 @@ import CreateAccountModal from '@/components/user/CreateAccountModal.vue'
 import CommentThread from '@/components/comments/CommentThread.vue'
 import EchoLink from '@/components/EchoLink.vue'
 import AffiliateOverlayDisclaimer from '@/components/legal/AffiliateOverlayDisclaimer.vue'
+import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
 
 export default {
   name: 'Expansion',
@@ -393,7 +395,8 @@ export default {
     SocialButtons,
     CommentThread,
     EchoLink,
-    AffiliateOverlayDisclaimer
+    AffiliateOverlayDisclaimer,
+    WatchlistQuickAddButton
   },
   data () {
     return {

@@ -432,6 +432,7 @@ export default {
           }
 
         } else {
+          // logic to upgrad here too
           this.$store.commit('loginSignupModalShow',true);
           this.$echomtg.log('failed to add')
         }

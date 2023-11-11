@@ -42,9 +42,25 @@ export default {
   methods: {
     async addToInventory(){
       const res = await this.$echomtg.inventoryQuickAdd(this.emid,this.foil)
-       this.$buefy.toast.open({
-        message: res.message
+      let type = 'is-success';
+
+      // at capcity
+      if(res.message.includes('capacity')){
+        this.$store.commit('upgradeModalShow',true);
+        type = 'is-danger'
+      }
+
+      // trigger login
+      if(res.message.includes('authorized')){
+        this.$store.commit('loginSignupModalShow',true);
+        type = 'is-warning'
+      }
+
+      this.$buefy.toast.open({
+        message: res.message,
+        type: type
       })
+
       if(this.callback){
         await this.callback()
       }
