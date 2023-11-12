@@ -8,9 +8,8 @@
                     <div class="container p-5">
                       <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
 
-                      <skinny-ad :title="`Search ${totalTrades} trades with filters and sorting`" :description="`Login or Created a Free Account Now`" v-if="!authenticated" />
 
-                      <div v-if="authenticated" class="tradefilterBar">
+                      <div class="tradefilterBar">
                         <nav class="level p-2">
                           <div class="level-left">
 
@@ -68,7 +67,7 @@
                       :data="trades"
                       :loading="isLoading"
 
-                      :paginated="this.authenticated ? true : false"
+                      :paginated="true"
                       backend-pagination
                       :total="totalTrades"
                       :per-page="perPage"
@@ -163,21 +162,7 @@
                           </td>
                         </tr>
                       </template>
-                      <template #footer v-if="!authenticated">
-                        <div v-if="!authenticated" class="has-text-right">
-                          <div class="message m-5">
-                            <div class="columns">
-                              <div class="column is-6">
-                                <h2 class="is-size-6">Login or Create a Free Account to browse {{totalTrades}} of <strong>{{tradeUser.username}}'s</strong> items</h2>
-                              </div>
-                              <div class="column is-5">
-                                <create-account-modal size="is-small" />
-                              </div>
 
-                            </div>
-                          </div>
-                        </div>
-                    </template>
 
                   </b-table>
                 </div>
@@ -189,6 +174,10 @@
   <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
                         <br />
                         <div class="content tradeProposalList">{{proposalList}}</div>
+                          <div v-if="!authenticated" class="box">
+                            <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
+                            <create-account-modal size="is-small" />
+                          </div>
 
                     </div>
                 </div>
@@ -245,7 +234,7 @@ export default {
           totalTrades: 0,
           currency_symbol: '$',
           currency_conversion: 1,
-          userHash: '',
+          username: '',
           isLoading: true,
           min_price: null,
           max_price: null,
@@ -310,21 +299,17 @@ export default {
     reserve_list(){
       this.loadAsyncData();
     },
-    authenticated() {
-      this.perPage = 100;
-      this.loadAsyncData()
-    }
+    // authenticated() {
+    //   this.perPage = 100;
+    //   this.loadAsyncData()
+    // }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
 
   mounted() {
-    // if not authenticated cut the mount of items to show
-    if(!this.authenticated){
-      this.perPage = 10;
-      this.trades = this.trades.slice(0,5)
-    }
+
 
     this.onResize();
     this.updateTableHeight()
@@ -422,12 +407,12 @@ export default {
 
   async asyncData({ params, redirect, $config, $echomtg }) {
 
-    let userHash = params.user_hash;
+    let username = params.username;
 
     const reqParams = [
-          `user=${userHash}`,
+          `user=${username}`,
           `start=0`,
-          `limit=1`,
+          `limit=100`,
         ].join('&')
 
     // try to get the json
@@ -438,7 +423,6 @@ export default {
 
       if(json.hasOwnProperty('trades')){
 
-          redirect(`/${json.trades.user.username}/trades/`)
           let trades = json.items
           let tradeUser = json.trades.user
           tradeUser.hash = json.trades.user_hash
@@ -448,7 +432,7 @@ export default {
           let page = json.meta.current_page
           let isLoading = false
           return {
-            trades, isLoading, tradeUser, totalTrades, currency_symbol, userHash, perPage, page
+            trades, isLoading, tradeUser, totalTrades, currency_symbol, username, perPage, page
           }
       }
     } catch (err) {
