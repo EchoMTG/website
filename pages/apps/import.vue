@@ -516,11 +516,20 @@ export default {
         })
     },
     async startImport() {
+      if(this.user.planObject.card_cap < (this.cards.length + parseInt(this.quickstats.total_items)) ){
 
         this.$buefy.toast.open({
-            message: 'Import Starting',
-            type: 'is-success'
-          })
+          message: `${this.cards.length} cards to import will exceed your plan's card cap ${this.user.planObject.card_cap}`,
+          type: 'is-warning'
+        })
+
+        this.$store.commit('upgradeModalShow',true);
+
+      } else {
+        this.$buefy.toast.open({
+          message: 'Import Starting',
+          type: 'is-success'
+        })
 
         let startLength = this.cards.length - 1
 
@@ -536,6 +545,7 @@ export default {
                 this.$delete(this.cards, i);
             }
         }
+      }
 
     },
     async importCard(card) {
@@ -674,6 +684,7 @@ export default {
     ...mapState([
       'sets',
       'user',
+      'quickstats',
       'authenticated'
     ]),
     languages: () => [{
