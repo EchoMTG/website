@@ -139,7 +139,7 @@
 
 
                       </b-table-column>
-                      <b-table-column v-if="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"  numeric  v-slot="props">
+                      <b-table-column :visible="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"   v-slot="props">
                         <move-to-earnings-button :inventory_item="props.row" :currency_symbol="currency_symbol" :callback="loadAsyncData"/>
                         <toggle-tradable-button icon="delete" type="danger" :inventory_id="parseInt(props.row.inventory_id)" :tradable="1" :callback="loadAsyncData" />
                       </b-table-column>
