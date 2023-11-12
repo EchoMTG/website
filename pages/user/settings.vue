@@ -128,6 +128,29 @@
                       </div>
                     </div>
                 </nav>
+                 <div class="content">
+                  <p>Trade Options</p>
+                </div>
+                <nav class="level is-mobile">
+                  <div class="level-left">
+                    <div class="level-item ">
+                      <div>
+                        <p class="heading">Trade Price Modifier</p>
+                        <b-field message="Markup or discount prices on your tradelist">
+                            <b-select @input="update('trade_modifier')" v-model="trade_modifier" placeholder="Select a Price Modification">
+                              <option
+                                  v-for="option in tradeOptions"
+                                  :value="option.value"
+                                  :key="option.name">
+                                  {{ option.name }}
+                              </option>
+                          </b-select>
+                        </b-field>
+                      </div>
+                    </div>
+                  </div>
+
+                </nav>
               </card-component>
           </tiles>
       </div>
@@ -161,6 +184,52 @@ export default {
         setting_report_threshhold: null,
         show_real_name: "0",
         use_market: null,
+        tradeOptions: [
+          {
+            name: '+25%',
+            value: .25
+          },
+          {
+            name: '+20%',
+            value: .2
+          },
+          {
+            name: '+15%',
+            value: .15
+          },
+          {
+            name: '+10%',
+            value: .1
+          },
+          {
+            name: '+5%',
+            value: .05
+          },
+          {
+            name: 'None',
+            value: 0
+          },
+          {
+            name: '-5%',
+            value: -.05
+          },
+          {
+            name: '-10%',
+            value: -.1
+          },
+           {
+            name: '-15%',
+            value: -.15
+          },
+          {
+            name: '-20%',
+            value: -.2
+          },
+          {
+            name: '-25%',
+            value: -.25
+          },
+        ],
         sortOptions: [
           {
             name: 'Latest Entry',

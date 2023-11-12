@@ -42,7 +42,7 @@
                     <div class="box badges py-2 mr-3">
                       <p class="has-text-centered">
                         <small class="has-text-grey">Trades</small>
-                        <br/><strong class="is-size-4">{{profile.trades}}</strong>
+                        <br/><nuxt-link to="trades/"><strong class="is-size-4">{{profile.trades}}</strong></nuxt-link>
                       </p>
                     </div>
                     <div> </div>
