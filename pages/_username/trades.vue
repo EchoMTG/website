@@ -6,14 +6,19 @@
             <div class="columns is-gapless">
                 <div class="column is-four-fifths">
                     <div class="container p-5">
-                      <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
+                      <h4 class="title is-4"><strong class="is-capitalized">{{tradeUser.username}}</strong> has {{totalTrades}} items for Trade. Search and Tally what you're interested in.</h4>
 
 
                       <div class="tradefilterBar">
                         <nav class="level p-2">
                           <div class="level-left">
 
-                            <b-input class="level-item" size="is-small" v-model="search" placeholder="Search.." />
+                            <b-input
+                              class="level-item"
+                              icon="magnify"
+                              size="is-small"
+                              v-model="search"
+                              :placeholder="`Search ${tradeUser.username}'s trades...`" />
 
                             <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
 
@@ -35,6 +40,7 @@
                                 size="is-small"
                                 style="max-width: 50px;"
                                 placeholder="2.10"
+                                class="mr-2"
                                 />
 
                                 <b-field class="level-item" style="margin-bottom: 0 !important;">
@@ -118,6 +124,11 @@
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set_code" label="Expansion" sortable v-slot="props">
                         <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
                       </b-table-column>
+                      <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
+                        <b-tooltip type="is-success" style="cursor: help" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
+                          <strong>{{currency_symbol}}{{(parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))).toFixed(2)}}</strong>
+                        </b-tooltip>
+                       </b-table-column>
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="current_price" label="Today" numeric sortable v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
                         {{currency_symbol}}{{props.row.foil_price}}
@@ -126,11 +137,7 @@
                         {{currency_symbol}}{{props.row.tcg_mid}}
                         </span>
                       </b-table-column>
-                       <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
-                        <b-tooltip :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
-                          {{currency_symbol}}{{parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))}}
-                        </b-tooltip>
-                       </b-table-column>
+
                        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
                         <b-taglist attached>
                           <b-tag type="is-dark">{{props.row.condition}}</b-tag>
@@ -139,7 +146,7 @@
 
 
                       </b-table-column>
-                      <b-table-column v-if="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"  numeric  v-slot="props">
+                      <b-table-column :visible="isUserOwner" cell-class="is-hidden-touch" header-class="is-hidden-touch"   v-slot="props">
                         <move-to-earnings-button :inventory_item="props.row" :currency_symbol="currency_symbol" :callback="loadAsyncData"/>
                         <toggle-tradable-button icon="delete" type="danger" :inventory_id="parseInt(props.row.inventory_id)" :tradable="1" :callback="loadAsyncData" />
                       </b-table-column>
@@ -173,18 +180,23 @@
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
+                  <div class="container p-4" v-if="!isUserOwner">
+                    <h4 class="title is-4">Tally wants from <b class="is-capitalized">{{tradeUser.username}}</b></h4>
+<!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
+                    <br />
+                    <div class="content tradeProposalList">{{proposalList}}</div>
+                      <div v-if="!authenticated" class="box">
+                        <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
+                        <create-account-modal size="is-small" />
+                      </div>
+                  </div>
+                  <div class="container p-4" v-if="isUserOwner">
+                    <h4 class="title is-4">Your Trade Page</h4>
+                    <p>Your trade modifier is {{tradeUser.trade_modifier * 100}}%, change this value in your <nuxt-link to="/user/settings/">user settings</nuxt-link></p>
+                    <br/>
+                    <p>Add more trades to this list from your <nuxt-link to="/apps/inventory/">collection manager</nuxt-link></p>
+                  </div>
 
-                      <div class="container p-4">
-                        <h4 class="title is-4">Tally wants from <b class="is-capitalized">{{tradeUser.username}}</b></h4>
-  <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
-                        <br />
-                        <div class="content tradeProposalList">{{proposalList}}</div>
-                          <div v-if="!authenticated" class="box">
-                            <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
-                            <create-account-modal size="is-small" />
-                          </div>
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -304,18 +316,12 @@ export default {
     reserve_list(){
       this.loadAsyncData();
     },
-    // authenticated() {
-    //   this.perPage = 100;
-    //   this.loadAsyncData()
-    // }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
 
   mounted() {
-
-
     this.onResize();
     this.updateTableHeight()
     this.$nextTick(() => {
@@ -425,7 +431,6 @@ export default {
 
       let json = await $echomtg.tradesView(reqParams)
 
-
       if(json.hasOwnProperty('trades')){
 
           let trades = json.items
@@ -477,7 +482,7 @@ export default {
         let total = 0
         this.selectedItems.forEach(item => {
             message += `1x ${item.name}\n`
-            total += parseFloat(item.current_price)
+            total += this.tradeUser.trade_modifier != 0 ? parseFloat(item.current_price) + (parseFloat(item.current_price) *  parseFloat(this.tradeUser.trade_modifier)) : parseFloat(item.current_price)
         })
         message += `\nTotal: ${(this.currency_symbol)}${total.toFixed(2)}`
 

@@ -59,6 +59,12 @@
               <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link to="/apps/sealed/">{{quickstats.total_sealed}}</nuxt-link></p>
             </div>
           </div>
+           <div class="level-item has-text-centered is-hidden-touch">
+            <div>
+              <p class="heading is-size-7-touch has-text-grey">For Trade</p>
+              <p class="title is-size-5 has-text-light is-size-6-touch"><nuxt-link :to="`/${user.username}/trades/`">{{quickstats.total_tradable}}</nuxt-link></p>
+            </div>
+          </div>
           <div class="level-item is-flex is-flex-direction-row-reverse is-hidden-touch">
             <export-dropdown class="is-align-items-end mr-2"  />
             <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2 has-text-white">
