@@ -13,7 +13,12 @@
                         <nav class="level p-2">
                           <div class="level-left">
 
-                            <b-input class="level-item" size="is-small" v-model="search" placeholder="Search.." />
+                            <b-input
+                              class="level-item"
+                              icon="magnify"
+                              size="is-small"
+                              v-model="search"
+                              :placeholder="`Search ${tradeUser.username}'s trades...`" />
 
                             <set-selector class="level-item is-hidden-mobile"  :callback="setExpansion" />
 
@@ -35,6 +40,7 @@
                                 size="is-small"
                                 style="max-width: 50px;"
                                 placeholder="2.10"
+                                class="mr-2"
                                 />
 
                                 <b-field class="level-item" style="margin-bottom: 0 !important;">
@@ -127,8 +133,8 @@
                         </span>
                       </b-table-column>
                        <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
-                        <b-tooltip type="is-success" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
-                          {{currency_symbol}}{{parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))}}
+                        <b-tooltip type="is-success" style="cursor: help" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
+                          {{currency_symbol}}{{(parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))).toFixed(2)}}
                         </b-tooltip>
                        </b-table-column>
                        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
