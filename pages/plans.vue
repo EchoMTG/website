@@ -37,10 +37,10 @@
             <!-- plan signup -->
             <div v-if="isUserLoggedIn" class="panel-block  has-background-light">
               <b-button
-                :icon-left="`check`"
+                :icon-left="`arrow-up-bold-box-outline`"
                 v-if="notCurrentPlan(plan.name)"
                 :disabled="loading"
-                :style="`background: ${plan.color}; color: ${plan.text}`"
+                type="is-success"
                 size="is-fullwidth is-rounded"
                 @click="subscribe(plan.name)">
                   {{subscribeWord}} {{plan.label}}

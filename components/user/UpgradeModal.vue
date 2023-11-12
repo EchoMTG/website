@@ -30,9 +30,11 @@
             </div>
             <div class="column">
               <p class="mb-4">Access more storage and specalized apps.</p>
-              <nuxt-link to="/plans/" class="button is-success is-large">
-                <b-icon icon="arrow-up" class="mr-2" /> Upgrade Now
-              </nuxt-link>
+              <b-button icon-left="arrow-up-bold-box-outline" type="is-success" @click="gotoplans" size="is-large">
+                Upgrade Plan
+              </b-button>
+
+
             </div>
           </div>
         </div>
@@ -77,6 +79,13 @@
           upgradeModalShow() {
 
             this.isComponentModalActive = this.upgradeModalShow
+          }
+        },
+        methods: {
+          gotoplans(){
+            this.$store.commit('upgradeModalShow',false);
+            this.$router.push('/plans/');
+
           }
         },
         data() {
