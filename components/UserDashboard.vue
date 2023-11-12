@@ -1,10 +1,10 @@
 <template>
   <span>
 
-      <hero-bar-main />
+      <hero-bar-main  v-if="!newUser" />
 
       <div class="has-background-black">
-        <section class="mx-5 my-2">
+        <section v-if="!newUser" class="mx-5 my-2">
           <div class="columns">
             <div class="column">
               <popular-items />
@@ -14,11 +14,11 @@
             </div>
           </div>
         </section>
-        <welcome v-if="user.id == 1"></welcome>
-        <section v-if="$fetchState.pending">
+        <welcome v-if="newUser"></welcome>
+        <section v-if="!newUser && $fetchState.pending">
           Loading Dashboard
         </section>
-        <section v-else-if="quickstats.total_items > 5" class="mx-5 my-2">
+        <section v-else-if="!newUser && quickstats.total_items > 5" class="mx-5 my-2">
           <card-component
             title="Collection Performance History"
             icon="finance"
@@ -103,6 +103,9 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
       totalCards () {
 
         return parseInt(this.quickstats.total_cards)
+      },
+      newUser() {
+        return parseInt(this.user.id) == 1
       },
       totalCardsValue(){
         let val = parseInt(this.quickstats.current_value) - parseInt(this.quickstats.sealed_value)

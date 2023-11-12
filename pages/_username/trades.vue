@@ -124,6 +124,11 @@
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="set_code" label="Expansion" sortable v-slot="props">
                         <set-tag classes="is-align-self-flex-start mb-0 mr-2" :code="props.row.set_code" :name="props.row.set" :url="props.row.echo_set_url"/>
                       </b-table-column>
+                      <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
+                        <b-tooltip type="is-success" style="cursor: help" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
+                          <strong>{{currency_symbol}}{{(parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))).toFixed(2)}}</strong>
+                        </b-tooltip>
+                       </b-table-column>
                       <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="current_price" label="Today" numeric sortable v-slot="props">
                         <span class="has-text-warning-dark" v-if="props.row.foil == 1 && props.row.foil_price > 0">
                         {{currency_symbol}}{{props.row.foil_price}}
@@ -132,11 +137,7 @@
                         {{currency_symbol}}{{props.row.tcg_mid}}
                         </span>
                       </b-table-column>
-                       <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
-                        <b-tooltip type="is-success" style="cursor: help" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
-                          {{currency_symbol}}{{(parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))).toFixed(2)}}
-                        </b-tooltip>
-                       </b-table-column>
+
                        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
                         <b-taglist attached>
                           <b-tag type="is-dark">{{props.row.condition}}</b-tag>
@@ -315,18 +316,12 @@ export default {
     reserve_list(){
       this.loadAsyncData();
     },
-    // authenticated() {
-    //   this.perPage = 100;
-    //   this.loadAsyncData()
-    // }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
 
   mounted() {
-
-
     this.onResize();
     this.updateTableHeight()
     this.$nextTick(() => {
@@ -436,7 +431,6 @@ export default {
 
       let json = await $echomtg.tradesView(reqParams)
 
-
       if(json.hasOwnProperty('trades')){
 
           let trades = json.items
@@ -488,7 +482,7 @@ export default {
         let total = 0
         this.selectedItems.forEach(item => {
             message += `1x ${item.name}\n`
-            total += parseFloat(item.current_price)
+            total += this.tradeUser.trade_modifier != 0 ? parseFloat(item.current_price) + (parseFloat(item.current_price) *  parseFloat(this.tradeUser.trade_modifier)) : parseFloat(item.current_price)
         })
         message += `\nTotal: ${(this.currency_symbol)}${total.toFixed(2)}`
 
