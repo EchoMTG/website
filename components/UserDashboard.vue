@@ -14,7 +14,9 @@
             </div>
           </div>
         </section>
-        <welcome v-if="newUser"></welcome>
+        <div v-if="newUser" style="max-width: 960px; margin: 0 auto;">
+          <welcome></welcome>
+        </div>
         <section v-if="!newUser && $fetchState.pending">
           Loading Dashboard
         </section>

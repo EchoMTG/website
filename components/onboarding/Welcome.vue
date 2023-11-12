@@ -21,6 +21,7 @@
           </ul>
           <p>EchoMTG has Lorcana and plans to add Flesh and Blood and other games.</p>
         </div>
+        <b-image src="https://assets.echomtg.com/interface/onboarding/percentage-completed-inventory.jpg" />
     </b-step-item>
 
     <b-step-item step="2" label="Profile" :clickable="isStepsClickable" :type="{'is-success': isProfileSuccess}">
@@ -47,6 +48,7 @@
 
 
         </div>
+        <b-image src="https://assets.echomtg.com/interface/onboarding/deck-building-collection-matching.jpg" />
     </b-step-item>
     <b-step-item step="3" label="Weekly Reports" :clickable="isStepsClickable">
 
@@ -56,6 +58,7 @@
           <p>Free Accounts start with 360 collection slots, 25 Decks, and 100 trades. Premium accounts get access to additional storage, automated reports, earning apps, collection insights, and more</p>
           <p>We dont sell your information or use display ads, development is 100% supported by subscription members. Please consider a sub if you enjoy the website.</p>
           </div>
+          <b-image src="https://assets.echomtg.com/interface/onboarding/weekly-email-reports.jpg" />
     </b-step-item>
 
     <b-step-item step="4" label="Social and Profile" :clickable="isStepsClickable">
@@ -65,6 +68,7 @@
           <p>Every EchoMTG user has a public profile where decks, trades, articles, and alters can be shared. You can upload your avatar and change your backgroud image under edit profile</p>
           <p>We have a discord channel too <a target="_blank" href="https://discord.gg/f6VFybb">Click to Join</a></p>
         </div>
+        <b-image src="https://assets.echomtg.com/interface/onboarding/public-profiles.jpg" />
     </b-step-item>
 
     <b-step-item step="5" label="Get Started" :clickable="isStepsClickable" disabled>
@@ -83,6 +87,8 @@
       <b-button size="is-small" outlined @click="goto('/mtg/sets/woe/wilds-of-eldraine/')" icon-left="share"> Set View</b-button>
       <b-button size="is-small" outlined @click="goto('/mtg/items/polluted-delta/94321/')" icon-left="share"> Single Card</b-button>
                  </div>
+      <b-image src="https://assets.echomtg.com/interface/onboarding/premium-ad.jpg" />
+
     </b-step-item>
 
     <template

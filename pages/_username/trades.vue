@@ -393,7 +393,7 @@ export default {
       this.isLoading = true
       // line these up to custom dropdown
       const params = [
-        `user=${this.userHash}`,
+        `user=${this.username}`,
         `search=${this.search}`,
         `sort=${this.sortField}`,
         `direction=${this.sortOrder}`,
