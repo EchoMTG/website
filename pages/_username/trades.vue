@@ -126,6 +126,11 @@
                         {{currency_symbol}}{{props.row.tcg_mid}}
                         </span>
                       </b-table-column>
+                       <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
+                        <b-tooltip :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
+                          {{currency_symbol}}{{parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))}}
+                        </b-tooltip>
+                       </b-table-column>
                        <b-table-column cell-class="is-hidden-touch" header-class="is-hidden-touch" field="condition" label="Condition" sortable v-slot="props">
                         <b-taglist attached>
                           <b-tag type="is-dark">{{props.row.condition}}</b-tag>
