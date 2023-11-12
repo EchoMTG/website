@@ -173,18 +173,23 @@
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
+                  <div class="container p-4" v-if="!isUserOwner">
+                    <h4 class="title is-4">Tally wants from <b class="is-capitalized">{{tradeUser.username}}</b></h4>
+<!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
+                    <br />
+                    <div class="content tradeProposalList">{{proposalList}}</div>
+                      <div v-if="!authenticated" class="box">
+                        <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
+                        <create-account-modal size="is-small" />
+                      </div>
+                  </div>
+                  <div class="container p-4" v-if="isUserOwner">
+                    <h4 class="title is-4">Your Trade Page</h4>
+                    <p>Your trade modifier is {{tradeUser.trade_modifier * 100}}%, change this value in your <nuxt-link to="/user/settings/">user settings</nuxt-link></p>
+                    <br/>
+                    <p>Add more trades to this list from your <nuxt-link to="/apps/inventory/">collection manager</nuxt-link></p>
+                  </div>
 
-                      <div class="container p-4">
-                        <h4 class="title is-4">Tally wants from <b class="is-capitalized">{{tradeUser.username}}</b></h4>
-  <!--                        <textarea class="textarea" v-model="proposalMessage" placeholder="Your Message Here"></textarea>-->
-                        <br />
-                        <div class="content tradeProposalList">{{proposalList}}</div>
-                          <div v-if="!authenticated" class="box">
-                            <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
-                            <create-account-modal size="is-small" />
-                          </div>
-
-                    </div>
                 </div>
             </div>
         </div>
