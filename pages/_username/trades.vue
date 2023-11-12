@@ -6,7 +6,7 @@
             <div class="columns is-gapless">
                 <div class="column is-four-fifths">
                     <div class="container p-5">
-                      <h4 class="title is-4">Browse and Select <strong class="is-capitalized">{{tradeUser.username}}'s</strong> {{totalTrades}} Items Marked for Trade</h4>
+                      <h4 class="title is-4"><strong class="is-capitalized">{{tradeUser.username}}</strong> has {{totalTrades}} items for Trade. Search and Tally what you're interested in.</h4>
 
 
                       <div class="tradefilterBar">
@@ -127,7 +127,7 @@
                         </span>
                       </b-table-column>
                        <b-table-column :visible="tradeUser.trade_modifier != 0" field="current_price" :label="`${tradeUser.username}'s ask`" numeric sortable v-slot="props">
-                        <b-tooltip :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
+                        <b-tooltip type="is-success" position="is-bottom" :label="`${(tradeUser.trade_modifier * 100)}% Adjusted from ${tradeUser.username}`">
                           {{currency_symbol}}{{parseFloat(props.row.tcg_mid) + parseFloat((props.row.tcg_mid * parseFloat(tradeUser.trade_modifier)).toFixed(2))}}
                         </b-tooltip>
                        </b-table-column>
