@@ -1,4 +1,4 @@
-function toolsMenu(options={'tradesurl' :'/apps/trades/'}) {
+function toolsMenu(options={'tradesurl' :'/traders/'}) {
  return [{
   to: '/',
   icon: 'home-analytics',
