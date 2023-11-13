@@ -436,20 +436,15 @@ export default {
   async fetch() {
 
     this.isLoading = true
-    console.log('current user', this.username);
+
     if(this.username == ''){
       this.username = this.$route.params['username'];
     }
-    console.log('current user after params', this.username);
-
     const reqParams = [
       `user=${this.username}`,
       `start=0`,
       `limit=100`,
     ].join('&')
-    console.log('authed',this.authenticated)
-    console.log('trade user',this.username)
-
     let json = await this.$echomtg.tradesView(reqParams)
     this.isLoading = false
 
@@ -459,12 +454,11 @@ export default {
         this.tradeUser = json.trades.user
         this.tradeUser.hash = json.trades.user_hash
         this.totalTrades = json.meta.total_items
-        console.log('loading trades',this.totalTrades)
+
         this.currency_symbol = json.trades.currency_symbol
         this.perPage = 100
         this.page = json.meta.current_page
 
-        console.log('authed',this.authenticated)
         // pick up the user referrer
         if(!this.authenticated){
 
