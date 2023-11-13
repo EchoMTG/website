@@ -1,7 +1,7 @@
 <template>
    <div class="card ">
     <div class="card-header has-background-black has-text-white p-0">
-        <p class="card-header-title p-2 pl-4 has-text-white">Get 100+ Bonus Storage by Sharing EchoMTG with a Friend</p>
+        <p class="card-header-title p-2 pl-4 has-text-white">Get 100+ Bonus Storage When a Friend Signs up</p>
     </div>
     <div class="card-content pt-3 px-3">
       <div class="level">
@@ -10,8 +10,9 @@
           <b-button icon-right="arrow-right-bold" @click="send" label="Share Now" class="level-item" type="is-info" />
       </div>
       <fieldset>
-        <div class="mb-2 has-text-weight-bold">Or, share or post your custom link for an additional 100 inventory storage bonus.</div>
+        <div class="mb-2 has-text-weight-bold">Or, share your custom link or trade url for an additional 100 inventory storage bonus.</div>
         <b-input type="text" readonly @focus="$event.target.select()" :value="`https://www.echomtg.com/r/${user.referrer_code}/`" />
+         <b-input type="text" readonly @focus="$event.target.select()" :value="`https://www.echomtg.com/${user.username}/trades/`" />
       </fieldset>
     </div>
   </div>

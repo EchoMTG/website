@@ -28,7 +28,7 @@ export default {
       'user'
     ]),
     commentsOrderedByVotes(){
-      return this.comments.sort((a,b) =>  b.votes - a.votes )
+      return Array.isArray(this.comments) ? this.comments.sort((a,b) =>  b.votes - a.votes ) : []
     }
   },
   props: ['resource_id','resource','for_what','commentseed'],

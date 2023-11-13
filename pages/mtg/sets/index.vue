@@ -35,27 +35,6 @@ export default {
   async fetch() {
     this.expansions = await this.$echomtg.getSets()
   },
-  async asyncData({ redirect, $echomtg }) {
-     let expansions;
-
-    // try to get the json
-    try {
-      expansions = await $echomtg.getSets()
-
-    } catch(err){
-      console.log(err, res)
-    }
-
-    // return it
-    if (expansions) {
-
-      return {
-        expansions: expansions
-      }
-    } else {
-      redirect('/mtg/')
-    }
-  },
   computed: {
     titleStack () {
       return ['Magic the Gathering', 'Sets']
