@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
     export default {
       props:{
         callback: {
@@ -48,7 +49,7 @@
             if(this.callback) this.callback(this.selected)
           },
           search() {
-            console.log('search in set selector:',this.search)
+
             if(this.search == '' || this.search == null) {
               console.log('clear detected')
               let empty = {
@@ -63,9 +64,13 @@
         },
         methods: {
           async getSets(){
-            let sets = await this.$echomtg.getSets()
-            this.data = [];
-            sets.map(set => this.data.push(set))
+
+            if(this.sets.length == 0){
+              let setsData = await this.$echomtg.getSets()
+              this.data = [];
+              this.$store.commit('sets',setsData)
+            }
+            this.sets.map(set => this.data.push(set))
           },
           getSetIcon(set_code) {
             return this.$echomtg.setIconClass(set_code)
@@ -73,15 +78,18 @@
           }
         },
         computed: {
-            filteredDataArray() {
-                return this.data.filter((option) => {
-                    return option
-                        .name
-                        .toString()
-                        .toLowerCase()
-                        .indexOf(this.search.toLowerCase()) >= 0
-                })
-            }
+          ...mapState([
+            'sets'
+          ]),
+          filteredDataArray() {
+              return this.data.filter((option) => {
+                  return option
+                      .name
+                      .toString()
+                      .toLowerCase()
+                      .indexOf(this.search.toLowerCase()) >= 0
+              })
+          }
         }
     }
 </script>

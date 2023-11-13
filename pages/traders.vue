@@ -2,12 +2,8 @@
   <div>
     <nuxt keep-alive />
     <echo-bread-crumbs :data="crumbs" />
-    <full-ad
-      title="Login Required to Search Trade Lists"
-      v-if="!authenticated && (public_trade_list.length == 0)"
-      image="https://assets.echomtg.com/images/product/trades-app-2023.png"
-      />
-    <b-field v-if="authenticated" class="m-3">
+
+    <b-field class="m-3">
       <b-input placeholder="Search Users Open for Trade..."
           type="search"
           v-model="search"
@@ -19,11 +15,9 @@
       v-if="public_trade_list.length !== 0"
       :height="tableHeight"
       :debounce-search="0"
-
       :data="public_trade_list"
       :loading="loading"
-
-      :paginated="authenticated ? true : false"
+      :paginated="true"
       backend-pagination
       :total="meta?.total ? meta.total : 0"
       :per-page="meta?.limit ? meta.limit : 0"
@@ -32,17 +26,15 @@
       aria-previous-label="Previous page"
       aria-page-label="Page"
       aria-current-label="Current page"
-
       narrowed
-
+      :mobile-cards="false"
       ref="table"
-
       striped
       :sticky-header="true"
       >
 
       <b-table-column field="username" label="User Name" v-slot="props">
-        <a :href="`/apps/trades/${props.row.user_hash}/`" :title="`Open ${props.row.username} Trade Page`">
+        <a :href="`/${props.row.username}/trades/`" :title="`Open ${props.row.username} Trade Page`">
           {{props.row.username}}
         </a>
       </b-table-column>
@@ -68,7 +60,6 @@ export default {
     CreateAccountModal,
     FullAd
   },
-  ssr: true,
   data () {
     return {
       public_trade_list: [],

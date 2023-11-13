@@ -89,7 +89,7 @@
                       aria-current-label="Current page"
 
                       narrowed
-
+                      :mobile-cards="false"
                       :checked-rows.sync="selectedItems"
                       :checkable="!isUserOwner"
 
@@ -344,6 +344,7 @@ export default {
       window.addEventListener('resize', this.onResize);
     })
 
+
   },
 
   methods: {
@@ -432,40 +433,50 @@ export default {
 
   },
 
+  async fetch() {
 
-  async asyncData({ params, redirect, $config, $echomtg }) {
-
-    let username = params.username;
+    this.isLoading = true
+    console.log('current user', this.username);
+    if(this.username == ''){
+      this.username = this.$route.params['username'];
+    }
+    console.log('current user after params', this.username);
 
     const reqParams = [
-          `user=${username}`,
-          `start=0`,
-          `limit=100`,
-        ].join('&')
+      `user=${this.username}`,
+      `start=0`,
+      `limit=100`,
+    ].join('&')
+    console.log('authed',this.authenticated)
+    console.log('trade user',this.username)
 
-    // try to get the json
-    try {
+    let json = await this.$echomtg.tradesView(reqParams)
+    this.isLoading = false
 
-      let json = await $echomtg.tradesView(reqParams)
+    if(json.hasOwnProperty('trades')){
 
-      if(json.hasOwnProperty('trades')){
+        this.trades = json.items
+        this.tradeUser = json.trades.user
+        this.tradeUser.hash = json.trades.user_hash
+        this.totalTrades = json.meta.total_items
+        console.log('loading trades',this.totalTrades)
+        this.currency_symbol = json.trades.currency_symbol
+        this.perPage = 100
+        this.page = json.meta.current_page
 
-          let trades = json.items
-          let tradeUser = json.trades.user
-          tradeUser.hash = json.trades.user_hash
-          let totalTrades = json.meta.total_items
-          let currency_symbol = json.trades.currency_symbol
-          let perPage = 100
-          let page = json.meta.current_page
-          let isLoading = false
-          return {
-            trades, isLoading, tradeUser, totalTrades, currency_symbol, username, perPage, page
-          }
-      }
-    } catch (err) {
-      redirect('/')
+        console.log('authed',this.authenticated)
+        // pick up the user referrer
+        if(!this.authenticated){
+
+          this.$cookies.set('referrerCode', this.tradeUser.referrer_code,{
+            path: '/',
+            maxAge: 1000 * 60 * 60 * 24 * 5,
+            domain: '.echomtg.com'
+          })
+        }
+    } else {
+      this.$router.push('/traders/');
     }
-
 
   },
   computed: {
@@ -481,13 +492,8 @@ export default {
     crumbs() {
       return [
         {
-          label: 'Apps',
-          url: '/apps/',
-          icon: ''
-        },
-        {
-          label: 'Trades',
-          url: '/apps/trades/',
+          label: 'All Traders',
+          url: '/traders/',
           icon: 'swap-horizontal-bold'
         },
         {
