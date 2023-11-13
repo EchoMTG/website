@@ -37,7 +37,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'WriteComment',
-  props: ['callback','resource_id','resource','thread_parent_id','title'],
+  props: ['callback','resource_id','resource','thread_parent_id','title','commentseed'],
   data: () => {
     return {
       toggleWrite: false,
@@ -51,6 +51,13 @@ export default {
         this.disabled = false
       } else {
         this.disabled = true
+      }
+    },
+    commentseed(){
+      console.log(this.commentseed)
+      console.log('seed')
+      if(this.commentseed){
+        this.comment = this.commentseed
       }
     }
   },
