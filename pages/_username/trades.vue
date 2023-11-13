@@ -184,7 +184,7 @@
                     </b-table>
                     </b-tab-item>
                     <b-tab-item label="Inquiries">
-                      <comment-thread :commentseed="proposalList" :resource_id="this.user.id" resource="user" :for_what="`${this.tradeUser.username}'s Trade Inquiries Thread`"></comment-thread>
+                      <comment-thread :commentseed="proposalList" :resource_id="this.tradeUser.id" resource="user" :for_what="`${this.tradeUser.username}'s Trade Inquiries Thread`"></comment-thread>
                     </b-tab-item>
                   </b-tabs>
                   </div>
@@ -473,7 +473,7 @@ export default {
       return this.user.username == this.tradeUser.username
     },
     getAvatar(){
-      return this.tradeUser?.avatar ? tradeUser.avatar : `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`;
+      return this.tradeUser?.avatar ? this.tradeUser.avatar : `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`;
     },
     hasFilters(){
       return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0 || this.reserve_list != null)
