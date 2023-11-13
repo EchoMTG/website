@@ -5,11 +5,17 @@
      <div class="tradelist table-container ">
             <div class="columns is-gapless">
                 <div class="column is-four-fifths">
-                    <div class="container p-5">
-                      <h4 class="title is-4"><strong class="is-capitalized">{{tradeUser.username}}</strong> has {{totalTrades}} items for Trade. Search and Tally what you're interested in.</h4>
+                  <div class="p-0 mt-3">
+                    <div class="is-flex is-align-content-center	 is-align-items-center	">
+                      <img alt="User Avatar" class="ml-4" style="box-shadow: 0px 0px 4px rgba(0,0,0,.3); width:50px; border-radius: 50%;" :src="getAvatar" />
+                      <h4 class="title is-4  ml-5 mb-0 pb-0">
+                        <strong class="is-capitalized">{{tradeUser.username}}</strong> has {{totalTrades}} items for Trade. Search and Tally what you're interested in.
+                      </h4>
+                    </div>
 
-
-                      <div class="tradefilterBar">
+                  <b-tabs v-model="activeTab">
+                    <b-tab-item label="Trades" class="p-0 m-0">
+                        <div class="tradefilterBar">
                         <nav class="level p-2">
                           <div class="level-left">
 
@@ -63,7 +69,6 @@
                             <b-button class="level-item" type="is-dark" size="is-small" icon-left="close" v-if="hasFilters" @click="clearFilters()">Clear Filters</b-button>
                           </div>
                         </nav>
-                      </div>
                     </div>
 
                     <b-table
@@ -176,7 +181,14 @@
                       </template>
 
 
-                  </b-table>
+                    </b-table>
+                    </b-tab-item>
+                    <b-tab-item label="Inquiries">
+                      <comment-thread :commentseed="proposalList" :resource_id="this.user.id" resource="user" :for_what="`${this.tradeUser.username}'s Trade Inquiries Thread`"></comment-thread>
+                    </b-tab-item>
+                  </b-tabs>
+                  </div>
+
                 </div>
                 <!-- trade proposal -->
                 <div class="column proposal has-background-light">
@@ -189,6 +201,7 @@
                         <h2 class="is-size-6 mb-3">Login or Create a Free Account submit a trade request to <strong>{{tradeUser.username}}</strong></h2>
                         <create-account-modal size="is-small" />
                       </div>
+                      <b-button v-if="authenticated && activeTab == 0" @click="activeTab = 1" >Start Inquiry</b-button>
                   </div>
                   <div class="container p-4" v-if="isUserOwner">
                     <h4 class="title is-4">Your Trade Page</h4>
@@ -216,6 +229,7 @@ import SetSelector from '~/components/magic/SetSelector.vue'
 import SkinnyAd from '~/components/cta/SkinnyAd.vue'
 import MoveToEarningsButton from '~/components/inventory/MoveToEarningsButton.vue'
 import ToggleTradableButton from '~/components/inventory/ToggleTradableButton.vue'
+import CommentThread from '~/components/comments/CommentThread.vue'
 
 export default {
   name: 'Tradelist',
@@ -228,7 +242,8 @@ export default {
     SetSelector,
     SkinnyAd,
     MoveToEarningsButton,
-    ToggleTradableButton
+    ToggleTradableButton,
+    CommentThread
   },
   data() {
 
@@ -246,6 +261,7 @@ export default {
           sortOrder: 'desc',
           defaultSortOrder: 'desc',
           page: 1,
+          activeTab: 0,
           set_code: '',
           perPage: 100,
           totalTrades: 0,
@@ -331,6 +347,7 @@ export default {
   },
 
   methods: {
+
     clearFilters() {
       this.search = ''
       this.set_code = ''
@@ -454,6 +471,9 @@ export default {
   computed: {
     isUserOwner() {
       return this.user.username == this.tradeUser.username
+    },
+    getAvatar(){
+      return this.tradeUser?.avatar ? tradeUser.avatar : `https://assets.echomtg.com/interface/echomtg-default-avatar.jpg`;
     },
     hasFilters(){
       return (this.set_code != '' || this.search != '' || this.min_price > 0 || this.max_price > 0 || this.reserve_list != null)
