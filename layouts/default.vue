@@ -55,7 +55,7 @@ export default {
     menu () {
       let navList =[];
       let tools = toolsMenu({
-        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
+        tradesurl : this.authenticated ? `/${this.user.username}/trades/` : `/traders/`
       });
       let admin = adminMenu();
       navList.push(

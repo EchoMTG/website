@@ -278,7 +278,7 @@ export default {
   computed: {
     tools(){
       return toolsMenu({
-        tradesurl : this.authenticated ? `/apps/trades/${this.$echomtg.tradesUserHash(this.user.id)}/` : `/apps/trades/`
+        tradesurl : this.authenticated ? `/${this.user.username}/trades/` : `/traders/`
       })
     },
     overCardCap(){
