@@ -78,7 +78,7 @@
           <div style="display: flex; flexDirection: row;">
 
             <div style="width:72px; height: 40px; " class="mr-2">
-              <NuxtImg :src="props.row.image_cropped" width="72" class="is-pulled-left mr-3" :responsive="true"  />
+              <NuxtImg v-if="props.row?.image_cropped" :src="props.row?.image_cropped ? props.row.image_cropped : ''" width="72" class="is-pulled-left mr-3" :responsive="true"  />
             </div>
             <div>
               <item-inspector-wrapper  :item="props.row" />

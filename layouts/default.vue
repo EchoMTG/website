@@ -269,7 +269,7 @@ export default {
 
   },
 
-  async mounted () {
+  async beforeMount () {
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
@@ -288,7 +288,7 @@ export default {
         }
       }
       // get sets
-      this.getSets()
+      await this.getSets()
 
     } catch (err) {
       console.log('offine')

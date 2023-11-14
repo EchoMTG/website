@@ -86,25 +86,25 @@
               <a class="button is-small is-danger has-icon-left" href="https://www.youtube.com/watch?v=LG1EVm-cEqk" target="_blank"><b-icon icon="youtube" size="is-small" /><span>How to Video</span></a>
           </div>
           <div class="level-right is-align-content-stretch	is-align-items-center	ml-2" v-if="user.plan != 'common'">
-            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.mythics_value.toFixed(2)) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(parseFloat(inventoryStats?.stats.all.mythics_value).toFixed(2)) : '0'">
               <b-taglist class="mb-0 level-item is-clickable" attached>
                 <b-tag type="is-black" class="mb-0"><i class="ss ss-magic mythic-symbol mr-1"></i> Mythics</b-tag>
                 <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_mythic}}</b-tag>
               </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.rares_value.toFixed(2))  : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(parseFloat(inventoryStats?.stats.all.rares_value).toFixed(2))  : '0'">
               <b-taglist class="mb-0 level-item is-clickable" attached>
                 <b-tag type="is-black" class="mb-0"><i class="ss ss-magic rare-symbol mr-1"></i>Rares</b-tag>
                 <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_rare}}</b-tag>
               </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.uncommons_value.toFixed(2)) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(parseFloat(inventoryStats?.stats.all.uncommons_value).toFixed(2)) : '0'">
              <b-taglist class="mb-0 level-item is-clickable" attached>
               <b-tag type="is-black" class="mb-0"><i class="ss ss-magic uncommon-symbol mr-1"></i>Uncommons</b-tag>
               <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_uncommon}}</b-tag>
             </b-taglist>
             </b-tooltip>
-            <b-tooltip :label="inventoryStats?.stats ? cs+(inventoryStats?.stats.all.commons_value.toFixed(2)) : 0">
+            <b-tooltip :label="inventoryStats?.stats ? cs+(parseFloat(inventoryStats?.stats.all.commons_value).toFixed(2)) : '0'">
             <b-taglist class="mb-0 level-item is-clickable" attached>
               <b-tag type="is-black" class="mb-0"><i class="ss ss-magic common-symbol mr-1"></i>Commons</b-tag>
               <b-tag class="mb-0 has-background-black-ter has-text-white">{{quickstats.total_common}}</b-tag>

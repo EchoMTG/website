@@ -6,13 +6,13 @@
             <div class="panel-block" style="padding: 0">
               <p class="control has-icons-left">
                 <input
-                      :placeholder="this.defaultSelection"
-                      ref="dropSearchInput"
-                      type="text"
-                      class="input has-text-grey"
-                      v-model="search"
-                      @click="setOpen(true)"
-                >
+                    :placeholder="this.defaultSelection"
+                    ref="dropSearchInput"
+                    type="text"
+                    class="input has-text-grey"
+                    v-model="search"
+                    @click="setOpen(true)"
+                />
                 <span class="icon is-left">
 
                   <b-icon icon="magnify" aria-hidden="true" size="is-small" />
@@ -31,6 +31,7 @@
           :class="getClassName(index)"
           :data-set-code="set.set_code"
           :data-set-name="set.name"
+          v-bind:key="`${index}${set.set_code}`"
           @click="changeSet(set.name, set.set_code)"
           >
           <span class="panel-icon">
@@ -71,12 +72,12 @@
         }
     },
     methods: {
-        getSets: async function () {
+        async getSets() {
+
           if(this.sets.length > 0) return;
 
             try{
               const setsData = await this.$echomtg.getSets();
-
               this.$store.commit('sets',setsData)
             } catch(err){
               console.log(err)
@@ -129,7 +130,7 @@
         }
     },
 
-    async created()   {
+    async mounted()   {
         await this.getSets()
     },
     computed: {
