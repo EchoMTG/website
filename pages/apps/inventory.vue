@@ -68,7 +68,7 @@
           <div class="level-item is-flex is-flex-direction-row-reverse is-hidden-touch">
             <export-dropdown class="is-align-items-end mr-2"  />
             <nuxt-link to="/user/settings/" class="button is-small is-dark is-outlined mr-2 has-text-white">
-              <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user.currency_code}}
+              <b-icon icon="account-cash" size="is-small" class="mr-1" /> {{quickstats.currency_symbol}}{{quickstats.user?.currency_code}}
             </nuxt-link>
           </div>
         </nav>
@@ -229,7 +229,7 @@
                     <option value="=0"> = 0</option><option value="<=0"> &lt;= 0</option><option value="=1"> = 1</option><option value="<=1"> &lt;= 1</option><option value="=2"> = 2</option><option value="<=2"> &lt;= 2</option><option value="=3"> = 3</option><option value="<=3"> &lt;= 3</option><option value="=4"> = 4</option><option value="<=4"> &lt;= 4</option><option value="=5"> = 5</option><option value="<=5"> &lt;= 5</option><option value="=6"> = 6</option><option value="<=6"> &lt;= 6</option><option value="=7"> = 7</option><option value="<=7"> &lt;= 7</option><option value="=8"> = 8</option><option value="<=8"> &lt;= 8</option><option value="=9"> = 9</option><option value="<=9"> &lt;= 9</option><option value="=10"> = 10</option><option value="<=10"> &lt;= 10</option><option value="=11"> = 11</option><option value="<=11"> &lt;= 11</option><option value="=12"> = 12</option><option value="<=12"> &lt;= 12</option><option value="=13"> = 13</option><option value="<=13"> &lt;= 13</option><option value="=14"> = 14</option><option value="<=14"> &lt;= 14</option><option value="=15"> = 15</option><option value="<=15"> &lt;= 15</option>
                   </b-select>
                 </feature-gate>
-                <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, & storage!" :gateLevel="1" classes="level-item is-hidden-mobile">
+                <feature-gate adText="Upgrade Now for more filters, stats, reporting emails, features, and storage" :gateLevel="1" classes="level-item is-hidden-mobile">
                   <b-select placeholder="Reserve List" size="is-small" class="mr-1" v-model="reserve_list">
                       <option selected disabled value="">Reserve List</option>
                       <option disabled>---</option>
@@ -339,7 +339,7 @@
           </b-table-column>
 
           <b-table-column width="110" field="price_acquired" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" :label="`Acq. Price`" v-slot="props" sortable centered>
-              <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="$fetch"  />
+              <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired" :callback="refreshPriceMeta"  />
           </b-table-column>
           <b-table-column width="115" cell-class="is-hidden-mobile" header-class="is-hidden-mobile" field="date_acquired" label="Acq. Date" v-slot="props" sortable centered>
 
@@ -358,7 +358,7 @@
                   <NuxtImg width="170" class="is-hidden-fullhd mr-2" :src="props.row.image" :alt="`${props.row.name} image`" />
                   <div class="touch-flyout-container is-flex-grow-2 is-flex">
                     <div class="is-hidden-fullhd">
-                      <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :price_acquired="props.row.price_acquired"  />
+                      <price-acquired-input :currency_symbol="cs" :inventory_id="props.row.inventory_id" :callback="refreshPriceMeta" :price_acquired="props.row.price_acquired"  />
                       <date-acquired-input class="mb-2-touch" :date="props.row.date_acquired"  :inventory_id="props.row.inventory_id" />
                     </div>
                     <div class="is-flex mb-2-touch">
