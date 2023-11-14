@@ -22,7 +22,8 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/import-scryglass/') return redirect(`/apps/import/`);
     if(route.path == '/sets/') return redirect(`/mtg/sets/`);
     if(route.path == '/plans-yearly/') return redirect(`/plans/`);
-
+    if(route.path == '/user/subscriptions/') return redirect(`/user/email/`);
+    
 
 
     // original groups to types
