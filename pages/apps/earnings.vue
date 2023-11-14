@@ -81,6 +81,7 @@
         :sticky="true"
         :loading="loading"
         paginated
+        narrowed
         backend-pagination
         :total="total"
         :per-page="perPage"
