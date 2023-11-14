@@ -41,8 +41,8 @@ import {mapState} from 'vuex'
             }
           }
         },
-        mounted(){
-          this.getSets()
+        async mounted(){
+          await this.getSets()
         },
         watch: {
           selected() {
@@ -51,7 +51,6 @@ import {mapState} from 'vuex'
           search() {
 
             if(this.search == '' || this.search == null) {
-              console.log('clear detected')
               let empty = {
                 name: '',
                 set_code: ''
@@ -64,13 +63,15 @@ import {mapState} from 'vuex'
         },
         methods: {
           async getSets(){
+            if(this.sets.length > 0) return;
 
-            if(this.sets.length == 0){
-              let setsData = await this.$echomtg.getSets()
-              this.data = [];
+            try{
+              const setsData = await this.$echomtg.getSets();
               this.$store.commit('sets',setsData)
+              this.data = setsData;
+            } catch(err){
+              console.log(err)
             }
-            this.sets.map(set => this.data.push(set))
           },
           getSetIcon(set_code) {
             return this.$echomtg.setIconClass(set_code)

@@ -47,7 +47,7 @@ export default (context, inject) => {
   }
 
   echomtg.setIconClass = (set_code) => {
-    let sc = set_code.toLowerCase();
+    let sc = set_code ? set_code.toLowerCase() : '';
     return `ss ss-${sc} ss-echo`
   }
 
