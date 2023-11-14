@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authenticated && parseInt(user.user_level) > 2" :class="isDarkModeActive ? 'has-background-black' : 'has-background-white'">
+  <div v-if="authenticated && parseInt(user.user_level) > 2" :class="isDarkModeActive == 1 ? 'has-background-black' : 'has-background-white'">
       <div class="modal-card">
         <div class="modal-card-head has-background-dark ">
             <p  class="modal-card-title has-text-white is-size-5 has-text-weight-bold">
