@@ -268,8 +268,7 @@ export default {
     // document.documentElement.classList['add']('is-dark-mode-active');
 
   },
-
-  async beforeMount () {
+  async mounted () {
 
     // STORE PERSISTANCE
     // if there is a token available, attempt to authenticated the user and populate the store
@@ -287,13 +286,10 @@ export default {
           this.$cookies.set('referrerURL',referer)
         }
       }
-      // get sets
-      await this.getSets()
-
+     
     } catch (err) {
       console.log('offine')
     }
-
 
     /* Detect mobile layout */
     this.$store.dispatch('layoutMobileToggle')
@@ -301,6 +297,18 @@ export default {
     window.onresize = () => {
       this.$store.dispatch('layoutMobileToggle')
     }
+  },
+
+  async beforeMount () {
+
+    try {
+      // get sets
+      await this.getSets()
+
+    } catch (err) {
+      console.log('offine')
+    }
+
   },
   methods: {
     async getSets(){
