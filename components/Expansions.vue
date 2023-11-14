@@ -26,11 +26,12 @@
     <b-table
       :checked-rows.sync="checkedRows"
       :checkable="false"
-      :loading="isLoading"
+
       :paginated="paginated"
       pagination-size="is-small"
       pagination-position="bottom"
       pagination-order="is-centered"
+      :loading="loading"
       :per-page="perPage"
       :striped="true"
       :mobile-cards="false"
@@ -117,7 +118,8 @@
             <p>
               <b-icon icon="emoticon-sad" size="is-large" />
             </p>
-            <p>Nothing's here&hellip;</p>
+            <p>No Data Available &hellip;</p>
+            <b-button @click="search = ''">Clear Search</b-button>
           </template>
         </div>
       </section>
@@ -142,12 +144,15 @@ export default {
     expansions: {
       type: Array,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       isModalActive: false,
-      isLoading: false,
       paginated: true,
       perPage: 50,
       checkedRows: [],
