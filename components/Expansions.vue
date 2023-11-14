@@ -116,7 +116,7 @@
           </template>
           <template v-else>
             <p>
-              <b-icon icon="emoticon-sad" size="is-large" />
+              <b-icon icon="question-circle" size="is-large" />
             </p>
             <p>No Data Available &hellip;</p>
             <b-button @click="search = ''">Clear Search</b-button>

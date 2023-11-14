@@ -30,15 +30,15 @@
                           <div class="field">
                               <label class="label">Rarity</label>
 
-                              <div class="select">
-                                  <select id="rarity" name="rarity" >
+
+                                  <b-select v-model="item.rarity" id="rarity" name="rarity" >
                                       <option
                                           v-for="rarity in rarities"
                                           v-bind:key="rarity"
                                           :selected="checkRaritySelected(rarity,item.rarity)"
                                           >{{rarity}}</option>
-                                  </select>
-                              </div>
+                                  </b-select>
+
 
                                 <p class="help">{{item.rarity}}</p>
                           </div>
@@ -172,7 +172,7 @@ export default {
   data: function data() {
       return {
           newSet: '',
-          imageurl: null,
+          imageurl: '',
           isImageModalActive: false,
           rarities: [
               'Mythic Rare',
@@ -254,7 +254,7 @@ export default {
 
           // flavor_text
           if(this.imageurl !== '' && this.imageurl !== null){
-            body.imageurl = this.imageurl;
+            body.image_url = this.imageurl;
           }
 
           const data = await this.$echomtg.wikiItemPatch(body)
@@ -294,6 +294,7 @@ export default {
         return (this.newSetCode != '') ? this.newSetCode : this.item.set_code
     },
     fullImage: function(){
+        if(this.imageurl != '') return this.imageurl;
         return this.item?.image ? this.item.image + '?' + Date.now() : ''
     },
     croppedImage: function(){
