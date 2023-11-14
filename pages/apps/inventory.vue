@@ -273,6 +273,7 @@
         :default-sort="[sortField, sortOrder]"
         @sort="onSort"
         striped
+        narrowed
         :mobile-cards="false"
         :detailed="$device.isDesktop ? true : false"
         custom-detail-row
@@ -571,7 +572,6 @@ export default {
   async fetch() {
       if(!this.authenticated) return;
 
-      await this.refreshPriceMeta()
       this.loading = true
       try {
         let start = (this.page - 1) * this.perPage;
@@ -594,13 +594,9 @@ export default {
 
         this.item_data = []
 
-
-
         let currentTotal = data.meta.total_pages * data.meta.items_per_page
 
         this.total = currentTotal
-
-
 
         this.item_data = data.items
         this.clearChecked()
@@ -714,6 +710,7 @@ export default {
   mounted() {
     this.onResize();
     this.$fetch()
+    this.refreshPriceMeta()
     this.updateTableHeight()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
