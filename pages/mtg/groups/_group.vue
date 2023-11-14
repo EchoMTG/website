@@ -5,7 +5,7 @@
       :setName="slug"
       :customTitle="custompage.title"
       :customDescription="custompage.description"
-      :topcardImage="items[0].image_cropped"
+      :topcardImage="items[0]?.image_cropped || ' '"
       :setTotalItems="items.length"
     />
     <b-table
@@ -23,7 +23,7 @@
         <nuxt-link :to="props.row.url" no-prefetch>
             <b-image
                 lazy
-                :src="props.row.image_cropped"
+                :src="props.row?.image_cropped || ''"
                 custom-class="mr-3"
                 placeholder="https://assets.echomtg.com/magic/cards/cropped/placeholder.png"
                 style="height: 50px; width:70px; float: left; margin-right: 4px;" />
@@ -103,7 +103,7 @@ export default {
     let data;
     try {
       data = await this.$echomtg.getGroup(this.$route.params['group'],1000)
-
+      
     } catch(err){
       // Vue.error({ statusCode: 500, message: err.message })
     }
