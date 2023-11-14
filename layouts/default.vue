@@ -258,7 +258,7 @@ export default {
       }
     }
   },
-  beforeMount() {
+  async beforeMount() {
     // ideally these classes are added through the nuxt config but they overwrite ever route change if so
     // always dynamically add these to the html class since we dyanmically remove and add classes with vuex state
     document.documentElement.classList['add']('has-aside-left');
@@ -266,6 +266,7 @@ export default {
     document.documentElement.classList['add']('has-aside-mobile-transition');
     document.documentElement.classList['add']('has-aside-expanded');
     // document.documentElement.classList['add']('is-dark-mode-active');
+    await this.getSets()
 
   },
   async mounted () {
@@ -297,18 +298,6 @@ export default {
     window.onresize = () => {
       this.$store.dispatch('layoutMobileToggle')
     }
-  },
-
-  async beforeMount () {
-
-    try {
-      // get sets
-      await this.getSets()
-
-    } catch (err) {
-      console.log('offine')
-    }
-
   },
   methods: {
     async getSets(){
