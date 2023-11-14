@@ -15,6 +15,7 @@ export default function ({route,redirect}) {
     if(route.path == '/lists/') return redirect(`/apps/lists/`);
     if(route.path == '/inventory/watchlist/') return redirect(`/apps/watchlist/`);
     if(route.path == '/user/watchlist/') return redirect(`/apps/watchlist/`);
+    if(route.path == '/user/') return redirect(`/user/profile/`);
     if(route.path == '/inventory/earnings/') return redirect(`/apps/earnings/`);
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
     if(route.path == '/inventory/stats/') return redirect(`/apps/statistics/`);
