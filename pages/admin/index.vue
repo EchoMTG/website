@@ -5,7 +5,7 @@
     <section class="hero is-dark is-small has-background-grey-dark mb-5">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title  is-size-6-touch">EchoMTG Applications Stats</h1>
+              <h1 class="title  is-size-6-touch">Lastest Users</h1>
 
           </div>
       </div>
@@ -13,48 +13,53 @@
 
     <div class="container">
       <div class="level is-mobile">
-         <div class="level-item has-text-centered">
+        <div class="level-item has-text-centered">
           <div>
             <p class="heading is-size-7-touch">Users</p>
-            <p class="title is-size-6-touch">{{data_totals.users}}</p>
+            <p class="title is-size-6-touch">{{latestUsers.meta.total}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading is-size-7-touch">Inventory</p>
-            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Avg Per Day</p>
+            <p class="title is-size-6-touch">{{(latestUsers.meta.total / days).toFixed(2)}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading is-size-7-touch">Earnings</p>
-            <p class="title is-size-6-touch">{{data_totals.earnings}}</p>
+            <p class="heading is-size-7-touch">Total Paid</p>
+            <p class="title is-size-6-touch">{{totalPaid}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading is-size-7-touch">Notes</p>
-            <p class="title is-size-6-touch">{{data_totals.notes}}</p>
+            <p class="heading is-size-7-touch">Conversion %</p>
+            <p class="title is-size-6-touch">{{((totalPaid / latestUsers.meta.total) * 100).toFixed(2)}}%</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading is-size-7-touch">Comments</p>
-            <p class="title is-size-6-touch">{{data_totals.comments}}</p>
+            <p class="heading is-size-7-touch">Timeframe</p>
+            <p class="title is-size-6-touch">
+              <b-select v-model="days">
+                <option v-for="day in 30" v-bind:key="`index${day}`" :value="day">{{day}}</option>
+              </b-select>
+            </p>
           </div>
         </div>
+
       </div>
 
     </div>
   <hr />
   <h3 class="title is-size-4 ml-3">
-                {{latestUsers.meta.total}} new users in the last {{latestUsers.meta.days}} days
-              </h3>
-
+    {{latestUsers.meta.total}} new users in the last {{days}} days
+  </h3>
 
     <b-table
       striped
       narrowed
+      :loading="loading"
       :mobile-cards="false"
       :data="latestUsers.results"
       :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
@@ -101,16 +106,7 @@ export default {
   data () {
     return {
       loading: false,
-      data_totals: {
-        "inventory": 29465932,
-        "items": 80500,
-        "earnings": 364549,
-        "tweet_queue": 5,
-        "price_update_queue": 1,
-        "users": 45629,
-        "comments": 1021,
-        "notes": 126978
-      },
+      days: 2,
       latestUsers: {
         results: [],
         meta: {
@@ -120,11 +116,13 @@ export default {
       },
       stats: null,
 
-
-
     }
   },
-
+  watch: {
+    async days() {
+      this.latestUsers = await this.getLatestUsers(this.days)
+    }
+  },
   async fetch(){
 
       if(this.user.user_level < 3){
@@ -135,63 +133,28 @@ export default {
       } else {
 
         this.loading    = true;
-        this.latestUsers = await this.getLatestUsers(2)
-        this.data_totals = (await this.getDataTotals()).totals
+        this.latestUsers = await this.getLatestUsers(this.days)
+
 
         this.loading    = false;
       }
   },
 
   methods: {
-    async sendUpdate(){
-      let url = '/api/updates/add/';
-
-    },
     async getLatestUsers(days=1){
+      this.loading = true;
       let url = `${this.$config.API_DOMAIN}super/latest_signups/?days=${days}`;
       const res = await fetch(url, {
         headers: this.$echomtg.getUserHeaders(),
       });
+      this.loading = false;
       return await res.json();
+
     },
-     async getDataTotals(){
-      let url = `${this.$config.API_DOMAIN}super/data_totals/`;
-      const res = await fetch(url, {
-        headers: this.$echomtg.getUserHeaders(),
-      });
-      return await res.json();
-    }
 
   },
 
   computed: {
-    distributionData(){
-      return { datasets: this.distributionDataset, labels:this.distributionLabels }
-    },
-    distributionValueData(){
-      return { datasets: this.distributionValueDataset, labels:this.distributionLabels }
-    },
-    rarityData(){
-      return { datasets: this.rarityDistributionDataset, labels:this.rarityLabels }
-    },
-    chartOptions(){
-      return chartConfig.chartOptionsMain
-    },
-    chartOptionsBar(){
-      return chartConfig.chartOptionsBar
-    },
-    chartOptionsRarity(){
-      return {
-        ...chartConfig.chartOptionsBar,
-
-        legend: {
-          label: {
-            color: '#000000'
-          }
-        }
-
-      }
-    },
 
     crumbs() {
       return [
@@ -201,6 +164,9 @@ export default {
           icon: ''
         },
       ]
+    },
+    totalPaid(){
+      return this.latestUsers.results.filter(item => item.plan != 'common').length
     },
     ...mapState(['user','authenticated'])
   },

@@ -6,7 +6,7 @@
     <div class="pt-4 pl-4">
     <h1 class="title is-size-5">MTG Sets and Expansions</h1>
     </div>
-    <Expansions :expansions="expansions" />
+    <Expansions :loading="loading" :expansions="expansions" />
   </div>
 </template>
 
@@ -33,7 +33,9 @@ export default {
   },
   fetchOnServer: true,
   async fetch() {
+    this.loading = true
     this.expansions = await this.$echomtg.getSets()
+    this.loading = false
   },
   computed: {
     titleStack () {

@@ -13,6 +13,10 @@ function adminMenu() {
     to: '/admin/performance/',
     icon: 'finance',
     label: 'Performance'
+  },{
+    to: '/admin/data_totals/',
+    icon: 'database',
+    label: 'Data Totals'
   }]
 }
 
