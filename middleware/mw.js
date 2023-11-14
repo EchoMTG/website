@@ -14,6 +14,7 @@ export default function ({route,redirect}) {
     if(route.path == '/inventory/') return redirect(`/apps/inventory/`);
     if(route.path == '/lists/') return redirect(`/apps/lists/`);
     if(route.path == '/inventory/watchlist/') return redirect(`/apps/watchlist/`);
+    if(route.path == '/user/watchlist/') return redirect(`/apps/watchlist/`);
     if(route.path == '/inventory/earnings/') return redirect(`/apps/earnings/`);
     if(route.path == '/inventory/sealed/') return redirect(`/apps/sealed/`);
     if(route.path == '/inventory/stats/') return redirect(`/apps/statistics/`);
@@ -48,6 +49,7 @@ export default function ({route,redirect}) {
     if(route.path == '/about/updates-roadmap/') return redirect(`/about/roadmap/`);
     if(route.path == '/privacy/') return redirect(`/legal/privacy-policy/`);
     if(route.path == '/terms/') return redirect(`/legal/terms-and-conditions/`);
+    if(route.path == '/support/') return redirect(`/help/support/`);
 
     //
 
