@@ -8,7 +8,7 @@
           <b-breadcrumb-item
             v-for="(item, index) in data"
             tag='router-link'
-            :key="item.label.toLowerCase().replace(' ','')"
+            :key="`crumb${index}`"
             :to="item.url"
             class="is-capitalized"
             :active="(index + 1) == data.length"
