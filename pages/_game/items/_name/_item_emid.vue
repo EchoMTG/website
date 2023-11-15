@@ -358,7 +358,6 @@
 
 
 
-
   </div>
 
 </template>
@@ -406,15 +405,9 @@ export default {
       isBuylistOpen: true,
       item: {
         name: '',
-        set_code: '',
-        expansion: '',
-        main_type: '',
-        crawlurl: '',
-        rarity: '',
-        card_text: '',
-        set_url: ''
+        set_code: ''
       },
-      emid: null,
+
       dates: [],
       date_start: this.$moment().subtract(12, 'months').format('Y-MM-DD'),
       date_end: this.$moment().format('Y-MM-DD'),
@@ -448,69 +441,54 @@ export default {
       this.dateEdit = false;
     }
   },
-  async fetch() {
+  async asyncData({ params, redirect, $echomtg, $config, $moment }) {
 
-    this.emid = this.$route.params.item_emid;
-    this.game = this.$route.params.game;
-    let item, res, dataRes, priceData;
-    this.prices = {
+    let emid = params.item_emid;
+    let game = params.game;
+    let item, res, dataRes, variations;
+    let prices = {
       'date' : [],
       'regular': [],
       'foil' : []
     }
 
-    this.dates = [
-      new Date(this.$moment().subtract(24, 'months').toISOString()),
+    let dates = [
+      new Date($moment().subtract(24, 'months').toISOString()),
       new Date
     ]
 
 
-    const date_start = this.$moment().subtract(24, 'months').format('Y-MM-DD');
-    const date_end = this.$moment().format('Y-MM-DD');
+    const date_start = $moment().subtract(24, 'months').format('Y-MM-DD');
+    const date_end = $moment().format('Y-MM-DD');
 
     // fetch the item
-    let endpoint = `${this.$config.API_DOMAIN}data/item/?emid=${this.emid}`;
+    let endpoint = `${$config.API_DOMAIN}data/item/?emid=${emid}`;
     // pricing
-    let dataEndpoint = `${this.$config.API_DOMAIN}data/item_history/?emid=${this.emid}&date_start=${date_start}&date_end=${date_end}`;
+    let dataEndpoint = `${$config.API_DOMAIN}data/item_history/?emid=${emid}&date_start=${date_start}&date_end=${date_end}`;
 
     // try to get the json
     try {
       res = await fetch(
         endpoint, {
-          headers: this.$echomtg.getS2SHeadersNoJSON()
+          headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
-      dataRes = await res.json();
-
-      if(dataRes.status == 'error'){
-
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = 404
-        }
-        // use throw new Error()
-        throw new Error('Post not found')
-        // this.$nuxt.context.error({
-        //   status: 404,
-        //   message: 'Something bad happened',
-        // })
-      } else {
-        this.item = dataRes;
-      }
+      item = await res.json();
 
       dataRes = await fetch( dataEndpoint,
         {
-          headers: this.$echomtg.getS2SHeadersNoJSON()
+          headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
-      priceData = await dataRes.json();
+      let priceData = await dataRes.json();
 
       if(priceData.status == "success"){
-        this.prices = priceData.data;
+        prices = priceData.data;
       }
 
       // fetching other editions
       let variationname = item.card_url.split('/')[2];
-      let variationsEndpoint = `${this.$config.API_DOMAIN}data/item_variations/?name=${variationname}`;
+      let variationsEndpoint = `${$config.API_DOMAIN}data/item_variations/?name=${variationname}`;
 
 
       const vRes = await fetch(
@@ -520,14 +498,21 @@ export default {
       );
       let vData = await vRes.json();
 
-      this.variations = vData.data.variations;
+      variations = vData.data.variations;
 
 
     } catch(err){
       console.log(err, res)
     }
 
-
+    // return it
+    if (item) {
+      return {
+        item, prices, variations, dates, game
+      }
+    } else {
+      //redirect('/sets/')
+    }
   },
   methods: {
     async addToWatchlist(){
@@ -638,7 +623,7 @@ export default {
           icon: ''
         },
         {
-          label: this.item?.name ? this.item.name.split('(')[0] : '',
+          label: this.item.name.split('(')[0],
           url: this.item.card_url,
           icon: ''
         },
@@ -702,13 +687,13 @@ export default {
   },
   head () {
     return {
-        title: this.item.card_name ? `${this.item.card_name} Price from ${this.game} ${this.item.expansion}` : 'Page Not Found',
+        title: `${this.item.card_name} Price from ${this.game} ${this.item.expansion}`,
         meta: [
-          { hid: 'og:image', property: 'og:image', content: this.item?.image_cropped || '' },
+          { hid: 'og:image', property: 'og:image', content: this.item.image_cropped },
           {
             hid: 'description',
             name: 'description',
-            content:  this.item?.card_name ? `Card Images, Info and Price History for ${this.item.card_name} from the ${this.game} set ${this.item.expansion}` : 'Page not found'
+            content:  `Card Images, Info and Price History for ${this.item.card_name} from the ${this.game} set ${this.item.expansion}`
           },
           {
             hid:'',
