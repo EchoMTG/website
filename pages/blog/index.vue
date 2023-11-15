@@ -21,11 +21,12 @@
            </div>
           <div class="card-content">
 
-
-                <p class="title is-4">{{article.title}}</p>
+            <p class="title is-4">
+              <echo-link :url="article.url">{{article.title}}</echo-link>
+            </p>
 
             <div class="content">
-              {{article.content.replace( /(<([^>]+)>)/ig, '').substring(0,120)}}
+              {{article.short || article.content.replace( /(<([^>]+)>)/ig, '').substring(0,120)}}
             </div>
           </div>
           <footer class="card-footer">
@@ -41,11 +42,13 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
+import EchoLink from '~/components/EchoLink.vue'
 import EchoBreadCrumbs from '~/components/navigation/EchoBreadCrumbs.vue'
 export default {
   name: 'Blog',
   components: {
-    EchoBreadCrumbs
+    EchoBreadCrumbs,
+    EchoLink
   },
   data () {
     return {

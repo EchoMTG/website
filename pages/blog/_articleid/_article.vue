@@ -175,7 +175,7 @@ export default {
           {
             hid: 'description',
             name: 'description',
-            content:  this.article.short
+            content:  this.article?.short ? this.article.short : this.article.content.replace(/<\/?[^>]+(>|$)/g, "").substring(0,100)+'...'
           }
         ]
     }
