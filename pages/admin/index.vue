@@ -58,32 +58,33 @@
 
     <b-table
       striped
+
       narrowed
       :loading="loading"
       :mobile-cards="false"
       :data="latestUsers.results"
       :row-class="(row, index) => row.plan !== 'common' && 'has-background-success'"
       >
-      <b-table-column field="username" label="Username" v-slot="props">
+      <b-table-column sortable field="username" label="Username" v-slot="props">
         {{props.row.username}} [{{props.row.id}}]
       </b-table-column>
-      <b-table-column field="card_count" label="Items" v-slot="props">
+      <b-table-column sortable numeric field="card_count" label="Items" v-slot="props">
         {{props.row.card_count}}
       </b-table-column>
-      <b-table-column field="referrer_url" label="Referrer" v-slot="props">
+      <b-table-column sortable field="referrer_url" label="Referrer" v-slot="props">
         {{props.row.referrer_url}} {{props.row.device_type}} {{props.row.platform}}
       </b-table-column>
-      <b-table-column field="capture_url" label="Entry/Capture" v-slot="props">
+      <b-table-column sortable field="capture_url" label="Entry/Capture" v-slot="props">
         <code>{{props.row.entry_url}}</code> <code>{{props.row.capture_url}}</code>
       </b-table-column>
 
-      <b-table-column field="email" label="Email" v-slot="props">
+      <b-table-column sortable field="email" label="Email" v-slot="props">
         {{props.row.email}}
       </b-table-column>
-       <b-table-column field="plan" label="Plan" v-slot="props">
+       <b-table-column sortable field="plan" label="Plan" v-slot="props">
         <b-tag :class="`${props.row.plan}-background`">{{props.row.plan}}</b-tag>
       </b-table-column>
-       <b-table-column field="date_created" label="Created/LastLogin" v-slot="props">
+       <b-table-column sortable field="date_created" label="Created/LastLogin" v-slot="props">
         <b-tag>{{props.row.date_created}}</b-tag> <b-tag type="is-dark" v-if="props.row.last_login !== props.row.date_created">{{props.row.last_login}}</b-tag>
       </b-table-column>
 
