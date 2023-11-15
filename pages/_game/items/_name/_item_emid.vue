@@ -5,7 +5,7 @@
     <echo-bread-crumbs :data="crumbs" />
 
 
-    <div class="columns is-gapless">
+    <div v-if="item.name != 'Not Found'" class="columns is-gapless">
       <div class="column is-one-quarter">
         <div class="cardImageContainer mt-5 ml-3">
           <NuxtPicture
@@ -354,6 +354,7 @@
       </div>
 
     </div>
+    <item-404 v-else :url="this.$nuxt.$route.path" />
 
 
 
@@ -380,6 +381,7 @@ import CommentThread from '@/components/comments/CommentThread.vue'
 import EchoLink from '@/components/EchoLink.vue'
 import AffiliateOverlayDisclaimer from '@/components/legal/AffiliateOverlayDisclaimer.vue'
 import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
+import Item404 from '@/components/errors/Item404.vue'
 
 export default {
   name: 'Expansion',
@@ -397,7 +399,8 @@ export default {
     CommentThread,
     EchoLink,
     AffiliateOverlayDisclaimer,
-    WatchlistQuickAddButton
+    WatchlistQuickAddButton,
+    Item404
   },
   data () {
     return {
@@ -499,11 +502,11 @@ export default {
       this.dateEdit = false;
     }
   },
-  async asyncData({ params, redirect, $echomtg, $config, $moment }) {
+  async asyncData({ params, res, $echomtg, $config, $moment }) {
 
     let emid = params.item_emid;
     let game = params.game;
-    let item, res, dataRes, variations;
+    let item, itemRes, dataRes, variations;
     let prices = {
       'date' : [],
       'regular': [],
@@ -526,12 +529,18 @@ export default {
 
     // try to get the json
     try {
-      res = await fetch(
+      itemRes = await fetch(
         endpoint, {
           headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
-      item = await res.json();
+      const itemResult = await itemRes.json();
+      if(itemResult?.status && itemResult.status == 'error'){
+        
+        res.statusCode = 404
+        return
+      }
+      item = itemResult;
 
       dataRes = await fetch( dataEndpoint,
         {
