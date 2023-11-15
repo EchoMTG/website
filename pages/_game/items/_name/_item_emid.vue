@@ -5,7 +5,7 @@
     <echo-bread-crumbs :data="crumbs" />
 
 
-    <div class="columns is-gapless">
+    <div v-if="item.name != 'Not Found'" class="columns is-gapless">
       <div class="column is-one-quarter">
         <div class="cardImageContainer mt-5 ml-3">
           <NuxtPicture
@@ -70,13 +70,13 @@
                 <div class="control" v-if="this.item.reserve_list == 1">
                   <b-tag icon="gold" class="has-background-grey-dark has-text-white">Reserved List</b-tag>
                 </div>
-                <div class="control">
+                <div v-if="this.item.rarity" class="control">
                   <b-taglist attached>
                     <b-tag class="has-background-black has-text-white">Rarity</b-tag>
                     <b-tag class="has-background-grey-dark has-text-white"><i :class="`${getSetIconClass(this.item.set_code)} ${this.item.rarity.replace(' ','-').toLowerCase()}-symbol`"></i> {{this.item.rarity}}</b-tag>
                   </b-taglist>
                 </div>
-                <div class="control">
+                <div v-if="this.item.main_type" class="control">
                   <b-taglist attached>
                     <b-tag class="has-background-black has-text-white">Types</b-tag>
                     <b-tag class="has-background-grey-dark has-text-white">
@@ -354,6 +354,7 @@
       </div>
 
     </div>
+    <item-404 v-else :url="this.$nuxt.$route.path" />
 
 
 
@@ -380,6 +381,7 @@ import CommentThread from '@/components/comments/CommentThread.vue'
 import EchoLink from '@/components/EchoLink.vue'
 import AffiliateOverlayDisclaimer from '@/components/legal/AffiliateOverlayDisclaimer.vue'
 import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
+import Item404 from '@/components/errors/Item404.vue'
 
 export default {
   name: 'Expansion',
@@ -397,15 +399,74 @@ export default {
     CommentThread,
     EchoLink,
     AffiliateOverlayDisclaimer,
-    WatchlistQuickAddButton
+    WatchlistQuickAddButton,
+    Item404
   },
   data () {
     return {
       isPriceAnalysisOpen: true,
       isBuylistOpen: true,
       item: {
-        name: '',
-        set_code: ''
+        "id": 0,
+        "game": 1,
+        "tcgplayer_id": 0,
+        "multiverseid": 0,
+        "set_number": 0,
+        "card_name": "Not Found",
+        "expansion": "Not Found",
+        "set_code": "N/A",
+        "rarity": "N/A",
+        "mana_cost": "",
+        "cmc": 0,
+        "p_t": "",
+        "types": "",
+        "main_type": "",
+        "sub_type": "",
+        "rating": 0,
+        "votes": 0,
+        "card_text": "",
+        "attributes": "",
+        "flavor_text": null,
+        "power": 0,
+        "toughness": 0,
+        "artist": "",
+        "type": "",
+        "main_colors": "",
+        "abilities_colors": "",
+        "crawlurl": "",
+        "hand_life": null,
+        "watermark": null,
+        "loyalty": null,
+        "color_indicator": null,
+        "other_sets": null,
+        "card_number": 0,
+        "created_at": null,
+        "deleted_at": null,
+        "updated_at": "",
+        "has_image": 0,
+        "flip": 0,
+        "reserve_list": 0,
+        "sealed": 0,
+        "tcg_mid": 0,
+        "tcg_low": 0,
+        "foil_price": 0,
+        "tcg_market": 0,
+        "change": 0,
+        "name": "Not Found",
+        "image": "https://assets.echomtg.com/magic/cards/magic-card-back.jpg",
+        "image_cropped": "https://assets.echomtg.com/magic/cards/magic-card-back.jpg",
+        "url": "/not-found",
+        "emid": 0,
+        "purchase_link_tcg": "",
+        "mid": 0,
+        "set_url": "",
+        "set_image": "",
+        "card_url": "",
+        "foil_buylist_assumption": 0,
+        "buylist_assumption": 0,
+        "percentage_html": "",
+        "percentage_class": "",
+        "foil_multiplier": 0
       },
 
       dates: [],
@@ -441,11 +502,11 @@ export default {
       this.dateEdit = false;
     }
   },
-  async asyncData({ params, redirect, $echomtg, $config, $moment }) {
+  async asyncData({ params, res, $echomtg, $config, $moment }) {
 
     let emid = params.item_emid;
     let game = params.game;
-    let item, res, dataRes, variations;
+    let item, itemRes, dataRes, variations;
     let prices = {
       'date' : [],
       'regular': [],
@@ -468,12 +529,18 @@ export default {
 
     // try to get the json
     try {
-      res = await fetch(
+      itemRes = await fetch(
         endpoint, {
           headers: $echomtg.getS2SHeadersNoJSON()
         }
       );
-      item = await res.json();
+      const itemResult = await itemRes.json();
+      if(itemResult?.status && itemResult.status == 'error'){
+        
+        res.statusCode = 404
+        return
+      }
+      item = itemResult;
 
       dataRes = await fetch( dataEndpoint,
         {
@@ -497,8 +564,9 @@ export default {
         }
       );
       let vData = await vRes.json();
-
-      variations = vData.data.variations;
+      if(vData.status == 'success'){
+        variations = vData.data.variations;
+      }
 
 
     } catch(err){
@@ -586,8 +654,9 @@ export default {
       return this.item.change > 0 ? 'gone up' : 'dropped'
     },
     typeColor() {
-      let color = 'is-warning'
-      switch (this.item.rarity.toLowerCase()){
+      let color = 'is-warning';
+      let rarity = this.item?.rarity ? this.item.rarity.toLowerCase(): 'unknown' 
+      switch (rarity){
         case 'uncommon':
           color='is-grey';
           break;
@@ -600,7 +669,9 @@ export default {
         case 'mythic rare':
         case 'mythic':
           color='is-danger';
-        break;
+          break;
+        default:
+          color='is-grey';
       }
       return color;
     },
