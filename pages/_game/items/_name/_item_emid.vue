@@ -3,14 +3,9 @@
     <nuxt v-if="user?.user_level && parseInt(user.user_level) >= 3" keep-alive />
 
     <echo-bread-crumbs :data="crumbs" />
-    <p v-if="$fetchState.error">
-      Error occured during the article loading
-    </p>
-    <p v-else-if="$fetchState.pending">
-      Loading Item...
-    </p>
 
-    <div v-else class="columns is-gapless">
+
+    <div class="columns is-gapless">
       <div class="column is-one-quarter">
         <div class="cardImageContainer mt-5 ml-3">
           <NuxtPicture
@@ -457,8 +452,8 @@ export default {
 
     this.emid = this.$route.params.item_emid;
     this.game = this.$route.params.game;
-    let item, res, dataRes, variations, priceData;
-    let prices = {
+    let item, res, dataRes, priceData;
+    this.prices = {
       'date' : [],
       'regular': [],
       'foil' : []
@@ -485,8 +480,8 @@ export default {
           headers: this.$echomtg.getS2SHeadersNoJSON()
         }
       );
-      const dataRes = await res.json();
-      console.log(dataRes);
+      dataRes = await res.json();
+
       if(dataRes.status == 'error'){
 
         if (process.server) {
@@ -501,7 +496,7 @@ export default {
       } else {
         this.item = dataRes;
       }
-      console.log('passed go');
+
       dataRes = await fetch( dataEndpoint,
         {
           headers: this.$echomtg.getS2SHeadersNoJSON()
