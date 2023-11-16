@@ -178,7 +178,7 @@
             <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
 
                 <NuxtImg
-                    :loading="props.index > 10 ? 'lazy' : 'eager'"
+                    :loading="props.index > 20 ? 'lazy' : 'eager'"
                     :src="props.row.image_cropped"
                     class="mr-3 is-pulled-left"
                     :alt="`${props.row.name} Cropped Item Image Thumbnail`"

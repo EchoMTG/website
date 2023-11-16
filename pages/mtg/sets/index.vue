@@ -28,7 +28,8 @@ export default {
   data () {
     return {
       title: 'Sets',
-      expansions: []
+      expansions: [],
+      loading: false
     }
   },
   fetchOnServer: true,

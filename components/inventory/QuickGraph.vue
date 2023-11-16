@@ -67,7 +67,7 @@ export default {
       cd.datasets.push({
         label: 'Your Purchase',
         backgroundColor: '#009900',
-        borderColor: '#FFFFFF',
+        borderColor: '#CCCCCC',
         fill: false,
         pointRadius: 10,
         pointHoverRadius: 15,
@@ -105,7 +105,6 @@ export default {
 
       })
     }
-    console.log('chart data',cd)
     return cd
   }
 },

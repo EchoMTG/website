@@ -108,7 +108,7 @@
 
       <section slot="empty" class="section">
         <div class="content has-text-grey has-text-centered">
-          <template v-if="isLoading">
+          <template v-if="loading">
             <p>
               <b-icon icon="dots-horizontal" size="is-large" />
             </p>
