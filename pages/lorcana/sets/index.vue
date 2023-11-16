@@ -26,12 +26,15 @@ export default {
   data () {
     return {
       title: 'Sets',
-      expansions: []
+      expansions: [],
+      loading: false
     }
   },
   fetchOnServer: true,
   async fetch() {
+    this.loading = true
     this.expansions = await this.$echomtg.getSets(71)
+    this.loading = false
   },
   computed: {
     titleStack () {
