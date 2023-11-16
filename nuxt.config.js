@@ -26,6 +26,9 @@ export default {
       },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css'},
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css'},
+      { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css'},
+
+
       // { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
       // {
       //   rel: 'stylesheet',
@@ -88,8 +91,7 @@ export default {
   ],
   buefy: {
     css: true,
-    materialDesignIcons: true,
-    materialDesignIconsHRef: 'https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css'
+    materialDesignIcons: false,
 
   },
   device: {
