@@ -64,7 +64,7 @@ export default {
             {
               to: '/mtg/sets/',
               href: '/mtg/sets/',
-              label: 'Sets / Expansions',
+              label: 'Sets/Expansions',
               icon: 'cards'
             },
             {
@@ -287,7 +287,7 @@ export default {
           this.$cookies.set('referrerURL',referer)
         }
       }
-     
+
     } catch (err) {
       console.log('offine')
     }

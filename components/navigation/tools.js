@@ -7,12 +7,12 @@ function toolsMenu(options={'tradesurl' :'/traders/'}) {
 {
   to: '/apps/inventory/',
   icon: 'book-open-page-variant-outline',
-  label: 'Collection Inventory'
+  label: 'Collection/Inventory'
 },
 {
   to: '/apps/lists/',
   icon: 'clipboard-list',
-  label: 'Lists/Decks'
+  label: 'Decks/Lists'
 },
 {
   to: '/apps/earnings/',
@@ -42,7 +42,7 @@ function toolsMenu(options={'tradesurl' :'/traders/'}) {
 {
   to: '/apps/import/',
   icon: 'file-upload-outline',
-  label: 'Import'
+  label: 'Collection Importer'
 },
 
 ]

@@ -66,8 +66,8 @@ export default {
     if(this.acquired_price){
       cd.datasets.push({
         label: 'Your Purchase',
-        backgroundColor: '#FF0000',
-        borderColor: '#FF0000',
+        backgroundColor: '#009900',
+        borderColor: '#FFFFFF',
         fill: false,
         pointRadius: 10,
         pointHoverRadius: 15,
@@ -105,6 +105,7 @@ export default {
 
       })
     }
+    console.log('chart data',cd)
     return cd
   }
 },
@@ -123,10 +124,10 @@ methods: {
     let point_data = []
     if(priceData.status == "success"){
        if(this.acquired_price){
-          priceData.data.date.push(this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-DD-MM'))
+          priceData.data.date.push(this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-MM-DD'))
           point_data.push({
             user: this.acquired_price,
-            x: this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-DD-MM'),
+            x: this.$moment(this.acquired_date, ['DD-MM-YYYY', 'MM-DD-YYYY']).format('YYYY-MM-DD'),
           })
         }
 
