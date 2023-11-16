@@ -105,6 +105,11 @@ $nav-background: $mage-dark;
   background: linear-gradient(to right,#e254dd 0%,#30ffff 100%);
 }
 
+.rainbow-background-tint{
+  text-shadow: 0px 0px 15px #b71ec4, 0px 0px 5px #256588;
+  background: linear-gradient(to right,hsl(300, 46%, 14%) 0%,hsl(180, 68%, 10%) 100%);
+}
+
 .button{
   &.rainbow-background, &.foil-background{
     &:hover{

@@ -18,24 +18,7 @@
             </button>
 
         </header>
-         <div class="is-flex">
-            <quick-add-button
-              v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)"
-              :emid="item.emid"
-              :foil="0"
-              :buttonText="`Add Regular`"
-              size=""
-              classes="m-2"
-              />
-            <quick-add-button
-              v-if="priceFoil > 0"
-              :emid="item.emid"
-              :foil="1"
-              :buttonText="`Add Foil`"
-              size=""
-              classes="m-2 ml-auto"
-              />
-          </div>
+
         <b-collapse
             aria-id="inventoryToolBox"
             animation="slide"
@@ -81,6 +64,24 @@
                 </b-table>
             </div>
         </b-collapse>
+        <div class="is-flex">
+            <quick-add-button
+              v-if="priceMid > 0 || !(priceMid > 0 && priceFoil > 0)"
+              :emid="item.emid"
+              :foil="0"
+              :buttonText="`Add Regular`"
+              size=""
+              classes="m-2"
+              />
+            <quick-add-button
+              v-if="priceFoil > 0"
+              :emid="item.emid"
+              :foil="1"
+              :buttonText="`Add Foil`"
+              size=""
+              classes="m-2 ml-auto"
+              />
+          </div>
     </div>
 </template>
 <script>

@@ -90,6 +90,12 @@
               />
             </p>
           </div>
+          <b-select size="is-small" v-model="pagination" class="ml-1">
+            <option value="50">50 Per Page</option>
+            <option value="100">100 Per Page</option>
+            <option value="250">250 Per Page</option>
+            <option value="5000">No Limit</option>
+          </b-select>
 
 
 
@@ -131,9 +137,10 @@
           :data="filteredItems"
           :debounce-search="0"
           paginated
+          narrowed
           pagination-size="is-small"
           pagination-position="bottom"
-          :per-page="authenticated ? 50 : 25"
+          :per-page="authenticated ? pagination : 25"
           pagination-order="is-centered"
           :custom-detail-row="authenticated ? true : false"
           :mobile-cards="false"
@@ -143,6 +150,9 @@
           ref="table"
           detail-key="emid"
           >
+          <b-table-column cell-class="is-vcentered"  centered :visible="$device.isMobileOrTablet ? false : true" field="collectors_number_sort" width="30" label="#" sortable v-slot="props" :custom-sort="sortCollectorNumber">
+            <span>{{props.row.collectors_number}}</span>
+          </b-table-column>
           <b-table-column label="Owned" class="is-flex is-flex-direction-row" :visible="authenticated ? true : false"  v-slot="props" width="30">
             <b-tag
               v-if="props.row.tcg_mid > 0"
@@ -156,12 +166,13 @@
 
             <b-tag
               v-if="props.row.foil_price > 0"
-              :class="isCardOwned(props.row.emid, 'foiled') ? 'rainbow-background' : 'has-background-light'">
+              :class="isCardOwned(props.row.emid, 'foiled') ? 'rainbow-background' : 'rainbow-background-tint'">
               <a v-on:click="props.toggleDetails(props.row)"><b-icon class="has-text-white" icon="minus" size="is-small" /></a>
               <strong style="margin: 0px 5px" class="has-text-white">{{isCardOwned(props.row.emid, 'foiled')}}</strong>
               <a v-on:click="addItem(props.row.emid, 1)"><b-icon class="has-text-white" icon="plus" size="is-small" /></a>
               </b-tag>
           </b-table-column>
+
 
           <b-table-column field="name" label="Name" sortable v-slot="props">
             <a :href="props.row.echo_url" :title="`Open ${props.row.name} Page`">
@@ -183,16 +194,19 @@
 
 
           </b-table-column>
-          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
-            <div class="level">
+          <b-table-column cell-class="is-vcentered"  :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="50" v-slot="props">
+            <b-button type="is-dark" v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit</b-button>
+          </b-table-column>
+          <b-table-column cell-class="is-vcentered" centered :visible="$device.isMobileOrTablet ? false : true" field="price_change" v-if="totalRegular > 0" width="60" label="7-Day" sortable v-slot="props">
+
               <span v-if="props.row.price_change !== 0" :class="changeTag(props.row.price_change)">
                 {{ props.row.price_change }} %
               </span>
 
-            </div>
+
 
           </b-table-column>
-            <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
+            <b-table-column cell-class="is-vcentered"  :visible="$device.isMobileOrTablet ? false : true" field="tcg_mid" v-if="totalRegular > 0" numeric :label="`Today's Price`" sortable v-slot="props">
 
               <strong class="is-size-6" v-if="props.row.tcg_mid > 0">{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</strong>
 
@@ -203,16 +217,15 @@
                   :foil="0"
                   :emid="props.row.emid" />
 
-              </b-button>
 
 
           </b-table-column>
-          <b-table-column :visible="$device.isMobileOrTablet ? true : false" field="price" v-if="totalRegular > 0" numeric :label="`Price`" sortable v-slot="props">
+          <b-table-column cell-class="is-vcentered"  :visible="$device.isMobileOrTablet ? true : false" field="price" v-if="totalRegular > 0" numeric :label="`Price`" sortable v-slot="props">
             <b-tag size="is-small" v-if="props.row.tcg_mid > 0" >{{cs}}{{props.row.tcg_mid?.toFixed(2)}}</b-tag>
             <b-tag  v-if="props.row.foil_price > 0" class="has-background-warning">{{cs}}{{props.row.foil_price?.toFixed(2)}}</b-tag>
           </b-table-column>
 
-          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
+          <b-table-column cell-class="is-vcentered"  :visible="$device.isMobileOrTablet ? false : true" field="foil_price" v-if="totalFoiled > 0" numeric  :label="`Foil Price`" sortable v-slot="props">
             <strong v-if="props.row.foil_price > 0" class="is-size-6">{{cs}}{{props.row.foil_price?.toFixed(2)}}</strong>
             <quick-add-button
                 v-if="props.row.foil_price > 0"
@@ -223,19 +236,15 @@
 
           </b-table-column>
 
-          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="rarity" label="Rarity" sortable width="120" v-slot="props">
+          <b-table-column cell-class="is-vcentered" centered :visible="$device.isMobileOrTablet ? false : true" field="rarity" label="Rarity" sortable width="120" v-slot="props">
             {{props.row.rarity}}
           </b-table-column>
-          <b-table-column :visible="$device.isMobileOrTablet ? false : true" field="collectors_number_sort" width="60" label="Set #" sortable v-slot="props" :custom-sort="sortCollectorNumber">
-            {{props.row.collectors_number}}
-          </b-table-column>
 
-           <b-table-column :visible="authenticated" width="60" label="Watch" v-slot="props">
+
+           <b-table-column cell-class="is-vcentered" centered :visible="authenticated" width="60" label="Watch" v-slot="props">
               <watchlist-quick-add-button :emid="props.row.emid" :showLabel="false" />
            </b-table-column>
-          <b-table-column :visible="authenticated && parseInt(user.user_level) >= 3" label="Wiki" width="50" v-slot="props">
-            <b-button v-if="parseInt(user.user_level) >= 3" size="is-small" icon-left="wizard-hat" outlined @click="openWiki(props.row)" >Edit</b-button>
-          </b-table-column>
+
 
 
           <template slot="detail" slot-scope="props">
@@ -348,6 +357,7 @@ export default {
       search: '',
       rarity: '',
       showOwned: '',
+      pagination: 50,
       valueAbove: 0,
       valueBelow: 0,
       textSearch: '',
