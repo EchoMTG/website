@@ -133,7 +133,7 @@
                 </div>
                 <nav class="level is-mobile">
                   <div class="level-left">
-                    <div class="level-item ">
+                    <div class="level-item mr-2">
                       <div>
                         <p class="heading">Trade Price Modifier</p>
                         <b-field message="Markup or discount prices on your tradelist">
@@ -145,6 +145,22 @@
                                   {{ option.name }}
                               </option>
                           </b-select>
+                        </b-field>
+                      </div>
+                    </div>
+                    <div class="level-item mr-2">
+                      <div>
+                        <p class="heading">Mark All Tradeable</p>
+                        <b-field :message="user.planObject.access_level > 0 ? 'Make all your inventory items tradable' : 'Subscribe to a paid plan to activate feature'">
+                           <b-button icon-left="check" type="is-info" :disabled="user.planObject.access_level == 0" @click="makeAllTradable">Mark All Inventory Tradable</b-button>
+                        </b-field>
+                      </div>
+                    </div>
+                    <div class="level-item">
+                      <div>
+                        <p class="heading">Unmark All for Trade</p>
+                        <b-field :message="'Remove all items from trade'">
+                           <b-button icon-left="close" type="is-warning" @click="makeAllTradable(0)">Unmark All Inventory Tradable</b-button>
                         </b-field>
                       </div>
                     </div>
@@ -180,6 +196,7 @@ export default {
         timer: null,
         image_pref: "0",
         phone: null,
+        trade_modifier: null,
         verifyCode: null,
         setting_report_threshhold: null,
         show_real_name: "0",
@@ -284,6 +301,7 @@ export default {
     this.default_sort = userdata.user.default_sort;
     this.currency_code = userdata.user.currency_code;
     this.phone = userdata.user.phone;
+    this.trade_modifier = userdata.user.trade_modifier;
 
 
   },
@@ -299,6 +317,16 @@ export default {
     },
     async update(key){
       await this.updateValue(key, this[key]);
+
+    },
+    async makeAllTradable(tradable =1){
+      const res = await this.$echomtg.postReq(`inventory/batch_tradable/`,{
+        tradable: tradable
+      });
+      this.$buefy.toast.open({
+        message: `${res.message}`,
+        type: 'is-info'
+      })
 
     },
     trueFalse: function (subscriptionValue) {
