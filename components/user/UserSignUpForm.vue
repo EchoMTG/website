@@ -58,6 +58,7 @@
             </b-button>
 
         </b-field>
+        <small class="has-text-grey-light">By creating an account, you agree to the user <a href="/legal/terms-and-conditions/">Terms and Conditions</a></small>
         <b-loading v-model="loading" :is-full-page="false" />
       </div>
       <div v-if="authenticated" class="content">

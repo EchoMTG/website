@@ -26,6 +26,7 @@
 			<p>2.1.1 attempt to assign, transfer, sell, lease, rent, charge or otherwise deal in or encumber the Service (including any Report) or use any part of the Service (including any Report) on behalf of any third party or make the Service (including any Report) available to any third party; or</p>
 			<p>2.1.2 copy, distribute, reproduce, transmit or disseminate in any form any or all of the information comprising the Service (including any Report) to any other person, firm, company or organization; and</p>
 			<p>2.1.3 the Subscriber shall indemnify The Company in full against all losses and costs suffered (indirectly or directly) by The Company as a consequence of any breach of sub-Clauses 2.1.1 to 2.1.2.</p>
+      <p>2.1.4 if the Subscriber uses Trade functions of trade list, wants, collection needs and inquires or proposals, they agree to the <echo-link url="../trades-disclaimer/">Trade Disclaimer</echo-link>;</p>
 			<p>2.2 Any enhancements or supplements which are made to the Service from time to time by the Company (in its discretion) shall be subject to these Terms and Conditions.</p>
 			<h3>3. LIMITATIONS ON USE</h3><hr/>
 			<p>3.1 Only a Subscriber may access a Service at any time using the Subscriber’s user name or password, unless we agree otherwise. If the Subscriber is a firm, company or organization, only a single Authorized User may access a Service at any time using the Subscriber’s user name or password, unless we agree otherwise.</p>
@@ -100,10 +101,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import EchoLink from '~/components/EchoLink.vue'
 
 export default {
   name: 'TermsAndConditions',
   components: {
+    EchoLink
   },
   data () {
     return {
