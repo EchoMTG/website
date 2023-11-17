@@ -183,7 +183,8 @@
 
                     </b-table>
                     </b-tab-item>
-                    <b-tab-item label="Inquiries">
+                    <b-tab-item label="Proposals">
+                      <p>By using any Trade function, you assume all risk and agree to the <nuxt-link to="/legal/trades-disclaimer/">Trades Disclaimer</nuxt-link></p>
                       <comment-thread :commentseed="proposalList" :resource_id="this.tradeUser.id" resource="user" :for_what="`${this.tradeUser.username}'s Trade Inquiries Thread`"></comment-thread>
                     </b-tab-item>
                   </b-tabs>
