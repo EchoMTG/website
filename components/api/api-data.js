@@ -606,6 +606,165 @@ export default {
 					]
 				},
 				{
+					"name": "Inventory: Batch Tradable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tradable\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/inventory/batch_tradable/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"batch_tradable",
+								""
+							],
+							"query": [
+								{
+									"key": "auth",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "The call will make everything tradable."
+					},
+					"response": [
+						{
+							"name": "Inventory: Removing Cards",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"46668493\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/inventory/remove/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"inventory",
+										"remove",
+										""
+									],
+									"query": [
+										{
+											"key": "auth",
+											"value": "{{auth}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 11:39:48 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Card removed from inventory.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
 					"name": "Inventory: View",
 					"request": {
 						"auth": {
@@ -3368,7 +3527,7 @@ export default {
 			"name": "Trades",
 			"item": [
 				{
-					"name": "Trades: View",
+					"name": "Trades: View Haves",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -3420,6 +3579,51 @@ export default {
 								{
 									"key": "search",
 									"value": "home"
+								}
+							]
+						},
+						"description": "View user inventory. All options can be combined.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| user | required |  | The public user hash of the tradable user. |\n| conversion | optional | 1 | NOT SUPPORTED, currency return related to user trade list. Will be used for currency conversion against USD, 1.5 would return all prices 1.5\\*USD |\n| start | optional | 0 |  |\n| limit | optional | 100 | Number to records to return, max is 250 |\n| sort | optional | date_acquired | price_acquired, date_acquired, name, set, price_change, tcg_market, tcg_mid, foil_price |\n| direction | optional | ASC | Change sort direction |\n| min_value | optional |  | float number, return any item worth more than number |\n| max_value | optional |  | float number, return any item worth less than number |"
+					},
+					"response": []
+				},
+				{
+					"name": "Trades: View Wants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/trades/wants/?start=0&limit=100&user=teeg",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"trades",
+								"wants",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "user",
+									"value": "teeg"
 								}
 							]
 						},
@@ -3546,6 +3750,135 @@ export default {
 							"body": "{\n    \"message\": \"Public trade list accessed.\",\n    \"meta\": {\n        \"total\": 711,\n        \"pages\": 8,\n        \"current_page\": 1,\n        \"limit\": 100,\n        \"start\": 0\n    },\n    \"items\": [\n        {\n            \"id\": \"40671\",\n            \"username\": \"pug\",\n            \"user_hash\": \"25bd35495ce145a1c24184185c25045a\",\n            \"total_trades\": \"96770\"\n        },\n        {\n            \"id\": \"42439\",\n            \"username\": \"Wentivo\",\n            \"user_hash\": \"767f9a1e6e3eb1539baf9669c5755e25\",\n            \"total_trades\": \"3569\"\n        },\n        {\n            \"id\": \"6859\",\n            \"username\": \"maggy_lee\",\n            \"user_hash\": \"5752219ff914b74de69fc4fb2573a412\",\n            \"total_trades\": \"1978\"\n        },\n        {\n            \"id\": \"29797\",\n            \"username\": \"Squillis\",\n            \"user_hash\": \"e8e045ff98887115219b251eaa03a159\",\n            \"total_trades\": \"1780\"\n        },\n        {\n            \"id\": \"29441\",\n            \"username\": \"Afri\",\n            \"user_hash\": \"33ca3b80fbee388713ddfeceb00acaf4\",\n            \"total_trades\": \"1768\"\n        },\n        {\n            \"id\": \"33136\",\n            \"username\": \"RShield0587\",\n            \"user_hash\": \"192ae1ded1b5db5a753f8dbfbd0ef966\",\n            \"total_trades\": \"1699\"\n        },\n        {\n            \"id\": \"34254\",\n            \"username\": \"sgt.snyder\",\n            \"user_hash\": \"38af26149225d8f37141726340662347\",\n            \"total_trades\": \"1430\"\n        },\n        {\n            \"id\": \"8253\",\n            \"username\": \"eXtra Point Games\",\n            \"user_hash\": \"73e87c6c4684e33e51dd71e11c02dfaf\",\n            \"total_trades\": \"1140\"\n        },\n        {\n            \"id\": \"42836\",\n            \"username\": \"MalakZalinto\",\n            \"user_hash\": \"41278fb666a644ed10f1498c6df95349\",\n            \"total_trades\": \"1075\"\n        },\n        {\n            \"id\": \"31123\",\n            \"username\": \"orang3j3llo\",\n            \"user_hash\": \"4e75cb2803535dbd3107876733e45d17\",\n            \"total_trades\": \"997\"\n        },\n        {\n            \"id\": \"45217\",\n            \"username\": \"Jolly\",\n            \"user_hash\": \"b847cf0e6ad7e4e9820dfa00e207784b\",\n            \"total_trades\": \"954\"\n        },\n        {\n            \"id\": \"41958\",\n            \"username\": \"rtgeary\",\n            \"user_hash\": \"e264c3b913de83fd9a2e9b92eaf4ece3\",\n            \"total_trades\": \"932\"\n        },\n        {\n            \"id\": \"42788\",\n            \"username\": \"ajalbaugh \",\n            \"user_hash\": \"8bcce10a45e7b385ad303e7ebf18bd0b\",\n            \"total_trades\": \"731\"\n        },\n        {\n            \"id\": \"42418\",\n            \"username\": \"batterytime\",\n            \"user_hash\": \"b3aa514fc051daeef179d9d2d86c9fff\",\n            \"total_trades\": \"675\"\n        },\n        {\n            \"id\": \"13803\",\n            \"username\": \"Lazarus18\",\n            \"user_hash\": \"a43864da66d59d51e22a08a397aae78c\",\n            \"total_trades\": \"672\"\n        },\n        {\n            \"id\": \"44581\",\n            \"username\": \"Epicured\",\n            \"user_hash\": \"d959a1b97c781d9740fc6f6ba79576bd\",\n            \"total_trades\": \"636\"\n        },\n        {\n            \"id\": \"40302\",\n            \"username\": \"raavihn\",\n            \"user_hash\": \"b65600f94a153499ba1838d15b3930ce\",\n            \"total_trades\": \"624\"\n        },\n        {\n            \"id\": \"24464\",\n            \"username\": \"slaide\",\n            \"user_hash\": \"3188669cc4f424634e3c7d3d728ef039\",\n            \"total_trades\": \"621\"\n        },\n        {\n            \"id\": \"41634\",\n            \"username\": \"falagar2k\",\n            \"user_hash\": \"f3213e43ce191dc13cc4693c3976ef4d\",\n            \"total_trades\": \"548\"\n        },\n        {\n            \"id\": \"2258\",\n            \"username\": \"ModEveDec\",\n            \"user_hash\": \"6161d437010044440003367c6b830305\",\n            \"total_trades\": \"503\"\n        },\n        {\n            \"id\": \"29740\",\n            \"username\": \"diracdeltafunct\",\n            \"user_hash\": \"b636fbb8d8c158ea9d8a4439627a8f80\",\n            \"total_trades\": \"437\"\n        },\n        {\n            \"id\": \"46156\",\n            \"username\": \"Nokerious \",\n            \"user_hash\": \"8f4aa674c5bc35f6c4e60485a751a8f2\",\n            \"total_trades\": \"408\"\n        },\n        {\n            \"id\": \"19457\",\n            \"username\": \"Tashaxe\",\n            \"user_hash\": \"9a287fd07371c47b38527157cd6de7be\",\n            \"total_trades\": \"336\"\n        },\n        {\n            \"id\": \"32749\",\n            \"username\": \"CCP\",\n            \"user_hash\": \"b9a0ea2ac944c234f03b29e771f55a5d\",\n            \"total_trades\": \"309\"\n        },\n        {\n            \"id\": \"40942\",\n            \"username\": \"EldraziAreCool\",\n            \"user_hash\": \"73702c969d6b2b21d42ac05a8e55dee3\",\n            \"total_trades\": \"298\"\n        },\n        {\n            \"id\": \"40005\",\n            \"username\": \"PirateCaptn\",\n            \"user_hash\": \"06ec3bfacb09d866a8a9183e27b03346\",\n            \"total_trades\": \"296\"\n        },\n        {\n            \"id\": \"45264\",\n            \"username\": \"2Brothers\",\n            \"user_hash\": \"9dd1b9d46a94be67e1382ab832102c8d\",\n            \"total_trades\": \"286\"\n        },\n        {\n            \"id\": \"42498\",\n            \"username\": \"dustinjones\",\n            \"user_hash\": \"501c084faf162151ad9f83da884e1ae5\",\n            \"total_trades\": \"269\"\n        },\n        {\n            \"id\": \"37383\",\n            \"username\": \"switchblade\",\n            \"user_hash\": \"d9a77aa8a812a30b46c1a974595b318e\",\n            \"total_trades\": \"251\"\n        },\n        {\n            \"id\": \"43087\",\n            \"username\": \"ThoughtfulUsername\",\n            \"user_hash\": \"be83877bdafb35cf9770580fb2521a19\",\n            \"total_trades\": \"248\"\n        },\n        {\n            \"id\": \"2542\",\n            \"username\": \"Kian\",\n            \"user_hash\": \"7d3beb6a19f06d79e335383b05078ebd\",\n            \"total_trades\": \"234\"\n        },\n        {\n            \"id\": \"38415\",\n            \"username\": \"OGjimbo\",\n            \"user_hash\": \"d17fe9a23e155dfd4f04c7dd143890fb\",\n            \"total_trades\": \"219\"\n        },\n        {\n            \"id\": \"43554\",\n            \"username\": \"wildchester\",\n            \"user_hash\": \"c742e655d5f5132bbe3f0942f09d0315\",\n            \"total_trades\": \"213\"\n        },\n        {\n            \"id\": \"41894\",\n            \"username\": \"gavving\",\n            \"user_hash\": \"0f65046d61f5d11b20a5ae3ebbd6aeea\",\n            \"total_trades\": \"210\"\n        },\n        {\n            \"id\": \"41580\",\n            \"username\": \"JestersCap7\",\n            \"user_hash\": \"ea3420b23653a0b27fccf09a6765d5e7\",\n            \"total_trades\": \"208\"\n        },\n        {\n            \"id\": \"22658\",\n            \"username\": \"trevoroneil\",\n            \"user_hash\": \"e64a339090052307106e9bdf60ce03dd\",\n            \"total_trades\": \"203\"\n        },\n        {\n            \"id\": \"42256\",\n            \"username\": \"Amity777\",\n            \"user_hash\": \"90928cb4eec80ba404464e5167e44f7b\",\n            \"total_trades\": \"201\"\n        },\n        {\n            \"id\": \"41397\",\n            \"username\": \"Nullvox\",\n            \"user_hash\": \"4fb8e80400f63edc3d2ca7c7e5cf3e9f\",\n            \"total_trades\": \"200\"\n        },\n        {\n            \"id\": \"40664\",\n            \"username\": \"Jmanna2112\",\n            \"user_hash\": \"236ac412f5a20b691ce74dcb87835b93\",\n            \"total_trades\": \"199\"\n        },\n        {\n            \"id\": \"35114\",\n            \"username\": \"gswahhab\",\n            \"user_hash\": \"debd4a948d7390f6a77aaa7b930f7f22\",\n            \"total_trades\": \"193\"\n        },\n        {\n            \"id\": \"43687\",\n            \"username\": \"Bostelma\",\n            \"user_hash\": \"d1d5c223aec917be96a248a6f575fb31\",\n            \"total_trades\": \"192\"\n        },\n        {\n            \"id\": \"43293\",\n            \"username\": \"kaevad\",\n            \"user_hash\": \"e46249e8c86c153f1ac95337896c1634\",\n            \"total_trades\": \"184\"\n        },\n        {\n            \"id\": \"29613\",\n            \"username\": \"J-MTG\",\n            \"user_hash\": \"5dcb1cda67cbbb186884d03010fc1a96\",\n            \"total_trades\": \"173\"\n        },\n        {\n            \"id\": \"38722\",\n            \"username\": \"Icndoaun\",\n            \"user_hash\": \"32fea0e7bfdc8f6d8e5e61e23fd268da\",\n            \"total_trades\": \"166\"\n        },\n        {\n            \"id\": \"30102\",\n            \"username\": \"Crunch250\",\n            \"user_hash\": \"9e30959a7c08d26e9fd018d2c3642308\",\n            \"total_trades\": \"136\"\n        },\n        {\n            \"id\": \"36147\",\n            \"username\": \"squiggyquinn\",\n            \"user_hash\": \"6c679fa6173b865242252043164c619e\",\n            \"total_trades\": \"132\"\n        },\n        {\n            \"id\": \"37049\",\n            \"username\": \"serravenger\",\n            \"user_hash\": \"540dec0f8c7eab807cba10845711d619\",\n            \"total_trades\": \"125\"\n        },\n        {\n            \"id\": \"42395\",\n            \"username\": \"1800mattressman\",\n            \"user_hash\": \"0c1da2aff107d737cb4ef67d1a69cfe9\",\n            \"total_trades\": \"124\"\n        },\n        {\n            \"id\": \"28631\",\n            \"username\": \"jessica.l.wargo\",\n            \"user_hash\": \"6fee67dfbeadc9a244e358417d853283\",\n            \"total_trades\": \"122\"\n        },\n        {\n            \"id\": \"44394\",\n            \"username\": \"juiccyjay69\",\n            \"user_hash\": \"53d469ddab77e2a41e02469daebb077c\",\n            \"total_trades\": \"121\"\n        },\n        {\n            \"id\": \"1\",\n            \"username\": \"teeg\",\n            \"user_hash\": \"063c60f990e89705d97cecffc3a31832\",\n            \"total_trades\": \"118\"\n        },\n        {\n            \"id\": \"45209\",\n            \"username\": \"phatsnoman\",\n            \"user_hash\": \"e3b6d5d5487e832015743e10c40ebd46\",\n            \"total_trades\": \"114\"\n        },\n        {\n            \"id\": \"23529\",\n            \"username\": \"asmoranomardi\",\n            \"user_hash\": \"f92c6067eaf6bfb1d591cfd533c74bcc\",\n            \"total_trades\": \"113\"\n        },\n        {\n            \"id\": \"31818\",\n            \"username\": \"Hmijares\",\n            \"user_hash\": \"a893a847ba4823cfbe94a80516354570\",\n            \"total_trades\": \"106\"\n        },\n        {\n            \"id\": \"40511\",\n            \"username\": \"DpTyrellN\",\n            \"user_hash\": \"332cfdbf292e0cdd46ab5c8d08a45d38\",\n            \"total_trades\": \"100\"\n        },\n        {\n            \"id\": \"41166\",\n            \"username\": \"soyapencil\",\n            \"user_hash\": \"f00b2197b44390c4c1f6c6639e6ca661\",\n            \"total_trades\": \"100\"\n        },\n        {\n            \"id\": \"42092\",\n            \"username\": \"tbaker179\",\n            \"user_hash\": \"154e234d03f497d854131dec1983f1e8\",\n            \"total_trades\": \"100\"\n        },\n        {\n            \"id\": \"34676\",\n            \"username\": \"rook8888\",\n            \"user_hash\": \"43b05a399020cd7195f765abf02efdf8\",\n            \"total_trades\": \"98\"\n        },\n        {\n            \"id\": \"40849\",\n            \"username\": \"Saelios\",\n            \"user_hash\": \"4ad4e3349bc15b8923c483154512aacb\",\n            \"total_trades\": \"91\"\n        },\n        {\n            \"id\": \"44372\",\n            \"username\": \"GrimFandango\",\n            \"user_hash\": \"21b251013f9e5927a0294d2a5966adff\",\n            \"total_trades\": \"86\"\n        },\n        {\n            \"id\": \"42987\",\n            \"username\": \"tdurgin98\",\n            \"user_hash\": \"8d95516eea240b79e87b5f656463c4ad\",\n            \"total_trades\": \"84\"\n        },\n        {\n            \"id\": \"37825\",\n            \"username\": \"Sqopie\",\n            \"user_hash\": \"d43b8af1a39a9567737b4b1592d4d31d\",\n            \"total_trades\": \"82\"\n        },\n        {\n            \"id\": \"40644\",\n            \"username\": \" funkindrago\",\n            \"user_hash\": \"83db28f841cfba1e23c330d4a4f9eb01\",\n            \"total_trades\": \"81\"\n        },\n        {\n            \"id\": \"36622\",\n            \"username\": \"TotalHell\",\n            \"user_hash\": \"e87d131f974b31ace7f584dc4b7e7f9b\",\n            \"total_trades\": \"79\"\n        },\n        {\n            \"id\": \"44104\",\n            \"username\": \"davidyytan\",\n            \"user_hash\": \"efcf9456252564f0200c7437e53642df\",\n            \"total_trades\": \"70\"\n        },\n        {\n            \"id\": \"45761\",\n            \"username\": \"dabombdiggity\",\n            \"user_hash\": \"db65bc1b8e78443c33d2bb3ce757071a\",\n            \"total_trades\": \"69\"\n        },\n        {\n            \"id\": \"3886\",\n            \"username\": \"Manadyne\",\n            \"user_hash\": \"172f18d7de4d6e7930c8486544f38a68\",\n            \"total_trades\": \"69\"\n        },\n        {\n            \"id\": \"45999\",\n            \"username\": \"JakiraJakira\",\n            \"user_hash\": \"e2369bfc76ac74efeb6012c8fd3a3054\",\n            \"total_trades\": \"68\"\n        },\n        {\n            \"id\": \"44156\",\n            \"username\": \"Psylocke0321\",\n            \"user_hash\": \"3ce1afa3c888daf14420c381ebedb974\",\n            \"total_trades\": \"64\"\n        },\n        {\n            \"id\": \"120\",\n            \"username\": \"fooliojones\",\n            \"user_hash\": \"ac6b6a3baf5312c9d2658a5d0023674d\",\n            \"total_trades\": \"59\"\n        },\n        {\n            \"id\": \"28172\",\n            \"username\": \"Beardocrat \",\n            \"user_hash\": \"fb1c5c56123401717a0d72d90a27c8ac\",\n            \"total_trades\": \"58\"\n        },\n        {\n            \"id\": \"22786\",\n            \"username\": \"Idorac\",\n            \"user_hash\": \"7b28e36636a37becae84480a2d559855\",\n            \"total_trades\": \"52\"\n        },\n        {\n            \"id\": \"43130\",\n            \"username\": \"tpausmir\",\n            \"user_hash\": \"2896f5c34c54da04f9c8e00a30c53c26\",\n            \"total_trades\": \"50\"\n        },\n        {\n            \"id\": \"13314\",\n            \"username\": \"KnollSaleh\",\n            \"user_hash\": \"c32ae7fdbe85a18ef389dd4f913ce33c\",\n            \"total_trades\": \"50\"\n        },\n        {\n            \"id\": \"31648\",\n            \"username\": \"dabizt\",\n            \"user_hash\": \"9059843fce8c82958bd127a94dff1568\",\n            \"total_trades\": \"49\"\n        },\n        {\n            \"id\": \"38711\",\n            \"username\": \"Savotus\",\n            \"user_hash\": \"c962816055bb693e86d17287adc6365c\",\n            \"total_trades\": \"46\"\n        },\n        {\n            \"id\": \"44750\",\n            \"username\": \"lolwtfphil\",\n            \"user_hash\": \"9140ed839b1e169a1ff2d157f707435a\",\n            \"total_trades\": \"45\"\n        },\n        {\n            \"id\": \"45271\",\n            \"username\": \"renefelix1424\",\n            \"user_hash\": \"1e1e3733eec08871da868febeaf31cff\",\n            \"total_trades\": \"43\"\n        },\n        {\n            \"id\": \"40650\",\n            \"username\": \"Shielmaiden88 \",\n            \"user_hash\": \"9d2801c02e0afb6a48433f46821c79fd\",\n            \"total_trades\": \"43\"\n        },\n        {\n            \"id\": \"16723\",\n            \"username\": \"Euphie\",\n            \"user_hash\": \"382f84c43633f74449ae4df502393955\",\n            \"total_trades\": \"42\"\n        },\n        {\n            \"id\": \"13926\",\n            \"username\": \"Xolius\",\n            \"user_hash\": \"eb9bca110dd954fa76e19a1813316976\",\n            \"total_trades\": \"42\"\n        },\n        {\n            \"id\": \"45297\",\n            \"username\": \"Skeedoozle\",\n            \"user_hash\": \"abe23afcd5cda9e9965e56dcfdc5a32c\",\n            \"total_trades\": \"41\"\n        },\n        {\n            \"id\": \"39157\",\n            \"username\": \"taren1983\",\n            \"user_hash\": \"768f26cfc527b8ce47d6b2cfb7f8f13c\",\n            \"total_trades\": \"40\"\n        },\n        {\n            \"id\": \"25259\",\n            \"username\": \"ProbableKJaws\",\n            \"user_hash\": \"5a18088f03e014ed0fbc9e97765b2ac0\",\n            \"total_trades\": \"39\"\n        },\n        {\n            \"id\": \"38747\",\n            \"username\": \"FiveStarGorilla\",\n            \"user_hash\": \"98559a3e9bcaeaa546577320865a5029\",\n            \"total_trades\": \"38\"\n        },\n        {\n            \"id\": \"37104\",\n            \"username\": \"Kyky\",\n            \"user_hash\": \"510b8a12a231566a002730d24e95deaa\",\n            \"total_trades\": \"37\"\n        },\n        {\n            \"id\": \"42107\",\n            \"username\": \"w8ing4nite\",\n            \"user_hash\": \"580902fd1c508c323874dc4cca51f1de\",\n            \"total_trades\": \"37\"\n        },\n        {\n            \"id\": \"31013\",\n            \"username\": \"istar\",\n            \"user_hash\": \"7b131f81bc1be2f2f59d7ec7f75bdbce\",\n            \"total_trades\": \"37\"\n        },\n        {\n            \"id\": \"40232\",\n            \"username\": \"kpallen1\",\n            \"user_hash\": \"732e7ab6be801c968d2a6cab1327fc86\",\n            \"total_trades\": \"35\"\n        },\n        {\n            \"id\": \"41905\",\n            \"username\": \"Chops_Zuey\",\n            \"user_hash\": \"36e152feda2174b369c1f1b19f37a41c\",\n            \"total_trades\": \"35\"\n        },\n        {\n            \"id\": \"41970\",\n            \"username\": \"Antiquebarbie\",\n            \"user_hash\": \"3169a3e037b7d168a122240382e3a9ef\",\n            \"total_trades\": \"34\"\n        },\n        {\n            \"id\": \"35893\",\n            \"username\": \"Andgun77\",\n            \"user_hash\": \"b716ec7ee9f1f15719d6b50ec53ee989\",\n            \"total_trades\": \"33\"\n        },\n        {\n            \"id\": \"30879\",\n            \"username\": \"magicthecasual\",\n            \"user_hash\": \"2bdd0048267da1040ea830eee9948c55\",\n            \"total_trades\": \"33\"\n        },\n        {\n            \"id\": \"40565\",\n            \"username\": \"jmeisenh\",\n            \"user_hash\": \"cc6a24a63821bfbd64726f01158dbd50\",\n            \"total_trades\": \"33\"\n        },\n        {\n            \"id\": \"41790\",\n            \"username\": \"Jdetrant1\",\n            \"user_hash\": \"4f8e73f1aef4908da10b4b44a2256a98\",\n            \"total_trades\": \"31\"\n        },\n        {\n            \"id\": \"33449\",\n            \"username\": \"jlauzon9\",\n            \"user_hash\": \"298b8fea427f1b50e01ac25a5a05e66a\",\n            \"total_trades\": \"30\"\n        },\n        {\n            \"id\": \"22739\",\n            \"username\": \"Snbmiller\",\n            \"user_hash\": \"494b1e3970a84347049e374bbf398c44\",\n            \"total_trades\": \"29\"\n        },\n        {\n            \"id\": \"20183\",\n            \"username\": \"PandasInv\",\n            \"user_hash\": \"fd0bad2ab746e3606ab603d9984d639e\",\n            \"total_trades\": \"29\"\n        },\n        {\n            \"id\": \"26076\",\n            \"username\": \"Joberstein\",\n            \"user_hash\": \"224275e6fb2b0e664ecb3d0ef4326d9f\",\n            \"total_trades\": \"28\"\n        },\n        {\n            \"id\": \"23377\",\n            \"username\": \"NAWASAM\",\n            \"user_hash\": \"8dd6b63af02d99ef0a022d621c1ec288\",\n            \"total_trades\": \"27\"\n        }\n    ],\n    \"status\": \"success\"\n}"
 						}
 					]
+				},
+				{
+					"name": "Trades: Add Want",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"description": "User token gathered from /user/auth/",
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"emid\": 92175,\n\t\"priority\": \"2\",\n\t\"count\": \"4\",\n\t\"foil\": 0 \n}"
+						},
+						"url": {
+							"raw": "localhost/api/trades/add_want/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"trades",
+								"add_want",
+								""
+							]
+						},
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Trades: Reduce Want Count",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"description": "User token gathered from /user/auth/",
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"emid\": 92175,\n\t\"count\": -2\n}"
+						},
+						"url": {
+							"raw": "localhost/api/trades/add_want/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"trades",
+								"add_want",
+								""
+							]
+						},
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Trades: Delete Want",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"description": "User token gathered from /user/auth/",
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 92175\n}"
+						},
+						"url": {
+							"raw": "localhost/api/trades/delete_want/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"trades",
+								"delete_want",
+								""
+							]
+						},
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+					},
+					"response": []
 				}
 			],
 			"description": "Trades are inventory items mark as tradable, when items are marked for trade they become searchable in a public trade list."
@@ -3978,7 +4311,7 @@ export default {
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"resource_id\" : 102,\n    \"resource\" : \"article\",\n    \"comment\": \"hello world test\",\n    \"url\": \"http://www.echomtg.com/blog/102/fico-ossio-from-spiderman-illustrates-magicthe-gathering-art-for-an-echomtg-playmat/\",\n    \"thread_parent_id\": 1331\n}",
+							"raw": "{\n    \"resource_id\" : 1,\n    \"resource\" : \"user\",\n    \"comment\": \"hello world test\",\n    \"url\": \"http://www.echomtg.com/blog/102/fico-ossio-from-spiderman-illustrates-magicthe-gathering-art-for-an-echomtg-playmat/\",\n    \"thread_parent_id\": 1331\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3986,12 +4319,9 @@ export default {
 							}
 						},
 						"url": {
-							"raw": "https://api.echomtg.com/api/comments/create/",
-							"protocol": "https",
+							"raw": "localhost/api/comments/create/",
 							"host": [
-								"api",
-								"echomtg",
-								"com"
+								"localhost"
 							],
 							"path": [
 								"api",
@@ -4242,6 +4572,193 @@ export default {
 					]
 				}
 			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Group: Get Single",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/groups/single/?limit=1000&name=trending-down",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"groups",
+								"single",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1000"
+								},
+								{
+									"key": "name",
+									"value": "trending-down"
+								}
+							]
+						},
+						"description": "Fetched items dedicated in a group based on specific request parameters. Defaults to sorting by pricing high to low.\n\n**Unique** **Options**\n\ntrue or false, determins where to return unique cards with no variants or not. default: false\n\n**Name Options**\n\n- **magic-reserved-list** \\- magic reserve list\n    \n- **commanders** - magic legendary creatures\n    \n- **lands** - magic rare land cycles\n    \n- **artifacts** - top 150 magic artifacts\n    \n- **tokens** - top 150 magic tokens\n    \n- **creatures** - top 150 magic creatures\n    \n- **power9** - magic power 9\n    \n- **tiny** - magic tiny leaders\n    \n- **trendingup** - magic items increasing in value\n    \n- **trendingdown** - magic item decreasing in value\n    \n- **custom** - look for a specific card type, see type options\n    \n\n**Type Options**\n\nType param only work with name=custom. Must be one part of a type like \"merfolk\" or \"instant\" or a fully qualified type like \"Elf Druid\". Examples:\n\n- Merfolk\n    \n- Goblin\n    \n- Instant\n    \n- Elf Druid\n    \n- Tribal\n    \n- Enchantment\n    \n- World Enchantment\n    \n\n**Limit Options**\n\nDefault is 150, accepting an integer. Optional."
+					},
+					"response": [
+						{
+							"name": "Groups: Get Single",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.echomtg.com/api/groups/single/?name=reserved",
+									"protocol": "https",
+									"host": [
+										"api",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"groups",
+										"single",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "reserved"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 15:29:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"items\": [\n        {\n            \"tcg_low\": \"59999.99\",\n            \"price\": \"59999.99\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEA\",\n            \"mid\": \"3\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Alpha\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEA\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.754\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"45\",\n            \"artist\": \"Christopher Rush\"\n        },\n        {\n            \"tcg_low\": \"42000\",\n            \"price\": \"42000\",\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"price_change\": \"0\",\n            \"mc\": \"{{0}}\",\n            \"main_type\": \"Artifact\",\n            \"colors\": \"Colorless\",\n            \"name\": \"Black Lotus\",\n            \"set_code\": \"LEB\",\n            \"mid\": \"298\",\n            \"t\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"set\": \"Limited Edition Beta\",\n            \"rarity\": \"Rare\",\n            \"types\": \"Artifact\",\n            \"setcode\": \"LEB\",\n            \"mana_cost\": \"{{0}}\",\n            \"card_text\": \"<p>{{t}}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.</p>\",\n            \"rating\": \"4.805\",\n            \"loyalty\": null,\n            \"p_t\": null,\n            \"emid\": \"326\",\n            \"artist\": \"Christopher Rush\"\n        }\n    ],\n    \"message\": \"Group 'reserved' retrieved successfully.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Groups: Get All Groups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{s2skey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.echomtg.com/api/groups/all/?game=1&type=spec",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"groups",
+								"all",
+								""
+							],
+							"query": [
+								{
+									"key": "game",
+									"value": "1"
+								},
+								{
+									"key": "type",
+									"value": "spec"
+								}
+							]
+						},
+						"description": "Get listing of groups per game"
+					},
+					"response": []
+				}
+			],
+			"description": "Custom collection of item data."
 		},
 		{
 			"name": "User",
