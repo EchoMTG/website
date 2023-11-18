@@ -3627,9 +3627,110 @@ export default {
 								}
 							]
 						},
-						"description": "View user inventory. All options can be combined.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| user | required |  | The public user hash of the tradable user. |\n| conversion | optional | 1 | NOT SUPPORTED, currency return related to user trade list. Will be used for currency conversion against USD, 1.5 would return all prices 1.5\\*USD |\n| start | optional | 0 |  |\n| limit | optional | 100 | Number to records to return, max is 250 |\n| sort | optional | date_acquired | price_acquired, date_acquired, name, set, price_change, tcg_market, tcg_mid, foil_price |\n| direction | optional | ASC | Change sort direction |\n| min_value | optional |  | float number, return any item worth more than number |\n| max_value | optional |  | float number, return any item worth less than number |"
+						"description": "View user inventory. All options can be combined.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| user | required |  | The public username of the tradable user. |\n| conversion | optional | 1 | NOT SUPPORTED, currency return related to user trade list. Will be used for currency conversion against USD, 1.5 would return all prices 1.5\\*USD |\n| start | optional | 0 |  |\n| limit | optional | 100 | Number to records to return, max is 250 |\n| sort | optional | date_acquired | price_acquired, date_acquired, name, set, price_change, tcg_market, tcg_mid, foil_price |\n| direction | optional | ASC | Change sort direction |\n| min_value | optional |  | float number, return any item worth more than number |\n| max_value | optional |  | float number, return any item worth less than number |"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Trades: View Wants",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost/api/trades/wants/?start=0&limit=100&user=teeg",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"trades",
+										"wants",
+										""
+									],
+									"query": [
+										{
+											"key": "start",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "100"
+										},
+										{
+											"key": "user",
+											"value": "teeg"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Nov 2023 15:18:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.11"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"2 wants retreived for teeg\",\n    \"items\": [\n        {\n            \"want_priority\": 1,\n            \"want_count\": 1,\n            \"foil\": 0,\n            \"id\": 45,\n            \"game\": 1,\n            \"tcgplayer_id\": 1042,\n            \"multiverseid\": 3,\n            \"set_number\": 232,\n            \"card_name\": \"Black Lotus\",\n            \"expansion\": \"Limited Edition Alpha\",\n            \"set_code\": \"LEA\",\n            \"rarity\": \"rare\",\n            \"mana_cost\": \"{{0}}\",\n            \"cmc\": 0,\n            \"p_t\": null,\n            \"types\": \"Artifact\",\n            \"main_type\": \"Artifact\",\n            \"sub_type\": \"\",\n            \"rating\": 4.754,\n            \"votes\": 246,\n            \"card_text\": \"{t}, Sacrifice Black Lotus: Add three mana of any one color.\",\n            \"attributes\": null,\n            \"flavor_text\": \"\",\n            \"power\": null,\n            \"toughness\": null,\n            \"artist\": \"Christopher Rush\",\n            \"type\": \"Artifact\",\n            \"main_colors\": \"Colorless\",\n            \"abilities_colors\": \"\",\n            \"crawlurl\": \"http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3\",\n            \"hand_life\": null,\n            \"watermark\": null,\n            \"loyalty\": null,\n            \"color_indicator\": null,\n            \"other_sets\": null,\n            \"card_number\": null,\n            \"created_at\": null,\n            \"deleted_at\": null,\n            \"updated_at\": \"2023-08-28 01:29:28\",\n            \"has_image\": 1,\n            \"flip\": 0,\n            \"reserve_list\": 1,\n            \"sealed\": 0,\n            \"tcg_low\": 59999.99,\n            \"tcg_mid\": 59999.99,\n            \"tcg_high\": 59999.99,\n            \"tcg_market\": null,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Black+Lotus&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"last_updated_date\": \"2023-03-16 14:23:35\",\n            \"foil_price\": null,\n            \"price_change\": 0,\n            \"card_url\": \"\"\n        },\n        {\n            \"want_priority\": 2,\n            \"want_count\": 8,\n            \"foil\": 0,\n            \"id\": 92175,\n            \"game\": 1,\n            \"tcgplayer_id\": 52206,\n            \"multiverseid\": 227676,\n            \"set_number\": 78,\n            \"card_name\": \"Snapcaster Mage\",\n            \"expansion\": \"Innistrad\",\n            \"set_code\": \"ISD\",\n            \"rarity\": \"Rare\",\n            \"mana_cost\": \"{{1}}{{u}}\",\n            \"cmc\": 2,\n            \"p_t\": \"2 / 1\",\n            \"types\": \"Creature - Human Wizard\",\n            \"main_type\": \"Creature - Human Wizard\",\n            \"sub_type\": \"\",\n            \"rating\": 4.265,\n            \"votes\": 358,\n            \"card_text\": \"<p>Flash</p><p>When Snapcaster Mage enters the battlefield, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost. <i>(You may cast that card from your graveyard for its flashback cost. Then exile it.)</i></p>\",\n            \"attributes\": \"flash,flash\",\n            \"flavor_text\": null,\n            \"power\": 2,\n            \"toughness\": 1,\n            \"artist\": \"Volkan Baga\",\n            \"type\": \"Creature\",\n            \"main_colors\": \"Blue\",\n            \"abilities_colors\": \"\",\n            \"crawlurl\": \"http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=227676\",\n            \"hand_life\": null,\n            \"watermark\": null,\n            \"loyalty\": null,\n            \"color_indicator\": null,\n            \"other_sets\": null,\n            \"card_number\": 78,\n            \"created_at\": null,\n            \"deleted_at\": null,\n            \"updated_at\": \"2021-07-02 05:27:21\",\n            \"has_image\": 1,\n            \"flip\": 0,\n            \"reserve_list\": 0,\n            \"sealed\": 0,\n            \"tcg_low\": 11,\n            \"tcg_mid\": 15.38,\n            \"tcg_high\": 15.38,\n            \"tcg_market\": 13.81,\n            \"purchase_link\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Snapcaster+Mage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n            \"last_updated_date\": \"2023-11-17 15:07:06\",\n            \"foil_price\": 48.56,\n            \"price_change\": 1,\n            \"card_url\": \"\"\n        }\n    ],\n    \"meta\": {\n        \"user\": {\n            \"username\": \"teeg\",\n            \"referrer_code\": \"6c300461\",\n            \"trade_modifier\": \"-0.10\",\n            \"avatar\": \"https://assets.echomtg.com/users/avatars/teeg.jpg\",\n            \"id\": \"1\",\n            \"conversion_rate\": \"1.00\",\n            \"currency_code\": \"USD\"\n        }\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Trades: Public List",
@@ -3776,7 +3877,7 @@ export default {
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"emid\": 92175,\n\t\"priority\": \"2\",\n\t\"count\": \"4\",\n\t\"foil\": 0 \n}"
+							"raw": "{\n\t\"emid\": 92175,\n\t\"priority\": \"2\",\n\t\"count\": \"-4\",\n\t\"foil\": 0 \n}"
 						},
 						"url": {
 							"raw": "localhost/api/trades/add_want/",
@@ -3790,12 +3891,12 @@ export default {
 								""
 							]
 						},
-						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+						"description": "Add a card to the user's want list.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| count | optional | 1 | number user wants to collect |\n| priority | optional | 1 | 1-9, 9 meaning top card the users wants |\n| foil | optional | 0 | 1=foiled, 0=regular |"
 					},
 					"response": []
 				},
 				{
-					"name": "Trades: Reduce Want Count",
+					"name": "Trades: Reduce/Increase Want Count",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -3833,7 +3934,7 @@ export default {
 								""
 							]
 						},
-						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+						"description": "Change the count wanted on a want entry.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | required | 1 | number to change the count. negative numbers will subtract |"
 					},
 					"response": []
 				},
@@ -3862,7 +3963,7 @@ export default {
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 92175\n}"
+							"raw": "{\n\t\"id\": 3\n}"
 						},
 						"url": {
 							"raw": "localhost/api/trades/delete_want/",
@@ -3876,7 +3977,7 @@ export default {
 								""
 							]
 						},
-						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\n\nCondition Options\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n```\n\nLanguage Options\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n```"
+						"description": "Delete a want entry\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| id | required | ID of the want entry, it can be found from the wants list. |"
 					},
 					"response": []
 				}
