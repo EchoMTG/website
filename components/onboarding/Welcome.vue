@@ -1,5 +1,5 @@
 <template>
-  <div class="container has-background-dark pt-4">
+  <div style="height: 92vh" :class="`container py-4 ` + (isDarkModeActive == 1 ? `` :``)">
     <b-steps
       v-model="activeStep"
       :animated="true"
@@ -9,21 +9,22 @@
       icon-next="arrow-right"
       label-position="center"
       mobile-mode="minimalist">
-      <b-step-item step="1" label="Welcome" :clickable="isStepsClickable">
-          <div class="content">
-            <h1 class="title has-text-centered">Welcome {{user.username}}!</h1>
-            <p>EchoMTG is a trading card collection app specialized in magic the gathering</p>
+      <b-step-item step="1" label="Welcome to EchoMTG">
+
+          <div class="content is-block">
+            <h1 v-if="$device.isDesktop" class="title has-text-centered">Welcome {{user.username}}!</h1>
+            <p>Welcome to <strong>Echo</strong>, a community of collectors and players revolving around a collection app built by an <strong>avid collector like you.</strong></p><p><strong>Echo focuses on:</strong></p>
             <ul>
-              <li>Track your Collection</li>
-              <li>Build and Share Decks</li>
-              <li>Share trade list</li>
-              <li>Get price alerts</li>
-              <li>Monitor Expansion Collections</li>
+              <li>Financial based collection tracking</li>
+              <li>Community growth and feedback</li>
+              <li>Tools for deck building and sharing</li>
+              <li>Trade curation and browsing</li>
+              <li>Weekly and/or daily price alerts</li>
+              <li>Expansion/set collection measurement</li>
             </ul>
           </div>
-          <hr />
-          <div class="aboutecho">
-            <h2>About EchoMTG Collection Tracking</h2>
+          <div class="aboutecho is-block mt-auto">
+
             <b-image
               alt="Track set collections"
               src="https://assets.echomtg.com/interface/onboarding/percentage-completed-inventory.jpg"
@@ -32,107 +33,138 @@
 
       </b-step-item>
 
-      <b-step-item step="2" label="Profile" :clickable="isStepsClickable">
-          <div class="content">
-            <h1 class="title has-text-centered">Managing your Collection</h1>
-            <p>Look for Inventory Add Buttons on set, deck, and card pages and search boxes. They like this:</p>
-            <div :class="(isDarkModeActive == 1 ? 'has-background-black' : '') + ` box p-2 is-flex`">
-              <img width="120" style="border-radius: 10px" src="https://assets.echomtg.com/magic/cards/original/104141.jpg" />
-              <div>
-                <quick-add-button
-                    :callback="updateQuickStats"
-                    :foil="0"
-                    :emid="104141" />
-                <quick-add-button
-                    :callback="updateQuickStats"
-                    :foil="1"
-                    :emid="104141" />
-              </div>
+      <b-step-item step="2" label="Collection Management">
 
+        <div class="content is-block">
+          <h1 v-if="$device.isDesktop" class="title has-text-centered">Managing your Collection</h1>
+          <p>Track your Collection by clicking
+            <b-tag type="is-white" class="has-background-white">
+
+              <b-icon type="is-dark" icon="book-open-page-variant-outline" size="is-small" />
+              <b-icon type="is-dark" icon="plus" size="is-small" />
+            </b-tag>
+            buttons you'll find on set, deck, card pages, and search boxes. Try it on these cards:
+          </p>
+        </div>
+        <div :class="(isDarkModeActive == 1 ? 'has-background-black' : '') + ` is-flex is-flex-direction-column`">
+            <div>
+              <quick-add-button
+                  :callback="updateQuickStats"
+                  :foil="0"
+                  :emid="104141" />
+              <quick-add-button
+                  :callback="updateQuickStats"
+                  :foil="1"
+                  :emid="104141" />
             </div>
-            <p>Try adding one of these cards to your collection. and add a collasal dreadmore to your collection!</p>
-            <p>Once cards are added, you'll get reports and can track collection progress on decks and set lists</p>
+            <div>
+              <img width="120" style="border-radius: 10px" src="https://assets.echomtg.com/magic/cards/original/104141.jpg" />
+            </div>
 
-
-
-          </div>
-          <div class="aboutecho">
-            <h2>About EchoMTG Collection Tracking</h2>
-            <b-image src="https://assets.echomtg.com/interface/onboarding/deck-building-collection-matching.jpg" />
-          </div>
+        </div>
+        <div class="aboutecho mt-auto">
+          <b-image src="https://assets.echomtg.com/interface/onboarding/deck-building-collection-matching.jpg" />
+        </div>
       </b-step-item>
-      <b-step-item step="3" label="Weekly Reports" :clickable="isStepsClickable">
+      <b-step-item step="3" label="Weekly Reports &amp; Subs">
 
             <div class="content">
-            <h1 class="title has-text-centered">Weekly Reports &amp; Plans</h1>
-            <p>Every Sunday you will get a collection report telling you how much your collection is worth, and what cards are gaining and losing value.</p>
-            <p>Free Accounts start with 360 collection slots, 25 Decks, and 100 trades. Premium accounts get access to additional storage, automated reports, earning apps, collection insights, and more</p>
-            <p>We dont sell your information or use display ads, development is 100% supported by subscription members. Please consider a sub if you enjoy the website.</p>
+              <h1 v-if="$device.isDesktop" class="title has-text-centered">Weekly Reports &amp; Plans</h1>
+              <p>Each Sunday <strong>echo</strong> sends an email report with <strong>your collection value</strong> and <strong>which of your cards</strong> are trending up or down in the secondary market <b-icon type="is-success" icon="trending-up" size="is-small" /></p>
+
+              <p><strong>Your info isn't sold, we don't use ads.</strong> <strong class="has-text-success">Echo is 100% supported by the community.</strong> Subbed members gain additional storage, automated reports, specialized apps, data insights, and more..</p>
+              <p><b-icon type="is-warning" icon="chart-areaspline" size="is-small" /> <strong>Reports are based upon your collection tracked on Echo.</strong> Free Accounts start with 360 collection storage, 25 Decks, and 100 trade slots.</p>
             </div>
             <b-image src="https://assets.echomtg.com/interface/onboarding/weekly-email-reports.jpg" />
       </b-step-item>
 
-      <b-step-item step="4" label="Social and Profile" :clickable="isStepsClickable">
+      <b-step-item step="4" label="Social and Profile">
 
           <div class="content">
-            <h1 class="title has-text-centered">Public Profile</h1>
-            <p>Every EchoMTG user has a public profile where decks, trades, articles, and alters can be shared. You can upload your avatar and change your backgroud image under edit profile</p>
-            <p>We have a discord channel too <a target="_blank" href="https://discord.gg/f6VFybb">Click to Join</a></p>
+            <h1 v-if="$device.isDesktop" class="title has-text-centered">Public Profile</h1>
+            <p><strong>As an echo community user</strong> you gain a public profile to share decks, trades, articles and alters, and to recieve comments. <strong>Upload your avatar and personalize your page</strong> when editing your profile</p>
+            <p>To join an active Discord channel, <a target="_blank" href="https://discord.gg/f6VFybb"><b-icon size="is-small" icon="comment-multiple" /> click here.</a></p>
           </div>
-          <div class="aboutecho">
-            <h2>About EchoMTG Collection Tracking</h2>
-            <b-image src="https://assets.echomtg.com/interface/onboarding/public-profiles.jpg" />
+          <div class="aboutecho mt-auto">
+            <b-image alt="About EchoMTG Collection Tracking" src="https://assets.echomtg.com/interface/onboarding/public-profiles.jpg" />
           </div>
       </b-step-item>
 
-      <b-step-item step="5" label="Get Started" :clickable="isStepsClickable" disabled>
+      <b-step-item step="5" label="Get Started" disabled>
       <div class="content">
-        <h1 class="title has-text-centered">Getting Started</h1>
+        <h1  v-if="$device.isDesktop" class="title has-text-centered">Getting Started</h1>
+        <p>Add or import 5 cards to turn off this welcome walkthrough and gain access to <strong>your user dashboard</strong> and <strong>edit your profile</strong>.</p>
+        <p><strong>Quick Start Links</strong></p>
+        <b-button size="is-small" outlined @click="goto('/apps/import/')" icon-left="download-box-outline"> Import a Collection</b-button>
+        <b-button size="is-small" outlined @click="goto('/mtg/sets/')" icon-left="share">Browse MTG Sets</b-button>
 
-        <b-button size="is-small" outlined @click="goto('/apps/inventory/')" icon-left="share"> View Mu Collection</b-button>
-        <b-button size="is-small" outlined @click="goto('/apps/import/')" icon-left="share"> Import Collection from Another Site</b-button>
-        <b-button size="is-small" outlined @click="goto('/apps/watchlist/')" icon-left="share"> Watchlist</b-button>
-        <b-button size="is-small" outlined @click="goto('/help/training-videos/')" icon-left="youtube"> How-to Videos</b-button>
         <br/><br/>
-        <p  class="mb-2"> <b-icon size="is-small" icon="lightning-bolt" /> <strong>Card Market Jump Links</strong></p>
 
-        <b-button size="is-small" outlined @click="goto('/mtg/sets/')" icon-left="share"> All MTG Sets</b-button>
-        <b-button size="is-small" outlined @click="goto('/mtg/type/')" icon-left="share"> Explore Types</b-button>
-        <b-button size="is-small" outlined @click="goto('/mtg/sets/woe/wilds-of-eldraine/')" icon-left="share"> Set View</b-button>
-        <b-button size="is-small" outlined @click="goto('/mtg/items/polluted-delta/94321/')" icon-left="share"> Single Card</b-button>
+        <b-button size="is-small" outlined @click="goto('/help/training-videos/')" icon-left="youtube"> How-to Videos</b-button>
+
+        <b-button size="is-small" outlined @click="goto('/mtg/types/')" icon-left="share"> Explore Types</b-button>
+         <br/><br/>
+         <b-button size="is-small" outlined @click="goto('/apps/inventory/')" icon-left="book-open-page-variant-outline"> Open Collection/Inventory</b-button>
+
       </div>
-      <hr />
-        <div class="aboutecho">
-          <h2>About EchoMTG</h2>
+        <div class="aboutecho mt-auto">
           <b-image alt="Additional features, storage, and app for subscribers" src="https://assets.echomtg.com/interface/onboarding/premium-ad.jpg" />
         </div>
       </b-step-item>
 
       <template
-
           #navigation="{previous, next}">
-          <b-button
-              outlined
-              type="is-danger"
-              icon-pack="fas"
-              icon-left="backward"
-              :disabled="previous.disabled"
-              @click.prevent="previous.action">
-              Previous
-          </b-button>
-          <b-button
-              outlined
-              type="is-success"
-              icon-pack="fas"
-              icon-right="forward"
-              :disabled="next.disabled"
-              @click.prevent="next.action">
-              Next
-          </b-button>
+          <div class="is-flex mb-5 ">
+            <b-button
+
+                type="is-dark"
+                class="is-fullwidth mr-2 ml-5"
+                :icon-left="$device.isDesktop ? `arrow-left-bold` : `gesture-swipe-left`"
+                :disabled="previous.disabled"
+                @click.prevent="previous.action">
+                 <span v-if="$device.isDesktop">
+                  Arrow Left
+                </span>
+                <span v-else>
+                  Swipe Left
+                </span>
+            </b-button>
+            <b-button
+
+                type="is-primary"
+                class="is-fullwidth ml-2 mr-5"
+                :icon-right="$device.isDesktop ? `arrow-right-bold` : `gesture-swipe-right`"
+                :disabled="next.disabled"
+                @click.prevent="next.action">
+                <span v-if="$device.isDesktop">
+                  Arrow Right
+                </span>
+                <span v-else>
+                  Swipe Right
+                </span>
+
+            </b-button>
+          </div>
       </template>
     </b-steps>
   </div>
 </template>
+<style scoped>
+.b-steps{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.b-steps .step-content > div{
+  height: 100% !important;
+}
+.step-item{
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+</style>
 
 <script>
 import { mapState } from 'vuex';
@@ -242,8 +274,7 @@ export default {
       xDown: null,
       yDown: null,
       activeStep: 0,
-      totalSteps: 5,
-      isStepsClickable: true
+      totalSteps: 5
     }
   }
 }
