@@ -4,7 +4,7 @@
     <user-dashboard v-if="this.authenticated" />
 
     <!-- default homepage -->
-    <default-homepage v-if="!this.authenticated" />
+    <default-homepage v-else />
 
   </div>
 </template>
