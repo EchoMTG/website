@@ -4,10 +4,11 @@
       v-model="activeStep"
       :animated="true"
       :rounded="true"
+      size="is-small"
+      :vertical="$device.isDesktop ? true : false"
       :has-navigation="true"
       icon-prev="arrow-left"
       icon-next="arrow-right"
-      label-position="center"
       mobile-mode="minimalist">
       <b-step-item step="1" label="Welcome to EchoMTG">
 
@@ -46,36 +47,51 @@
             buttons you'll find on set, deck, card pages, and search boxes. Try it on these cards:
           </p>
         </div>
-        <div :class="(isDarkModeActive == 1 ? 'has-background-black' : '') + ` is-flex is-flex-direction-column`">
-            <div>
-              <quick-add-button
-                  :callback="updateQuickStats"
-                  :foil="0"
-                  :emid="104141" />
-              <quick-add-button
-                  :callback="updateQuickStats"
-                  :foil="1"
-                  :emid="104141" />
+        <div class="is-flex">
+          <template
+            v-for="(card,index) in starterCards"
+            >
+            <div
+              v-if="index < starterCount"
+              v-bind:key="card.emid"
+              :class="(index != 2 ? 'mr-2' : '') + ` is-flex is-flex-direction-column is-relative`">
+              <div class="is-flex" style="position: absolute; z-index: 2; top: 70%">
+                <quick-add-button
+                    :callback="updateQuickStats"
+                    :foil="0"
+                    :emid="card.emid"
+                    :classes="`mr-1 ml-1`" />
+                <quick-add-button
+                    :callback="updateQuickStats"
+                    :foil="1"
+                    :emid="card.emid" />
+              </div>
+              <div class="is-relative">
+                <img
+                  :width="$device.isDesktop ? 106 : 130"
+                  style="border-radius: 10px"
+                  :src="`https://assets.echomtg.com/${card.game}/cards/original/${card.emid}.jpg`" />
+              </div>
             </div>
-            <div>
-              <img width="120" style="border-radius: 10px" src="https://assets.echomtg.com/magic/cards/original/104141.jpg" />
-            </div>
-
+          </template>
         </div>
         <div class="aboutecho mt-auto">
-          <b-image src="https://assets.echomtg.com/interface/onboarding/deck-building-collection-matching.jpg" />
+          <b-image
+            src="https://assets.echomtg.com/interface/onboarding/deck-building-collection-matching.jpg" />
         </div>
       </b-step-item>
       <b-step-item step="3" label="Weekly Reports &amp; Subs">
 
-            <div class="content">
-              <h1 v-if="$device.isDesktop" class="title has-text-centered">Weekly Reports &amp; Plans</h1>
-              <p>Each Sunday <strong>echo</strong> sends an email report with <strong>your collection value</strong> and <strong>which of your cards</strong> are trending up or down in the secondary market <b-icon type="is-success" icon="trending-up" size="is-small" /></p>
+        <div class="content">
+          <h1 v-if="$device.isDesktop" class="title has-text-centered">Weekly Reports &amp; Plans</h1>
+          <p>Each Sunday <strong>echo</strong> sends an email report with <strong>your collection value</strong> and <strong>which of your cards</strong> are trending up or down in the secondary market <b-icon type="is-success" icon="trending-up" size="is-small" /></p>
 
-              <p><strong>Your info isn't sold, we don't use ads.</strong> <strong class="has-text-success">Echo is 100% supported by the community.</strong> Subbed members gain additional storage, automated reports, specialized apps, data insights, and more..</p>
-              <p><b-icon type="is-warning" icon="chart-areaspline" size="is-small" /> <strong>Reports are based upon your collection tracked on Echo.</strong> Free Accounts start with 360 collection storage, 25 Decks, and 100 trade slots.</p>
-            </div>
-            <b-image src="https://assets.echomtg.com/interface/onboarding/weekly-email-reports.jpg" />
+          <p><strong>Your info isn't sold, we don't use ads.</strong> <strong class="has-text-success">Echo is 100% supported by the community.</strong> Subbed members gain additional storage, automated reports, specialized apps, data insights, and more..</p>
+          <p><b-icon type="is-warning" icon="chart-areaspline" size="is-small" /> <strong>Reports are based upon your collection tracked on Echo.</strong> Free Accounts start with 360 collection storage, 25 Decks, and 100 trade slots.</p>
+        </div>
+        <div class="aboutecho mt-auto">
+          <b-image src="https://assets.echomtg.com/interface/onboarding/weekly-email-reports.jpg" />
+        </div>
       </b-step-item>
 
       <b-step-item step="4" label="Social and Profile">
@@ -177,7 +193,10 @@ export default {
     QuickAddButton
   },
   computed: {
-    ...mapState(['user','isDarkModeActive','quickstats'])
+    ...mapState(['user','isDarkModeActive','quickstats']),
+    starterCount() {
+      return this.$device.isDesktop ? 10 : 3
+    }
   },
   mounted(){
     document.addEventListener("keydown", this.keybinds);
@@ -274,7 +293,13 @@ export default {
       xDown: null,
       yDown: null,
       activeStep: 0,
-      totalSteps: 5
+      totalSteps: 5,
+      starterCards: [
+        {game: 'magic',emid:104141},
+        {game: 'magic',emid:94243},
+        {game: 'lorcana',emid:153858},
+        {game: 'magic', emid: 93192}
+      ]
     }
   }
 }
