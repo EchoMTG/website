@@ -107,7 +107,7 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
         return parseInt(this.quickstats.total_cards)
       },
       newUser() {
-        return parseInt(this.user.id) == 1
+        return parseInt(this.quickstats.total_cards) < 5
       },
       totalCardsValue(){
         let val = parseInt(this.quickstats.current_value) - parseInt(this.quickstats.sealed_value)

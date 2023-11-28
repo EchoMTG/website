@@ -5,7 +5,6 @@
       :animated="true"
       :rounded="true"
       size="is-small"
-      :vertical="$device.isDesktop ? true : false"
       :has-navigation="true"
       icon-prev="arrow-left"
       icon-next="arrow-right"
@@ -52,9 +51,9 @@
             v-for="(card,index) in starterCards"
             >
             <div
-              v-if="index < starterCount"
+              v-if="index <= starterCount"
               v-bind:key="card.emid"
-              :class="(index != 2 ? 'mr-2' : '') + ` is-flex is-flex-direction-column is-relative`">
+              :class="(index != starterCount ? 'mr-2' : '') + ` is-flex is-flex-direction-column is-relative`">
               <div class="is-flex" style="position: absolute; z-index: 2; top: 70%">
                 <quick-add-button
                     :callback="updateQuickStats"
@@ -195,7 +194,7 @@ export default {
   computed: {
     ...mapState(['user','isDarkModeActive','quickstats']),
     starterCount() {
-      return this.$device.isDesktop ? 10 : 3
+      return this.$device.isDesktop ? 6 : 2
     }
   },
   mounted(){
@@ -298,7 +297,10 @@ export default {
         {game: 'magic',emid:104141},
         {game: 'magic',emid:94243},
         {game: 'lorcana',emid:153858},
-        {game: 'magic', emid: 93192}
+        {game: 'magic', emid: 93192},
+        {game: 'magic', emid: 30986},
+        {game: 'magic', emid: 1304},
+        {game: 'magic', emid: 63151},
       ]
     }
   }
