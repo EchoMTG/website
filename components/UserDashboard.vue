@@ -3,7 +3,7 @@
 
       <hero-bar-main  v-if="!newUser" />
 
-      <div class="has-background-black">
+      <div :class="(isDarkModeActive == 1 ? `has-background-black` :``)">
         <section v-if="!newUser" class="mx-5 my-2">
           <div class="columns">
             <div class="column">
@@ -126,7 +126,8 @@ import InviteFriend from '@/components/cta/InviteFriend.vue'
       'isAsideMobileExpanded',
       'quickstats',
       'user',
-      'authenticated'
+      'authenticated',
+      'isDarkModeActive'
       ]),
 
     },
