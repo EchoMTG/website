@@ -413,24 +413,33 @@
           </template>
 
           <template #bottom-left>
-            <b-dropdown v-if="checkedRows.length > 0" position="is-top-right" :expanded="true" :triggers="['hover']" aria-role="list">
-                <template #trigger>
-                    <b-button
-                        size="is-small"
-                        icon-left="lightning-bolt"
-                        class="is-pulled-right"
-                        type="is-info"
-                        :label="`Bulk Action (${checkedRows.length})`"
-                        icon-right="menu-down" />
-                </template>
-                <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
-                <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
-              </b-dropdown>
+            <div class="is-flex">
+              <b-dropdown class="mr-2" v-if="checkedRows.length > 0" position="is-top-right" :expanded="true" :triggers="['hover']" aria-role="list">
+                  <template #trigger>
+                      <b-button
+                          size="is-small"
+                          icon-left="lightning-bolt"
+                          class="is-pulled-right"
+                          type="is-info"
+                          :label="`Bulk Action (${checkedRows.length})`"
+                          icon-right="menu-down" />
+                  </template>
+                  <b-dropdown-item @click="toggleBulkModal('addtolist')" aria-role="list-item"><b-icon icon="plus" size="is-small" /> Add to List</b-dropdown-item>
+                  <b-dropdown-item @click="toggleBulkModal('delete')" aria-role="list-item"><b-icon icon="delete" size="is-small" /> Delete</b-dropdown-item>
+                  <b-dropdown-item @click="toggleBulkModal('changedate')" aria-role="list-item"><b-icon icon="calendar" size="is-small" /> Change Date</b-dropdown-item>
+                  <b-dropdown-item @click="toggleBulkModal('changeprice')" aria-role="list-item"><b-icon icon="currency-usd" size="is-small"/> Acquired Price</b-dropdown-item>
+                  <b-dropdown-item @click="toggleBulkModal('togglefoil')" aria-role="list-item"><b-icon icon="star-shooting-outline" size="is-small"/> Toggle Foil</b-dropdown-item>
+                  <b-dropdown-item @click="toggleBulkModal('toggletradable')" aria-role="list-item"><b-icon icon="hand-coin" size="is-small"/> Toggle Tradable</b-dropdown-item>
+                </b-dropdown>
+                <b-select size="is-small" v-model="perPage">
+                  <option
+                    v-for="num in paginationOptions"
+                    :value="num"
+                    v-bind:key="num+`page`"
+                    >{{num}} Per Page</option>
+                </b-select>
               <!-- <b>Total checked</b>: {{ checkedRows.length }} -->
+              </div>
           </template>
 
       </b-table>
@@ -510,6 +519,9 @@ export default {
           defaultSortOrder: 'desc',
           page: 1,
           perPage: 100,
+          paginationOptions: [
+            100,250,500
+          ],
           tableHeight: 400,
           windowHeight: 1000,
           debounce: null,
@@ -563,6 +575,9 @@ export default {
       this.$fetch();
     },
     priceUnder() {
+      this.$fetch();
+    },
+    perPage() {
       this.$fetch();
     },
     item_data(){
