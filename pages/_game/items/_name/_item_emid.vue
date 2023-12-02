@@ -205,6 +205,7 @@
                   <p class="card-header-title ">
                     {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
                   </p>
+                  <high-low-bar />
                   <button
                       class="card-header-icon"
                       aria-label="collapse price analysis"
@@ -382,6 +383,7 @@ import EchoLink from '@/components/EchoLink.vue'
 import AffiliateOverlayDisclaimer from '@/components/legal/AffiliateOverlayDisclaimer.vue'
 import WatchlistQuickAddButton from '@/components/watchlist/WatchlistQuickAddButton.vue';
 import Item404 from '@/components/errors/Item404.vue'
+import HighLowBar from '@/components/financial/HighLowBar.vue'
 
 export default {
   name: 'Expansion',
@@ -400,7 +402,8 @@ export default {
     EchoLink,
     AffiliateOverlayDisclaimer,
     WatchlistQuickAddButton,
-    Item404
+    Item404,
+    HighLowBar
   },
   data () {
     return {
@@ -536,7 +539,7 @@ export default {
       );
       const itemResult = await itemRes.json();
       if(itemResult?.status && itemResult.status == 'error'){
-        
+
         res.statusCode = 404
         return
       }
@@ -655,7 +658,7 @@ export default {
     },
     typeColor() {
       let color = 'is-warning';
-      let rarity = this.item?.rarity ? this.item.rarity.toLowerCase(): 'unknown' 
+      let rarity = this.item?.rarity ? this.item.rarity.toLowerCase(): 'unknown'
       switch (rarity){
         case 'uncommon':
           color='is-grey';

@@ -57,7 +57,8 @@ export default {
     //'@nuxtjs/eslint-module'
     '@nuxtjs/dotenv',
     '@nuxtjs/moment',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@nuxtjs/composition-api/module'
   ],
   image: {
     providers: {
