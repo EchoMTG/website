@@ -78,7 +78,8 @@
         <h2 class="title is-size-5 is-capitalized">{{username}}'s Articles</h2>
         <b-table :data="profile.articles" paginated pagination-size="is-small" :per-page="10">
           <b-table-column v-slot="props" label="Article Name" field="title">
-            {{props.row.title}}
+            <echo-link :url="props.row.url">{{props.row.title}}</echo-link>
+
           </b-table-column>
         </b-table>
       </div>
@@ -139,8 +140,12 @@
 </style>
 
 <script>
+import EchoLink from '@/components/EchoLink'
 export default {
   name: 'UserProfile',
+  components: {
+    EchoLink
+  },
   data() {
     return {
       username : null,
