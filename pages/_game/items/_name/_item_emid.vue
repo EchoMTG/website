@@ -205,7 +205,7 @@
                   <p class="card-header-title ">
                     {{this.item.name}} from {{this.item.expansion}}'s Price Analysis
                   </p>
-                  <high-low-bar />
+                  <!-- <high-low-bar /> -->
                   <button
                       class="card-header-icon"
                       aria-label="collapse price analysis"
