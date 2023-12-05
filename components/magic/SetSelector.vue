@@ -63,7 +63,10 @@ import {mapState} from 'vuex'
         },
         methods: {
           async getSets(){
-            if(this.sets.length > 0) return;
+
+            if(this.sets.length > 0){
+              this.data = this.sets;
+            }
 
             try{
               const setsData = await this.$echomtg.getSets();
