@@ -8,10 +8,1057 @@ export default {
 	},
 	"item": [
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Auth: Retrieving a User token",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"your@email.com\",\n    \"password\": \"xxxxxxxxxxx\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/auth/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"auth",
+								""
+							]
+						},
+						"description": "Authenticate a user to receive an access token which allows you to make API calls on behalf of the user. You will want to store the token to your application's memory or database for further use. A new token is generated every time a user is auth'd from anywhere. Tokens expire after 24 hours.\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | user email address |\n| password | required | user password |\n| type | optional | Send `curl` to received a plain text token (no json) |"
+					},
+					"response": [
+						{
+							"name": "Auth: Retrieving a User token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"teeg@echomtg.com\",\n    \"password\": \"1737RA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://dev.echomtg.com/api/user/auth/",
+									"protocol": "https",
+									"host": [
+										"dev",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"auth",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 01:14:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "platform=unknown; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "device_type=unknown; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "has_logged_in=true; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "username=teeg; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "email=Teeg%40echomtg.com; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Content-Length",
+									"value": "152"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"xxxxxxxxxxxxxxxxxxxx\",\n    \"message\": \"Login Successful!\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Change Currency",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currency_code\" : \"USD\"\n}"
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/change_currency/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"change_currency",
+								""
+							]
+						},
+						"description": "Changing currency will modify the values of all API output that involves a monetary value. The conversion rate is calculated from a daily pull from [https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml)\n\n## Available Currencies\n\n- USD - U.S. Dollars\n- GBP - British Pounds\n- EUR - Euros\n- AUD - Australian Dollars\n- BRL - Brazilian Real\n- CAD - Canadian Dollars\n- CZK - Czech koruny\n- DKK - Danish Kroner\n- HKD - Hong Kong Dollars\n- HUF - Hungarian Forints\n- ILS - Israeli Shekels\n- JPY - Japanese Yen\n- MYR - Malaysian Ringgits\n- MXN - Mexican Pesos\n- NZD - New Zealand Dollars\n- NOK - Norwegian Kroner\n- PHP - Philippine Pesos\n- PLN - Polish zloty\n- SGD - Singapore Dollars\n- SEK - Swedish Kronor\n- CHF - Swiss Francs\n- TWD - Taiwan New Dollars\n- THB - Thai Baht\n- TRY - Turkish Liras"
+					},
+					"response": [
+						{
+							"name": "User: Change Currency",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"currency_code\" : \"USD\"\n}"
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/change_currency/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"change_currency",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 00:52:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "118"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Currency code update to USD - U.S. Dollars, current conversion is rate from USD is 1.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Meta Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/user/meta/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"meta",
+								""
+							]
+						},
+						"description": "Access user information like name, email, about, and other meta data that can control the interface like currency code and default sort orders."
+					},
+					"response": [
+						{
+							"name": "Meta Fetch",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/meta/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"meta",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 01:09:47 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1498"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"id\": \"1\",\n        \"username\": \"teeg\",\n        \"email\": \"Teeg@echomtg.com\",\n        \"plan\": \"rare\",\n        \"first_name\": \"Teeg\",\n        \"last_name\": \"Mage\",\n        \"twitter\": \"@echomtg\",\n        \"about\": \"I'm the mythical programmer of EchoMTG. I've been a player since 1995, but took a hiatus before middle school, then returned in 2011. Upon returning I was hellbent on collecting nostalgic cards I once had in my collection (dual lands etc.) so I could jump into the legacy scene. Collecting duals needed to be done on a budget, so trading up was the only option. While trading heavily online, I started Echo database (early 2012) to help calculate quick trades. I take a lot of pride as a product author and still love mtg dearly, so Echo is a great avenue for experimental interface designs while feeding into my favorite hobby.\",\n        \"date_created\": \"2014-09-01 06:40:18\",\n        \"last_login\": \"2022-10-28 00:50:23\",\n        \"login_Count\": \"36560\",\n        \"image_pref\": \"0\",\n        \"currency_code\": \"USD\",\n        \"conversion_rate\": \"1.00\",\n        \"alter_facebook\": \"\",\n        \"alter_email\": \"test\",\n        \"alter_name\": \"\",\n        \"alter_website\": \"\",\n        \"referrer_code\": \"6c300461\",\n        \"phone\": \"\",\n        \"is_store\": \"0\",\n        \"avatar\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.png\",\n        \"slack\": \"teeg\",\n        \"default_sort\": \"i.id\",\n        \"contributor\": \"1\",\n        \"show_real_name\": \"0\",\n        \"use_market\": \"0\",\n        \"setting_report_threshhold\": \"1.00\",\n        \"message\": \"\",\n        \"planObject\": {\n            \"user_id\": 0,\n            \"message\": \"\",\n            \"color\": \"gold\",\n            \"list_cap\": 50,\n            \"card_cap\": 11520,\n            \"title\": \"Seasoned Collector\",\n            \"name\": \"Rare\",\n            \"id\": \"3\"\n        }\n    },\n    \"message\": \"User meta accessed.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Public Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/user/public_profile/?username=teeg",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"public_profile",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "teeg"
+								}
+							]
+						},
+						"description": "Access user information like name, email, about, and other meta data that can control the interface like currency code and default sort orders."
+					},
+					"response": []
+				},
+				{
+					"name": "User: Unique Check",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/user/unique_check/?value=teeg213213&type=username",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"unique_check",
+								""
+							],
+							"query": [
+								{
+									"key": "value",
+									"value": "teeg213213"
+								},
+								{
+									"key": "type",
+									"value": "username"
+								}
+							]
+						},
+						"description": "Checks if a name is available\n\ntype options: username, email, discord, twitter"
+					},
+					"response": []
+				},
+				{
+					"name": "User: Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/logout/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"logout",
+								""
+							]
+						},
+						"description": "Destroy the user session and cookies. Invalidates the token."
+					},
+					"response": [
+						{
+							"name": "Logout",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/logout/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"logout",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 01:09:47 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1498"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User logged out\",\n    \"status\" : \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Update Meta Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/update/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"update",
+								""
+							]
+						},
+						"description": "**Update user profile information and settings.**\n\n**Default Sort Options**\n\n```\nDate Entered = i.id \nCard Name = c.card_name \nPrice = p.tcg_mid \nPersonal Gain = personal_gain \n7-Day Movement = p.change \nExpansion = c.expansion\n\n```"
+					},
+					"response": [
+						{
+							"name": "User: Update Meta Data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/user/update/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"update",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 29 Oct 2022 20:19:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "platform=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "device_type=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "has_logged_in=true; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "username=teeg; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "email=Teeg%40echomtg.com; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=99"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Update user meta data.\",\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User: Upload Avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/kilroy/Desktop/gaddock-teeg.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/upload_avatar/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"upload_avatar",
+								""
+							]
+						},
+						"description": "Change the user avatar (image) that appears in the interface, comments, and blog posts."
+					},
+					"response": [
+						{
+							"name": "Avatar Change",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/kilroy/Desktop/gaddock-teeg.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://dev.echomtg.com/api/user/upload_avatar/",
+									"protocol": "https",
+									"host": [
+										"dev",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"upload_avatar",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 01:30:37 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "552"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"User avatar updated to use gaddock-teeg.jpg!\",\n    \"file\": {\n        \"file_name\": \"c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"stored_file_name\": \"users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"file_url\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\"\n    },\n    \"cropped\": {\n        \"file_name\": \"300.c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"stored_file_name\": \"users/avatars/300.c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"file_url\": \"https://assets.echomtg.com/users/avatars/300.c4ca4238a0b923820dcc509a6f75849b.jpg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Auth: Register User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"your@emails.com\",\n    \"password\": \"123ABCabc\",\n    \"username\": \"test\",\n    \"referrer\": \"testref\",\n    \"entry_url\": \"/mtg/sets/\",\n    \"capture_url\": \"/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/user/register/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"register",
+								""
+							]
+						},
+						"description": "Register a new user into the system.\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | user email address |\n| password | required | user password, must contain a letter and number |\n| username | required | public handle |\n| referrer | optional | referring hash of the user who invite. This can be found in user/meta call. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Auth: Invite Friend",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"friends@email.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.echomtg.com/api/user/invite_friend/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"echomtg",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"invite_friend",
+								""
+							]
+						},
+						"description": "Invite a friend to echomtg and gain 100 additional inventory storage\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | email to send an invite to |"
+					},
+					"response": []
+				},
+				{
+					"name": "User: Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"your@email.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/user/forgot_password/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"forgot_password",
+								""
+							]
+						},
+						"description": "Email of the user who forgot their password. Sends a hash link to the requesting email which kicks off a reset password flow for that user."
+					},
+					"response": []
+				},
+				{
+					"name": "User: Reset Forgotten Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"test123\",\n    \"reset_token\": \"XXXXXX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/user/reset_password/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"reset_password",
+								""
+							]
+						},
+						"description": "Past of the Forgot Password flow. Need a password and reset token that is generated from the /api/user/forgot_password/ endpoint."
+					},
+					"response": []
+				},
+				{
+					"name": "User: Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"current_password\": \"test123\",\n    \"new_password\": \"test1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/user/change_password/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"user",
+								"change_password",
+								""
+							]
+						},
+						"description": "Authenticated way to change a user password."
+					},
+					"response": []
+				}
+			],
+			"description": "The majority of calls requires user authentication. Soon you will be able to create a user on the fly here as well. This will let you use EchoMTG's preexisting user base without creating your own."
+		},
+		{
 			"name": "Inventory",
 			"item": [
 				{
-					"name": "Inventory: Adding Items",
+					"name": "Inventory: Add an Item",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -36,6 +1083,148 @@ export default {
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"emid\": 92175,\n\t\"quantity\" : 1,\n\t\"language\": \"EN\",\n\t\"acquired_price\": \"4.00\",\n\t\"acquired_date\": \"5-1-2020\",\n\t\"condition\": \"MP\",\n\t\"foil\": 0,\n    \"image\" : \"https://assets.echomtg.com/images/echomtg-og-default.png\"\n}"
+						},
+						"url": {
+							"raw": "localhost/api/inventory/add/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"add",
+								""
+							]
+						},
+						"description": "Add a card to the user inventory.\n\n| **Param** | **Required** | **Default** | **Description** |\n| --- | --- | --- | --- |\n| emid | required |  | EchoID |\n| quantity | optional | 1 | number to record |\n| language | optional | EN | Card text language. See language options below |\n| condition | optional | NM | Card condition, see options below |\n| foil | optional | 0 | 1=foiled, 0=regular |\n| image | optional |  | A remote URL to an uploaded image. To add an image through Echo, see the Upload Image endpoint |\n\nCondition Options\n\n```\nNM = Near Mint  \nLP = Lightly Played  \nMP = Moderately Played  \nHP = Heavily Played  \nD = Damaged  \nALT = Altered  \nART = Artist Proof  \nPRE = Pre-release  \nTS = Timestamped  \nSGN = Signed  \nBGS = BGS  \nB10 = BGS 10  \nB95 = BGS 9.5  \nB9 = BGS 9.0  \nB85 = BGS 8.5  \nB8 = BGS 8.0  \nB75 = BGS 7.5  \nB7 = BGS 7.0  \nPSA = PSA  \nP10 = PSA 10  \nP95 = PSA 9.5  \nP9 = PSA 9.0  \nP85 = PSA 8.5  \nP8 = PSA 8.0  \nP75 = PSA 7.5  \nP7 = PSA 7.0\n\n ```\n\nLanguage Options\n\n```\nEN = english  \nDE = german  \nFR = french  \nRU = russian  \nIT = italian  \nES = spanish  \nPT = portuguese  \nCT = chinese traditional  \nCS = chinese simplified  \nJP = japanese  \nKR = korean  \n\n ```"
+					},
+					"response": [
+						{
+							"name": "Inventory: Adding Cards (JSON Endpoint)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"description": "User token gathered from /user/auth/",
+										"key": "Authorization",
+										"value": "{{user_token}}",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"emid\": 92175,\n\t\"quantity\" : 1,\n\t\"language\": \"EN\",\n\t\"acquired_price\": \"4.00\",\n\t\"acquired_date\": \"5-1-2020\",\n\t\"condition\": \"MP\",\n\t\"foil\": 0,\n    \"image\" : \"https://assets.echomtg.com/images/echomtg-og-default.png\"\n}"
+								},
+								"url": {
+									"raw": "https://www.echomtg.com/api/inventory/add/",
+									"protocol": "https",
+									"host": [
+										"www",
+										"echomtg",
+										"com"
+									],
+									"path": [
+										"api",
+										"inventory",
+										"add",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 28 Oct 2022 10:56:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store, no-cache, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1739"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=15, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"1 Snapcaster Mage added to inventory binder.\",\n    \"inventory_id\": 46653735,\n    \"card\": {\n        \"id\": \"92175\",\n        \"tcgplayer_id\": \"52206\",\n        \"multiverseid\": \"227676\",\n        \"set_number\": \"78\",\n        \"card_name\": \"Snapcaster Mage\",\n        \"expansion\": \"Innistrad\",\n        \"set_code\": \"ISD\",\n        \"rarity\": \"Rare\",\n        \"mana_cost\": \"{{1}}{{u}}\",\n        \"cmc\": \"2\",\n        \"p_t\": \"2 / 1\",\n        \"types\": \"Creature - Human Wizard\",\n        \"main_type\": \"Creature - Human Wizard\",\n        \"sub_type\": \"\",\n        \"rating\": \"4.265\",\n        \"votes\": \"358\",\n        \"card_text\": \"<p>Flash</p><p>When Snapcaster Mage enters the battlefield, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost. <i>(You may cast that card from your graveyard for its flashback cost. Then exile it.)</i></p>\",\n        \"attributes\": \"flash,flash\",\n        \"flavor_text\": null,\n        \"power\": \"2\",\n        \"toughness\": \"1\",\n        \"artist\": \"Volkan Baga\",\n        \"all_sets\": null,\n        \"community_rating\": \"Community Rating: 4.265 / 5&nbsp;&nbsp;(358 votes)\",\n        \"type\": \"Creature\",\n        \"main_colors\": \"Blue\",\n        \"abilities_colors\": \"\",\n        \"crawlurl\": \"http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=227676\",\n        \"watermark\": null,\n        \"loyalty\": null,\n        \"other_sets\": null,\n        \"card_number\": \"78\",\n        \"has_image\": \"1\",\n        \"flip\": \"0\",\n        \"reserve_list\": \"0\",\n        \"sealed\": \"0\",\n        \"card_id\": \"92175\",\n        \"tcg_low\": \"17.74\",\n        \"tcg_mid\": \"24.97\",\n        \"tcg_market\": \"20.28\",\n        \"tcg_high\": \"24.97\",\n        \"foil_price\": \"101.37\",\n        \"last_updated\": \"2022-10-27 14:22:37\",\n        \"change\": \"2.00\",\n        \"change_1d\": \"0.00\",\n        \"foil_change\": \"0.00\",\n        \"purchase_link_tcg\": \"https://shop.tcgplayer.com/magic/product/show?advancedSearch=true&ProductName=Snapcaster+Mage&partner=ECHOMAGE&utm_campaign=affiliate&utm_medium=echomtg-com&utm_source=ECHOMAGE\",\n        \"ck_price\": null,\n        \"ck_buy\": null,\n        \"ck_qty_buying\": null,\n        \"ck_foil_price\": null,\n        \"ck_foil_buy\": null,\n        \"ck_foil_qty_buying\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Inventory: Adding Items Batch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"description": "User token gathered from /user/auth/",
+								"key": "Authorization",
+								"value": "{{user_token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"emid\": 92175,\n\t\"quantity\" : 1,\n\t\"language\": \"EN\",\n\t\"acquired_price\": \"4.00\",\n\t\"acquired_date\": \"1-1-2024\",\n\t\"condition\": \"MP\",\n\t\"foil\": 0\n},\n{\n\t\"emid\": 45,\n\t\"quantity\" : 1,\n\t\"language\": \"EN\",\n\t\"acquired_price\": \"4.00\",\n\t\"acquired_date\": \"1-1-2024\",\n\t\"condition\": \"MP\",\n\t\"foil\": 0\n    \n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "localhost/api/inventory/add/",
@@ -4860,1326 +6049,6 @@ export default {
 				}
 			],
 			"description": "Custom collection of item data."
-		},
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "Auth: Retrieving a User token",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"connection": true,
-							"accept-encoding": true,
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"your@email.com\",\n    \"password\": \"xxxxxxxxxxx\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/auth/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"auth",
-								""
-							]
-						},
-						"description": "Authenticate a user to receive an access token which allows you to make API calls on behalf of the user. You will want to store the token to your application's memory or database for further use. A new token is generated every time a user is auth'd from anywhere. Tokens expire after 24 hours.\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | user email address |\n| password | required | user password |\n| type | optional | Send `curl` to received a plain text token (no json) |"
-					},
-					"response": [
-						{
-							"name": "Auth: Retrieving a User token",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"teeg@echomtg.com\",\n    \"password\": \"1737RA\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://dev.echomtg.com/api/user/auth/",
-									"protocol": "https",
-									"host": [
-										"dev",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"auth",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 28 Oct 2022 01:14:15 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "platform=unknown; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "device_type=unknown; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "has_logged_in=true; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "username=teeg; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "email=Teeg%40echomtg.com; expires=Sun, 27-Nov-2022 01:14:15 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Content-Length",
-									"value": "152"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"token\": \"xxxxxxxxxxxxxxxxxxxx\",\n    \"message\": \"Login Successful!\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Change Currency",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"currency_code\" : \"USD\"\n}"
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/change_currency/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"change_currency",
-								""
-							]
-						},
-						"description": "Changing currency will modify the values of all API output that involves a monetary value. The conversion rate is calculated from a daily pull from [https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml)\n\n## Available Currencies\n\n- USD - U.S. Dollars\n- GBP - British Pounds\n- EUR - Euros\n- AUD - Australian Dollars\n- BRL - Brazilian Real\n- CAD - Canadian Dollars\n- CZK - Czech koruny\n- DKK - Danish Kroner\n- HKD - Hong Kong Dollars\n- HUF - Hungarian Forints\n- ILS - Israeli Shekels\n- JPY - Japanese Yen\n- MYR - Malaysian Ringgits\n- MXN - Mexican Pesos\n- NZD - New Zealand Dollars\n- NOK - Norwegian Kroner\n- PHP - Philippine Pesos\n- PLN - Polish zloty\n- SGD - Singapore Dollars\n- SEK - Swedish Kronor\n- CHF - Swiss Francs\n- TWD - Taiwan New Dollars\n- THB - Thai Baht\n- TRY - Turkish Liras"
-					},
-					"response": [
-						{
-							"name": "User: Change Currency",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"currency_code\" : \"USD\"\n}"
-								},
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/change_currency/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"change_currency",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 28 Oct 2022 00:52:52 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Content-Length",
-									"value": "118"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=15, max=100"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Currency code update to USD - U.S. Dollars, current conversion is rate from USD is 1.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Meta Data",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost/api/user/meta/",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"meta",
-								""
-							]
-						},
-						"description": "Access user information like name, email, about, and other meta data that can control the interface like currency code and default sort orders."
-					},
-					"response": [
-						{
-							"name": "Meta Fetch",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/meta/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"meta",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 28 Oct 2022 01:09:47 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Content-Length",
-									"value": "1498"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=15, max=100"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"user\": {\n        \"id\": \"1\",\n        \"username\": \"teeg\",\n        \"email\": \"Teeg@echomtg.com\",\n        \"plan\": \"rare\",\n        \"first_name\": \"Teeg\",\n        \"last_name\": \"Mage\",\n        \"twitter\": \"@echomtg\",\n        \"about\": \"I'm the mythical programmer of EchoMTG. I've been a player since 1995, but took a hiatus before middle school, then returned in 2011. Upon returning I was hellbent on collecting nostalgic cards I once had in my collection (dual lands etc.) so I could jump into the legacy scene. Collecting duals needed to be done on a budget, so trading up was the only option. While trading heavily online, I started Echo database (early 2012) to help calculate quick trades. I take a lot of pride as a product author and still love mtg dearly, so Echo is a great avenue for experimental interface designs while feeding into my favorite hobby.\",\n        \"date_created\": \"2014-09-01 06:40:18\",\n        \"last_login\": \"2022-10-28 00:50:23\",\n        \"login_Count\": \"36560\",\n        \"image_pref\": \"0\",\n        \"currency_code\": \"USD\",\n        \"conversion_rate\": \"1.00\",\n        \"alter_facebook\": \"\",\n        \"alter_email\": \"test\",\n        \"alter_name\": \"\",\n        \"alter_website\": \"\",\n        \"referrer_code\": \"6c300461\",\n        \"phone\": \"\",\n        \"is_store\": \"0\",\n        \"avatar\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.png\",\n        \"slack\": \"teeg\",\n        \"default_sort\": \"i.id\",\n        \"contributor\": \"1\",\n        \"show_real_name\": \"0\",\n        \"use_market\": \"0\",\n        \"setting_report_threshhold\": \"1.00\",\n        \"message\": \"\",\n        \"planObject\": {\n            \"user_id\": 0,\n            \"message\": \"\",\n            \"color\": \"gold\",\n            \"list_cap\": 50,\n            \"card_cap\": 11520,\n            \"title\": \"Seasoned Collector\",\n            \"name\": \"Rare\",\n            \"id\": \"3\"\n        }\n    },\n    \"message\": \"User meta accessed.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Public Profile",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost/api/user/public_profile/?username=teeg",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"public_profile",
-								""
-							],
-							"query": [
-								{
-									"key": "username",
-									"value": "teeg"
-								}
-							]
-						},
-						"description": "Access user information like name, email, about, and other meta data that can control the interface like currency code and default sort orders."
-					},
-					"response": []
-				},
-				{
-					"name": "User: Unique Check",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost/api/user/unique_check/?value=teeg213213&type=username",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"unique_check",
-								""
-							],
-							"query": [
-								{
-									"key": "value",
-									"value": "teeg213213"
-								},
-								{
-									"key": "type",
-									"value": "username"
-								}
-							]
-						},
-						"description": "Checks if a name is available\n\ntype options: username, email, discord, twitter"
-					},
-					"response": []
-				},
-				{
-					"name": "User: Subscriptions Update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"general\" : \"0\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/subscriptions/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"subscriptions",
-								""
-							]
-						},
-						"description": "View the user's email subscription preferences."
-					},
-					"response": [
-						{
-							"name": "User: Subscriptions",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"general\" : \"1\",\n    \"blog\" : \"1\",\n    \"reports\" : \"1\",\n    \"watchlist\" : \"1\",\n    \"features\" : \"1\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/subscriptions/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"subscriptions",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 13 Dec 2022 14:41:14 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "PHP/8.1.11"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"User subscription updated.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Subscriptions",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/subscriptions/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"subscriptions",
-								""
-							]
-						},
-						"description": "View the user's email subscription preferences."
-					},
-					"response": [
-						{
-							"name": "User: Subscriptions",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/subscriptions/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"subscriptions",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 13 Dec 2022 14:41:14 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept-Encoding"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "PHP/8.1.11"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Content-Encoding",
-									"value": "gzip"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"data\": {\n        \"user_id\": \"1\",\n        \"weekly_update\": \"1\",\n        \"watchlist_notifications\": \"1\",\n        \"blog_update\": \"1\",\n        \"feature_updates\": \"1\",\n        \"general_emails\": \"1\"\n    },\n    \"message\": \"User subscription accessed.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Logout",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/logout/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"logout",
-								""
-							]
-						},
-						"description": "Destroy the user session and cookies. Invalidates the token."
-					},
-					"response": [
-						{
-							"name": "Logout",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/logout/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"logout",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 28 Oct 2022 01:09:47 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Content-Length",
-									"value": "1498"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=15, max=100"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"User logged out\",\n    \"status\" : \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Update Meta Data",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/update/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"update",
-								""
-							]
-						},
-						"description": "**Update user profile information and settings.**\n\n**Default Sort Options**\n\n```\nDate Entered = i.id \nCard Name = c.card_name \nPrice = p.tcg_mid \nPersonal Gain = personal_gain \n7-Day Movement = p.change \nExpansion = c.expansion\n\n```"
-					},
-					"response": [
-						{
-							"name": "User: Update Meta Data",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"first_name\" : \"Gaddock\",\n    \"last_name\" : \"Teeg\",\n    \"twitter\" : \"@echomtg\",\n    \"about\" : \"Mythical Programmer\",\n    \"use_market\" : \"1\",\n    \"default_sort\" : \"i.id\",\n    \"setting_report_threshhold\" : \"1\",\n    \"alter_facebook\" : \"\",\n    \"alter_email\" : \"\",\n    \"alter_name\" : \"\",\n    \"alter_website\" : \"https://www.echomtg.com\"\n}\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://www.echomtg.com/api/user/update/",
-									"protocol": "https",
-									"host": [
-										"www",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"update",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Sat, 29 Oct 2022 20:19:35 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "platform=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "device_type=unknown; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "has_logged_in=true; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "username=teeg; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "email=Teeg%40echomtg.com; expires=Mon, 28-Nov-2022 20:19:35 GMT; Max-Age=2592000; path=/"
-								},
-								{
-									"key": "Content-Length",
-									"value": "55"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=15, max=99"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Update user meta data.\",\n    \"status\": \"success\"\n}"
-						}
-					]
-				},
-				{
-					"name": "User: Upload Avatar",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/Users/kilroy/Desktop/gaddock-teeg.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/upload_avatar/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"upload_avatar",
-								""
-							]
-						},
-						"description": "Change the user avatar (image) that appears in the interface, comments, and blog posts."
-					},
-					"response": [
-						{
-							"name": "Avatar Change",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "file",
-											"type": "file",
-											"src": "/Users/kilroy/Desktop/gaddock-teeg.jpg"
-										}
-									]
-								},
-								"url": {
-									"raw": "https://dev.echomtg.com/api/user/upload_avatar/",
-									"protocol": "https",
-									"host": [
-										"dev",
-										"echomtg",
-										"com"
-									],
-									"path": [
-										"api",
-										"user",
-										"upload_avatar",
-										""
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Fri, 28 Oct 2022 01:30:37 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Apache"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Allow-Headers",
-									"value": "Authorization, Origin, X-Requested-With, Content-Type, Accept"
-								},
-								{
-									"key": "Access-Control-Allow-Methods",
-									"value": "GET, POST, PUT, DELETE, OPTIONS"
-								},
-								{
-									"key": "Access-Control-Allow-Credentials",
-									"value": "true"
-								},
-								{
-									"key": "Expires",
-									"value": "Thu, 19 Nov 1981 08:52:00 GMT"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-store, no-cache, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Content-Length",
-									"value": "552"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=15, max=100"
-								},
-								{
-									"key": "Connection",
-									"value": "Keep-Alive"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=UTF-8"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"status\": \"success\",\n    \"message\": \"User avatar updated to use gaddock-teeg.jpg!\",\n    \"file\": {\n        \"file_name\": \"c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"stored_file_name\": \"users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"file_url\": \"https://assets.echomtg.com/users/avatars/c4ca4238a0b923820dcc509a6f75849b.jpg\"\n    },\n    \"cropped\": {\n        \"file_name\": \"300.c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"stored_file_name\": \"users/avatars/300.c4ca4238a0b923820dcc509a6f75849b.jpg\",\n        \"file_url\": \"https://assets.echomtg.com/users/avatars/300.c4ca4238a0b923820dcc509a6f75849b.jpg\"\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Auth: Register User",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"connection": true,
-							"accept-encoding": true,
-							"accept": true
-						}
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"your@emails.com\",\n    \"password\": \"123ABCabc\",\n    \"username\": \"test\",\n    \"referrer\": \"testref\",\n    \"entry_url\": \"/mtg/sets/\",\n    \"capture_url\": \"/\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost/api/user/register/",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"register",
-								""
-							]
-						},
-						"description": "Register a new user into the system.\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | user email address |\n| password | required | user password, must contain a letter and number |\n| username | required | public handle |\n| referrer | optional | referring hash of the user who invite. This can be found in user/meta call. |"
-					},
-					"response": []
-				},
-				{
-					"name": "Auth: Invite Friend",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"connection": true,
-							"accept-encoding": true,
-							"accept": true
-						}
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"friends@email.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://api.echomtg.com/api/user/invite_friend/",
-							"protocol": "https",
-							"host": [
-								"api",
-								"echomtg",
-								"com"
-							],
-							"path": [
-								"api",
-								"user",
-								"invite_friend",
-								""
-							]
-						},
-						"description": "Invite a friend to echomtg and gain 100 additional inventory storage\n\n| **Param** | **Required** | **Description** |\n| --- | --- | --- |\n| email | required | email to send an invite to |"
-					},
-					"response": []
-				},
-				{
-					"name": "User: Forgot Password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"your@email.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost/api/user/forgot_password/",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"forgot_password",
-								""
-							]
-						},
-						"description": "Email of the user who forgot their password. Sends a hash link to the requesting email which kicks off a reset password flow for that user."
-					},
-					"response": []
-				},
-				{
-					"name": "User: Reset Forgotten Password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"password\": \"test123\",\n    \"reset_token\": \"XXXXXX\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost/api/user/reset_password/",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"reset_password",
-								""
-							]
-						},
-						"description": "Past of the Forgot Password flow. Need a password and reset token that is generated from the /api/user/forgot_password/ endpoint."
-					},
-					"response": []
-				},
-				{
-					"name": "User: Change Password",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"current_password\": \"test123\",\n    \"new_password\": \"test1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost/api/user/change_password/",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"user",
-								"change_password",
-								""
-							]
-						},
-						"description": "Authenticated way to change a user password."
-					},
-					"response": []
-				}
-			],
-			"description": "The majority of calls requires user authentication. Soon you will be able to create a user on the fly here as well. This will let you use EchoMTG's preexisting user base without creating your own."
 		},
 		{
 			"name": "Importing",
