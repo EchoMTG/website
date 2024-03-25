@@ -17,7 +17,7 @@
                     {{username}}'s Profile
                   </h1>
                   <h3 class="subtitle mt-1 is-size-6 has-text-grey-light	mb-5">
-                    Last seen {{profile?.user?.last_seen || ''}}. Joined {{profile.user.user_for}} ago.
+                    Last seen {{profile?.user?.last_seen || ''}}. Joined {{profile.user?.user_for}} ago.
                   </h3>
                   <div class="is-flex">
                     <div class="box badges py-2 mr-3">
@@ -182,7 +182,7 @@ export default {
           {
             hid: 'description',
             name: 'description',
-            content:  `${this.profile?.user?.about.substring(0,100)}...`
+            content: this.profile?.user?.about ? `${this.profile?.user?.about.substring(0,100)}...` : ''
           },
           {
             hid:'',

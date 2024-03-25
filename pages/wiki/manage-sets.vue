@@ -4,16 +4,34 @@
     <section class="hero is-primary">
       <div class="hero-body">
           <div class="container">
-              <h1 class="title">
-                  Manage Sets
-              </h1>
-              <h3 class="subtitle">
-                  Add and edit sets and expansions
-              </h3>
+              <div class="is-flex">
+                <div>
+                  <h1 class="title">
+                      Manage Sets/Expansions
+                  </h1>
+                  <h3 class="subtitle">
+                      Add and edit sets and expansions
+                  </h3>
+                </div>
+                <b-button
+                  class="ml-auto"
+                  size="is-large"
+                  type="is-success"
+                  icon-left="plus"
+                  @click="isAddModalActive = !isAddModalActive">Create New Set</b-button>
+              </div>
+
+
           </div>
       </div>
     </section>
-    <b-button @click="isAddModalActive = !isAddModalActive">Add Expansion</b-button>
+    <b-tabs v-model="activeTab">
+      <b-tab-item label="Manage">
+      </b-tab-item>
+      <b-tab-item label="Manage">
+      </b-tab-item>
+    </b-tabs>
+
 
     <b-modal v-model="isAddModalActive">
 
@@ -22,8 +40,7 @@
               <p class="card-header-title">
                 Add Expansion
               </p>
-              <b-button icon-left="close" type="is-dark" class="card-header-icon" aria-label="close" @click="cancel()">
-              </b-button>
+
             </header>
             <section class="card-content">
                 <form id="addExpansionForm" method="post">
@@ -116,7 +133,8 @@ export default {
       search: '',
       scryfall_data: {},
       expansion: {},
-      isAddModalActive: false
+      isAddModalActive: false,
+      activeTab: 0
     }
   },
   props: {
